@@ -20,7 +20,7 @@ Phase 0 [良率基線與損失解構] ──▶ Phase 1 [跨站資料架構與�
 Phase 2 [晶圓空間分佈簽名辨識] ──▶ Phase 3 [非製程假異常：硬體/程式/量測/材料/OTP-Trim] ⚠️ (過濾網)
        │                                     │
        │                                     ▼
-       └─────────────────────────────▶ Phase 4 [機台 Chamber 共模統計歸因]
+       └─────────────────────────────▶ Phase 4 [晶圓變異/Corners/批次/Chamber共模] ⭐
                                              │
                                              ▼
 Phase 9 [改善戰術閉環] ◀── Phase 8 [客訴 RMA] ◀── Phase 7 [FA 物理缺陷] ◀── Phase 6 [參數 Cpk] ◀── Phase 5 [FT/SLT 攻略] ⭐
@@ -83,7 +83,7 @@ Phase 10 [Ramp 學習曲線與稽核防禦]
 | **Phase 1** | 跨站資料架構與履歷鏈接 | 貫穿 MES Lot 譜系（拆批/併批）、STDF 測試原始記錄、Inline 晶圓光學檢查（KLA Defect Adder）、WAT/PCM 到 CP/FT 的全晶圓坐標精確對齊與 Notch 歸一化。 |
 | **Phase 2** | 晶圓空間分佈簽名辨識 | 8 大特徵空間分佈（Ring, Center, Scratch, Cluster, Bullseye, Repeater, Checkerboard）之物理機理與特徵工程（Radon Transform / Polar Coordinates / 密度矩陣）。 |
 | **Phase 3** | 非製程假異常深入排查 ⭐ | **測試硬體**（Contact 阻抗、針印深度、探針卡針尖氧化、Socket Pogo Pin 疲勞與錫屑、Loadboard 繼電器）；**測試程式**（Strobe 選通時序抖動、多 DUT 平行測試 IR Droop 電源塌陷、Clamp 限流截斷、軟硬 Bin 優先級倒置）；**量測系統**（MSA / Gage R&R \(%GRR > 30\%\)、4 線 Kelvin Sense 斷線退化為 2 線、pA 級漏電延時不足與 RC 充電位移電流）；**材料與擴散變異**（CZ 晶棒氧含量 \(O_i\) 與熱生施體、Epi 外延厚度廠商差異、離子植入穿隧與 RTA 熱預算 \(Dt\) 變異、CMP 研磨液批次粒徑分佈）；**OTP / eFuse / Laser Trim 寫入失效**（\(V_{pp}\) 塌陷、Verify Read 裕度不足、搜尋算法與 \(R_c\) 耦合誤寫入、Post-Mold Shift 封裝應力致 Trim 漂移）。 |
-| **Phase 4** | 機台 Chamber 共模統計歸因 | 變異數分析（ANOVA）、卡方檢定、多維回歸；**警惕辛普森悖論（Simpson's Paradox）**、機台老化（Chamber Aging）與產品配比混淆之假性相關。 |
+| **Phase 4** | 晶圓製程變異、Corners 與批次相依性 ⭐ | **變異層級分解**（Nested ANOVA: \(\sigma^2_{\text{total}} = \sigma^2_{\text{L2L}} + \sigma^2_{\text{W2W}} + \sigma^2_{\text{WIW}} + \sigma^2_{\text{WID}}\)，解構批次間 50%、晶圓間 20%、晶圓內 20%、晶粒內 10% 貢獻率）；**五大製程角落 (Process Corners: TT, FF, SS, FS, SF)** 物理成因、MOSFET 載子驅動電流 \(I_{\text{on}}\) 與漏電 \(I_{\text{off}}\) 行為、WAT/CP 建立/保持時間邊界、FT 高溫 \(I_{\text{ddq}}\) 漏電熱失控與低溫低壓 \(V_{\text{dd,min}}\) 頻率崩跌、Skewed 角落占空比失真 (DCD) 與 SerDes 眼圖畸變；**批次相依性 (Lot Dependency)**（機台 Seasoning 季移、Post-PM 初始冷腔 SS 漂移 vs EOL 聚焦環侵蝕外圈極限 FF 漂移與聚合物副產物微粒子風暴、單晶矽錠軸向偏析梯度、CMP 研磨液與光阻批號老化）；**先進製程控制 (APC)**（Run-to-Run 前饋膜厚補償蝕刻時間、EWMA 回饋劑量補償 \(\hat{\delta}_{k+1}\)、機台高頻 FDC 虛擬量測 VM）；**機台共模歸因**（\(\chi^2\) 檢定、勝算比 \(OR > 2.0\)、多因子 ANOVA、辛普森悖論分層校正）；**圖 4.1（Corners 2D 散佈圖與 Shmoo 邊界圖）與 圖 4.2（變異階層與機台 Seasoning 鋸齒圖）**。 |
 | **Phase 5** | 封裝成品測試 (FT) / SLT 實務攻略 ⭐ | **封裝引致良率損失**（打線 Wire Sweep 與斷裂、倒裝微凸塊 Non-wetting 與 Underfill 空洞、封模熱收縮應力 Post-Mold Shift 150–200MPa、散熱 TIM 空洞與熱失控）；**三溫測試極限挑戰**（-40°C 保持時間違規、125°C/150°C 次臨界漏電暴增、ATC 主動熱控致冷片、Socket CTE 膨脹失配）；**FT 測試座與分選機管理**（Pogo Pin 疲勞 25g 閥值、Crown 錫屑清洗週期、PAM4 56G/112G 高頻阻抗失配、Handler 吸嘴與引腳共面度、DIB 繼電器與 MLCC 開裂）；**系統級測試 (SLT) vs ATE FT**（多核快取一致性、OS 開機死鎖、DDR/PCIe 訓練、0.3%–1.2% ATE 漏測攔截率）；**CP-to-FT 跨站 Bin 轉移診斷矩陣**；**Speed/Power Binning 與車用 HTOL 預燒老化（Arrhenius 加速模型）**。 |
 | **Phase 6** | 參數 Margin 與 Cpk 飄移 | 關鍵電性參數裕度；Guardbanding 容差優化；車用動態 PAT 演算法（\(\mu \pm 4\sigma\) 剔除潛在早期失效晶粒）。 |
 | **Phase 7** | 失效分析 (FA) 物理缺陷對應製程反應 ⭐ | **FA 手法階梯**（非破壞 X-Ray/C-SAM/SQUID ➔ 電性定位 OBIRCH/TIVA/EMMI/LVP ➔ Nano-probing 奈米探針 ➔ 逐層去層 Deprocessing ➔ 雙束 FIB 原位切片 ➔ 原子級 HR-TEM + EDX 元素定罪）；**8 大電性失效映射實體物理缺陷與晶圓製程化學/物理反應歸因矩陣**（金屬短路與 CMP 碟形下凹殘留、通孔開路與乾蝕刻碳氟聚合物清洗殘留、閘極氧化層穿孔與 RCA SC1 金屬污染及天線效應 PID、接面漏電與大劑量植入非晶化 RTA 熱應力差排、STI 側壁駝峰漏電與 DHF 邊角掏蝕 Corner Divot、矽化物橋接與 Spacer 蝕刻掏退及退火橫向擴散、銅導線空洞 SIV 與電鍍添加劑及 Cap 界面還原、微影對位偏差與 CMP 對位標記不對稱磨耗）。 |

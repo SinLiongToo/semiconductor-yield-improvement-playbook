@@ -532,7 +532,7 @@
       <li><a href="#phase1"><span class="zh">Phase 1: 跨站資料架構與全履歷鏈接</span><span class="en">Phase 1: Cross-Stage Data Architecture</span></a></li>
       <li><a href="#phase2"><span class="zh">Phase 2: 晶圓空間分佈簽名辨識</span><span class="en">Phase 2: Spatial Wafer Map Signatures</span></a></li>
       <li><a href="#phase3_nonproc"><span class="zh">Phase 3: 非製程假異常：硬體、程式、量測與材料擴散變異</span><span class="en">Phase 3: Hardware, Program, Metrology & Material Variations</span></a></li>
-      <li><a href="#phase4"><span class="zh">Phase 4: 機台 Chamber 共模統計歸因</span><span class="en">Phase 4: Chamber Commonality Attribution</span></a></li>
+      <li><a href="#phase4"><span class="zh">Phase 4: 晶圓製程變異、Corners、批次相依性與共模歸因</span><span class="en">Phase 4: Variations, Corners, Lots & Chamber Attribution</span></a></li>
       <li><a href="#phase5_ft"><span class="zh">Phase 5: 封裝成品測試 (FT) 與 系統級測試 (SLT) 實務全攻略</span><span class="en">Phase 5: Final Test (FT), SLT & Packaging Yield</span></a></li>
       <li><a href="#phase6_cpk"><span class="zh">Phase 6: 參數 Margin 與 Cpk 飄移</span><span class="en">Phase 6: Parametric Margin & Cpk Drift</span></a></li>
       <li><a href="#phase7_fa"><span class="zh">Phase 7: 失效分析 (FA) 實體物理驗證與製程反饋</span><span class="en">Phase 7: Failure Analysis (FA) Verification</span></a></li>
@@ -555,7 +555,7 @@
         <li><a href="#phase1"><span class="zh">Phase 1: 跨站資料架構</span><span class="en">Phase 1: Data Architecture</span></a></li>
         <li><a href="#phase2"><span class="zh">Phase 2: 晶圓空間分佈簽名</span><span class="en">Phase 2: Spatial Signatures</span></a></li>
         <li><a href="#phase3_nonproc"><span class="zh">Phase 3: 硬體/程式/量測/材料</span><span class="en">Phase 3: Hardware/Software/MSA/Material</span></a></li>
-        <li><a href="#phase4"><span class="zh">Phase 4: Chamber 共模統計</span><span class="en">Phase 4: Chamber Commonality</span></a></li>
+        <li><a href="#phase4"><span class="zh">Phase 4: 製程變異/Corners/批次/共模</span><span class="en">Phase 4: Variations/Corners/Lots/Chamber</span></a></li>
         <li><a href="#phase5_ft"><span class="zh">Phase 5: 封裝成品測試 (FT) / SLT 攻略</span><span class="en">Phase 5: Final Test (FT) & SLT Guide</span></a></li>
         <li><a href="#phase6_cpk"><span class="zh">Phase 6: 參數 Margin / Cpk</span><span class="en">Phase 6: Parametric Cpk</span></a></li>
         <li><a href="#phase7_fa"><span class="zh">Phase 7: 失效分析 FA 實體回饋</span><span class="en">Phase 7: Failure Analysis</span></a></li>
@@ -1647,44 +1647,767 @@
             </table>
           </div>
 
-      <!-- PHASE 4: CHAMBER COMMONALITY & CORRELATION -->
+            <!-- PHASE 4: FAB PROCESS VARIATIONS, CORNERS, LOT DEPENDENCY & EQUIPMENT COMMONALITY -->
       <section id="phase4">
         <h2 class="collapsible-h" onclick="toggleCollapse(this)">
           <span>
-            <span class="zh">Phase 4: 機台 Chamber 共模統計歸因 (Chamber Commonality Attribution)</span>
-            <span class="en">Phase 4: Equipment Chamber Commonality & Multivariate Attribution</span>
+            <span class="zh">Phase 4: 晶圓製程變異層級、製程角落 (Process Corners)、批次相依性與機台共模歸因</span>
+            <span class="en">Phase 4: Fab Process Variation Hierarchy, Process Corners (TT/FF/SS/FS/SF), Lot Dependency & Equipment Attribution</span>
           </span>
           <span class="collapse-arrow">▼</span>
         </h2>
         <div class="collapse-body">
           <p>
             <span class="zh">
-              當確認排除測試硬體、程式時序、量測誤差與晶圓原材料變異後，真正的製程機台共模追溯才正式啟動。
+              在現代深次微米與先進 FinFET/GAA 節點中，半導體良率問題極大比例並非單純的離散微粒子缺陷（Defect-limited Yield），而是由微縮製程中的物化參數波動累積引起的<b>參數良率損失（Parametric Yield Loss）</b>。晶圓從長晶切片、高溫爐管、微影曝光、電漿蝕刻到 CMP 研磨，微小的熱力學與流場擾動會在空間與時間維度上形成層級疊加，驅使電晶體載子特性偏移至極端製程角落（Process Corners），甚至表現出強烈的批次間相依性（Lot Dependency）。
             </span>
             <span class="en">
-              Only after filtering test hardware, program timing, metrology errors, and raw material variations does true fab chamber commonality attribution begin.
+              In advanced sub-micron and FinFET/GAA nodes, a significant portion of semiconductor yield loss is driven not merely by random particle contamination (defect-limited yield), but by accumulated physical and chemical variations resulting in <b>parametric yield loss</b>. From silicon ingot pulling, furnace diffusion, photolithography, and plasma etching to chemical-mechanical planarization (CMP), minute thermodynamic and fluidic perturbations aggregate across space and time, pushing transistor carriers toward extreme process corners and introducing severe lot-to-lot dependencies.
             </span>
           </p>
 
+          <!-- 4.1 VARIATION HIERARCHY -->
           <h3>
-            <span class="zh">4.1 共模分析檢定統計法</span>
-            <span class="en">4.1 Statistical Tests for Commonality</span>
+            <span class="zh">4.1 晶圓製程變異層級分解模型 (Hierarchical Process Variation Decomposition)</span>
+            <span class="en">4.1 Hierarchical Process Variation Decomposition Model</span>
           </h3>
+          <p>
+            <span class="zh">
+              根據統計製程控制與變異數分析（Nested ANOVA），全晶圓廠整體電氣參數與薄膜物理變異（Total Variance, \(\sigma^2_{\text{total}}\)）可精確分解為四個互為正交的層級維度：
+            </span>
+            <span class="en">
+              According to statistical process control and nested analysis of variance (Nested ANOVA), the total manufacturing variance (\(\sigma^2_{\text{total}}\)) in electrical parameters and physical film metrology is decomposed into four orthogonal hierarchical components:
+            </span>
+          </p>
+
+          <div style="text-align: center; margin: 16px 0; font-size: 1.15em;">
+            $$\sigma^2_{\text{total}} = \sigma^2_{\text{L2L}} + \sigma^2_{\text{W2W}} + \sigma^2_{\text{WIW}} + \sigma^2_{\text{WID}}$$
+          </div>
+
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th><span class="zh">變異層級 (Component)</span><span class="en">Variation Level</span></th>
+                  <th><span class="zh">典型變異貢獻比</span><span class="en">Typical Variance %</span></th>
+                  <th><span class="zh">特徵時間/空間尺度</span><span class="en">Time/Spatial Scale</span></th>
+                  <th><span class="zh">主要物理與化學物理成因 (Root Causes)</span><span class="en">Key Physico-Chemical Root Causes</span></th>
+                  <th><span class="zh">監控站點與工程抑制手法</span><span class="en">Monitoring & Mitigation</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b>\(\sigma^2_{\text{L2L}}\) (Lot-to-Lot, 批次間)</b></td>
+                  <td><span class="badge badge-amber">40% ~ 55%</span></td>
+                  <td>數天至數週 (Days ~ Weeks)</td>
+                  <td>
+                    <span class="zh">
+                      1. 原生晶圓矽錠 (CZ Ingot) 頭尾端氧含量 (\(O_i\)) 與摻雜偏析梯度；<br>
+                      2. 化學藥液更換（CMP 研磨液批號更換、光阻感光度 \(\Delta E_0\) 波動）；<br>
+                      3. 機台預防性保養大修（Chamber PM kit 更換、PVD 靶材磁控消耗）；<br>
+                      4. 廠務冷卻水迴路溫度漂移與 FAB 大氣微壓氣候波動。
+                    </span>
+                    <span class="en">
+                      1. Ingot axial oxygen (\(O_i\)) and dopant segregation gradient;<br>
+                      2. Chemical batch drift (CMP slurry lots, photoresist photospeed \(\Delta E_0\));<br>
+                      3. Preventative maintenance cycles (parts swap, target sputtering erosion);<br>
+                      4. Facility cooling water drift and atmospheric micro-pressure climate swings.
+                    </span>
+                  </td>
+                  <td>
+                    <span class="zh">APC Run-to-Run (R2R) 回饋/前饋控制器、原物料批號鎖定、靶材壽命自動補償。</span>
+                    <span class="en">APC R2R feedback/feedforward controllers, raw material lot clamping, target erosion compensation.</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>\(\sigma^2_{\text{W2W}}\) (Wafer-to-Wafer, 晶圓間)</b></td>
+                  <td><span class="badge badge-blue">15% ~ 25%</span></td>
+                  <td>數小時 (1 Lot = 25 Wafers)</td>
+                  <td>
+                    <span class="zh">
+                      1. 垂直擴散爐管 (Furnace Boat) 氣流沿石英管軸向消耗 (Gas Depletion Gradient，Slot 1 到 Slot 25 膜厚遞減)；<br>
+                      2. 旋塗機 (Coater Cup) 排氣渦流擾動導致光阻膜厚片間微差；<br>
+                      3. 電漿乾蝕刻腔體第一片晶圓冷機效應 (First-Wafer Thermal & Radical Transient)。
+                    </span>
+                    <span class="en">
+                      1. Vertical furnace gas depletion along quartz boat axis (Slot 1 to 25 thickness taper);<br>
+                      2. Coater cup exhaust turbulence creating wafer-to-wafer resist thickness divergence;<br>
+                      3. Dry etch chamber thermal and reactive radical transients on the first production wafer.
+                    </span>
+                  </td>
+                  <td>
+                    <span class="zh">虛擬量測 (Virtual Metrology)、前導 Dummy 晶圓預熱熱機、爐管分區動態注氣流量閥。</span>
+                    <span class="en">Virtual Metrology (VM), thermal dummy pre-conditioning, multi-zone furnace gas injection valves.</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>\(\sigma^2_{\text{WIW}}\) (Within-Wafer, 晶圓內)</b></td>
+                  <td><span class="badge badge-purple">15% ~ 25%</span></td>
+                  <td>300mm 晶圓直徑空間 (Spatial)</td>
+                  <td>
+                    <span class="zh">
+                      1. 電漿鞘層邊緣電場畸變（聚焦環 Focus Ring 磨損使得外圈電場發散，造成邊緣 CD 偏移）；<br>
+                      2. CMP 多區研磨頭（Multi-zone Head）氣囊加壓補償邊界微差；<br>
+                      3. 快速高溫退火（RTA）晶圓邊緣黑體輻射散熱效應引發同心圓溫度階度。
+                    </span>
+                    <span class="en">
+                      1. Plasma sheath edge distortion (Focus Ring erosion flaring edge E-fields and shifting CD);<br>
+                      2. CMP multi-zone bladder pressure profile boundary gradients;<br>
+                      3. Rapid thermal annealing (RTA) edge blackbody radiation heat loss causing concentric thermal rings.
+                    </span>
+                  </td>
+                  <td>
+                    <span class="zh">可調邊緣聚焦環偏壓 (Tunable Focus Ring Bias)、CMP 多區壓差微調、微影倍率與二階曲率補償。</span>
+                    <span class="en">Tunable focus ring bias control, CMP multi-zone pressure tuning, scanner high-order intra-field correction.</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>\(\sigma^2_{\text{WID}}\) (Within-Die / OCV, 晶粒內)</b></td>
+                  <td><span class="badge badge-red">10% ~ 20%</span></td>
+                  <td>微米至毫米 (\(\mu\text{m} \sim \text{mm}\))</td>
+                  <td>
+                    <span class="zh">
+                      1. 光學近接效應校正（OPC）殘餘模型誤差；<br>
+                      2. 微影光阻分子鏈線邊緣粗糙度（LER / LWR）；<br>
+                      3. 先進節點電晶體微觀通道內的隨機摻雜擾動（Random Dopant Fluctuation, RDF）與金屬閘極功函數波動（WFV）；<br>
+                      4. 銅導線局部圖樣密度差異引發之 CMP Dishing 與 Erosion。
+                    </span>
+                    <span class="en">
+                      1. Optical Proximity Correction (OPC) residual modeling error;<br>
+                      2. Photoresist polymer chain Line Edge / Line Width Roughness (LER/LWR);<br>
+                      3. Random Dopant Fluctuation (RDF) and Work Function Variation (WFV) in nanoscale channels;<br>
+                      4. Copper CMP dishing and dielectric erosion driven by local interconnect pattern density.
+                    </span>
+                  </td>
+                  <td>
+                    <span class="zh">先進 EDA 統計時序分析 (SSTA / POCV)、嚴格 DFM 虛擬金屬填補 (Dummy Metal Fill) 規則。</span>
+                    <span class="en">Statistical Static Timing Analysis (SSTA/POCV), strict DFM dummy metal density rules.</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- 4.2 PROCESS CORNERS -->
+          <h3>
+            <span class="zh">4.2 五大製程角落 (Process Corners: TT, FF, SS, FS, SF) 物理成因與電氣特徵</span>
+            <span class="en">4.2 Five Major Process Corners (TT, FF, SS, FS, SF): Physical Origins & Electrical Behavior</span>
+          </h3>
+          <p>
+            <span class="zh">
+              在 CMOS 製造中，NMOS 與 PMOS 載子遷移率與導通特性主要由閘極關鍵尺寸（Gate CD, \(L_g\)）、閘極介電層等效氧化厚度（\(EOT\)）、以及通道/源汲極離子植入濃度（\(N_A, N_D\)）共同決定。當製程變異推移到極值時，元件特性會落入五大製程角落（Corners），對 WAT 驗證、CP 晶圓測試與 FT 成品測試產生截然不同的良率威脅：
+            </span>
+            <span class="en">
+              In CMOS manufacturing, NMOS and PMOS carrier mobilities and drive currents are governed by physical gate critical dimension (Gate CD, \(L_g\)), equivalent oxide thickness (\(EOT\)), and channel/source-drain implant doping profiles (\(N_A, N_D\)). Extreme process variations map silicon devices into five canonical Process Corners, producing distinct parametric failure modes across WAT, CP, and Final Test:
+            </span>
+          </p>
+
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th><span class="zh">製程角落 (Corner)</span><span class="en">Process Corner</span></th>
+                  <th><span class="zh">物理尺寸與化學成因</span><span class="en">Physical / Chemical Origin</span></th>
+                  <th><span class="zh">MOSFET 電氣特徵</span><span class="en">MOSFET Characteristics</span></th>
+                  <th><span class="zh">WAT / CP 晶圓測試衝擊</span><span class="en">WAT / CP Wafer Test Impact</span></th>
+                  <th><span class="zh">FT 成品測試與 SLT 衝擊</span><span class="en">FT & SLT Final Test Impact</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b>TT (Typical-Typical)</b><br><span class="badge badge-green">名目設計中心</span></td>
+                  <td>
+                    <span class="zh">微影 CD、蝕刻偏置、離子注入能量與劑量、退火活化率均處於設計標準中心點。</span>
+                    <span class="en">Photolithography CD, etch bias, implant dose, and thermal anneal activation centered at nominal.</span>
+                  </td>
+                  <td>
+                    <span class="zh">\(V_{\text{th,N}} \approx V_{\text{nom}}\)<br>\(V_{\text{th,P}} \approx V_{\text{nom}}\)<br>驅動電流 \(I_{\text{on}}\) 與延遲完全對稱。</span>
+                    <span class="en">Balanced \(V_{\text{th}}\) and \(I_{\text{on}}\) matching target SPICE model.</span>
+                  </td>
+                  <td>
+                    <span class="zh">WAT 參數 \(C_{pk} > 1.67\)，CP 邏輯與內建自我測試 (BIST) 良率達到頂峰。</span>
+                    <span class="en">WAT \(C_{pk} > 1.67\), CP digital and MBIST pass rates reach maximum plateau.</span>
+                  </td>
+                  <td>
+                    <span class="zh">標準功耗與標稱頻率最高產出區，無保持/建立時間邊界違規。</span>
+                    <span class="en">Highest yield of nominal-voltage and target-frequency speed bins.</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>FF (Fast-Fast)</b><br><span class="badge badge-red">極速/高漏電角落</span></td>
+                  <td>
+                    <span class="zh">
+                      1. 多晶矽/金屬閘極過度蝕刻 (Over-etch)，閘長極短 (\(L_g \downarrow\))；<br>
+                      2. 閘極氧化層過薄 (\(EOT \downarrow\))；<br>
+                      3. S/D 源汲極離子注入劑量偏上限或退火擴散過深。
+                    </span>
+                    <span class="en">
+                      1. Gate CD over-etched, channel length short (\(L_g \downarrow\));<br>
+                      2. Gate oxide thin (\(EOT \downarrow\));<br>
+                      3. Excessive source/drain dopant activation.
+                    </span>
+                  </td>
+                  <td>
+                    <span class="zh">
+                      臨界電壓極低 (\(V_{\text{th}} \downarrow\))，驅動飽和電流超高 (\(I_{\text{on}} \uparrow\))；<br>
+                      <b>次臨界漏電流 (\(I_{\text{off}}\)) 與閘極穿隧漏電呈指數級飆升！</b>
+                    </span>
+                    <span class="en">
+                      Low \(V_{\text{th}}\), extremely high \(I_{\text{on}}\); exponentially surging sub-threshold leakage \(I_{\text{off}}\).
+                    </span>
+                  </td>
+                  <td>
+                    <span class="zh">
+                      WAT \(I_{\text{off}}\) 觸發 Upper Spec Limit (USL) 警報；<br>
+                      CP 晶圓探針接觸因晶圓發熱加劇，短路徑可能引發 <b>保持時間違規 (Hold Time Violation)</b>。
+                    </span>
+                    <span class="en">
+                      WAT \(I_{\text{off}}\) exceeds USL; rapid wafer self-heating on prober chuck; internal flip-flop hold time violations.
+                    </span>
+                  </td>
+                  <td>
+                    <span class="zh">
+                      1. FT 高溫 (Tri-temp Hot 105°C~125°C) 靜態待機電流 (\(I_{\text{ddq}}\)) 爆表被剔除為 Bin 2；<br>
+                      2. 封裝後總耗電量超過 TDP 散熱上限，引發熱失控 (Thermal Runaway)；<br>
+                      3. 降頻也<b>無法</b>解決 Hold Time 違規（短路徑邏輯賽跑 Race Condition）。
+                    </span>
+                    <span class="en">
+                      1. FT hot standby leakage (\(I_{\text{ddq}}\)) fails Bin 2;<br>
+                      2. High dynamic power triggers packaging thermal runaway;<br>
+                      3. Unfixable hold time race conditions (frequency scaling cannot rescue hold failures).
+                    </span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>SS (Slow-Slow)</b><br><span class="badge badge-blue">慢速/高門檻角落</span></td>
+                  <td>
+                    <span class="zh">
+                      1. 微影曝光能量不足或蝕刻不足，閘長偏粗 (\(L_g \uparrow\))；<br>
+                      2. 閘極介電層過厚 (\(EOT \uparrow\))；<br>
+                      3. Pocket/Halo 植入劑量偏高導致通道反轉門檻上升。
+                    </span>
+                    <span class="en">
+                      1. Gate CD under-etched, wide channel (\(L_g \uparrow\));<br>
+                      2. Gate oxide thick (\(EOT \uparrow\));<br>
+                      3. Heavy halo/pocket implant increasing channel threshold.
+                    </span>
+                  </td>
+                  <td>
+                    <span class="zh">
+                      臨界電壓大幅升高 (\(V_{\text{th}} \uparrow\))，驅動電流低落 (\(I_{\text{on}} \downarrow\))；<br>
+                      閘極傳遞延遲劇增 (\(t_{\text{pd}} \propto \frac{C_L V_{\text{dd}}}{I_{\text{on}}} \uparrow\))。
+                    </span>
+                    <span class="en">
+                      High \(V_{\text{th}}\), sluggish drive current (\(I_{\text{on}} \downarrow\)), massive gate propagation delay.
+                    </span>
+                  </td>
+                  <td>
+                    <span class="zh">
+                      WAT 飽和電流下限違規 (Below LSL)；<br>
+                      CP 在額定電壓下無法跑過全速測試，<b>建立時間違規 (Setup Time Violation)</b> 大增。
+                    </span>
+                    <span class="en">
+                      WAT \(I_{\text{on}}\) breaches LSL; CP at-speed scan patterns fail due to setup time timing arcs.
+                    </span>
+                  </td>
+                  <td>
+                    <span class="zh">
+                      1. 最高工作頻率 (\(F_{\text{max}}\)) 嚴重降級，高價值 Speed Bin 產出率銳減；<br>
+                      2. 最低操作電壓 (\(V_{\text{dd,min}}\)) 飆高，低電壓測試全數掛死；<br>
+                      3. <b>低溫 (-40°C) 測試</b>下因載子凍結與臨界電壓進一步上升，SRAM 寫入邊限 (Write Margin) 惡化。
+                    </span>
+                    <span class="en">
+                      1. High-margin \(F_{\text{max}}\) speed bins collapse;<br>
+                      2. Minimum operating voltage (\(V_{\text{dd,min}}\)) spikes, causing low-voltage test dropouts;<br>
+                      3. Catastrophic SRAM write margin failure under cold (-40°C) testing due to threshold elevation.
+                    </span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>FS (Fast NMOS, Slow PMOS)</b><br><span class="badge badge-purple">極性斜角 (Skewed)</span></td>
+                  <td>
+                    <span class="zh">
+                      NMOS 與 PMOS 光罩對準 (Overlay) 誤差、應變工程 (SiGe vs Tensile Nitride) 應力不對稱、或 P-well/N-well 離子植入機批次偏置。
+                    </span>
+                    <span class="en">
+                      Asymmetric mask overlay shift, unbalanced channel strain (eSiGe vs SiN), or P-well/N-well implant dosage skew.
+                    </span>
+                  </td>
+                  <td>
+                    <span class="zh">
+                      NMOS 放電極快，PMOS 充電極慢；<br>
+                      反相器邏輯切換閥值偏低 (\(V_M < V_{\text{dd}}/2\))，上升時間 (\(t_r\)) 遠大於下降時間 (\(t_f\))。
+                    </span>
+                    <span class="en">
+                      NMOS pull-down dominates PMOS pull-up; switching threshold \(V_M < V_{\text{dd}}/2\); severe rise/fall slew mismatch.
+                    </span>
+                  </td>
+                  <td>
+                    <span class="zh">
+                      WAT PCM 測試環 (Ring Oscillator) 延遲不均勻；<br>
+                      差動感測放大器 (Sense Amplifier) 偏移電壓 (Offset) 偏離中心。
+                    </span>
+                    <span class="en">
+                      WAT ring oscillator stage jitter; sense amplifier differential offset shift.
+                    </span>
+                  </td>
+                  <td>
+                    <span class="zh">
+                      1. 時脈產生器占空比失真 (Duty Cycle Distortion, DCD) 導致 PLL/DLL 無法閉環鎖相 (Lock Fail)；<br>
+                      2. 高速 SerDes 介面發射端眼圖失真、抖動 (Jitter) 超標；<br>
+                      3. 跨電壓域電平轉換器 (Level Shifter) 發生單向脈衝吞蝕 (Pulse Swallowing)。
+                    </span>
+                    <span class="en">
+                      1. Clock Duty Cycle Distortion (DCD) causing PLL/DLL lock failure;<br>
+                      2. SerDes TX eye diagram degradation and jitter violation;<br>
+                      3. Level shifter directional pulse swallowing across voltage islands.
+                    </span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>SF (Slow NMOS, Fast PMOS)</b><br><span class="badge badge-purple">極性斜角 (Skewed)</span></td>
+                  <td>
+                    <span class="zh">
+                      NMOS 閘極偏寬而 PMOS 偏窄；PMOS 矽鍺外延 (eSiGe) 壓縮應力過高加速電洞，而 NMOS 拉伸氮化層微裂。
+                    </span>
+                    <span class="en">
+                      NMOS gate broad with narrow PMOS; excessive eSiGe compressive strain with deficient tensile nitride on NMOS.
+                    </span>
+                  </td>
+                  <td>
+                    <span class="zh">
+                      PMOS 充電極快，NMOS 放電疲弱；<br>
+                      反相器開關閥值偏高 (\(V_M > V_{\text{dd}}/2\))，下降時間 (\(t_f\)) 遠大於上升時間 (\(t_r\))。
+                    </span>
+                    <span class="en">
+                      PMOS pull-up overpowers NMOS; switching threshold \(V_M > V_{\text{dd}}/2\); falling slew prolonged.
+                    </span>
+                  </td>
+                  <td>
+                    <span class="zh">
+                      WAT NMOS/PMOS 飽和電流比例 (\(I_{\text{on,N}} / I_{\text{on,P}}\) Ratio) 嚴重偏離 2:1 標準比。
+                    </span>
+                    <span class="en">
+                      WAT \(I_{\text{on,N}} / I_{\text{on,P}}\) ratio drifts severely away from nominal 2:1 design target.
+                    </span>
+                  </td>
+                  <td>
+                    <span class="zh">
+                      1. DDR 記憶體介面 DQS-DQ 時序邊界不對稱，無法滿足雙沿觸發 (DDR) 窗格；<br>
+                      2. 傳輸閘 (Transmission Gate) 導通阻抗不對稱引發類比開關線性度失效 (THD 惡化)。
+                    </span>
+                    <span class="en">
+                      1. DDR PHY DQS-to-DQ setup/hold asymmetry causing memory write failure;<br>
+                      2. Transmission gate impedance asymmetry degrading analog switch linearity (THD).
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- FIGURE 4.1 SVG -->
+          <div class="figure-container">
+            <svg viewBox="0 0 1000 520" style="max-width: 100%; height: auto; font-family: var(--font-mono, monospace);">
+              <!-- Background -->
+              <rect width="1000" height="520" fill="var(--surface-2)" rx="8" stroke="var(--border)" stroke-width="1.5"/>
+
+              <!-- LEFT PANEL: CORNER SCATTER & LIMIT BOUNDARIES -->
+              <g transform="translate(40, 40)">
+                <text x="0" y="0" fill="var(--ink)" font-size="15" font-weight="700">A. 製程角落 (Corners) 2D 電氣空間與失效邊界圖 (NMOS vs PMOS Ion)</text>
+                <text x="0" y="18" fill="var(--ink-soft)" font-size="11.5">Scatter Contour of NMOS Ion vs. PMOS Ion with Functional Yield Boundaries</text>
+
+                <!-- Grid & Axes -->
+                <g transform="translate(50, 40)">
+                  <!-- Axis Lines -->
+                  <line x1="0" y1="360" x2="380" y2="360" stroke="var(--ink-soft)" stroke-width="2"/>
+                  <line x1="0" y1="360" x2="0" y2="0" stroke="var(--ink-soft)" stroke-width="2"/>
+
+                  <!-- Ticks & Grid -->
+                  <line x1="100" y1="0" x2="100" y2="360" stroke="var(--border)" stroke-dasharray="3,3"/>
+                  <line x1="200" y1="0" x2="200" y2="360" stroke="var(--border)" stroke-dasharray="3,3"/>
+                  <line x1="300" y1="0" x2="300" y2="360" stroke="var(--border)" stroke-dasharray="3,3"/>
+                  <line x1="0" y1="270" x2="380" y2="270" stroke="var(--border)" stroke-dasharray="3,3"/>
+                  <line x1="0" y1="180" x2="380" y2="180" stroke="var(--border)" stroke-dasharray="3,3"/>
+                  <line x1="0" y1="90" x2="380" y2="90" stroke="var(--border)" stroke-dasharray="3,3"/>
+
+                  <!-- Axis Labels -->
+                  <text x="190" y="395" fill="var(--ink)" font-size="12" font-weight="600" text-anchor="middle">NMOS 飽和驅動電流 Ion,N (mA/μm) ➔</text>
+                  <text x="-40" y="180" fill="var(--ink)" font-size="12" font-weight="600" text-anchor="middle" transform="rotate(-90 -40 180)">PMOS 飽和電流 Ion,P (mA/μm) ➔</text>
+
+                  <!-- Yield Safe Envelopes (SPEC Box) -->
+                  <rect x="70" y="60" width="260" height="250" fill="rgba(34, 197, 94, 0.06)" stroke="var(--success)" stroke-width="2" stroke-dasharray="6,4" rx="10"/>
+                  <text x="75" y="80" fill="var(--success)" font-size="11" font-weight="700">良品合格規格窗 (Spec Envelope)</text>
+
+                  <!-- FAIL REGION SHADING & RED LINES -->
+                  <!-- Top-Right: Leakage / Hold Fail -->
+                  <path d="M 280,0 L 380,0 L 380,110 Z" fill="rgba(239, 68, 68, 0.15)"/>
+                  <line x1="260" y1="0" x2="380" y2="130" stroke="var(--danger)" stroke-width="2.5" stroke-dasharray="4,3"/>
+                  <text x="375" y="30" fill="var(--danger)" font-size="10.5" font-weight="700" text-anchor="end">FF 漏電極限 (Iddq/Thermal)</text>
+                  <text x="375" y="44" fill="var(--danger)" font-size="9.5" text-anchor="end">&amp; 保持時間違規 (Hold Fail)</text>
+
+                  <!-- Bottom-Left: Speed / Setup Fail -->
+                  <path d="M 0,290 L 100,360 L 0,360 Z" fill="rgba(59, 130, 246, 0.15)"/>
+                  <line x1="0" y1="280" x2="110" y2="360" stroke="var(--accent)" stroke-width="2.5" stroke-dasharray="4,3"/>
+                  <text x="15" y="340" fill="var(--accent)" font-size="10.5" font-weight="700">SS 頻率極限 (Fmax)</text>
+                  <text x="15" y="352" fill="var(--accent)" font-size="9.5">&amp; 建立時間違規 (Setup Fail)</text>
+
+                  <!-- Top-Left: SF Skew -->
+                  <text x="10" y="35" fill="var(--ink-soft)" font-size="10" font-weight="600">SF: PMOS 過強 / DCD 失真</text>
+
+                  <!-- Bottom-Right: FS Skew -->
+                  <text x="240" y="340" fill="var(--ink-soft)" font-size="10" font-weight="600">FS: NMOS 過強 / 眼圖畸變</text>
+
+                  <!-- CORNER ELLIPSES -->
+                  <!-- TT Center -->
+                  <ellipse cx="200" cy="180" rx="35" ry="30" fill="rgba(34, 197, 94, 0.25)" stroke="var(--success)" stroke-width="2"/>
+                  <text x="200" y="184" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="middle">TT (Nominal)</text>
+
+                  <!-- FF Corner -->
+                  <ellipse cx="310" cy="80" rx="32" ry="26" fill="rgba(239, 68, 68, 0.2)" stroke="var(--danger)" stroke-width="1.8"/>
+                  <text x="310" y="84" fill="var(--danger)" font-size="11" font-weight="700" text-anchor="middle">FF (Fast-Fast)</text>
+
+                  <!-- SS Corner -->
+                  <ellipse cx="90" cy="280" rx="32" ry="26" fill="rgba(59, 130, 246, 0.2)" stroke="var(--accent)" stroke-width="1.8"/>
+                  <text x="90" y="284" fill="var(--accent)" font-size="11" font-weight="700" text-anchor="middle">SS (Slow-Slow)</text>
+
+                  <!-- FS Corner -->
+                  <ellipse cx="310" cy="280" rx="28" ry="24" fill="rgba(168, 85, 247, 0.2)" stroke="#a855f7" stroke-width="1.8"/>
+                  <text x="310" y="284" fill="#a855f7" font-size="11" font-weight="700" text-anchor="middle">FS (Skew)</text>
+
+                  <!-- SF Corner -->
+                  <ellipse cx="90" cy="80" rx="28" ry="24" fill="rgba(20, 184, 166, 0.2)" stroke="#14b8a6" stroke-width="1.8"/>
+                  <text x="90" y="84" fill="#14b8a6" font-size="11" font-weight="700" text-anchor="middle">SF (Skew)</text>
+
+                  <!-- LOT SCATTER POINTS DEMO -->
+                  <!-- Pass Lots -->
+                  <circle cx="195" cy="175" r="3.5" fill="var(--success)"/>
+                  <circle cx="205" cy="182" r="3.5" fill="var(--success)"/>
+                  <circle cx="185" cy="190" r="3.5" fill="var(--success)"/>
+                  <circle cx="215" cy="170" r="3.5" fill="var(--success)"/>
+                  <circle cx="210" cy="195" r="3.5" fill="var(--success)"/>
+
+                  <!-- Marginal Lots near boundaries -->
+                  <circle cx="275" cy="115" r="3.5" fill="var(--warning)"/>
+                  <circle cx="125" cy="245" r="3.5" fill="var(--warning)"/>
+                  <circle cx="280" cy="250" r="3.5" fill="var(--warning)"/>
+
+                  <!-- Fail Lots -->
+                  <circle cx="340" cy="55" r="4" fill="var(--danger)"/>
+                  <circle cx="50" cy="325" r="4" fill="var(--danger)"/>
+                </g>
+              </g>
+
+              <!-- RIGHT PANEL: SHMOO PLOT & CP/FT VOLTAGE SENSITIVITY -->
+              <g transform="translate(530, 40)">
+                <text x="0" y="0" fill="var(--ink)" font-size="15" font-weight="700">B. 製程角落之 Shmoo 電壓-頻率 (Vdd vs Fmax) 響應曲線</text>
+                <text x="0" y="18" fill="var(--ink-soft)" font-size="11.5">Operating Shmoo Margins: SS Voltage Cliff vs. FF Leakage Thermal Ceiling</text>
+
+                <g transform="translate(50, 40)">
+                  <!-- Axis Lines -->
+                  <line x1="0" y1="360" x2="370" y2="360" stroke="var(--ink-soft)" stroke-width="2"/>
+                  <line x1="0" y1="360" x2="0" y2="0" stroke="var(--ink-soft)" stroke-width="2"/>
+
+                  <!-- Axis Labels -->
+                  <text x="185" y="395" fill="var(--ink)" font-size="12" font-weight="600" text-anchor="middle">核心工作電壓 Vdd (Volts) ➔</text>
+                  <text x="-40" y="180" fill="var(--ink)" font-size="12" font-weight="600" text-anchor="middle" transform="rotate(-90 -40 180)">最高頻率 Fmax (GHz) ➔</text>
+
+                  <!-- Voltage Grids -->
+                  <line x1="80" y1="0" x2="80" y2="360" stroke="var(--border)" stroke-dasharray="2,2"/>
+                  <line x1="180" y1="0" x2="180" y2="360" stroke="var(--border)" stroke-dasharray="2,2"/>
+                  <line x1="280" y1="0" x2="280" y2="360" stroke="var(--border)" stroke-dasharray="2,2"/>
+
+                  <text x="80" y="375" fill="var(--ink-faint)" font-size="10" text-anchor="middle">0.65V (Vmin)</text>
+                  <text x="180" y="375" fill="var(--ink-faint)" font-size="10" text-anchor="middle">0.85V (Nom)</text>
+                  <text x="280" y="375" fill="var(--ink-faint)" font-size="10" text-anchor="middle">1.05V (Vmax)</text>
+
+                  <!-- Curves: TT, FF, SS -->
+                  <!-- FF Curve: High speed, but thermal breakdown at high voltage -->
+                  <path d="M 40,320 Q 90,140 240,40" fill="none" stroke="var(--danger)" stroke-width="3"/>
+                  <!-- Thermal drop / breakdown for FF at high V -->
+                  <path d="M 240,40 Q 280,30 330,80" fill="none" stroke="var(--danger)" stroke-width="2.5" stroke-dasharray="4,4"/>
+                  <text x="290" y="30" fill="var(--danger)" font-size="10.5" font-weight="700">FF: 熱崩潰降頻</text>
+
+                  <!-- TT Curve: Ideal balanced -->
+                  <path d="M 70,350 Q 140,210 320,80" fill="none" stroke="var(--success)" stroke-width="3.5"/>
+                  <text x="325" y="75" fill="var(--success)" font-size="11" font-weight="700">TT: 名目曲線</text>
+
+                  <!-- SS Curve: Slow, shifted right, high Vmin -->
+                  <path d="M 120,360 Q 180,270 340,150" fill="none" stroke="var(--accent)" stroke-width="3"/>
+                  <text x="345" y="145" fill="var(--accent)" font-size="11" font-weight="700">SS: 延遲大 / 頻率低</text>
+
+                  <!-- Spec Target Markers -->
+                  <line x1="0" y1="120" x2="370" y2="120" stroke="var(--warning)" stroke-width="1.8" stroke-dasharray="5,4"/>
+                  <text x="5" y="112" fill="var(--warning)" font-size="10.5" font-weight="600">★ 標稱目標頻率 Ftarget (e.g. 3.2 GHz)</text>
+
+                  <!-- Callout: SS Failure at Low Vdd -->
+                  <rect x="20" y="240" width="135" height="50" fill="var(--surface-1)" stroke="var(--accent)" stroke-width="1.2" rx="4"/>
+                  <text x="25" y="258" fill="var(--accent)" font-size="9.5" font-weight="700">SS 致命問題：</text>
+                  <text x="25" y="272" fill="var(--ink)" font-size="9">Vmin 太高 (&gt;0.72V)</text>
+                  <text x="25" y="284" fill="var(--ink-soft)" font-size="8.5">低壓 CP/FT 測試大量掛死</text>
+
+                  <!-- Callout: FF Failure at High Temp -->
+                  <rect x="220" y="240" width="145" height="50" fill="var(--surface-1)" stroke="var(--danger)" stroke-width="1.2" rx="4"/>
+                  <text x="225" y="258" fill="var(--danger)" font-size="9.5" font-weight="700">FF 致命問題：</text>
+                  <text x="225" y="272" fill="var(--ink)" font-size="9">Iddq 漏電指數暴衝</text>
+                  <text x="225" y="284" fill="var(--ink-soft)" font-size="8.5">FT 高溫熱失控 / Bin 2 報廢</text>
+                </g>
+              </g>
+            </svg>
+            <div class="figure-caption">
+              <span class="zh">圖 4.1：五大製程角落 (Process Corners: TT/FF/SS/FS/SF) 雙變數散佈等高線與電壓-頻率 (Shmoo) 良率邊界行為分析</span>
+              <span class="en">Figure 4.1: Bivariate Scatter Contours of Five Process Corners (TT/FF/SS/FS/SF) & Shmoo Operating Yield Margins</span>
+            </div>
+          </div>
+
+          <!-- 4.3 LOT DEPENDENCY -->
+          <h3>
+            <span class="zh">4.3 批次相依性 (Lot Dependency) 根因解構與機台歷程</span>
+            <span class="en">4.3 Lot Dependency Root Causes & Equipment Lifecycle Dynamics</span>
+          </h3>
+          <p>
+            <span class="zh">
+              若良率損失或電氣參數在時序上呈現群聚爆發（Clustering across contiguous lots），或是特定批次在跨站測試中連續墊底，此現象即為<b>批次相依性（Lot Dependency）</b>。實務上切忌盲目歸咎於隨機良率波動，必須沿著機台保養生命週期、原物料長晶切片梯度與化學品批次進行解構：
+            </span>
+            <span class="en">
+              When yield losses or parametric shifts cluster across sequentially processed wafer lots, the signature is diagnosed as <b>Lot Dependency</b>. Never mistake lot dependency for random defect noise. Engineers must systematically analyze chamber seasoning cycles, raw ingot slicing gradients, and chemical batch transitions:
+            </span>
+          </p>
+
+          <div class="callout warning">
+            <div class="callout-title">
+              <span>🔄</span>
+              <span class="zh">機台腔體保養季移週期 (Chamber Seasoning Lifecycle: Post-PM Drift vs. End-of-Life Spikes)</span>
+              <span class="en">Equipment Chamber Seasoning Cycles: Post-PM Drifts vs. End-of-Life Particle Bursts</span>
+            </div>
+            <p>
+              <span class="zh">
+                <b>1. Post-PM 初始初批效應 (First Lots after Wet Clean)</b>：<br>
+                電漿乾蝕刻或高密度 PECVD 腔體在歷經定期濕法大保養（Wet Clean PM）更換全套陶瓷腔壁與石英聚焦環後，新腔壁表面潔淨但失去穩定的氟碳鈍化聚合物（Fluorocarbon Polymer Passivation Layer）。最初幾批晶圓進入時，大量反應活性自由基被未飽和的冷腔壁吸附消耗，造成<b>蝕刻速率 (Etch Rate) 偏低或沉積膜厚偏薄</b>。若未強制執行充足的 Dummy Wafer Seasoning 熱機流程，PM 後的前 1~3 批生產晶圓（Lots）必然發生閘長偏粗、臨界電壓漂移至 <b>SS Corner</b> 的系統性低良率！<br><br>
+                <b>2. End-of-Life 週期衰竭與邊緣畸變 (Chamber Kit Aging Drift)</b>：<br>
+                當腔體運行接近保養週期終點（如累積 3,000 ~ 5,000 RF 小時）：
+                <ul>
+                  <li><b>聚焦環 (Focus Ring) 侵蝕</b>：聚焦環長年遭受高能離子轟擊使階梯高度衰減，晶圓邊緣電漿鞘層（Plasma Sheath）傾斜向外發散，導致<b>外圈晶粒 CD 劇烈縮小至極限 FF 角落</b>，伴隨嚴重的邊緣漏電超標。</li>
+                  <li><b>副產物剝落引發微粒子風暴 (Particle Burst)</b>：腔壁沈積聚合物應力超過黏著極限，在 RF 打火瞬態崩解脫落，引發突發性微粒子良率崩盤（Defect Adder Spike）。</li>
+                  <li><b>噴淋板 (Showerhead) 局部孔徑堵塞</b>：沈積前驅氣體沉積在 Showerhead 噴嘴微孔，造成流場偏心，使晶圓批次內呈現固定的弦月形或扇形膜厚漂移。</li>
+                </ul>
+              </span>
+              <span class="en">
+                <b>1. Post-PM Transient Effects (First Lots after Wet Clean)</b>: Following wet clean PM and chamber kit replacement, virgin chamber walls lack steady-state fluorocarbon polymer passivation. Cold chamber walls greedily scavenge reactive radicals, leading to suppressed etch rates and thicker gate CDs. Without strict dummy seasoning protocols, the first 1-3 production lots drift toward the <b>SS Corner</b>, suffering setup violations and speed bin downgrades.<br><br>
+                <b>2. End-of-Life Kit Aging & Sheath Distortion</b>: As RF hours approach PM thresholds (3,000-5,000 RF hours):
+                <ul>
+                  <li><b>Focus Ring Erosion</b>: Ion bombardment erodes focus ring height, distorting the edge plasma sheath. Edge dies exhibit severe gate CD shrinking into the <b>FF Corner</b>, causing massive edge leakage.</li>
+                  <li><b>Polymer Flaking & Particle Bursts</b>: Thick chamber wall deposits peel under stress, raining particulate adders onto wafers during RF ignition.</li>
+                  <li><b>Showerhead Orifice Clogging</b>: Uneven precursor clogging disrupts gas flow dynamics, generating consistent crescent-shaped lot signatures.</li>
+                </ul>
+              </span>
+            </p>
+          </div>
+
+          <!-- FIGURE 4.2 SVG -->
+          <div class="figure-container">
+            <svg viewBox="0 0 1000 460" style="max-width: 100%; height: auto; font-family: var(--font-mono, monospace);">
+              <rect width="1000" height="460" fill="var(--surface-2)" rx="8" stroke="var(--border)" stroke-width="1.5"/>
+
+              <!-- LEFT PANEL: NESTED VARIATION TREE -->
+              <g transform="translate(35, 35)">
+                <text x="0" y="0" fill="var(--ink)" font-size="14.5" font-weight="700">A. 變異數分析 (Nested ANOVA) 階層分解架構</text>
+                <text x="0" y="18" fill="var(--ink-soft)" font-size="11">Total Variance Decomposition: σ²total = σ²L2L + σ²W2W + σ²WIW + σ²WID</text>
+
+                <!-- Stacking Variance Hierarchy -->
+                <g transform="translate(10, 45)">
+                  <!-- Lot to Lot Bar -->
+                  <rect x="0" y="0" width="400" height="55" rx="6" fill="rgba(245, 158, 11, 0.15)" stroke="var(--warning)" stroke-width="1.5"/>
+                  <text x="15" y="24" fill="var(--warning)" font-size="12" font-weight="700">1. 批次間變異 σ²_L2L (45% ~ 55% 貢獻率)</text>
+                  <text x="15" y="42" fill="var(--ink-soft)" font-size="10.5">根因：長晶矽錠軸向梯度、化學液批號、機台 PM 週期、靶材耗損</text>
+
+                  <!-- Wafer to Wafer Bar -->
+                  <rect x="25" y="70" width="375" height="55" rx="6" fill="rgba(59, 130, 246, 0.15)" stroke="var(--accent)" stroke-width="1.5"/>
+                  <text x="40" y="94" fill="var(--accent)" font-size="12" font-weight="700">2. 晶圓間變異 σ²_W2W (20% ~ 25% 貢獻率)</text>
+                  <text x="40" y="112" fill="var(--ink-soft)" font-size="10.5">根因：爐管晶舟氣流耗盡梯差、旋塗排氣微壓、首片熱暫態</text>
+
+                  <!-- Within Wafer Bar -->
+                  <rect x="50" y="140" width="350" height="55" rx="6" fill="rgba(168, 85, 247, 0.15)" stroke="#a855f7" stroke-width="1.5"/>
+                  <text x="65" y="164" fill="#a855f7" font-size="12" font-weight="700">3. 晶圓內變異 σ²_WIW (15% ~ 20% 貢獻率)</text>
+                  <text x="65" y="182" fill="var(--ink-soft)" font-size="10.5">根因：聚焦環電場畸變、CMP 邊緣磨耗、RTA 邊界輻射熱損</text>
+
+                  <!-- Within Die Bar -->
+                  <rect x="75" y="210" width="325" height="55" rx="6" fill="rgba(239, 68, 68, 0.15)" stroke="var(--danger)" stroke-width="1.5"/>
+                  <text x="90" y="234" fill="var(--danger)" font-size="12" font-weight="700">4. 晶粒內 / OCV σ²_WID (10% ~ 15% 貢獻率)</text>
+                  <text x="90" y="252" fill="var(--ink-soft)" font-size="10.5">根因：OPC 殘餘誤差、奈米隨機摻雜擾動 (RDF)、金屬 Dishing</text>
+
+                  <!-- Downward Flow Connectors -->
+                  <line x1="12" y1="55" x2="12" y2="70" stroke="var(--warning)" stroke-width="2"/>
+                  <line x1="37" y1="125" x2="37" y2="140" stroke="var(--accent)" stroke-width="2"/>
+                  <line x1="62" y1="195" x2="62" y2="210" stroke="#a855f7" stroke-width="2"/>
+                </g>
+              </g>
+
+              <!-- RIGHT PANEL: SAWTOOTH PM CYCLE & APC COMPENSATION -->
+              <g transform="translate(500, 35)">
+                <text x="0" y="0" fill="var(--ink)" font-size="14.5" font-weight="700">B. 機台保養鋸齒漂移 (Sawtooth Drift) 與 APC 抑制效能</text>
+                <text x="0" y="18" fill="var(--ink-soft)" font-size="11">Chamber Seasoning Sawtooth Degradation vs. Closed-Loop EWMA Regulation</text>
+
+                <g transform="translate(40, 45)">
+                  <!-- Axes -->
+                  <line x1="0" y1="280" x2="410" y2="280" stroke="var(--ink-soft)" stroke-width="2"/>
+                  <line x1="0" y1="280" x2="0" y2="0" stroke="var(--ink-soft)" stroke-width="2"/>
+
+                  <!-- X and Y Labels -->
+                  <text x="205" y="315" fill="var(--ink)" font-size="11.5" font-weight="600" text-anchor="middle">累積加工晶圓片數 / RF 小時數 (Processed Wafers) ➔</text>
+                  <text x="-35" y="140" fill="var(--ink)" font-size="11.5" font-weight="600" text-anchor="middle" transform="rotate(-90 -35 140)">電晶體線寬 CD / 膜厚 ➔</text>
+
+                  <!-- Control Limits -->
+                  <line x1="0" y1="60" x2="410" y2="60" stroke="var(--danger)" stroke-width="1.5" stroke-dasharray="4,4"/>
+                  <text x="415" y="64" fill="var(--danger)" font-size="10">USL (+3σ)</text>
+
+                  <line x1="0" y1="140" x2="410" y2="140" stroke="var(--success)" stroke-width="1.5" stroke-dasharray="3,3"/>
+                  <text x="415" y="144" fill="var(--success)" font-size="10">Target (Nominal)</text>
+
+                  <line x1="0" y1="220" x2="410" y2="220" stroke="var(--danger)" stroke-width="1.5" stroke-dasharray="4,4"/>
+                  <text x="415" y="224" fill="var(--danger)" font-size="10">LSL (-3σ)</text>
+
+                  <!-- PM Event Vertical Lines -->
+                  <line x1="200" y1="10" x2="200" y2="280" stroke="var(--border)" stroke-width="2" stroke-dasharray="2,2"/>
+                  <text x="200" y="295" fill="var(--ink-faint)" font-size="10" text-anchor="middle">Wet Clean PM #1</text>
+
+                  <line x1="390" y1="10" x2="390" y2="280" stroke="var(--border)" stroke-width="2" stroke-dasharray="2,2"/>
+                  <text x="390" y="295" fill="var(--ink-faint)" font-size="10" text-anchor="middle">PM #2</text>
+
+                  <!-- UNCONTROLLED DRIFT (RED SAWTOOTH) -->
+                  <!-- Cycle 1: starts below LSL due to unseasoned cold chamber, drifts upward past USL -->
+                  <path d="M 5,235 L 20,200 L 100,140 L 175,80 L 195,45" fill="none" stroke="var(--danger)" stroke-width="2.5"/>
+                  <!-- Post PM jump back down -->
+                  <path d="M 205,240 L 225,205 L 300,140 L 370,85 L 388,40" fill="none" stroke="var(--danger)" stroke-width="2.5"/>
+                  <text x="120" y="70" fill="var(--danger)" font-size="10.5" font-weight="700">無 APC 漂移 (Sawtooth OOC)</text>
+
+                  <!-- CONTROLLED WITH APC (GREEN SMOOTH) -->
+                  <path d="M 5,145 L 25,138 L 70,142 L 120,139 L 160,143 L 195,141 M 205,144 L 250,139 L 300,142 L 350,138 L 388,141" fill="none" stroke="var(--success)" stroke-width="3"/>
+                  <text x="120" y="165" fill="var(--success)" font-size="10.5" font-weight="700">APC 動態前饋/回饋抑制 (In-Control)</text>
+
+                  <!-- Annotation Badges -->
+                  <rect x="5" y="245" width="85" height="25" rx="3" fill="var(--surface-1)" stroke="var(--danger)" stroke-width="1"/>
+                  <text x="47" y="261" fill="var(--danger)" font-size="9" text-anchor="middle">PM 初批失常</text>
+
+                  <rect x="145" y="25" width="85" height="25" rx="3" fill="var(--surface-1)" stroke="var(--danger)" stroke-width="1"/>
+                  <text x="187" y="41" fill="var(--danger)" font-size="9" text-anchor="middle">壽限副產物超標</text>
+                </g>
+              </g>
+            </svg>
+            <div class="figure-caption">
+              <span class="zh">圖 4.2：晶圓製程變異階層分解模型 (Nested ANOVA) 與機台保養週期鋸齒狀漂移 (Sawtooth Drift) vs. APC 控制效能對比</span>
+              <span class="en">Figure 4.2: Hierarchical Variation Decomposition (Nested ANOVA) & Chamber Seasoning Sawtooth Cycle vs. APC Mitigation</span>
+            </div>
+          </div>
+
+          <!-- 4.4 APC CONTROL LOOPS -->
+          <h3>
+            <span class="zh">4.4 先進製程控制 (APC: Advanced Process Control) 實務演算法</span>
+            <span class="en">4.4 Advanced Process Control (APC) Engineering Algorithms</span>
+          </h3>
+          <p>
+            <span class="zh">
+              為根治 Lot-to-Lot 與 Wafer-to-Wafer 的系統性漂移，晶圓廠仰賴先進製程控制（APC）閉環演算法，透過即時前饋（Feedforward）與回饋（Feedback）動態改寫下一機台的製程參數：
+            </span>
+            <span class="en">
+              To eliminate systematic lot-to-lot and wafer-to-wafer drifts, advanced semiconductor fabs deploy closed-loop Advanced Process Control (APC) algorithms, dynamically recalculating downstream tool recipes via feedforward and feedback loops:
+            </span>
+          </p>
+
+          <div class="card-grid">
+            <div class="card">
+              <h4 style="margin-top: 0; color: var(--accent);">
+                <span class="zh">1. 前饋控制 (Feedforward: Run-to-Run)</span>
+                <span class="en">1. Feedforward Control (R2R)</span>
+              </h4>
+              <p>
+                <span class="zh">
+                  <b>原理</b>：利用上游沉積/微影站點的<b>實際實體量測數據</b>（如光阻膜厚 \(T_{\text{PR}}\) 或閘極氧化層實際厚度 \(T_{\text{ox,actual}}\))，前饋給下游蝕刻機或 CMP 機台，動態微調蝕刻時間 \(t_{\text{etch}}\) 或拋光頭壓力分區 \(P_{\text{zone}}\)。
+                </span>
+                <span class="en">
+                  <b>Concept</b>: Feeds upstream metrology measurements (e.g. actual gate oxide thickness \(T_{\text{ox,actual}}\) or resist CD) directly into downstream dry etch or CMP tools to dynamically compute exact etch time \(t_{\text{etch}}\) or multi-zone polishing pressure.
+                </span>
+              </p>
+              <div style="font-size: 0.9em; background: var(--surface-2); padding: 8px 12px; border-radius: 4px; font-family: var(--font-mono);">
+                $$t_{\text{etch}} = \frac{T_{\text{ox,actual}} - T_{\text{target}}}{\hat{ER}_{\text{chamber}}} + t_{\text{overetch}}$$
+              </div>
+              <p style="font-size: 0.9em; color: var(--ink-soft); margin-top: 6px;">
+                <span class="zh">即使前站膜厚出現 \(\pm 5\%\) 的批次漂移，蝕刻站亦能在每一片晶圓精確抵達目標終點，徹底阻斷變異傳遞！</span>
+                <span class="en">Even with \(\pm 5\%\) upstream incoming drift, the etcher precisely terminates at target depth, halting variation propagation.</span>
+              </p>
+            </div>
+
+            <div class="card">
+              <h4 style="margin-top: 0; color: var(--success);">
+                <span class="zh">2. 回饋控制 (Feedback: EWMA 演算法)</span>
+                <span class="en">2. Feedback Control (EWMA Filter)</span>
+              </h4>
+              <p>
+                <span class="zh">
+                  <b>原理</b>：量測當前批次的關鍵尺寸（CD-SEM），透過<b>指數加權移動平均（EWMA）</b>過濾高頻白噪聲，計算出真正的低頻製程中心偏移量 \(\hat{\delta}_{k+1}\)，進而微調微影曝光機下一批次的曝光劑量（Dose Correction）或聚焦偏置（Focus Offset）。
+                </span>
+                <span class="en">
+                  <b>Concept</b>: Measures post-etch CD on current lots, applies Exponentially Weighted Moving Average (EWMA) filtering to strip high-frequency metrology noise, and computes true systematic bias \(\hat{\delta}_{k+1}\) to trim litho exposure dose on the next lot.
+                </span>
+              </p>
+              <div style="font-size: 0.9em; background: var(--surface-2); padding: 8px 12px; border-radius: 4px; font-family: var(--font-mono);">
+                $$\hat{\delta}_{k+1} = \lambda (CD_{k} - CD_{\text{target}}) + (1 - \lambda) \hat{\delta}_{k}$$
+                $$\text{Dose}_{k+1} = \text{Dose}_{\text{nom}} - \alpha \cdot \hat{\delta}_{k+1}$$
+              </div>
+              <p style="font-size: 0.9em; color: var(--ink-soft); margin-top: 6px;">
+                <span class="zh">\(\lambda\) 通常設定為 \(0.2 \sim 0.4\)，有效防止過度反應（Over-correction），將線寬長期穩定在 nominal \(\pm 0.5\text{nm}\)。</span>
+                <span class="en">Weight \(\lambda \in [0.2, 0.4]\) prevents controller oscillation, maintaining long-term CD within \(\pm 0.5\text{nm}\).</span>
+              </p>
+            </div>
+
+            <div class="card">
+              <h4 style="margin-top: 0; color: #a855f7;">
+                <span class="zh">3. 虛擬量測 (Virtual Metrology, VM)</span>
+                <span class="en">3. Virtual Metrology (VM)</span>
+              </h4>
+              <p>
+                <span class="zh">
+                  <b>原理</b>：實體量測（Metrology Q-time）通常為抽樣（如 1 Lot 抽 2 片），無法及時攔截異常。VM 擷取機台 FDC 高頻感測器時間序列（電漿發射光譜 OES 譜線比、RF 反射功率、直流偏壓 \(V_{\text{bias}}\)、節流閥角度），透過機器學習即時推算每一片晶圓的物理膜厚與蝕刻深度。
+                </span>
+                <span class="en">
+                  <b>Concept</b>: Physical CD-SEM is sampled (e.g. 2 wafers/lot), introducing inspection delays. VM taps high-speed Fault Detection and Classification (FDC) sensor telemetry (OES line intensity ratios, RF reflected power, \(V_{\text{bias}}\), throttle valve angle) to infer physical thickness for 100% of wafers.
+                </span>
+              </p>
+              <p style="font-size: 0.9em; color: var(--ink-soft); margin-top: 6px;">
+                <span class="zh">實現 100% 全晶圓即時品質預警，在晶圓尚未出腔體前即自動攔截異常批次，避免整批 25 片報廢。</span>
+                <span class="en">Enables 100% real-time wafer excursion interdiction before lots exit the load lock, preventing 25-wafer scrap events.</span>
+              </p>
+            </div>
+          </div>
+
+          <!-- 4.5 STATISTICAL COMMONALITY ATTRIBUTION -->
+          <h3>
+            <span class="zh">4.5 機台腔體共模統計歸因 (Chamber Commonality Attribution)</span>
+            <span class="en">4.5 Equipment Chamber Commonality & Multivariate Attribution</span>
+          </h3>
+          <p>
+            <span class="zh">
+              當排除測試硬體、程式時序、量測誤差與晶圓原材料變異後，真正的製程機台共模追溯才正式啟動。利用 MES 追溯之龐大機台跳站矩陣（Routing Matrix），透過以下統計檢定法精準咬定嫌疑腔體：
+            </span>
+            <span class="en">
+              Only after filtering test hardware, program timing, metrology errors, and raw material variations does true fab chamber commonality attribution begin. Leveraging MES equipment routing matrices, the following statistical methodologies pinpoint culprit chambers:
+            </span>
+          </p>
           <ul>
             <li>
               <b>卡方獨立性檢定 (\(\chi^2\) Test of Independence)</b>：
-              <span class="zh">檢定「晶片良率通過與否」與「是否經過特定機台腔體」兩變數是否相互獨立。若 \(p < 0.001\)，強烈拒絕獨立虛無假說。</span>
+              <span class="zh">檢定「晶片良率通過與否」與「是否經過特定機台腔體」兩變數是否相互獨立。若 \(p < 0.001\)，強烈拒絕獨立虛無假說，代表良率與該機台存在高度依賴。</span>
               <span class="en">Tests whether pass/fail outcome is statistically independent of chamber routing. A \(p < 0.001\) strongly rejects the null hypothesis.</span>
             </li>
             <li>
               <b>勝算比 (Odds Ratio, \(OR\))</b>：
-              <span class="zh">量化經過該機台之晶圓相較其他機台的不良風險倍數。\(OR > 2.0\) 且具統計顯著性時列入一級嫌疑機台。</span>
-              <span class="en">Quantifies risk escalation for wafers routed through a specific chamber. An \(OR > 2.0\) with statistical significance indicates prime suspect status.</span>
+              <span class="zh">量化經過該機台之晶圓相較其他機台的不良風險倍數。\(OR = \frac{a/b}{c/d}\)。\(OR > 2.0\) 且 \(95\%\) 信賴區間下界 \(> 1.5\) 時列入一級嫌疑機台。</span>
+              <span class="en">Quantifies risk escalation for wafers routed through a specific chamber. An \(OR > 2.0\) with lower 95% CI \(> 1.5\) establishes prime suspect status.</span>
             </li>
             <li>
-              <b>單因子 / 雙因子變異數分析 (One-Way / Two-Way ANOVA)</b>：
-              <span class="zh">應用於連續型參數（如 WAT 飽和電流、薄膜膜厚），檢定不同腔體間的群體平均值是否存在顯著差異。</span>
-              <span class="en">Applied to continuous metrology parameters (WAT current, film thickness) to verify inter-chamber mean divergence.</span>
+              <b>多因子變異數分析 (Multi-Way ANOVA)</b>：
+              <span class="zh">應用於連續型參數（如 WAT 飽和電流、薄膜膜厚），同時檢定「機台腔體效應」、「晶圓槽位效應 (Slot ID)」與其「交互作用 (Interaction Effect)」是否存在顯著主效應。</span>
+              <span class="en">Applied to continuous metrology parameters (WAT current, film thickness) to simultaneously test chamber effect, FOUP slot effect, and interaction terms.</span>
             </li>
           </ul>
 
@@ -1696,10 +2419,12 @@
             </div>
             <p>
               <span class="zh">
-                <b>鐵律</b>：共模分析前，<b>必須對產品型號（Product Device）、批次配方（Recipe）、晶圓槽位（Slot ID）與基板批次進行分層校正（Stratification）</b>，否則將造成災難性誤判。
+                <b>鐵律</b>：共模分析前，<b>必須對產品型號（Product Device）、批次配方（Recipe）、晶圓槽位（Slot ID）與基板批次進行分層校正（Stratification）</b>。<br>
+                例如：若機台 Chamber A 專門被派工作業高難度、高金屬層數的先進旗艦產品，而 Chamber B 專門跑成熟簡易產品，未經分層直接分析總體良率時，Chamber A 會被假象判定為「低良率劣質機台」，這即是典型的<b>辛普森悖論混淆偏差</b>！
               </span>
               <span class="en">
-                <b>Golden Rule</b>: Always stratify data by Device, Recipe, FOUP Slot, and Raw Substrate Lot before drawing chamber commonality conclusions.
+                <b>Golden Rule</b>: Always stratify data by Device, Recipe, FOUP Slot, and Raw Substrate Lot before drawing chamber commonality conclusions.<br>
+                Example: If Chamber A is dispatched with high-complexity flagship products while Chamber B handles mature low-layer products, a naive aggregated yield comparison falsely frames Chamber A as defective—a textbook Simpson's Paradox confounding trap!
               </span>
             </p>
           </div>

@@ -5,7 +5,7 @@
 ## 內容規則（文件與工具標準）
 
 1. **雙語是硬性要求**：每一段可見文字都要有成對的 `<span class="zh">` / `<span class="en">`，靠根元素的 `data-lang` 屬性切換顯示（CSS `[data-lang="en"] .zh{display:none}` 與 `:root:not([data-lang="en"]) .en{display:none}` 規則），不是機器即時翻譯。新增任何內容都要中英雙語寫齊。
-2. **Phase 編號 vs Section 編號兩套系統**：Phase 0–10 代表良率改善工程的實務生命週期階段（Baseline 分解、跨站追溯、空間分佈、非製程假異常過濾、共模分析、FT/SLT 成品封測、參數 Margin、FA 實體驗證、客訴 RMA/GDBN 溯源、改善閉環、稽核治理），不隨篇幅重組而異動。TOC 與段落編號需嚴格同步（含桌面端 `nav.toc` 與行動端 `details.toc-m`）。
+2. **Phase 編號 vs Section 編號兩套系統**：Phase 0–10 代表良率改善工程的實務生命週期階段（Baseline 分解、跨站追溯、空間分佈、非製程假異常過濾、晶圓製程變異/Corners/批次相依性與共模分析、FT/SLT 成品封測、參數 Margin、FA 實體驗證、客訴 RMA/GDBN 溯源、改善閉環、稽核治理），不隨篇幅重組而異動。TOC 與段落編號需嚴格同步（含桌面端 `nav.toc` 與行動端 `details.toc-m`）。
 3. **callout 語意分級標準**：
    - `callout danger`（紅）：重大良率災情、假性相關陷阱（Simpson's Paradox）、4 線式 Kelvin Sense 斷線退化、GDBN 惡鄰晶粒漏測、高額 Overkill / Underkill、違背稽核要求之不可逆操作。
    - `callout warn`（橘）：工程盲點、多站點測試針卡偏位（Multi-site skew）、Retest 政策失真、樣本數統計不足之虛假安全感。
