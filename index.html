@@ -851,72 +851,92 @@
           </p>
 
           <figure>
-            <svg viewBox="0 0 980 260" style="width:100%; height:auto;" xmlns="http://www.w3.org/2000/svg">
+            <svg viewBox="0 0 1180 295" style="width:100%; height:auto; font-family:var(--font-sans, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);" xmlns="http://www.w3.org/2000/svg">
               <defs>
-                <filter id="shadow" x="-5%" y="-10%" width="110%" height="130%">
-                  <feDropShadow dx="0" dy="3" stdDeviation="3" flood-opacity="0.15"/>
+                <filter id="shadow01" x="-5%" y="-10%" width="110%" height="130%">
+                  <feDropShadow dx="0" dy="3" stdDeviation="3" flood-opacity="0.18"/>
                 </filter>
+                <marker id="arr-flow" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+                  <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--accent)"/>
+                </marker>
+                <marker id="arr-pkg" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+                  <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#38bdf8"/>
+                </marker>
+                <marker id="arr-danger" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+                  <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--danger)"/>
+                </marker>
               </defs>
-              <g fill="var(--ink)" font-family="var(--font-mono)">
-                <!-- Material Stage -->
-                <rect x="15" y="25" width="125" height="70" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1.5" filter="url(#shadow)"/>
-                <text x="77" y="52" text-anchor="middle" font-size="11.5" font-weight="700">Raw Substrate / Epi</text>
-                <text x="77" y="72" text-anchor="middle" font-size="10" fill="var(--ink-soft)">CZ / Oi / Doping</text>
-                
-                <path d="M 140 60 L 165 60" stroke="var(--accent)" stroke-width="2"/>
 
-                <!-- Fab Process -->
-                <rect x="165" y="25" width="130" height="70" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1.5" filter="url(#shadow)"/>
-                <text x="230" y="52" text-anchor="middle" font-size="11.5" font-weight="700">FAB Processing</text>
-                <text x="230" y="72" text-anchor="middle" font-size="10" fill="var(--ink-soft)">Diff / Litho / CMP / Etch</text>
+              <g fill="var(--ink)">
+                <!-- 1. Raw Substrate / Epi -->
+                <rect x="15" y="25" width="130" height="70" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1.5" filter="url(#shadow01)"/>
+                <text x="80" y="50" text-anchor="middle" font-size="11.5" font-weight="700">Raw Substrate / Epi</text>
+                <text x="80" y="70" text-anchor="middle" font-size="9.5" fill="var(--ink-soft)">CZ Ingot / Doping</text>
 
-                <path d="M 295 60 L 320 60" stroke="var(--accent)" stroke-width="2"/>
+                <path d="M 145 60 L 168 60" stroke="var(--accent)" stroke-width="2" marker-end="url(#arr-flow)"/>
 
-                <!-- WAT / PCM -->
-                <rect x="320" y="25" width="125" height="70" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1.5" filter="url(#shadow)"/>
-                <text x="382" y="52" text-anchor="middle" font-size="11.5" font-weight="700">WAT / PCM</text>
-                <text x="382" y="72" text-anchor="middle" font-size="10" fill="var(--ink-soft)">4-Wire Kelvin E-Test</text>
+                <!-- 2. FAB Processing -->
+                <rect x="170" y="25" width="135" height="70" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1.5" filter="url(#shadow01)"/>
+                <text x="237" y="50" text-anchor="middle" font-size="11.5" font-weight="700">FAB Processing</text>
+                <text x="237" y="70" text-anchor="middle" font-size="9.5" fill="var(--ink-soft)">Diff / Litho / Etch / CMP</text>
 
-                <path d="M 445 60 L 470 60" stroke="var(--accent)" stroke-width="2"/>
+                <path d="M 305 60 L 328 60" stroke="var(--accent)" stroke-width="2" marker-end="url(#arr-flow)"/>
 
-                <!-- CP Probe Card -->
-                <rect x="470" y="25" width="140" height="70" rx="6" fill="var(--surface-2)" stroke="var(--accent)" stroke-width="2" filter="url(#shadow)"/>
-                <text x="540" y="52" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--accent)">CP / Wafer Sort</text>
-                <text x="540" y="72" text-anchor="middle" font-size="10" fill="var(--ink-soft)">Probe Card / Rc / Multi-site</text>
+                <!-- 3. WAT / PCM -->
+                <rect x="330" y="25" width="125" height="70" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1.5" filter="url(#shadow01)"/>
+                <text x="392" y="50" text-anchor="middle" font-size="11.5" font-weight="700">WAT / PCM</text>
+                <text x="392" y="70" text-anchor="middle" font-size="9.5" fill="var(--ink-soft)">4-Wire Kelvin E-Test</text>
 
-                <path d="M 610 60 L 635 60" stroke="var(--accent)" stroke-width="2"/>
+                <path d="M 455 60 L 478 60" stroke="var(--accent)" stroke-width="2" marker-end="url(#arr-flow)"/>
 
-                <!-- FT Socket -->
-                <rect x="635" y="25" width="140" height="70" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1.5" filter="url(#shadow)"/>
-                <text x="705" y="52" text-anchor="middle" font-size="11.5" font-weight="700">FT / Final Test</text>
-                <text x="705" y="72" text-anchor="middle" font-size="10" fill="var(--ink-soft)">Socket / Timing / IR Droop</text>
+                <!-- 4. CP / Wafer Sort -->
+                <rect x="480" y="25" width="145" height="70" rx="6" fill="var(--surface-2)" stroke="var(--accent)" stroke-width="2" filter="url(#shadow01)"/>
+                <text x="552" y="50" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--accent)">CP / Wafer Sort</text>
+                <text x="552" y="70" text-anchor="middle" font-size="9.5" fill="var(--ink-soft)">Probe Card / Rc Check</text>
 
-                <path d="M 775 60 L 800 60" stroke="var(--accent)" stroke-width="2"/>
+                <path d="M 625 60 L 648 60" stroke="var(--accent)" stroke-width="2" marker-end="url(#arr-flow)"/>
 
-                <!-- Customer Field -->
-                <rect x="800" y="25" width="165" height="70" rx="6" fill="var(--accent)" filter="url(#shadow)"/>
-                <text x="882" y="52" text-anchor="middle" font-size="11.5" font-weight="700" fill="#fff">Customer Field</text>
-                <text x="882" y="72" text-anchor="middle" font-size="10" fill="#e0f2fe">&lt; 1 DPPM Zero Defect</text>
+                <!-- 5. PKG / Assembly -->
+                <rect x="650" y="25" width="150" height="70" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1.5" filter="url(#shadow01)"/>
+                <text x="725" y="50" text-anchor="middle" font-size="11.5" font-weight="700">PKG / Assembly</text>
+                <text x="725" y="70" text-anchor="middle" font-size="9.5" fill="var(--ink-soft)">Dicing / Wire / Mold</text>
 
-                <!-- Non-Process Noise Alert -->
-                <rect x="340" y="125" width="415" height="50" rx="4" fill="var(--warn-soft)" stroke="var(--warn)" stroke-width="1.5"/>
-                <text x="547" y="146" text-anchor="middle" font-size="11" font-weight="700" fill="var(--warn)">⚠️ 非製程假異常防禦網 (Non-Process Artifact Filter)</text>
-                <text x="547" y="162" text-anchor="middle" font-size="10" fill="var(--ink-soft)">排除：Contact 接觸不良、Probe Card 磨損、Socket 錫屑、Program 頻閃時序、Gage R&amp;R 誤差</text>
+                <path d="M 800 60 L 823 60" stroke="var(--accent)" stroke-width="2" marker-end="url(#arr-flow)"/>
 
-                <!-- Feedback Loop -->
-                <path d="M 705 95 L 705 125" stroke="var(--warn)" stroke-width="1.5" stroke-dasharray="3,3"/>
-                <path d="M 540 95 L 540 125" stroke="var(--warn)" stroke-width="1.5" stroke-dasharray="3,3"/>
-                <path d="M 382 95 L 382 125" stroke="var(--warn)" stroke-width="1.5" stroke-dasharray="3,3"/>
+                <!-- 6. FT / Final Test -->
+                <rect x="825" y="25" width="145" height="70" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1.5" filter="url(#shadow01)"/>
+                <text x="897" y="50" text-anchor="middle" font-size="11.5" font-weight="700">FT / Final Test</text>
+                <text x="897" y="70" text-anchor="middle" font-size="9.5" fill="var(--ink-soft)">Socket / Timing / ATE</text>
 
-                <path d="M 547 175 L 547 215 L 230 215 L 230 95" fill="none" stroke="var(--danger)" stroke-width="2" stroke-dasharray="6,4"/>
-                <text x="400" y="235" text-anchor="middle" font-size="11.5" fill="var(--danger)" font-weight="700">
-                  純製程缺陷閉環 (True Fab Defect Root Cause to Chamber &amp; Recipe Closed-Loop)
-                </text>
+                <path d="M 970 60 L 993 60" stroke="var(--accent)" stroke-width="2" marker-end="url(#arr-flow)"/>
+
+                <!-- 7. Customer Field -->
+                <rect x="995" y="25" width="170" height="70" rx="6" fill="var(--accent)" filter="url(#shadow01)"/>
+                <text x="1080" y="50" text-anchor="middle" font-size="11.5" font-weight="700" fill="#fff">Customer Field</text>
+                <text x="1080" y="70" text-anchor="middle" font-size="9.5" fill="#e0f2fe">&lt; 1 DPPM Zero Defect</text>
+
+                <!-- Non-Process Artifact Filter Box -->
+                <rect x="345" y="125" width="590" height="48" rx="6" fill="var(--warn-soft)" stroke="var(--warn)" stroke-width="1.5"/>
+                <text x="640" y="145" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--warn)">⚠️ 非製程假異常防禦網 (Non-Process Artifact Filter)</text>
+                <text x="640" y="161" text-anchor="middle" font-size="10" fill="var(--ink-soft)">排除：Contact 接觸不良、Probe Card 磨損、Socket 錫屑、Program 頻閃時序、Gage R&amp;R 誤差</text>
+
+                <!-- Inputs into Filter from Testing Nodes -->
+                <path d="M 392 95 L 392 125" stroke="var(--warn)" stroke-width="1.5" stroke-dasharray="3,3"/>
+                <path d="M 552 95 L 552 125" stroke="var(--warn)" stroke-width="1.5" stroke-dasharray="3,3"/>
+                <path d="M 897 95 L 897 125" stroke="var(--warn)" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+                <!-- Push-Back Loop 1: Assembly RCA to Packaging -->
+                <path d="M 897 173 L 897 205 L 725 205 L 725 99" fill="none" stroke="#38bdf8" stroke-width="2" stroke-dasharray="5,4" marker-end="url(#arr-pkg)"/>
+                <text x="811" y="222" text-anchor="middle" font-size="10" fill="#38bdf8" font-weight="700">封裝組裝缺陷閉環 (Push-Back to PKG: Wire Sweep / Underfill Void / CPI)</text>
+
+                <!-- Push-Back Loop 2: True Fab Defect Closed-Loop -->
+                <path d="M 552 173 L 552 250 L 237 250 L 237 99" fill="none" stroke="var(--danger)" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#arr-danger)"/>
+                <text x="395" y="270" text-anchor="middle" font-size="11" fill="var(--danger)" font-weight="700">純製程缺陷閉環 (True Fab Defect Root Cause to Chamber &amp; Recipe Closed-Loop)</text>
               </g>
             </svg>
             <figcaption>
-              <span class="zh">圖 0.1：半導體良率分析流程鏈與「非製程假異常過濾網」</span>
-              <span class="en">Figure 0.1: Semiconductor Yield Pipeline with Non-Process Artifact Filter</span>
+              <span class="zh">圖 0.1：半導體良率分析流程鏈、封裝組裝閉環與「非製程假異常過濾網」</span>
+              <span class="en">Figure 0.1: Semiconductor Yield Pipeline with Packaging Closed-Loop &amp; Non-Process Artifact Filter</span>
             </figcaption>
           </figure>
 
