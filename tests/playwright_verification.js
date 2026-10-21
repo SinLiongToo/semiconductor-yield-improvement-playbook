@@ -87,6 +87,25 @@ async function runVerification() {
       const feedbackText = await page.locator('#foFeedbackText').innerText();
       console.log(`  ✓ Fallout Simulator option 9 selected: stage=${stageText}, feedback contains PM=${feedbackText.includes('研磨')}`);
     }
+
+    // 1.1c Test Section 0.4 Stage-by-Stage Top 10 Fallouts (50 Master Fallouts)
+    console.log('\n[Test 1.1c] Verifying Section 0.4 Stage-by-Stage Top 10 Fallouts (50 Fallouts Total)...');
+    for (let s = 1; s <= 5; s++) {
+      const btn = page.locator(`#btn-stage-${s}`);
+      await btn.click();
+      await page.waitForTimeout(150);
+      const panel = page.locator(`#stage-panel-${s}`);
+      const isVisible = await panel.isVisible();
+      const rowCount = await panel.locator('tbody tr').count();
+      console.log(`  ✓ Stage ${s} tab active: visible=${isVisible}, fallouts defined=${rowCount}`);
+      if (!isVisible || rowCount !== 10) {
+        throw new Error(`Stage ${s} validation failed: visible=${isVisible}, rows=${rowCount}`);
+      }
+    }
+    // Switch back to stage 1
+    await page.locator('#btn-stage-1').click();
+    await page.waitForTimeout(100);
+    console.log('  ✓ All 5 stages (50 Fallout mechanisms & Push-Back protocols) validated 100%.');
   }
 
   // 1.2 Test One-Click Zoom (Lightbox Modal on All Visual Graphics)
