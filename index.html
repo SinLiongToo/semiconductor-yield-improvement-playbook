@@ -509,7 +509,7 @@
       </div>
       <div>
         <span class="zh">版次狀態</span><span class="en">Revision</span>
-        <b>Rev. C (Advanced with RMA & OTP)</b>
+        <b>Rev. D (Comprehensive FA-to-Process Pipeline)</b>
       </div>
       <div>
         <span class="zh">適用對象</span><span class="en">Audience</span>
@@ -517,7 +517,7 @@
       </div>
       <div>
         <span class="zh">最後修訂</span><span class="en">Last Updated</span>
-        <b>2026-10-21 16:15</b>
+        <b>2026-10-21 16:25</b>
       </div>
     </div>
   </header>
@@ -1768,22 +1768,36 @@
         </div>
       </section>
 
-      <!-- PHASE 6: FAILURE ANALYSIS (FA) -->
+      <!-- PHASE 6: FAILURE ANALYSIS (FA) & PHYSICAL DEFECT TO PROCESS CORRELATION -->
       <section id="phase6">
         <h2 class="collapsible-h" onclick="toggleCollapse(this)">
           <span>
-            <span class="zh">Phase 6: 失效分析 (FA) 實體物理驗證 (Failure Analysis & Physical Feedback)</span>
-            <span class="en">Phase 6: Failure Analysis (FA) & Physical Defect Correlation</span>
+            <span class="zh">Phase 6: 失效分析 (FA) 實體物理驗證與製程反應反饋</span>
+            <span class="en">Phase 6: Failure Analysis (FA) & Physical Defect-to-Process Correlation</span>
           </span>
           <span class="collapse-arrow">▼</span>
         </h2>
         <div class="collapse-body">
           <p>
             <span class="zh">
-              統計分析給出的是「嫌疑犯清單」，真正的「定罪證據」必須來自實體失效分析實驗室（FA Lab）。如果沒有將電性 Fail Bin 與物理缺陷特徵閉環比對，製程改善往往淪為盲人摸象。
+              統計關聯（Phase 3 & 4）提供的是「嫌疑犯名單」，而<b>失效分析（Failure Analysis, FA）則是良率改善閉環中最終的「呈堂證供」</b>。若無法將電性測試的 Fail Bin 與奈米級實體物理缺陷（PFA）及晶圓廠特定微影/蝕刻/薄膜/擴散的物理/化學反應精確對應，所有改善措施都只是盲目嘗試。
             </span>
             <span class="en">
-              Statistical correlations provide a suspect list; physical proof must originate from the Failure Analysis (FA) lab. Without closing the loop between electrical failure bins and physical defects, engineering actions remain guesswork.
+              Statistical correlations provide a suspect list, but <b>Failure Analysis (FA) is the ultimate physical proof</b>. Without closing the loop between electrical failure bins, physical defect analysis (PFA), and specific fab chemical/physical reactions, any countermeasure is mere trial-and-error.
+            </span>
+          </p>
+
+          <!-- 6.1 FA WORKFLOW HIERARCHY -->
+          <h3>
+            <span class="zh">6.1 FA 完整手法階梯：非破壞 ➔ 電性定位 ➔ 去層解剖 ➔ 原子物理分析</span>
+            <span class="en">6.1 FA Analytical Hierarchy: Non-Destructive ➔ Fault Localization ➔ Delayering ➔ Material PFA</span>
+          </h3>
+          <p>
+            <span class="zh">
+              FA 必須嚴格遵循由外而內、由非破壞到破壞性的分析階梯，避免在未鎖定精確微米座標前過早研磨造成「殺死現場證據（Killing the Evidence）」：
+            </span>
+            <span class="en">
+              FA must strictly follow a non-destructive to destructive analytical ladder, preventing premature polishing that destroys physical evidence:
             </span>
           </p>
 
@@ -1792,44 +1806,178 @@
               <thead>
                 <tr>
                   <th><span class="zh">分析階段</span><span class="en">FA Stage</span></th>
-                  <th><span class="zh">儀器技術</span><span class="en">Analytical Instrument</span></th>
+                  <th><span class="zh">代表性儀器技術</span><span class="en">Analytical Instrument</span></th>
                   <th><span class="zh">物理檢驗原理</span><span class="en">Operating Principle</span></th>
-                  <th><span class="zh">檢測缺陷類型</span><span class="en">Defect Target</span></th>
+                  <th><span class="zh">檢測目標與缺陷類型</span><span class="en">Target Defect / Application</span></th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td><b>1. 非破壞故障定位</b></td>
-                  <td>OBIRCH / TIVA</td>
-                  <td>紅外線雷射激發局部電阻熱變化，偵測漏電流微小擾動。</td>
-                  <td>金屬層短路、閘極氧化層微漏電（Gate Oxide Breakdown）。</td>
+                  <td><b>1. 非破壞性檢驗 (Non-Destructive)</b></td>
+                  <td>
+                    &bull; 2D/3D X-Ray CT 透視<br>
+                    &bull; C-SAM 超音波顯微鏡<br>
+                    &bull; SQUID 磁力電流成像
+                  </td>
+                  <td>X 射線密度差、高頻超音波聲阻抗反射、超導量子干涉儀偵測晶片內部微弱電流引發的磁場分佈。</td>
+                  <td>打線斷裂（Wire bond open）、錫球空孔（Solder void）、封裝環氧膠體與晶片分層（Delamination）、封裝微裂紋、金屬層短路磁場路徑追蹤。</td>
                 </tr>
                 <tr>
-                  <td><b>2. 發光顯微定位</b></td>
-                  <td>EMMI (光激發顯微)</td>
-                  <td>載子復合（Carrier Recombination）時發出的微弱光子訊號。</td>
-                  <td>接面反向崩潰、ESD 靜電擊穿、閂鎖效應（Latch-up）。</td>
+                  <td><b>2. 電性故障定位 (EFL - Localization)</b></td>
+                  <td>
+                    &bull; OBIRCH / TIVA (光阻抗改變)<br>
+                    &bull; EMMI / PEM (微光顯微)<br>
+                    &bull; Lock-in 熱成像 (LIT)<br>
+                    &bull; LVP 雷射電壓探針
+                  </td>
+                  <td>
+                    1340nm 紅外線雷射熱效應誘發電阻擾動（(Delta R 	o Delta I)）；載子復合時釋放的光子偵測；毫瓦級鎖相紅外熱分佈；雷射電場調變高頻時序。
+                  </td>
+                  <td>金屬線微米級短路點、Via 假接觸高阻抗、閘極氧化層微漏電發熱點、PN 接面反向崩潰、ESD 擊穿點、內部時序跳變波形捕獲。</td>
                 </tr>
                 <tr>
-                  <td><b>3. 次微米探針量測</b></td>
-                  <td>Nano-probing (AFM / SEM)</td>
-                  <td>壓電陶瓷控制奈米級鎢針，直接紮刺單一電晶體節點。</td>
-                  <td>單顆 FinFET 或閘極的單獨 \(I-V\) 特性曲線提取。</td>
+                  <td><b>3. 次微米電性提取 (Nano-probing)</b></td>
+                  <td>
+                    &bull; AFM / SEM Nano-prober<br>
+                    &bull; 4 探針奈米鎢針模組
+                  </td>
+                  <td>壓電陶瓷驅動奈米針尖（針尖半徑 &lt; 20nm），在 SEM 實時導引下直接扎刺單顆電晶體的 Source, Drain, Gate 與 Contact。</td>
+                  <td>提取單顆 FinFET / GAA 的 (I_d-V_g)、(I_d-V_d) 轉移特性曲線；分離源汲極漏電、閘極穿隧漏電或基底漏電。</td>
                 </tr>
                 <tr>
-                  <td><b>4. 局部聚焦離子束</b></td>
-                  <td>FIB (Focused Ion Beam)</td>
-                  <td>高能量鎵離子束（Ga⁺）精確切割特定幾何座標奈米斷面。</td>
-                  <td>為 TEM 製作厚度 &lt; 50nm 的微薄觀察切片。</td>
+                  <td><b>4. 去層解剖技術 (Deprocessing)</b></td>
+                  <td>
+                    &bull; 化學酸蝕開蓋 (Decap)<br>
+                    &bull; 平行斜向拋光 (CMP De-layering)<br>
+                    &bull; RIE 乾蝕刻去介電層<br>
+                    &bull; Wright / Dash 晶格染色
+                  </td>
+                  <td>熱發煙硝酸/硫酸溶除 EMC；金屬層逐層機械平行研磨；氟基/氧基電漿選擇性剝離層間介電質（ILD）；化學腐蝕液選擇性揭示結晶缺陷。</td>
+                  <td>完整裸露特定金屬層（M1–Mn）；觀察金屬橋接、通孔填充不全；揭露矽基底差排滑移線（Slip lines）與晶格堆垛層錯。</td>
                 </tr>
                 <tr>
-                  <td><b>5. 原子級結構與成份</b></td>
-                  <td>TEM + EDX</td>
-                  <td>穿透式電子顯微鏡原子排列成像與 X 射線能量散射光譜。</td>
-                  <td>微量金屬互擴散污染、結晶位錯、界面介電層空孔（Void）。</td>
+                  <td><b>5. 物理微觀與成份定罪 (PFA & EDX)</b></td>
+                  <td>
+                    &bull; 雙束 FIB-SEM 原位切片<br>
+                    &bull; HR-TEM 原子級穿透鏡<br>
+                    &bull; EDX / EDS 元素光譜<br>
+                    &bull; EELS 電子能量損失光譜
+                  </td>
+                  <td>高能量 (	ext{Ga}^+) 離子束在 nm 級目標點切出超薄截面（厚度 &lt; 30nm）；加速高能電子束穿透晶格形成原子繞射條紋與特徵 X 射線。</td>
+                  <td>直接看見原子級晶格錯位、閘極 High-k 介電層破洞、金屬橋接異物成份（判定是 Cu, Al, W 還是外來雜質 Fe, Ni, Cr）。</td>
                 </tr>
               </tbody>
             </table>
+          </div>
+
+          <!-- 6.2 THE MASTER FA-TO-PROCESS MATRIX -->
+          <h3>
+            <span class="zh">6.2 8 大經典電性失效 ──▶ 實體物理缺陷 (PFA) ──▶ 製程物理/化學反應歸因矩陣</span>
+            <span class="en">6.2 Master Mapping: Electrical Bin ➔ Physical Defect (PFA) ➔ Fab Process Reaction</span>
+          </h3>
+          <p>
+            <span class="zh">
+              此矩陣是良率改善工程師（YEE）與晶圓廠整合工程師（PIE）對話的核心字典。當 FA 實驗室確認微觀物理圖像後，即可直接映射至具體機台腔體與化學反應：
+            </span>
+            <span class="en">
+              This master matrix is the Rosetta Stone bridging Yield Enhancement Engineers (YEE) with Fab Process Engineers (PIE). Once PFA micro-images are confirmed, they directly map into the offending equipment chamber and chemical reaction:
+            </span>
+          </p>
+
+          <div class="data-table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th><span class="zh">測試失效模式 (Bin)</span><span class="en">Electrical Bin</span></th>
+                  <th><span class="zh">實體物理缺陷 (PFA / TEM)</span><span class="en">Physical Defect (PFA)</span></th>
+                  <th><span class="zh">微區元素成份 (EDX)</span><span class="en">EDX Composition</span></th>
+                  <th><span class="zh">對應晶圓製程站點</span><span class="en">Fab Process Module</span></th>
+                  <th><span class="zh">深層物理／化學反應機制與根因</span><span class="en">Chemical/Physical Reaction Mechanism</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b>金屬線微短路 (Metal Line Bridging)</b></td>
+                  <td>相鄰金屬線間存在連續薄膜絲狀橋接，或溝槽邊緣金屬凹陷殘留。</td>
+                  <td>Cu / TiN / Al 殘留；非外來異物。</td>
+                  <td><b>Metal CMP / Cu Dual Damascene</b></td>
+                  <td>CMP 拋光不足（Under-polishing），研磨液（Slurry）金屬絡合螯合劑濃度偏低；或氧化層碟形下凹（Dishing）內積蓄金屬泥（Metal Puddling），未被過拋（Over-polish）去除。</td>
+                </tr>
+                <tr>
+                  <td><b>通孔開路 / 接觸高阻 (Via / Contact Open)</b></td>
+                  <td>通孔底部與下層金屬間出現 5–15nm 厚度界面層，或通孔底部空洞（Void）。</td>
+                  <td>富含碳（C）、氟（F）聚合物，或氧（O）氧化層。</td>
+                  <td><b>Via RIE Etch / Pre-Sputter Clean</b></td>
+                  <td>介電層乾蝕刻使用 (	ext{C}_4	ext{F}_8 / 	ext{CF}_4) 產生之碳氟鈍化聚合物（(	ext{C}_x	ext{F}_y)），在後段濕式清洗（Wet Strip）溶劑中未徹底洗淨；或濺鍍阻障層前 Ar 反濺射清洗射頻功率不足，原生氧化物未被打掉。</td>
+                </tr>
+                <tr>
+                  <td><b>閘極氧化層微漏電 (Gate Oxide Breakdown)</b></td>
+                  <td>閘極介電層局部微孔（Pinhole）、局部薄化、或金屬閘極凸起穿透。</td>
+                  <td>鐵（Fe）、銅（Cu）、鎳（Ni）過渡金屬原子富集；或局部氧缺失。</td>
+                  <td><b>Pre-Gate RCA Clean / High-k ALD / Poly Etch</b></td>
+                  <td>閘極熱氧化前 RCA SC1（(	ext{NH}_4	ext{OH}/	ext{H}_2	ext{O}_2/	ext{H}_2	ext{O})）清洗液槽體金屬離子超標形成晶格弱點；或金屬閘極蝕刻天線效應（PID / Antenna Effect），電漿電荷在金屬線累積擊穿薄氧化層。</td>
+                </tr>
+                <tr>
+                  <td><b>源汲極接面漏電 (Junction Leakage)</b></td>
+                  <td>源/汲極下方單晶矽內部出現 ({111}) 晶面滑移線（Slip lines）或 ({311}) 差排環（EOR Dislocation Loops）。</td>
+                  <td>矽晶格原子錯位，無外來雜質。</td>
+                  <td><b>Ion Implantation / RTA Spike Anneal</b></td>
+                  <td>重離子（如 (	ext{As}^+)、(	ext{BF}_2^+)）大劑量植入導致矽晶格深度非晶化（Amorphization）；隨後的快速熱退火（RTA）溫度不足或升降溫斜率過快（(&gt; 250^circ	ext{C/s})），晶格固相磊晶再生長（SPER）不完全留下差排。</td>
+                </tr>
+                <tr>
+                  <td><b>STI 側壁反型漏電 (STI Sidewall Leakage)</b></td>
+                  <td>淺溝槽隔離（STI）頂部邊角下凹（Corner Divot），多晶矽閘極包覆尖角。</td>
+                  <td>幾何形貌異常，(	ext{SiO}_2) 局部損失。</td>
+                  <td><b>STI Chemical Wet Clean (HF Dip)</b></td>
+                  <td>氮化矽阻擋層（Pad SiN）熱磷酸去除後，稀釋氫氟酸（DHF）清洗時間過長，STI 邊角氧化物被橫向過度掏蝕（Over-etch），閘極多晶矽填入尖角引發電場集中（Field Crowding），使次臨界斜率出現駝峰（Hump）。</td>
+                </tr>
+                <tr>
+                  <td><b>矽化物橋接短路 (Salicide Bridging)</b></td>
+                  <td>自我對準矽化物（(	ext{NiPtSi}) 或 (	ext{CoSi}_2)）橫向蔓延越過絕緣間隔層（Spacer），連接閘極與源汲極。</td>
+                  <td>Ni / Pt / Co / Si。</td>
+                  <td><b>Spacer RIE Etch / Salicide RTA-1 & 2</b></td>
+                  <td>氮化矽 Spacer 蝕刻過度掏蝕（Pull-back）使側壁絕緣距離縮減；或矽化物第一階段低溫退火（RTA-1）溫度偏高，誘發金屬原子沿氧化物/氮化物表面異常橫向擴散（Lateral Encroachment）。</td>
+                </tr>
+                <tr>
+                  <td><b>銅導線應力空洞 (Stress-Induced Voiding, SIV)</b></td>
+                  <td>大金屬導線（Wide Metal）下方連接的單一 Via 底部出現微小狹縫狀空洞（Slit Void）。</td>
+                  <td>金屬原子缺失，無異物。</td>
+                  <td><b>Cu Plating / Dielectric Cap (SiCN)</b></td>
+                  <td>雙大馬士革銅電鍍時添加劑（抑制劑/加速劑）分佈不均產生晶格空位（Vacancies）；銅上層氮化矽介電阻擋層沉積前，(	ext{NH}_3) 電漿預還原時間不足，界面結合力弱，在熱烘烤應力下空位向 Via 底部擴散聚集。</td>
+                </tr>
+                <tr>
+                  <td><b>層間微影對位偏差 (V1-to-M1 Overlay Shift)</b></td>
+                  <td>通孔部分懸空搭在層間介電質上，另一側直接切入相鄰金屬線造成側向短路。</td>
+                  <td>幾何中心偏差 &gt; 15nm。</td>
+                  <td><b>Lithography Scanner Alignment / CMP</b></td>
+                  <td>前道金屬 CMP 拋光時，曝光對位標記（Alignment Mark）受到研磨方向非對稱磨耗（Asymmetric Mark Erosion），導致微影機光學感測器中心誤判，曝光座標全晶圓系統性偏斜。</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- 6.3 NANO-PROBING & ATOMIC TEM CLOSED-LOOP -->
+          <h3>
+            <span class="zh">6.3 電子束奈米探針 (Nano-probing) 與原子級 HR-TEM 閉環閉合程序</span>
+            <span class="en">6.3 Nano-probing & Atomic HR-TEM Closed-Loop Verification SOP</span>
+          </h3>
+
+          <div style="background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--accent); border-radius:6px; padding:16px; font-family:var(--font-mono); font-size:12.5px; line-height:1.7;">
+            <b>【標準奈米級 FA 閉環閉合驗證 SOP (Nano-FA to Process Action Loop)】</b><br>
+            <b>步驟 1 - 故障精確降維 (OBIRCH ➔ Nano-probing):</b><br>
+            &bull; 先以 1340nm OBIRCH 鎖定漏電發熱點微米級座標（(Delta X, Delta Y &lt; 1mu	ext{m})）。<br>
+            &bull; 進行化學去層至 Contact 層，置入 SEM Nano-prober 腔體，使用 4 根奈米級鎢針直接接觸單顆故障電晶體。<br>
+            &bull; 掃描 (I_d-V_g) 曲線：若 (I_{off}) 隨 (V_g) 關閉但閘極電流 (I_g) 很大 ➔ 判定為閘極氧化層擊穿；若 (I_g) 很小但 (I_{ds}) 無法關斷 ➔ 判定為短通道效應穿隧或源汲極矽化物短路。<br><br>
+            <b>步驟 2 - 雙束 FIB 原位標定與超薄切片 (In-situ FIB Lift-Out):</b><br>
+            &bull; 在 Nano-probing 指認的單顆鰭片（Fin）上方沉積電子束鉑保護層（Pt deposition）。<br>
+            &bull; 以 (	ext{Ga}^+) 離子束進行階梯狀粗切，使用微機械夾爪（Omniprobe）取出薄片，黏貼於銅 TEM 網格。<br>
+            &bull; 降低離子束能量至 2kV / 500V 進行精細減薄，去除表面非晶化損傷層，薄片最終厚度 &lt; 25nm。<br><br>
+            <b>步驟 3 - 原子級 HR-TEM + EDX 元素定罪:</b><br>
+            &bull; 放大至 500,000x–1,000,000x，觀察 High-k/Metal Gate 介面晶格連續性，量測物理膜厚（精確至 0.1nm）。<br>
+            &bull; 啟動 EDX Spot / Line Scan：確認短路或漏電微區的元素種類（精確判定是製程材料殘留還是外部污染）。<br><br>
+            <b>步驟 4 - 晶圓廠機台處方箋開立 (Direct Fab Action):</b><br>
+            &bull; 將 EDX 元素與缺陷形貌回溯至製程清單，調閱該批次在對應機台之 EAP 感測器數據（如 RIE 腔體射頻反射功率、CMP 研磨終點訊號 EPD、光阻塗佈杯排氣負壓）。<br>
+            &bull; 執行機台保養清洗（PM）、更換耗損配件（Focus Ring / Slurry Filter）、或修改製程配方（Recipe Tuning）。
           </div>
         </div>
       </section>

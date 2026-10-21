@@ -9,7 +9,7 @@
 
 ## 核心設計理念與全景架構（Phase 0–9）
 
-良率改善（Yield Improvement）的實務第一要務，是**在第一時間辨識並排除「非製程假異常（Pseudo Yield Loss）」**，並建立**「晶片電子身分證（ECID）反向溯源與客訴閉環防線」**：
+良率改善（Yield Improvement）的實務第一要務，是**在第一時間辨識並排除「非製程假異常（Pseudo Yield Loss）」**，建立**「FA 物理缺陷對應晶圓機台反應矩陣」**，並落實**「晶片電子身分證（ECID）反向溯源與客訴閉環防線」**：
 
 ```
 Phase 0 [良率基線與損失解構] ──▶ Phase 1 [跨站資料架構與履歷鏈接]
@@ -21,7 +21,7 @@ Phase 2 [晶圓空間分佈簽名辨識] ──▶ Phase 3 [非製程假異常�
        └─────────────────────────────▶ Phase 4 [機台 Chamber 共模統計歸因]
                                              │
                                              ▼
-Phase 8 [改善戰術與閉環] ◀── Phase 7 [客訴 RMA/GDBN 溯源] ◀── Phase 6 [FA 實體驗證] ◀── Phase 5 [參數 Cpk Margin]
+Phase 8 [改善戰術與閉環] ◀── Phase 7 [客訴 RMA/GDBN 溯源] ◀── Phase 6 [FA 物理缺陷對應製程反應] ◀── Phase 5 [參數 Cpk]
        │
        ▼
 Phase 9 [Ramp 學習曲線與稽核防禦]
@@ -83,7 +83,7 @@ Phase 9 [Ramp 學習曲線與稽核防禦]
 | **Phase 3** | 非製程假異常深入排查 ⭐ | **測試硬體**（Contact 阻抗、針印深度、探針卡針尖氧化、Socket Pogo Pin 疲勞與錫屑、Loadboard 繼電器）；**測試程式**（Strobe 選通時序抖動、多 DUT 平行測試 IR Droop 電源塌陷、Clamp 限流截斷、軟硬 Bin 優先級倒置）；**量測系統**（MSA / Gage R&R \(%GRR > 30\%\)、4 線 Kelvin Sense 斷線退化為 2 線、pA 級漏電延時不足與 RC 充電位移電流）；**材料與擴散變異**（CZ 晶棒氧含量 \(O_i\) 與熱生施體、Epi 外延厚度廠商差異、離子植入穿隧與 RTA 熱預算 \(Dt\) 變異、CMP 研磨液批次粒徑分佈）；**OTP / eFuse / Laser Trim 寫入失效**（\(V_{pp}\) 塌陷、Verify Read 裕度不足、搜尋算法與 \(R_c\) 耦合誤寫入、Post-Mold Shift 封裝應力致 Trim 漂移）。 |
 | **Phase 4** | 機台 Chamber 共模統計歸因 | 變異數分析（ANOVA）、卡方檢定、多維回歸；**警惕辛普森悖論（Simpson's Paradox）**、機台老化（Chamber Aging）與產品配比混淆之假性相關。 |
 | **Phase 5** | 參數 Margin 與 Cpk 飄移 | 關鍵電性參數裕度；Guardbanding 容差優化；車用動態 PAT 演算法（\(\mu \pm 4\sigma\) 剔除潛在早期失效晶粒）。 |
-| **Phase 6** | 失效分析 (FA) 實體物理驗證 | 故障定位技術（OBIRCH, EMMI, Nano-probing, TIVA）；物理解剖（FIB 切片, TEM 晶格缺陷, EDX 元素成份）；從電性 Fail Bin 映射回微影/蝕刻/薄膜真因。 |
+| **Phase 6** | 失效分析 (FA) 物理缺陷對應製程反應 ⭐ | **FA 手法階梯**（非破壞 X-Ray/C-SAM/SQUID ➔ 電性定位 OBIRCH/TIVA/EMMI/LVP ➔ Nano-probing 奈米探針 ➔ 逐層去層 Deprocessing ➔ 雙束 FIB 原位切片 ➔ 原子級 HR-TEM + EDX 元素定罪）；**8 大電性失效映射實體物理缺陷與晶圓製程化學/物理反應歸因矩陣**（金屬短路與 CMP 碟形下凹殘留、通孔開路與乾蝕刻碳氟聚合物清洗殘留、閘極氧化層穿孔與 RCA SC1 金屬污染及天線效應 PID、接面漏電與大劑量植入非晶化 RTA 熱應力差排、STI 側壁駝峰漏電與 DHF 邊角掏蝕 Corner Divot、矽化物橋接與 Spacer 蝕刻掏退及退火橫向擴散、銅導線空洞 SIV 與電鍍添加劑及 Cap 界面還原、微影對位偏差與 CMP 對位標記不對稱磨耗）。 |
 | **Phase 7** | 客訴案件分析與良率溯源閉環 ⭐ | **晶片身分追溯（ECID）**反向解碼原始生產批次與 Die X/Y 坐標；**惡鄰晶粒效應（Good Die in Bad Neighborhood, GDBN）**揭露隱性可靠度微裂紋；**漏測根因分析（Test Escape）**（向量覆蓋率盲區、極限溫角環境、TDDB 閘極氧化層潛在擊穿、電致遷移 EM）；**客訴 8D 處分戰略與「同批 24 片姊妹晶圓（Sister Wafers）」即時攔截隔離協議**。 |
 | **Phase 8** | 系統性改善戰術與閉環 | 戰術三部曲：短期 OOC/OOS 防堵隔離與出界停機；中期 APC 進階製程控制（Run-to-Run / Feed-forward）與 Chamber Matching；長期 DFM 規則修訂、SRAM 冗餘雷射/eFuse 容錯修復。 |
 | **Phase 9** | Ramp 學習曲線與稽核防禦 | 經典半導體良率爬坡數學模型 \( Y(t) = Y_\infty - (Y_\infty - Y_0)e^{-kt} \)；IATF 16949 / JEDEC 變更管理（4M1E 變更）與車用客戶稽核對應標準。 |
