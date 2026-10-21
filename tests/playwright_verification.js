@@ -108,8 +108,8 @@ async function runVerification() {
     console.log('  ✓ All 5 stages (50 Fallout mechanisms & Push-Back protocols) validated 100%.');
   }
 
-  // 1.2 Test One-Click Zoom (Lightbox Modal on All Visual Graphics)
-  console.log('\n[Test 1.2] Testing One-Click Zoom (Lightbox Modal on All Visual Graphics)...');
+  // 1.2 Test One-Click Zoom (Square Icon Badges & Lightbox Modal)
+  console.log('\n[Test 1.2] Testing One-Click Zoom (Square Icon Badges & Lightbox Modal)...');
   const lightboxModal = page.locator('#lightbox-modal');
 
   // A. Verify badges on Figures, FA Cards, and Canvas Containers
@@ -126,6 +126,15 @@ async function runVerification() {
 
   const cpkBadge = await page.locator('.cpk-canvas-container .zoom-trigger-badge').count();
   console.log(`  ✓ CPK Canvas Container has Zoom Badge: ${cpkBadge > 0}`);
+
+  // Verify that the badge is a square icon button
+  const sampleBadge = page.locator('.zoom-trigger-badge').first();
+  const badgeBox = await sampleBadge.boundingBox();
+  const badgeSvgCount = await sampleBadge.locator('svg').count();
+  console.log(`  ✓ Sample Zoom Badge Dimension: ${badgeBox.width}x${badgeBox.height}px, SVG count: ${badgeSvgCount}`);
+  if (badgeBox.width < 25 || badgeBox.width > 40 || badgeBox.height < 25 || badgeBox.height > 40) {
+    throw new Error(`Expected square icon badge ~32x32px, got ${badgeBox.width}x${badgeBox.height}`);
+  }
 
   // B. Test SVG Zoom (Figure 0.2 Fishbone)
   const fishboneFigure = page.locator('#overview .figure-container').first();
@@ -193,12 +202,39 @@ async function runVerification() {
     console.log(`  ✓ Lightbox closed after FA card zoom: ${await lightboxModal.evaluate(el => !el.classList.contains('active'))}`);
   }
 
+  // 1.2b Test Collapsible Navigation Sidebar
+  console.log('\n[Test 1.2b] Testing Collapsible Navigation Sidebar...');
+  const btnToggleSidebar = page.locator('#btnToggleSidebar');
+  const btnExpandSidebar = page.locator('#btnExpandSidebar');
+  const bodyGrid = page.locator('.body-grid');
+
+  if (await btnToggleSidebar.count() > 0) {
+    await btnToggleSidebar.scrollIntoViewIfNeeded();
+    await page.screenshot({ path: path.join(screenshotsDir, '11_sidebar_expanded.png') });
+    
+    // Click collapse button
+    await btnToggleSidebar.click();
+    await page.waitForTimeout(300);
+    const isCollapsed = await bodyGrid.evaluate(el => el.classList.contains('sidebar-collapsed'));
+    console.log(`  ✓ Sidebar collapsed state: ${isCollapsed}`);
+    if (!isCollapsed) throw new Error('Sidebar failed to collapse!');
+
+    await page.screenshot({ path: path.join(screenshotsDir, '12_sidebar_collapsed.png') });
+
+    // Click floating expand button
+    await btnExpandSidebar.click();
+    await page.waitForTimeout(300);
+    const isExpanded = await bodyGrid.evaluate(el => !el.classList.contains('sidebar-collapsed'));
+    console.log(`  ✓ Sidebar re-expanded successfully: ${isExpanded}`);
+    if (!isExpanded) throw new Error('Sidebar failed to expand!');
+  }
+
   // 1.3 Test Footer Last Updated Date
   console.log('\n[Test 1.3] Testing Footer Last Updated Date...');
   const footerText = await page.locator('footer').innerText();
   console.log(`  ✓ Footer info: ${footerText.replace(/\n/g, ' ')}`);
-  if (!footerText.includes('2026-10-21') || !footerText.includes('更新')) {
-    throw new Error('Footer missing update date!');
+  if (!footerText.includes('2026-10-22') || !footerText.includes('更新')) {
+    throw new Error('Footer missing update date 2026-10-22!');
   }
 
   console.log('\n[Test 2] Testing Language Toggle (ZH <-> EN)...');

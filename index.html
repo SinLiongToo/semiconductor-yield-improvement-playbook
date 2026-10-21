@@ -172,8 +172,23 @@
   .doc-fields b { color: var(--ink); font-weight: 600; }
 
   /* Body Layout */
-  .body-grid { display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: 36px; align-items: start; }
-  @media (max-width: 950px) { .body-grid { grid-template-columns: 1fr; } }
+  .body-grid { 
+    display: grid; 
+    grid-template-columns: 250px minmax(0, 1fr); 
+    gap: 36px; 
+    align-items: start; 
+    transition: grid-template-columns 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .body-grid.sidebar-collapsed {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .body-grid.sidebar-collapsed nav.toc {
+    display: none;
+  }
+  @media (max-width: 950px) { 
+    .body-grid { grid-template-columns: 1fr; } 
+    .sidebar-expand-btn, .sidebar-toggle-btn { display: none !important; }
+  }
 
   /* Table of Contents */
   nav.toc { position: sticky; top: 20px; align-self: start; max-height: calc(100vh - 40px); overflow-y: auto; padding-right: 6px; }
@@ -196,14 +211,72 @@
     border-left-color: var(--accent);
     font-weight: 600;
   }
+  .toc-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px dashed var(--border);
+  }
   .toc-title {
     font-family: var(--font-mono);
     font-size: 11px;
     letter-spacing: .1em;
     text-transform: uppercase;
     color: var(--ink-faint);
-    margin-bottom: 8px;
+    margin-bottom: 0;
     font-weight: 600;
+  }
+  .sidebar-toggle-btn {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--ink-faint);
+    width: 26px;
+    height: 26px;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    padding: 0;
+  }
+  .sidebar-toggle-btn:hover {
+    background: var(--surface-2);
+    color: var(--accent);
+    border-color: var(--accent);
+    transform: scale(1.08);
+  }
+  .sidebar-expand-btn {
+    position: fixed;
+    top: 130px;
+    left: 10px;
+    background: var(--surface);
+    color: var(--accent);
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+    padding: 7px 11px;
+    border-radius: 6px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 700;
+    display: none;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    z-index: 999;
+    transition: all 0.2s ease;
+  }
+  .sidebar-expand-btn:hover {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+    transform: translateX(2px) scale(1.03);
+    box-shadow: 0 6px 20px rgba(14, 165, 233, 0.4);
+  }
+  body.sidebar-collapsed .sidebar-expand-btn {
+    display: inline-flex;
   }
 
   /* Mobile TOC */
@@ -681,7 +754,7 @@
     box-shadow: 0 4px 16px rgba(0,0,0,0.4);
   }
 
-  /* ZOOM TRIGGER HINTS & BADGES */
+  /* ZOOM TRIGGER HINTS & BADGES (SQUARE ICON) */
   .figure-container, figure, .fa-card-img-wrap, .wafer-canvas-container, .cpk-canvas-container {
     position: relative;
     cursor: zoom-in;
@@ -689,26 +762,33 @@
   }
   .zoom-trigger-badge {
     position: absolute;
-    top: 12px;
-    right: 12px;
+    top: 10px;
+    right: 10px;
+    width: 32px;
+    height: 32px;
+    padding: 0;
     background: rgba(15, 23, 42, 0.85);
     color: #38bdf8;
-    border: 1px solid rgba(56, 189, 248, 0.4);
-    backdrop-filter: blur(4px);
-    padding: 5px 12px;
+    border: 1px solid rgba(56, 189, 248, 0.45);
+    backdrop-filter: blur(6px);
     border-radius: 6px;
-    font-family: var(--font-mono);
-    font-size: 11.5px;
-    font-weight: 700;
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 5px;
-    opacity: 0.88;
-    transition: all 0.2s ease;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
-    pointer-events: none;
+    justify-content: center;
+    opacity: 0.85;
+    transition: all 0.18s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    cursor: pointer;
+    pointer-events: auto;
     z-index: 15;
   }
+  [data-theme="light"] .zoom-trigger-badge {
+    background: rgba(255, 255, 255, 0.92);
+    color: var(--accent);
+    border: 1px solid var(--border);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+  }
+  .zoom-trigger-badge:hover,
   .figure-container:hover .zoom-trigger-badge, 
   figure:hover .zoom-trigger-badge, 
   .fa-card-img-wrap:hover .zoom-trigger-badge,
@@ -716,9 +796,21 @@
   .cpk-canvas-container:hover .zoom-trigger-badge {
     opacity: 1;
     background: var(--accent);
-    color: #fff;
-    border-color: #fff;
-    transform: scale(1.05);
+    color: #ffffff;
+    border-color: var(--accent);
+    transform: scale(1.08);
+    box-shadow: 0 4px 14px rgba(14, 165, 233, 0.45);
+  }
+  .zoom-trigger-badge svg {
+    width: 15px;
+    height: 15px;
+    stroke: currentColor;
+    stroke-width: 2.3;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    display: block;
+    pointer-events: none;
   }
   .fa-card-img-wrap {
     cursor: zoom-in;
@@ -744,6 +836,7 @@
         </h1>
       </div>
       <div class="controls">
+        <button class="ctrl-btn" id="sidebarToggleMasthead" onclick="toggleSidebar()" title="Toggle Sidebar Navigation / 收合展開導覽列"><span class="zh">📑 導覽</span><span class="en">📑 Sidebar</span></button>
         <button class="ctrl-btn" id="themeToggle" onclick="toggleTheme()" title="Toggle Dark/Light Mode">🌙 / ☀️ Theme</button>
         <button class="ctrl-btn" id="langToggle" onclick="toggleLang()" title="Toggle Language">🌐 EN / 中文</button>
         <div class="find-box">
@@ -805,11 +898,26 @@
     </ol>
   </details>
 
+  <!-- EXPAND SIDEBAR FLOATING BUTTON (Visible when sidebar collapsed) -->
+  <button id="btnExpandSidebar" class="sidebar-expand-btn" onclick="toggleSidebar()" title="Expand Navigation Sidebar / 展開側邊導覽列" aria-label="Expand Navigation Sidebar">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+    <span class="zh">展開導覽</span><span class="en">Navigation</span>
+  </button>
+
   <!-- BODY GRID -->
   <div class="body-grid">
     <!-- DESKTOP TOC -->
-    <nav class="toc">
-      <div class="toc-title"><span class="zh">章節索引</span><span class="en">Navigation</span></div>
+    <nav class="toc" id="sidebarNav">
+      <div class="toc-header">
+        <div class="toc-title"><span class="zh">章節索引</span><span class="en">Navigation</span></div>
+        <button id="btnToggleSidebar" class="sidebar-toggle-btn" onclick="toggleSidebar()" title="Collapse Navigation Sidebar / 收合側邊導覽列" aria-label="Collapse Navigation Sidebar">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </button>
+      </div>
       <ol>
         <li><a href="#overview"><span class="zh">0. 流程總覽與 6M1E 魚骨圖</span><span class="en">0. Overview & 6M1E Fishbone</span></a></li>
         <li><a href="#tools"><span class="zh">🛠️ 5 大互動分析工具</span><span class="en">🛠️ 5 Interactive Tools</span></a></li>
@@ -5898,11 +6006,11 @@
     <div style="display:flex; flex-direction:column; align-items:flex-end; gap:5px;">
       <div style="display:flex; align-items:center; gap:8px;">
         <span class="badge badge-green" style="font-size:11px; padding:2px 8px;">● LIVE VERIFIED</span>
-        <span style="font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft);">Rev. J</span>
+        <span style="font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft);">Rev. K</span>
       </div>
       <div style="font-family:var(--font-mono); font-size:12px; color:var(--ink);">
         <span class="zh">最後更新日期：</span><span class="en">Last Updated: </span>
-        <b style="color:var(--accent);">2026-10-21 20:30 (Asia/Taipei)</b>
+        <b style="color:var(--accent);">2026-10-22 04:48 (Asia/Taipei)</b>
       </div>
     </div>
   </footer>
@@ -6994,15 +7102,55 @@
     if (spcEl) spcEl.textContent = item.spc_metric;
   }
 
+  const ZOOM_SQUARE_ICON_SVG = '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>';
+
+  function createZoomSquareBadge(tooltipText) {
+    const badge = document.createElement('div');
+    badge.className = 'zoom-trigger-badge';
+    badge.title = tooltipText || '點擊一鍵放大 / Click to Zoom';
+    badge.setAttribute('aria-label', 'Click to Zoom');
+    badge.innerHTML = ZOOM_SQUARE_ICON_SVG;
+    return badge;
+  }
+
+  function toggleSidebar(forceState) {
+    const bodyGrid = document.querySelector('.body-grid');
+    if (!bodyGrid) return;
+    const isCurrentlyCollapsed = document.body.classList.contains('sidebar-collapsed');
+    const shouldCollapse = (forceState !== undefined) ? forceState : !isCurrentlyCollapsed;
+
+    if (shouldCollapse) {
+      document.body.classList.add('sidebar-collapsed');
+      bodyGrid.classList.add('sidebar-collapsed');
+      try { localStorage.setItem('yie_sidebar_collapsed', 'true'); } catch (e) {}
+    } else {
+      document.body.classList.remove('sidebar-collapsed');
+      bodyGrid.classList.remove('sidebar-collapsed');
+      try { localStorage.setItem('yie_sidebar_collapsed', 'false'); } catch (e) {}
+    }
+  }
+
+  function initSidebarState() {
+    try {
+      if (localStorage.getItem('yie_sidebar_collapsed') === 'true') {
+        toggleSidebar(true);
+      }
+    } catch (e) {}
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === '[' && !['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement?.tagName)) {
+        toggleSidebar();
+      }
+    });
+  }
+
   function setupOneClickZoomTriggers() {
     // 1. Figures with SVGs (All 9 Engineering Diagrams)
     const figureContainers = document.querySelectorAll('.figure-container, figure');
     figureContainers.forEach(fc => {
       const svg = fc.querySelector('svg');
       if (svg && !fc.querySelector('.zoom-trigger-badge')) {
-        const badge = document.createElement('div');
-        badge.className = 'zoom-trigger-badge';
-        badge.innerHTML = '<span class="zh">🔍 點擊一鍵放大</span><span class="en">🔍 Click to Zoom</span>';
+        const badge = createZoomSquareBadge('點擊一鍵放大 / Click to Zoom');
         fc.appendChild(badge);
 
         fc.addEventListener('click', (e) => {
@@ -7020,9 +7168,7 @@
     faCards.forEach(wrap => {
       const img = wrap.querySelector('img');
       if (img && !wrap.querySelector('.zoom-trigger-badge')) {
-        const badge = document.createElement('div');
-        badge.className = 'zoom-trigger-badge';
-        badge.innerHTML = '<span class="zh">🔍 一鍵放大</span><span class="en">🔍 Zoom</span>';
+        const badge = createZoomSquareBadge('放大檢視微觀金相 / Zoom Micrograph');
         wrap.appendChild(badge);
 
         wrap.addEventListener('click', () => {
@@ -7036,9 +7182,7 @@
     // 3. 300mm Wafer Map Spatial Pattern Canvas
     const waferWrap = document.querySelector('.wafer-canvas-container');
     if (waferWrap && !waferWrap.querySelector('.zoom-trigger-badge')) {
-      const badge = document.createElement('div');
-      badge.className = 'zoom-trigger-badge';
-      badge.innerHTML = '<span class="zh">🔍 一鍵放大</span><span class="en">🔍 Zoom</span>';
+      const badge = createZoomSquareBadge('放大檢視晶圓圖譜 / Zoom Wafer Map');
       waferWrap.appendChild(badge);
 
       waferWrap.addEventListener('click', (e) => {
@@ -7054,9 +7198,7 @@
     // 4. CPK Distribution Chart Canvas
     const cpkWrap = document.querySelector('.cpk-canvas-container');
     if (cpkWrap && !cpkWrap.querySelector('.zoom-trigger-badge')) {
-      const badge = document.createElement('div');
-      badge.className = 'zoom-trigger-badge';
-      badge.innerHTML = '<span class="zh">🔍 一鍵放大</span><span class="en">🔍 Zoom</span>';
+      const badge = createZoomSquareBadge('放大檢視 CPK 分佈 / Zoom CPK Distribution');
       cpkWrap.appendChild(badge);
 
       cpkWrap.addEventListener('click', (e) => {
@@ -7098,6 +7240,7 @@
 
   window.addEventListener('DOMContentLoaded', () => {
     initThemeAndLang();
+    initSidebarState();
     calcYieldModel();
     renderWaferPattern();
     runTriangulatorDiagnosis();
