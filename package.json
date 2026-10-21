@@ -1,0 +1,25 @@
+{
+  "name": "semiconductor-yield-improvement-playbook",
+  "version": "1.0.0",
+  "description": "Semiconductor Yield Improvement Analysis Suite & Engineering Playbook",
+  "scripts": {
+    "test": "node tests/playwright_verification.js",
+    "verify": "node scripts/verify_index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SinLiongToo/semiconductor-yield-improvement-playbook.git"
+  },
+  "keywords": [
+    "semiconductor",
+    "yield-improvement",
+    "failure-analysis",
+    "playwright",
+    "testing"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "playwright-core": "^1.64.1"
+  }
+}
