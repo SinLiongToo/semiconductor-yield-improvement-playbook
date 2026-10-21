@@ -1,0 +1,2367 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" data-lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>半導體良率改善分析工具與實務方法論 | Semiconductor Yield Improvement Analysis Suite</title>
+<!-- KaTeX for formula rendering -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInPage()"></script>
+
+<style>
+  :root {
+    --bg: #eef2f1;
+    --surface: #ffffff;
+    --surface-2: #e3eae8;
+    --ink: #16211f;
+    --ink-soft: #48605c;
+    --ink-faint: #7c908c;
+    --border: #d1dcd9;
+    --accent: #0b6e8f;
+    --accent-strong: #063f52;
+    --accent-soft: #dfeef3;
+    --good: #2f7a45;
+    --good-soft: #e5f2e6;
+    --warn: #9c6a17;
+    --warn-soft: #f6ecd4;
+    --danger: #9c3b30;
+    --danger-soft: #f5e0dc;
+    --font-display: 'Big Shoulders Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Arial Narrow', sans-serif;
+    --font-body: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    --font-mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, 'Courier New', monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0f1614;
+      --surface: #161f1d;
+      --surface-2: #1c2725;
+      --ink: #e7ece9;
+      --ink-soft: #a9bab5;
+      --ink-faint: #7c8f8a;
+      --border: #2a3634;
+      --accent: #5bbcdd;
+      --accent-strong: #9adcf0;
+      --accent-soft: #152c34;
+      --good: #74c37e;
+      --good-soft: #17281a;
+      --warn: #dcab53;
+      --warn-soft: #2c230f;
+      --danger: #e28779;
+      --danger-soft: #2e1814;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #0f1614;
+    --surface: #161f1d;
+    --surface-2: #1c2725;
+    --ink: #e7ece9;
+    --ink-soft: #a9bab5;
+    --ink-faint: #7c8f8a;
+    --border: #2a3634;
+    --accent: #5bbcdd;
+    --accent-strong: #9adcf0;
+    --accent-soft: #152c34;
+    --good: #74c37e;
+    --good-soft: #17281a;
+    --warn: #dcab53;
+    --warn-soft: #2c230f;
+    --danger: #e28779;
+    --danger-soft: #2e1814;
+  }
+
+  /* language toggle */
+  :root[data-lang="en"] .zh { display: none !important; }
+  :root:not([data-lang="en"]) .en { display: none !important; }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.7;
+    padding: 0 20px;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+
+  .page { max-width: 1220px; margin: 0 auto; padding-block: 32px 80px; }
+
+  h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 700; color: var(--ink); margin-top: 1.2em; margin-bottom: 0.4em; }
+  h1 { font-size: clamp(28px, 4vw, 42px); line-height: 1.1; }
+  h2 { font-size: clamp(22px, 3vw, 30px); border-bottom: 2px solid var(--border); padding-bottom: 6px; }
+  h3 { font-size: clamp(18px, 2.2vw, 22px); }
+  h4 { font-size: 17px; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  code, .mono { font-family: var(--font-mono); font-size: 0.9em; }
+
+  /* Masthead */
+  .masthead {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 6px solid var(--accent);
+    border-radius: 6px;
+    padding: 24px 30px;
+    margin-bottom: 28px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+  }
+  .masthead-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 14px; }
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .controls { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .ctrl-btn {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: .04em;
+    padding: 6px 13px;
+    border-radius: 99px;
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+    color: var(--ink-soft);
+    cursor: pointer;
+    line-height: 1.3;
+    transition: all 0.15s ease;
+  }
+  .ctrl-btn:hover { border-color: var(--accent); color: var(--accent-strong); background: var(--accent-soft); }
+
+  /* Find Box */
+  .find-box { position: relative; display: flex; align-items: center; gap: 4px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 99px; padding: 2px 4px 2px 10px; }
+  .find-box input[type="search"] {
+    border: none; background: transparent; outline: none; color: var(--ink);
+    font-family: var(--font-mono); font-size: 12.5px; width: 140px;
+  }
+  .find-nav {
+    width: 22px; height: 22px; display: flex; align-items: center; justify-content: center;
+    border: none; border-radius: 50%; background: transparent; color: var(--ink-soft); cursor: pointer; font-size: 12px;
+  }
+  .find-nav:hover { background: var(--accent-soft); color: var(--accent-strong); }
+  .find-count { font-family: var(--font-mono); font-size: 11px; color: var(--ink-faint); min-width: 32px; text-align: center; }
+  mark.find-hl { background: var(--warn-soft); color: var(--ink); border-radius: 2px; padding: 0 1px; }
+  mark.find-hl.find-current { background: var(--accent); color: #fff; }
+
+  .masthead .sub {
+    color: var(--ink-soft);
+    font-size: 15.5px;
+    max-width: 82ch;
+    margin: 8px 0 18px;
+  }
+
+  .doc-fields {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    font-family: var(--font-mono);
+    font-size: 12px;
+  }
+  .doc-fields div { background: var(--surface-2); padding: 8px 12px; }
+  .doc-fields span { display: block; color: var(--ink-faint); text-transform: uppercase; letter-spacing: .06em; font-size: 10px; margin-bottom: 2px; }
+  .doc-fields b { color: var(--ink); font-weight: 600; }
+
+  /* Body Layout */
+  .body-grid { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 36px; align-items: start; }
+  @media (max-width: 920px) { .body-grid { grid-template-columns: 1fr; } }
+
+  /* Table of Contents */
+  nav.toc { position: sticky; top: 20px; align-self: start; max-height: calc(100vh - 40px); overflow-y: auto; padding-right: 6px; }
+  @media (max-width: 920px) { nav.toc { display: none; } }
+  nav.toc ol { list-style: none; margin: 0; padding: 0; border-left: 2px solid var(--border); }
+  nav.toc li { margin: 0; }
+  nav.toc a {
+    display: block;
+    padding: 6px 0 6px 12px;
+    font-size: 13px;
+    color: var(--ink-soft);
+    text-decoration: none;
+    border-left: 2px solid transparent;
+    margin-left: -2px;
+    line-height: 1.4;
+    transition: all 0.15s ease;
+  }
+  nav.toc a:hover, nav.toc a.active {
+    color: var(--accent);
+    border-left-color: var(--accent);
+    font-weight: 600;
+  }
+  .toc-title {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+
+  /* Mobile TOC */
+  details.toc-m {
+    display: none;
+    margin-bottom: 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+  }
+  @media (max-width: 920px) { details.toc-m { display: block; } }
+  details.toc-m summary { font-family: var(--font-mono); font-size: 13px; font-weight: 600; cursor: pointer; color: var(--accent); }
+  details.toc-m ol { margin: 10px 0 0 16px; padding: 0; }
+  details.toc-m li { margin: 4px 0; }
+  details.toc-m a { font-size: 13px; color: var(--ink-soft); }
+
+  /* Collapsible Sections */
+  .collapsible-h { cursor: pointer; user-select: none; display: flex; align-items: center; justify-content: space-between; }
+  .collapse-arrow { display: inline-block; font-size: 0.65em; color: var(--accent); transition: transform 0.2s ease; margin-left: 8px; }
+  .collapsible-h.is-collapsed .collapse-arrow { transform: rotate(-90deg); }
+  .collapse-body.collapsed { display: none; }
+
+  /* Callouts */
+  .callout {
+    background: var(--surface-2);
+    border-left: 4px solid var(--accent);
+    border-radius: 4px;
+    padding: 14px 18px;
+    margin: 18px 0;
+    font-size: 14.5px;
+  }
+  .callout-title { font-weight: 700; margin-bottom: 4px; font-family: var(--font-mono); font-size: 13px; display: flex; align-items: center; gap: 6px; }
+  .callout.danger { border-left-color: var(--danger); background: var(--danger-soft); }
+  .callout.danger .callout-title { color: var(--danger); }
+  .callout.warn { border-left-color: var(--warn); background: var(--warn-soft); }
+  .callout.warn .callout-title { color: var(--warn); }
+  .callout.good { border-left-color: var(--good); background: var(--good-soft); }
+  .callout.good .callout-title { color: var(--good); }
+
+  /* Tables */
+  .data-table-wrap { overflow-x: auto; margin: 20px 0; border: 1px solid var(--border); border-radius: 6px; }
+  table.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--surface);
+    font-size: 13.5px;
+    text-align: left;
+  }
+  table.data-table th, table.data-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  table.data-table th {
+    background: var(--surface-2);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    color: var(--ink-soft);
+  }
+  table.data-table tr:hover { background: var(--accent-soft); }
+
+  /* Interactive Tool Card */
+  .tool-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 22px;
+    margin: 24px 0;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+  }
+  .tool-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .tool-tag {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    background: var(--accent-soft);
+    color: var(--accent-strong);
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-weight: 600;
+  }
+  .tool-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    align-items: start;
+  }
+  .param-group { margin-bottom: 14px; }
+  .param-group label {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    margin-bottom: 4px;
+  }
+  .param-group label b { color: var(--accent); }
+  .param-group input[type="range"] {
+    width: 100%;
+    accent-color: var(--accent);
+  }
+  .param-group select, .param-group input[type="number"] {
+    width: 100%;
+    padding: 7px 10px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--ink);
+    font-family: var(--font-mono);
+    font-size: 13px;
+  }
+
+  /* Metric cards */
+  .metrics-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 10px;
+    margin-top: 16px;
+  }
+  .metric-box {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 12px;
+    text-align: center;
+  }
+  .metric-label { font-family: var(--font-mono); font-size: 11px; color: var(--ink-faint); text-transform: uppercase; }
+  .metric-value { font-family: var(--font-mono); font-size: 18px; font-weight: 700; color: var(--accent); margin-top: 3px; }
+
+  /* Wafer Canvas */
+  .wafer-canvas-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 14px;
+  }
+  canvas.wafer-canvas {
+    border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    background: #111a18;
+    max-width: 100%;
+    height: auto;
+  }
+  .wafer-legend {
+    display: flex;
+    gap: 14px;
+    margin-top: 10px;
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .legend-item { display: flex; align-items: center; gap: 5px; }
+  .legend-dot { width: 10px; height: 10px; border-radius: 2px; }
+
+  /* Formula display */
+  .formula {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 14px 18px;
+    margin: 16px 0;
+    overflow-x: auto;
+    font-size: 15px;
+    text-align: center;
+  }
+
+  /* Figures */
+  figure {
+    margin: 22px 0;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 16px;
+  }
+  figure figcaption {
+    margin-top: 10px;
+    font-size: 13px;
+    color: var(--ink-soft);
+    text-align: center;
+    font-family: var(--font-mono);
+  }
+
+  /* Button controls */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: 1px solid var(--accent);
+    background: var(--accent);
+    color: #fff;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .btn:hover { background: var(--accent-strong); border-color: var(--accent-strong); }
+  .btn-outline {
+    background: transparent;
+    color: var(--accent);
+  }
+  .btn-outline:hover {
+    background: var(--accent-soft);
+    color: var(--accent-strong);
+  }
+
+  footer {
+    border-top: 1px solid var(--border);
+    padding-top: 24px;
+    margin-top: 60px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--ink-faint);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+</style>
+</head>
+
+<body>
+<div class="page">
+
+  <!-- MASTHEAD -->
+  <header class="masthead">
+    <div class="masthead-top">
+      <div>
+        <div class="eyebrow">
+          <span class="zh">半導體工程方法論系列 · YIE-701</span>
+          <span class="en">Semiconductor Engineering Series · YIE-701</span>
+        </div>
+        <h1>
+          <span class="zh">半導體良率改善分析工具與實務方法論</span>
+          <span class="en">Semiconductor Yield Improvement Analysis Suite & Engineering Playbook</span>
+        </h1>
+      </div>
+      <div class="controls">
+        <button class="ctrl-btn" id="themeToggle" onclick="toggleTheme()" title="Toggle Dark/Light Mode">🌙 / ☀️ Theme</button>
+        <button class="ctrl-btn" id="langToggle" onclick="toggleLang()" title="Toggle Language">🌐 EN / 中文</button>
+        <div class="find-box">
+          <input type="search" id="findInput" placeholder="Find / 搜尋..." oninput="handleFindInput()" onkeydown="handleFindKey(event)">
+          <span class="find-count" id="findCount">0/0</span>
+          <button class="find-nav" onclick="findNav(-1)" title="Previous">▲</button>
+          <button class="find-nav" onclick="findNav(1)" title="Next">▼</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub">
+      <span class="zh">
+        涵蓋晶粒良率損失解構、8 大晶圓空間缺陷簽名、機台 Chamber 共模統計歸因、WAT/CP 參數邊界優化、失效分析（FA）物理回饋及車用零缺陷防禦之全流程工程實務手冊。
+      </span>
+      <span class="en">
+        A comprehensive engineering playbook and interactive suite covering yield loss decomposition, 8 canonical wafer map spatial defect signatures, chamber commonality attribution, parametric margin optimization, FA physical closed-loop, and automotive zero-defect defense.
+      </span>
+    </div>
+
+    <div class="doc-fields">
+      <div>
+        <span class="zh">文件編號</span><span class="en">Doc ID</span>
+        <b>YIE-ENG-SOP-701</b>
+      </div>
+      <div>
+        <span class="zh">版次狀態</span><span class="en">Revision</span>
+        <b>Rev. A (Comprehensive)</b>
+      </div>
+      <div>
+        <span class="zh">適用對象</span><span class="en">Audience</span>
+        <b>YEE / PE / PIE / TE / Quality</b>
+      </div>
+      <div>
+        <span class="zh">最後修訂</span><span class="en">Last Updated</span>
+        <b>2026-10-21 15:45</b>
+      </div>
+    </div>
+  </header>
+
+  <!-- MOBILE TOC -->
+  <details class="toc-m">
+    <summary><span class="zh">📑 目錄快速導覽</span><span class="en">📑 Table of Contents</span></summary>
+    <ol>
+      <li><a href="#overview"><span class="zh">流程總覽 (Process Overview)</span><span class="en">Process Overview</span></a></li>
+      <li><a href="#tools"><span class="zh">🛠️ 4 大內建互動分析工具</span><span class="en">🛠️ 4 Interactive Analyzers</span></a></li>
+      <li><a href="#phase0"><span class="zh">Phase 0: 良率基線與損失解構</span><span class="en">Phase 0: Baseline & Yield Loss Decomposition</span></a></li>
+      <li><a href="#phase1"><span class="zh">Phase 1: 跨站資料架構與全履歷鏈接</span><span class="en">Phase 1: Cross-Stage Data Architecture</span></a></li>
+      <li><a href="#phase2"><span class="zh">Phase 2: 晶圓空間分佈簽名辨識</span><span class="en">Phase 2: Spatial Wafer Map Signatures</span></a></li>
+      <li><a href="#phase3"><span class="zh">Phase 3: 機台 Chamber 共模統計歸因</span><span class="en">Phase 3: Chamber Commonality Attribution</span></a></li>
+      <li><a href="#phase4"><span class="zh">Phase 4: 參數 Margin 與 Cpk 飄移</span><span class="en">Phase 4: Parametric Margin & Cpk Drift</span></a></li>
+      <li><a href="#phase5"><span class="zh">Phase 5: 失效分析 (FA) 實體物理驗證</span><span class="en">Phase 5: Failure Analysis (FA) Verification</span></a></li>
+      <li><a href="#phase6"><span class="zh">Phase 6: 系統性改善戰術與閉環</span><span class="en">Phase 6: Systematic Improvement Playbook</span></a></li>
+      <li><a href="#phase7"><span class="zh">Phase 7: Ramp 學習曲線與稽核治理</span><span class="en">Phase 7: Yield Ramp & Audit Defense</span></a></li>
+      <li><a href="#appendices"><span class="zh">附錄: 工程範本與公式參考卡</span><span class="en">Appendices: Templates & Formula Cards</span></a></li>
+    </ol>
+  </details>
+
+  <!-- BODY GRID -->
+  <div class="body-grid">
+    <!-- DESKTOP TOC -->
+    <nav class="toc">
+      <div class="toc-title"><span class="zh">章節索引</span><span class="en">Navigation</span></div>
+      <ol>
+        <li><a href="#overview"><span class="zh">流程總覽 (Overview)</span><span class="en">Process Overview</span></a></li>
+        <li><a href="#tools"><span class="zh">🛠️ 互動分析工具箱</span><span class="en">🛠️ Interactive Tools</span></a></li>
+        <li><a href="#phase0"><span class="zh">Phase 0: 良率基線與損失解構</span><span class="en">Phase 0: Loss Decomposition</span></a></li>
+        <li><a href="#phase1"><span class="zh">Phase 1: 跨站資料架構</span><span class="en">Phase 1: Data Architecture</span></a></li>
+        <li><a href="#phase2"><span class="zh">Phase 2: 晶圓空間分佈簽名</span><span class="en">Phase 2: Spatial Signatures</span></a></li>
+        <li><a href="#phase3"><span class="zh">Phase 3: Chamber 共模統計</span><span class="en">Phase 3: Chamber Commonality</span></a></li>
+        <li><a href="#phase4"><span class="zh">Phase 4: 參數 Margin / Cpk</span><span class="en">Phase 4: Parametric Cpk</span></a></li>
+        <li><a href="#phase5"><span class="zh">Phase 5: 失效分析 FA 實體回饋</span><span class="en">Phase 5: Failure Analysis</span></a></li>
+        <li><a href="#phase6"><span class="zh">Phase 6: 改善戰術與閉環</span><span class="en">Phase 6: Action Playbook</span></a></li>
+        <li><a href="#phase7"><span class="zh">Phase 7: 學習曲線與稽核</span><span class="en">Phase 7: Ramp & Governance</span></a></li>
+        <li><a href="#appendices"><span class="zh">附錄: 範本與公式卡</span><span class="en">Appendices: Formulas</span></a></li>
+      </ol>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main>
+
+      <!-- SECTION 0: OVERVIEW -->
+      <section id="overview">
+        <h2 class="collapsible-h" onclick="toggleCollapse(this)">
+          <span>
+            <span class="zh">0. 良率改善工程全景圖 (Process Overview)</span>
+            <span class="en">0. Yield Enhancement Process Overview</span>
+          </span>
+          <span class="collapse-arrow">▼</span>
+        </h2>
+        <div class="collapse-body">
+          <p>
+            <span class="zh">
+              現代半導體製程（先進邏輯 3nm/2nm、3D NAND、DRAM、BCD 車用高壓晶片）牽涉 500 至 1,500 道繁複步驟。良率工程師（YEE）的使命是在極短的產品生命週期內，將良率從研發試產階段（NPI: 30%–50%）快速爬坡至成熟量產高地（HVM: >95%），並壓低車用市場要求的零缺陷（Zero Defect / < 1 DPPM）。
+            </span>
+            <span class="en">
+              Modern semiconductor manufacturing involves between 500 and 1,500 individual process steps. The mission of Yield Enhancement Engineers (YEE) is to rapidly accelerate wafer yield from NPI ramp (30%–50%) to mature high-volume production (>95%) while achieving sub-DPPM reliability required by automotive and mission-critical applications.
+            </span>
+          </p>
+
+          <figure>
+            <svg viewBox="0 0 980 240" style="width:100%; height:auto;" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="gradAccent" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="var(--accent)" stop-opacity="0.9"/>
+                  <stop offset="100%" stop-color="var(--accent-strong)" stop-opacity="0.95"/>
+                </linearGradient>
+                <filter id="shadow" x="-5%" y="-10%" width="110%" height="130%">
+                  <feDropShadow dx="0" dy="3" stdDeviation="3" flood-opacity="0.15"/>
+                </filter>
+              </defs>
+              <g fill="var(--ink)" font-family="var(--font-mono)">
+                <!-- Stage 1 -->
+                <rect x="20" y="30" width="130" height="70" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1.5" filter="url(#shadow)"/>
+                <text x="85" y="60" text-anchor="middle" font-size="12" font-weight="700">FAB In-line</text>
+                <text x="85" y="80" text-anchor="middle" font-size="10.5" fill="var(--ink-soft)">Defect / KLA</text>
+                
+                <path d="M 150 65 L 180 65" stroke="var(--accent)" stroke-width="2" marker-end="url(#arr)"/>
+
+                <!-- Stage 2 -->
+                <rect x="180" y="30" width="130" height="70" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1.5" filter="url(#shadow)"/>
+                <text x="245" y="60" text-anchor="middle" font-size="12" font-weight="700">WAT / PCM</text>
+                <text x="245" y="80" text-anchor="middle" font-size="10.5" fill="var(--ink-soft)">E-Test Parameters</text>
+
+                <path d="M 310 65 L 340 65" stroke="var(--accent)" stroke-width="2"/>
+
+                <!-- Stage 3 -->
+                <rect x="340" y="30" width="130" height="70" rx="6" fill="var(--surface-2)" stroke="var(--accent)" stroke-width="2" filter="url(#shadow)"/>
+                <text x="405" y="60" text-anchor="middle" font-size="12" font-weight="700" fill="var(--accent)">CP / Wafer Sort</text>
+                <text x="405" y="80" text-anchor="middle" font-size="10.5" fill="var(--ink-soft)">Die Yield & Bin Map</text>
+
+                <path d="M 470 65 L 500 65" stroke="var(--accent)" stroke-width="2"/>
+
+                <!-- Stage 4 -->
+                <rect x="500" y="30" width="130" height="70" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1.5" filter="url(#shadow)"/>
+                <text x="565" y="60" text-anchor="middle" font-size="12" font-weight="700">Assembly / PKG</text>
+                <text x="565" y="80" text-anchor="middle" font-size="10.5" fill="var(--ink-soft)">Assembly Yield</text>
+
+                <path d="M 630 65 L 660 65" stroke="var(--accent)" stroke-width="2"/>
+
+                <!-- Stage 5 -->
+                <rect x="660" y="30" width="130" height="70" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1.5" filter="url(#shadow)"/>
+                <text x="725" y="60" text-anchor="middle" font-size="12" font-weight="700">FT / Final Test</text>
+                <text x="725" y="80" text-anchor="middle" font-size="10.5" fill="var(--ink-soft)">Speed & SLT</text>
+
+                <path d="M 790 65 L 820 65" stroke="var(--accent)" stroke-width="2"/>
+
+                <!-- Stage 6 -->
+                <rect x="820" y="30" width="140" height="70" rx="6" fill="var(--accent)" filter="url(#shadow)"/>
+                <text x="890" y="60" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">Customer Field</text>
+                <text x="890" y="80" text-anchor="middle" font-size="10.5" fill="#e0f2fe">&lt; 1 DPPM Target</text>
+
+                <!-- Feedback Loop -->
+                <path d="M 725 100 L 725 170 L 245 170 L 245 100" fill="none" stroke="var(--danger)" stroke-width="2" stroke-dasharray="6,4"/>
+                <text x="480" y="195" text-anchor="middle" font-size="12" fill="var(--danger)" font-weight="700">
+                  Root Cause Tracing & Failure Analysis Closed-Loop (FA 實體物理回饋)
+                </text>
+              </g>
+            </svg>
+            <figcaption>
+              <span class="zh">圖 0.1：半導體端到端良率工程流程鏈與失效分析閉環</span>
+              <span class="en">Figure 0.1: End-to-End Semiconductor Yield Engineering Pipeline & Closed-Loop FA</span>
+            </figcaption>
+          </figure>
+
+          <div class="callout">
+            <div class="callout-title">
+              <span>💡</span>
+              <span class="zh">良率工程師的核心座右銘</span>
+              <span class="en">Core Tenet of Yield Enhancement</span>
+            </div>
+            <p>
+              <span class="zh">
+                「良率不是測試測出來的，是製程做出來的；但如果沒有高解析度的測試追溯與統計分解，你永遠不知道製程在哪裡犯了錯。」——本平台提供全套統計模型、機台共模算法與即時互動工具，協助工程團隊以實證數據驅動決策。
+              </span>
+              <span class="en">
+                "Yield is not inspected or tested into a product; it is manufactured into it. However, without high-resolution test traceability and statistical decomposition, you will never know where the process failed." — This platform empowers engineering teams with empirical models, chamber commonality algorithms, and real-time interactive analyzers.
+              </span>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION: INTERACTIVE TOOLS -->
+      <section id="tools">
+        <h2 class="collapsible-h" onclick="toggleCollapse(this)">
+          <span>
+            <span class="zh">🛠️ 4 大內建互動分析工具 (Interactive Engineering Suite)</span>
+            <span class="en">🛠️ 4 Interactive Yield Engineering Analyzers</span>
+          </span>
+          <span class="collapse-arrow">▼</span>
+        </h2>
+        <div class="collapse-body">
+
+          <!-- TOOL 1: YIELD MODELING & DEFECT DENSITY -->
+          <div class="tool-card" id="tool1">
+            <div class="tool-card-header">
+              <div>
+                <span class="tool-tag">TOOL 01</span>
+                <h3 style="margin:4px 0 0;">
+                  <span class="zh">缺陷密度與良率模型計算機</span>
+                  <span class="en">Defect Density & Yield Modeling Calculator</span>
+                </h3>
+              </div>
+              <span class="mono" style="font-size:12px; color:var(--ink-soft);">Poisson / Murphy / Seeds / Stapper</span>
+            </div>
+
+            <div class="tool-grid">
+              <div>
+                <div class="param-group">
+                  <label>
+                    <span class="zh">晶圓尺寸 (Wafer Diameter)</span><span class="en">Wafer Diameter</span>
+                    <b id="lblWaferSize">300 mm</b>
+                  </label>
+                  <select id="inpWaferSize" onchange="calcYieldModel()">
+                    <option value="300" selected>300 mm (12-inch)</option>
+                    <option value="200">200 mm (8-inch)</option>
+                    <option value="150">150 mm (6-inch Compound / SiC)</option>
+                  </select>
+                </div>
+
+                <div class="param-group">
+                  <label>
+                    <span class="zh">晶粒面積 (Die Area, A)</span><span class="en">Die Area (A)</span>
+                    <b id="lblDieArea">120 mm²</b>
+                  </label>
+                  <input type="range" id="inpDieArea" min="10" max="600" step="5" value="120" oninput="updateYieldParams(); calcYieldModel();">
+                </div>
+
+                <div class="param-group">
+                  <label>
+                    <span class="zh">缺陷密度 (Defect Density, D₀)</span><span class="en">Defect Density (D₀)</span>
+                    <b id="lblD0">0.08 /cm²</b>
+                  </label>
+                  <input type="range" id="inpD0" min="0.01" max="0.80" step="0.01" value="0.08" oninput="updateYieldParams(); calcYieldModel();">
+                </div>
+
+                <div class="param-group">
+                  <label>
+                    <span class="zh">群聚因子 (Cluster Factor, α)</span><span class="en">Cluster Factor (α)</span>
+                    <b id="lblAlpha">2.0 (Moderate)</b>
+                  </label>
+                  <input type="range" id="inpAlpha" min="0.5" max="5.0" step="0.1" value="2.0" oninput="updateYieldParams(); calcYieldModel();">
+                </div>
+
+                <div class="param-group">
+                  <label>
+                    <span class="zh">邊緣無效區 (Edge Exclusion)</span><span class="en">Edge Exclusion</span>
+                    <b id="lblEdgeExcl">3.0 mm</b>
+                  </label>
+                  <input type="range" id="inpEdgeExcl" min="1.0" max="8.0" step="0.5" value="3.0" oninput="updateYieldParams(); calcYieldModel();">
+                </div>
+              </div>
+
+              <div>
+                <div class="metrics-row">
+                  <div class="metric-box">
+                    <div class="metric-label"><span class="zh">每片總晶粒 (Gross Die)</span><span class="en">Gross Die</span></div>
+                    <div class="metric-value" id="valGrossDie">524</div>
+                  </div>
+                  <div class="metric-box">
+                    <div class="metric-label"><span class="zh">Poisson 良率</span><span class="en">Poisson Yield</span></div>
+                    <div class="metric-value" id="valYieldPoisson">90.8%</div>
+                  </div>
+                  <div class="metric-box">
+                    <div class="metric-label"><span class="zh">Murphy 良率</span><span class="en">Murphy Yield</span></div>
+                    <div class="metric-value" id="valYieldMurphy">91.2%</div>
+                  </div>
+                  <div class="metric-box">
+                    <div class="metric-label"><span class="zh">Stapper (負二項)</span><span class="en">Stapper Yield</span></div>
+                    <div class="metric-value" id="valYieldStapper" style="color:var(--good);">91.4%</div>
+                  </div>
+                </div>
+
+                <div class="metrics-row" style="margin-top:10px;">
+                  <div class="metric-box" style="grid-column: span 2;">
+                    <div class="metric-label"><span class="zh">預估每片合格晶粒 (Net Good Die)</span><span class="en">Net Good Die</span></div>
+                    <div class="metric-value" id="valNetDie" style="font-size:22px; color:var(--accent-strong);">479 顆</div>
+                  </div>
+                  <div class="metric-box" style="grid-column: span 2;">
+                    <div class="metric-label"><span class="zh">單片晶圓產出損失 (Lost Die Cost)</span><span class="en">Lost Die Count</span></div>
+                    <div class="metric-value" id="valLostDie" style="color:var(--danger);">45 顆</div>
+                  </div>
+                </div>
+
+                <div style="margin-top:14px; font-size:12.5px; color:var(--ink-soft); background:var(--surface-2); padding:10px 12px; border-radius:4px;">
+                  <span class="zh">
+                    📌 <b>工程啟示</b>：當晶粒面積 \(A\) 從 120mm² 擴大到 350mm²（如 AI 加速晶片/大面積 SoC），若無晶片內冗餘修復（SRAM Redundancy），良率將因指數級敏感度陡降。此時 Stapper 群聚模型預測值顯著高於 Poisson，反映瑕疵高度聚集對周邊 Die 的保護效益。
+                  </span>
+                  <span class="en">
+                    📌 <b>Engineering Insight</b>: As die area \(A\) expands from 120mm² to 350mm² (e.g., AI accelerators / large SoCs), yield drops exponentially without redundancy repair. The Stapper clustering model predicts higher yield than Poisson, capturing the statistical defect clustering effect that spares adjacent dies.
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TOOL 2: WAFER MAP SPATIAL SIMULATOR & CLASSIFIER -->
+          <div class="tool-card" id="tool2">
+            <div class="tool-card-header">
+              <div>
+                <span class="tool-tag">TOOL 02</span>
+                <h3 style="margin:4px 0 0;">
+                  <span class="zh">晶圓空間缺陷簽名模擬器與根因排查</span>
+                  <span class="en">Wafer Map Spatial Pattern Simulator & Root Cause Prescriber</span>
+                </h3>
+              </div>
+              <span class="mono" style="font-size:12px; color:var(--ink-soft);">300mm Full Wafer Canvas (1,200+ Dies)</span>
+            </div>
+
+            <div class="tool-grid" style="grid-template-columns: 340px minmax(0, 1fr);">
+              <div class="wafer-canvas-container">
+                <canvas id="waferCanvas" class="wafer-canvas" width="300" height="300"></canvas>
+                <div class="wafer-legend">
+                  <div class="legend-item"><div class="legend-dot" style="background:#2f7a45;"></div><span>Pass (Good Die)</span></div>
+                  <div class="legend-item"><div class="legend-dot" style="background:#dcab53;"></div><span>Marginal / Bin 2</span></div>
+                  <div class="legend-item"><div class="legend-dot" style="background:#e28779;"></div><span>Hard Fail / Bin 5</span></div>
+                </div>
+                <div style="margin-top:10px; font-family:var(--font-mono); font-size:12px; color:var(--ink-soft);">
+                  <span class="zh">當前晶圓平均良率：</span><span class="en">Current Wafer Yield:</span>
+                  <b id="lblWaferMapYield" style="color:var(--accent); font-size:14px;">92.4%</b>
+                </div>
+              </div>
+
+              <div>
+                <div class="param-group">
+                  <label>
+                    <span class="zh">選擇空間特徵模式 (Spatial Pattern Preset)</span>
+                    <span class="en">Select Spatial Pattern Preset</span>
+                  </label>
+                  <select id="selWaferPattern" onchange="renderWaferPattern()">
+                    <option value="normal" selected>1. 正常量產基準 (Normal Production Baseline - Random)</option>
+                    <option value="edge_ring">2. 邊緣環狀失效 (Edge Ring - CMP / Spin Coat Bead)</option>
+                    <option value="center">3. 中心圓點沉積異常 (Center Defect - Plasma / Hot Spot)</option>
+                    <option value="scratch">4. 夾爪/研磨刮痕 (Scratch / Streak - Robot Claw / CMP Slurry)</option>
+                    <option value="cluster">5. 局部群聚微粒 (Cluster - Etch Polymer Droplet)</option>
+                    <option value="bullseye">6. 靶心同心圓 (Bullseye - Furnace Thermal Non-Uniformity)</option>
+                    <option value="multisite">7. 探針測試偏斜 (Checkerboard / Multi-site Probe Skew)</option>
+                    <option value="repeater">8. 微影光罩重覆項 (Reticle Shot Repeater - Pellicle Hole)</option>
+                  </select>
+                </div>
+
+                <div class="param-group">
+                  <label>
+                    <span class="zh">異常強度 (Defect Severity Level)</span><span class="en">Defect Severity</span>
+                    <b id="lblPatternSev">60%</b>
+                  </label>
+                  <input type="range" id="inpPatternSev" min="20" max="100" step="5" value="60" oninput="document.getElementById('lblPatternSev').textContent=this.value+'%'; renderWaferPattern();">
+                </div>
+
+                <!-- DIAGNOSTIC CARD -->
+                <div id="patternDiagnosisBox" style="background:var(--surface-2); border-left:4px solid var(--accent); border-radius:4px; padding:12px 16px; margin-top:12px;">
+                  <div style="font-family:var(--font-mono); font-weight:700; font-size:13px; color:var(--accent-strong); margin-bottom:6px;" id="diagTitle">
+                    邊緣環狀失效 (Edge Ring Signature)
+                  </div>
+                  <div style="font-size:13px; line-height:1.6; color:var(--ink-soft);" id="diagBody">
+                    <b>典型物理機理：</b>CMP 化學機械研磨邊緣過拋（Over-polishing）、光阻邊緣邊珠去除（EBR）不均勻、或乾蝕刻邊緣電漿鞘層邊界效應。<br>
+                    <b>推薦排查機台：</b>CMP Platen #2 研磨墊壓力曲線、Coater Edge Bead Removal 噴嘴角度、Etch Focus Ring 消耗程度。<br>
+                    <b>首要處方：</b>調校邊緣多區壓頭（Multi-zone Carrier Head）壓力參數，檢查退火爐氣流密封。
+                  </div>
+                </div>
+
+                <div style="margin-top:12px; display:flex; gap:8px;">
+                  <button class="btn btn-outline" onclick="randomizeWaferNoise()">
+                    <span class="zh">🎲 隨機注入噪聲</span><span class="en">🎲 Randomize Noise</span>
+                  </button>
+                  <button class="btn btn-outline" onclick="downloadWaferPNG()">
+                    <span class="zh">💾 導出晶圓圖</span><span class="en">💾 Export Wafer Map</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TOOL 3: EQUIPMENT CHAMBER COMMONALITY ANALYZER -->
+          <div class="tool-card" id="tool3">
+            <div class="tool-card-header">
+              <div>
+                <span class="tool-tag">TOOL 03</span>
+                <h3 style="margin:4px 0 0;">
+                  <span class="zh">機台 / 腔體共模相關性檢定工具</span>
+                  <span class="en">Tool & Chamber Commonality Analyzer (Chi-Square & ANOVA)</span>
+                </h3>
+              </div>
+              <span class="mono" style="font-size:12px; color:var(--ink-soft);">Statistical Significance (p-value & Odds Ratio)</span>
+            </div>
+
+            <p style="font-size:13.5px; color:var(--ink-soft); margin-top:0;">
+              <span class="zh">
+                當某道關鍵製程（如 Metal 1 RIE Etcher）擁有 4 個平行反應腔體（Chamber A/B/C/D）時，透過卡方獨立性檢定（\(\chi^2\) Test）快速揪出統計上顯著的「流氓腔體（Rogue Chamber）」，避免盲目全廠換料停機。
+              </span>
+              <span class="en">
+                When a critical process step utilizes parallel reaction chambers (Chamber A/B/C/D), this tool applies a Chi-Square test of independence to pinpoint the statistically significant "Rogue Chamber", preventing unnecessary fab-wide equipment halts.
+              </span>
+            </p>
+
+            <div class="data-table-wrap">
+              <table class="data-table" id="chamberTable">
+                <thead>
+                  <tr>
+                    <th>Chamber</th>
+                    <th><span class="zh">抽測晶圓數 (Wafers)</span><span class="en">Wafers Tested</span></th>
+                    <th><span class="zh">測試總晶粒 (Total Dies)</span><span class="en">Total Dies</span></th>
+                    <th><span class="zh">失效晶粒 (Failed Dies)</span><span class="en">Failed Dies</span></th>
+                    <th><span class="zh">失效率 (Fail Rate)</span><span class="en">Fail Rate</span></th>
+                    <th><span class="zh">勝算比 (Odds Ratio)</span><span class="en">Odds Ratio</span></th>
+                    <th><span class="zh">統計異常評級</span><span class="en">Statistical Status</span></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><b>Chamber A (PM-01)</b></td>
+                    <td>25</td>
+                    <td>13,100</td>
+                    <td><input type="number" value="395" style="width:80px;" oninput="recalcChamberStats()" id="chFailA"></td>
+                    <td id="chRateA">3.02%</td>
+                    <td id="chORA">0.98</td>
+                    <td><span style="color:var(--good); font-weight:600;">Normal (基準內)</span></td>
+                  </tr>
+                  <tr>
+                    <td><b>Chamber B (PM-02)</b></td>
+                    <td>24</td>
+                    <td>12,576</td>
+                    <td><input type="number" value="382" style="width:80px;" oninput="recalcChamberStats()" id="chFailB"></td>
+                    <td id="chRateB">3.04%</td>
+                    <td id="chORB">0.99</td>
+                    <td><span style="color:var(--good); font-weight:600;">Normal (基準內)</span></td>
+                  </tr>
+                  <tr style="background:var(--danger-soft);">
+                    <td><b>Chamber C (PM-03)</b> ⚠️</td>
+                    <td>26</td>
+                    <td>13,624</td>
+                    <td><input type="number" value="1150" style="width:80px; font-weight:bold; color:var(--danger);" oninput="recalcChamberStats()" id="chFailC"></td>
+                    <td id="chRateC" style="font-weight:bold; color:var(--danger);">8.44%</td>
+                    <td id="chORC" style="font-weight:bold; color:var(--danger);">2.94</td>
+                    <td><span style="color:var(--danger); font-weight:bold;">🚨 Rogue Chamber!</span></td>
+                  </tr>
+                  <tr>
+                    <td><b>Chamber D (PM-04)</b></td>
+                    <td>25</td>
+                    <td>13,100</td>
+                    <td><input type="number" value="405" style="width:80px;" oninput="recalcChamberStats()" id="chFailD"></td>
+                    <td id="chRateD">3.09%</td>
+                    <td id="chORD">1.01</td>
+                    <td><span style="color:var(--good); font-weight:600;">Normal (基準內)</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="metrics-row" style="margin-top:12px;">
+              <div class="metric-box">
+                <div class="metric-label">Chi-Square (\(\chi^2\))</div>
+                <div class="metric-value" id="valChi2" style="color:var(--danger);">682.4</div>
+              </div>
+              <div class="metric-box">
+                <div class="metric-label">Degrees of Freedom (df)</div>
+                <div class="metric-value">3</div>
+              </div>
+              <div class="metric-box">
+                <div class="metric-label">p-value</div>
+                <div class="metric-value" id="valPval" style="color:var(--danger);">&lt; 0.00001</div>
+              </div>
+              <div class="metric-box">
+                <div class="metric-label"><span class="zh">工程決策建議</span><span class="en">Decision</span></div>
+                <div class="metric-value" style="font-size:14px; color:var(--danger);" id="valDecision">隔離 Chamber C</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TOOL 4: PARAMETRIC MARGIN & CPK / PAT ANALYZER -->
+          <div class="tool-card" id="tool4">
+            <div class="tool-card-header">
+              <div>
+                <span class="tool-tag">TOOL 04</span>
+                <h3 style="margin:4px 0 0;">
+                  <span class="zh">參數型良率與 Cpk / PAT 臨界邊界分析器</span>
+                  <span class="en">Parametric Margin, Cpk & Dynamic PAT Analyzer</span>
+                </h3>
+              </div>
+              <span class="mono" style="font-size:12px; color:var(--ink-soft);">Normal Distribution & Automotive Part Average Testing</span>
+            </div>
+
+            <div class="tool-grid" style="grid-template-columns: minmax(0, 1fr) 300px;">
+              <div>
+                <div style="background:var(--surface-2); border:1px solid var(--border); border-radius:6px; padding:12px; text-align:center;">
+                  <canvas id="cpkCanvas" width="560" height="240" style="max-width:100%; height:auto;"></canvas>
+                  <div style="display:flex; justify-content:space-around; font-family:var(--font-mono); font-size:11.5px; margin-top:8px;">
+                    <span style="color:var(--danger);">── LSL (0.60V)</span>
+                    <span style="color:var(--accent);">── Mean (μ: <span id="lblCurMean">0.70</span>V)</span>
+                    <span style="color:var(--danger);">── USL (0.80V)</span>
+                    <span style="color:var(--warn);">--- PAT Limits (μ ± 4σ)</span>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div class="param-group">
+                  <label>
+                    <span class="zh">製程中心漂移 (Mean Shift, μ)</span><span class="en">Process Mean Shift</span>
+                    <b id="lblMeanShift">0.700 V</b>
+                  </label>
+                  <input type="range" id="inpMeanShift" min="0.630" max="0.770" step="0.005" value="0.700" oninput="updateCpkView()">
+                </div>
+
+                <div class="param-group">
+                  <label>
+                    <span class="zh">製程標準差 (Process Sigma, σ)</span><span class="en">Process Sigma (σ)</span>
+                    <b id="lblSigma">0.020 V</b>
+                  </label>
+                  <input type="range" id="inpSigma" min="0.010" max="0.045" step="0.002" value="0.020" oninput="updateCpkView()">
+                </div>
+
+                <div class="metrics-row" style="grid-template-columns: 1fr 1fr;">
+                  <div class="metric-box">
+                    <div class="metric-label">Cp / Cpk</div>
+                    <div class="metric-value" id="valCpk" style="color:var(--good);">1.67</div>
+                  </div>
+                  <div class="metric-box">
+                    <div class="metric-label"><span class="zh">預估超規不良率</span><span class="en">OOS DPPM</span></div>
+                    <div class="metric-value" id="valDppm" style="color:var(--good); font-size:16px;">&lt; 1 DPPM</div>
+                  </div>
+                </div>
+
+                <div style="margin-top:12px; font-size:12px; line-height:1.5; color:var(--ink-soft); background:var(--surface-2); padding:8px 10px; border-radius:4px;">
+                  <span class="zh">
+                    車用 AEC-Q100 規範要求關鍵電性參數 \(C_{pk} \ge 1.67\)。當均值偏移超過 30mV 或 \(\sigma\) 擴散時，虛線表示的動態 PAT 門檻將精確剃除分佈尾端之潛在早期失效（Early Life Failure）晶粒。
+                  </span>
+                  <span class="en">
+                    Automotive AEC-Q100 demands \(C_{pk} \ge 1.67\) for mission-critical parameters. The dashed dynamic PAT limits screen out statistical outliers from the distribution tails that present severe early-life latent failure risks.
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- PHASE 0: BASELINE & YIELD LOSS DECOMPOSITION -->
+      <section id="phase0">
+        <h2 class="collapsible-h" onclick="toggleCollapse(this)">
+          <span>
+            <span class="zh">Phase 0: 良率基線與損失解構 (Baseline & Loss Decomposition)</span>
+            <span class="en">Phase 0: Baseline Setting & Yield Loss Decomposition</span>
+          </span>
+          <span class="collapse-arrow">▼</span>
+        </h2>
+        <div class="collapse-body">
+          <p>
+            <span class="zh">
+              進行任何良率改善前，第一步必須對「良率（Yield）」進行嚴謹的層級解構。混淆「線良率」與「晶粒良率」，或將「功能性失效」與「參數型飄移」混為一談，是良率專案最致命的方向性錯誤。
+            </span>
+            <span class="en">
+              Before initiating yield enhancement, the first mandatory step is rigorous loss decomposition. Confusing Line Yield with Die Yield, or lumping Functional Fails with Parametric Drift, will misdirect the entire engineering campaign.
+            </span>
+          </p>
+
+          <h3>
+            <span class="zh">0.1 線良率 (Line Yield) 與 晶粒良率 (Die Yield)</span>
+            <span class="en">0.1 Line Yield (FAB Out/In) vs. Die Yield (Sort/CP)</span>
+          </h3>
+          <p>
+            <span class="zh">
+              整體晶圓廠最終產出良率由兩大乘數構成：
+            </span>
+            <span class="en">
+              Overall fab shipment yield is the product of two distinct components:
+            </span>
+          </p>
+
+          <div class="formula">
+            \[ Y_{overall} = Y_{line} \times Y_{die} = \left(\frac{Wafers_{completed}}{Wafers_{started}}\right) \times \left(\frac{Dies_{pass}}{Dies_{tested}}\right) \]
+          </div>
+
+          <ul>
+            <li>
+              <b>Line Yield (\(Y_{line}\))</b>：
+              <span class="zh">晶圓製造過程中的完整性比例。損失主因為晶圓破片（Wafer Breakage）、機台刮傷（Robot Scratches）、化學槽沾污報廢（Scrap）、製程參數重大出界整批作廢。成熟晶圓廠目標通常 \(\ge 98.5\%\)。</span>
+              <span class="en">Wafer integrity during processing. Losses stem from breakage, robotic handler scratches, bath contamination, and catastrophic excursions. Target is typically \(\ge 98.5\%\).</span>
+            </li>
+            <li>
+              <b>Die Yield (\(Y_{die}\))</b>：
+              <span class="zh">在完工晶圓上，電性與功能測試通過的良好晶粒比例。也是良率工程（Yield Enhancement）的核心主戰場。</span>
+              <span class="en">The fraction of functioning chips on completed wafers passing wafer sort (CP). This is the primary battleground of Yield Enhancement Engineers.</span>
+            </li>
+          </ul>
+
+          <h3>
+            <span class="zh">0.2 系統性良率損失 vs. 隨機性良率損失</span>
+            <span class="en">0.2 Systematic vs. Random Yield Loss</span>
+          </h3>
+          <p>
+            <span class="zh">
+              任何測試結果的良率損失均應分離為系統性缺陷（Systematic）與隨機微粒缺陷（Random）：
+            </span>
+            <span class="en">
+              Total die yield must be mathematically decoupled into systematic and random mechanisms:
+            </span>
+          </p>
+
+          <div class="formula">
+            \[ Y_{die} = Y_{sys} \times Y_{rand} = Y_{sys} \times f(A, D_0) \]
+          </div>
+
+          <div class="data-table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th><span class="zh">損失維度</span><span class="en">Dimension</span></th>
+                  <th><span class="zh">隨機性良率損失 (Random Defectivity)</span><span class="en">Random Defectivity</span></th>
+                  <th><span class="zh">系統性良率損失 (Systematic Mechanism)</span><span class="en">Systematic Mechanism</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b><span class="zh">主要成因</span><span class="en">Root Cause</span></b></td>
+                  <td>無塵室空氣微粒、製程化學品外來微粒子、機台腔體沉積物隨機剝落。</td>
+                  <td>微影解析度不足（OPC 缺陷）、CMP 研磨幾何不均、電漿蝕刻負載效應（Loading Effect）、設計邊限不足（Design-Process marginality）。</td>
+                </tr>
+                <tr>
+                  <td><b><span class="zh">晶圓特徵</span><span class="en">Wafer Map</span></b></td>
+                  <td>空間無規律散落分佈（符合 Poisson 或負二項分佈）。</td>
+                  <td>明確空間輪廓（邊緣環、中心點、光罩重複項、條狀刮痕、特定機台 Chamber 偏壓）。</td>
+                </tr>
+                <tr>
+                  <td><b><span class="zh">面積敏感度</span><span class="en">Area Sensitivity</span></b></td>
+                  <td>極度強烈相依於晶粒面積 \(A\)（面積越大，命中率越高）。</td>
+                  <td>與面積無關，受局部幾何繞射、特定金屬走線拓撲或製程窗口寬度主導。</td>
+                </tr>
+                <tr>
+                  <td><b><span class="zh">改善手段</span><span class="en">Action</span></b></td>
+                  <td>機台定期 PM 清潔、無塵室過濾升級、化學濾芯更換、靜電消除。</td>
+                  <td>DFM 設計規則修改、增加虛擬金屬（Dummy Fill）、光罩補償（OPC）、蝕刻配方微調。</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="callout danger">
+            <div class="callout-title">
+              <span>⚠️</span>
+              <span class="zh">致命盲點：把「系統性問題」當作「微粒問題」處理</span>
+              <span class="en">Fatal Trap: Treating Systematic Flaws as Random Particles</span>
+            </div>
+            <p>
+              <span class="zh">
+                若晶圓良率損失主要是由微影光學鄰近效應（OPC）導致的 Via 假接觸，花費數百萬更換無塵室空氣濾網（HEPA）或加強機台洗機，良率將完全「紋風不動」。必須透過空間晶圓圖辨識與失效分析（FA）精確切出真因。
+              </span>
+              <span class="en">
+                If yield loss is caused by sub-optimal Optical Proximity Correction (OPC) on marginal vias, spending millions on cleanroom HEPA filters will produce zero yield improvement. Rigorous spatial pattern classification and FA are mandatory to isolate the true mechanism.
+              </span>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- PHASE 1: DATA ARCHITECTURE & TRACEABILITY -->
+      <section id="phase1">
+        <h2 class="collapsible-h" onclick="toggleCollapse(this)">
+          <span>
+            <span class="zh">Phase 1: 跨站資料架構與全履歷鏈接 (Data Architecture & Traceability)</span>
+            <span class="en">Phase 1: Cross-Stage Data Architecture & End-to-End Traceability</span>
+          </span>
+          <span class="collapse-arrow">▼</span>
+        </h2>
+        <div class="collapse-body">
+          <p>
+            <span class="zh">
+              「沒有跨站資料對齊，就沒有因果分析」。半導體工廠資訊系統（MES、EAP、YMS、EDA）往往各自為政。本階段建立現代良率大數據整合標準。
+            </span>
+            <span class="en">
+              "Without cross-stage data alignment, causal analysis is impossible." Semiconductor data silos (MES, EAP, YMS, ATE) must be unified into an integrated genealogy standard.
+            </span>
+          </p>
+
+          <h3>
+            <span class="zh">1.1 核心資料源串接拓撲</span>
+            <span class="en">1.1 Core Data Pipeline Topology</span>
+          </h3>
+
+          <div class="data-table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th><span class="zh">資料系統</span><span class="en">System</span></th>
+                  <th><span class="zh">關鍵記錄 / 格式</span><span class="en">Record / Format</span></th>
+                  <th><span class="zh">分析核心欄位</span><span class="en">Key Fields</span></th>
+                  <th><span class="zh">良率分析貢獻</span><span class="en">Yield Application</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b>MES (製造執行)</b></td>
+                  <td>WIP / Lot History</td>
+                  <td>Lot_ID, Wafer_ID, Step_ID, Tool_ID, Chamber_ID, FOUP_Slot</td>
+                  <td>機台履歷對照、批次分流溯源、載具（FOUP）效應分析。</td>
+                </tr>
+                <tr>
+                  <td><b>Inline Defect (KLA)</b></td>
+                  <td>Klarf (KLARF File)</td>
+                  <td>Defect_ID, X_Coord, Y_Coord, Cluster_ID, Size, Image_Path</td>
+                  <td>各站累計缺陷（Defect Adder）、晶粒疊圖致命度（Kill Ratio）。</td>
+                </tr>
+                <tr>
+                  <td><b>WAT / PCM (晶圓驗證)</b></td>
+                  <td>E-Test Tabular / CSV</td>
+                  <td>Site_X, Site_Y, Vth, Idsat, Rsheet, Tox, Breakdown_V</td>
+                  <td>實體物理特徵電性健康度、薄膜與離子植入濃度跨晶圓均勻度。</td>
+                </tr>
+                <tr>
+                  <td><b>CP / Wafer Sort (晶圓測試)</b></td>
+                  <td>STDF (Standard Test Data)</td>
+                  <td>Die_X, Die_Y, Soft_Bin, Hard_Bin, Test_Time, Part_ID</td>
+                  <td>晶圓良率地圖（Wafer Map）、失效 Bin 分佈、多站點探針平衡。</td>
+                </tr>
+                <tr>
+                  <td><b>FT (封裝成品測試)</b></td>
+                  <td>STDF / ATE Log</td>
+                  <td>Package_ID, Speed_Bin, Leakage_Current, Temp_Corner</td>
+                  <td>封裝引致應力良率損失、高低溫邊限飄移。</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>
+            <span class="zh">1.2 座標系與 Notch / Flat 對齊陷阱</span>
+            <span class="en">1.2 Coordinate System Alignment & Notch Orientation Trap</span>
+          </h3>
+          <p>
+            <span class="zh">
+              在結合 Inline Klarf 缺陷與 CP Wafer Map 時，工程團隊經常踩坑：<b>測試機台的座標原點與晶圓物理凹口（Notch）方向不一致</b>。
+            </span>
+            <span class="en">
+              When correlating Inline Klarf defects with CP wafer maps, teams often fall into the trap of <b>coordinate and notch orientation mismatch</b> between inspection and tester tools.
+            </span>
+          </p>
+
+          <div class="callout warn">
+            <div class="callout-title">
+              <span>⚠️</span>
+              <span class="zh">座標對齊黃金法則 (Golden Rules for Coordinate Normalization)</span>
+              <span class="en">Golden Rules for Coordinate Normalization</span>
+            </div>
+            <ul>
+              <li><b>Notch 歸一化</b>：所有機台圖形統一旋轉至 Notch 向上（0°）或向下（180°）為單一基準。</li>
+              <li><b>原點定義</b>：確認 (0,0) 是晶圓幾何物理中心、左下角晶粒，還是光罩曝光陣列的 Reference Die。</li>
+              <li><b>晶片步進尺寸 (Die Pitch) 與劃面道 (Scribe Line) 寬度驗證</b>：浮點數誤差累積會導致周邊 Die 錯位判定。</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- PHASE 2: SPATIAL WAFER MAP SIGNATURES -->
+      <section id="phase2">
+        <h2 class="collapsible-h" onclick="toggleCollapse(this)">
+          <span>
+            <span class="zh">Phase 2: 晶圓空間分佈簽名辨識 (Spatial Wafer Map Signatures)</span>
+            <span class="en">Phase 2: Spatial Wafer Map Signatures & Classification</span>
+          </span>
+          <span class="collapse-arrow">▼</span>
+        </h2>
+        <div class="collapse-body">
+          <p>
+            <span class="zh">
+              晶圓上的不良品分佈絕非隨機分佈。不同的半導體製程設備（物理氣相沉積 PVD、化學氣相沉積 CVD、旋轉塗佈 Coater、感應耦合電漿 ICP 蝕刻、化學機械研磨 CMP）會在晶圓表面留下獨一無二的<b>「物理簽名（Physical Fingerprint）」</b>。
+            </span>
+            <span class="en">
+              Defects on wafers rarely occur randomly. Different process tools (PVD, CVD, spin coater, plasma etcher, CMP) leave unmistakable <b>"Physical Fingerprints"</b> across the wafer surface.
+            </span>
+          </p>
+
+          <div class="data-table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th><span class="zh">空間簽名模式</span><span class="en">Spatial Pattern</span></th>
+                  <th><span class="zh">典型外觀特徵</span><span class="en">Visual Appearance</span></th>
+                  <th><span class="zh">核心物理機制與對應設備</span><span class="en">Physical Mechanism & Tool</span></th>
+                  <th><span class="zh">首選診斷與糾正措施</span><span class="en">Corrective Actions</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b>Edge Ring (邊緣環)</b></td>
+                  <td>晶圓最外圍 2–15mm 連續低良率環狀。</td>
+                  <td>
+                    1. CMP 邊緣過拋研磨。<br>
+                    2. 光阻邊緣去除（EBR）溶劑反濺。<br>
+                    3. 電漿蝕刻邊緣電磁場畸變（Focus Ring 磨耗）。
+                  </td>
+                  <td>更換蝕刻 Focus Ring、調整 CMP 邊緣壓頭氣囊壓力配比、優化光阻邊緣沖洗距離。</td>
+                </tr>
+                <tr>
+                  <td><b>Center Defect (中心斑)</b></td>
+                  <td>晶圓正中心同心圓狀良率低落。</td>
+                  <td>
+                    1. 旋轉塗佈（Coater）液滴滴落停滯、乾燥不均。<br>
+                    2. 電漿蝕刻中軸氣流淋幕死區。<br>
+                    3. 沉積氣體噴淋頭（Showerhead）中心孔洞堵塞。
+                  </td>
+                  <td>清洗 CVD 氣體噴灑盤、校正旋塗噴嘴對準晶圓真中心、重新調整中心氣體補償流量。</td>
+                </tr>
+                <tr>
+                  <td><b>Scratch / Streak (刮傷)</b></td>
+                  <td>晶圓表面直線或弧形連續刮痕失效。</td>
+                  <td>
+                    1. Robot 搬運手臂傳送對位偏移（Cassette/FOUP 刮晶圓）。<br>
+                    2. CMP 研磨液凝集大顆粒夾雜物刮傷金屬層。
+                  </td>
+                  <td>立即檢查機械手臂 Teach 座標、全面更換 CMP Slurry 循環過濾器（0.1μm 濾芯）。</td>
+                </tr>
+                <tr>
+                  <td><b>Cluster (局部群聚)</b></td>
+                  <td>局部高密度塊狀密集 Fail。</td>
+                  <td>
+                    1. 蝕刻反應腔內壁聚合物（Polymer Flakes）局部剝落。<br>
+                    2. 化學沉積靶材濺鍍異常飛濺（Target Arcing）。
+                  </td>
+                  <td>機台進行濕法清潔（Wet Clean PM）、進行靶材表面清理與腔體高壓電弧監測。</td>
+                </tr>
+                <tr>
+                  <td><b>Bullseye (同心靶心)</b></td>
+                  <td>放射狀多層交替同心環。</td>
+                  <td>高溫氧化爐管（Furnace）或快速熱退火（RTA）燈管組熱輻射均勻度不良。</td>
+                  <td>更換退火石英管、重新校正高溫測溫熱電偶（Thermocouple）各區控溫。</td>
+                </tr>
+                <tr>
+                  <td><b>Checkerboard (棋盤格)</b></td>
+                  <td>規則跳躍式週期分佈（每隔 1 顆或 2 顆必 Fail）。</td>
+                  <td>測試機探針卡（Probe Card）Multi-site 某一特定測試針尖接觸電阻過高或卡針。</td>
+                  <td>進行探針清潔（Probe Sanding / Cleaning Sheet）、測量各 Site 接觸電阻 \(R_c\)。</td>
+                </tr>
+                <tr>
+                  <td><b>Repeater (光罩重複項)</b></td>
+                  <td>完全對應每顆曝光光罩視窗（Reticle Shot）同位置。</td>
+                  <td>微影光罩（Reticle）保護膜（Pellicle）微孔、光罩鉻膜損傷。</td>
+                  <td>停止該光罩使用，送光罩廠清洗或重新製造光罩。</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- PHASE 3: CHAMBER COMMONALITY & CORRELATION -->
+      <section id="phase3">
+        <h2 class="collapsible-h" onclick="toggleCollapse(this)">
+          <span>
+            <span class="zh">Phase 3: 機台 Chamber 共模統計歸因 (Chamber Commonality Attribution)</span>
+            <span class="en">Phase 3: Equipment Chamber Commonality & Multivariate Attribution</span>
+          </span>
+          <span class="collapse-arrow">▼</span>
+        </h2>
+        <div class="collapse-body">
+          <p>
+            <span class="zh">
+              一座大型 12 吋晶圓廠中，同一製程步驟常配置 5–20 台同型設備，每台設備具備 2–6 個平行反應腔體（Chambers）。當良率突降時，如何從成千上萬個排列組合中，精準指認真兇？
+            </span>
+            <span class="en">
+              In a 300mm mega-fab, a single process step may deploy 5–20 identical tools, each housing 2–6 reaction chambers. When a yield excursion hits, how do we systematically isolate the culprit chamber among thousands of combinations?
+            </span>
+          </p>
+
+          <h3>
+            <span class="zh">3.1 共模分析檢定統計法</span>
+            <span class="en">3.1 Statistical Tests for Commonality</span>
+          </h3>
+          <ul>
+            <li>
+              <b>卡方獨立性檢定 (\(\chi^2\) Test of Independence)</b>：
+              <span class="zh">檢定「晶片良率通過與否」與「是否經過特定機台腔體」兩變數是否相互獨立。若 \(p < 0.001\)，強烈拒絕獨立虛無假說。</span>
+              <span class="en">Tests whether pass/fail outcome is statistically independent of chamber routing. A \(p < 0.001\) strongly rejects the null hypothesis.</span>
+            </li>
+            <li>
+              <b>勝算比 (Odds Ratio, \(OR\))</b>：
+              <span class="zh">量化經過該機台之晶圓相較其他機台的不良風險倍數。\(OR > 2.0\) 且具統計顯著性時列入一級嫌疑機台。</span>
+              <span class="en">Quantifies risk escalation for wafers routed through a specific chamber. An \(OR > 2.0\) with statistical significance indicates prime suspect status.</span>
+            </li>
+            <li>
+              <b>單因子 / 雙因子變異數分析 (One-Way / Two-Way ANOVA)</b>：
+              <span class="zh">應用於連續型參數（如 WAT 飽和電流、薄膜膜厚），檢定不同腔體間的群體平均值是否存在顯著差異。</span>
+              <span class="en">Applied to continuous metrology parameters (WAT current, film thickness) to verify inter-chamber mean divergence.</span>
+            </li>
+          </ul>
+
+          <h3>
+            <span class="zh">3.2 致命陷阱：辛普森悖論 (Simpson's Paradox) 與混淆變數</span>
+            <span class="en">3.2 The Simpson's Paradox & Confounding Traps</span>
+          </h3>
+
+          <div class="callout danger">
+            <div class="callout-title">
+              <span>🚨</span>
+              <span class="zh">辛普森悖論實戰案例警示</span>
+              <span class="en">Simpson's Paradox Real-World Alert</span>
+            </div>
+            <p>
+              <span class="zh">
+                <b>現象</b>：表面統計顯示 Chamber #1 的整體良率比 Chamber #2 低 5%。工程團隊判定 Chamber #1 異常。<br>
+                <b>真相</b>：Chamber #1 專門被生管（PC）排程跑高難度的大晶粒旗艦產品（Die Area 400mm²），而 Chamber #2 全都在跑簡單成熟的小晶粒產品（40mm²）。分組產品分層後，Chamber #1 在同一產品上的良率其實反而更高！<br>
+                <b>鐵律</b>：共模分析前，<b>必須對產品型號（Product Device）、批次配方（Recipe）、晶圓槽位（Slot ID）進行分層校正（Stratification）</b>，否則將造成災難性誤判。
+              </span>
+              <span class="en">
+                <b>Phenomenon</b>: Aggregate data shows Chamber #1 yield is 5% lower than Chamber #2. The team flags Chamber #1 as defective.<br>
+                <b>Reality</b>: Production control routed complex large-die products (400mm²) exclusively to Chamber #1, while Chamber #2 processed smaller legacy products (40mm²). When stratified by product, Chamber #1 actually exhibited superior performance!<br>
+                <b>Golden Rule</b>: Always stratify data by Device, Recipe, and FOUP Slot before drawing chamber commonality conclusions.
+              </span>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- PHASE 4: PARAMETRIC MARGIN & CPK ANALYSIS -->
+      <section id="phase4">
+        <h2 class="collapsible-h" onclick="toggleCollapse(this)">
+          <span>
+            <span class="zh">Phase 4: 參數 Margin 與 Cpk 飄移 (Parametric Margin & Cpk Drift)</span>
+            <span class="en">Phase 4: Parametric WAT/CP Margin & Cpk Drift</span>
+          </span>
+          <span class="collapse-arrow">▼</span>
+        </h2>
+        <div class="collapse-body">
+          <p>
+            <span class="zh">
+              功能性失效（Functional Open/Short）固然致命，但現代半導體良率競爭的勝負手在於<b>「參數型良率損失（Parametric Yield Loss）」</b>。晶片電路各節點皆可動作，但因臨界電壓（\(V_{th}\)）、驅動電流（\(I_{on}\)）、寄生電阻過大，導致工作頻率或功耗無法達標。
+            </span>
+            <span class="en">
+              While functional opens/shorts cause clear-cut fallout, the competitive battlefield lies in <b>Parametric Yield Loss</b>. Circuits function logically, but marginal threshold voltages (\(V_{th}\)), drive currents (\(I_{on}\)), or parasitic resistances degrade performance below datasheet limits.
+            </span>
+          </p>
+
+          <h3>
+            <span class="zh">4.1 製程能力指標 \(C_{pk}\) 與 良率損失換算</span>
+            <span class="en">4.1 Process Capability \(C_{pk}\) & DPPM Projection</span>
+          </h3>
+
+          <div class="formula">
+            \[ C_{pk} = \min\left( \frac{USL - \mu}{3\sigma}, \frac{\mu - LSL}{3\sigma} \right) \]
+          </div>
+
+          <div class="data-table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>\(C_{pk}\) 水準</th>
+                  <th><span class="zh">單邊標準差距離</span><span class="en">Sigma Distance</span></th>
+                  <th><span class="zh">預期不合格率 (DPPM)</span><span class="en">Defect Rate (DPPM)</span></th>
+                  <th><span class="zh">適用產業等級</span><span class="en">Industry Grade</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b>1.00</b></td>
+                  <td>\(3\sigma\)</td>
+                  <td>2,700 DPPM</td>
+                  <td>標準低階消費性電子（嚴重良率耗損）</td>
+                </tr>
+                <tr>
+                  <td><b>1.33</b></td>
+                  <td>\(4\sigma\)</td>
+                  <td>63 DPPM</td>
+                  <td>工業控制與一般商用規格基準線</td>
+                </tr>
+                <tr>
+                  <td><b>1.67</b></td>
+                  <td>\(5\sigma\)</td>
+                  <td>0.57 DPPM</td>
+                  <td>車用晶片（Automotive AEC-Q100）標準要求</td>
+                </tr>
+                <tr>
+                  <td><b>2.00</b></td>
+                  <td>\(6\sigma\)</td>
+                  <td>0.002 DPPM (2 PPB)</td>
+                  <td>航太航空與醫療植入物晶片極致要求</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>
+            <span class="zh">4.2 動態 Part Average Testing (PAT) 篩選技術</span>
+            <span class="en">4.2 Dynamic Part Average Testing (Dynamic PAT)</span>
+          </h3>
+          <p>
+            <span class="zh">
+              傳統規格界限（LSL / USL）是靜態的。在車用晶片中，若某顆晶粒雖然在規格內（例如 Pass），但其量測數值顯著背離同批晶圓分佈中位數超過 \(4\sigma\)（稱為 Maverick Die），該晶粒內部必定隱藏亞微米級潛在結晶缺陷，進入車輛運作 6 個月後極高機率發生早期擊穿燒毀。
+            </span>
+            <span class="en">
+              Traditional spec limits (LSL/USL) are static. For automotive chips, dies that pass static limits but deviate by more than \(4\sigma\) from the wafer median (Maverick Dies) harbor latent crystal anomalies that trigger field failures within operating life.
+            </span>
+          </p>
+
+          <div class="callout good">
+            <div class="callout-title">
+              <span>🚗</span>
+              <span class="zh">動態 PAT 計算公式</span>
+              <span class="en">Dynamic PAT Formulation</span>
+            </div>
+            <div class="formula" style="background:transparent; border:none; margin:4px 0;">
+              \[ PAT_{LSL} = \text{Median} - 4 \times R_{IQR} / 1.349, \quad PAT_{USL} = \text{Median} + 4 \times R_{IQR} / 1.349 \]
+            </div>
+            <p style="margin-bottom:0;">
+              <span class="zh">以穩健四分位距（IQR）取代標準差，避免極端異常值干擾整體基準，達到零缺陷（Zero Defect）出貨防禦。</span>
+              <span class="en">Uses robust Interquartile Range (IQR) to estimate dispersion immune to outliers, ensuring zero-defect shipment.</span>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- PHASE 5: FAILURE ANALYSIS (FA) -->
+      <section id="phase5">
+        <h2 class="collapsible-h" onclick="toggleCollapse(this)">
+          <span>
+            <span class="zh">Phase 5: 失效分析 (FA) 實體物理驗證 (Failure Analysis & Physical Feedback)</span>
+            <span class="en">Phase 5: Failure Analysis (FA) & Physical Defect Correlation</span>
+          </span>
+          <span class="collapse-arrow">▼</span>
+        </h2>
+        <div class="collapse-body">
+          <p>
+            <span class="zh">
+              統計分析給出的是「嫌疑犯清單」，真正的「定罪證據」必須來自實體失效分析實驗室（FA Lab）。如果沒有將電性 Fail Bin 與物理缺陷特徵閉環比對，製程改善往往淪為盲人摸象。
+            </span>
+            <span class="en">
+              Statistical correlations provide a suspect list; physical proof must originate from the Failure Analysis (FA) lab. Without closing the loop between electrical failure bins and physical defects, engineering actions remain guesswork.
+            </span>
+          </p>
+
+          <div class="data-table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th><span class="zh">分析階段</span><span class="en">FA Stage</span></th>
+                  <th><span class="zh">儀器技術</span><span class="en">Analytical Instrument</span></th>
+                  <th><span class="zh">物理檢驗原理</span><span class="en">Operating Principle</span></th>
+                  <th><span class="zh">檢測缺陷類型</span><span class="en">Defect Target</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b>1. 非破壞故障定位</b></td>
+                  <td>OBIRCH / TIVA</td>
+                  <td>紅外線雷射激發局部電阻熱變化，偵測漏電流微小擾動。</td>
+                  <td>金屬層短路、閘極氧化層微漏電（Gate Oxide Breakdown）。</td>
+                </tr>
+                <tr>
+                  <td><b>2. 發光顯微定位</b></td>
+                  <td>EMMI (光激發顯微)</td>
+                  <td>載子復合（Carrier Recombination）時發出的微弱光子訊號。</td>
+                  <td>接面反向崩潰、ESD 靜電擊穿、閂鎖效應（Latch-up）。</td>
+                </tr>
+                <tr>
+                  <td><b>3. 次微米探針量測</b></td>
+                  <td>Nano-probing (AFM / SEM)</td>
+                  <td>壓電陶瓷控制奈米級鎢針，直接紮刺單一電晶體節點。</td>
+                  <td>單顆 FinFET 或閘極的單獨 \(I-V\) 特性曲線提取。</td>
+                </tr>
+                <tr>
+                  <td><b>4. 局部聚焦離子束</b></td>
+                  <td>FIB (Focused Ion Beam)</td>
+                  <td>高能量鎵離子束（Ga⁺）精確切割特定幾何座標奈米斷面。</td>
+                  <td>為 TEM 製作厚度 &lt; 50nm 的微薄觀察切片。</td>
+                </tr>
+                <tr>
+                  <td><b>5. 原子級結構與成份</b></td>
+                  <td>TEM + EDX</td>
+                  <td>穿透式電子顯微鏡原子排列成像與 X 射線能量散射光譜。</td>
+                  <td>微量金屬互擴散污染、結晶位錯、界面介電層空孔（Void）。</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- PHASE 6: IMPROVEMENT PLAYBOOK & ACTION LOOPS -->
+      <section id="phase6">
+        <h2 class="collapsible-h" onclick="toggleCollapse(this)">
+          <span>
+            <span class="zh">Phase 6: 系統性改善戰術與閉環 (Yield Improvement Action Playbook)</span>
+            <span class="en">Phase 6: Systematic Improvement Playbook & Action Loops</span>
+          </span>
+          <span class="collapse-arrow">▼</span>
+        </h2>
+        <div class="collapse-body">
+          <p>
+            <span class="zh">
+              當真因鎖定後，良率改善依時間跨度分為三條推進戰線：短期圍堵（24小時）、中期製程工程（2–4週）與長期設計容錯（新改版）。
+            </span>
+            <span class="en">
+              Once root causes are isolated, yield countermeasures deploy along three tactical horizons: Short-Term Containment (24h), Mid-Term Process Tuning (2–4 weeks), and Long-Term Design-for-Manufacturability (tape-out rev).
+            </span>
+          </p>
+
+          <div class="data-table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th><span class="zh">戰線層級</span><span class="en">Tactical Horizon</span></th>
+                  <th><span class="zh">核心行動方針</span><span class="en">Core Actions</span></th>
+                  <th><span class="zh">工程工具與系統</span><span class="en">Engineering System</span></th>
+                  <th><span class="zh">預期目標</span><span class="en">Target Objective</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b>短期圍堵 (Short-Term, 24h)</b></td>
+                  <td>
+                    1. 異常 Chamber 立即軟體上鎖（Interlock Stop）。<br>
+                    2. 觸發 Maverick Wafer 隔離判定。<br>
+                    3. 測試機探針卡接觸電阻清潔（Probe Polish）。
+                  </td>
+                  <td>OAC / SPC 實時在線控制網關</td>
+                  <td>杜絕不良品擴散，止住良率流血。</td>
+                </tr>
+                <tr>
+                  <td><b>中期工程 (Mid-Term, 2-4w)</b></td>
+                  <td>
+                    1. 進階製程控制（APC）Run-to-Run 膜厚補償。<br>
+                    2. CMP 研磨墊壓力曲線分區調整。<br>
+                    3. DOE（實驗設計法）尋求更寬裕的蝕刻溫度/氣體比配方窗口。
+                  </td>
+                  <td>APC / R2R 控制器、JMP DOE</td>
+                  <td>消除系統性空間指紋，縮小跨機台變異（Tool Matching）。</td>
+                </tr>
+                <tr>
+                  <td><b>長期設計 (Long-Term, Rev)</b></td>
+                  <td>
+                    1. DFM 規則庫更新（增加 Via 重複冗餘 Double Via）。<br>
+                    2. SRAM 內建自我修復（BIST + Laser/eFuse Repair）。<br>
+                    3. 光學鄰近修正（OPC）死角佈局重新修正。
+                  </td>
+                  <td>EDA DFM / Layout Retargeting</td>
+                  <td>提升晶片本質容錯能力，降低缺陷敏感度臨界面積。</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- PHASE 7: YIELD RAMP & AUDIT DEFENSE -->
+      <section id="phase7">
+        <h2 class="collapsible-h" onclick="toggleCollapse(this)">
+          <span>
+            <span class="zh">Phase 7: Ramp 學習曲線與客戶稽核治理 (Yield Ramp & Audit Defense)</span>
+            <span class="en">Phase 7: Yield Ramp Modeling & Customer Audit Defense</span>
+          </span>
+          <span class="collapse-arrow">▼</span>
+        </h2>
+        <div class="collapse-body">
+          <p>
+            <span class="zh">
+              新晶圓廠或新製程世代的投產，良率並非瞬間躍升，而是遵循指數型<b>學習曲線（Yield Learning Curve）</b>。在面對車用一級大廠（Tier 1）或國際客戶嚴苛稽核時，工程團隊必須提出合乎科學的良率爬坡模型與變更管理規範（4M1E）。
+            </span>
+            <span class="en">
+              During new node introductions, yields do not surge instantaneously; they obey an empirical <b>Yield Learning Curve</b>. When undergoing rigorous Tier-1 automotive customer audits, engineering teams must present sound mathematical ramp projections and strict 4M1E change control.
+            </span>
+          </p>
+
+          <div class="formula">
+            \[ Y(t) = Y_\infty - (Y_\infty - Y_0) e^{-k \cdot C(t)} \]
+          </div>
+
+          <p>
+            <span class="zh">
+              其中 \(Y_0\) 為初始試產良率，\(Y_\infty\) 為極限成熟良率，\(C(t)\) 為累計生產晶圓數量（Cumulative Wafer Volume），\(k\) 為工程團隊的良率學習速率常數（Learning Rate）。
+            </span>
+            <span class="en">
+              Where \(Y_0\) represents initial pilot yield, \(Y_\infty\) is asymptotic ceiling yield, \(C(t)\) is cumulative wafer volume, and \(k\) is the organizational learning rate constant.
+            </span>
+          </p>
+
+          <div class="callout warn">
+            <div class="callout-title">
+              <span>📋</span>
+              <span class="zh">車用客戶稽核 4M1E 變更管制核對清單</span>
+              <span class="en">IATF 16949 / 4M1E Change Management Checklist</span>
+            </div>
+            <ul>
+              <li><b>Man (人員)</b>：機台操作人員與製程工程師訓練認證證照。</li>
+              <li><b>Machine (設備機台)</b>：新機台 Chamber 認證報告、Tool-to-Tool Matching 偏差量測。</li>
+              <li><b>Material (原材料)</b>：化學研磨液、光阻批號變更前之 5 批 Pilot 試產良率對照。</li>
+              <li><b>Method (製程方法)</b>：配方溫壓調整是否有完整 ECN/PCN 審批記錄與風險評估。</li>
+              <li><b>Environment (環境監控)</b>：無塵室微氣候溫度（\(\pm 0.5^\circ\text{C}\)）、濕度（\(\pm 2\%\)）、AMC 氣體微污染監測。</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- APPENDICES -->
+      <section id="appendices">
+        <h2 class="collapsible-h" onclick="toggleCollapse(this)">
+          <span>
+            <span class="zh">附錄: 工程範本與公式參考卡 (Appendices & Reference Cards)</span>
+            <span class="en">Appendices: Templates & Formula Reference Cards</span>
+          </span>
+          <span class="collapse-arrow">▼</span>
+        </h2>
+        <div class="collapse-body">
+
+          <h3>
+            <span class="zh">附錄 A: 經典半導體良率數學模型公式卡</span>
+            <span class="en">Appendix A: Mathematical Formula Reference Card</span>
+          </h3>
+
+          <div class="data-table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th><span class="zh">模型名稱</span><span class="en">Model Name</span></th>
+                  <th><span class="zh">數學表達式</span><span class="en">Mathematical Formula</span></th>
+                  <th><span class="zh">假設條件與適用場景</span><span class="en">Assumptions & Applications</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b>Poisson Model</b></td>
+                  <td>\[ Y = e^{-A D_0} \]</td>
+                  <td>假設缺陷完全空間獨立隨機分佈；適用於小晶粒（Die Area &lt; 30mm²）與極高純淨度製程。</td>
+                </tr>
+                <tr>
+                  <td><b>Murphy Model</b></td>
+                  <td>\[ Y = \left( \frac{1 - e^{-A D_0}}{A D_0} \right)^2 \]</td>
+                  <td>假設缺陷密度在晶圓間呈三角形分佈；中等晶粒面積之經典工程估計。</td>
+                </tr>
+                <tr>
+                  <td><b>Seeds Model</b></td>
+                  <td>\[ Y = \frac{1}{1 + A D_0} \]</td>
+                  <td>極度保守的指數分佈模型；常作為新產品早期試產最悲觀下限預估。</td>
+                </tr>
+                <tr>
+                  <td><b>Stapper / Negative Binomial</b></td>
+                  <td>\[ Y = \left( 1 + \frac{A D_0}{\alpha} \right)^{-\alpha} \]</td>
+                  <td>現代大型晶片主流；\(\alpha\) 為聚集因子（Clustering Factor），忠實反映缺陷集中現象。</td>
+                </tr>
+                <tr>
+                  <td><b>Gross Die on Wafer</b></td>
+                  <td>\[ N_{gross} \approx \frac{\pi (R - \Delta R)^2}{A} - \frac{2\pi (R - \Delta R)}{\sqrt{2A}} \]</td>
+                  <td>考慮圓形晶圓幾何、邊緣禁絕區（\(\Delta R\)）與邊界不完整晶粒之扣除公式。</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>
+            <span class="zh">附錄 B: 良率突降 8D 異常調查標準模板</span>
+            <span class="en">Appendix B: Yield Excursion 8D Investigation Template</span>
+          </h3>
+
+          <div style="background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:16px; font-family:var(--font-mono); font-size:12.5px; line-height:1.7;">
+            <b>[8D YIELD EXCURSION REPORT TEMPLATE]</b><br>
+            <b>D1 - Team:</b> Lead YEE: ________ | PIE Owner: ________ | PE / ATE: ________<br>
+            <b>D2 - Problem Statement:</b> Lot: ________ dropped yield from Baseline 94.5% to 76.2% at CP Step 4500 (Primary Bin 5 - Metal Short).<br>
+            <b>D3 - Containment Actions:</b> Hold 12 downstream lots in FAB; isolate Etcher #03 Chamber B immediately.<br>
+            <b>D4 - Root Cause Analysis:</b> Spatial map exhibited Edge Ring. Chamber commonality showed Chi2 = 450 (p &lt; 0.0001). FA TEM revealed 45nm Cu bridge due to CMP over-polish.<br>
+            <b>D5 - Corrective Actions:</b> Recalibrate CMP zone pressure profile; replace worn Focus Ring on Etcher #03.<br>
+            <b>D6 - Implementation & Validation:</b> Run 3 split pilot lots; verified yield recovered to 95.1% with zero edge signature.<br>
+            <b>D7 - Preventive Actions:</b> Update SPC alarm limits for CMP head pressure; revise PM frequency from 5,000 to 3,500 RF hours.<br>
+            <b>D8 - Congratulate Team & Closure:</b> Signed off by Quality Director and Fab Operations Lead.
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div>
+      <span class="zh">半導體良率改善分析工具平台 · 內部工程手冊</span>
+      <span class="en">Semiconductor Yield Improvement Analysis Suite · Engineering Reference</span>
+    </div>
+    <div>
+      <span class="zh">修訂時間：</span><span class="en">Updated: </span>
+      <b>2026-10-21 15:45</b>
+    </div>
+  </footer>
+
+</div>
+
+<!-- APPLICATION JAVASCRIPT -->
+<script>
+  // MathJax / KaTeX rendering helper
+  function renderMathInPage() {
+    if (typeof renderMathInElement === 'function') {
+      renderMathInElement(document.body, {
+        delimiters: [
+          {left: '$$', right: '$$', display: true},
+          {left: '\\[', right: '\\]', display: true},
+          {left: '\\(', right: '\\)', display: false},
+          {left: '$', right: '$', display: false}
+        ],
+        throwOnError: false
+      });
+    }
+  }
+
+  // Language & Theme State
+  let currentTheme = localStorage.getItem('theme') || 'light';
+  let currentLang = localStorage.getItem('lang') || 'zh';
+
+  function initThemeAndLang() {
+    document.documentElement.setAttribute('data-theme', currentTheme);
+    document.documentElement.setAttribute('data-lang', currentLang);
+    updateLangUI();
+  }
+
+  function toggleTheme() {
+    currentTheme = (currentTheme === 'light') ? 'dark' : 'light';
+    localStorage.setItem('theme', currentTheme);
+    document.documentElement.setAttribute('data-theme', currentTheme);
+    // Redraw canvases on theme switch
+    setTimeout(() => {
+      renderWaferPattern();
+      updateCpkView();
+    }, 50);
+  }
+
+  function toggleLang() {
+    currentLang = (currentLang === 'zh') ? 'en' : 'zh';
+    localStorage.setItem('lang', currentLang);
+    document.documentElement.setAttribute('data-lang', currentLang);
+    updateLangUI();
+  }
+
+  function updateLangUI() {
+    const btn = document.getElementById('langToggle');
+    if (btn) btn.textContent = (currentLang === 'zh') ? '🌐 EN / 中文' : '🌐 中文 / EN';
+  }
+
+  // Collapsible Sections
+  function toggleCollapse(header) {
+    header.classList.toggle('is-collapsed');
+    const body = header.nextElementSibling;
+    if (body) {
+      body.classList.toggle('collapsed');
+    }
+  }
+
+  // --- TOOL 1: YIELD MODELING CALCULATIONS ---
+  function updateYieldParams() {
+    document.getElementById('lblDieArea').textContent = document.getElementById('inpDieArea').value + ' mm²';
+    document.getElementById('lblD0').textContent = document.getElementById('inpD0').value + ' /cm²';
+    document.getElementById('lblAlpha').textContent = document.getElementById('inpAlpha').value;
+    document.getElementById('lblEdgeExcl').textContent = document.getElementById('inpEdgeExcl').value + ' mm';
+  }
+
+  function calcYieldModel() {
+    const waferSize = parseFloat(document.getElementById('inpWaferSize').value);
+    const dieArea = parseFloat(document.getElementById('inpDieArea').value);
+    const D0 = parseFloat(document.getElementById('inpD0').value);
+    const alpha = parseFloat(document.getElementById('inpAlpha').value);
+    const edgeExcl = parseFloat(document.getElementById('inpEdgeExcl').value);
+
+    // Gross Die formula:
+    const R = (waferSize / 2) - edgeExcl;
+    const grossDie = Math.floor((Math.PI * R * R / dieArea) - (2 * Math.PI * R / Math.sqrt(2 * dieArea)));
+    const validGross = Math.max(10, grossDie);
+
+    // Defect calculation (A in cm^2, D0 in /cm^2):
+    const A_cm2 = dieArea / 100.0;
+    const AD0 = A_cm2 * D0;
+
+    // Models:
+    const yPoisson = Math.exp(-AD0);
+    const yMurphy = AD0 > 0.001 ? Math.pow((1 - Math.exp(-AD0)) / AD0, 2) : 1.0;
+    const yStapper = Math.pow(1 + (AD0 / alpha), -alpha);
+
+    const netDie = Math.round(validGross * yStapper);
+    const lostDie = validGross - netDie;
+
+    document.getElementById('valGrossDie').textContent = validGross.toLocaleString();
+    document.getElementById('valYieldPoisson').textContent = (yPoisson * 100).toFixed(1) + '%';
+    document.getElementById('valYieldMurphy').textContent = (yMurphy * 100).toFixed(1) + '%';
+    document.getElementById('valYieldStapper').textContent = (yStapper * 100).toFixed(1) + '%';
+    document.getElementById('valNetDie').textContent = netDie.toLocaleString() + (currentLang === 'zh' ? ' 顆' : ' dies');
+    document.getElementById('valLostDie').textContent = lostDie.toLocaleString() + (currentLang === 'zh' ? ' 顆' : ' dies');
+  }
+
+  // --- TOOL 2: WAFER MAP SPATIAL SIMULATOR ---
+  let waferData = [];
+  const WAFER_GRID_N = 38; // 38x38 grid approximates 1200 dies on a circle
+
+  function initWaferGrid() {
+    waferData = [];
+    const radius = WAFER_GRID_N / 2;
+    for (let y = 0; y < WAFER_GRID_N; y++) {
+      for (let x = 0; x < WAFER_GRID_N; x++) {
+        const dx = x - radius + 0.5;
+        const dy = y - radius + 0.5;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist <= radius - 0.5) {
+          waferData.push({
+            x: x,
+            y: y,
+            dx: dx,
+            dy: dy,
+            dist: dist / radius, // 0 (center) to 1 (edge)
+            theta: Math.atan2(dy, dx),
+            status: 0 // 0: Good, 1: Marginal, 2: Fail
+          });
+        }
+      }
+    }
+  }
+
+  function renderWaferPattern() {
+    if (waferData.length === 0) initWaferGrid();
+
+    const pattern = document.getElementById('selWaferPattern').value;
+    const sev = parseFloat(document.getElementById('inpPatternSev').value) / 100.0;
+    let failCount = 0;
+
+    waferData.forEach(d => {
+      let failProb = 0.03; // Baseline 3% random failure
+
+      if (pattern === 'edge_ring') {
+        if (d.dist > 0.78) {
+          failProb += Math.pow((d.dist - 0.78) / 0.22, 1.8) * sev * 0.95;
+        }
+      } else if (pattern === 'center') {
+        if (d.dist < 0.35) {
+          failProb += Math.pow((0.35 - d.dist) / 0.35, 1.5) * sev * 0.92;
+        }
+      } else if (pattern === 'scratch') {
+        // Line equation: dy - 0.6*dx + 4 ≈ 0
+        const lineDist = Math.abs(d.dy - 0.55 * d.dx + 3.2);
+        if (lineDist < 1.4) {
+          failProb += (1.4 - lineDist) / 1.4 * sev * 0.98;
+        }
+      } else if (pattern === 'cluster') {
+        // Local cluster around (dx=7, dy=-6)
+        const cDist = Math.hypot(d.dx - 6.5, d.dy + 5.5);
+        if (cDist < 5.0) {
+          failProb += (5.0 - cDist) / 5.0 * sev * 0.95;
+        }
+      } else if (pattern === 'bullseye') {
+        // Concentric periodic rings
+        const ring = Math.sin(d.dist * Math.PI * 4.5);
+        if (ring > 0.3) {
+          failProb += ring * sev * 0.75;
+        }
+      } else if (pattern === 'multisite') {
+        // Checkerboard / 4-site probe card (x%2==0 and y%2==0 is Site 1)
+        if ((d.x % 2 === 0) && (d.y % 2 === 0)) {
+          failProb += sev * 0.85;
+        }
+      } else if (pattern === 'repeater') {
+        // Reticle shot 4x4 dies
+        if ((d.x % 4 === 1) && (d.y % 4 === 2)) {
+          failProb += sev * 0.95;
+        }
+      }
+
+      // Roll random status
+      const roll = Math.random();
+      if (roll < failProb) {
+        d.status = (roll < failProb * 0.7) ? 2 : 1; // 2: Hard Fail, 1: Marginal
+        failCount++;
+      } else {
+        d.status = 0; // Good
+      }
+    });
+
+    const yieldRate = ((waferData.length - failCount) / waferData.length) * 100;
+    document.getElementById('lblWaferMapYield').textContent = yieldRate.toFixed(1) + '%';
+
+    // Draw canvas
+    drawWaferMapCanvas();
+    updatePatternDiagnosis(pattern);
+  }
+
+  function drawWaferMapCanvas() {
+    const canvas = document.getElementById('waferCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const w = canvas.width;
+    const h = canvas.height;
+
+    ctx.clearRect(0, 0, w, h);
+
+    // Draw Wafer Outline
+    ctx.save();
+    ctx.fillStyle = '#141d1a';
+    ctx.beginPath();
+    ctx.arc(w/2, h/2, (w/2) - 6, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Notch at bottom
+    ctx.fillStyle = '#22302c';
+    ctx.beginPath();
+    ctx.arc(w/2, h - 6, 5, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+
+    // Colors
+    const isDark = (document.documentElement.getAttribute('data-theme') === 'dark');
+    const colGood = isDark ? '#2f7a45' : '#388e3c';
+    const colMarginal = '#dcab53';
+    const colFail = '#e28779';
+
+    const cellW = (w - 24) / WAFER_GRID_N;
+    const cellH = (h - 24) / WAFER_GRID_N;
+
+    waferData.forEach(d => {
+      const px = 12 + d.x * cellW;
+      const py = 12 + d.y * cellH;
+
+      if (d.status === 0) ctx.fillStyle = colGood;
+      else if (d.status === 1) ctx.fillStyle = colMarginal;
+      else ctx.fillStyle = colFail;
+
+      ctx.fillRect(px + 0.5, py + 0.5, cellW - 1, cellH - 1);
+    });
+  }
+
+  function updatePatternDiagnosis(pattern) {
+    const titleEl = document.getElementById('diagTitle');
+    const bodyEl = document.getElementById('diagBody');
+    if (!titleEl || !bodyEl) return;
+
+    const diagnoses = {
+      normal: {
+        zh_title: '正常生產基準 (Normal Baseline)',
+        zh_body: '<b>特徵評估：</b>缺陷呈均勻零散 Poisson 分佈，無群聚或幾何方向偏向。<br><b>維護處方：</b>維持現有機台與無塵室環境例行 PM 循環，監控良率 SPC 管制圖。',
+        en_title: 'Normal Baseline Production',
+        en_body: '<b>Assessment:</b> Random Poisson distribution with zero spatial clustering.<br><b>Action:</b> Maintain routine SPC control limits and standard cleanroom protocols.'
+      },
+      edge_ring: {
+        zh_title: '邊緣環狀失效 (Edge Ring Signature)',
+        zh_body: '<b>典型物理機理：</b>CMP 研磨邊緣過拋（Over-polishing）、光阻邊緣珠去除（EBR）不均勻、或乾蝕刻電漿鞘層 Focus Ring 磨耗邊界效應。<br><b>推薦排查機台：</b>CMP Platen #2 研磨墊壓力曲線、Coater EBR 噴嘴角度、Etch Focus Ring 耗損量。<br><b>首要處方：</b>調整 CMP 多區氣囊壓頭邊緣補償壓力。',
+        en_title: 'Edge Ring Signature',
+        en_body: '<b>Mechanism:</b> CMP edge over-polishing, uneven EBR solvent purge, or plasma sheath distortion from worn focus rings.<br><b>Suspect Tools:</b> CMP Platen #2 carrier zones, coater EBR nozzles, etcher focus rings.<br><b>Action:</b> Rebalance multi-zone CMP carrier pressures; inspect focus rings.'
+      },
+      center: {
+        zh_title: '中心圓斑異常 (Center Defect Signature)',
+        zh_body: '<b>典型物理機理：</b>旋轉塗佈（Coater）中心液滴擴散阻滞、電漿沉積/蝕刻中軸熱點或氣流淋幕死區。<br><b>推薦排查機台：</b>CVD 氣體噴灑盤（Showerhead）中心微孔堵塞、Coater 旋塗轉速曲線。<br><b>首要處方：</b>拆洗氣體噴嘴組，優化中心區氣體補償流速。',
+        en_title: 'Center Defect Signature',
+        en_body: '<b>Mechanism:</b> Spin coater nozzle stagnation, showerhead center orifice blockage, or plasma axial hotspot.<br><b>Suspect Tools:</b> CVD/ALD showerheads, track coater dispenser centers.<br><b>Action:</b> Clean gas showerhead assemblies; optimize central gas feed tuning.'
+      },
+      scratch: {
+        zh_title: '夾爪 / 拋光刮痕 (Scratch / Streak Signature)',
+        zh_body: '<b>典型物理機理：</b>機械手臂晶圓傳送夾爪（Robot End Effector）水平微偏位刮擦、或 CMP 研磨液結晶硬質大顆粒夾雜。<br><b>推薦排查機台：</b>晶圓傳送機械人（Handler Robot）、CMP 研磨液過濾系統。<br><b>首要處方：</b>緊急更換 CMP 研磨液 0.1μm 濾芯，重新示教機械手臂空間坐標。',
+        en_title: 'Scratch / Handler Streak Signature',
+        en_body: '<b>Mechanism:</b> Robotic handler claw misalignment scraping, or CMP slurry agglomerated micro-particles.<br><b>Suspect Tools:</b> Cleanroom robot end-effectors, CMP slurry loop filters.<br><b>Action:</b> Replace slurry 0.1μm cartridge filters immediately; re-teach robot positions.'
+      },
+      cluster: {
+        zh_title: '局部群聚微粒 (Cluster Signature)',
+        zh_body: '<b>典型物理機理：</b>乾蝕刻腔體內壁聚合物沉積層（Polymer Byproducts）局部大塊剝落、或沉積靶材異常飛濺。<br><b>推薦排查機台：</b>Metal/Poly ICP 蝕刻腔體、PVD Sputter 濺鍍機。<br><b>首要處方：</b>強制執行濕式機台預防性保養（Wet Clean PM），更換腔體屏蔽襯套（Shield Kit）。',
+        en_title: 'Localized Cluster Signature',
+        en_body: '<b>Mechanism:</b> Flaking of sidewall polymer coatings inside etch chambers, or PVD target arcing spitting.<br><b>Suspect Tools:</b> Metal/Poly ICP etchers, PVD sputtering chambers.<br><b>Action:</b> Trigger wet clean PM and replace vacuum chamber shield liners.'
+      },
+      bullseye: {
+        zh_title: '同心靶心分佈 (Bullseye Signature)',
+        zh_body: '<b>典型物理機理：</b>氧化擴散爐管（Furnace）或快速熱退火（RTP）放射狀燈管熱輻射溫控梯度失調。<br><b>推薦排查機台：</b>高溫擴散爐管、RTA 快速退火設備。<br><b>首要處方：</b>重新校正多區熱電偶測溫儀（Thermocouple Profiling），檢查石英管旋轉機構。',
+        en_title: 'Bullseye Concentric Signature',
+        en_body: '<b>Mechanism:</b> Thermal radiant gradients across heating zones in diffusion furnaces or RTP lamp arrays.<br><b>Suspect Tools:</b> Oxidation diffusion furnaces, spike annealing tools.<br><b>Action:</b> Re-profile thermal thermocouples; inspect quartz rotation chucks.'
+      },
+      multisite: {
+        zh_title: '測試針卡棋盤格 (Checkerboard / Multi-site Skew)',
+        zh_body: '<b>典型物理機理：</b>測試機針卡（Probe Card）4-site 或 8-site 平行測試時，特定 Site 接觸阻抗（\(R_c\)）過高或探針沾黏鎢磨損。<br><b>推薦排查機台：</b>CP 晶圓測試機台、測試針卡（Probe Card）。<br><b>首要處方：</b>暫停測試，對針卡執行在線微粒研磨清潔（Sand Sheet Cleaning）並重測驗證。',
+        en_title: 'Multi-site Probe Skew (Checkerboard)',
+        en_body: '<b>Mechanism:</b> High contact resistance (\(R_c\)) or probe tip contamination on specific test sites in multi-DUT probing.<br><b>Suspect Tools:</b> ATE probers, multi-site probe cards.<br><b>Action:</b> Run abrasive probe cleaning sheets; execute site-to-site margin correlation.'
+      },
+      repeater: {
+        zh_title: '微影光罩重複項 (Reticle Shot Repeater)',
+        zh_body: '<b>典型物理機理：</b>微影步進機（Scanner）曝光視野內固定 Die 損壞，主因為光罩（Reticle）保護膜（Pellicle）破孔造成微粒沾附。<br><b>推薦排查機台：</b>浸潤式微影曝光機（Immersion DUV/EUV Scanner）。<br><b>首要處方：</b>立即下線該光罩，實施光罩穿透率檢查與雷射修補/重洗。',
+        en_title: 'Reticle Shot Repeater',
+        en_body: '<b>Mechanism:</b> Pellicle pinhole or foreign particle adhesion on the lithography reticle within the exposure field.<br><b>Suspect Tools:</b> DUV/EUV immersion scanners.<br><b>Action:</b> Disengage reticle immediately; perform pellicle inspection and laser re-cleaning.'
+      }
+    };
+
+    const d = diagnoses[pattern] || diagnoses['normal'];
+    titleEl.textContent = (currentLang === 'zh') ? d.zh_title : d.en_title;
+    bodyEl.innerHTML = (currentLang === 'zh') ? d.zh_body : d.en_body;
+  }
+
+  function randomizeWaferNoise() {
+    renderWaferPattern();
+  }
+
+  function downloadWaferPNG() {
+    const canvas = document.getElementById('waferCanvas');
+    const link = document.createElement('a');
+    link.download = 'wafer_map_' + document.getElementById('selWaferPattern').value + '.png';
+    link.href = canvas.toDataURL();
+    link.click();
+  }
+
+  // --- TOOL 3: CHAMBER COMMONALITY CALCULATIONS ---
+  function recalcChamberStats() {
+    const fA = parseInt(document.getElementById('chFailA').value) || 0;
+    const fB = parseInt(document.getElementById('chFailB').value) || 0;
+    const fC = parseInt(document.getElementById('chFailC').value) || 0;
+    const fD = parseInt(document.getElementById('chFailD').value) || 0;
+
+    const totA = 13100, totB = 12576, totC = 13624, totD = 13100;
+    const totAll = totA + totB + totC + totD;
+    const failAll = fA + fB + fC + fD;
+    const passAll = totAll - failAll;
+
+    const rA = (fA / totA) * 100;
+    const rB = (fB / totB) * 100;
+    const rC = (fC / totC) * 100;
+    const rD = (fD / totD) * 100;
+
+    document.getElementById('chRateA').textContent = rA.toFixed(2) + '%';
+    document.getElementById('chRateB').textContent = rB.toFixed(2) + '%';
+    document.getElementById('chRateC').textContent = rC.toFixed(2) + '%';
+    document.getElementById('chRateD').textContent = rD.toFixed(2) + '%';
+
+    // Odds Ratios vs baseline average of other 3
+    function calcOR(f, tot) {
+      const p = tot - f;
+      const f_others = failAll - f;
+      const p_others = passAll - p;
+      if (p === 0 || f_others === 0) return 1.0;
+      return (f / p) / (f_others / p_others);
+    }
+
+    document.getElementById('chORA').textContent = calcOR(fA, totA).toFixed(2);
+    document.getElementById('chORB').textContent = calcOR(fB, totB).toFixed(2);
+    document.getElementById('chORC').textContent = calcOR(fC, totC).toFixed(2);
+    document.getElementById('chORD').textContent = calcOR(fD, totD).toFixed(2);
+
+    // 2x4 Contingency Chi-Square:
+    let chi2 = 0;
+    const rows = [ [fA, totA - fA], [fB, totB - fB], [fC, totC - fC], [fD, totD - fD] ];
+    const grandTotal = totAll;
+    const expectedFailProp = failAll / grandTotal;
+    const expectedPassProp = passAll / grandTotal;
+
+    rows.forEach((r, idx) => {
+      const n = [totA, totB, totC, totD][idx];
+      const eFail = n * expectedFailProp;
+      const ePass = n * expectedPassProp;
+      chi2 += Math.pow(r[0] - eFail, 2) / eFail;
+      chi2 += Math.pow(r[1] - ePass, 2) / ePass;
+    });
+
+    document.getElementById('valChi2').textContent = chi2.toFixed(1);
+    if (chi2 > 16.27) { // p < 0.001 for df=3
+      document.getElementById('valPval').textContent = '< 0.00001';
+      document.getElementById('valDecision').textContent = (currentLang === 'zh') ? '🚨 隔離 Chamber C' : '🚨 Isolate Chamber C';
+    } else {
+      document.getElementById('valPval').textContent = '> 0.05 (無顯著)';
+      document.getElementById('valDecision').textContent = (currentLang === 'zh') ? '各腔體無統計異常' : 'No Statistical Outlier';
+    }
+  }
+
+  // --- TOOL 4: CPK & PAT CANVAS ---
+  function updateCpkView() {
+    const mean = parseFloat(document.getElementById('inpMeanShift').value);
+    const sigma = parseFloat(document.getElementById('inpSigma').value);
+
+    document.getElementById('lblMeanShift').textContent = mean.toFixed(3) + ' V';
+    document.getElementById('lblSigma').textContent = sigma.toFixed(3) + ' V';
+    document.getElementById('lblCurMean').textContent = mean.toFixed(2);
+
+    const LSL = 0.60;
+    const USL = 0.80;
+
+    const cpkL = (mean - LSL) / (3 * sigma);
+    const cpkU = (USL - mean) / (3 * sigma);
+    const cpk = Math.min(cpkL, cpkU);
+
+    document.getElementById('valCpk').textContent = cpk.toFixed(2);
+
+    // Approximate DPPM:
+    function normalCDF(x) {
+      const t = 1 / (1 + 0.2316419 * Math.abs(x));
+      const d = 0.3989423 * Math.exp(-x * x / 2);
+      let prob = d * t * (0.3193815 + t * (-0.3565638 + t * (1.781478 + t * (-1.821256 + t * 1.330274))));
+      if (x > 0) prob = 1 - prob;
+      return prob;
+    }
+
+    const zL = (LSL - mean) / sigma;
+    const zU = (USL - mean) / sigma;
+    const pFail = normalCDF(zL) + (1 - normalCDF(zU));
+    const dppm = Math.round(pFail * 1000000);
+
+    const dppmEl = document.getElementById('valDppm');
+    if (dppm < 1) {
+      dppmEl.textContent = '< 1 DPPM';
+      dppmEl.style.color = 'var(--good)';
+    } else {
+      dppmEl.textContent = dppm.toLocaleString() + ' DPPM';
+      dppmEl.style.color = dppm > 100 ? 'var(--danger)' : 'var(--warn)';
+    }
+
+    drawCpkChart(mean, sigma, LSL, USL);
+  }
+
+  function drawCpkChart(mean, sigma, LSL, USL) {
+    const canvas = document.getElementById('cpkCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const w = canvas.width;
+    const h = canvas.height;
+
+    ctx.clearRect(0, 0, w, h);
+
+    const isDark = (document.documentElement.getAttribute('data-theme') === 'dark');
+    const colInk = isDark ? '#e7ece9' : '#16211f';
+    const colBorder = isDark ? '#2a3634' : '#d1dcd9';
+    const colAccent = isDark ? '#5bbcdd' : '#0b6e8f';
+
+    // X Range: 0.55V to 0.85V
+    const xMin = 0.55;
+    const xMax = 0.85;
+
+    function getX(v) {
+      return 40 + ((v - xMin) / (xMax - xMin)) * (w - 80);
+    }
+
+    // Normal curve formula
+    function normPdf(x, m, s) {
+      return (1 / (s * Math.sqrt(2 * Math.PI))) * Math.exp(-0.5 * Math.pow((x - m) / s, 2));
+    }
+
+    const maxPdf = normPdf(mean, mean, sigma);
+
+    // Draw baseline
+    ctx.strokeStyle = colBorder;
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(40, h - 35);
+    ctx.lineTo(w - 40, h - 35);
+    ctx.stroke();
+
+    // Fill Curve
+    ctx.beginPath();
+    ctx.moveTo(getX(xMin), h - 35);
+    for (let vx = xMin; vx <= xMax; vx += 0.002) {
+      const pdf = normPdf(vx, mean, sigma);
+      const py = (h - 35) - (pdf / maxPdf) * (h - 70);
+      ctx.lineTo(getX(vx), py);
+    }
+    ctx.lineTo(getX(xMax), h - 35);
+    ctx.closePath();
+    ctx.fillStyle = isDark ? 'rgba(91, 188, 221, 0.22)' : 'rgba(11, 110, 143, 0.15)';
+    ctx.fill();
+
+    // Outline curve
+    ctx.strokeStyle = colAccent;
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    for (let vx = xMin; vx <= xMax; vx += 0.002) {
+      const pdf = normPdf(vx, mean, sigma);
+      const py = (h - 35) - (pdf / maxPdf) * (h - 70);
+      if (vx === xMin) ctx.moveTo(getX(vx), py);
+      else ctx.lineTo(getX(vx), py);
+    }
+    ctx.stroke();
+
+    // Draw LSL & USL Lines
+    ctx.strokeStyle = '#e28779';
+    ctx.lineWidth = 2;
+    // LSL
+    ctx.beginPath();
+    ctx.moveTo(getX(LSL), 15);
+    ctx.lineTo(getX(LSL), h - 35);
+    ctx.stroke();
+    // USL
+    ctx.beginPath();
+    ctx.moveTo(getX(USL), 15);
+    ctx.lineTo(getX(USL), h - 35);
+    ctx.stroke();
+
+    // Draw Mean Line
+    ctx.strokeStyle = colAccent;
+    ctx.setLineDash([4, 4]);
+    ctx.beginPath();
+    ctx.moveTo(getX(mean), 25);
+    ctx.lineTo(getX(mean), h - 35);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // Draw PAT Limits (mean ± 4*sigma)
+    ctx.strokeStyle = '#dcab53';
+    ctx.lineWidth = 1.5;
+    ctx.setLineDash([3, 3]);
+    const patL = Math.max(xMin, mean - 4 * sigma);
+    const patU = Math.min(xMax, mean + 4 * sigma);
+    ctx.beginPath();
+    ctx.moveTo(getX(patL), 30);
+    ctx.lineTo(getX(patL), h - 35);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(getX(patU), 30);
+    ctx.lineTo(getX(patU), h - 35);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // Labels
+    ctx.fillStyle = colInk;
+    ctx.font = '11px IBM Plex Mono, monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText('LSL 0.60V', getX(LSL), h - 16);
+    ctx.fillText('USL 0.80V', getX(USL), h - 16);
+    ctx.fillText('μ ' + mean.toFixed(2) + 'V', getX(mean), h - 16);
+  }
+
+  // --- FIND / SEARCH IN DOCUMENT ---
+  let findMatches = [];
+  let currentFindIndex = -1;
+
+  function handleFindInput() {
+    clearFindHighlights();
+    const query = document.getElementById('findInput').value.trim();
+    if (!query || query.length < 2) {
+      document.getElementById('findCount').textContent = '0/0';
+      return;
+    }
+
+    const walker = document.createTreeWalker(document.querySelector('main'), NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    findMatches = [];
+
+    while (node = walker.nextNode()) {
+      const parent = node.parentElement;
+      if (!parent || parent.tagName === 'SCRIPT' || parent.tagName === 'STYLE' || parent.tagName === 'MARK') continue;
+      
+      const text = node.nodeValue;
+      const idx = text.toLowerCase().indexOf(query.toLowerCase());
+      if (idx !== -1) {
+        findMatches.push({ node: node, parent: parent });
+      }
+    }
+
+    document.getElementById('findCount').textContent = findMatches.length > 0 ? `1/${findMatches.length}` : '0/0';
+    if (findMatches.length > 0) {
+      currentFindIndex = 0;
+      highlightCurrentFind();
+    }
+  }
+
+  function handleFindKey(e) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      findNav(e.shiftKey ? -1 : 1);
+    } else if (e.key === 'Escape') {
+      document.getElementById('findInput').value = '';
+      clearFindHighlights();
+      document.getElementById('findCount').textContent = '0/0';
+    }
+  }
+
+  function findNav(direction) {
+    if (findMatches.length === 0) return;
+    currentFindIndex += direction;
+    if (currentFindIndex >= findMatches.length) currentFindIndex = 0;
+    if (currentFindIndex < 0) currentFindIndex = findMatches.length - 1;
+
+    document.getElementById('findCount').textContent = `${currentFindIndex + 1}/${findMatches.length}`;
+    highlightCurrentFind();
+  }
+
+  function highlightCurrentFind() {
+    clearFindHighlights();
+    if (currentFindIndex < 0 || currentFindIndex >= findMatches.length) return;
+
+    const item = findMatches[currentFindIndex];
+    // Automatically expand collapsed parent sections
+    let cur = item.parent;
+    while (cur && cur !== document.body) {
+      if (cur.classList && cur.classList.contains('collapse-body') && cur.classList.contains('collapsed')) {
+        cur.classList.remove('collapsed');
+        if (cur.previousElementSibling && cur.previousElementSibling.classList.contains('collapsible-h')) {
+          cur.previousElementSibling.classList.remove('is-collapsed');
+        }
+      }
+      cur = cur.parentElement;
+    }
+
+    item.parent.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    item.parent.style.outline = '2px solid var(--accent)';
+    setTimeout(() => { if (item.parent) item.parent.style.outline = 'none'; }, 2000);
+  }
+
+  function clearFindHighlights() {
+    const highlights = document.querySelectorAll('mark.find-hl');
+    highlights.forEach(el => {
+      const parent = el.parentNode;
+      if (parent) {
+        parent.replaceChild(document.createTextNode(el.textContent), el);
+        parent.normalize();
+      }
+    });
+  }
+
+  // Initialization on load
+  window.addEventListener('DOMContentLoaded', () => {
+    initThemeAndLang();
+    calcYieldModel();
+    renderWaferPattern();
+    updateCpkView();
+  });
+</script>
+</body>
+</html>
