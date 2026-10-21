@@ -71,6 +71,52 @@ async function runVerification() {
     }
   }
 
+  // 1.2 Test One-Click Zoom (Lightbox Modal on Figure 0.2 Fishbone)
+  console.log('\n[Test 1.2] Testing One-Click Zoom (Lightbox Modal)...');
+  const fishboneFigure = page.locator('#overview .figure-container').first();
+  if (await fishboneFigure.count() > 0) {
+    await fishboneFigure.scrollIntoViewIfNeeded();
+    await page.waitForTimeout(300);
+    // Click to open lightbox
+    await fishboneFigure.click();
+    await page.waitForTimeout(500);
+
+    const lightboxModal = page.locator('#lightbox-modal');
+    const isActive = await lightboxModal.evaluate(el => el.classList.contains('active'));
+    console.log(`  ✓ Lightbox Modal activated: ${isActive}`);
+
+    // Verify zoomed content
+    const zoomedSvg = page.locator('#lightbox-content svg');
+    const svgCount = await zoomedSvg.count();
+    console.log(`  ✓ Lightbox contains zoomed SVG: ${svgCount > 0}`);
+
+    // Screenshot of active lightbox
+    await page.screenshot({ path: path.join(screenshotsDir, '09_one_click_zoom_active.png') });
+
+    // Test zoom in button
+    const zoomInBtn = page.locator('.lightbox-btn:has-text("放大")').first();
+    if (await zoomInBtn.count() > 0) {
+      await zoomInBtn.click();
+      await page.waitForTimeout(200);
+      console.log('  ✓ Zoom-in button clicked.');
+    }
+
+    // Close lightbox
+    const closeBtn = page.locator('.lightbox-close').first();
+    await closeBtn.click();
+    await page.waitForTimeout(300);
+    const isClosed = await lightboxModal.evaluate(el => !el.classList.contains('active'));
+    console.log(`  ✓ Lightbox closed cleanly: ${isClosed}`);
+  }
+
+  // 1.3 Test Footer Last Updated Date
+  console.log('\n[Test 1.3] Testing Footer Last Updated Date...');
+  const footerText = await page.locator('footer').innerText();
+  console.log(`  ✓ Footer info: ${footerText.replace(/\n/g, ' ')}`);
+  if (!footerText.includes('2026-10-21') || !footerText.includes('更新')) {
+    throw new Error('Footer missing update date!');
+  }
+
   console.log('\n[Test 2] Testing Language Toggle (ZH <-> EN)...');
   const langToggleBtn = page.locator('#btn-lang, button:has-text("EN"), button:has-text("中文")').first();
   if (await langToggleBtn.count() > 0) {
