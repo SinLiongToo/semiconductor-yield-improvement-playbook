@@ -997,6 +997,7 @@
                     <option value="substrate_split">8. 換入特定外延片廠商（Epi Vendor B）後，跨所有設備之晶圓良率集體下滑 (Raw Ingot / Substrate Vendor Drift)</option>
                     <option value="otp_trim_fail">9. OTP / eFuse 燒錄後 Verify Read 失敗或高溫烘烤後數據丟失 (OTP/Trim Under-Blow or Retention Fail)</option>
                     <option value="rma_gdbn_escape">10. 客戶端退貨 (RMA) 晶片回測 Pass，但經追溯位於晶圓邊緣聚集缺陷旁 (Customer Return & GDBN Escape)</option>
+                    <option value="package_qual_cpi">11. 新封裝工程認證 (Package Qual) 或 OSAT 轉廠批次良率腰斬 (Package Qual / CPI Stress / Post-Mold Shift)</option>
                   </select>
                 </div>
 
@@ -2951,6 +2952,389 @@
             </p>
           </div>
 
+                  <!-- 5.7 PACKAGE QUALIFICATION & CPI STRESS EXCURSIONS -->
+          <h3>
+            <span class="zh">5.7 封裝工程認證 (Package Qualification) 引致低良率真因解構與防禦閉環</span>
+            <span class="en">5.7 Package Qualification Low-Yield Excursions, CPI Stress &amp; Defense Playbook</span>
+          </h3>
+          <p>
+            <span class="zh">
+              在晶圓與封測整合實務中，產品與良率工程師最常遭遇的劇烈良率災情之一，莫過於<b>「CP 晶圓針測良率高達 98%，但進行新封裝認證（Package Qual）、更換封裝載板（Substrate）、換用新模塑料（EMC）或移轉至新 OSAT 代工廠時，FT 成品良率直接腰斬至 60%–80%！」</b>。更甚者，在歷經 JEDEC / AEC-Q100 可靠度加速應力測試（如 MSL 濕敏、TCT 溫度循環、HAST 溫濕度偏壓）後，出現成批開路、短路或參數飄移出界。此類問題切忌盲目歸咎於測試程式或前道製程，必須從<b>熱機械應力、微觀材料界面與晶片-封裝交互作用（Chip-Package Interaction, CPI）</b>進行系統性診斷：
+            </span>
+            <span class="en">
+              In fab-assembly integration, one of the most severe and baffling yield catastrophes is: <b>"CP wafer sort yield hits 98%, but upon package qualification (Package Qual) with a new substrate, new epoxy mold compound (EMC), or transfer to a secondary OSAT, FT final test yield crashes to 60%-80%!"</b>. Even worse, catastrophic open/short or parametric drift emerges following JEDEC/AEC-Q100 reliability stresses (MSL preconditioning, TCT thermal cycling, HAST biased humidity). These failures must not be blindly attributed to ATE test programs; they require rigorous diagnosis of <b>thermomechanical stress tensors, interfacial material physics, and Chip-Package Interaction (CPI)</b>:
+            </span>
+          </p>
+
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th><span class="zh">封裝認證失效機制</span><span class="en">Failure Mechanism</span></th>
+                  <th><span class="zh">物理與材料微觀根因 (Microscopic Root Cause)</span><span class="en">Microscopic &amp; Material Root Cause</span></th>
+                  <th><span class="zh">電性失效特徵 (FT Signature)</span><span class="en">Electrical FT Signature</span></th>
+                  <th><span class="zh">易發製程節點與封裝型式</span><span class="en">Vulnerable Nodes &amp; Packages</span></th>
+                  <th><span class="zh">工程防禦與根治對策 (Action Playbook)</span><span class="en">Mitigation &amp; DFM Action</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b>晶片-封裝交互作用<br>(CPI) 與 ULK 撕裂開裂<br><span class="badge badge-red">White Bump Defect</span></b></td>
+                  <td>
+                    <span class="zh">
+                      覆晶（Flip Chip）迴焊時，封裝載板（\(\text{CTE} \approx 16\,\text{ppm/K}\)）與矽晶粒（\(\text{CTE} \approx 2.6\,\text{ppm/K}\)）熱膨脹係數嚴重失配。在降溫時，外角隅凸塊（Corner DNP Bump）承受巨大熱剪切應力（\(\tau > 150\,\text{MPa}\)），透過銅柱（Cu Pillar）垂直傳遞至晶片內部極為脆弱的多孔超低介電層（Porous Ultra Low-k, SiCOH, \(k < 2.5\)），造成 <b>ULK 介電層層間脫層或微裂紋（ULK Delamination / Cracking）</b>。
+                    </span>
+                    <span class="en">
+                      During flip-chip reflow, severe CTE mismatch between organic substrate (\(\approx 16\,\text{ppm/K}\)) and silicon die (\(\approx 2.6\,\text{ppm/K}\)) concentrates massive thermal shear stress (\(\tau > 150\,\text{MPa}\)) on corner DNP bumps. Transferred through Cu pillars, this shears the mechanically brittle porous Ultra Low-k (SiCOH, \(k < 2.5\)) BEOL layers, inducing inter-layer dielectric delamination (White Bump).
+                    </span>
+                  </td>
+                  <td>
+                    <span class="zh">
+                      1. 封裝後外圈角落引腳開路（Open）或相鄰金屬橋接短路（Short）；<br>
+                      2. 高低溫測試下接觸阻抗飄移不定；<br>
+                      3. TCT 溫度循環 200–500 圈後開路率呈階梯式暴增。
+                    </span>
+                    <span class="en">
+                      1. Corner pins open or adjacent line shorts;<br>
+                      2. Intermittent contact resistance across tri-temp testing;<br>
+                      3. Step-jump open circuit failure rate after 200-500 TCT cycles.
+                    </span>
+                  </td>
+                  <td>28nm / 16nm / 7nm / 5nm / 3nm<br>FCBGA, FCCSP, 2.5D/3D Chiplet</td>
+                  <td>
+                    <span class="zh">
+                      1. 採用應力緩衝層（Polyimide / PBO Re-passivation Buffer）；<br>
+                      2. Corner DNP 處設置非導通假凸塊（Dummy Bumps）或增大凸塊開孔（UBM）；<br>
+                      3. 選用高斷裂韌性底填膠（Capillary Underfill, CUF），匹配膠體 \(\text{CTE}_1\) 與玻璃轉移溫度 \(T_g\)。
+                    </span>
+                    <span class="en">
+                      1. Thicker PI/PBO stress buffer re-passivation;<br>
+                      2. Corner dummy relief bumps &amp; enlarged UBM pads;<br>
+                      3. High fracture toughness CUF underfill matched to substrate \(\text{CTE}\) and \(T_g\).
+                    </span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>壓阻效應與封模後<br>參數漂移<br><span class="badge badge-amber">Post-Mold Shift (PMS)</span></b></td>
+                  <td>
+                    <span class="zh">
+                      環氧樹脂模塑料（EMC）在 \(175^\circ\text{C}\) 射出成型並固化（PMC）冷卻至室溫後，體積熱收縮在矽晶表面施加高達數百 MPa 的非均勻雙軸壓縮應力（Biaxial Compressive Stress）。單晶矽具有強烈的<b>壓阻效應（Piezoresistive Effect）</b>，機械應力直接調變矽能帶結構與載子遷移率，使擴散電阻與多晶矽電阻阻值漂移 \(1\% \sim 5\%\)，破壞類比差動對對稱性。
+                    </span>
+                    <span class="en">
+                      Epoxy molding compound (EMC) shrinks post-cure, exerting multi-hundred MPa compressive stress across the silicon die. Via the piezoresistive effect, this alters silicon bandgap and carrier mobilities, shifting diffusion and polysilicon resistor values by 1%-5% and breaking analog differential pair matching.
+                    </span>
+                  </td>
+                  <td>
+                    <span class="zh">
+                      1. 能隙基準源電壓（Bandgap Reference \(V_{\text{bg}}\)) 漂移 \(5 \sim 25\,\text{mV}\)；<br>
+                      2. 運算放大器輸入失調電壓（Offset Voltage \(V_{\text{os}}\)) 劣化超標；<br>
+                      3. CP 站 Laser/eFuse 調校好的精準參數在 FT 站全部移位出界（Trim Shift Fail）。
+                    </span>
+                    <span class="en">
+                      1. Bandgap voltage \(V_{\text{bg}}\) drifts by 5-25mV;<br>
+                      2. Op-Amp input offset voltage \(V_{\text{os}}\) degrades past limits;<br>
+                      3. CP laser/eFuse calibrated values shift out-of-spec at FT (Trim Shift).
+                    </span>
+                  </td>
+                  <td>高精度類比 ADC/DAC, PMIC 電源晶片, 射頻 RFIC, MEMS 傳感器</td>
+                  <td>
+                    <span class="zh">
+                      1. 佈局 DFM：敏感核心電路移至晶片幾何中心（應力中性區），差動對採十字交叉對稱排列並旋轉 \(45^\circ\)（沿剪切應力零點軸）；<br>
+                      2. 選用低應力 EMC 膠體（高球形矽微粉填充率 \(>88\%\) 以降低 \(\text{CTE}_1 < 8\,\text{ppm/K}\)）；<br>
+                      3. FT 階段實施二次軟體校準（Post-Pack Calibration）或預留金屬應力隔離環（Stress Relief Trench）。
+                    </span>
+                    <span class="en">
+                      1. Layout DFM: relocate precision circuits to die center neutral zone, orient pairs at \(45^\circ\) to principal stress axes;<br>
+                      2. Low-stress EMC (silica filler &gt;88%, \(\text{CTE}_1 < 8\,\text{ppm/K}\));<br>
+                      3. Post-package software calibration and deep silicon stress isolation moats.
+                    </span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>動態高低溫翹曲<br>與接觸虛開路<br><span class="badge badge-blue">Dynamic Warpage</span></b></td>
+                  <td>
+                    <span class="zh">
+                      晶粒、載板、模塑料與散熱頂蓋（Lid）在三溫測試（\(-40^\circ\text{C} \sim 125^\circ\text{C}\)）中，熱膨脹速率不同步，造成封裝體隨溫度動態變形：常溫平整的封裝在高溫（\(260^\circ\text{C}\) 回焊或 \(125^\circ\text{C}\) FT）呈現<b>笑臉型（Smile Shape, 凸向變形）</b>，在極低溫（\(-40^\circ\text{C}\)）劇烈轉變為<b>哭臉型（Crying Shape, 凹向變形）</b>，動態翹曲量（Dynamic Warpage）高達 \(80 \sim 150\,\mu\text{m}\)。
+                    </span>
+                    <span class="en">
+                      Differential thermal expansion among die, substrate, mold, and stiffener lid triggers temperature-dependent warpage transitions: flat at room temperature, converting to "Smile shape" at high reflow/FT temperatures (260°C/125°C) and reversing into "Crying shape" at cold (-40°C), with dynamic warpage exceeding 80-150μm.
+                    </span>
+                  </td>
+                  <td>
+                    <span class="zh">
+                      1. \(-40^\circ\text{C}\) 極低溫 FT 測試時，四角周邊 Pogo Pin 接觸不良（Fake Open）；<br>
+                      2. \(125^\circ\text{C}\) 高溫測試時，中央引腳下陷造成探針過壓刺穿或錫球受擠壓短路（Solder Bridging）；<br>
+                      3. 常溫回測（Room Retest）良率恢復正常，造成極具欺騙性的「假性低良率」。
+                    </span>
+                    <span class="en">
+                      1. Peripheral Pogo pins float at -40°C cold test (Fake Open);<br>
+                      2. Center depression at 125°C causes excessive contact force or solder ball bridging;<br>
+                      3. Room-temperature retest recovers yield, creating deceptive "phantom loss".
+                    </span>
+                  </td>
+                  <td>大尺寸 BGA (>35mm), SiP 系統級封裝, 倒裝晶片 (FCBGA)</td>
+                  <td>
+                    <span class="zh">
+                      1. Shadow Moiré 實測全溫域（-40°C ~ 260°C）翹曲曲線，建立封裝有限元素模型（FEA Simulation）；<br>
+                      2. 載板增加內部銅箔平衡層（Copper Balancing Layers）；<br>
+                      3. FT 測試座客製化高行程浮動式 Pogo Pin（Stroke &gt; 0.8mm）補償動態翹曲公差。
+                    </span>
+                    <span class="en">
+                      1. Shadow Moiré full-temperature warpage characterization and FEA modeling;<br>
+                      2. Substrate internal copper balance planes to equalize thermal bending moments;<br>
+                      3. Extended-stroke floating Pogo contactors (&gt;0.8mm) to absorb dynamic warpage.
+                    </span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>JEDEC 可靠度預處理<br>爆米花效應與空洞<br><span class="badge badge-purple">MSL Popcorn &amp; Voids</span></b></td>
+                  <td>
+                    <span class="zh">
+                      封裝塑封料與固晶膠在儲存中吸收空氣濕氣。在 J-STD-020 MSL 認證回焊測試（\(260^\circ\text{C}\)）瞬間，液態水迅速氣化，內部微孔蒸氣壓飆升至數十個大氣壓（\(>3\,\text{MPa}\)）。若膠體界面剪切強度不足，高壓水氣直接沿晶片背面與導線架介面爆開（<b>Popcorn Cracking</b>），並拉扯上方金線造成金球頸部斷裂。
+                    </span>
+                    <span class="en">
+                      Moisture absorbed into mold resin and die attach vaporizes instantly during 260°C Pb-free reflow, generating internal steam pressures exceeding 3MPa. Deficient interfacial adhesion causes catastrophic steam-driven delamination (Popcorn Cracking) along the die-paddle interface, snapping fragile wire bond necks.
+                    </span>
+                  </td>
+                  <td>
+                    <span class="zh">
+                      1. MSL 預處理後 FT 靜態測試全開路（Open）；<br>
+                      2. C-SAM 聲學掃描顯示整片晶片背面或周邊呈現大面積鮮紅色分層訊號；<br>
+                      3. 斷面金相可見環氧膠內部穿透性放射狀微裂紋。
+                    </span>
+                    <span class="en">
+                      1. Catastrophic open circuits following MSL preconditioning;<br>
+                      2. C-SAM reveals bright red delamination across die backside or corners;<br>
+                      3. Cross-sections uncover through-mold radial venting cracks.
+                    </span>
+                  </td>
+                  <td>QFN, QFP, BGA, 塑封功率元件 (TO-247/TO-220)</td>
+                  <td>
+                    <span class="zh">
+                      1. 嚴格管控車間車行暴露時間（Floor Life），超期強制 \(125^\circ\text{C}\) 24小時脫水烘烤；<br>
+                      2. 導線架實施微蝕刻粗化（Micro-roughening / Brown Oxide）提升機械錨定強度；<br>
+                      3. 採用低吸濕率模塑料與高附著力親水改性固晶膠。
+                    </span>
+                    <span class="en">
+                      1. Strict cleanroom floor life management with mandatory 125°C bake-out;<br>
+                      2. Leadframe chemical micro-roughening to enhance mechanical interlocking;<br>
+                      3. Low moisture-absorption molding resins and high-adhesion die attach paste.
+                    </span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>OSAT 轉廠/換線機台<br>基線微差陷阱<br><span class="badge badge-red">Assembly Line Drift</span></b></td>
+                  <td>
+                    <span class="zh">
+                      將成熟產品委託第二封測廠（OSAT B）進行產能認證時，兩廠設備型號與製程基線存在微小隱性差異：如打線機超音波頻率（60kHz vs 120kHz）引發金屬銲墊開裂；固晶膠滴膠圖樣（Dot vs Star Pattern）造成晶粒傾斜（Die Tilt &gt; 15μm）；回焊爐 10 區溫控精度微偏引發微凸塊不潤濕（Non-wetting）。
+                    </span>
+                    <span class="en">
+                      Qualifying a secondary assembly site (OSAT B) frequently encounters subtle tool baseline discrepancies: 60kHz vs 120kHz ultrasonic transducer frequencies tearing bond pads; dot vs star glue dispensing patterns causing excessive die tilt (&gt;15μm); or reflow zone thermal gradients inducing micro-bump non-wetting.
+                    </span>
+                  </td>
+                  <td>
+                    <span class="zh">
+                      1. 「廠 A 良率 98%，廠 B 認證批良率僅 82%」；<br>
+                      2. FT 測試出現特定的接觸電阻高阻或特定功能模組隨機掛死；<br>
+                      3. 晶粒剪切力（Die Shear Force）或銲線拉力（Wire Pull Force）分佈偏寬且未達標。
+                    </span>
+                    <span class="en">
+                      1. "98% yield at OSAT A vs. 82% at OSAT B on identical wafer lots";<br>
+                      2. Elevated contact resistance and sporadic block failures;<br>
+                      3. Wide dispersion and sub-standard CPK on wire pull and die shear tests.
+                    </span>
+                  </td>
+                  <td>所有轉廠認證產品 (Dual-Sourcing Assembly Transfer)</td>
+                  <td>
+                    <span class="zh">
+                      1. 建立嚴格的 <b>OSAT Tool Matching 基線白皮書</b>（鎖定機台品牌、傳感器校正、真空吸嘴形狀）；<br>
+                      2. 實施「同批切片驗證（Split-Lot Qualification）」：同一批晶圓切出 50% 於廠 A、50% 於廠 B 同步封裝比對；<br>
+                      3. 建立銲線剪切力 \(C_{pk} > 1.67\) 與膠水厚度（BLT）100% 在線光學監控（AOI）。
+                    </span>
+                    <span class="en">
+                      1. Rigorous OSAT Tool Matching specification handbook (clamping tool models &amp; calibrations);<br>
+                      2. Split-lot qualification protocol: bifurcate single wafer lots 50/50 between sites;<br>
+                      3. Mandatory wire pull \(C_{pk} > 1.67\) and in-line AOI bond line thickness (BLT) tracking.
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- FIGURE 5.3 SVG -->
+          <div class="figure-container">
+            <svg viewBox="0 0 1000 520" style="max-width: 100%; height: auto; font-family: var(--font-mono, monospace);">
+              <rect width="1000" height="520" fill="var(--surface-2)" rx="8" stroke="var(--border)" stroke-width="1.5"/>
+
+              <!-- PANEL A: CPI CORNER DNP STRESS & ULK CRACK -->
+              <g transform="translate(35, 30)">
+                <text x="0" y="0" fill="var(--ink)" font-size="14" font-weight="700">A. 覆晶封裝晶片-封裝交互作用 (CPI) 應力傳遞與 ULK 開裂</text>
+                <text x="0" y="16" fill="var(--ink-soft)" font-size="10.5">Chip-Package Interaction (CPI) Shear Stress Concentration &amp; ULK Delamination</text>
+
+                <!-- Silicon Die -->
+                <rect x="20" y="35" width="400" height="40" fill="var(--surface-1)" stroke="var(--border)" stroke-width="1.5" rx="3"/>
+                <text x="220" y="58" fill="var(--ink)" font-size="11" font-weight="700" text-anchor="middle">矽基底 Silicon Die (CTE = 2.6 ppm/K)</text>
+
+                <!-- Ultra Low-k Interconnect Layer -->
+                <rect x="20" y="75" width="400" height="20" fill="rgba(245, 158, 11, 0.2)" stroke="var(--warning)" stroke-width="1.2"/>
+                <text x="220" y="89" fill="var(--warning)" font-size="9.5" font-weight="700" text-anchor="middle">極脆超低介電層 Porous Ultra Low-k (SiCOH, k &lt; 2.5)</text>
+
+                <!-- Cu Pillars & SAC Solder Bumps -->
+                <!-- Bump 1: Center Normal -->
+                <rect x="200" y="95" width="30" height="25" fill="#f59e0b" rx="2"/>
+                <ellipse cx="215" cy="130" rx="18" ry="12" fill="#94a3b8"/>
+
+                <!-- Bump 2: Near Center -->
+                <rect x="110" y="95" width="30" height="25" fill="#f59e0b" rx="2"/>
+                <ellipse cx="125" cy="130" rx="18" ry="12" fill="#94a3b8"/>
+
+                <!-- Bump 3: Corner DNP (Extreme Shear Stress) -->
+                <rect x="30" y="95" width="30" height="25" fill="#ef4444" rx="2"/>
+                <ellipse cx="45" cy="130" rx="18" ry="12" fill="#ef4444"/>
+
+                <!-- Bump 4: Right Corner DNP -->
+                <rect x="380" y="95" width="30" height="25" fill="#ef4444" rx="2"/>
+                <ellipse cx="395" cy="130" rx="18" ry="12" fill="#ef4444"/>
+
+                <!-- Underfill Matrix -->
+                <rect x="20" y="95" width="400" height="50" fill="rgba(56, 189, 248, 0.12)" stroke="none"/>
+                <text x="220" y="112" fill="var(--ink-faint)" font-size="9" text-anchor="middle">底填膠 Underfill (CUF Matrix)</text>
+
+                <!-- Substrate -->
+                <rect x="10" y="145" width="420" height="40" fill="var(--surface-1)" stroke="var(--accent)" stroke-width="1.5" rx="3"/>
+                <text x="220" y="170" fill="var(--accent)" font-size="11" font-weight="700" text-anchor="middle">有機封裝載板 Organic Substrate (CTE = 16 ppm/K)</text>
+
+                <!-- Red Crack Propagation Marker at Corner -->
+                <path d="M 30,75 L 45,95 L 25,85 L 50,78" fill="none" stroke="var(--danger)" stroke-width="2.5"/>
+                <circle cx="35" cy="85" r="14" fill="none" stroke="var(--danger)" stroke-width="1.8" stroke-dasharray="3,2"/>
+                <text x="65" y="60" fill="var(--danger)" font-size="10" font-weight="700">💥 ULK 剪切撕裂 (White Bump)</text>
+
+                <!-- Thermal Expansion Vectors -->
+                <!-- Silicon arrows (small) -->
+                <line x1="160" y1="42" x2="180" y2="42" stroke="var(--ink-soft)" stroke-width="1.5"/>
+                <polygon points="180,39 187,42 180,45" fill="var(--ink-soft)"/>
+                <!-- Substrate arrows (huge) -->
+                <line x1="160" y1="180" x2="210" y2="180" stroke="var(--danger)" stroke-width="2.5"/>
+                <polygon points="210,176 220,180 210,184" fill="var(--danger)"/>
+                <text x="180" y="200" fill="var(--danger)" font-size="9.5" font-weight="600">巨大熱膨脹差 ΔCTE = 13.4 ppm/K</text>
+              </g>
+
+              <!-- PANEL B: PIEZORESISTIVE POST-MOLD SHIFT -->
+              <g transform="translate(510, 30)">
+                <text x="0" y="0" fill="var(--ink)" font-size="14" font-weight="700">B. 封模熱收縮壓阻效應 (Post-Mold Shift, PMS)</text>
+                <text x="0" y="16" fill="var(--ink-soft)" font-size="10.5">Biaxial Compressive Stress Shifting Precision Bandgap &amp; Op-Amp Offsets</text>
+
+                <!-- Curve Comparison Box -->
+                <g transform="translate(30, 35)">
+                  <!-- Axes -->
+                  <line x1="0" y1="140" x2="380" y2="140" stroke="var(--ink-soft)" stroke-width="1.5"/>
+                  <line x1="0" y1="140" x2="0" y2="0" stroke="var(--ink-soft)" stroke-width="1.5"/>
+
+                  <text x="190" y="165" fill="var(--ink)" font-size="10.5" font-weight="600" text-anchor="middle">能隙基準電壓 Vbg (V) ➔</text>
+                  <text x="-25" y="70" fill="var(--ink)" font-size="10.5" font-weight="600" text-anchor="middle" transform="rotate(-90 -25 70)">機率密度 PDF</text>
+
+                  <!-- Spec Limits -->
+                  <line x1="100" y1="10" x2="100" y2="140" stroke="var(--danger)" stroke-width="1.5" stroke-dasharray="3,3"/>
+                  <text x="100" y="8" fill="var(--danger)" font-size="9" text-anchor="middle">LSL</text>
+
+                  <line x1="280" y1="10" x2="280" y2="140" stroke="var(--danger)" stroke-width="1.5" stroke-dasharray="3,3"/>
+                  <text x="280" y="8" fill="var(--danger)" font-size="9" text-anchor="middle">USL</text>
+
+                  <!-- CP Wafer Sort Curve (Green centered) -->
+                  <path d="M 110,140 Q 190,0 270,140" fill="rgba(34, 197, 94, 0.15)" stroke="var(--success)" stroke-width="2.5"/>
+                  <text x="190" y="45" fill="var(--success)" font-size="10" font-weight="700" text-anchor="middle">CP 晶圓針測分佈 (In-Spec)</text>
+
+                  <!-- FT Post-Mold Shifted Curve (Red shifted right past USL) -->
+                  <path d="M 160,140 Q 250,15 340,140" fill="rgba(239, 68, 68, 0.15)" stroke="var(--danger)" stroke-width="2.5" stroke-dasharray="4,2"/>
+                  <text x="285" y="40" fill="var(--danger)" font-size="10" font-weight="700" text-anchor="middle">FT 封裝後漂移 (PMS Out-of-Spec)</text>
+
+                  <!-- Stress Arrow -->
+                  <line x1="190" y1="65" x2="245" y2="65" stroke="var(--danger)" stroke-width="2"/>
+                  <polygon points="245,61 255,65 245,69" fill="var(--danger)"/>
+                  <text x="220" y="80" fill="var(--danger)" font-size="9" font-weight="700" text-anchor="middle">壓阻漂移 +15mV</text>
+                </g>
+              </g>
+
+              <!-- PANEL C: DYNAMIC WARPAGE (SMILE VS CRY) -->
+              <g transform="translate(35, 260)">
+                <text x="0" y="0" fill="var(--ink)" font-size="14" font-weight="700">C. 封裝全溫域動態熱翹曲 (Shadow Moiré Dynamic Warpage)</text>
+                <text x="0" y="16" fill="var(--ink-soft)" font-size="10.5">Tri-Temp Warpage Transition: Room Flat ➔ Cold Cry-Shape (Socket Opens)</text>
+
+                <!-- High Temp 125°C Smile Shape -->
+                <g transform="translate(10, 30)">
+                  <rect x="0" y="0" width="200" height="85" fill="var(--surface-1)" stroke="var(--border)" rx="4"/>
+                  <text x="100" y="18" fill="var(--ink)" font-size="10" font-weight="700" text-anchor="middle">高溫 125°C: 笑臉型 (Smile / Convex)</text>
+                  <!-- Smile curve -->
+                  <path d="M 20,55 Q 100,75 180,55" fill="none" stroke="var(--accent)" stroke-width="3"/>
+                  <!-- Solder Bumps -->
+                  <circle cx="35" cy="53" r="5" fill="#94a3b8"/>
+                  <circle cx="100" cy="73" r="6" fill="#ef4444"/>
+                  <circle cx="165" cy="53" r="5" fill="#94a3b8"/>
+                  <text x="100" y="95" fill="var(--danger)" font-size="9" text-anchor="middle">中央探針擠壓 / 錫球相鄰短路</text>
+                </g>
+
+                <!-- Cold Temp -40°C Cry Shape -->
+                <g transform="translate(230, 30)">
+                  <rect x="0" y="0" width="200" height="85" fill="var(--surface-1)" stroke="var(--border)" rx="4"/>
+                  <text x="100" y="18" fill="var(--ink)" font-size="10" font-weight="700" text-anchor="middle">低溫 -40°C: 哭臉型 (Cry / Concave)</text>
+                  <!-- Cry curve -->
+                  <path d="M 20,70 Q 100,45 180,70" fill="none" stroke="var(--danger)" stroke-width="3"/>
+                  <!-- Solder Bumps Floating -->
+                  <circle cx="35" cy="72" r="5" fill="#ef4444"/>
+                  <circle cx="100" cy="47" r="5" fill="#94a3b8"/>
+                  <circle cx="165" cy="72" r="5" fill="#ef4444"/>
+                  <line x1="35" y1="80" x2="35" y2="86" stroke="var(--danger)" stroke-width="2" stroke-dasharray="2,2"/>
+                  <text x="100" y="95" fill="var(--danger)" font-size="9" text-anchor="middle">角落針腳懸空 / 假性開路 (Fake Open)</text>
+                </g>
+
+                <!-- Socket Pogo Pins Representation -->
+                <line x1="10" y1="190" x2="430" y2="190" stroke="var(--border)" stroke-width="3"/>
+                <text x="220" y="208" fill="var(--ink-faint)" font-size="9.5" text-anchor="middle">ATE 測試座 Pogo Socket 基準接觸平面 (Flat Contact Line)</text>
+              </g>
+
+              <!-- PANEL D: JEDEC RELIABILITY QUALIFICATION STRESSES -->
+              <g transform="translate(510, 260)">
+                <text x="0" y="0" fill="var(--ink)" font-size="14" font-weight="700">D. JEDEC / AEC-Q100 4 大可靠度認證應力破壞模式</text>
+                <text x="0" y="16" fill="var(--ink-soft)" font-size="10.5">Reliability Stresses Triggering Early Infant Mortality and Latent Excursions</text>
+
+                <g transform="translate(10, 30)">
+                  <!-- 1. MSL Popcorn -->
+                  <rect x="0" y="0" width="205" height="85" fill="var(--surface-1)" stroke="var(--border)" rx="4"/>
+                  <text x="10" y="20" fill="var(--danger)" font-size="10.5" font-weight="700">1. MSL 預處理 (Popcorn 爆米花)</text>
+                  <text x="10" y="38" fill="var(--ink-soft)" font-size="9">水氣 260°C 氣化產生 &gt;3MPa 蒸氣壓</text>
+                  <text x="10" y="52" fill="var(--ink-soft)" font-size="9">撕裂固晶層 (Die Attach)，拉斷金線</text>
+                  <text x="10" y="70" fill="var(--danger)" font-size="9" font-weight="600">➔ FT 靜態測試全數斷路 (Open)</text>
+
+                  <!-- 2. TCT Solder Fatigue -->
+                  <rect x="225" y="0" width="205" height="85" fill="var(--surface-1)" stroke="var(--border)" rx="4"/>
+                  <text x="235" y="20" fill="var(--accent)" font-size="10.5" font-weight="700">2. 溫度循環 TCT (-55°C ➔ 150°C)</text>
+                  <text x="235" y="38" fill="var(--ink-soft)" font-size="9">1000 循環冷熱交替引發熱剪切疲勞</text>
+                  <text x="235" y="52" fill="var(--ink-soft)" font-size="9">無鉛焊點錫晶相粗化，微裂紋延伸</text>
+                  <text x="235" y="70" fill="var(--accent)" font-size="9" font-weight="600">➔ 焊點剪切阻抗飆升階梯式跳水</text>
+
+                  <!-- 3. HAST Corrosion -->
+                  <rect x="0" y="95" width="205" height="85" fill="var(--surface-1)" stroke="var(--border)" rx="4"/>
+                  <text x="10" y="115" fill="#a855f7" font-size="10.5" font-weight="700">3. 溫濕偏壓 HAST (130°C/85%RH)</text>
+                  <text x="10" y="133" fill="var(--ink-soft)" font-size="9">偏壓電場加速游離微量鹵素離子 (Cl⁻)</text>
+                  <text x="10" y="147" fill="var(--ink-soft)" font-size="9">電化學陽極腐蝕溶解鋁銲墊金屬</text>
+                  <text x="10" y="165" fill="#a855f7" font-size="9" font-weight="600">➔ 漏電超標伴隨銲線脫黏 (NSOP)</text>
+
+                  <!-- 4. HTSL Kirkendall Voids -->
+                  <rect x="225" y="95" width="205" height="85" fill="var(--surface-1)" stroke="var(--border)" rx="4"/>
+                  <text x="235" y="115" fill="var(--warning)" font-size="10.5" font-weight="700">4. 高溫儲存 HTSL (150°C 1000h)</text>
+                  <text x="235" y="133" fill="var(--ink-soft)" font-size="9">金鋁介金屬 (Au₅Al₂) 紫瘟快速生長</text>
+                  <text x="235" y="147" fill="var(--ink-soft)" font-size="9">柯肯達爾空洞在界面群聚脆斷</text>
+                  <text x="235" y="165" fill="var(--warning)" font-size="9" font-weight="600">➔ 銲球抗拉剪力斷崖式崩跌</text>
+                </g>
+              </g>
+            </svg>
+            <div class="figure-caption">
+              <span class="zh">圖 5.3：封裝工程認證 (Package Qual) 5 大微觀失效物理機理與晶片-封裝交互作用 (CPI) 應力傳遞圖</span>
+              <span class="en">Figure 5.3: Package Qualification Microscopic Failure Mechanisms, Chip-Package Interaction (CPI) &amp; Reliability Excursions</span>
+            </div>
+          </div>
+
         </div>
       </section>
 
@@ -4327,6 +4711,27 @@
       zh_body: '<b>機理解析：</b>所有設備機台的晶圓良率同步下降，且統計顯示與特定矽片供應商（Epi Vendor B）高度吻合。主因為該廠商外延厚度均勻度超規或 CZ 晶棒氧含量（\(O_i\)）過高引發晶格沉澱缺陷。<br><b>黃金驗證 SOP：</b><br>1. 追溯晶圓原始生產序號與長晶 Ingot 切片分層統計。<br>2. 針對該廠商原材執行 FTIR 磊晶厚度與 Micro-PCP 載子壽命複測。',
       en_title: 'Diagnosis: Raw Wafer Substrate Ingot & Epitaxial Vendor Drift',
       en_body: '<b>Mechanism:</b> Fab-wide yield depression correlating strictly with raw wafer vendor batches. Root causes include epitaxial thickness non-uniformity or high interstitial oxygen (\(O_i\)).<br><b>Verification SOP:</b><br>1. Stratify yield tracking by Ingot slicing order and substrate vendor code.<br>2. Re-measure FTIR epi thickness and carrier recombination lifetime (Micro-PCP).'
+    },
+    otp_trim_fail: {
+      p: [20, 25, 5, 10, 40],
+      zh_title: '診斷結論：OTP / eFuse 燒錄電壓 (Vpp) 塌陷或高溫後數據漂移 (OTP/Trim Under-Blow or Retention Fail)',
+      zh_body: '<b>機理解析：</b>OTP/eFuse 寫入失敗或高溫烘烤後數據丟失。根因常為測試機大電流燒錄時接觸阻抗（Rc）分壓導致 Vpp 跌落造成微熔斷（Under-blow），或封裝模壓熱應力引發壓阻效應導致 Trim 值偏移。<br><b>黃金驗證 SOP（3 步驟）：</b><br>1. 示波器抓取燒錄瞬間 Vpp 跌落波形（要求 ΔV &lt; 100mV）。<br>2. 提高 Verify Read 判讀裕度；<br>3. 評估 Post-Mold Shift 封裝應力補償係數。',
+      en_title: 'Diagnosis: OTP/eFuse Programming Vpp Collapse or Post-Mold Retention Loss',
+      en_body: '<b>Mechanism:</b> Programming failure or post-bake bit flips typically stem from excessive contact resistance (Rc) dropping the programming voltage Vpp (under-blow), or packaging compressive stress shifting trimmed target thresholds.<br><b>Verification SOP:</b><br>1. Scope Vpp rail during programming pulses (ΔV &lt; 100mV);<br>2. Enlarge Verify Read margin bands;<br>3. Characterize Post-Mold Shift (PMS) stress compensation.'
+    },
+    rma_gdbn_escape: {
+      p: [15, 20, 5, 5, 55],
+      zh_title: '診斷結論：惡鄰晶粒效應 (GDBN) 漏測與潛在隱性可靠度缺陷 (GDBN Escape & Latent Flaw)',
+      zh_body: '<b>機理解析：</b>客戶端退貨（RMA）晶粒回測正常（NTF），但 ECID 追溯顯示其位於晶圓邊緣聚集缺陷（Cluster Fail）或刮痕旁。此為典型的「惡鄰晶粒（GDBN）」，內部已受次臨界微裂紋或漏電隱患污染。<br><b>黃金驗證 SOP（3 步驟）：</b><br>1. 立即啟動 GDBN 動態鄰域過濾演算法（相鄰 8 顆中 ≥3 顆 Fail 強制剔除）；<br>2. 凍結同批次所有 24 片姊妹晶圓（Sister Wafers）；<br>3. 實施 OBIRCH / TEM 剖面分析確認潛在微裂紋或金屬電致遷移。',
+      en_title: 'Diagnosis: Good Die in Bad Neighborhood (GDBN) Test Escape & Latent Flaw',
+      en_body: '<b>Mechanism:</b> Customer RMA passing bench test (NTF) but tracing to the vicinity of a wafer-edge defect cluster. A textbook GDBN escape carrying latent sub-critical micro-cracks or gate oxide weaknesses.<br><b>Verification SOP:</b><br>1. Activate automated GDBN spatial filtering (scrap good dies flanked by ≥3 failing neighbors);<br>2. Place quality quarantine on all 24 sister wafers from the affected fab lot;<br>3. Execute OBIRCH and TEM cross-sections to locate latent cracks or electromigration voids.'
+    },
+    package_qual_cpi: {
+      p: [25, 5, 5, 25, 40],
+      zh_title: '診斷結論：封裝認證晶片-封裝交互作用 (CPI 應力) 或 封模熱收縮壓阻效應 (Post-Mold Shift)',
+      zh_body: '<b>機理解析：</b>新封裝認證、換載板或轉廠 OSAT 時良率腰斬，極大概率為覆晶 Corner DNP 凸塊之巨大熱剪切應力擊穿極脆的 Ultra Low-k (ULK, SiCOH) 介電層造成 White Bump 開路短路；或模塑料（EMC）冷卻雙軸壓縮應力誘發壓阻效應（Piezoresistive Effect），導致精密能隙電壓（Bandgap）與失調電壓漂移出界。<br><b>黃金驗證 SOP（4 步驟）：</b><br>1. 立即以 C-SAM 超音波掃描與 Shadow Moiré 全溫域翹曲測試檢驗分層與翹曲（-40°C ~ 125°C）；<br>2. 沿 Corner DNP 凸塊進行雙束 FIB 橫截面切片，檢視 ULK 介電層是否有剪切微裂紋；<br>3. 換用低熱膨脹係數（CTE1 &lt; 8 ppm/K）高填充低應力模塑料與高韌性底填膠（CUF）；<br>4. 敏感類比核心電路佈局移至晶片中心應力中性區，並沿 45° 剪切零應力軸對稱擺放。',
+      en_title: 'Diagnosis: Package Qualification Chip-Package Interaction (CPI Shear Stress) or Post-Mold Shift',
+      en_body: '<b>Mechanism:</b> Post-qualification yield drops typically stem from thermal shear stresses on Corner DNP flip-chip bumps tearing porous Ultra Low-k (ULK, SiCOH) dielectrics (White Bump defects), or mold resin shrinkage generating biaxial compressive stress that triggers the piezoresistive effect, shifting precision bandgaps and Op-Amp offsets out-of-spec.<br><b>Verification SOP:</b><br>1. Execute C-SAM acoustic microscopy and Shadow Moiré dynamic warpage profiling (-40°C to 125°C);<br>2. Perform dual-beam FIB cross-sections on corner DNP bumps to detect micro-cracks in ULK layers;<br>3. Reformulate with low-stress mold compounds (CTE1 &lt; 8 ppm/K) and high-toughness capillary underfill (CUF);<br>4. Relocate precision analog circuits to the die-center neutral zone, orienting differential pairs along the 45° zero-shear axis.'
     }
   };
 

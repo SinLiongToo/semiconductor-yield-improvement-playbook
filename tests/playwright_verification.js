@@ -118,11 +118,22 @@ async function runVerification() {
 
   // 6. Test Interactive Tool 3: Root Cause Triangulator
   console.log('\n[Test 6] Testing Tool 3: Root Cause Triangulator...');
-  const symptomSelect = page.locator('#symptom_select');
+  const symptomSelect = page.locator('#selTriangulatorSymptom');
   if (await symptomSelect.count() > 0) {
-    await symptomSelect.selectOption({ index: 2 });
-    await page.waitForTimeout(300);
-    console.log('  ✓ Triangulator symptom changed and calculated.');
+    // Select option 11: package_qual_cpi
+    await symptomSelect.selectOption('package_qual_cpi');
+    await page.waitForTimeout(400);
+    const diagTitle = await page.locator('#triDiagTitle').innerText();
+    console.log(`  ✓ Triangulator Option 11 Title: ${diagTitle}`);
+  }
+
+  // 6.1 Test Phase 5.7 & Figure 5.3: Package Qualification
+  console.log('\n[Test 6.1] Verifying Phase 5.7 Package Qualification & Figure 5.3...');
+  const p5Section = page.locator('#phase5_ft');
+  if (await p5Section.count() > 0) {
+    const svgsInP5 = p5Section.locator('svg');
+    const svgCount = await svgsInP5.count();
+    console.log(`  ✓ Found ${svgCount} SVGs in Phase 5 (including Figure 5.3).`);
   }
 
   // 7. Verify Phase 4: Process Corners & Variations Figures
