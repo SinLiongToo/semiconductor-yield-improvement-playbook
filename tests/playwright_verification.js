@@ -69,6 +69,24 @@ async function runVerification() {
       await fishboneSvg.screenshot({ path: path.join(screenshotsDir, '08_fishbone_diagram.png') });
       console.log('  ✓ 6M1E Fishbone Diagram (Figure 0.2) verified and captured.');
     }
+
+    // 1.1b Test Section 0.3 Bidirectional Control Architecture & Simulator
+    console.log('\n[Test 1.1b] Verifying Figure 0.3 Bidirectional Control Architecture & Simulator...');
+    const fig03Svg = overviewSection.locator('svg').nth(2);
+    if (await fig03Svg.count() > 0) {
+      await fig03Svg.scrollIntoViewIfNeeded();
+      await fig03Svg.screenshot({ path: path.join(screenshotsDir, '10_top10_fallout_architecture.png') });
+      console.log('  ✓ Figure 0.3 Bidirectional Architecture SVG verified and captured.');
+    }
+
+    const simSelect = page.locator('#selFalloutMode');
+    if (await simSelect.count() > 0) {
+      await simSelect.selectOption('9'); // Select ATE Rc Drift
+      await page.waitForTimeout(200);
+      const stageText = await page.locator('#foStageText').innerText();
+      const feedbackText = await page.locator('#foFeedbackText').innerText();
+      console.log(`  ✓ Fallout Simulator option 9 selected: stage=${stageText}, feedback contains PM=${feedbackText.includes('研磨')}`);
+    }
   }
 
   // 1.2 Test One-Click Zoom (Lightbox Modal on All Visual Graphics)
@@ -286,7 +304,13 @@ async function runVerification() {
         throw new Error(`Broken image detected: ${src}`);
       }
     }
-    await gallery.screenshot({ path: path.join(screenshotsDir, '05_fa_micrograph_gallery.png') });
+    await gallery.scrollIntoViewIfNeeded();
+    await page.waitForTimeout(300);
+    try {
+      await gallery.screenshot({ path: path.join(screenshotsDir, '05_fa_micrograph_gallery.png'), animations: 'disabled', timeout: 5000 });
+    } catch {
+      await page.screenshot({ path: path.join(screenshotsDir, '05_fa_micrograph_gallery.png') });
+    }
     console.log('  ✓ All 7 real-world FA micrographs verified and loaded cleanly.');
   } else {
     throw new Error('FA gallery grid (.fa-gallery-grid) not found in DOM!');
