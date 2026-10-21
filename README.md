@@ -11,7 +11,7 @@
 
 ## 核心設計理念與全景架構（Phase 0–10）
 
-良率改善（Yield Improvement）的實務第一要務，是**在第一時間辨識並排除「非製程假異常（Pseudo Yield Loss）」**，建立**「封裝成品測試 (FT) 與 SLT 系統級測試全攻略」**、**「FA 物理缺陷對應晶圓機台反應矩陣」**，並落實**「晶片電子身分證（ECID）反向溯源與客訴閉環防線」**：
+良率改善（Yield Improvement）的實務第一要務，是**在第一時間辨識並排除「非製程假異常（Pseudo Yield Loss）」**，運用**「半導體 6M1E 因果全景魚骨圖（Ishikawa Diagram）」**解構潛在缺陷來源，建立**「封裝成品測試 (FT) 與 SLT 系統級測試全攻略」**、**「FA 物理缺陷對應晶圓機台反應矩陣」**，並落實**「晶片電子身分證（ECID）反向溯源與客訴閉環防線」**：
 
 ```
 Phase 0 [良率基線與損失解構] ──▶ Phase 1 [跨站資料架構與履歷鏈接]
@@ -79,7 +79,7 @@ Phase 10 [Ramp 學習曲線與稽核防禦]
 
 | 階段 | 核心主題 | 關鍵方法與技術重點 |
 |---|---|---|
-| **Phase 0** | 良率基線與損失解構 | 線良率（Line Yield）vs 晶粒良率（Die Yield）；功能性失效（Functional Bin）vs 參數型失效（Parametric Bin）；系統性缺陷 vs 隨機性缺陷分離。 |
+| **Phase 0** | 良率基線與損失解構 ⭐ | 線良率（Line Yield）vs 晶粒良率（Die Yield）；功能性失效（Functional Bin）vs 參數型失效（Parametric Bin）；系統性缺陷 vs 隨機性缺陷分離；**圖 0.2（半導體良率損失根因 6M1E 全景因果魚骨圖 Ishikawa Fishbone Diagram，解構機台、原材、方法、量測、環境、人員 6 大來源與處方箋）**。 |
 | **Phase 1** | 跨站資料架構與履歷鏈接 | 貫穿 MES Lot 譜系（拆批/併批）、STDF 測試原始記錄、Inline 晶圓光學檢查（KLA Defect Adder）、WAT/PCM 到 CP/FT 的全晶圓坐標精確對齊與 Notch 歸一化。 |
 | **Phase 2** | 晶圓空間分佈簽名辨識 | 8 大特徵空間分佈（Ring, Center, Scratch, Cluster, Bullseye, Repeater, Checkerboard）之物理機理與特徵工程（Radon Transform / Polar Coordinates / 密度矩陣）。 |
 | **Phase 3** | 非製程假異常深入排查 ⭐ | **測試硬體**（Contact 阻抗、針印深度、探針卡針尖氧化、Socket Pogo Pin 疲勞與錫屑、Loadboard 繼電器）；**測試程式**（Strobe 選通時序抖動、多 DUT 平行測試 IR Droop 電源塌陷、Clamp 限流截斷、軟硬 Bin 優先級倒置）；**量測系統**（MSA / Gage R&R \(%GRR > 30\%\)、4 線 Kelvin Sense 斷線退化為 2 線、pA 級漏電延時不足與 RC 充電位移電流）；**材料與擴散變異**（CZ 晶棒氧含量 \(O_i\) 與熱生施體、Epi 外延厚度廠商差異、離子植入穿隧與 RTA 熱預算 \(Dt\) 變異、CMP 研磨液批次粒徑分佈）；**OTP / eFuse / Laser Trim 寫入失效**（\(V_{pp}\) 塌陷、Verify Read 裕度不足、搜尋算法與 \(R_c\) 耦合誤寫入、Post-Mold Shift 封裝應力致 Trim 漂移）。 |

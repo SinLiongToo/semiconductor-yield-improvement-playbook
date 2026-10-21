@@ -616,7 +616,7 @@
   <details class="toc-m">
     <summary><span class="zh">📑 目錄快速導覽</span><span class="en">📑 Table of Contents</span></summary>
     <ol>
-      <li><a href="#overview"><span class="zh">0. 流程總覽 (Process Overview)</span><span class="en">0. Process Overview</span></a></li>
+      <li><a href="#overview"><span class="zh">0. 流程總覽與 6M1E 魚骨圖</span><span class="en">0. Overview & 6M1E Fishbone</span></a></li>
       <li><a href="#tools"><span class="zh">🛠️ 5 大內建互動分析工具</span><span class="en">🛠️ 5 Interactive Analyzers</span></a></li>
       <li><a href="#phase0"><span class="zh">Phase 0: 良率基線與損失解構</span><span class="en">Phase 0: Baseline & Yield Loss Decomposition</span></a></li>
       <li><a href="#phase1"><span class="zh">Phase 1: 跨站資料架構與全履歷鏈接</span><span class="en">Phase 1: Cross-Stage Data Architecture</span></a></li>
@@ -639,7 +639,7 @@
     <nav class="toc">
       <div class="toc-title"><span class="zh">章節索引</span><span class="en">Navigation</span></div>
       <ol>
-        <li><a href="#overview"><span class="zh">0. 流程總覽 (Overview)</span><span class="en">0. Process Overview</span></a></li>
+        <li><a href="#overview"><span class="zh">0. 流程總覽與 6M1E 魚骨圖</span><span class="en">0. Overview & 6M1E Fishbone</span></a></li>
         <li><a href="#tools"><span class="zh">🛠️ 5 大互動分析工具</span><span class="en">🛠️ 5 Interactive Tools</span></a></li>
         <li><a href="#phase0"><span class="zh">Phase 0: 良率基線與解構</span><span class="en">Phase 0: Loss Decomposition</span></a></li>
         <li><a href="#phase1"><span class="zh">Phase 1: 跨站資料架構</span><span class="en">Phase 1: Data Architecture</span></a></li>
@@ -763,6 +763,395 @@
               </span>
             </p>
           </div>
+        
+          <!-- 0.2 FISHBONE / ISHIKAWA ROOT CAUSE TAXONOMY -->
+          <h3>
+            <span class="zh">0.2 半導體低良率根因全景因果魚骨圖 (Semiconductor Low-Yield Ishikawa Fishbone Diagram)</span>
+            <span class="en">0.2 Semiconductor Low-Yield Root Cause Ishikawa Fishbone Taxonomy (6M1E Analysis)</span>
+          </h3>
+          <p>
+            <span class="zh">
+              良率異常排查實務中，工程師最常面臨的瓶頸是<b>「問題牽涉站點極廣，各部門（微影、蝕刻、薄膜、擴散、封裝、測試、品保）各執一詞、互相甩鍋」</b>。為建立全方位無死角的根因偵測網，國際頂級晶圓廠與 IDM 均導入經典的 <b>6M1E 半導體專屬因果魚骨分析法（Ishikawa Diagram）</b>，將所有潛在缺陷來源解構為六大骨幹：<b>機台（Machine）、材料（Material）、方法（Method）、量測（Measurement）、環境（Environment）、與人員體系（Man）</b>：
+            </span>
+            <span class="en">
+              During yield excursion investigations, engineers often confront cross-departmental finger-pointing between Litho, Etch, Thin Films, Diffusion, Packaging, and Test. To establish a comprehensive, zero-blind-spot diagnostic framework, world-class semiconductor foundries deploy the <b>6M1E Semiconductor Ishikawa Fishbone Methodology</b>. All potential failure mechanisms and yield drop sources are mapped across six core spines: <b>Machine, Material, Method, Measurement, Environment, and Man (Governance)</b>:
+            </span>
+          </p>
+
+          <!-- FIGURE 0.2: FISHBONE DIAGRAM SVG -->
+          <div class="figure-container">
+            <svg viewBox="0 0 1060 550" style="max-width: 100%; height: auto; font-family: var(--font-mono, monospace);">
+              <!-- Background -->
+              <rect width="1060" height="550" fill="var(--surface-2)" rx="8" stroke="var(--border)" stroke-width="1.5"/>
+
+              <!-- Central Main Spine -->
+              <line x1="40" y1="275" x2="840" y2="275" stroke="var(--ink)" stroke-width="5" stroke-linecap="round"/>
+              <polygon points="840,265 870,275 840,285" fill="var(--ink)"/>
+
+              <!-- FISH HEAD: TERMINAL OUTCOME -->
+              <g transform="translate(870, 205)">
+                <rect x="0" y="0" width="170" height="140" rx="8" fill="var(--surface-1)" stroke="var(--danger)" stroke-width="2.5" filter="drop-shadow(0 4px 12px rgba(0,0,0,0.15))"/>
+                <rect x="0" y="0" width="170" height="30" rx="8" fill="var(--danger)"/>
+                <text x="85" y="20" fill="#fff" font-size="11" font-weight="700" text-anchor="middle">良率損失與品質異常</text>
+                <text x="85" y="50" fill="var(--ink)" font-size="11" font-weight="700" text-anchor="middle">Low-Yield &amp; Defect</text>
+                <text x="85" y="66" fill="var(--ink-soft)" font-size="9" text-anchor="middle">Root Cause Target</text>
+                
+                <line x1="15" y1="76" x2="155" y2="76" stroke="var(--border)" stroke-dasharray="2,2"/>
+                <text x="85" y="93" fill="var(--danger)" font-size="9" font-weight="600" text-anchor="middle">• 功能性死晶 (Dead Die)</text>
+                <text x="85" y="108" fill="var(--warn)" font-size="9" font-weight="600" text-anchor="middle">• 參數出界 (Cpk 破功)</text>
+                <text x="85" y="123" fill="var(--accent)" font-size="9" font-weight="600" text-anchor="middle">• 惡鄰隱性漏測 (RMA)</text>
+              </g>
+
+              <!-- ================= UPPER RIBS ================= -->
+
+              <!-- 1. MACHINE (機台設備 / CHAMBERS) -->
+              <g transform="translate(0, 0)">
+                <!-- Diagonal Main Rib -->
+                <line x1="280" y1="275" x2="160" y2="55" stroke="#f59e0b" stroke-width="3.5" stroke-linecap="round"/>
+                <!-- Category Badge -->
+                <rect x="70" y="25" width="180" height="30" rx="5" fill="#f59e0b"/>
+                <text x="160" y="45" fill="#fff" font-size="11.5" font-weight="700" text-anchor="middle">1. 機台設備 (Machine)</text>
+                
+                <!-- Sub-branches -->
+                <!-- Sub 1 -->
+                <line x1="185" y1="95" x2="80" y2="95" stroke="#f59e0b" stroke-width="1.8"/>
+                <circle cx="185" cy="95" r="3" fill="#f59e0b"/>
+                <text x="75" y="92" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">電漿聚焦環 (Focus Ring) 磨損偏蝕</text>
+
+                <!-- Sub 2 -->
+                <line x1="210" y1="135" x2="95" y2="135" stroke="#f59e0b" stroke-width="1.8"/>
+                <circle cx="210" cy="135" r="3" fill="#f59e0b"/>
+                <text x="90" y="132" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">微影透鏡熱效應與曝光劑量漂移</text>
+
+                <!-- Sub 3 -->
+                <line x1="235" y1="175" x2="110" y2="175" stroke="#f59e0b" stroke-width="1.8"/>
+                <circle cx="235" cy="175" r="3" fill="#f59e0b"/>
+                <text x="105" y="172" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">擴散爐管石英晶舟氣流耗盡階度</text>
+
+                <!-- Sub 4 -->
+                <line x1="258" y1="215" x2="130" y2="215" stroke="#f59e0b" stroke-width="1.8"/>
+                <circle cx="258" cy="215" r="3" fill="#f59e0b"/>
+                <text x="125" y="212" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">CMP 研磨頭多區氣壓囊失衡/Pad鈍化</text>
+              </g>
+
+              <!-- 2. MATERIAL (原材與耗材 / MATERIALS) -->
+              <g transform="translate(0, 0)">
+                <!-- Diagonal Main Rib -->
+                <line x1="530" y1="275" x2="410" y2="55" stroke="#10b981" stroke-width="3.5" stroke-linecap="round"/>
+                <!-- Category Badge -->
+                <rect x="320" y="25" width="180" height="30" rx="5" fill="#10b981"/>
+                <text x="410" y="45" fill="#fff" font-size="11.5" font-weight="700" text-anchor="middle">2. 原材耗材 (Material)</text>
+
+                <!-- Sub-branches -->
+                <!-- Sub 1 -->
+                <line x1="435" y1="95" x2="330" y2="95" stroke="#10b981" stroke-width="1.8"/>
+                <circle cx="435" cy="95" r="3" fill="#10b981"/>
+                <text x="325" y="92" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">CZ 矽錠軸向氧含量 (Oi) 與電阻率梯度</text>
+
+                <!-- Sub 2 -->
+                <line x1="460" y1="135" x2="345" y2="135" stroke="#10b981" stroke-width="1.8"/>
+                <circle cx="460" cy="135" r="3" fill="#10b981"/>
+                <text x="340" y="132" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">光阻感光度批次公差 (ΔE0) 與溶劑揮發</text>
+
+                <!-- Sub 3 -->
+                <line x1="485" y1="175" x2="360" y2="175" stroke="#10b981" stroke-width="1.8"/>
+                <circle cx="485" cy="175" r="3" fill="#10b981"/>
+                <text x="355" y="172" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">CMP 膠體研磨液酸化團聚微刮傷</text>
+
+                <!-- Sub 4 -->
+                <line x1="508" y1="215" x2="375" y2="215" stroke="#10b981" stroke-width="1.8"/>
+                <circle cx="508" cy="215" r="3" fill="#10b981"/>
+                <text x="370" y="212" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">封裝模塑料 (EMC) 高收縮壓阻應力</text>
+              </g>
+
+              <!-- 3. METHOD (製程方法 / METHOD & RECIPES) -->
+              <g transform="translate(0, 0)">
+                <!-- Diagonal Main Rib -->
+                <line x1="770" y1="275" x2="650" y2="55" stroke="#8b5cf6" stroke-width="3.5" stroke-linecap="round"/>
+                <!-- Category Badge -->
+                <rect x="560" y="25" width="180" height="30" rx="5" fill="#8b5cf6"/>
+                <text x="650" y="45" fill="#fff" font-size="11.5" font-weight="700" text-anchor="middle">3. 製程方法 (Method)</text>
+
+                <!-- Sub-branches -->
+                <!-- Sub 1 -->
+                <line x1="675" y1="95" x2="570" y2="95" stroke="#8b5cf6" stroke-width="1.8"/>
+                <circle cx="675" cy="95" r="3" fill="#8b5cf6"/>
+                <text x="565" y="92" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">狹窄焦點裕度 (DOF) 與 OPC 殘餘誤差</text>
+
+                <!-- Sub 2 -->
+                <line x1="700" y1="135" x2="585" y2="135" stroke="#8b5cf6" stroke-width="1.8"/>
+                <circle cx="700" cy="135" r="3" fill="#8b5cf6"/>
+                <text x="580" y="132" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">APC R2R 控制器過調振盪 (EWMA 飄移)</text>
+
+                <!-- Sub 3 -->
+                <line x1="725" y1="175" x2="600" y2="175" stroke="#8b5cf6" stroke-width="1.8"/>
+                <circle cx="725" cy="175" r="3" fill="#8b5cf6"/>
+                <text x="595" y="172" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">濕洗 PM 後冷腔未充分 Seasoning (SS角)</text>
+
+                <!-- Sub 4 -->
+                <line x1="748" y1="215" x2="615" y2="215" stroke="#8b5cf6" stroke-width="1.8"/>
+                <circle cx="748" cy="215" r="3" fill="#8b5cf6"/>
+                <text x="610" y="212" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">覆晶 Corner 凸塊剪切撕裂極脆 ULK</text>
+              </g>
+
+              <!-- ================= LOWER RIBS ================= -->
+
+              <!-- 4. MEASUREMENT (量測測試 / METROLOGY & ATE) -->
+              <g transform="translate(0, 0)">
+                <!-- Diagonal Main Rib -->
+                <line x1="280" y1="275" x2="160" y2="495" stroke="#0284c7" stroke-width="3.5" stroke-linecap="round"/>
+                <!-- Category Badge -->
+                <rect x="70" y="495" width="180" height="30" rx="5" fill="#0284c7"/>
+                <text x="160" y="515" fill="#fff" font-size="11.5" font-weight="700" text-anchor="middle">4. 量測測試 (Measure)</text>
+
+                <!-- Sub-branches -->
+                <!-- Sub 1 -->
+                <line x1="258" y1="335" x2="130" y2="335" stroke="#0284c7" stroke-width="1.8"/>
+                <circle cx="258" cy="335" r="3" fill="#0284c7"/>
+                <text x="125" y="340" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">量測系統重複再現性超規 (%GRR &gt; 30%)</text>
+
+                <!-- Sub 2 -->
+                <line x1="235" y1="375" x2="110" y2="375" stroke="#0284c7" stroke-width="1.8"/>
+                <circle cx="235" cy="375" r="3" fill="#0284c7"/>
+                <text x="105" y="380" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">4 線 Kelvin Sense 開路退化為 2 線偽電阻</text>
+
+                <!-- Sub 3 -->
+                <line x1="210" y1="415" x2="95" y2="415" stroke="#0284c7" stroke-width="1.8"/>
+                <circle cx="210" cy="415" r="3" fill="#0284c7"/>
+                <text x="90" y="420" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">探針卡/測試座針尖氧化 WOx 阻抗 Rc 飆升</text>
+
+                <!-- Sub 4 -->
+                <line x1="185" y1="455" x2="80" y2="455" stroke="#0284c7" stroke-width="1.8"/>
+                <circle cx="185" cy="455" r="3" fill="#0284c7"/>
+                <text x="75" y="460" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">多 DUT 並行測試瞬態電源塌陷 (IR Droop)</text>
+              </g>
+
+              <!-- 5. ENVIRONMENT (環境廠務 / ENVIRONMENT & FACILITY) -->
+              <g transform="translate(0, 0)">
+                <!-- Diagonal Main Rib -->
+                <line x1="530" y1="275" x2="410" y2="495" stroke="#0d9488" stroke-width="3.5" stroke-linecap="round"/>
+                <!-- Category Badge -->
+                <rect x="320" y="495" width="180" height="30" rx="5" fill="#0d9488"/>
+                <text x="410" y="515" fill="#fff" font-size="11.5" font-weight="700" text-anchor="middle">5. 環境廠務 (Environment)</text>
+
+                <!-- Sub-branches -->
+                <!-- Sub 1 -->
+                <line x1="508" y1="335" x2="375" y2="335" stroke="#0d9488" stroke-width="1.8"/>
+                <circle cx="508" cy="335" r="3" fill="#0d9488"/>
+                <text x="370" y="340" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">氣態分子污染物 (AMC: 揮發有機物/胺鹽)</text>
+
+                <!-- Sub 2 -->
+                <line x1="485" y1="375" x2="360" y2="375" stroke="#0d9488" stroke-width="1.8"/>
+                <circle cx="485" cy="375" r="3" fill="#0d9488"/>
+                <text x="355" y="380" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">廠務超純水 (UPW) 總有機碳 TOC 超標</text>
+
+                <!-- Sub 3 -->
+                <line x1="460" y1="415" x2="345" y2="415" stroke="#0d9488" stroke-width="1.8"/>
+                <circle cx="460" cy="415" r="3" fill="#0d9488"/>
+                <text x="340" y="420" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">無塵室濕度驟降引發靜電放電 (ESD 擊穿)</text>
+
+                <!-- Sub 4 -->
+                <line x1="435" y1="455" x2="330" y2="455" stroke="#0d9488" stroke-width="1.8"/>
+                <circle cx="435" cy="455" r="3" fill="#0d9488"/>
+                <text x="325" y="460" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">低頻微振動引發微影重疊誤差 (Overlay)</text>
+              </g>
+
+              <!-- 6. MAN & GOVERNANCE (人員體系 / OPERATION & SOP) -->
+              <g transform="translate(0, 0)">
+                <!-- Diagonal Main Rib -->
+                <line x1="770" y1="275" x2="650" y2="495" stroke="#e11d48" stroke-width="3.5" stroke-linecap="round"/>
+                <!-- Category Badge -->
+                <rect x="560" y="495" width="180" height="30" rx="5" fill="#e11d48"/>
+                <text x="650" y="515" fill="#fff" font-size="11.5" font-weight="700" text-anchor="middle">6. 人員體系 (Man/SOP)</text>
+
+                <!-- Sub-branches -->
+                <!-- Sub 1 -->
+                <line x1="748" y1="335" x2="615" y2="335" stroke="#e11d48" stroke-width="1.8"/>
+                <circle cx="748" cy="335" r="3" fill="#e11d48"/>
+                <text x="610" y="340" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">晶圓盒 (FOUP) 碰撞振動致晶片邊緣崩裂</text>
+
+                <!-- Sub 2 -->
+                <line x1="725" y1="375" x2="600" y2="375" stroke="#e11d48" stroke-width="1.8"/>
+                <circle cx="725" cy="375" r="3" fill="#e11d48"/>
+                <text x="595" y="380" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">機台配方版本 (Recipe) 未授權微調漂移</text>
+
+                <!-- Sub 3 -->
+                <line x1="700" y1="415" x2="585" y2="415" stroke="#e11d48" stroke-width="1.8"/>
+                <circle cx="700" cy="415" r="3" fill="#e11d48"/>
+                <text x="580" y="420" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">重測政策 (Retest Policy) 濫用掩蓋缺陷</text>
+
+                <!-- Sub 4 -->
+                <line x1="675" y1="455" x2="570" y2="455" stroke="#e11d48" stroke-width="1.8"/>
+                <circle cx="675" cy="455" r="3" fill="#e11d48"/>
+                <text x="565" y="460" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">惡鄰晶粒 (GDBN) 漏測致客戶客訴 RMA</text>
+              </g>
+            </svg>
+            <div class="figure-caption">
+              <span class="zh">圖 0.2：半導體良率損失與潛在缺陷根因全景因果魚骨圖 (6M1E 完整架構)</span>
+              <span class="en">Figure 0.2: Semiconductor Low-Yield Root Cause Ishikawa Fishbone Taxonomy (6M1E Master Architecture)</span>
+            </div>
+          </div>
+
+          <!-- 6M1E DETAILED MAPPING TABLE -->
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th><span class="zh">魚骨維度 (6M1E Dimension)</span><span class="en">Fishbone Dimension</span></th>
+                  <th><span class="zh">典型缺陷與物理根因 (Physical &amp; Electrical Root Causes)</span><span class="en">Failure Mechanisms &amp; Root Causes</span></th>
+                  <th><span class="zh">主要受害站點</span><span class="en">Vulnerable Stations</span></th>
+                  <th><span class="zh">工程診斷工具與即時處方箋 (Action Playbook)</span><span class="en">Diagnostic Tools &amp; Mitigation</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b>1. 機台設備 (Machine)</b><br><span class="badge badge-amber">Equipment &amp; Chambers</span></td>
+                  <td>
+                    <span class="zh">
+                      • 電漿蝕刻機聚焦環（Focus Ring）磨損變薄導致外圈電場發散；<br>
+                      • 微影曝光機透鏡熱效應（Lens Heating）引發高階像差與曝光劑量偏移；<br>
+                      • 爐管垂直石英舟氣體消耗階度（Gas Depletion Gradient，Slot 1 到 25 膜厚遞減）；<br>
+                      • CMP 研磨墊孔隙玻璃化（Pad Glazing）與多區氣囊壓力失衡。
+                    </span>
+                    <span class="en">
+                      • Etcher focus ring erosion flaring edge plasma fields;<br>
+                      • Scanner lens heating inducing wavefront aberrations and dose drift;<br>
+                      • Vertical furnace axial gas depletion creating wafer-to-wafer film tapering;<br>
+                      • CMP pad glazing and multi-zone bladder pressure drift.
+                    </span>
+                  </td>
+                  <td>Etch, Litho, Furnace, CMP</td>
+                  <td>
+                    <span class="zh">FDC 高頻感測器監控（RF 反射功率、節流閥角度）、Chamber 共模卡方分析、APC 閉環補償。</span>
+                    <span class="en">FDC high-speed telemetry, chamber commonality Chi-Square, APC closed-loop compensation.</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>2. 原材耗材 (Material)</b><br><span class="badge badge-green">Raw Material &amp; Chemicals</span></td>
+                  <td>
+                    <span class="zh">
+                      • CZ 矽晶棒拉晶軸向偏析：間隙氧（(O_i)）與電阻率梯度；<br>
+                      • 外延層（Epitaxial）厚度微差與晶格滑移線（Slip Lines）；<br>
+                      • 光阻感光度批次公差（(pm 2% Delta E_0)）與開封後溶劑揮發 Aging；<br>
+                      • CMP 研磨液膠體酸化團聚引致微刮傷（Micro-scratches）；<br>
+                      • 封裝模塑料（EMC）固化高收縮應力誘發壓阻漂移（Post-Mold Shift）。
+                    </span>
+                    <span class="en">
+                      • Czochralski ingot axial dopant and interstitial oxygen ((O_i)) segregation;<br>
+                      • Epitaxial thickness drift and crystallographic slip lines;<br>
+                      • Photoresist batch photospeed tolerance ((Delta E_0)) and bottle aging;<br>
+                      • Slurry colloidal agglomeration causing micro-scratches;<br>
+                      • High-shrinkage EMC curing stress triggering piezoresistive shift.
+                    </span>
+                  </td>
+                  <td>Substrate, Litho, CMP, Packaging</td>
+                  <td>
+                    <span class="zh">原材料批號追溯分層分析、FTIR 氧含量複驗、微孔漿液過濾網定期更換。</span>
+                    <span class="en">Raw material lot stratification, FTIR oxygen validation, sub-micron slurry filtration swaps.</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>3. 製程方法 (Method)</b><br><span class="badge badge-purple">Process &amp; Recipes</span></td>
+                  <td>
+                    <span class="zh">
+                      • 光學近接效應校正（OPC）殘餘模型誤差與禁制節距（Forbidden Pitch）；<br>
+                      • 先進製程控制（APC）EWMA 權重過大引發控制器超調振盪；<br>
+                      • 濕洗保養後冷腔（Cold Chamber）未跑充足 Dummy Seasoning 即生產；<br>
+                      • 閘極氧化層前環境暴露等待超期（Q-Time Violation）致天然氧化層微雜質；<br>
+                      • 覆晶 Corner DNP 凸塊熱剪切應力撕裂極脆超低介電層（ULK White Bump）。
+                    </span>
+                    <span class="en">
+                      • Optical Proximity Correction (OPC) residuals and forbidden pitch margins;<br>
+                      • APC EWMA over-weighting inducing controller oscillation;<br>
+                      • Cold chamber lack of dummy seasoning lots (drifting into SS corner);<br>
+                      • Pre-gate clean Q-time expiration inducing interfacial contamination;<br>
+                      • Corner DNP flip-chip bump shear stress tearing fragile Ultra Low-k (ULK).
+                    </span>
+                  </td>
+                  <td>OPC/DFM, APC, Clean/Gate, Packaging CPI</td>
+                  <td>
+                    <span class="zh">嚴格 Q-Time 逾期自動鎖批警報、強制 Seasoning 規範、Corner 增加 Dummy Bumps 緩衝。</span>
+                    <span class="en">Automated Q-time lot hold interlocks, mandatory seasoning protocols, corner dummy relief bumps.</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>4. 量測測試 (Measurement)</b><br><span class="badge badge-blue">Metrology &amp; ATE Systems</span></td>
+                  <td>
+                    <span class="zh">
+                      • 量測系統重複性與再現性超規（(%GRR > 30%)）；<br>
+                      • 4 線式 Kelvin Sense 斷線退化為 2 線，電纜阻抗計入晶片被誤判為超標；<br>
+                      • 探針卡針尖氧化物（(WO_x)）堆積致接觸阻抗 (R_c) 飆升；<br>
+                      • 測試座 Pogo Pin 彈簧疲勞（下壓力 &lt; 25g）與 Crown 槽口積錫短路；<br>
+                      • 測試程式選通頻閃（Strobe Timing Window）貼近跳變沿引發假時序違規；<br>
+                      • 多 DUT 平行測試高功耗向量電源瞬態塌陷（IR Rail Droop）。
+                    </span>
+                    <span class="en">
+                      • Metrology system gage repeatability &amp; reproducibility ((%GRR > 30%));<br>
+                      • 4-wire Kelvin sense line open degrading to 2-wire false resistance;<br>
+                      • Probe card needle tip tungsten oxide buildup spiking contact resistance (R_c);<br>
+                      • Socket Pogo pin spring fatigue and crown solder debris bridging;<br>
+                      • Program strobe comparator timing placement too close to transition edges;<br>
+                      • Multi-DUT simultaneous vector burst inducing supply rail IR droop.
+                    </span>
+                  </td>
+                  <td>WAT / PCM, CP Wafer Sort, FT Final Test</td>
+                  <td>
+                    <span class="zh">針卡自動研磨清潔（Sand Sheet）、Pogo Socket 計數器換新、Kelvin Loopback 自檢、2D Shmoo 頻閃校正。</span>
+                    <span class="en">Automated probe abrasive cleaning, socket touchdown limits, Kelvin loopback checks, 2D Shmoo timing margins.</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>5. 環境廠務 (Environment)</b><br><span class="badge badge-teal" style="background:#0d9488; color:#fff;">Facility &amp; Cleanroom</span></td>
+                  <td>
+                    <span class="zh">
+                      • 氣態分子污染物（Airborne Molecular Contamination, AMC: 揮發有機物、空氣胺鹽）；<br>
+                      • 廠務超純水（UPW）總有機碳（TOC）超標或電阻率下滑；<br>
+                      • 無塵室相對濕度驟降引發人體與機台靜電放電（ESD 擊穿閘極）；<br>
+                      • 廠房地基低頻微振動引發微影步進機光學重疊誤差（Overlay Drift）；<br>
+                      • 機台冷卻水迴路溫度波動（(Delta T > 0.1^circ	ext{C})）干擾腔壁熱平衡。
+                    </span>
+                    <span class="en">
+                      • Airborne Molecular Contamination (AMC: organic VOCs, airborne amines);<br>
+                      • Ultra-Pure Water (UPW) TOC spike or resistivity drop;<br>
+                      • Cleanroom relative humidity drop triggering electrostatic discharge (ESD);<br>
+                      • Facility micro-vibrations degrading lithography scanner overlay accuracy;<br>
+                      • Process cooling water loop temperature swings disrupting chamber wall thermal balance.
+                    </span>
+                  </td>
+                  <td>Cleanroom, Facilities, Litho Scanners</td>
+                  <td>
+                    <span class="zh">FOUP 化學濾網（Chemical Filter）、離子風槍防靜電監控、基座氣壓避震器主動補償。</span>
+                    <span class="en">FOUP chemical filtration, ionizer blower static controls, active pneumatic seismic isolators.</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>6. 人員體系 (Man/SOP)</b><br><span class="badge badge-red">Operations &amp; Governance</span></td>
+                  <td>
+                    <span class="zh">
+                      • 人工搬送晶圓盒（FOUP）碰撞振動造成晶圓背裂或邊緣微崩裂（Chipping）；<br>
+                      • 機台配方版本（Recipe Revision）未授權手動微調偏移；<br>
+                      • 重測政策（Retest Policy）過度放寬，將邊界死晶盲目重測為良品，流出至客戶端；<br>
+                      • 惡鄰晶粒效應（GDBN）未自動剔除，使隱性缺陷晶粒漏測逃逸；<br>
+                      • 封測代工廠（OSAT）轉廠機台基線（Tool Matching）未依規範對齊。
+                    </span>
+                    <span class="en">
+                      • Manual FOUP handling shock inducing edge chipping and backside scratches;<br>
+                      • Unauthorized manual recipe parameter overrides;<br>
+                      • Excessive retest policy abuse converting marginal bad dies to false passes;<br>
+                      • Good Die in Bad Neighborhood (GDBN) spatial filtering disabled, causing RMA escapes;<br>
+                      • OSAT assembly transfer tool matching specifications violated.
+                    </span>
+                  </td>
+                  <td>Operations, Quality Assurance, RMA Closed-Loop</td>
+                  <td>
+                    <span class="zh">AMHS 自動物料搬送系統、MES Recipe 數位簽章鎖定、強制 GDBN 動態鄰域扣留協議。</span>
+                    <span class="en">AMHS automated material handling, MES recipe cryptographic locking, mandatory GDBN spatial hold protocols.</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
         </div>
       </section>
 

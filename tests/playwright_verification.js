@@ -59,6 +59,18 @@ async function runVerification() {
   }
 
   // 2. Language Toggle Test
+  // 1.1 Verify Section 0: 6M1E Fishbone Diagram (Figure 0.2)
+  console.log('\n[Test 1.1] Verifying 6M1E Fishbone Diagram (Figure 0.2)...');
+  const overviewSection = page.locator('#overview');
+  if (await overviewSection.count() > 0) {
+    const fishboneSvg = overviewSection.locator('svg').nth(1);
+    if (await fishboneSvg.count() > 0) {
+      await fishboneSvg.scrollIntoViewIfNeeded();
+      await fishboneSvg.screenshot({ path: path.join(screenshotsDir, '08_fishbone_diagram.png') });
+      console.log('  ✓ 6M1E Fishbone Diagram (Figure 0.2) verified and captured.');
+    }
+  }
+
   console.log('\n[Test 2] Testing Language Toggle (ZH <-> EN)...');
   const langToggleBtn = page.locator('#btn-lang, button:has-text("EN"), button:has-text("中文")').first();
   if (await langToggleBtn.count() > 0) {
