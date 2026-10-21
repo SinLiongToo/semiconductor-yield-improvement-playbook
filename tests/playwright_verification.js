@@ -229,6 +229,28 @@ async function runVerification() {
     if (!isExpanded) throw new Error('Sidebar failed to expand!');
   }
 
+  // 1.2c Test Fixed Sticky Top Navbar (Controls Pinned at Top)
+  console.log('\n[Test 1.2c] Testing Fixed Sticky Top Navbar (Controls Pinned at Top)...');
+  const topNavbar = page.locator('#topNavbar');
+  if (await topNavbar.count() > 0) {
+    const isTopNavVisible = await topNavbar.isVisible();
+    const navBox = await topNavbar.boundingBox();
+    console.log(`  ✓ Top Navbar visible: ${isTopNavVisible}, Y position: ${navBox.y}, height: ${navBox.height}px`);
+    if (navBox.y > 5) throw new Error(`Top navbar should be at top=0, got y=${navBox.y}`);
+
+    // Scroll down 600px and verify top navbar stays at y=0 (sticky)
+    await page.evaluate(() => window.scrollTo(0, 600));
+    await page.waitForTimeout(200);
+    const scrolledNavBox = await topNavbar.boundingBox();
+    console.log(`  ✓ Scrolled Top Navbar sticky Y position: ${scrolledNavBox.y}`);
+    if (scrolledNavBox.y > 5) throw new Error(`Top navbar failed to stick at top=0 during scroll!`);
+    await page.screenshot({ path: path.join(screenshotsDir, '13_top_navbar_sticky.png') });
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await page.waitForTimeout(200);
+  } else {
+    throw new Error('Top navbar #topNavbar element not found!');
+  }
+
   // 1.3 Test Footer Last Updated Date
   console.log('\n[Test 1.3] Testing Footer Last Updated Date...');
   const footerText = await page.locator('footer').innerText();
