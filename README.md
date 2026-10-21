@@ -3,6 +3,8 @@
 
 一套專為晶圓代工（Foundry）、IDM 與 IC 設計廠（Fabless）良率工程師（Yield Enhancement Engineer, YEE）、產品工程師（Product Engineer, PE）、整合工程師（Process Integration Engineer, PIE）及測試工程師（Test Engineer, TE）打造的**半導體良率改善分析工具與工程實務指南**。
 
+**線上版（GitHub Pages）：** https://sinliongtoo.github.io/semiconductor-yield-improvement-playbook/
+
 單一自包含 HTML 離線工具（[`index.html`](./index.html)），兼具**高階互動分析計算機**與**系統化工程方法論**，無需安裝 Node.js 或後端伺服器，直接在瀏覽器即可運行。
 
 ---
