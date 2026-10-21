@@ -1,17 +1,17 @@
 # 專案規則 / Project Rules
 
-這份文件記錄維護 `index.html`（半導體良率改善分析工具主文件）時應該遵守的規則，是本專案累積的工程慣例與品質準則——良率分析方法論與 SOP 請直接看 `index.html` 內的 Phase 0–8 與 5 大互動工具。
+這份文件記錄維護 `index.html`（半導體良率改善分析工具主文件）時應該遵守的規則，是本專案累積的工程慣例與品質準則——良率分析方法論與 SOP 請直接看 `index.html` 內的 Phase 0–9 與 5 大互動工具。
 
 ## 內容規則（文件與工具標準）
 
 1. **雙語是硬性要求**：每一段可見文字都要有成對的 `<span class="zh">` / `<span class="en">`，靠根元素的 `data-lang` 屬性切換顯示（CSS `[data-lang="en"] .zh{display:none}` 與 `:root:not([data-lang="en"]) .en{display:none}` 規則），不是機器即時翻譯。新增任何內容都要中英雙語寫齊。
-2. **Phase 編號 vs Section 編號兩套系統**：Phase 0–8 代表良率改善工程的實務生命週期階段（Baseline 分解、跨站追溯、空間分佈、非製程假異常過濾、共模分析、參數 Margin、FA 實體驗證、改善閉環、稽核治理），不隨篇幅重組而異動。TOC 與段落編號需嚴格同步（含桌面端 `nav.toc` 與行動端 `details.toc-m`）。
+2. **Phase 編號 vs Section 編號兩套系統**：Phase 0–9 代表良率改善工程的實務生命週期階段（Baseline 分解、跨站追溯、空間分佈、非製程假異常過濾、共模分析、參數 Margin、FA 實體驗證、客訴 RMA/GDBN 溯源、改善閉環、稽核治理），不隨篇幅重組而異動。TOC 與段落編號需嚴格同步（含桌面端 `nav.toc` 與行動端 `details.toc-m`）。
 3. **callout 語意分級標準**：
-   - `callout danger`（紅）：重大良率災情、假性相關陷阱（Simpson's Paradox）、4 線式 Kelvin Sense 斷線退化、高額 Overkill / Underkill、違背稽核要求之不可逆操作。
+   - `callout danger`（紅）：重大良率災情、假性相關陷阱（Simpson's Paradox）、4 線式 Kelvin Sense 斷線退化、GDBN 惡鄰晶粒漏測、高額 Overkill / Underkill、違背稽核要求之不可逆操作。
    - `callout warn`（橘）：工程盲點、多站點測試針卡偏位（Multi-site skew）、Retest 政策失真、樣本數統計不足之虛假安全感。
    - `callout good`（綠）：成功改善案例、最佳實踐（Best Practice）、顯著性判定通過。
    - `callout`（預設 accent 藍/青）：中性工程技術背景、架構說明、公式背景。
-4. **能從硬體、軟體與量測前置擋掉的假異常，不要留到晶圓廠製程機台浪費產能**：測試針卡 Contact 阻抗、Pogo 針磨損、測試程式 Strobe 選通時間、多 DUT 平行 IR Droop、Gage R&R 誤差與原始矽晶圓長晶氧含量 \(O_i\)/外延變異必須優先排查隔離。
+4. **能從硬體、軟體與量測前置擋掉的假異常，不要留到晶圓廠製程機台浪費產能**：測試針卡 Contact 阻抗、Pogo 針磨損、測試程式 Strobe 選通時間、多 DUT 平行 IR Droop、OTP/Trim 寫入高壓壓降、Gage R&R 誤差與原始矽晶圓長晶氧含量 \(O_i\)/外延變異必須優先排查隔離。
 5. **公式一律使用 KaTeX 規範排版**：`\[ ... \]` / `\( ... \)` 放置於 `.formula .eq` 或行內，禁止使用手打不規格符號，並於附錄「公式參考卡」同步收錄推導依據。
 6. **所有圖表與互動工具必須支援深色與淺色模式**：
    - SVG 最外層 `<g>` 設 `fill="var(--ink)"` 或 `stroke="var(--ink)"`，嚴禁寫死黑白色碼導致 Dark Mode 破圖。
@@ -26,7 +26,7 @@
 4. **互動工具實用性要求**：
    - Tool 1: 缺陷密度與良率模型計算機（Poisson, Murphy, Seeds, Negative Binomial）。
    - Tool 2: 晶圓空間分佈簽名模擬器與根因分類器（8 種經典晶圓瑕疵分佈即時運算）。
-   - Tool 3: 非製程假異常根因排查決策矩陣（Hardware, Program, Metrology, Material）。
+   - Tool 3: 非製程假異常與客訴根因排查決策矩陣（Hardware, Program, Metrology, Material, OTP/Trim, RMA/GDBN）。
    - Tool 4: 機台 Chamber 共模相關性與統計檢定工具（ANOVA / 卡方獨立性檢定）。
    - Tool 5: 參數型良率與 Cpk / PAT 臨界邊界分析器（常態分佈動態偏移與 DPPM 換算）。
 

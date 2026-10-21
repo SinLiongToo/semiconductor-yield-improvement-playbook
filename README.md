@@ -7,26 +7,24 @@
 
 ---
 
-## 核心設計理念與架構
+## 核心設計理念與全景架構（Phase 0–9）
 
-良率改善（Yield Improvement）的實務第一要務，是**在第一時間辨識並排除「非製程假異常（Pseudo Yield Loss）」**，避免將測試硬體、測試程式、量測系統或材料進料變異誤判為晶圓廠機台問題。
-
-本工具建立完整的 **9 大分析維度（Phase 0–8）** 與 **5 組即時互動工程分析器**：
+良率改善（Yield Improvement）的實務第一要務，是**在第一時間辨識並排除「非製程假異常（Pseudo Yield Loss）」**，並建立**「晶片電子身分證（ECID）反向溯源與客訴閉環防線」**：
 
 ```
 Phase 0 [良率基線與損失解構] ──▶ Phase 1 [跨站資料架構與履歷鏈接]
        │
        ▼
-Phase 2 [晶圓空間分佈簽名辨識] ──▶ Phase 3 [非製程假異常：硬體/程式/量測/材料] ⚠️ (過濾網)
+Phase 2 [晶圓空間分佈簽名辨識] ──▶ Phase 3 [非製程假異常：硬體/程式/量測/材料/OTP-Trim] ⚠️ (過濾網)
        │                                     │
        │                                     ▼
        └─────────────────────────────▶ Phase 4 [機台 Chamber 共模統計歸因]
                                              │
                                              ▼
-Phase 7 [系統性改善戰術與閉環] ◀── Phase 6 [FA 實體驗證] ◀── Phase 5 [參數 Cpk Margin 飄移]
+Phase 8 [改善戰術與閉環] ◀── Phase 7 [客訴 RMA/GDBN 溯源] ◀── Phase 6 [FA 實體驗證] ◀── Phase 5 [參數 Cpk Margin]
        │
        ▼
-Phase 8 [Ramp 學習曲線與稽核防禦]
+Phase 9 [Ramp 學習曲線與稽核防禦]
 ```
 
 ---
@@ -51,9 +49,18 @@ Phase 8 [Ramp 學習曲線與稽核防禦]
      - **純隨機分佈（Random Poisson）**：背景清淨度隨機微粒。
    - 提供即時良率計算、一鍵導出晶圓圖 PNG 與排查處方籤。
 
-3. **非製程假異常根因排查決策矩陣 (Root Cause Triangulator - Hardware / Program / Metrology / Material)** ⭐
-   - 解決「假異常誤導真因排查」痛點，依據測試現場所觀察到的具體症狀（如特定 Site 良率偏低、單顆測試 Pass 但 8-Site 平行測試集體 Fail、研磨片磨針後良率恢復、更換測試座後良率反彈、切換溫差時 Strobe Fail、Kelvin Sense 斷線等）。
-   - 即時演算 5 大根因類別的概率分佈（測試硬體 / 測試程式 / 量測系統 / 材料與擴散變異 / 晶圓廠製程），並輸出標準驗證實驗 SOP（Site Swap、Scrub Mark 深度、示波器 IR Droop 抓取、2D Shmoo Plot、4 線 Kelvin 迴路檢驗）。
+3. **非製程假異常與客訴根因排查決策矩陣 (Root Cause Triangulator)** ⭐
+   - 解決「假異常誤導真因排查」與「客訴無從查起」痛點，依據現場 10 大臨床症狀即時演算 5 大根因類別的概率分佈，並輸出標準驗證實驗 SOP：
+     - 探針卡特定 Site 接觸阻抗（\(R_c\)）偏高與針尖氧化。
+     - 單顆測試 Pass 但多 DUT 平行測試 IR Droop 電源塌陷。
+     - 探針卡研磨清潔（Sand Sheet）後良率顯著回升。
+     - FT 測試更換 Pogo Socket 後 Open/Short 比例驟降。
+     - 切換至高低溫（Hot/Cold）測試時 Strobe 選通時間邊限不足。
+     - WAT 測試 4 線 Kelvin Sense 開路退化為 2 線。
+     - 微小漏電取樣延時不足與 RC 充電位移電流截斷。
+     - 換入特定外延片廠商（Epi Vendor B）後全廠良率集體下滑。
+     - **OTP / eFuse 燒錄後 Verify Read 失敗或高溫烘烤後數據丟失**（\(V_{pp}\) 塌陷、二分搜尋算錯 Code 誤寫入、Post-Mold Shift）。
+     - **客戶端退貨（RMA）晶片回測 Pass，但經追溯位於晶圓邊緣聚集缺陷旁**（惡鄰晶粒 GDBN 漏測、潛在 TDDB 早期失效）。
 
 4. **機台／腔體共模相關性檢定工具 (Tool & Chamber Commonality Analyzer)**
    - 解決「數十道製程、數百個 Chamber」的良率殺手獵捕難題。
@@ -66,19 +73,20 @@ Phase 8 [Ramp 學習曲線與稽核防禦]
 
 ---
 
-## 方法論內容架構（Phase 0–8）
+## 方法論內容架構（Phase 0–9）
 
 | 階段 | 核心主題 | 關鍵方法與技術重點 |
 |---|---|---|
 | **Phase 0** | 良率基線與損失解構 | 線良率（Line Yield）vs 晶粒良率（Die Yield）；功能性失效（Functional Bin）vs 參數型失效（Parametric Bin）；系統性缺陷 vs 隨機性缺陷分離。 |
 | **Phase 1** | 跨站資料架構與履歷鏈接 | 貫穿 MES Lot 譜系（拆批/併批）、STDF 測試原始記錄、Inline 晶圓光學檢查（KLA Defect Adder）、WAT/PCM 到 CP/FT 的全晶圓坐標精確對齊與 Notch 歸一化。 |
 | **Phase 2** | 晶圓空間分佈簽名辨識 | 8 大特徵空間分佈（Ring, Center, Scratch, Cluster, Bullseye, Repeater, Checkerboard）之物理機理與特徵工程（Radon Transform / Polar Coordinates / 密度矩陣）。 |
-| **Phase 3** | 非製程假異常深入排查 ⭐ | **測試硬體**（Contact 阻抗、針印深度、探針卡針尖氧化、Socket Pogo Pin 疲勞與錫屑、Loadboard 繼電器）；**測試程式**（Strobe 選通時序抖動、多 DUT 平行測試 IR Droop 電源塌陷、Clamp 限流截斷、軟硬 Bin 優先級倒置）；**量測系統**（MSA / Gage R&R \(%GRR > 30\%\)、4 線 Kelvin Sense 斷線退化為 2 線、pA 級漏電延時不足與 RC 充電位移電流）；**材料與擴散變異**（CZ 晶棒氧含量 \(O_i\) 與熱生施體、Epi 外延厚度廠商差異、離子植入穿隧與 RTA 熱預算 \(Dt\) 變異、CMP 研磨液批次粒徑分佈）。 |
+| **Phase 3** | 非製程假異常深入排查 ⭐ | **測試硬體**（Contact 阻抗、針印深度、探針卡針尖氧化、Socket Pogo Pin 疲勞與錫屑、Loadboard 繼電器）；**測試程式**（Strobe 選通時序抖動、多 DUT 平行測試 IR Droop 電源塌陷、Clamp 限流截斷、軟硬 Bin 優先級倒置）；**量測系統**（MSA / Gage R&R \(%GRR > 30\%\)、4 線 Kelvin Sense 斷線退化為 2 線、pA 級漏電延時不足與 RC 充電位移電流）；**材料與擴散變異**（CZ 晶棒氧含量 \(O_i\) 與熱生施體、Epi 外延厚度廠商差異、離子植入穿隧與 RTA 熱預算 \(Dt\) 變異、CMP 研磨液批次粒徑分佈）；**OTP / eFuse / Laser Trim 寫入失效**（\(V_{pp}\) 塌陷、Verify Read 裕度不足、搜尋算法與 \(R_c\) 耦合誤寫入、Post-Mold Shift 封裝應力致 Trim 漂移）。 |
 | **Phase 4** | 機台 Chamber 共模統計歸因 | 變異數分析（ANOVA）、卡方檢定、多維回歸；**警惕辛普森悖論（Simpson's Paradox）**、機台老化（Chamber Aging）與產品配比混淆之假性相關。 |
 | **Phase 5** | 參數 Margin 與 Cpk 飄移 | 關鍵電性參數裕度；Guardbanding 容差優化；車用動態 PAT 演算法（\(\mu \pm 4\sigma\) 剔除潛在早期失效晶粒）。 |
 | **Phase 6** | 失效分析 (FA) 實體物理驗證 | 故障定位技術（OBIRCH, EMMI, Nano-probing, TIVA）；物理解剖（FIB 切片, TEM 晶格缺陷, EDX 元素成份）；從電性 Fail Bin 映射回微影/蝕刻/薄膜真因。 |
-| **Phase 7** | 系統性改善戰術與閉環 | 戰術三部曲：短期 OOC/OOS 防堵隔離與出界停機；中期 APC 進階製程控制（Run-to-Run / Feed-forward）與 Chamber Matching；長期 DFM 規則修訂、SRAM 冗餘雷射/eFuse 容錯修復。 |
-| **Phase 8** | Ramp 學習曲線與稽核防禦 | 經典半導體良率爬坡數學模型 \( Y(t) = Y_\infty - (Y_\infty - Y_0)e^{-kt} \)；IATF 16949 / JEDEC 變更管理（4M1E 變更）與車用客戶稽核對應標準。 |
+| **Phase 7** | 客訴案件分析與良率溯源閉環 ⭐ | **晶片身分追溯（ECID）**反向解碼原始生產批次與 Die X/Y 坐標；**惡鄰晶粒效應（Good Die in Bad Neighborhood, GDBN）**揭露隱性可靠度微裂紋；**漏測根因分析（Test Escape）**（向量覆蓋率盲區、極限溫角環境、TDDB 閘極氧化層潛在擊穿、電致遷移 EM）；**客訴 8D 處分戰略與「同批 24 片姊妹晶圓（Sister Wafers）」即時攔截隔離協議**。 |
+| **Phase 8** | 系統性改善戰術與閉環 | 戰術三部曲：短期 OOC/OOS 防堵隔離與出界停機；中期 APC 進階製程控制（Run-to-Run / Feed-forward）與 Chamber Matching；長期 DFM 規則修訂、SRAM 冗餘雷射/eFuse 容錯修復。 |
+| **Phase 9** | Ramp 學習曲線與稽核防禦 | 經典半導體良率爬坡數學模型 \( Y(t) = Y_\infty - (Y_\infty - Y_0)e^{-kt} \)；IATF 16949 / JEDEC 變更管理（4M1E 變更）與車用客戶稽核對應標準。 |
 
 ---
 
@@ -86,7 +94,7 @@ Phase 8 [Ramp 學習曲線與稽核防禦]
 
 - **Appendix A**: 經典半導體良率數學模型公式卡（Poisson, Murphy, Seeds, Stapper, Gross Die）
 - **Appendix B**: 半導體良率突降（Yield Excursion）8D 調查報告範本
-- **Appendix C**: 測試硬體、測試程式、量測系統與材料變異綜合排查表
+- **Appendix C**: 測試硬體、測試程式、量測系統、材料擴散變異與 OTP/Trim 綜合排查表
 
 ---
 

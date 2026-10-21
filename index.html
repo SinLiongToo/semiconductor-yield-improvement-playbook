@@ -509,7 +509,7 @@
       </div>
       <div>
         <span class="zh">版次狀態</span><span class="en">Revision</span>
-        <b>Rev. B (Enhanced Comprehensive)</b>
+        <b>Rev. C (Advanced with RMA & OTP)</b>
       </div>
       <div>
         <span class="zh">適用對象</span><span class="en">Audience</span>
@@ -517,7 +517,7 @@
       </div>
       <div>
         <span class="zh">最後修訂</span><span class="en">Last Updated</span>
-        <b>2026-10-21 16:00</b>
+        <b>2026-10-21 16:15</b>
       </div>
     </div>
   </header>
@@ -535,8 +535,9 @@
       <li><a href="#phase4"><span class="zh">Phase 4: 機台 Chamber 共模統計歸因</span><span class="en">Phase 4: Chamber Commonality Attribution</span></a></li>
       <li><a href="#phase5"><span class="zh">Phase 5: 參數 Margin 與 Cpk 飄移</span><span class="en">Phase 5: Parametric Margin & Cpk Drift</span></a></li>
       <li><a href="#phase6"><span class="zh">Phase 6: 失效分析 (FA) 實體物理驗證</span><span class="en">Phase 6: Failure Analysis (FA) Verification</span></a></li>
-      <li><a href="#phase7"><span class="zh">Phase 7: 系統性改善戰術與閉環</span><span class="en">Phase 7: Systematic Improvement Playbook</span></a></li>
-      <li><a href="#phase8"><span class="zh">Phase 8: Ramp 學習曲線與稽核治理</span><span class="en">Phase 8: Yield Ramp & Audit Defense</span></a></li>
+      <li><a href="#phase7_rma"><span class="zh">Phase 7: 客訴案件分析與良率溯源閉環</span><span class="en">Phase 7: Customer RMA & Field Return Closed-Loop</span></a></li>
+      <li><a href="#phase8_action"><span class="zh">Phase 8: 系統性改善戰術與閉環</span><span class="en">Phase 8: Systematic Improvement Playbook</span></a></li>
+      <li><a href="#phase9_ramp"><span class="zh">Phase 9: Ramp 學習曲線與稽核治理</span><span class="en">Phase 9: Yield Ramp & Audit Defense</span></a></li>
       <li><a href="#appendices"><span class="zh">附錄: 工程範本與公式參考卡</span><span class="en">Appendices: Templates & Formula Cards</span></a></li>
     </ol>
   </details>
@@ -556,8 +557,9 @@
         <li><a href="#phase4"><span class="zh">Phase 4: Chamber 共模統計</span><span class="en">Phase 4: Chamber Commonality</span></a></li>
         <li><a href="#phase5"><span class="zh">Phase 5: 參數 Margin / Cpk</span><span class="en">Phase 5: Parametric Cpk</span></a></li>
         <li><a href="#phase6"><span class="zh">Phase 6: 失效分析 FA 實體回饋</span><span class="en">Phase 6: Failure Analysis</span></a></li>
-        <li><a href="#phase7"><span class="zh">Phase 7: 改善戰術與閉環</span><span class="en">Phase 7: Action Playbook</span></a></li>
-        <li><a href="#phase8"><span class="zh">Phase 8: 學習曲線與稽核</span><span class="en">Phase 8: Ramp & Governance</span></a></li>
+        <li><a href="#phase7_rma"><span class="zh">Phase 7: 客訴 RMA 與溯源閉環</span><span class="en">Phase 7: Customer RMA Closed-Loop</span></a></li>
+        <li><a href="#phase8_action"><span class="zh">Phase 8: 改善戰術與閉環</span><span class="en">Phase 8: Action Playbook</span></a></li>
+        <li><a href="#phase9_ramp"><span class="zh">Phase 9: 學習曲線與稽核</span><span class="en">Phase 9: Ramp & Governance</span></a></li>
         <li><a href="#appendices"><span class="zh">附錄: 範本與公式卡</span><span class="en">Appendices: Formulas</span></a></li>
       </ol>
     </nav>
@@ -901,6 +903,8 @@
                     <option value="kelvin_open">6. WAT 測試量測得飽和電阻 Rsheet 跨批整體偏大，但元件電流無異常 (Kelvin Sense Line Open)</option>
                     <option value="leakage_settle">7. 微微安 (pA) 級漏電流量測波動劇烈，增加延時 Delay 後數值恢復穩定 (Settling Time Truncation)</option>
                     <option value="substrate_split">8. 換入特定外延片廠商（Epi Vendor B）後，跨所有設備之晶圓良率集體下滑 (Raw Ingot / Substrate Vendor Drift)</option>
+                    <option value="otp_trim_fail">9. OTP / eFuse 燒錄後 Verify Read 失敗或高溫烘烤後數據丟失 (OTP/Trim Under-Blow or Retention Fail)</option>
+                    <option value="rma_gdbn_escape">10. 客戶端退貨 (RMA) 晶片回測 Pass，但經追溯位於晶圓邊緣聚集缺陷旁 (Customer Return & GDBN Escape)</option>
                   </select>
                 </div>
 
@@ -1581,6 +1585,66 @@
         </div>
       </section>
 
+      
+          <!-- 3.5 OTP / EFUSE / LASER TRIM FAILURES -->
+          <h3>
+            <span class="zh">3.5 OTP / eFuse / Laser Trim 寫入與校準失效 (OTP / Trim Calibration & Programming Failures)</span>
+            <span class="en">3.5 OTP / eFuse / Laser Trim Calibration & Programming Failures</span>
+          </h3>
+          <p>
+            <span class="zh">
+              現代類比／混合訊號（Analog/Mixed-Signal）與電源管理晶片（PMIC）高度仰賴晶圓級 Trim 校準（能隙基準電壓 (V_{bg})、內部振盪器頻率 (F_{osc})、運算放大器 Offset、電流限制 (I_{lim})）。OTP / eFuse 寫入失效是極為隱蔽但破壞力極大的良率殺手：
+            </span>
+            <span class="en">
+              Modern analog/mixed-signal and PMIC devices rely critically on wafer-level trimming (bandgap reference (V_{bg}), internal clock (F_{osc}), op-amp offset, current limits). OTP / eFuse burning failures represent insidious yield killers:
+            </span>
+          </p>
+
+          <div class="data-table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th><span class="zh">Trim / OTP 失效模式</span><span class="en">Failure Mechanism</span></th>
+                  <th><span class="zh">深層物理與電氣機理</span><span class="en">Physical & Electrical Root Cause</span></th>
+                  <th><span class="zh">良率表徵與測試表現</span><span class="en">Yield & Test Symptom</span></th>
+                  <th><span class="zh">工程防禦與量產處方</span><span class="en">Engineering Countermeasure</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b>燒錄高壓塌陷 (Vpp Droop & Under-blow)</b></td>
+                  <td>多位元 eFuse 並行燒錄瞬間電流爆發，ATE 燒錄電源供應能力不足或探針接觸電阻造成 (V_{pp}) 電壓突降，熔絲未徹底熔斷（金屬細絲殘留或反熔絲絕緣層未完全擊穿）。</td>
+                  <td>常溫 CP 測試驗證通過，但 FT 測試或客戶端高溫烘烤後，殘留金屬絲重新長晶復原（Regrowth），位元由 1 變回 0。</td>
+                  <td>燒錄時加入電源儲能電容；強制位元串列依序燒錄（Serial Bit Blow）避免並行大電流；實施高溫烘烤（HTB Bake）後再驗證。</td>
+                </tr>
+                <tr>
+                  <td><b>讀取邊限不足 (Verify Read Margin Gap)</b></td>
+                  <td>燒錄完成後的驗證讀取（Verify Read）僅在一般常規條件下執行，未設定嚴苛的感測放大器（Sense Amp）讀取參考電壓邊界（Margin Read 0 / 1）。</td>
+                  <td>在 (V_{dd}) 標稱電壓下讀取正常，但在極限低壓（(V_{dd,min})）或高低溫極限下判定錯誤，導致下游測試站大批開路/功能 Fail。</td>
+                  <td>測試程式中必須導入嚴格的雙重 Margin Read（Margin Read-High / Margin Read-Low），確保感測裕度 &gt; 300mV。</td>
+                </tr>
+                <tr>
+                  <td><b>搜尋演算法與探針阻抗耦合 (Algorithm-Rc Coupling)</b></td>
+                  <td>二分搜尋法（Binary Search）計算 Trim Code 時，若探針卡接觸電阻（(R_c)）跳動或量測取樣延時不足，演算法算得錯誤的 Code 並<b>直接永久性寫入不可逆的 OTP 熔絲</b>。</td>
+                  <td>整顆晶粒無法復原性報廢（Permanent Scrap / Overkill），基準電壓 (V_{bg}) 輸出嚴重跳檔。</td>
+                  <td>在執行燒錄前，必須實施「預讀模擬（Pre-trim Simulation / Soft Trim Register Test）」，驗證目標參數達標後才下達燒錄指令。</td>
+                </tr>
+                <tr>
+                  <td><b>封裝應力致 Trim 飄移 (Post-Mold Stress Shift)</b></td>
+                  <td>晶圓 CP 階段 Trim 校準精準，但在封裝環氧樹脂（EMC）高溫固化冷卻後，樹脂收縮應力透過壓阻效應（Piezo-resistive Effect）改變矽晶體電阻與雙極電晶體特徵。</td>
+                  <td>FT 封測良率全面向單一方向偏位，能隙電壓基準偏移 1–3%，整批產品超規。</td>
+                  <td>晶圓 CP 端導入「封裝預補償偏置係數（Package Offset Pre-compensation）」；改採低應力 EMC 封裝膠材。</td>
+                </tr>
+                <tr>
+                  <td><b>雷射修阻熱影響區 (Laser Trim HAZ Cracking)</b></td>
+                  <td>薄膜電阻雷射修阻（Laser Trimming）時，雷射光斑能量過高，在切割槽口（Kerf）邊緣產生熱影響區微裂紋（Micro-cracks）與矽化副產物。</td>
+                  <td>晶片在經過封裝回焊（Reflow 260°C）或溫循試驗後，電阻阻值持續飄移跳躍。</td>
+                  <td>優化雷射波長（UV 紫外線雷射取代綠光雷射）；限制最大切割深度，設置防護保護環（Guard Ring）。</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
       <!-- PHASE 4: CHAMBER COMMONALITY & CORRELATION -->
       <section id="phase4">
         <h2 class="collapsible-h" onclick="toggleCollapse(this)">
@@ -1770,12 +1834,135 @@
         </div>
       </section>
 
-      <!-- PHASE 7: IMPROVEMENT PLAYBOOK & ACTION LOOPS -->
-      <section id="phase7">
+      
+      <!-- PHASE 7: CUSTOMER RMA & FIELD RETURN ANALYSIS (NEW IN-DEPTH SECTION) -->
+      <section id="phase7_rma">
         <h2 class="collapsible-h" onclick="toggleCollapse(this)">
           <span>
-            <span class="zh">Phase 7: 系統性改善戰術與閉環 (Yield Improvement Action Playbook)</span>
-            <span class="en">Phase 7: Systematic Improvement Playbook & Action Loops</span>
+            <span class="zh">Phase 7: 客訴案件全流程分析與良率溯源閉環 (Customer RMA & Field Return)</span>
+            <span class="en">Phase 7: Customer RMA, Field Return & 0-km Defect Closed-Loop</span>
+          </span>
+          <span class="collapse-arrow">▼</span>
+        </h2>
+        <div class="collapse-body">
+          <p>
+            <span class="zh">
+              在車用（Automotive AEC-Q100/ISO 26262）與高端通訊市場中，單一顆客戶端退貨（Customer Return RMA / 0-km Defect）即可引發全廠級別的稽核危機與出貨封鎖。客訴分析的核心是<b>「利用晶片數位 DNA（ECID）反向重建晶圓歷史，精確判定漏測機制與潛在隱性缺陷」</b>。
+            </span>
+            <span class="en">
+              In automotive and mission-critical markets, a single customer return (RMA / 0-km defect) triggers a top-tier factory audit and potential shipment freeze. The core of field return analysis is <b>"leveraging Electronic Chip ID (ECID) to reconstruct wafer history, diagnosing test escape mechanisms and latent reliability flaws"</b>.
+            </span>
+          </p>
+
+          <h3>
+            <span class="zh">7.1 晶片身分追溯 (ECID) 與 Wafer Map 鄰域重現 (GDBN)</span>
+            <span class="en">7.1 Electronic Chip ID (ECID) & Wafer Map Neighborhood Reconstruction (GDBN)</span>
+          </h3>
+          <p>
+            <span class="zh">
+              所有量產高階晶片內部均具備以 eFuse 或 OTP 燒錄的<b>電子晶片身分證（Electronic Chip ID, ECID）</b>。讀取客訴良品之 ECID 碼，可反查：
+            </span>
+            <span class="en">
+              All automotive and mission-critical chips incorporate an internal <b>Electronic Chip ID (ECID)</b> programmed into eFuses. Reading the RMA chip's ECID unlocks full genealogy:
+            </span>
+          </p>
+
+          <div class="formula">
+            [ 	ext{ECID} = [	ext{Fab_Lot (16b)}] + [	ext{Wafer_ID (5b)}] + [	ext{Die_X (8b)}] + [	ext{Die_Y (8b)}] + [	ext{CP_Tester (4b)}] + [	ext{Timestamp (12b)}] ]
+          </div>
+
+          <div class="callout danger">
+            <div class="callout-title">
+              <span>🔎</span>
+              <span class="zh">惡鄰晶粒效應：壞鄰居中的好晶粒 (Good Die in Bad Neighborhood, GDBN)</span>
+              <span class="en">The Bad Neighborhood Trap: Good Die in Bad Neighborhood (GDBN)</span>
+            </div>
+            <p>
+              <span class="zh">
+                <b>殘酷真相</b>：超過 70% 的客戶端早期失效晶片，在原廠 CP 測試時各項參數均完全及格（Pass）。然而，當將其坐標（Die X, Y）重新投射回原始晶圓圖（Wafer Map）時，赫然發現：<b>這顆 Die 正好位於周圍 8 顆相鄰晶片全數 Fail 的「高密度缺陷聚集區（Cluster）」正中央，或位處邊緣環（Edge Ring）最前緣！</b><br>
+                <b>機理分析</b>：相鄰晶片已被大顆粒微粒擊毀，該客訴晶粒內部必定也承受了邊緣亞微米級潛在結晶位錯或微裂紋。出廠測試時能勉強運作，但在車載環境連續運作 3 個月後，熱應力引發微裂紋貫穿短路！<br>
+                <b>防禦處方</b>：全面在 CP 測試導入 <b>GDBN（Good Die in Bad Neighborhood）與 SBN（Spatial Bad Neighborhood）自動剔除演算法</b>，即使電性 Pass 亦強制墨印（Inking/Bin 8）報廢！
+              </span>
+              <span class="en">
+                <b>Crucial Reality</b>: Over 70% of field RMA returns passed all original CP test specs with flying colors. However, when mapping their Die X/Y back to the original wafer map, a shocking pattern emerges: <b>The die was located right in the epicenter of an 8-neighbor defect cluster or directly on the edge ring boundary!</b><br>
+                <b>Mechanism</b>: While adjacent dies suffered catastrophic particle destruction, this RMA die absorbed sub-micron latent lattice damage. It survived initial ATE probing, but 3 months of field thermal cycling propagated micro-cracks into full-blown dielectric breakdown.<br>
+                <b>Countermeasure</b>: Mandate <b>Good Die in Bad Neighborhood (GDBN) spatial filtering rules</b> at wafer sort to ink out and scrap electrically passing dies bounded by defect clusters.
+              </span>
+            </p>
+          </div>
+
+          <h3>
+            <span class="zh">7.2 漏測根因分析 (Test Escape Analysis) 與 潛在可靠度失效機理</span>
+            <span class="en">7.2 Test Escape Root Cause Analysis & Latent Reliability Mechanisms</span>
+          </h3>
+
+          <div class="data-table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th><span class="zh">漏測 / 失效維度</span><span class="en">Escape Dimension</span></th>
+                  <th><span class="zh">典型實例與根因</span><span class="en">Example & Root Cause</span></th>
+                  <th><span class="zh">物理可靠度退化機理</span><span class="en">Degradation Mechanism</span></th>
+                  <th><span class="zh">防漏測糾正對策 (CAPA)</span><span class="en">Corrective Action</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b>向量覆蓋率盲區 (Coverage Gap)</b></td>
+                  <td>ATE 測試向量邏輯故障覆蓋率（Stuck-at / Transition Fault Coverage）僅 92%，未覆蓋客戶實際工作時啟動的特定狀態機路徑。</td>
+                  <td>純邏輯設計與測試 Pattern 漏測（Functional Escape）。</td>
+                  <td>重新執行 ATPG（自動測試向量產生），導入全覆蓋 Scan Test，將 Transition 覆蓋率提升至 &gt; 98.5%。</td>
+                </tr>
+                <tr>
+                  <td><b>靜態常態極限漏測 (Static Margin Escape)</b></td>
+                  <td>晶圓在 25°C 室溫常溫測試合格，但客戶在 -40°C 極端低溫冷啟動或 125°C 引擎室高溫下運作。</td>
+                  <td>漏電流指數級飆升（(I_{leak} propto T^2 e^{-E_g/kT})），臨界電壓降低造成高溫閂鎖（Latch-up）。</td>
+                  <td>在測試流程強制導入三溫測試（Tri-Temp: -40°C, 25°C, 125°C），並建立跨溫角 Guardbanding 模型。</td>
+                </tr>
+                <tr>
+                  <td><b>閘極氧化層潛在擊穿 (TDDB / Latent Pinholes)</b></td>
+                  <td>微影或蝕刻微粒在閘極介電層留下微小凹坑（Pinhole），初始電阻極高（靜態測試漏電 &lt; 10nA）。</td>
+                  <td>經時介電質崩潰（TDDB, Time-Dependent Dielectric Breakdown），電場應力累積下導電絲貫穿。</td>
+                  <td>導入晶圓級高壓電應力過載測試（Voltage Stress Test / Burn-in Screen），提前擊潰潛在缺陷。</td>
+                </tr>
+                <tr>
+                  <td><b>金屬線路電致遷移 (Electromigration, EM)</b></td>
+                  <td>CMP 拋光造成金屬走線局部凹陷微裂紋（Metal Necking），局部截面積縮減 40%。</td>
+                  <td>高電流密度下電子風撞擊金屬原子引發質量傳遞，線路空孔（Void）漸進式擴大斷路。</td>
+                  <td>導入動態高電流衝擊測試；執行 DFM 最小金屬寬度（Min Metal Width）規則加強。</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>
+            <span class="zh">7.3 客訴 8D 處分戰略與「姊妹晶圓 (Sister Wafers)」即時攔截</span>
+            <span class="en">7.3 Customer 8D Action Plan & Sister Wafer Containment Protocol</span>
+          </h3>
+
+          <div style="background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--danger); border-radius:6px; padding:16px; font-family:var(--font-mono); font-size:12.5px; line-height:1.7;">
+            <b>【客訴 8D 即時防禦協議 (Customer RMA Containment SOP)】</b><br>
+            <b>1. D3 即時圍堵與隔離 (24 Hours Containment):</b><br>
+            &bull; 依據客訴晶片 ECID 鎖定其生產批次（Lot ID）與晶圓號碼（Wafer ID）。<br>
+            &bull; <b>全廠追溯同批 24 片「姊妹晶圓（Sister Wafers）」</b>以及同一 Raw Ingot 長晶批次的所有晶圓。<br>
+            &bull; 透過 MES 系統立即將在製品（WIP）、庫存成品（Warehouse Stock）及在途貨物（In-transit）打上「Quality Hold」，全面暫停出貨。<br><br>
+            <b>2. D4 實體解剖真因鎖定 (Root Cause FA):</b><br>
+            &bull; 非破壞 X-Ray 封裝打線掃描 ➔ 聲波顯微鏡（C-SAM）檢查分層 ➔ OBIRCH 漏電發熱點定位 ➔ FIB 奈米切片 ➔ TEM + EDX 元素成份定罪。<br><br>
+            <b>3. D5/D6 糾正防範與驗證 (CAPA Implementation):</b><br>
+            &bull; 在 CP 測試程式導入動態 PAT 與 GDBN 剔除演算法。<br>
+            &bull; 在產線執行 5 批 Pilot 試產，驗證 0-km 失效率降至 0 PPM。<br><br>
+            <b>4. D7 體系性預防再發 (Systemic Prevention):</b><br>
+            &bull; 更新製程 FMEA（失效模式與效應分析）與 Control Plan 管制計畫；修改 DFM 設計規則庫。
+          </div>
+        </div>
+      </section>
+
+      <!-- PHASE 8: IMPROVEMENT PLAYBOOK & ACTION LOOPS -->
+      <section id="phase8_action">
+        <h2 class="collapsible-h" onclick="toggleCollapse(this)">
+          <span>
+            <span class="zh">Phase 8: 系統性改善戰術與閉環 (Yield Improvement Action Playbook)</span>
+            <span class="en">Phase 8: Systematic Improvement Playbook & Action Loops</span>
           </span>
           <span class="collapse-arrow">▼</span>
         </h2>
@@ -1836,12 +2023,12 @@
         </div>
       </section>
 
-      <!-- PHASE 8: YIELD RAMP & AUDIT DEFENSE -->
-      <section id="phase8">
+      <!-- PHASE 9: YIELD RAMP & AUDIT DEFENSE -->
+      <section id="phase9_ramp">
         <h2 class="collapsible-h" onclick="toggleCollapse(this)">
           <span>
-            <span class="zh">Phase 8: Ramp 學習曲線與客戶稽核治理 (Yield Ramp & Audit Defense)</span>
-            <span class="en">Phase 8: Yield Ramp Modeling & Customer Audit Defense</span>
+            <span class="zh">Phase 9: Ramp 學習曲線與客戶稽核治理 (Yield Ramp & Audit Defense)</span>
+            <span class="en">Phase 9: Yield Ramp Modeling & Customer Audit Defense</span>
           </span>
           <span class="collapse-arrow">▼</span>
         </h2>
