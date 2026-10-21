@@ -509,7 +509,7 @@
       </div>
       <div>
         <span class="zh">版次狀態</span><span class="en">Revision</span>
-        <b>Rev. D (Comprehensive FA-to-Process Pipeline)</b>
+        <b>Rev. E (PFA Visual Schematics & Nanoscale Diagrams)</b>
       </div>
       <div>
         <span class="zh">適用對象</span><span class="en">Audience</span>
@@ -517,7 +517,7 @@
       </div>
       <div>
         <span class="zh">最後修訂</span><span class="en">Last Updated</span>
-        <b>2026-10-21 16:25</b>
+        <b>2026-10-21 16:35</b>
       </div>
     </div>
   </header>
@@ -1795,6 +1795,84 @@
           <p>
             <span class="zh">
               FA 必須嚴格遵循由外而內、由非破壞到破壞性的分析階梯，避免在未鎖定精確微米座標前過早研磨造成「殺死現場證據（Killing the Evidence）」：
+
+          <!-- FIGURE 6.1: PFA ANALYTICAL LADDER -->
+          <figure>
+            <svg viewBox="0 0 960 270" style="width:100%; height:auto;" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <filter id="pfaShadow" x="-5%" y="-10%" width="110%" height="130%">
+                  <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.15"/>
+                </filter>
+                <linearGradient id="pfaGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="var(--accent)" stop-opacity="0.9"/>
+                  <stop offset="100%" stop-color="var(--accent-strong)" stop-opacity="0.95"/>
+                </linearGradient>
+              </defs>
+              <g fill="var(--ink)" font-family="var(--font-mono)">
+                <!-- Step 1 -->
+                <rect x="15" y="30" width="160" height="90" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1.5" filter="url(#pfaShadow)"/>
+                <text x="95" y="55" text-anchor="middle" font-size="12" font-weight="700" fill="var(--accent)">1. 非破壞性檢驗</text>
+                <text x="95" y="73" text-anchor="middle" font-size="10.5" fill="var(--ink-soft)">X-Ray CT / C-SAM</text>
+                <text x="95" y="90" text-anchor="middle" font-size="9.5" fill="var(--ink-faint)">封裝分層 / 錫球空孔</text>
+                <text x="95" y="105" text-anchor="middle" font-size="9" fill="var(--good)">保留原始物理現場</text>
+
+                <!-- Arrow 1-2 -->
+                <path d="M 175 75 L 205 75" stroke="var(--accent)" stroke-width="2"/>
+
+                <!-- Step 2 -->
+                <rect x="205" y="30" width="170" height="90" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1.5" filter="url(#pfaShadow)"/>
+                <text x="290" y="55" text-anchor="middle" font-size="12" font-weight="700" fill="var(--accent)">2. 電性故障定位</text>
+                <text x="290" y="73" text-anchor="middle" font-size="10.5" fill="var(--ink-soft)">OBIRCH / EMMI / LIT</text>
+                <text x="290" y="90" text-anchor="middle" font-size="9.5" fill="var(--ink-faint)">1340nm 雷射熱效應</text>
+                <text x="290" y="105" text-anchor="middle" font-size="9" fill="var(--warn)">縮小至 1μm 局部座標</text>
+
+                <!-- Arrow 2-3 -->
+                <path d="M 375 75 L 405 75" stroke="var(--accent)" stroke-width="2"/>
+
+                <!-- Step 3 -->
+                <rect x="405" y="30" width="170" height="90" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1.5" filter="url(#pfaShadow)"/>
+                <text x="490" y="55" text-anchor="middle" font-size="12" font-weight="700" fill="var(--accent)">3. 奈米探針電性提取</text>
+                <text x="490" y="73" text-anchor="middle" font-size="10.5" fill="var(--ink-soft)">Nano-probing (AFM/SEM)</text>
+                <text x="490" y="90" text-anchor="middle" font-size="9.5" fill="var(--ink-faint)">4 根 20nm 鎢針扎刺</text>
+                <text x="490" y="105" text-anchor="middle" font-size="9" fill="var(--danger)">單顆 FinFET Id-Vg 曲線</text>
+
+                <!-- Arrow 3-4 -->
+                <path d="M 575 75 L 605 75" stroke="var(--accent)" stroke-width="2"/>
+
+                <!-- Step 4 -->
+                <rect x="605" y="30" width="165" height="90" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1.5" filter="url(#pfaShadow)"/>
+                <text x="687" y="55" text-anchor="middle" font-size="12" font-weight="700" fill="var(--accent)">4. 雙束 FIB 原位切片</text>
+                <text x="687" y="73" text-anchor="middle" font-size="10.5" fill="var(--ink-soft)">Dual-beam FIB-SEM</text>
+                <text x="687" y="90" text-anchor="middle" font-size="9.5" fill="var(--ink-faint)">Ga+ 離子束 52° 研磨</text>
+                <text x="687" y="105" text-anchor="middle" font-size="9" fill="var(--ink-soft)">製備 &lt; 25nm 超薄截面</text>
+
+                <!-- Arrow 4-5 -->
+                <path d="M 770 75 L 800 75" stroke="var(--accent)" stroke-width="2"/>
+
+                <!-- Step 5 -->
+                <rect x="800" y="30" width="145" height="90" rx="6" fill="var(--accent)" filter="url(#pfaShadow)"/>
+                <text x="872" y="55" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">5. 原子成份定罪</text>
+                <text x="872" y="73" text-anchor="middle" font-size="10.5" fill="#e0f2fe">HR-TEM + EDX</text>
+                <text x="872" y="90" text-anchor="middle" font-size="9.5" fill="#e0f2fe">原子級晶格錯位</text>
+                <text x="872" y="105" text-anchor="middle" font-size="9" fill="#fef08a">元素定性定罪 (Cu/F/Fe)</text>
+
+                <!-- Closed loop feedback bottom -->
+                <path d="M 872 120 L 872 195 L 95 195 L 95 120" fill="none" stroke="var(--danger)" stroke-width="2" stroke-dasharray="6,4"/>
+                <rect x="330" y="175" width="310" height="38" rx="4" fill="var(--surface)" stroke="var(--danger)" stroke-width="1.5"/>
+                <text x="485" y="198" text-anchor="middle" font-size="12" fill="var(--danger)" font-weight="700">
+                  物理根因映射至晶圓廠機台處方 (Closed-Loop to Fab)
+                </text>
+                <text x="485" y="235" text-anchor="middle" font-size="10.5" fill="var(--ink-soft)">
+                  調閱 EAP 感測訊號（RF 功率 / EPD 終點訊號）➔ PM 清洗 / 更換 Focus Ring / 調校 CMP 配方
+                </text>
+              </g>
+            </svg>
+            <figcaption>
+              <span class="zh">圖 6.1：半導體 PFA 實體失效分析標準實驗室檢驗階梯全景圖</span>
+              <span class="en">Figure 6.1: Semiconductor Physical Failure Analysis (PFA) Analytical Hierarchy Workflow</span>
+            </figcaption>
+          </figure>
+
             </span>
             <span class="en">
               FA must strictly follow a non-destructive to destructive analytical ladder, preventing premature polishing that destroys physical evidence:
@@ -1878,6 +1956,148 @@
           <p>
             <span class="zh">
               此矩陣是良率改善工程師（YEE）與晶圓廠整合工程師（PIE）對話的核心字典。當 FA 實驗室確認微觀物理圖像後，即可直接映射至具體機台腔體與化學反應：
+
+          <!-- FIGURE 6.2: 6 CANONICAL PHYSICAL DEFECT SCHEMATICS -->
+          <figure>
+            <svg viewBox="0 0 960 480" style="width:100%; height:auto;" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <pattern id="diagHatch" width="8" height="8" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+                  <line x1="0" y1="0" x2="0" y2="8" stroke="var(--ink-faint)" stroke-width="1" />
+                </pattern>
+              </defs>
+              <g fill="var(--ink)" font-family="var(--font-mono)">
+
+                <!-- PANEL A: METAL BRIDGING SHORT (CMP DISHING) -->
+                <g transform="translate(15, 20)">
+                  <rect x="0" y="0" width="295" height="195" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1.5"/>
+                  <text x="12" y="22" font-size="11" font-weight="700" fill="var(--accent)">[Panel A] 金屬橋接短路 (CMP Puddling)</text>
+                  <!-- Dielectric ILD -->
+                  <rect x="20" y="60" width="255" height="100" fill="var(--surface)" stroke="var(--border)"/>
+                  <text x="145" y="145" text-anchor="middle" font-size="9" fill="var(--ink-faint)">Inter-Layer Dielectric (ILD SiO2)</text>
+                  <!-- Metal Lines M1 -->
+                  <rect x="40" y="60" width="50" height="50" fill="var(--accent)" stroke="var(--ink)"/>
+                  <text x="65" y="90" text-anchor="middle" font-size="10" fill="#fff" font-weight="bold">M1 (Cu)</text>
+                  
+                  <rect x="205" y="60" width="50" height="50" fill="var(--accent)" stroke="var(--ink)"/>
+                  <text x="230" y="90" text-anchor="middle" font-size="10" fill="#fff" font-weight="bold">M1 (Cu)</text>
+                  
+                  <!-- Dishing recess -->
+                  <path d="M 90 60 Q 147 75 205 60" fill="none" stroke="var(--border)" stroke-width="2"/>
+                  <!-- Residual Metal Bridge -->
+                  <path d="M 90 60 Q 147 72 205 60 L 205 66 Q 147 78 90 66 Z" fill="var(--danger)"/>
+                  <text x="147" y="95" text-anchor="middle" font-size="9" fill="var(--danger)" font-weight="bold">Cu 殘留金屬絲短路 ⚠️</text>
+                  <text x="147" y="180" text-anchor="middle" font-size="9" fill="var(--ink-soft)">製程真因: CMP 拋光不足 / 碟形凹坑金屬沉積</text>
+                </g>
+
+                <!-- PANEL B: VIA OPEN / POLYMER RESIDUE -->
+                <g transform="translate(330, 20)">
+                  <rect x="0" y="0" width="295" height="195" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1.5"/>
+                  <text x="12" y="22" font-size="11" font-weight="700" fill="var(--accent)">[Panel B] 通孔底部聚合物阻隔 (Via Open)</text>
+                  <!-- Bottom Metal M1 -->
+                  <rect x="35" y="130" width="225" height="30" fill="var(--accent)" stroke="var(--ink)"/>
+                  <text x="147" y="150" text-anchor="middle" font-size="10" fill="#fff" font-weight="bold">Bottom Metal (M1)</text>
+                  <!-- Dielectric layer -->
+                  <rect x="35" y="45" width="225" height="85" fill="var(--surface)" stroke="var(--border)"/>
+                  <!-- Via Hole -->
+                  <path d="M 120 45 L 125 125 L 170 125 L 175 45 Z" fill="#94a3b8" stroke="var(--ink)"/>
+                  <text x="147" y="85" text-anchor="middle" font-size="10" fill="#fff" font-weight="bold">Via 1 (W)</text>
+                  <!-- Polymer residue layer -->
+                  <rect x="123" y="122" width="49" height="8" fill="var(--danger)"/>
+                  <text x="147" y="115" text-anchor="middle" font-size="9" fill="var(--danger)" font-weight="bold">碳氟聚合物 (CxFy) ⚠️</text>
+                  <text x="147" y="180" text-anchor="middle" font-size="9" fill="var(--ink-soft)">製程真因: 乾蝕刻後溶劑清洗不全 / Ar 預濺鍍弱</text>
+                </g>
+
+                <!-- PANEL C: GATE OXIDE PINHOLE & HKMG BREAKDOWN -->
+                <g transform="translate(645, 20)">
+                  <rect x="0" y="0" width="300" height="195" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1.5"/>
+                  <text x="12" y="22" font-size="11" font-weight="700" fill="var(--accent)">[Panel C] 閘極氧化層穿孔 (Gate Pinhole)</text>
+                  <!-- Silicon Substrate -->
+                  <rect x="25" y="120" width="250" height="40" fill="#334155" stroke="var(--ink)"/>
+                  <text x="150" y="145" text-anchor="middle" font-size="10" fill="#fff" font-weight="bold">Silicon Substrate (Channel)</text>
+                  <!-- Gate Dielectric Oxide (SiO2 / HfO2) -->
+                  <rect x="65" y="112" width="170" height="8" fill="#38bdf8"/>
+                  <text x="200" y="105" text-anchor="middle" font-size="8.5" fill="var(--accent)">HfO2 (1.2nm)</text>
+                  <!-- Metal Gate (TiN / W) -->
+                  <rect x="65" y="55" width="170" height="57" fill="#64748b" stroke="var(--ink)"/>
+                  <text x="150" y="85" text-anchor="middle" font-size="10" fill="#fff" font-weight="bold">Metal Gate (TiN/W)</text>
+                  <!-- Pinhole & Metallic Spike -->
+                  <path d="M 145 110 L 155 110 L 152 124 L 148 124 Z" fill="var(--danger)"/>
+                  <circle cx="150" cy="116" r="6" fill="none" stroke="var(--danger)" stroke-width="1.5"/>
+                  <text x="150" y="45" text-anchor="middle" font-size="9" fill="var(--danger)" font-weight="bold">微小金屬尖刺穿透 (Pinhole) ⚠️</text>
+                  <text x="150" y="180" text-anchor="middle" font-size="9" fill="var(--ink-soft)">製程真因: 氧化前金屬雜質 / 天線效應 (PID)</text>
+                </g>
+
+                <!-- PANEL D: STRESS-INDUCED VOIDING (SIV) -->
+                <g transform="translate(15, 235)">
+                  <rect x="0" y="0" width="295" height="195" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1.5"/>
+                  <text x="12" y="22" font-size="11" font-weight="700" fill="var(--accent)">[Panel D] 銅線應力遷移空洞 (Cu SIV)</text>
+                  <!-- Wide Metal 1 -->
+                  <rect x="25" y="110" width="245" height="50" fill="var(--accent)" stroke="var(--ink)"/>
+                  <text x="147" y="145" text-anchor="middle" font-size="10" fill="#fff" font-weight="bold">Wide Copper Line (M1)</text>
+                  <!-- Via V1 -->
+                  <rect x="125" y="45" width="45" height="65" fill="var(--accent)" stroke="var(--ink)"/>
+                  <text x="147" y="75" text-anchor="middle" font-size="9.5" fill="#fff" font-weight="bold">Via 1</text>
+                  <!-- Slit-like Void under Via -->
+                  <ellipse cx="147" cy="112" rx="20" ry="6" fill="var(--surface-2)" stroke="var(--danger)" stroke-width="2"/>
+                  <text x="147" y="100" text-anchor="middle" font-size="9" fill="var(--danger)" font-weight="bold">狹縫空洞 (Slit Void) ⚠️</text>
+                  <text x="147" y="180" text-anchor="middle" font-size="9" fill="var(--ink-soft)">製程真因: 電鍍晶格空位 / Cap 阻擋層界面還原弱</text>
+                </g>
+
+                <!-- PANEL E: STI CORNER DIVOT & GATE WRAP-AROUND -->
+                <g transform="translate(330, 235)">
+                  <rect x="0" y="0" width="295" height="195" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1.5"/>
+                  <text x="12" y="22" font-size="11" font-weight="700" fill="var(--accent)">[Panel E] STI 尖角掏蝕駝峰 (Corner Divot)</text>
+                  <!-- STI Oxide Left & Right -->
+                  <rect x="25" y="90" width="65" height="70" fill="#93c5fd" stroke="var(--ink)"/>
+                  <text x="57" y="130" text-anchor="middle" font-size="9" fill="#1e3a8a">STI Oxide</text>
+                  
+                  <rect x="205" y="90" width="65" height="70" fill="#93c5fd" stroke="var(--ink)"/>
+                  <text x="237" y="130" text-anchor="middle" font-size="9" fill="#1e3a8a">STI Oxide</text>
+
+                  <!-- Active Silicon in Center -->
+                  <rect x="90" y="75" width="115" height="85" fill="#334155" stroke="var(--ink)"/>
+                  <text x="147" y="130" text-anchor="middle" font-size="10" fill="#fff" font-weight="bold">Active Silicon</text>
+
+                  <!-- Corner Divots (Recesses at Oxide/Silicon border) -->
+                  <path d="M 85 90 C 85 105, 93 105, 93 90 Z" fill="var(--danger)"/>
+                  <path d="M 201 90 C 201 105, 209 105, 209 90 Z" fill="var(--danger)"/>
+                  <!-- Poly Gate Wrapping around -->
+                  <path d="M 35 60 L 260 60 L 260 90 L 209 90 L 201 105 L 93 105 L 85 90 L 35 90 Z" fill="#64748b" fill-opacity="0.6" stroke="var(--ink)"/>
+                  <text x="147" y="50" text-anchor="middle" font-size="9" fill="var(--danger)" font-weight="bold">閘極多晶矽包覆尖角電場集中 ⚠️</text>
+                  <text x="147" y="180" text-anchor="middle" font-size="9" fill="var(--ink-soft)">製程真因: DHF 氫氟酸清洗過度掏蝕 STI 邊界</text>
+                </g>
+
+                <!-- PANEL F: DUAL-BEAM FIB IN-SITU & TEM LIFT-OUT -->
+                <g transform="translate(645, 235)">
+                  <rect x="0" y="0" width="300" height="195" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1.5"/>
+                  <text x="12" y="22" font-size="11" font-weight="700" fill="var(--accent)">[Panel F] 雙束 FIB 原位超薄切片 (TEM Lift-Out)</text>
+                  <!-- Silicon block with milled trenches -->
+                  <polygon points="50,140 120,95 240,95 180,140" fill="#475569" stroke="var(--ink)"/>
+                  <polygon points="180,140 240,95 240,125 180,165" fill="#334155" stroke="var(--ink)"/>
+                  <polygon points="50,140 180,140 180,165 50,165" fill="#1e293b" stroke="var(--ink)"/>
+                  <!-- Central Lamella with Pt Strap -->
+                  <rect x="135" y="93" width="10" height="25" fill="#facc15" stroke="var(--ink)"/>
+                  <text x="140" y="85" text-anchor="middle" font-size="8.5" fill="var(--warn)" font-weight="bold">Pt 保護層</text>
+                  <!-- Electron Beam (Vertical) -->
+                  <line x1="140" y1="25" x2="140" y2="90" stroke="#38bdf8" stroke-width="2" stroke-dasharray="3,2"/>
+                  <text x="140" y="20" text-anchor="middle" font-size="8.5" fill="#0284c7">E-Beam (SEM 觀察)</text>
+                  <!-- FIB Ion Beam (at 52 degrees) -->
+                  <line x1="225" y1="35" x2="145" y2="95" stroke="#ef4444" stroke-width="2"/>
+                  <text x="245" y="45" font-size="8.5" fill="#dc2626">Ga+ 離子束 (52° 切削)</text>
+                  <!-- Omniprobe needle -->
+                  <line x1="60" y1="45" x2="135" y2="95" stroke="#22c55e" stroke-width="1.5"/>
+                  <text x="50" y="40" font-size="8.5" fill="#16a34a">Omniprobe 夾爪取出</text>
+                  <text x="150" y="180" text-anchor="middle" font-size="9" fill="var(--ink-soft)">目標厚度 &lt; 25nm ➔ 銅網 TEM 原子晶格分析</text>
+                </g>
+
+              </g>
+            </svg>
+            <figcaption>
+              <span class="zh">圖 6.2：6 大經典實體物理缺陷微觀截面圖與雙束 FIB 原位切片示意圖</span>
+              <span class="en">Figure 6.2: Microscopic Cross-Sectional Schematics of 6 Canonical Physical Defects & Dual-Beam FIB Lift-Out</span>
+            </figcaption>
+          </figure>
+
             </span>
             <span class="en">
               This master matrix is the Rosetta Stone bridging Yield Enhancement Engineers (YEE) with Fab Process Engineers (PIE). Once PFA micro-images are confirmed, they directly map into the offending equipment chamber and chemical reaction:
