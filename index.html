@@ -682,7 +682,7 @@
   }
 
   /* ZOOM TRIGGER HINTS & BADGES */
-  .figure-container, figure {
+  .figure-container, figure, .fa-card-img-wrap, .wafer-canvas-container, .cpk-canvas-container {
     position: relative;
     cursor: zoom-in;
     transition: transform 0.15s ease;
@@ -709,7 +709,11 @@
     pointer-events: none;
     z-index: 15;
   }
-  .figure-container:hover .zoom-trigger-badge, figure:hover .zoom-trigger-badge {
+  .figure-container:hover .zoom-trigger-badge, 
+  figure:hover .zoom-trigger-badge, 
+  .fa-card-img-wrap:hover .zoom-trigger-badge,
+  .wafer-canvas-container:hover .zoom-trigger-badge,
+  .cpk-canvas-container:hover .zoom-trigger-badge {
     opacity: 1;
     background: var(--accent);
     color: #fff;
@@ -1733,7 +1737,7 @@
 
             <div class="tool-grid" style="grid-template-columns: minmax(0, 1fr) 300px;">
               <div>
-                <div style="background:var(--surface-2); border:1px solid var(--border); border-radius:6px; padding:12px; text-align:center;">
+                <div class="cpk-canvas-container" style="background:var(--surface-2); border:1px solid var(--border); border-radius:6px; padding:12px; text-align:center;">
                   <canvas id="cpkCanvas" width="560" height="240" style="max-width:100%; height:auto;"></canvas>
                   <div style="display:flex; justify-content:space-around; font-family:var(--font-mono); font-size:11.5px; margin-top:8px;">
                     <span style="color:var(--danger);">── LSL (0.60V)</span>
@@ -5705,6 +5709,18 @@
       img.src = sourceElement.src;
       img.alt = sourceElement.alt || 'Full Resolution Image';
       content.appendChild(img);
+    } else if (sourceElement.tagName.toLowerCase() === 'canvas') {
+      const img = document.createElement('img');
+      img.src = sourceElement.toDataURL('image/png');
+      img.alt = sourceElement.getAttribute('aria-label') || 'Canvas Graph High-Res View';
+      img.style.maxWidth = '90vw';
+      img.style.maxHeight = '80vh';
+      img.style.objectFit = 'contain';
+      img.style.background = 'var(--surface-2)';
+      img.style.borderRadius = '8px';
+      img.style.border = '1px solid var(--border)';
+      img.style.boxShadow = '0 12px 48px rgba(0,0,0,0.6)';
+      content.appendChild(img);
     }
 
     if (caption) {
@@ -5831,9 +5847,9 @@
     });
   }
 
-  // Setup click triggers and visual badges on all figures and gallery images
+  // Setup click triggers and visual badges on all figures, canvases, and gallery images
   function setupOneClickZoomTriggers() {
-    // 1. Figures with SVGs
+    // 1. Figures with SVGs (All 9 Engineering Diagrams)
     const figureContainers = document.querySelectorAll('.figure-container, figure');
     figureContainers.forEach(fc => {
       const svg = fc.querySelector('svg');
@@ -5845,7 +5861,7 @@
 
         fc.addEventListener('click', (e) => {
           // Do not trigger if clicking on inputs or links
-          if (e.target.closest('button, a, input, select')) return;
+          if (e.target.closest('button, a, input, select, textarea')) return;
           const captionEl = fc.querySelector('figcaption, .figure-caption');
           const caption = captionEl ? captionEl.innerHTML : '';
           openLightbox(svg, caption);
@@ -5853,7 +5869,7 @@
       }
     });
 
-    // 2. FA Micrograph Gallery Images
+    // 2. FA Micrograph Gallery Images (All 7 Physical Failure Micrographs)
     const faCards = document.querySelectorAll('.fa-card-img-wrap');
     faCards.forEach(wrap => {
       const img = wrap.querySelector('img');
@@ -5868,6 +5884,67 @@
           const title = card ? card.querySelector('.fa-card-title').innerHTML : '';
           openLightbox(img, title);
         });
+      }
+    });
+
+    // 3. 300mm Wafer Map Spatial Pattern Canvas
+    const waferWrap = document.querySelector('.wafer-canvas-container');
+    if (waferWrap && !waferWrap.querySelector('.zoom-trigger-badge')) {
+      const badge = document.createElement('div');
+      badge.className = 'zoom-trigger-badge';
+      badge.innerHTML = '<span class="zh">🔍 一鍵放大</span><span class="en">🔍 Zoom</span>';
+      waferWrap.appendChild(badge);
+
+      waferWrap.addEventListener('click', (e) => {
+        if (e.target.closest('button, a, input, select, textarea')) return;
+        const canvas = document.getElementById('waferCanvas');
+        if (canvas) {
+          const cap = '<span class="zh">Tool 2: 300mm 晶圓空間圖譜模擬器 (Wafer Map Spatial Simulator)</span><span class="en">Tool 2: 300mm Wafer Map Spatial Pattern Simulator</span>';
+          openLightbox(canvas, cap);
+        }
+      });
+    }
+
+    // 4. CPK Distribution Chart Canvas
+    const cpkWrap = document.querySelector('.cpk-canvas-container');
+    if (cpkWrap && !cpkWrap.querySelector('.zoom-trigger-badge')) {
+      const badge = document.createElement('div');
+      badge.className = 'zoom-trigger-badge';
+      badge.innerHTML = '<span class="zh">🔍 一鍵放大</span><span class="en">🔍 Zoom</span>';
+      cpkWrap.appendChild(badge);
+
+      cpkWrap.addEventListener('click', (e) => {
+        if (e.target.closest('button, a, input, select, textarea')) return;
+        const canvas = document.getElementById('cpkCanvas');
+        if (canvas) {
+          const cap = '<span class="zh">Tool 4: 動態常態分佈與製程能力 CPK 曲線圖</span><span class="en">Tool 4: Dynamic Gaussian PDF & Process Capability CPK Curve</span>';
+          openLightbox(canvas, cap);
+        }
+      });
+    }
+
+    // 5. Universal Delegation: Ensure ANY image, canvas, or diagram SVG anywhere on page opens in lightbox
+    document.addEventListener('click', (e) => {
+      if (e.target.closest('#lightbox-modal, button, a, input, select, textarea, .katex, .hide-tail')) return;
+      const modal = document.getElementById('lightbox-modal');
+      if (modal && modal.classList.contains('active')) return;
+
+      const targetImg = e.target.closest('img');
+      const targetSvg = e.target.closest('svg');
+      const targetCanvas = e.target.closest('canvas');
+
+      if (targetCanvas) {
+        if (!e.target.closest('.wafer-canvas-container, .cpk-canvas-container')) {
+          openLightbox(targetCanvas, 'Canvas Graphic View');
+        }
+      } else if (targetImg) {
+        if (!e.target.closest('.fa-card-img-wrap')) {
+          openLightbox(targetImg, targetImg.alt || 'High-Resolution Image View');
+        }
+      } else if (targetSvg && !targetSvg.closest('.katex, .hide-tail')) {
+        if (!e.target.closest('.figure-container, figure')) {
+          openLightbox(targetSvg, 'SVG Diagram View');
+        }
       }
     });
   }

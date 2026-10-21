@@ -71,26 +71,39 @@ async function runVerification() {
     }
   }
 
-  // 1.2 Test One-Click Zoom (Lightbox Modal on Figure 0.2 Fishbone)
-  console.log('\n[Test 1.2] Testing One-Click Zoom (Lightbox Modal)...');
+  // 1.2 Test One-Click Zoom (Lightbox Modal on All Visual Graphics)
+  console.log('\n[Test 1.2] Testing One-Click Zoom (Lightbox Modal on All Visual Graphics)...');
+  const lightboxModal = page.locator('#lightbox-modal');
+
+  // A. Verify badges on Figures, FA Cards, and Canvas Containers
+  const figureCount = await page.locator('figure, .figure-container').count();
+  const figureBadges = await page.locator('figure .zoom-trigger-badge, .figure-container .zoom-trigger-badge').count();
+  console.log(`  ✓ Figures found: ${figureCount}, Figures with Zoom Badge: ${figureBadges}`);
+
+  const faCardsCount = await page.locator('.fa-card-img-wrap').count();
+  const faCardBadges = await page.locator('.fa-card-img-wrap .zoom-trigger-badge').count();
+  console.log(`  ✓ FA Cards found: ${faCardsCount}, FA Cards with Zoom Badge: ${faCardBadges}`);
+
+  const waferBadge = await page.locator('.wafer-canvas-container .zoom-trigger-badge').count();
+  console.log(`  ✓ Wafer Canvas Container has Zoom Badge: ${waferBadge > 0}`);
+
+  const cpkBadge = await page.locator('.cpk-canvas-container .zoom-trigger-badge').count();
+  console.log(`  ✓ CPK Canvas Container has Zoom Badge: ${cpkBadge > 0}`);
+
+  // B. Test SVG Zoom (Figure 0.2 Fishbone)
   const fishboneFigure = page.locator('#overview .figure-container').first();
   if (await fishboneFigure.count() > 0) {
     await fishboneFigure.scrollIntoViewIfNeeded();
-    await page.waitForTimeout(300);
-    // Click to open lightbox
+    await page.waitForTimeout(200);
     await fishboneFigure.click();
-    await page.waitForTimeout(500);
+    await page.waitForTimeout(400);
 
-    const lightboxModal = page.locator('#lightbox-modal');
     const isActive = await lightboxModal.evaluate(el => el.classList.contains('active'));
-    console.log(`  ✓ Lightbox Modal activated: ${isActive}`);
+    console.log(`  ✓ SVG Zoom (Fishbone) activated: ${isActive}`);
 
-    // Verify zoomed content
     const zoomedSvg = page.locator('#lightbox-content svg');
-    const svgCount = await zoomedSvg.count();
-    console.log(`  ✓ Lightbox contains zoomed SVG: ${svgCount > 0}`);
+    console.log(`  ✓ Lightbox contains zoomed SVG: ${(await zoomedSvg.count()) > 0}`);
 
-    // Screenshot of active lightbox
     await page.screenshot({ path: path.join(screenshotsDir, '09_one_click_zoom_active.png') });
 
     // Test zoom in button
@@ -105,8 +118,42 @@ async function runVerification() {
     const closeBtn = page.locator('.lightbox-close').first();
     await closeBtn.click();
     await page.waitForTimeout(300);
-    const isClosed = await lightboxModal.evaluate(el => !el.classList.contains('active'));
-    console.log(`  ✓ Lightbox closed cleanly: ${isClosed}`);
+    console.log(`  ✓ Lightbox closed cleanly after SVG zoom: ${await lightboxModal.evaluate(el => !el.classList.contains('active'))}`);
+  }
+
+  // C. Test Canvas Zoom (300mm Wafer Map Canvas)
+  const waferWrap = page.locator('.wafer-canvas-container');
+  if (await waferWrap.count() > 0) {
+    await waferWrap.scrollIntoViewIfNeeded();
+    await page.waitForTimeout(200);
+    await waferWrap.click();
+    await page.waitForTimeout(400);
+
+    const isWaferActive = await lightboxModal.evaluate(el => el.classList.contains('active'));
+    const zoomedImg = page.locator('#lightbox-content img');
+    console.log(`  ✓ Wafer Canvas Zoom activated: ${isWaferActive}, contains generated high-res img: ${(await zoomedImg.count()) > 0}`);
+
+    // Close using Escape key
+    await page.keyboard.press('Escape');
+    await page.waitForTimeout(300);
+    console.log(`  ✓ Lightbox closed via Escape key: ${await lightboxModal.evaluate(el => !el.classList.contains('active'))}`);
+  }
+
+  // D. Test FA Card Image Zoom (First Micrograph)
+  const firstFaCard = page.locator('.fa-card-img-wrap').first();
+  if (await firstFaCard.count() > 0) {
+    await firstFaCard.scrollIntoViewIfNeeded();
+    await page.waitForTimeout(200);
+    await firstFaCard.click();
+    await page.waitForTimeout(400);
+
+    const isFaActive = await lightboxModal.evaluate(el => el.classList.contains('active'));
+    console.log(`  ✓ FA Card Zoom activated: ${isFaActive}`);
+
+    // Close using close button
+    await page.locator('.lightbox-close').first().click();
+    await page.waitForTimeout(300);
+    console.log(`  ✓ Lightbox closed after FA card zoom: ${await lightboxModal.evaluate(el => !el.classList.contains('active'))}`);
   }
 
   // 1.3 Test Footer Last Updated Date
