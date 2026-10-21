@@ -462,6 +462,96 @@
     flex-wrap: wrap;
     gap: 12px;
   }
+
+  /* Real-world FA Micrograph Gallery */
+  .fa-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 20px;
+    margin: 20px 0 30px 0;
+  }
+  .fa-card {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+  .fa-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+    border-color: var(--accent);
+  }
+  .fa-card-img-wrap {
+    width: 100%;
+    height: 230px;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+  .fa-card-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.35s ease;
+  }
+  .fa-card:hover .fa-card-img-wrap img {
+    transform: scale(1.06);
+  }
+  .fa-card-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(4px);
+    color: #38bdf8;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 4px;
+    border: 1px solid rgba(56, 189, 248, 0.4);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+  }
+  .fa-card-body {
+    padding: 14px 16px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .fa-card-title {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--ink);
+    line-height: 1.4;
+  }
+  .fa-card-desc {
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+    margin-bottom: 12px;
+    flex: 1;
+  }
+  .fa-card-meta {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--ink-faint);
+    border-top: 1px solid var(--border);
+    padding-top: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .fa-card-meta b {
+    color: var(--accent);
+  }
+
 </style>
 </head>
 
@@ -2949,8 +3039,8 @@
 
           <!-- 6.1 FA WORKFLOW HIERARCHY -->
           <h3>
-            <span class="zh">6.1 FA 完整手法階梯：非破壞 ➔ 電性定位 ➔ 去層解剖 ➔ 原子物理分析</span>
-            <span class="en">6.1 FA Analytical Hierarchy: Non-Destructive ➔ Fault Localization ➔ Delayering ➔ Material PFA</span>
+            <span class="zh">7.1 FA 完整手法階梯：非破壞 ➔ 電性定位 ➔ 去層解剖 ➔ 原子物理分析</span>
+            <span class="en">7.1 FA Analytical Hierarchy: Non-Destructive ➔ Fault Localization ➔ Delayering ➔ Material PFA</span>
           </h3>
           <p>
             <span class="zh">
@@ -3101,7 +3191,7 @@
                     &bull; EDX / EDS 元素光譜<br>
                     &bull; EELS 電子能量損失光譜
                   </td>
-                  <td>高能量 (\t\text{Ga}^+) 離子束在 nm 級目標點切出超薄截面（厚度 &lt; 30nm）；加速高能電子束穿透晶格形成原子繞射條紋與特徵 X 射線。</td>
+                  <td>高能量 (\text{Ga}^+) 離子束在 nm 級目標點切出超薄截面（厚度 &lt; 30nm）；加速高能電子束穿透晶格形成原子繞射條紋與特徵 X 射線。</td>
                   <td>直接看見原子級晶格錯位、閘極 High-k 介電層破洞、金屬橋接異物成份（判定是 Cu, Al, W 還是外來雜質 Fe, Ni, Cr）。</td>
                 </tr>
               </tbody>
@@ -3110,8 +3200,8 @@
 
           <!-- 6.2 THE MASTER FA-TO-PROCESS MATRIX -->
           <h3>
-            <span class="zh">6.2 8 大經典電性失效 ──▶ 實體物理缺陷 (PFA) ──▶ 製程物理/化學反應歸因矩陣</span>
-            <span class="en">6.2 Master Mapping: Electrical Bin ➔ Physical Defect (PFA) ➔ Fab Process Reaction</span>
+            <span class="zh">7.2 8 大經典電性失效 ──▶ 實體物理缺陷 (PFA) ──▶ 製程物理/化學反應歸因矩陣</span>
+            <span class="en">7.2 Master Mapping: Electrical Bin ➔ Physical Defect (PFA) ➔ Fab Process Reaction</span>
           </h3>
           <p>
             <span class="zh">
@@ -3338,8 +3428,8 @@
 
           <!-- 6.3 NANO-PROBING & ATOMIC TEM CLOSED-LOOP -->
           <h3>
-            <span class="zh">6.3 電子束奈米探針 (Nano-probing) 與原子級 HR-TEM 閉環閉合程序</span>
-            <span class="en">6.3 Nano-probing & Atomic HR-TEM Closed-Loop Verification SOP</span>
+            <span class="zh">7.3 電子束奈米探針 (Nano-probing) 與原子級 HR-TEM 閉環閉合程序</span>
+            <span class="en">7.3 Nano-probing & Atomic HR-TEM Closed-Loop Verification SOP</span>
           </h3>
 
           <div style="background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--accent); border-radius:6px; padding:16px; font-family:var(--font-mono); font-size:12.5px; line-height:1.7;">
@@ -3350,7 +3440,7 @@
             &bull; 掃描 (I_d-V_g) 曲線：若 (I_{off}) 隨 (V_g) 關閉但閘極電流 (I_g) 很大 ➔ 判定為閘極氧化層擊穿；若 (I_g) 很小但 (I_{ds}) 無法關斷 ➔ 判定為短通道效應穿隧或源汲極矽化物短路。<br><br>
             <b>步驟 2 - 雙束 FIB 原位標定與超薄切片 (In-situ FIB Lift-Out):</b><br>
             &bull; 在 Nano-probing 指認的單顆鰭片（Fin）上方沉積電子束鉑保護層（Pt deposition）。<br>
-            &bull; 以 (\t\text{Ga}^+) 離子束進行階梯狀粗切，使用微機械夾爪（Omniprobe）取出薄片，黏貼於銅 TEM 網格。<br>
+            &bull; 以 (\text{Ga}^+) 離子束進行階梯狀粗切，使用微機械夾爪（Omniprobe）取出薄片，黏貼於銅 TEM 網格。<br>
             &bull; 降低離子束能量至 2kV / 500V 進行精細減薄，去除表面非晶化損傷層，薄片最終厚度 &lt; 25nm。<br><br>
             <b>步驟 3 - 原子級 HR-TEM + EDX 元素定罪:</b><br>
             &bull; 放大至 500,000x–1,000,000x，觀察 High-k/Metal Gate 介面晶格連續性，量測物理膜厚（精確至 0.1nm）。<br>
@@ -3359,6 +3449,204 @@
             &bull; 將 EDX 元素與缺陷形貌回溯至製程清單，調閱該批次在對應機台之 EAP 感測器數據（如 RIE 腔體射頻反射功率、CMP 研磨終點訊號 EPD、光阻塗佈杯排氣負壓）。<br>
             &bull; 執行機台保養清洗（PM）、更換耗損配件（Focus Ring / Slurry Filter）、或修改製程配方（Recipe Tuning）。
           </div>
+                  <!-- 7.4 REAL-WORLD FA & PHYSICAL DEFECT GALLERY -->
+          <h3>
+            <span class="zh">7.4 實體失效分析真機顯微照片圖解畫廊 (Real-world Microscopic FA & Defect Gallery)</span>
+            <span class="en">7.4 Real-world Microscopic FA & Physical Defect Gallery (Open-Access Case Studies)</span>
+          </h3>
+          <p>
+            <span class="zh">
+              在失效分析（FA）與良率工程實務中，工程師必須快速將電性測試異常（如漏電、開路、高溫失效、時序邊界崩塌）映射到實體微觀結構特徵。以下精選 7 組公開學術與權威機構（NASA, ESA, Sonoscan, Wikimedia Commons）之真實電子顯微鏡（SEM/TEM）、聚焦離子束（FIB）、聲學掃描（C-SAM）與金相截面照片，直觀解析從晶圓前道閘極、後道金屬互連到後段封裝銲線的經典物理缺陷真貌：
+            </span>
+            <span class="en">
+              In semiconductor Failure Analysis (FA) and Yield Enhancement engineering, engineers must rapidly correlate electrical test anomalies (leakage, open circuits, thermal runaway, timing degradation) to underlying microstructural failure signatures. Below is a curated gallery of 7 open-access, real-world micrographs from renowned organizations (NASA, ESA, Sonoscan, Wikimedia Commons) spanning SEM, TEM, Dual-Beam FIB, C-SAM acoustic imaging, and metallographic cross-sections:
+            </span>
+          </p>
+
+          <div class="fa-gallery-grid">
+            <!-- CARD 1: FIB TEM Lamella -->
+            <div class="fa-card">
+              <div class="fa-card-img-wrap">
+                <img src="assets/fa/fib_tem_sample.jpg" alt="FIB TEM Lamella Sample" loading="lazy">
+                <div class="fa-card-badge">FIB &amp; SEM | 5,000x</div>
+              </div>
+              <div class="fa-card-body">
+                <div class="fa-card-title">
+                  <span class="zh">1. 雙束 FIB 原位超薄切片試片 (Dual-Beam FIB Lamella for Atomic TEM)</span>
+                  <span class="en">1. Dual-Beam FIB Lamella for Atomic TEM</span>
+                </div>
+                <div class="fa-card-desc">
+                  <span class="zh">
+                    當 OBIRCH / Nano-probing 鎖定單顆故障電晶體或接觸孔（Contact Via）後，利用雙束 FIB（聚焦鎵離子束 \(\text{Ga}^+\) + 電子束 SEM）先沉積 Pt 保護層，再進行兩側階梯型離子銑削（Ion Milling），並以奈米機械手（Omniprobe）夾取厚度 &lt;25nm 的超薄薄片至銅載網，直接觀察 High-k 閘極介電層擊穿與原子級差排。
+                  </span>
+                  <span class="en">
+                    Following site localization by OBIRCH/Nano-probing, a Dual-Beam FIB deposits protective Pt and performs stair-step \(\text{Ga}^+\) milling. The ultra-thin lamella (&lt;25nm) is extracted via an Omniprobe manipulator onto a TEM grid to inspect atomic lattice dislocations and gate dielectric breakdown.
+                  </span>
+                </div>
+                <div class="fa-card-meta">
+                  <span><span class="zh">對應製程：</span><span class="en">Process:</span> <b>FEOL Gate / Contact</b></span>
+                  <span>CC BY-SA 3.0</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- CARD 2: BEOL Metallization SEM -->
+            <div class="fa-card">
+              <div class="fa-card-img-wrap">
+                <img src="assets/fa/ic_metallization_sem.jpg" alt="IC Metallization SEM" loading="lazy">
+                <div class="fa-card-badge">FE-SEM | 20,000x</div>
+              </div>
+              <div class="fa-card-body">
+                <div class="fa-card-title">
+                  <span class="zh">2. 晶片多層金屬互連與通孔微觀形貌 (Multi-Level IC Metallization)</span>
+                  <span class="en">2. Multi-Level IC Metallization &amp; Interconnects</span>
+                </div>
+                <div class="fa-card-desc">
+                  <span class="zh">
+                    場發射掃描式電子顯微鏡（FE-SEM）拍攝之晶片多層金屬互連（BEOL Metallization）微觀截面。清晰呈現 M1-Mx 金屬導線、層間介電層（ILD）與垂直通孔（Via）。可直接檢視通孔底部清洗不全殘留之氟碳聚合物、金屬蝕刻殘留導致的相鄰側向短路、以及銅 CMP 研磨造成的碟形下凹（Dishing）與侵蝕（Erosion）。
+                  </span>
+                  <span class="en">
+                    FE-SEM micrograph displaying multi-layer BEOL copper interconnects, ILD dielectrics, and vertical tungsten/copper vias. Enables direct diagnosis of residual etch polymers at via bottoms, bridging shorts between adjacent metal lines, and CMP dishing/erosion thinning.
+                  </span>
+                </div>
+                <div class="fa-card-meta">
+                  <span><span class="zh">對應製程：</span><span class="en">Process:</span> <b>BEOL Etch / CMP / PVD</b></span>
+                  <span>Public Domain</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- CARD 3: Electromigration Void GIF -->
+            <div class="fa-card">
+              <div class="fa-card-img-wrap">
+                <img src="assets/fa/electromigration_void.gif" alt="In-situ Electromigration Voiding" loading="lazy">
+                <div class="fa-card-badge">In-situ SEM | 實時動態演進</div>
+              </div>
+              <div class="fa-card-body">
+                <div class="fa-card-title">
+                  <span class="zh">3. 原位電致遷移空洞與小丘動態演進 (In-situ Electromigration)</span>
+                  <span class="en">3. In-situ Electromigration Void &amp; Hillock Formation</span>
+                </div>
+                <div class="fa-card-desc">
+                  <span class="zh">
+                    原位電致遷移（In-situ SEM Electromigration）動態影像。在高溫與超高電流密度（\(J > 10^6 \text{A/cm}^2\)）持續施加下，電子風（Electron Wind）對金屬晶格產生動量轉移，驅使金屬原子沿著晶界（Grain Boundary）朝陽極擴散，在陰極形成逐漸擴大的致命空洞（Voiding 導致阻抗飆升或斷路），並在陽極局部擠出金屬小丘（Hillock 刺破介電質造成層間短路）。
+                  </span>
+                  <span class="en">
+                    Real-time in-situ SEM recording of electromigration mass transport. Under elevated thermal and current densities (\(J > 10^6 \text{A/cm}^2\)), momentum transfer from electron wind drives metal ions toward the anode, generating voiding at the cathode (open) and extruding metallic hillocks at the anode (short).
+                  </span>
+                </div>
+                <div class="fa-card-meta">
+                  <span><span class="zh">對應製程：</span><span class="en">Process:</span> <b>Reliability / Cu Cap Layer</b></span>
+                  <span>CC BY-SA 3.0</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- CARD 4: C-SAM Delamination -->
+            <div class="fa-card">
+              <div class="fa-card-img-wrap">
+                <img src="assets/fa/csam_delamination.jpg" alt="C-SAM Acoustic Delamination" loading="lazy">
+                <div class="fa-card-badge">C-SAM | 100MHz 聲學掃描</div>
+              </div>
+              <div class="fa-card-body">
+                <div class="fa-card-title">
+                  <span class="zh">4. C-SAM 超音波掃描封裝分層與空洞 (Acoustic Delamination)</span>
+                  <span class="en">4. C-SAM Acoustic Package Delamination &amp; Voids</span>
+                </div>
+                <div class="fa-card-desc">
+                  <span class="zh">
+                    C 模式超音波掃描顯微鏡（C-SAM）反射影像。利用高頻超音波在不同聲阻抗介質邊界的反射特性，非破壞性探測晶片封裝內部。高對比紅黃色區域表徵晶片表面鈍化層與環氧樹脂模塑料（EMC）之間的空氣分層隙縫（Air Gap Delamination），為回焊高溫時水氣氣化膨脹引發的經典「爆米花效應」與熱阻暴增主因。
+                  </span>
+                  <span class="en">
+                    C-SAM acoustic reflection image. Exploiting acoustic impedance mismatch at interface boundaries, C-SAM non-destructively images internal package integrity. The high-contrast bright zones pinpoint air-gap delamination between the die passivation and epoxy molding compound (EMC)—the root cause of thermal runaway and popcorn reflow cracking.
+                  </span>
+                </div>
+                <div class="fa-card-meta">
+                  <span><span class="zh">對應製程：</span><span class="en">Process:</span> <b>Packaging Mold / MSL Bake</b></span>
+                  <span>Sonoscan / CC</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- CARD 5: Wirebond Ball Bond -->
+            <div class="fa-card">
+              <div class="fa-card-img-wrap">
+                <img src="assets/fa/wirebond_ballbond.jpg" alt="Wirebond Ball Bond Interface" loading="lazy">
+                <div class="fa-card-badge">Optical Micrograph | 500x</div>
+              </div>
+              <div class="fa-card-body">
+                <div class="fa-card-title">
+                  <span class="zh">5. 打線銲墊金球結合面與介金屬化合物 (Wire Bond Ball Interface)</span>
+                  <span class="en">5. Wire Bond Ball-to-Pad Interface &amp; IMC Micrograph</span>
+                </div>
+                <div class="fa-card-desc">
+                  <span class="zh">
+                    打線接合（Wire Bonding）金線（Au Wire）在晶片鋁金屬銲墊（Al Pad）上形成的球形結合面（Ball Bond）。高倍光學顯微鏡可檢視結合面金屬變形對稱性、超音波能量不足造成的無黏著（Non-stick on pad, NSOP）、以及在高溫老化（HTOL/Bake）環境下金鋁擴散速率不均引發的「柯肯達爾空洞（Kirkendall Voids）」與紫瘟脆化斷裂。
+                  </span>
+                  <span class="en">
+                    Optical micrograph of a wire bond gold ball deformed onto a semiconductor die aluminum bond pad. Highlights ball shape symmetry, intermetallic compound (IMC) coverage, ultrasonic bonding energy adequacy, and Kirkendall void formation caused by differential gold-aluminum interdiffusion during thermal stress.
+                  </span>
+                </div>
+                <div class="fa-card-meta">
+                  <span><span class="zh">對應製程：</span><span class="en">Process:</span> <b>Assembly Wire Bonder / Pad</b></span>
+                  <span>CC BY-SA 3.0</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- CARD 6: Tin Whisker SEM -->
+            <div class="fa-card">
+              <div class="fa-card-img-wrap">
+                <img src="assets/fa/tin_whisker_sem.jpg" alt="Tin Whisker SEM" loading="lazy">
+                <div class="fa-card-badge">ESA / SEM | 1,200x</div>
+              </div>
+              <div class="fa-card-body">
+                <div class="fa-card-title">
+                  <span class="zh">6. SEM 錫鬚晶體自發生長短路缺陷 (Tin Whisker Defect)</span>
+                  <span class="en">6. Tin Whisker Spontaneous Growth &amp; Bridging Defect</span>
+                </div>
+                <div class="fa-card-desc">
+                  <span class="zh">
+                    歐洲太空總署（ESA）掃描式電子顯微鏡拍攝之金屬錫鬚（Tin Whisker）微觀形貌。無鉛銲錫（RoHS Pure Tin）在電鍍沉積後，因基材銅鋅擴散不均在錫層內部形成巨大的局部壓縮應力（Compressive Stress），促使直徑僅數微米、長度可達數毫米的高導電單晶金屬絲自發向外生長，引發封裝接腳間不可預期的隨機微間隙短路。
+                  </span>
+                  <span class="en">
+                    Scanning Electron Micrograph from the European Space Agency (ESA) capturing spontaneous tin whisker growth. Pure matte tin platings subject to internal compressive stress relieve strain by extruding single-crystal metallic filaments, bridging fine-pitch package leads and causing unpredictable intermittent electrical shorts.
+                  </span>
+                </div>
+                <div class="fa-card-meta">
+                  <span><span class="zh">對應製程：</span><span class="en">Process:</span> <b>Lead Finish Plating / Anneal</b></span>
+                  <span>ESA / CC BY-SA 3.0 IGO</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- CARD 7: BGA Cross Section -->
+            <div class="fa-card">
+              <div class="fa-card-img-wrap">
+                <img src="assets/fa/bga_cross_section.jpg" alt="BGA Solder Ball Cross Section" loading="lazy">
+                <div class="fa-card-badge">Metallography | 200x</div>
+              </div>
+              <div class="fa-card-body">
+                <div class="fa-card-title">
+                  <span class="zh">7. BGA 錫球陣列封裝內部金相截面結構 (BGA Solder Ball Array)</span>
+                  <span class="en">7. BGA Solder Ball Array Metallographic Cross-Section</span>
+                </div>
+                <div class="fa-card-desc">
+                  <span class="zh">
+                    球柵陣列封裝（BGA Package）研磨金相截面高解析照片。清晰展示錫球陣列在 PCB 基板與封裝載板之間的互連幾何、共面度（Coplanarity）與潤濕角。可用於精確診斷回焊製程（Reflow）助焊劑揮發不及產生的內部氣孔空洞（Solder Voids）、熱膨脹係數（CTE）失配導致的應力剪切微裂紋（Joint Shear Crack）。
+                  </span>
+                  <span class="en">
+                    Metallographic cross-section polish micrograph of Ball Grid Array (BGA) interconnect joints. Displays solder joint collapse, wetting angles, and coplanarity across the array. Diagnostic tool for detecting flux outgassing solder voids, non-wetting opens, and cyclic thermomechanical fatigue shear cracks along the intermetallic interface.
+                  </span>
+                </div>
+                <div class="fa-card-meta">
+                  <span><span class="zh">對應製程：</span><span class="en">Process:</span> <b>SMT Reflow / Underfill</b></span>
+                  <span>CC BY-SA 4.0</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </section>
 
