@@ -134,6 +134,12 @@ async function runVerification() {
     const svgsInP5 = p5Section.locator('svg');
     const svgCount = await svgsInP5.count();
     console.log(`  ✓ Found ${svgCount} SVGs in Phase 5 (including Figure 5.3).`);
+    const fig5_2 = p5Section.locator('svg').nth(1);
+    if (await fig5_2.count() > 0) {
+      await fig5_2.scrollIntoViewIfNeeded();
+      await fig5_2.screenshot({ path: path.join(screenshotsDir, '07_fig5_2_fixed.png') });
+      console.log('  ✓ Figure 5.2 screenshot captured without overlap.');
+    }
   }
 
   // 7. Verify Phase 4: Process Corners & Variations Figures

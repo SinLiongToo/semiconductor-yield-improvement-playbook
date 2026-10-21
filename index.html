@@ -2634,93 +2634,113 @@
 
           <!-- FIGURE 5.2: 4 PACKAGING FAILURE MECHANISMS -->
           <figure>
-            <svg viewBox="0 0 960 360" style="width:100%; height:auto;" xmlns="http://www.w3.org/2000/svg">
+            <svg viewBox="0 0 960 380" style="width:100%; height:auto;" xmlns="http://www.w3.org/2000/svg">
               <g fill="var(--ink)" font-family="var(--font-mono)">
                 <!-- Panel 1: Wire Bond Heel Crack & Sweep -->
-                <g transform="translate(15, 20)">
-                  <rect x="0" y="0" width="455" height="150" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1.5"/>
-                  <text x="12" y="22" font-size="11" font-weight="700" fill="var(--accent)">[結構 1] 打線封裝斷裂與金線偏移 (Wire Sweep &amp; Lifted Ball)</text>
+                <g transform="translate(15, 15)">
+                  <rect x="0" y="0" width="455" height="165" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1.5"/>
+                  <text x="14" y="24" font-size="11.5" font-weight="700" fill="var(--accent)">[結構 1] 打線封裝斷裂與金線偏移 (Wire Sweep &amp; Lifted Ball)</text>
                   <!-- Substrate / Leadframe -->
-                  <rect x="20" y="110" width="415" height="25" fill="#334155" stroke="var(--ink)"/>
-                  <text x="227" y="127" text-anchor="middle" font-size="9" fill="#fff">Leadframe / Substrate</text>
+                  <rect x="20" y="115" width="415" height="20" fill="#334155" stroke="var(--ink)"/>
+                  <text x="227" y="129" text-anchor="middle" font-size="9" fill="#fff">Leadframe / Substrate</text>
                   <!-- Die -->
-                  <rect x="40" y="65" width="130" height="45" fill="#475569" stroke="var(--ink)"/>
-                  <text x="105" y="92" text-anchor="middle" font-size="10" fill="#fff" font-weight="bold">Silicon Die</text>
+                  <rect x="35" y="70" width="120" height="45" fill="#475569" stroke="var(--ink)"/>
+                  <text x="95" y="96" text-anchor="middle" font-size="10" fill="#fff" font-weight="bold">Silicon Die</text>
                   <!-- Pad -->
-                  <rect x="145" y="65" width="20" height="6" fill="#f59e0b"/>
+                  <rect x="135" y="70" width="20" height="6" fill="#f59e0b"/>
                   <!-- Normal Wire -->
-                  <path d="M 155 65 Q 230 10 320 110" fill="none" stroke="#eab308" stroke-width="3"/>
+                  <path d="M 145 70 Q 230 15 320 115" fill="none" stroke="#eab308" stroke-width="3"/>
                   <!-- Lifted Ball Defect -->
-                  <circle cx="155" cy="63" r="5" fill="var(--danger)"/>
-                  <text x="175" y="55" font-size="8.5" fill="var(--danger)" font-weight="bold">脫焊 (Lifted Ball) ⚠️</text>
+                  <circle cx="145" cy="68" r="5" fill="var(--danger)"/>
+                  <text x="125" y="52" font-size="8.5" fill="var(--danger)" font-weight="bold" text-anchor="end">脫焊 (Lifted Ball) ⚠️</text>
+                  <line x1="128" y1="55" x2="142" y2="65" stroke="var(--danger)" stroke-width="1.2"/>
                   <!-- Wire Sweep Short -->
-                  <path d="M 155 65 Q 260 25 350 110" fill="none" stroke="var(--danger)" stroke-width="2.5" stroke-dasharray="4,2"/>
-                  <text x="270" y="40" font-size="8.5" fill="var(--danger)" font-weight="bold">注膠金線偏移觸碰短路 ⚠️</text>
-                  <text x="227" y="142" text-anchor="middle" font-size="8.5" fill="var(--ink-soft)">真因: 注膠流速過快 (Mold Sweep) / 超音波打線功率不足 / 金鋁化合物 Kirkendall 空洞</text>
+                  <path d="M 145 70 Q 260 25 365 115" fill="none" stroke="var(--danger)" stroke-width="2.5" stroke-dasharray="4,2"/>
+                  <text x="280" y="42" font-size="8.5" fill="var(--danger)" font-weight="bold">注膠沖線短路 (Sweep) ⚠️</text>
+                  <text x="227" y="150" text-anchor="middle" font-size="8.5" fill="var(--ink-soft)">真因: 射出流速過快 (Mold Sweep) / 超音波能量不足 / 柯肯達爾空洞</text>
                 </g>
 
                 <!-- Panel 2: Flip-Chip Micro-Bump & Underfill -->
-                <g transform="translate(490, 20)">
-                  <rect x="0" y="0" width="455" height="150" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1.5"/>
-                  <text x="12" y="22" font-size="11" font-weight="700" fill="var(--accent)">[結構 2] 覆晶微凸塊未熔合與膠體空洞 (Micro-Bump &amp; Underfill Void)</text>
+                <g transform="translate(490, 15)">
+                  <rect x="0" y="0" width="455" height="165" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1.5"/>
+                  <text x="14" y="24" font-size="11.5" font-weight="700" fill="var(--accent)">[結構 2] 覆晶微凸塊未熔合與膠體空洞 (Micro-Bump &amp; Underfill Void)</text>
                   <!-- Top Die -->
-                  <rect x="25" y="35" width="405" height="30" fill="#475569" stroke="var(--ink)"/>
+                  <rect x="25" y="38" width="405" height="24" fill="#475569" stroke="var(--ink)"/>
                   <text x="227" y="54" text-anchor="middle" font-size="10" fill="#fff" font-weight="bold">Flip-Chip Die</text>
-                  <!-- Substrate Bottom -->
-                  <rect x="25" y="105" width="405" height="30" fill="#334155" stroke="var(--ink)"/>
-                  <text x="227" y="125" text-anchor="middle" font-size="10" fill="#fff">Package Substrate</text>
                   <!-- Underfill in between -->
-                  <rect x="25" y="65" width="405" height="40" fill="#cbd5e1" stroke="var(--border)"/>
-                  <!-- Normal Bump -->
-                  <ellipse cx="80" cy="85" rx="14" ry="14" fill="#94a3b8" stroke="var(--ink)"/>
-                  <!-- Bridged Bumps -->
-                  <ellipse cx="180" cy="85" rx="14" ry="14" fill="var(--danger)"/>
-                  <ellipse cx="205" cy="85" rx="14" ry="14" fill="var(--danger)"/>
-                  <text x="192" y="88" text-anchor="middle" font-size="8" fill="#fff" font-weight="bold">錫橋短路</text>
-                  <!-- Non-wetting Open Bump -->
-                  <ellipse cx="300" cy="78" rx="12" ry="10" fill="#94a3b8"/>
-                  <line x1="285" y1="96" x2="315" y2="96" stroke="var(--danger)" stroke-width="3"/>
-                  <text x="345" y="88" font-size="8.5" fill="var(--danger)" font-weight="bold">未熔合開路 (Non-wet) ⚠️</text>
-                  <!-- Underfill Void -->
-                  <ellipse cx="390" cy="85" rx="16" ry="10" fill="var(--surface-2)" stroke="var(--warn)" stroke-width="2"/>
-                  <text x="390" y="88" text-anchor="middle" font-size="8" fill="var(--warn)" font-weight="bold">UF空洞</text>
-                  <text x="227" y="142" text-anchor="middle" font-size="8.5" fill="var(--ink-soft)">真因: 助焊劑殘留 / 回焊溫線不良 / 點膠毛細流速排氣不良</text>
+                  <rect x="25" y="62" width="405" height="42" fill="#cbd5e1" stroke="var(--border)"/>
+                  <!-- Substrate Bottom -->
+                  <rect x="25" y="104" width="405" height="24" fill="#334155" stroke="var(--ink)"/>
+                  <text x="227" y="120" text-anchor="middle" font-size="10" fill="#fff">Package Substrate</text>
+
+                  <!-- Bump 1: Normal -->
+                  <ellipse cx="65" cy="83" rx="12" ry="12" fill="#94a3b8" stroke="var(--ink)"/>
+                  <text x="65" y="86" text-anchor="middle" font-size="7.5" fill="#1e293b">正常</text>
+
+                  <!-- Bump 2 & 3: Bridged -->
+                  <ellipse cx="145" cy="83" rx="12" ry="12" fill="var(--danger)"/>
+                  <ellipse cx="168" cy="83" rx="12" ry="12" fill="var(--danger)"/>
+                  <text x="156" y="86" text-anchor="middle" font-size="8" fill="#fff" font-weight="bold">錫橋短路</text>
+
+                  <!-- Bump 4: Non-wetting Open Bump -->
+                  <ellipse cx="265" cy="76" rx="11" ry="9" fill="#94a3b8"/>
+                  <line x1="250" y1="94" x2="280" y2="94" stroke="var(--danger)" stroke-width="2.5"/>
+                  <text x="265" y="65" text-anchor="middle" font-size="8" fill="var(--danger)" font-weight="bold">未熔開路 ⚠️</text>
+
+                  <!-- Void: Underfill Void -->
+                  <ellipse cx="370" cy="83" rx="18" ry="11" fill="var(--surface-2)" stroke="var(--warn)" stroke-width="2"/>
+                  <text x="370" y="86" text-anchor="middle" font-size="8" fill="var(--warn)" font-weight="bold">UF空洞 ⚠️</text>
+
+                  <text x="227" y="148" text-anchor="middle" font-size="8.5" fill="var(--ink-soft)">真因: 助焊劑殘留 / 回焊溫線不佳 / 點膠毛細流速排氣不良</text>
                 </g>
 
                 <!-- Panel 3: Post-Mold Thermal Stress & Warpage -->
-                <g transform="translate(15, 185)">
-                  <rect x="0" y="0" width="455" height="155" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1.5"/>
-                  <text x="12" y="22" font-size="11" font-weight="700" fill="var(--accent)">[結構 3] 封模熱收縮應力與壓阻效應 (Post-Mold Stress &amp; Shift)</text>
+                <g transform="translate(15, 195)">
+                  <rect x="0" y="0" width="455" height="170" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1.5"/>
+                  <text x="14" y="24" font-size="11.5" font-weight="700" fill="var(--accent)">[結構 3] 封模熱收縮應力與壓阻效應 (Post-Mold Stress &amp; Shift)</text>
                   <!-- Curved/Warped Package -->
-                  <path d="M 30 75 Q 227 45 425 75 L 425 115 Q 227 85 30 115 Z" fill="#64748b" stroke="var(--ink)"/>
-                  <text x="227" y="70" text-anchor="middle" font-size="10" fill="#fff" font-weight="bold">EMC 封裝膠體 (高溫 175°C 固化)</text>
+                  <path d="M 30 72 Q 227 42 425 72 L 425 112 Q 227 82 30 112 Z" fill="#64748b" stroke="var(--ink)"/>
+                  <text x="227" y="68" text-anchor="middle" font-size="9.5" fill="#fff" font-weight="bold">EMC 封裝膠體 (高溫 175°C 固化收縮)</text>
                   <!-- Silicon Die Compressed Inside -->
-                  <path d="M 90 85 Q 227 65 365 85 L 365 105 Q 227 85 90 105 Z" fill="#1e293b"/>
-                  <text x="227" y="98" text-anchor="middle" font-size="9" fill="#38bdf8" font-weight="bold">矽晶粒承受 150–200 MPa 壓縮應力</text>
-                  <text x="227" y="132" text-anchor="middle" font-size="9" fill="var(--danger)" font-weight="bold">壓阻效應 (Piezo-resistive) ➔ 能隙 Vbg 漂移 1~3%，振盪頻率 Fosc 跳檔 ⚠️</text>
-                  <text x="227" y="147" text-anchor="middle" font-size="8.5" fill="var(--ink-soft)">處方: 晶圓 CP 端加入預補償係數 (Pre-compensation) / 選用超低應力 EMC</text>
+                  <path d="M 90 82 Q 227 62 365 82 L 365 102 Q 227 82 90 102 Z" fill="#1e293b"/>
+                  <text x="227" y="95" text-anchor="middle" font-size="9" fill="#38bdf8" font-weight="bold">矽晶粒承受 150–200 MPa 雙軸壓縮應力</text>
+                  <text x="227" y="134" text-anchor="middle" font-size="9" fill="var(--danger)" font-weight="bold">壓阻效應 (Piezo-resistive) ➔ 能隙 Vbg 漂移 1~3%，振盪頻率 Fosc 跳檔 ⚠️</text>
+                  <text x="227" y="152" text-anchor="middle" font-size="8.5" fill="var(--ink-soft)">處方: 晶圓 CP 端加入預補償係數 (Pre-compensation) / 選用超低應力 EMC</text>
                 </g>
 
                 <!-- Panel 4: Die Attach & TIM Thermal Resistance -->
-                <g transform="translate(490, 185)">
-                  <rect x="0" y="0" width="455" height="155" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1.5"/>
-                  <text x="12" y="22" font-size="11" font-weight="700" fill="var(--accent)">[結構 4] 晶片黏著空洞與瞬態散熱崩潰 (Die Attach / TIM Voiding)</text>
+                <g transform="translate(490, 195)">
+                  <rect x="0" y="0" width="455" height="170" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1.5"/>
+                  <text x="14" y="24" font-size="11.5" font-weight="700" fill="var(--accent)">[結構 4] 晶片黏著空洞與瞬態散熱崩潰 (Die Attach / TIM Voiding)</text>
+
                   <!-- Heatspreader -->
-                  <rect x="25" y="35" width="405" height="18" fill="#d97706"/>
-                  <text x="227" y="48" text-anchor="middle" font-size="9" fill="#fff" font-weight="bold">Copper Heatspreader / Lid (均熱片)</text>
-                  <!-- TIM layer with void -->
-                  <rect x="50" y="53" width="355" height="12" fill="#94a3b8"/>
-                  <circle cx="180" cy="59" r="5" fill="var(--danger)"/>
-                  <text x="180" y="50" text-anchor="middle" font-size="8" fill="var(--danger)" font-weight="bold">散熱膏空洞 ⚠️</text>
-                  <!-- Die -->
-                  <rect x="50" y="65" width="355" height="35" fill="#334155" stroke="var(--ink)"/>
-                  <text x="227" y="87" text-anchor="middle" font-size="10" fill="#fff" font-weight="bold">High-Power SoC Die (50W–300W)</text>
-                  <circle cx="180" cy="85" r="10" fill="none" stroke="var(--danger)" stroke-width="2"/>
-                  <text x="245" y="87" font-size="9" fill="var(--danger)" font-weight="bold">局部熱點 (Hotspot: Tj &gt; 145°C)</text>
-                  <!-- Substrate -->
-                  <rect x="25" y="105" width="405" height="20" fill="#475569"/>
-                  <text x="227" y="138" text-anchor="middle" font-size="9" fill="var(--danger)" font-weight="bold">高功率向量執行時熱阻 Rth 劇增 ➔ 觸發熱關斷 (Thermal Shutdown) 假性 Fail</text>
-                  <text x="227" y="149" text-anchor="middle" font-size="8.5" fill="var(--ink-soft)">真因: 銀膠塗佈不均 / 烘烤溢膠氣泡 / C-SAM 掃描空洞率 &gt; 15% 必須拒收</text>
+                  <rect x="25" y="36" width="405" height="20" fill="#d97706" rx="2"/>
+                  <text x="227" y="50" text-anchor="middle" font-size="9.5" fill="#fff" font-weight="bold">Copper Heatspreader / Lid (均熱銅頂蓋)</text>
+
+                  <!-- TIM Layer -->
+                  <rect x="50" y="58" width="355" height="14" fill="#94a3b8" rx="1"/>
+                  <text x="80" y="69" font-size="8" fill="#1e293b">TIM 散熱膠</text>
+
+                  <!-- Void in TIM with dedicated non-overlapping position -->
+                  <ellipse cx="280" cy="65" rx="16" ry="5" fill="var(--danger)"/>
+                  <text x="310" y="69" font-size="8" fill="var(--danger)" font-weight="bold">散熱空洞 ⚠️</text>
+
+                  <!-- Die Layer -->
+                  <rect x="50" y="74" width="355" height="34" fill="#334155" stroke="var(--ink)" rx="2"/>
+                  <text x="135" y="95" text-anchor="middle" font-size="9.5" fill="#fff" font-weight="bold">Silicon Die (50W–300W)</text>
+
+                  <!-- Hotspot separated completely on the right side -->
+                  <circle cx="280" cy="91" r="9" fill="none" stroke="var(--danger)" stroke-width="2"/>
+                  <circle cx="280" cy="91" r="4" fill="var(--danger)"/>
+                  <text x="298" y="95" font-size="8.5" fill="var(--danger)" font-weight="bold">局部熱點 (Hotspot &gt;145°C)</text>
+
+                  <!-- Substrate Layer -->
+                  <rect x="25" y="110" width="405" height="18" fill="#475569" rx="2"/>
+                  <text x="227" y="123" text-anchor="middle" font-size="9" fill="#fff">Package Substrate</text>
+
+                  <!-- Bottom explanations: cleanly stacked without collision -->
+                  <text x="227" y="145" text-anchor="middle" font-size="8.5" fill="var(--danger)" font-weight="bold">⚠️ 熱阻 Rth 劇增 ➔ 觸發熱關斷 (Thermal Shutdown) 假性 Fail</text>
+                  <text x="227" y="158" text-anchor="middle" font-size="8.5" fill="var(--ink-soft)">真因: 銀膠塗佈不均 / 烘烤溢膠氣泡 / C-SAM 空洞率 &gt; 15% 必須拒收</text>
                 </g>
               </g>
             </svg>
