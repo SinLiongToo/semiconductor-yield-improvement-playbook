@@ -172,23 +172,23 @@
   .doc-fields b { color: var(--ink); font-weight: 600; }
 
   /* Body Layout */
-  .body-grid { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 36px; align-items: start; }
-  @media (max-width: 920px) { .body-grid { grid-template-columns: 1fr; } }
+  .body-grid { display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: 36px; align-items: start; }
+  @media (max-width: 950px) { .body-grid { grid-template-columns: 1fr; } }
 
   /* Table of Contents */
   nav.toc { position: sticky; top: 20px; align-self: start; max-height: calc(100vh - 40px); overflow-y: auto; padding-right: 6px; }
-  @media (max-width: 920px) { nav.toc { display: none; } }
+  @media (max-width: 950px) { nav.toc { display: none; } }
   nav.toc ol { list-style: none; margin: 0; padding: 0; border-left: 2px solid var(--border); }
   nav.toc li { margin: 0; }
   nav.toc a {
     display: block;
-    padding: 6px 0 6px 12px;
-    font-size: 13px;
+    padding: 5px 0 5px 12px;
+    font-size: 12.5px;
     color: var(--ink-soft);
     text-decoration: none;
     border-left: 2px solid transparent;
     margin-left: -2px;
-    line-height: 1.4;
+    line-height: 1.35;
     transition: all 0.15s ease;
   }
   nav.toc a:hover, nav.toc a.active {
@@ -215,7 +215,7 @@
     border-radius: 6px;
     padding: 10px 14px;
   }
-  @media (max-width: 920px) { details.toc-m { display: block; } }
+  @media (max-width: 950px) { details.toc-m { display: block; } }
   details.toc-m summary { font-family: var(--font-mono); font-size: 13px; font-weight: 600; cursor: pointer; color: var(--accent); }
   details.toc-m ol { margin: 10px 0 0 16px; padding: 0; }
   details.toc-m li { margin: 4px 0; }
@@ -343,6 +343,29 @@
   }
   .metric-label { font-family: var(--font-mono); font-size: 11px; color: var(--ink-faint); text-transform: uppercase; }
   .metric-value { font-family: var(--font-mono); font-size: 18px; font-weight: 700; color: var(--accent); margin-top: 3px; }
+
+  /* Probability Bars */
+  .prob-bar-row {
+    display: grid;
+    grid-template-columns: 140px 1fr 50px;
+    align-items: center;
+    gap: 10px;
+    margin: 8px 0;
+    font-family: var(--font-mono);
+    font-size: 12px;
+  }
+  .prob-bar-bg {
+    background: var(--surface-2);
+    border-radius: 99px;
+    height: 10px;
+    overflow: hidden;
+    position: relative;
+  }
+  .prob-bar-fill {
+    height: 100%;
+    border-radius: 99px;
+    transition: width 0.3s ease;
+  }
 
   /* Wafer Canvas */
   .wafer-canvas-container {
@@ -472,10 +495,10 @@
 
     <div class="sub">
       <span class="zh">
-        涵蓋晶粒良率損失解構、8 大晶圓空間缺陷簽名、機台 Chamber 共模統計歸因、WAT/CP 參數邊界優化、失效分析（FA）物理回饋及車用零缺陷防禦之全流程工程實務手冊。
+        涵蓋晶粒良率損失解構、測試硬體介面異常（Contact/Probe Card/Socket）、測試程式邊限缺陷、量測系統誤差（Gage R&R/4-Wire Kelvin）、矽晶圓長晶與擴散摻雜變異、8 大晶圓空間缺陷簽名、機台 Chamber 共模統計歸因、WAT/CP 參數邊界優化、失效分析（FA）物理回饋及車用零缺陷防禦之全流程工程實務手冊。
       </span>
       <span class="en">
-        A comprehensive engineering playbook and interactive suite covering yield loss decomposition, 8 canonical wafer map spatial defect signatures, chamber commonality attribution, parametric margin optimization, FA physical closed-loop, and automotive zero-defect defense.
+        A comprehensive engineering playbook and interactive suite covering yield loss decomposition, test hardware artifacts (contact, probe card, socket), test program timing bugs, metrology errors (Gage R&R, 4-wire Kelvin), raw substrate & diffusion dopant variations, 8 spatial wafer signatures, chamber commonality attribution, parametric margin optimization, FA physical closed-loop, and automotive zero-defect defense.
       </span>
     </div>
 
@@ -486,7 +509,7 @@
       </div>
       <div>
         <span class="zh">版次狀態</span><span class="en">Revision</span>
-        <b>Rev. A (Comprehensive)</b>
+        <b>Rev. B (Enhanced Comprehensive)</b>
       </div>
       <div>
         <span class="zh">適用對象</span><span class="en">Audience</span>
@@ -494,7 +517,7 @@
       </div>
       <div>
         <span class="zh">最後修訂</span><span class="en">Last Updated</span>
-        <b>2026-10-21 15:45</b>
+        <b>2026-10-21 16:00</b>
       </div>
     </div>
   </header>
@@ -503,16 +526,17 @@
   <details class="toc-m">
     <summary><span class="zh">📑 目錄快速導覽</span><span class="en">📑 Table of Contents</span></summary>
     <ol>
-      <li><a href="#overview"><span class="zh">流程總覽 (Process Overview)</span><span class="en">Process Overview</span></a></li>
-      <li><a href="#tools"><span class="zh">🛠️ 4 大內建互動分析工具</span><span class="en">🛠️ 4 Interactive Analyzers</span></a></li>
+      <li><a href="#overview"><span class="zh">0. 流程總覽 (Process Overview)</span><span class="en">0. Process Overview</span></a></li>
+      <li><a href="#tools"><span class="zh">🛠️ 5 大內建互動分析工具</span><span class="en">🛠️ 5 Interactive Analyzers</span></a></li>
       <li><a href="#phase0"><span class="zh">Phase 0: 良率基線與損失解構</span><span class="en">Phase 0: Baseline & Yield Loss Decomposition</span></a></li>
       <li><a href="#phase1"><span class="zh">Phase 1: 跨站資料架構與全履歷鏈接</span><span class="en">Phase 1: Cross-Stage Data Architecture</span></a></li>
       <li><a href="#phase2"><span class="zh">Phase 2: 晶圓空間分佈簽名辨識</span><span class="en">Phase 2: Spatial Wafer Map Signatures</span></a></li>
-      <li><a href="#phase3"><span class="zh">Phase 3: 機台 Chamber 共模統計歸因</span><span class="en">Phase 3: Chamber Commonality Attribution</span></a></li>
-      <li><a href="#phase4"><span class="zh">Phase 4: 參數 Margin 與 Cpk 飄移</span><span class="en">Phase 4: Parametric Margin & Cpk Drift</span></a></li>
-      <li><a href="#phase5"><span class="zh">Phase 5: 失效分析 (FA) 實體物理驗證</span><span class="en">Phase 5: Failure Analysis (FA) Verification</span></a></li>
-      <li><a href="#phase6"><span class="zh">Phase 6: 系統性改善戰術與閉環</span><span class="en">Phase 6: Systematic Improvement Playbook</span></a></li>
-      <li><a href="#phase7"><span class="zh">Phase 7: Ramp 學習曲線與稽核治理</span><span class="en">Phase 7: Yield Ramp & Audit Defense</span></a></li>
+      <li><a href="#phase3_nonproc"><span class="zh">Phase 3: 非製程假異常：硬體、程式、量測與材料擴散變異</span><span class="en">Phase 3: Hardware, Program, Metrology & Material Variations</span></a></li>
+      <li><a href="#phase4"><span class="zh">Phase 4: 機台 Chamber 共模統計歸因</span><span class="en">Phase 4: Chamber Commonality Attribution</span></a></li>
+      <li><a href="#phase5"><span class="zh">Phase 5: 參數 Margin 與 Cpk 飄移</span><span class="en">Phase 5: Parametric Margin & Cpk Drift</span></a></li>
+      <li><a href="#phase6"><span class="zh">Phase 6: 失效分析 (FA) 實體物理驗證</span><span class="en">Phase 6: Failure Analysis (FA) Verification</span></a></li>
+      <li><a href="#phase7"><span class="zh">Phase 7: 系統性改善戰術與閉環</span><span class="en">Phase 7: Systematic Improvement Playbook</span></a></li>
+      <li><a href="#phase8"><span class="zh">Phase 8: Ramp 學習曲線與稽核治理</span><span class="en">Phase 8: Yield Ramp & Audit Defense</span></a></li>
       <li><a href="#appendices"><span class="zh">附錄: 工程範本與公式參考卡</span><span class="en">Appendices: Templates & Formula Cards</span></a></li>
     </ol>
   </details>
@@ -523,16 +547,17 @@
     <nav class="toc">
       <div class="toc-title"><span class="zh">章節索引</span><span class="en">Navigation</span></div>
       <ol>
-        <li><a href="#overview"><span class="zh">流程總覽 (Overview)</span><span class="en">Process Overview</span></a></li>
-        <li><a href="#tools"><span class="zh">🛠️ 互動分析工具箱</span><span class="en">🛠️ Interactive Tools</span></a></li>
-        <li><a href="#phase0"><span class="zh">Phase 0: 良率基線與損失解構</span><span class="en">Phase 0: Loss Decomposition</span></a></li>
+        <li><a href="#overview"><span class="zh">0. 流程總覽 (Overview)</span><span class="en">0. Process Overview</span></a></li>
+        <li><a href="#tools"><span class="zh">🛠️ 5 大互動分析工具</span><span class="en">🛠️ 5 Interactive Tools</span></a></li>
+        <li><a href="#phase0"><span class="zh">Phase 0: 良率基線與解構</span><span class="en">Phase 0: Loss Decomposition</span></a></li>
         <li><a href="#phase1"><span class="zh">Phase 1: 跨站資料架構</span><span class="en">Phase 1: Data Architecture</span></a></li>
         <li><a href="#phase2"><span class="zh">Phase 2: 晶圓空間分佈簽名</span><span class="en">Phase 2: Spatial Signatures</span></a></li>
-        <li><a href="#phase3"><span class="zh">Phase 3: Chamber 共模統計</span><span class="en">Phase 3: Chamber Commonality</span></a></li>
-        <li><a href="#phase4"><span class="zh">Phase 4: 參數 Margin / Cpk</span><span class="en">Phase 4: Parametric Cpk</span></a></li>
-        <li><a href="#phase5"><span class="zh">Phase 5: 失效分析 FA 實體回饋</span><span class="en">Phase 5: Failure Analysis</span></a></li>
-        <li><a href="#phase6"><span class="zh">Phase 6: 改善戰術與閉環</span><span class="en">Phase 6: Action Playbook</span></a></li>
-        <li><a href="#phase7"><span class="zh">Phase 7: 學習曲線與稽核</span><span class="en">Phase 7: Ramp & Governance</span></a></li>
+        <li><a href="#phase3_nonproc"><span class="zh">Phase 3: 硬體/程式/量測/材料</span><span class="en">Phase 3: Hardware/Software/MSA/Material</span></a></li>
+        <li><a href="#phase4"><span class="zh">Phase 4: Chamber 共模統計</span><span class="en">Phase 4: Chamber Commonality</span></a></li>
+        <li><a href="#phase5"><span class="zh">Phase 5: 參數 Margin / Cpk</span><span class="en">Phase 5: Parametric Cpk</span></a></li>
+        <li><a href="#phase6"><span class="zh">Phase 6: 失效分析 FA 實體回饋</span><span class="en">Phase 6: Failure Analysis</span></a></li>
+        <li><a href="#phase7"><span class="zh">Phase 7: 改善戰術與閉環</span><span class="en">Phase 7: Action Playbook</span></a></li>
+        <li><a href="#phase8"><span class="zh">Phase 8: 學習曲線與稽核</span><span class="en">Phase 8: Ramp & Governance</span></a></li>
         <li><a href="#appendices"><span class="zh">附錄: 範本與公式卡</span><span class="en">Appendices: Formulas</span></a></li>
       </ol>
     </nav>
@@ -552,90 +577,95 @@
         <div class="collapse-body">
           <p>
             <span class="zh">
-              現代半導體製程（先進邏輯 3nm/2nm、3D NAND、DRAM、BCD 車用高壓晶片）牽涉 500 至 1,500 道繁複步驟。良率工程師（YEE）的使命是在極短的產品生命週期內，將良率從研發試產階段（NPI: 30%–50%）快速爬坡至成熟量產高地（HVM: >95%），並壓低車用市場要求的零缺陷（Zero Defect / < 1 DPPM）。
+              現代半導體製程牽涉 500 至 1,500 道繁複步驟。當測試端回報良率下滑時，<b>有超過 40% 的初期良率異常並非來自於純粹的晶圓代工製程微粒缺陷</b>，而是由<b>測試硬體接觸不良（Contact/Probe card/Socket）、測試程式邊限缺陷（Test Program/Timing）、量測系統誤差（Gage R&R）、或矽基板長晶與材料批次擴散變異</b>所誘發的「非製程假異常（Pseudo Yield Loss）」。
             </span>
             <span class="en">
-              Modern semiconductor manufacturing involves between 500 and 1,500 individual process steps. The mission of Yield Enhancement Engineers (YEE) is to rapidly accelerate wafer yield from NPI ramp (30%–50%) to mature high-volume production (>95%) while achieving sub-DPPM reliability required by automotive and mission-critical applications.
+              Modern semiconductor manufacturing involves between 500 and 1,500 steps. When test yield drops, <b>over 40% of initial yield excursions are NOT caused by raw fab process particle defects</b>, but rather by <b>test hardware contact resistance, probe card/socket wear, test program timing marginality, metrology errors (Gage R&R), or raw substrate/diffusion material variations</b>—creating severe "Pseudo Yield Loss" and excessive overkill.
             </span>
           </p>
 
           <figure>
-            <svg viewBox="0 0 980 240" style="width:100%; height:auto;" xmlns="http://www.w3.org/2000/svg">
+            <svg viewBox="0 0 980 260" style="width:100%; height:auto;" xmlns="http://www.w3.org/2000/svg">
               <defs>
-                <linearGradient id="gradAccent" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stop-color="var(--accent)" stop-opacity="0.9"/>
-                  <stop offset="100%" stop-color="var(--accent-strong)" stop-opacity="0.95"/>
-                </linearGradient>
                 <filter id="shadow" x="-5%" y="-10%" width="110%" height="130%">
                   <feDropShadow dx="0" dy="3" stdDeviation="3" flood-opacity="0.15"/>
                 </filter>
               </defs>
               <g fill="var(--ink)" font-family="var(--font-mono)">
-                <!-- Stage 1 -->
-                <rect x="20" y="30" width="130" height="70" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1.5" filter="url(#shadow)"/>
-                <text x="85" y="60" text-anchor="middle" font-size="12" font-weight="700">FAB In-line</text>
-                <text x="85" y="80" text-anchor="middle" font-size="10.5" fill="var(--ink-soft)">Defect / KLA</text>
+                <!-- Material Stage -->
+                <rect x="15" y="25" width="125" height="70" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1.5" filter="url(#shadow)"/>
+                <text x="77" y="52" text-anchor="middle" font-size="11.5" font-weight="700">Raw Substrate / Epi</text>
+                <text x="77" y="72" text-anchor="middle" font-size="10" fill="var(--ink-soft)">CZ / Oi / Doping</text>
                 
-                <path d="M 150 65 L 180 65" stroke="var(--accent)" stroke-width="2" marker-end="url(#arr)"/>
+                <path d="M 140 60 L 165 60" stroke="var(--accent)" stroke-width="2"/>
 
-                <!-- Stage 2 -->
-                <rect x="180" y="30" width="130" height="70" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1.5" filter="url(#shadow)"/>
-                <text x="245" y="60" text-anchor="middle" font-size="12" font-weight="700">WAT / PCM</text>
-                <text x="245" y="80" text-anchor="middle" font-size="10.5" fill="var(--ink-soft)">E-Test Parameters</text>
+                <!-- Fab Process -->
+                <rect x="165" y="25" width="130" height="70" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1.5" filter="url(#shadow)"/>
+                <text x="230" y="52" text-anchor="middle" font-size="11.5" font-weight="700">FAB Processing</text>
+                <text x="230" y="72" text-anchor="middle" font-size="10" fill="var(--ink-soft)">Diff / Litho / CMP / Etch</text>
 
-                <path d="M 310 65 L 340 65" stroke="var(--accent)" stroke-width="2"/>
+                <path d="M 295 60 L 320 60" stroke="var(--accent)" stroke-width="2"/>
 
-                <!-- Stage 3 -->
-                <rect x="340" y="30" width="130" height="70" rx="6" fill="var(--surface-2)" stroke="var(--accent)" stroke-width="2" filter="url(#shadow)"/>
-                <text x="405" y="60" text-anchor="middle" font-size="12" font-weight="700" fill="var(--accent)">CP / Wafer Sort</text>
-                <text x="405" y="80" text-anchor="middle" font-size="10.5" fill="var(--ink-soft)">Die Yield & Bin Map</text>
+                <!-- WAT / PCM -->
+                <rect x="320" y="25" width="125" height="70" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1.5" filter="url(#shadow)"/>
+                <text x="382" y="52" text-anchor="middle" font-size="11.5" font-weight="700">WAT / PCM</text>
+                <text x="382" y="72" text-anchor="middle" font-size="10" fill="var(--ink-soft)">4-Wire Kelvin E-Test</text>
 
-                <path d="M 470 65 L 500 65" stroke="var(--accent)" stroke-width="2"/>
+                <path d="M 445 60 L 470 60" stroke="var(--accent)" stroke-width="2"/>
 
-                <!-- Stage 4 -->
-                <rect x="500" y="30" width="130" height="70" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1.5" filter="url(#shadow)"/>
-                <text x="565" y="60" text-anchor="middle" font-size="12" font-weight="700">Assembly / PKG</text>
-                <text x="565" y="80" text-anchor="middle" font-size="10.5" fill="var(--ink-soft)">Assembly Yield</text>
+                <!-- CP Probe Card -->
+                <rect x="470" y="25" width="140" height="70" rx="6" fill="var(--surface-2)" stroke="var(--accent)" stroke-width="2" filter="url(#shadow)"/>
+                <text x="540" y="52" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--accent)">CP / Wafer Sort</text>
+                <text x="540" y="72" text-anchor="middle" font-size="10" fill="var(--ink-soft)">Probe Card / Rc / Multi-site</text>
 
-                <path d="M 630 65 L 660 65" stroke="var(--accent)" stroke-width="2"/>
+                <path d="M 610 60 L 635 60" stroke="var(--accent)" stroke-width="2"/>
 
-                <!-- Stage 5 -->
-                <rect x="660" y="30" width="130" height="70" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1.5" filter="url(#shadow)"/>
-                <text x="725" y="60" text-anchor="middle" font-size="12" font-weight="700">FT / Final Test</text>
-                <text x="725" y="80" text-anchor="middle" font-size="10.5" fill="var(--ink-soft)">Speed & SLT</text>
+                <!-- FT Socket -->
+                <rect x="635" y="25" width="140" height="70" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1.5" filter="url(#shadow)"/>
+                <text x="705" y="52" text-anchor="middle" font-size="11.5" font-weight="700">FT / Final Test</text>
+                <text x="705" y="72" text-anchor="middle" font-size="10" fill="var(--ink-soft)">Socket / Timing / IR Droop</text>
 
-                <path d="M 790 65 L 820 65" stroke="var(--accent)" stroke-width="2"/>
+                <path d="M 775 60 L 800 60" stroke="var(--accent)" stroke-width="2"/>
 
-                <!-- Stage 6 -->
-                <rect x="820" y="30" width="140" height="70" rx="6" fill="var(--accent)" filter="url(#shadow)"/>
-                <text x="890" y="60" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">Customer Field</text>
-                <text x="890" y="80" text-anchor="middle" font-size="10.5" fill="#e0f2fe">&lt; 1 DPPM Target</text>
+                <!-- Customer Field -->
+                <rect x="800" y="25" width="165" height="70" rx="6" fill="var(--accent)" filter="url(#shadow)"/>
+                <text x="882" y="52" text-anchor="middle" font-size="11.5" font-weight="700" fill="#fff">Customer Field</text>
+                <text x="882" y="72" text-anchor="middle" font-size="10" fill="#e0f2fe">&lt; 1 DPPM Zero Defect</text>
+
+                <!-- Non-Process Noise Alert -->
+                <rect x="340" y="125" width="415" height="50" rx="4" fill="var(--warn-soft)" stroke="var(--warn)" stroke-width="1.5"/>
+                <text x="547" y="146" text-anchor="middle" font-size="11" font-weight="700" fill="var(--warn)">⚠️ 非製程假異常防禦網 (Non-Process Artifact Filter)</text>
+                <text x="547" y="162" text-anchor="middle" font-size="10" fill="var(--ink-soft)">排除：Contact 接觸不良、Probe Card 磨損、Socket 錫屑、Program 頻閃時序、Gage R&amp;R 誤差</text>
 
                 <!-- Feedback Loop -->
-                <path d="M 725 100 L 725 170 L 245 170 L 245 100" fill="none" stroke="var(--danger)" stroke-width="2" stroke-dasharray="6,4"/>
-                <text x="480" y="195" text-anchor="middle" font-size="12" fill="var(--danger)" font-weight="700">
-                  Root Cause Tracing & Failure Analysis Closed-Loop (FA 實體物理回饋)
+                <path d="M 705 95 L 705 125" stroke="var(--warn)" stroke-width="1.5" stroke-dasharray="3,3"/>
+                <path d="M 540 95 L 540 125" stroke="var(--warn)" stroke-width="1.5" stroke-dasharray="3,3"/>
+                <path d="M 382 95 L 382 125" stroke="var(--warn)" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+                <path d="M 547 175 L 547 215 L 230 215 L 230 95" fill="none" stroke="var(--danger)" stroke-width="2" stroke-dasharray="6,4"/>
+                <text x="400" y="235" text-anchor="middle" font-size="11.5" fill="var(--danger)" font-weight="700">
+                  純製程缺陷閉環 (True Fab Defect Root Cause to Chamber &amp; Recipe Closed-Loop)
                 </text>
               </g>
             </svg>
             <figcaption>
-              <span class="zh">圖 0.1：半導體端到端良率工程流程鏈與失效分析閉環</span>
-              <span class="en">Figure 0.1: End-to-End Semiconductor Yield Engineering Pipeline & Closed-Loop FA</span>
+              <span class="zh">圖 0.1：半導體良率分析流程鏈與「非製程假異常過濾網」</span>
+              <span class="en">Figure 0.1: Semiconductor Yield Pipeline with Non-Process Artifact Filter</span>
             </figcaption>
           </figure>
 
-          <div class="callout">
+          <div class="callout danger">
             <div class="callout-title">
-              <span>💡</span>
-              <span class="zh">良率工程師的核心座右銘</span>
-              <span class="en">Core Tenet of Yield Enhancement</span>
+              <span>🚨</span>
+              <span class="zh">良率改善第一守則：先排除測試系統與材料假異常，再查製程機台！</span>
+              <span class="en">First Law of Yield: Filter Test & Material Artifacts Before Blaming the Fab!</span>
             </div>
             <p>
               <span class="zh">
-                「良率不是測試測出來的，是製程做出來的；但如果沒有高解析度的測試追溯與統計分解，你永遠不知道製程在哪裡犯了錯。」——本平台提供全套統計模型、機台共模算法與即時互動工具，協助工程團隊以實證數據驅動決策。
+                當 CP 或 FT 良率驟降 10% 時，若未經檢查探針卡接觸阻抗（\(R_c\)）、測試座 Pogo Pin 磨損、測試程式 Strobe 選通時間邊限與 Gage R&R 量測重複性，就貿然通報晶圓廠全面停機洗爐管或更換微影光罩，將造成數百萬美元的產能損失與供應鏈交期延誤！
               </span>
               <span class="en">
-                "Yield is not inspected or tested into a product; it is manufactured into it. However, without high-resolution test traceability and statistical decomposition, you will never know where the process failed." — This platform empowers engineering teams with empirical models, chamber commonality algorithms, and real-time interactive analyzers.
+                When sort yield plummets by 10%, halting fab furnaces or changing litho reticles before verifying probe contact resistance (\(R_c\)), socket pogo wear, strobe timing jitter, and Gage R&R will cause millions of dollars in unnecessary factory downtime and delivery delays!
               </span>
             </p>
           </div>
@@ -646,8 +676,8 @@
       <section id="tools">
         <h2 class="collapsible-h" onclick="toggleCollapse(this)">
           <span>
-            <span class="zh">🛠️ 4 大內建互動分析工具 (Interactive Engineering Suite)</span>
-            <span class="en">🛠️ 4 Interactive Yield Engineering Analyzers</span>
+            <span class="zh">🛠️ 5 大內建互動分析工具 (Interactive Engineering Suite)</span>
+            <span class="en">🛠️ 5 Interactive Yield Engineering Analyzers</span>
           </span>
           <span class="collapse-arrow">▼</span>
         </h2>
@@ -833,11 +863,116 @@
             </div>
           </div>
 
-          <!-- TOOL 3: EQUIPMENT CHAMBER COMMONALITY ANALYZER -->
-          <div class="tool-card" id="tool3">
+          <!-- TOOL 03: ROOT CAUSE TRIANGULATOR (NEW TOOL FOR HARDWARE/PROGRAM/METROLOGY/MATERIAL) -->
+          <div class="tool-card" id="tool3_triangulator">
             <div class="tool-card-header">
               <div>
-                <span class="tool-tag">TOOL 03</span>
+                <span class="tool-tag" style="background:var(--warn-soft); color:var(--warn);">TOOL 03</span>
+                <h3 style="margin:4px 0 0;">
+                  <span class="zh">非製程假異常根因排查決策矩陣 (Root Cause Triangulator)</span>
+                  <span class="en">Root Cause Triangulator: Hardware / Program / Metrology / Material</span>
+                </h3>
+              </div>
+              <span class="mono" style="font-size:12px; color:var(--warn); font-weight:bold;">Contact · Probe Card · Socket · Timing · Gage R&amp;R · Ingot/Diffusion</span>
+            </div>
+
+            <p style="font-size:13.5px; color:var(--ink-soft); margin-top:0;">
+              <span class="zh">
+                良率工程的經典痛點是「假異常誤導真因排查」。本工具內建專家規則庫，依據測試現場所觀察到的具體症狀，即時演算 5 大潛在根因類別的概率分佈，並輸出標準驗證實驗程序（SOP）。
+              </span>
+              <span class="en">
+                A classic pain point in yield enhancement is pseudo yield fallout misleading engineering investigation. This engine evaluates observational symptoms to calculate Bayesian probability across 5 root-cause domains and prescribes validation experiments.
+              </span>
+            </p>
+
+            <div class="tool-grid" style="grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);">
+              <div>
+                <div class="param-group">
+                  <label>
+                    <span class="zh">選擇測試異常臨床症狀 (Observed Symptom)</span>
+                    <span class="en">Select Observed Symptom</span>
+                  </label>
+                  <select id="selTriangulatorSymptom" onchange="runTriangulatorDiagnosis()" style="font-size:12.5px;">
+                    <option value="site_imbalance" selected>1. 探針卡特定 Site 良率偏低，換 Site 後故障跟隨測試座 (Site-to-Site Imbalance)</option>
+                    <option value="multisite_droop">2. 單顆測試 (Single-Site) Pass，但 8-Site 平行測試向量集體 Fail (Multi-DUT IR Droop)</option>
+                    <option value="probe_sanding">3. 探針卡以氧化鋁砂片研磨清潔（Sand Sheet）後良率顯著回升 (Probe Tip Oxidation / Slurry)</option>
+                    <option value="socket_pogo">4. FT 封測更換 Pogo Socket 後 Open/Short 比例驟降 (Socket Pogo Pin Fatigue / Tin Debris)</option>
+                    <option value="timing_strobe">5. 室溫良率正常，切換至高低溫 (Hot/Cold) 測試時 Setup/Hold Fail 激增 (Strobe Timing Window)</option>
+                    <option value="kelvin_open">6. WAT 測試量測得飽和電阻 Rsheet 跨批整體偏大，但元件電流無異常 (Kelvin Sense Line Open)</option>
+                    <option value="leakage_settle">7. 微微安 (pA) 級漏電流量測波動劇烈，增加延時 Delay 後數值恢復穩定 (Settling Time Truncation)</option>
+                    <option value="substrate_split">8. 換入特定外延片廠商（Epi Vendor B）後，跨所有設備之晶圓良率集體下滑 (Raw Ingot / Substrate Vendor Drift)</option>
+                  </select>
+                </div>
+
+                <div style="background:var(--surface-2); border-radius:6px; padding:12px; margin-top:14px;">
+                  <div style="font-family:var(--font-mono); font-size:12px; font-weight:700; color:var(--ink-soft); margin-bottom:10px;">
+                    <span class="zh">根因概率分佈 (Root Cause Probability Distribution)</span>
+                    <span class="en">Root Cause Probability Distribution</span>
+                  </div>
+
+                  <div class="prob-bar-row">
+                    <span><span class="zh">測試硬體 (Contact/Socket)</span><span class="en">Hardware/Socket</span></span>
+                    <div class="prob-bar-bg"><div class="prob-bar-fill" id="barHW" style="width:85%; background:var(--danger);"></div></div>
+                    <span id="pctHW" style="text-align:right; font-weight:bold; color:var(--danger);">85%</span>
+                  </div>
+
+                  <div class="prob-bar-row">
+                    <span><span class="zh">測試程式 (Program/Timing)</span><span class="en">Software/Timing</span></span>
+                    <div class="prob-bar-bg"><div class="prob-bar-fill" id="barSW" style="width:10%; background:var(--warn);"></div></div>
+                    <span id="pctSW" style="text-align:right; font-weight:bold; color:var(--warn);">10%</span>
+                  </div>
+
+                  <div class="prob-bar-row">
+                    <span><span class="zh">量測系統 (Gage R&amp;R)</span><span class="en">Metrology/MSA</span></span>
+                    <div class="prob-bar-bg"><div class="prob-bar-fill" id="barMSA" style="width:3%; background:var(--accent);"></div></div>
+                    <span id="pctMSA" style="text-align:right; font-weight:bold; color:var(--accent);">3%</span>
+                  </div>
+
+                  <div class="prob-bar-row">
+                    <span><span class="zh">材料/長晶 (Raw Ingot/Epi)</span><span class="en">Material/Diffusion</span></span>
+                    <div class="prob-bar-bg"><div class="prob-bar-fill" id="barMat" style="width:1%; background:var(--good);"></div></div>
+                    <span id="pctMat" style="text-align:right; font-weight:bold; color:var(--good);">1%</span>
+                  </div>
+
+                  <div class="prob-bar-row">
+                    <span><span class="zh">晶圓廠製程 (Fab Process)</span><span class="en">Fab Process</span></span>
+                    <div class="prob-bar-bg"><div class="prob-bar-fill" id="barFab" style="width:1%; background:var(--ink-faint);"></div></div>
+                    <span id="pctFab" style="text-align:right; font-weight:bold; color:var(--ink-faint);">1%</span>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div style="background:var(--surface-2); border-left:4px solid var(--warn); border-radius:4px; padding:14px 16px;">
+                  <div style="font-family:var(--font-mono); font-weight:700; font-size:13.5px; color:var(--warn); margin-bottom:6px;" id="triDiagTitle">
+                    診斷結論：測試硬體接觸阻抗與探針卡針尖氧化 (Probe Contact Resistance / Tip Wear)
+                  </div>
+                  <div style="font-size:13px; line-height:1.6; color:var(--ink-soft);" id="triDiagDetail">
+                    <b>機理解析：</b>各 Site 平行測試但失效高度集中於單一測試針尖，典型成因為探針針尖氧化鎢（WOx）殘留或鋁墊刮痕（Scrub Mark）深度偏淺，接觸阻抗（\(R_c\)）自正常的 &lt; 0.5Ω 飆升至 5–15Ω，造成電源或訊號端開路判定。<br>
+                    <b>黃金驗證 SOP（3 步驟）：</b><br>
+                    1. <b>Site Swap 驗證</b>：將 DUT 晶片旋轉 180° 或交換測試槽位，確認 Fail 是否隨 Site 轉移。<br>
+                    2. <b>Scrub Mark 光學檢驗</b>：以顯微鏡檢驗晶片鋁墊針印深度（要求 20–35% pad 深度）與中心偏位。<br>
+                    3. <b>執行針卡研磨清潔（Sand Sheet Cleaning）</b>：30 次 Overdrive 研磨後重測。
+                  </div>
+                </div>
+
+                <div style="margin-top:12px; font-size:12px; color:var(--ink-soft); background:var(--surface); border:1px solid var(--border); padding:10px 12px; border-radius:4px;">
+                  <span class="zh">
+                    💡 <b>防呆提醒</b>：在此症狀下，<b>絕對不要通知晶圓廠調整蝕刻或離子植入配方</b>。直接在測試機台執行針印檢查與針卡清潔即可在 30 分鐘內救回良率。
+                  </span>
+                  <span class="en">
+                    💡 <b>Execution Warning</b>: Under this symptom, <b>do not halt fab etchers or ion implanters</b>. Executing probe needle polish and scrub mark inspection will recover yield within 30 minutes.
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TOOL 4: EQUIPMENT CHAMBER COMMONALITY ANALYZER -->
+          <div class="tool-card" id="tool4">
+            <div class="tool-card-header">
+              <div>
+                <span class="tool-tag">TOOL 04</span>
                 <h3 style="margin:4px 0 0;">
                   <span class="zh">機台 / 腔體共模相關性檢定工具</span>
                   <span class="en">Tool & Chamber Commonality Analyzer (Chi-Square & ANOVA)</span>
@@ -929,11 +1064,11 @@
             </div>
           </div>
 
-          <!-- TOOL 4: PARAMETRIC MARGIN & CPK / PAT ANALYZER -->
-          <div class="tool-card" id="tool4">
+          <!-- TOOL 5: PARAMETRIC MARGIN & CPK / PAT ANALYZER -->
+          <div class="tool-card" id="tool5">
             <div class="tool-card-header">
               <div>
-                <span class="tool-tag">TOOL 04</span>
+                <span class="tool-tag">TOOL 05</span>
                 <h3 style="margin:4px 0 0;">
                   <span class="zh">參數型良率與 Cpk / PAT 臨界邊界分析器</span>
                   <span class="en">Parametric Margin, Cpk & Dynamic PAT Analyzer</span>
@@ -1097,22 +1232,6 @@
               </tbody>
             </table>
           </div>
-
-          <div class="callout danger">
-            <div class="callout-title">
-              <span>⚠️</span>
-              <span class="zh">致命盲點：把「系統性問題」當作「微粒問題」處理</span>
-              <span class="en">Fatal Trap: Treating Systematic Flaws as Random Particles</span>
-            </div>
-            <p>
-              <span class="zh">
-                若晶圓良率損失主要是由微影光學鄰近效應（OPC）導致的 Via 假接觸，花費數百萬更換無塵室空氣濾網（HEPA）或加強機台洗機，良率將完全「紋風不動」。必須透過空間晶圓圖辨識與失效分析（FA）精確切出真因。
-              </span>
-              <span class="en">
-                If yield loss is caused by sub-optimal Optical Proximity Correction (OPC) on marginal vias, spending millions on cleanroom HEPA filters will produce zero yield improvement. Rigorous spatial pattern classification and FA are mandatory to isolate the true mechanism.
-              </span>
-            </p>
-          </div>
         </div>
       </section>
 
@@ -1134,11 +1253,6 @@
               "Without cross-stage data alignment, causal analysis is impossible." Semiconductor data silos (MES, EAP, YMS, ATE) must be unified into an integrated genealogy standard.
             </span>
           </p>
-
-          <h3>
-            <span class="zh">1.1 核心資料源串接拓撲</span>
-            <span class="en">1.1 Core Data Pipeline Topology</span>
-          </h3>
 
           <div class="data-table-wrap">
             <table class="data-table">
@@ -1184,32 +1298,6 @@
               </tbody>
             </table>
           </div>
-
-          <h3>
-            <span class="zh">1.2 座標系與 Notch / Flat 對齊陷阱</span>
-            <span class="en">1.2 Coordinate System Alignment & Notch Orientation Trap</span>
-          </h3>
-          <p>
-            <span class="zh">
-              在結合 Inline Klarf 缺陷與 CP Wafer Map 時，工程團隊經常踩坑：<b>測試機台的座標原點與晶圓物理凹口（Notch）方向不一致</b>。
-            </span>
-            <span class="en">
-              When correlating Inline Klarf defects with CP wafer maps, teams often fall into the trap of <b>coordinate and notch orientation mismatch</b> between inspection and tester tools.
-            </span>
-          </p>
-
-          <div class="callout warn">
-            <div class="callout-title">
-              <span>⚠️</span>
-              <span class="zh">座標對齊黃金法則 (Golden Rules for Coordinate Normalization)</span>
-              <span class="en">Golden Rules for Coordinate Normalization</span>
-            </div>
-            <ul>
-              <li><b>Notch 歸一化</b>：所有機台圖形統一旋轉至 Notch 向上（0°）或向下（180°）為單一基準。</li>
-              <li><b>原點定義</b>：確認 (0,0) 是晶圓幾何物理中心、左下角晶粒，還是光罩曝光陣列的 Reference Die。</li>
-              <li><b>晶片步進尺寸 (Die Pitch) 與劃面道 (Scribe Line) 寬度驗證</b>：浮點數誤差累積會導致周邊 Die 錯位判定。</li>
-            </ul>
-          </div>
         </div>
       </section>
 
@@ -1225,10 +1313,10 @@
         <div class="collapse-body">
           <p>
             <span class="zh">
-              晶圓上的不良品分佈絕非隨機分佈。不同的半導體製程設備（物理氣相沉積 PVD、化學氣相沉積 CVD、旋轉塗佈 Coater、感應耦合電漿 ICP 蝕刻、化學機械研磨 CMP）會在晶圓表面留下獨一無二的<b>「物理簽名（Physical Fingerprint）」</b>。
+              晶圓上的不良品分佈絕非隨機分佈。不同的半導體製程設備會在晶圓表面留下獨一無二的<b>「物理簽名（Physical Fingerprint）」</b>。
             </span>
             <span class="en">
-              Defects on wafers rarely occur randomly. Different process tools (PVD, CVD, spin coater, plasma etcher, CMP) leave unmistakable <b>"Physical Fingerprints"</b> across the wafer surface.
+              Defects on wafers rarely occur randomly. Different process tools leave unmistakable <b>"Physical Fingerprints"</b> across the wafer surface.
             </span>
           </p>
 
@@ -1246,40 +1334,26 @@
                 <tr>
                   <td><b>Edge Ring (邊緣環)</b></td>
                   <td>晶圓最外圍 2–15mm 連續低良率環狀。</td>
-                  <td>
-                    1. CMP 邊緣過拋研磨。<br>
-                    2. 光阻邊緣去除（EBR）溶劑反濺。<br>
-                    3. 電漿蝕刻邊緣電磁場畸變（Focus Ring 磨耗）。
-                  </td>
+                  <td>CMP 邊緣過拋研磨、光阻邊緣去除（EBR）溶劑反濺、電漿蝕刻 Focus Ring 磨耗邊界效應。</td>
                   <td>更換蝕刻 Focus Ring、調整 CMP 邊緣壓頭氣囊壓力配比、優化光阻邊緣沖洗距離。</td>
                 </tr>
                 <tr>
                   <td><b>Center Defect (中心斑)</b></td>
                   <td>晶圓正中心同心圓狀良率低落。</td>
-                  <td>
-                    1. 旋轉塗佈（Coater）液滴滴落停滯、乾燥不均。<br>
-                    2. 電漿蝕刻中軸氣流淋幕死區。<br>
-                    3. 沉積氣體噴淋頭（Showerhead）中心孔洞堵塞。
-                  </td>
-                  <td>清洗 CVD 氣體噴灑盤、校正旋塗噴嘴對準晶圓真中心、重新調整中心氣體補償流量。</td>
+                  <td>旋轉塗佈（Coater）液滴乾燥不均、CVD 氣體噴淋頭（Showerhead）中心微孔堵塞。</td>
+                  <td>清洗 CVD 氣體噴灑盤、校正旋塗噴嘴對準晶圓真中心。</td>
                 </tr>
                 <tr>
                   <td><b>Scratch / Streak (刮傷)</b></td>
                   <td>晶圓表面直線或弧形連續刮痕失效。</td>
-                  <td>
-                    1. Robot 搬運手臂傳送對位偏移（Cassette/FOUP 刮晶圓）。<br>
-                    2. CMP 研磨液凝集大顆粒夾雜物刮傷金屬層。
-                  </td>
+                  <td>Robot 搬運手臂傳送對位偏移刮晶圓、CMP 研磨液凝集大顆粒夾雜物刮傷金屬層。</td>
                   <td>立即檢查機械手臂 Teach 座標、全面更換 CMP Slurry 循環過濾器（0.1μm 濾芯）。</td>
                 </tr>
                 <tr>
                   <td><b>Cluster (局部群聚)</b></td>
                   <td>局部高密度塊狀密集 Fail。</td>
-                  <td>
-                    1. 蝕刻反應腔內壁聚合物（Polymer Flakes）局部剝落。<br>
-                    2. 化學沉積靶材濺鍍異常飛濺（Target Arcing）。
-                  </td>
-                  <td>機台進行濕法清潔（Wet Clean PM）、進行靶材表面清理與腔體高壓電弧監測。</td>
+                  <td>蝕刻反應腔內壁聚合物（Polymer Flakes）局部剝落、沉積靶材濺鍍異常飛濺。</td>
+                  <td>機台進行濕法清潔（Wet Clean PM）、更換腔體屏蔽襯套（Shield Kit）。</td>
                 </tr>
                 <tr>
                   <td><b>Bullseye (同心靶心)</b></td>
@@ -1305,28 +1379,230 @@
         </div>
       </section>
 
-      <!-- PHASE 3: CHAMBER COMMONALITY & CORRELATION -->
-      <section id="phase3">
+      <!-- PHASE 3: NON-PROCESS ARTIFACTS (NEW IN-DEPTH SECTION) -->
+      <section id="phase3_nonproc">
         <h2 class="collapsible-h" onclick="toggleCollapse(this)">
           <span>
-            <span class="zh">Phase 3: 機台 Chamber 共模統計歸因 (Chamber Commonality Attribution)</span>
-            <span class="en">Phase 3: Equipment Chamber Commonality & Multivariate Attribution</span>
+            <span class="zh">Phase 3: 非製程假異常：測試硬體、程式、量測與材料擴散變異</span>
+            <span class="en">Phase 3: Non-Process Artifacts: Hardware, Program Bugs, Metrology & Material Variations</span>
           </span>
           <span class="collapse-arrow">▼</span>
         </h2>
         <div class="collapse-body">
           <p>
             <span class="zh">
-              一座大型 12 吋晶圓廠中，同一製程步驟常配置 5–20 台同型設備，每台設備具備 2–6 個平行反應腔體（Chambers）。當良率突降時，如何從成千上萬個排列組合中，精準指認真兇？
+              實務上最令良率工程師扼腕的，莫過於花費兩週調校晶圓廠爐管與蝕刻機台，最後卻發現「是探針卡針尖氧化（Probe Wear）」或「測試座 Pogo Pin 磨損（Socket Wear）」。本章節深入拆解四類最常引發虛假良率崩塌的非製程根因。
             </span>
             <span class="en">
-              In a 300mm mega-fab, a single process step may deploy 5–20 identical tools, each housing 2–6 reaction chambers. When a yield excursion hits, how do we systematically isolate the culprit chamber among thousands of combinations?
+              In real-world operations, the most painful scenario is spending two weeks tuning fab furnaces and etchers only to discover that the root cause was a dirty probe tip or a worn-out test socket pogo pin. This section dissects the four non-process root-cause categories that frequently trigger false yield crashes.
+            </span>
+          </p>
+
+          <!-- 3.1 TEST HARDWARE -->
+          <h3>
+            <span class="zh">3.1 測試硬體介面異常 (Contact, Probe Card, Socket, Loadboard)</span>
+            <span class="en">3.1 Test Hardware Interface Degradation (Contact, Probe Card, Socket, Loadboard)</span>
+          </h3>
+
+          <div class="data-table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th><span class="zh">硬體子系統</span><span class="en">Hardware Subsystem</span></th>
+                  <th><span class="zh">物理失效機理</span><span class="en">Failure Mechanism</span></th>
+                  <th><span class="zh">電性與良率表徵</span><span class="en">Electrical & Yield Signature</span></th>
+                  <th><span class="zh">診斷與預防對策</span><span class="en">Diagnostic & Countermeasure</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b>Contact & Pad (鋁墊/錫球接觸)</b></td>
+                  <td>鋁墊表面天然氧化鋁（Al₂O₃）堅硬絕緣層未被有效穿刺；探針壓下量（Overdrive, OD）不足或針印偏位（Off-center Scrub）。</td>
+                  <td>接觸電阻 \(R_c\) 由 &lt; 0.5Ω 激增至數十歐姆；開路判定（Open Fail）、電源端 IR 壓降過大。</td>
+                  <td>顯微鏡檢查針印（Scrub Mark）深度需達 Pad 厚度 20–35%；重新微調針頭水平面（Planarity）與 Overdrive 參數。</td>
+                </tr>
+                <tr>
+                  <td><b>Probe Card (CP 探針卡)</b></td>
+                  <td>鎢/錸鎢針尖沾黏鋁屑、錫氧化物或大氣水氣吸附；高低溫測試（-40°C ~ 125°C）熱膨脹係數不匹配（CTE Mismatch）針尖熱漂移。</td>
+                  <td>特定 Site 週期性良率低落（Checkerboard pattern）；連續打點良率隨 Touchdown 次數階梯式衰減。</td>
+                  <td>定期在線氧化鋁磨針（Abrasive Sand Sheet Polish）；高低溫測試前執行預熱等溫平衡（Soak Time \(\ge 15\text{ min}\)）。</td>
+                </tr>
+                <tr>
+                  <td><b>Socket & Contactor (FT 測試座)</b></td>
+                  <td>Pogo Pin 彈簧金屬疲勞彈力衰減；錫球（BGA / QFN）錫屑碎渣堆積於探針冠口（Crown）；探針微金鍍層剝落。</td>
+                  <td>短路假報（Bin 2 Open/Short）、高頻訊號衰減（S-parameter 惡化）、接觸電阻動態跳動。</td>
+                  <td>超音波清洗測試座除去錫屑；設定接觸次數計數器（觸探 50,000 次強制保養更換 Pogo Pin）。</td>
+                </tr>
+                <tr>
+                  <td><b>Loadboard / DIB (介面板)</b></td>
+                  <td>固態/簧片繼電器（Relay）接點黏著熔接或觸點阻抗飄高；電源去耦陶瓷電容（MLCC）微裂紋漏電；高頻射頻線纜阻抗失配。</td>
+                  <td>單一測試通道跨所有晶片固定 Fail；動態功耗量測（IDD）基線異常拉高。</td>
+                  <td>每日測試前執行 ATE 硬體自動診斷（Diagnostic Calibration & Relay Loopback Test）；TDR 阻抗量測。</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- 3.2 TEST PROGRAM -->
+          <h3>
+            <span class="zh">3.2 測試程式邊限與軟體邏輯缺陷 (Test Program Timing, Limits & Multi-DUT IR Droop)</span>
+            <span class="en">3.2 Test Program Marginality & Software Bugs (Timing, Limits & Multi-DUT IR Droop)</span>
+          </h3>
+          <p>
+            <span class="zh">
+              測試程式（Test Program）是驅動 ATE 判定 Pass/Fail 的裁判。程式中的時序邊限不足或並行測試干擾常引發大批產品「冤枉被殺（Overkill）」。
+            </span>
+            <span class="en">
+              The test program acts as the ultimate arbiter of Pass/Fail. Marginal strobe timing or multi-DUT concurrent power droop often slaughters legitimate chips (Overkill).
+            </span>
+          </p>
+
+          <ul>
+            <li>
+              <b>頻閃選通時序邊限不足 (Strobe Timing Window Jitter)</b>：
+              <span class="zh">
+                輸出訊號比對選通點（Strobe Edge）設置過於貼近訊號跳變邊緣（Propagation Edge）。當晶圓處於製程正常快/慢角（Fast/Slow Corner）或機台溫度有些微 2°C 漂移時，訊號延遲自然擺動，立刻落入判決失誤窗口，引發大量 Setup/Hold Time 違規。
+              </span>
+              <span class="en">
+                The comparator strobe edge is positioned too tightly against signal transitions. A benign 2°C thermal fluctuation shifts propagation delay directly into the failure window, creating false setup/hold violations.
+              </span>
+            </li>
+            <li>
+              <b>多站點平行測試電源突波塌陷 (Multi-DUT Concurrent IR Rail Droop)</b>：
+              <span class="zh">
+                當 4-Site 或 8-Site 同時並行執行高功耗功能向量（Burst Vectors）時，瞬態電流爆發（\(di/dt\)）導致測試座電源路徑產生巨大壓降（\(\Delta V = L \frac{di}{dt} + I R\)）。單顆單獨測試完全正常，但 8 顆同時測試時 VDD 掉電引發集體重置（Power-On Reset Fail）。
+              </span>
+              <span class="en">
+                During parallel 8-DUT testing, concurrent burst execution creates severe supply rail droop (\(\Delta V = L \frac{di}{dt} + IR\)). Single-site testing passes cleanly, but simultaneous execution collapses VDD, tripping false brown-out resets.
+              </span>
+            </li>
+            <li>
+              <b>測試上下限規格截斷與軟硬 Bin 優先級倒置 (Limit Clipping & Bin Priority Inversion)</b>：
+              <span class="zh">
+                鉗位電流（Clamp Current）設置過窄，導致正常晶片在大電容充電階段被提前限流截斷；或軟體測試流程中未遵循「重大漏電優先於功能測試」的判定順序，導致低層級 Bin 覆蓋高層級真實故障。
+              </span>
+              <span class="en">
+                Clamp currents set too aggressively truncate legitimate charging currents; or software bin priority inversion allows secondary functional failures to overwrite primary catastrophic leakage bins.
+              </span>
+            </li>
+          </ul>
+
+          <!-- 3.3 METROLOGY & GAGE R&R -->
+          <h3>
+            <span class="zh">3.3 量測系統誤差與 MSA / Gage R&R (Measurement System Analysis & Calibration)</span>
+            <span class="en">3.3 Metrology Error & Measurement System Analysis (MSA / Gage R&R)</span>
+          </h3>
+
+          <div class="callout danger">
+            <div class="callout-title">
+              <span>📐</span>
+              <span class="zh">4 線式 Kelvin 量測開路陷阱 (4-Wire Kelvin Sense Open Trap)</span>
+              <span class="en">4-Wire Kelvin Sense Line Open Trap</span>
+            </div>
+            <p>
+              <span class="zh">
+                <b>致命現象</b>：在 WAT 或 CP 測量導通電阻（\(R_{on}\)）或閘極臨界電壓（\(V_{th}\)）時，若探針卡 Sense 訊號線虛焊或斷針，量測系統會悄然無聲地由<b>「4 線精準 Kelvin 感測」退化為「2 線粗略量測」</b>。<br>
+                此時，測試電纜、繼電器與探針接觸電阻（約 1.5–3.0Ω）被直接累加到晶片元件數值中，導致整體批次被判定為「導通阻抗飆高爆規報廢」。<br>
+                <b>防禦檢驗</b>：測試程式前置必須加入 <b>Kelvin Loop Continuity Check</b>，確認 Force 與 Sense 迴路阻抗 &lt; 0.5Ω。
+              </span>
+              <span class="en">
+                <b>Fatal Phenomenon</b>: When measuring on-resistance (\(R_{on}\)) or \(V_{th}\), a broken Kelvin Sense needle degrades the instrumentation from <b>4-wire true Kelvin sensing into a 2-wire loop</b> without throwing an explicit tester error.<br>
+                Cable and relay parasitic resistances (1.5–3.0Ω) are directly summed into chip parameters, falsely scrapping lots for "high on-resistance".<br>
+                <b>Defense</b>: Test programs must execute mandatory Kelvin continuity loops before measuring parametric limits.
+              </span>
+            </p>
+          </div>
+
+          <div class="formula">
+            \[ \%GRR = \frac{\sqrt{\sigma_{Repeatability}^2 + \sigma_{Reproducibility}^2}}{\sigma_{Total}} \times 100\% \]
+          </div>
+
+          <p>
+            <span class="zh">
+              若 \(\%GRR > 30\%\)，代表量測系統的變異已經完全淹沒了晶圓製程的真實變化，此時進行任何機台統計相關性分析皆毫無意義。
+            </span>
+            <span class="en">
+              If \(\%GRR > 30\%\), measurement instrument noise completely obliterates real silicon process variance, rendering any downstream statistical correlation invalid.
+            </span>
+          </p>
+
+          <!-- 3.4 RAW MATERIALS & DIFFUSION -->
+          <h3>
+            <span class="zh">3.4 矽晶圓基板長晶、外延磊晶與擴散摻雜變異 (Substrate, Epi & Diffusion Variations)</span>
+            <span class="en">3.4 Raw Substrate Ingot, Epitaxial Layer & Dopant Diffusion Variations</span>
+          </h3>
+          <p>
+            <span class="zh">
+              除了晶圓廠微影蝕刻設備，上游原始原材料晶圓（Raw Wafer）與高溫熱預算擴散同樣是良率波動的底層推手：
+            </span>
+            <span class="en">
+              Beyond fab litho and etch tools, upstream raw substrates and high-temperature thermal budgets govern foundational baseline yield:
+            </span>
+          </p>
+
+          <div class="data-table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th><span class="zh">材料/擴散環節</span><span class="en">Material / Process</span></th>
+                  <th><span class="zh">材料物理與化學變異來源</span><span class="en">Physical & Chemical Variation</span></th>
+                  <th><span class="zh">良率衝擊與元件效應</span><span class="en">Impact on Yield & Devices</span></th>
+                  <th><span class="zh">工程管制與追溯手段</span><span class="en">Control & Traceability</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b>CZ 晶棒長晶與氧含量 (Raw Ingot & Oi)</b></td>
+                  <td>柴氏長晶法（CZ）中石英坩堝溶入的間隙氧（Interstitial Oxygen, \(O_i\)）含量波動；晶棒頭部（Seed）到尾部（Tail）冷卻溫場差異產生熱生施體（Thermal Donors）。</td>
+                  <td>高溫製程中沉澱微缺陷（BMD）過多引發漏電；電阻率沿晶棒縱向漂移，造成井區植入後濃度偏差。</td>
+                  <td>嚴格管控原始晶圓 \(O_i\) 規格（通常 \(12\text{--}15\text{ ppma}\)）；依據 Ingot 切片序號（Wafer Ingot Slicing Order）建立履歷分層。</td>
+                </tr>
+                <tr>
+                  <td><b>外延磊晶層變異 (Epi Thickness / Resistivity)</b></td>
+                  <td>不同晶圓供應商（如 Shin-Etsu、SUMCO、GlobalWafers）之 CVD 磊晶腔體氣流邊界層厚度分佈與三氯氫矽（TCS）純度差異。</td>
+                  <td>磊晶層厚度差 5% 即導致功率元件（MOSFET/IGBT）崩潰電壓（\(BV_{dss}\)）大幅掉規；化合物半導體（SiC/GaN）基底面錯位（BPD）擴展。</td>
+                  <td>各進料批次抽檢光學傅立葉紅外光譜（FTIR）磊晶厚度；供應商（Vendor Split）嚴格雙源分軌評估。</td>
+                </tr>
+                <tr>
+                  <td><b>離子植入與快速熱退火 (Implant & RTA Diffusion)</b></td>
+                  <td>離子植入機射束電流（Beam Current）微漂移、能量污染、晶格穿隧效應（Channeling）；快速熱退火（RTA）熱預算（Thermal Budget \(Dt = \int D(T)dt\)）分佈不均。</td>
+                  <td>接面深度（Junction Depth \(X_j\)）過深引發短通道效應（DIBL）；活化率不足使多晶矽閘極耗盡（Poly Depletion），臨界電壓 \(V_{th}\) 集體偏移。</td>
+                  <td>以 SRP（擴散電阻分佈剖面）定期監控擴散深度；建立 WAT 跨晶圓 \(V_{th}\) 晶圓圖與爐管溫控對照表。</td>
+                </tr>
+                <tr>
+                  <td><b>製程化學耗材批次 (Chemicals / Slurry Batch)</b></td>
+                  <td>CMP 化學研磨液批次間膠體二氧化矽/氧化鈰磨粒粒徑分佈（Particle Size Distribution, PSD）偏大；光阻劑感光敏感度（Photospeed \(\Delta E_0\)）批次波動。</td>
+                  <td>研磨刮痕暴增、金屬殘留（Residue Bridge 短路）；關鍵線寬（CD）系統性增粗或變細。</td>
+                  <td>新批號耗材（Chemical Lot）進線前強制執行 3 批試產 Pilot 對照，通過 LPC 顆粒計數後方可放行。</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- PHASE 4: CHAMBER COMMONALITY & CORRELATION -->
+      <section id="phase4">
+        <h2 class="collapsible-h" onclick="toggleCollapse(this)">
+          <span>
+            <span class="zh">Phase 4: 機台 Chamber 共模統計歸因 (Chamber Commonality Attribution)</span>
+            <span class="en">Phase 4: Equipment Chamber Commonality & Multivariate Attribution</span>
+          </span>
+          <span class="collapse-arrow">▼</span>
+        </h2>
+        <div class="collapse-body">
+          <p>
+            <span class="zh">
+              當確認排除測試硬體、程式時序、量測誤差與晶圓原材料變異後，真正的製程機台共模追溯才正式啟動。
+            </span>
+            <span class="en">
+              Only after filtering test hardware, program timing, metrology errors, and raw material variations does true fab chamber commonality attribution begin.
             </span>
           </p>
 
           <h3>
-            <span class="zh">3.1 共模分析檢定統計法</span>
-            <span class="en">3.1 Statistical Tests for Commonality</span>
+            <span class="zh">4.1 共模分析檢定統計法</span>
+            <span class="en">4.1 Statistical Tests for Commonality</span>
           </h3>
           <ul>
             <li>
@@ -1346,56 +1622,42 @@
             </li>
           </ul>
 
-          <h3>
-            <span class="zh">3.2 致命陷阱：辛普森悖論 (Simpson's Paradox) 與混淆變數</span>
-            <span class="en">3.2 The Simpson's Paradox & Confounding Traps</span>
-          </h3>
-
           <div class="callout danger">
             <div class="callout-title">
               <span>🚨</span>
-              <span class="zh">辛普森悖論實戰案例警示</span>
-              <span class="en">Simpson's Paradox Real-World Alert</span>
+              <span class="zh">警惕：辛普森悖論 (Simpson's Paradox) 與混淆變數</span>
+              <span class="en">Alert: Simpson's Paradox & Confounding Traps</span>
             </div>
             <p>
               <span class="zh">
-                <b>現象</b>：表面統計顯示 Chamber #1 的整體良率比 Chamber #2 低 5%。工程團隊判定 Chamber #1 異常。<br>
-                <b>真相</b>：Chamber #1 專門被生管（PC）排程跑高難度的大晶粒旗艦產品（Die Area 400mm²），而 Chamber #2 全都在跑簡單成熟的小晶粒產品（40mm²）。分組產品分層後，Chamber #1 在同一產品上的良率其實反而更高！<br>
-                <b>鐵律</b>：共模分析前，<b>必須對產品型號（Product Device）、批次配方（Recipe）、晶圓槽位（Slot ID）進行分層校正（Stratification）</b>，否則將造成災難性誤判。
+                <b>鐵律</b>：共模分析前，<b>必須對產品型號（Product Device）、批次配方（Recipe）、晶圓槽位（Slot ID）與基板批次進行分層校正（Stratification）</b>，否則將造成災難性誤判。
               </span>
               <span class="en">
-                <b>Phenomenon</b>: Aggregate data shows Chamber #1 yield is 5% lower than Chamber #2. The team flags Chamber #1 as defective.<br>
-                <b>Reality</b>: Production control routed complex large-die products (400mm²) exclusively to Chamber #1, while Chamber #2 processed smaller legacy products (40mm²). When stratified by product, Chamber #1 actually exhibited superior performance!<br>
-                <b>Golden Rule</b>: Always stratify data by Device, Recipe, and FOUP Slot before drawing chamber commonality conclusions.
+                <b>Golden Rule</b>: Always stratify data by Device, Recipe, FOUP Slot, and Raw Substrate Lot before drawing chamber commonality conclusions.
               </span>
             </p>
           </div>
         </div>
       </section>
 
-      <!-- PHASE 4: PARAMETRIC MARGIN & CPK ANALYSIS -->
-      <section id="phase4">
+      <!-- PHASE 5: PARAMETRIC MARGIN & CPK ANALYSIS -->
+      <section id="phase5">
         <h2 class="collapsible-h" onclick="toggleCollapse(this)">
           <span>
-            <span class="zh">Phase 4: 參數 Margin 與 Cpk 飄移 (Parametric Margin & Cpk Drift)</span>
-            <span class="en">Phase 4: Parametric WAT/CP Margin & Cpk Drift</span>
+            <span class="zh">Phase 5: 參數 Margin 與 Cpk 飄移 (Parametric Margin & Cpk Drift)</span>
+            <span class="en">Phase 5: Parametric WAT/CP Margin & Cpk Drift</span>
           </span>
           <span class="collapse-arrow">▼</span>
         </h2>
         <div class="collapse-body">
           <p>
             <span class="zh">
-              功能性失效（Functional Open/Short）固然致命，但現代半導體良率競爭的勝負手在於<b>「參數型良率損失（Parametric Yield Loss）」</b>。晶片電路各節點皆可動作，但因臨界電壓（\(V_{th}\)）、驅動電流（\(I_{on}\)）、寄生電阻過大，導致工作頻率或功耗無法達標。
+              現代半導體良率競爭的勝負手在於<b>「參數型良率損失（Parametric Yield Loss）」</b>。晶片電路各節點皆可動作，但因臨界電壓（\(V_{th}\)）、驅動電流（\(I_{on}\)）、寄生電阻過大，導致工作頻率或功耗無法達標。
             </span>
             <span class="en">
               While functional opens/shorts cause clear-cut fallout, the competitive battlefield lies in <b>Parametric Yield Loss</b>. Circuits function logically, but marginal threshold voltages (\(V_{th}\)), drive currents (\(I_{on}\)), or parasitic resistances degrade performance below datasheet limits.
             </span>
           </p>
-
-          <h3>
-            <span class="zh">4.1 製程能力指標 \(C_{pk}\) 與 良率損失換算</span>
-            <span class="en">4.1 Process Capability \(C_{pk}\) & DPPM Projection</span>
-          </h3>
 
           <div class="formula">
             \[ C_{pk} = \min\left( \frac{USL - \mu}{3\sigma}, \frac{\mu - LSL}{3\sigma} \right) \]
@@ -1439,43 +1701,15 @@
               </tbody>
             </table>
           </div>
-
-          <h3>
-            <span class="zh">4.2 動態 Part Average Testing (PAT) 篩選技術</span>
-            <span class="en">4.2 Dynamic Part Average Testing (Dynamic PAT)</span>
-          </h3>
-          <p>
-            <span class="zh">
-              傳統規格界限（LSL / USL）是靜態的。在車用晶片中，若某顆晶粒雖然在規格內（例如 Pass），但其量測數值顯著背離同批晶圓分佈中位數超過 \(4\sigma\)（稱為 Maverick Die），該晶粒內部必定隱藏亞微米級潛在結晶缺陷，進入車輛運作 6 個月後極高機率發生早期擊穿燒毀。
-            </span>
-            <span class="en">
-              Traditional spec limits (LSL/USL) are static. For automotive chips, dies that pass static limits but deviate by more than \(4\sigma\) from the wafer median (Maverick Dies) harbor latent crystal anomalies that trigger field failures within operating life.
-            </span>
-          </p>
-
-          <div class="callout good">
-            <div class="callout-title">
-              <span>🚗</span>
-              <span class="zh">動態 PAT 計算公式</span>
-              <span class="en">Dynamic PAT Formulation</span>
-            </div>
-            <div class="formula" style="background:transparent; border:none; margin:4px 0;">
-              \[ PAT_{LSL} = \text{Median} - 4 \times R_{IQR} / 1.349, \quad PAT_{USL} = \text{Median} + 4 \times R_{IQR} / 1.349 \]
-            </div>
-            <p style="margin-bottom:0;">
-              <span class="zh">以穩健四分位距（IQR）取代標準差，避免極端異常值干擾整體基準，達到零缺陷（Zero Defect）出貨防禦。</span>
-              <span class="en">Uses robust Interquartile Range (IQR) to estimate dispersion immune to outliers, ensuring zero-defect shipment.</span>
-            </p>
-          </div>
         </div>
       </section>
 
-      <!-- PHASE 5: FAILURE ANALYSIS (FA) -->
-      <section id="phase5">
+      <!-- PHASE 6: FAILURE ANALYSIS (FA) -->
+      <section id="phase6">
         <h2 class="collapsible-h" onclick="toggleCollapse(this)">
           <span>
-            <span class="zh">Phase 5: 失效分析 (FA) 實體物理驗證 (Failure Analysis & Physical Feedback)</span>
-            <span class="en">Phase 5: Failure Analysis (FA) & Physical Defect Correlation</span>
+            <span class="zh">Phase 6: 失效分析 (FA) 實體物理驗證 (Failure Analysis & Physical Feedback)</span>
+            <span class="en">Phase 6: Failure Analysis (FA) & Physical Defect Correlation</span>
           </span>
           <span class="collapse-arrow">▼</span>
         </h2>
@@ -1536,12 +1770,12 @@
         </div>
       </section>
 
-      <!-- PHASE 6: IMPROVEMENT PLAYBOOK & ACTION LOOPS -->
-      <section id="phase6">
+      <!-- PHASE 7: IMPROVEMENT PLAYBOOK & ACTION LOOPS -->
+      <section id="phase7">
         <h2 class="collapsible-h" onclick="toggleCollapse(this)">
           <span>
-            <span class="zh">Phase 6: 系統性改善戰術與閉環 (Yield Improvement Action Playbook)</span>
-            <span class="en">Phase 6: Systematic Improvement Playbook & Action Loops</span>
+            <span class="zh">Phase 7: 系統性改善戰術與閉環 (Yield Improvement Action Playbook)</span>
+            <span class="en">Phase 7: Systematic Improvement Playbook & Action Loops</span>
           </span>
           <span class="collapse-arrow">▼</span>
         </h2>
@@ -1602,37 +1836,28 @@
         </div>
       </section>
 
-      <!-- PHASE 7: YIELD RAMP & AUDIT DEFENSE -->
-      <section id="phase7">
+      <!-- PHASE 8: YIELD RAMP & AUDIT DEFENSE -->
+      <section id="phase8">
         <h2 class="collapsible-h" onclick="toggleCollapse(this)">
           <span>
-            <span class="zh">Phase 7: Ramp 學習曲線與客戶稽核治理 (Yield Ramp & Audit Defense)</span>
-            <span class="en">Phase 7: Yield Ramp Modeling & Customer Audit Defense</span>
+            <span class="zh">Phase 8: Ramp 學習曲線與客戶稽核治理 (Yield Ramp & Audit Defense)</span>
+            <span class="en">Phase 8: Yield Ramp Modeling & Customer Audit Defense</span>
           </span>
           <span class="collapse-arrow">▼</span>
         </h2>
         <div class="collapse-body">
           <p>
             <span class="zh">
-              新晶圓廠或新製程世代的投產，良率並非瞬間躍升，而是遵循指數型<b>學習曲線（Yield Learning Curve）</b>。在面對車用一級大廠（Tier 1）或國際客戶嚴苛稽核時，工程團隊必須提出合乎科學的良率爬坡模型與變更管理規範（4M1E）。
+              新晶圓廠或新製程世代的投產，良率並非瞬間躍升，而是遵循指數型<b>學習曲線（Yield Learning Curve）</b>。
             </span>
             <span class="en">
-              During new node introductions, yields do not surge instantaneously; they obey an empirical <b>Yield Learning Curve</b>. When undergoing rigorous Tier-1 automotive customer audits, engineering teams must present sound mathematical ramp projections and strict 4M1E change control.
+              During new node introductions, yields do not surge instantaneously; they obey an empirical <b>Yield Learning Curve</b>.
             </span>
           </p>
 
           <div class="formula">
             \[ Y(t) = Y_\infty - (Y_\infty - Y_0) e^{-k \cdot C(t)} \]
           </div>
-
-          <p>
-            <span class="zh">
-              其中 \(Y_0\) 為初始試產良率，\(Y_\infty\) 為極限成熟良率，\(C(t)\) 為累計生產晶圓數量（Cumulative Wafer Volume），\(k\) 為工程團隊的良率學習速率常數（Learning Rate）。
-            </span>
-            <span class="en">
-              Where \(Y_0\) represents initial pilot yield, \(Y_\infty\) is asymptotic ceiling yield, \(C(t)\) is cumulative wafer volume, and \(k\) is the organizational learning rate constant.
-            </span>
-          </p>
 
           <div class="callout warn">
             <div class="callout-title">
@@ -1643,7 +1868,7 @@
             <ul>
               <li><b>Man (人員)</b>：機台操作人員與製程工程師訓練認證證照。</li>
               <li><b>Machine (設備機台)</b>：新機台 Chamber 認證報告、Tool-to-Tool Matching 偏差量測。</li>
-              <li><b>Material (原材料)</b>：化學研磨液、光阻批號變更前之 5 批 Pilot 試產良率對照。</li>
+              <li><b>Material (原材料)</b>：原始矽晶圓供應商、化學研磨液、光阻批號變更前之 5 批 Pilot 試產良率對照。</li>
               <li><b>Method (製程方法)</b>：配方溫壓調整是否有完整 ECN/PCN 審批記錄與風險評估。</li>
               <li><b>Environment (環境監控)</b>：無塵室微氣候溫度（\(\pm 0.5^\circ\text{C}\)）、濕度（\(\pm 2\%\)）、AMC 氣體微污染監測。</li>
             </ul>
@@ -1715,9 +1940,9 @@
             <b>[8D YIELD EXCURSION REPORT TEMPLATE]</b><br>
             <b>D1 - Team:</b> Lead YEE: ________ | PIE Owner: ________ | PE / ATE: ________<br>
             <b>D2 - Problem Statement:</b> Lot: ________ dropped yield from Baseline 94.5% to 76.2% at CP Step 4500 (Primary Bin 5 - Metal Short).<br>
-            <b>D3 - Containment Actions:</b> Hold 12 downstream lots in FAB; isolate Etcher #03 Chamber B immediately.<br>
+            <b>D3 - Containment Actions:</b> Hold 12 downstream lots in FAB; isolate Etcher #03 Chamber B immediately; check probe contact marks.<br>
             <b>D4 - Root Cause Analysis:</b> Spatial map exhibited Edge Ring. Chamber commonality showed Chi2 = 450 (p &lt; 0.0001). FA TEM revealed 45nm Cu bridge due to CMP over-polish.<br>
-            <b>D5 - Corrective Actions:</b> Recalibrate CMP zone pressure profile; replace worn Focus Ring on Etcher #03.<br>
+            <b>D5 - Corrective Actions:</b> Recalibrate CMP zone pressure profile; replace worn Focus Ring on Etcher #03; refresh probe needle polish.<br>
             <b>D6 - Implementation & Validation:</b> Run 3 split pilot lots; verified yield recovered to 95.1% with zero edge signature.<br>
             <b>D7 - Preventive Actions:</b> Update SPC alarm limits for CMP head pressure; revise PM frequency from 5,000 to 3,500 RF hours.<br>
             <b>D8 - Congratulate Team & Closure:</b> Signed off by Quality Director and Fab Operations Lead.
@@ -1737,7 +1962,7 @@
     </div>
     <div>
       <span class="zh">修訂時間：</span><span class="en">Updated: </span>
-      <b>2026-10-21 15:45</b>
+      <b>2026-10-21 16:00</b>
     </div>
   </footer>
 
@@ -1774,7 +1999,6 @@
     currentTheme = (currentTheme === 'light') ? 'dark' : 'light';
     localStorage.setItem('theme', currentTheme);
     document.documentElement.setAttribute('data-theme', currentTheme);
-    // Redraw canvases on theme switch
     setTimeout(() => {
       renderWaferPattern();
       updateCpkView();
@@ -1786,6 +2010,7 @@
     localStorage.setItem('lang', currentLang);
     document.documentElement.setAttribute('data-lang', currentLang);
     updateLangUI();
+    runTriangulatorDiagnosis();
   }
 
   function updateLangUI() {
@@ -1844,7 +2069,7 @@
 
   // --- TOOL 2: WAFER MAP SPATIAL SIMULATOR ---
   let waferData = [];
-  const WAFER_GRID_N = 38; // 38x38 grid approximates 1200 dies on a circle
+  const WAFER_GRID_N = 38;
 
   function initWaferGrid() {
     waferData = [];
@@ -1860,9 +2085,9 @@
             y: y,
             dx: dx,
             dy: dy,
-            dist: dist / radius, // 0 (center) to 1 (edge)
+            dist: dist / radius,
             theta: Math.atan2(dy, dx),
-            status: 0 // 0: Good, 1: Marginal, 2: Fail
+            status: 0
           });
         }
       }
@@ -1877,7 +2102,7 @@
     let failCount = 0;
 
     waferData.forEach(d => {
-      let failProb = 0.03; // Baseline 3% random failure
+      let failProb = 0.03;
 
       if (pattern === 'edge_ring') {
         if (d.dist > 0.78) {
@@ -1888,49 +2113,42 @@
           failProb += Math.pow((0.35 - d.dist) / 0.35, 1.5) * sev * 0.92;
         }
       } else if (pattern === 'scratch') {
-        // Line equation: dy - 0.6*dx + 4 ≈ 0
         const lineDist = Math.abs(d.dy - 0.55 * d.dx + 3.2);
         if (lineDist < 1.4) {
           failProb += (1.4 - lineDist) / 1.4 * sev * 0.98;
         }
       } else if (pattern === 'cluster') {
-        // Local cluster around (dx=7, dy=-6)
         const cDist = Math.hypot(d.dx - 6.5, d.dy + 5.5);
         if (cDist < 5.0) {
           failProb += (5.0 - cDist) / 5.0 * sev * 0.95;
         }
       } else if (pattern === 'bullseye') {
-        // Concentric periodic rings
         const ring = Math.sin(d.dist * Math.PI * 4.5);
         if (ring > 0.3) {
           failProb += ring * sev * 0.75;
         }
       } else if (pattern === 'multisite') {
-        // Checkerboard / 4-site probe card (x%2==0 and y%2==0 is Site 1)
         if ((d.x % 2 === 0) && (d.y % 2 === 0)) {
           failProb += sev * 0.85;
         }
       } else if (pattern === 'repeater') {
-        // Reticle shot 4x4 dies
         if ((d.x % 4 === 1) && (d.y % 4 === 2)) {
           failProb += sev * 0.95;
         }
       }
 
-      // Roll random status
       const roll = Math.random();
       if (roll < failProb) {
-        d.status = (roll < failProb * 0.7) ? 2 : 1; // 2: Hard Fail, 1: Marginal
+        d.status = (roll < failProb * 0.7) ? 2 : 1;
         failCount++;
       } else {
-        d.status = 0; // Good
+        d.status = 0;
       }
     });
 
     const yieldRate = ((waferData.length - failCount) / waferData.length) * 100;
     document.getElementById('lblWaferMapYield').textContent = yieldRate.toFixed(1) + '%';
 
-    // Draw canvas
     drawWaferMapCanvas();
     updatePatternDiagnosis(pattern);
   }
@@ -1944,21 +2162,18 @@
 
     ctx.clearRect(0, 0, w, h);
 
-    // Draw Wafer Outline
     ctx.save();
     ctx.fillStyle = '#141d1a';
     ctx.beginPath();
     ctx.arc(w/2, h/2, (w/2) - 6, 0, Math.PI * 2);
     ctx.fill();
 
-    // Notch at bottom
     ctx.fillStyle = '#22302c';
     ctx.beginPath();
     ctx.arc(w/2, h - 6, 5, 0, Math.PI * 2);
     ctx.fill();
     ctx.restore();
 
-    // Colors
     const isDark = (document.documentElement.getAttribute('data-theme') === 'dark');
     const colGood = isDark ? '#2f7a45' : '#388e3c';
     const colMarginal = '#dcab53';
@@ -2029,7 +2244,7 @@
       },
       repeater: {
         zh_title: '微影光罩重複項 (Reticle Shot Repeater)',
-        zh_body: '<b>典型物理機理：</b>微影步進機（Scanner）曝光視野內固定 Die 損壞，主因為光罩（Reticle）保護膜（Pellicle）破孔造成微粒沾附。<br><b>推薦排查機台：</b>浸潤式微影曝光機（Immersion DUV/EUV Scanner）。<br><b>首要處方：</b>立即下線該光罩，實施光罩穿透率檢查與雷射修補/重洗。',
+        zh_body: '<b>典型物理機理：</b>微影步進機（Scanner）曝光視野內固定 Die 損壞，主因為光罩（Reticle）保護膜（Pellicle）微孔造成微粒沾附。<br><b>推薦排查機台：</b>浸潤式微影曝光機（Immersion DUV/EUV Scanner）。<br><b>首要處方：</b>立即下線該光罩，實施光罩穿透率檢查與雷射修補/重洗。',
         en_title: 'Reticle Shot Repeater',
         en_body: '<b>Mechanism:</b> Pellicle pinhole or foreign particle adhesion on the lithography reticle within the exposure field.<br><b>Suspect Tools:</b> DUV/EUV immersion scanners.<br><b>Action:</b> Disengage reticle immediately; perform pellicle inspection and laser re-cleaning.'
       }
@@ -2052,7 +2267,95 @@
     link.click();
   }
 
-  // --- TOOL 3: CHAMBER COMMONALITY CALCULATIONS ---
+  // --- TOOL 03: TRIANGULATOR DIAGNOSIS LOGIC ---
+  const triangulatorRules = {
+    site_imbalance: {
+      p: [85, 8, 4, 1, 2], // HW, SW, MSA, Mat, Fab
+      zh_title: '診斷結論：測試硬體探針卡針尖氧化或接觸不良 (Probe Card / Contact Resistance)',
+      zh_body: '<b>機理解析：</b>各 Site 平行測試但失效高度集中於單一測試針尖，典型成因為探針表面氧化鎢（WOx）殘留或鋁墊刮痕（Scrub Mark）深度偏淺，接觸阻抗（\(R_c\)）自正常的 &lt; 0.5Ω 飆升至 5–15Ω，造成電源或訊號端開路判定。<br><b>黃金驗證 SOP（3 步驟）：</b><br>1. <b>Site Swap 驗證</b>：將 DUT 晶片旋轉 180° 或交換測試槽位，確認 Fail 是否隨 Site 轉移。<br>2. <b>Scrub Mark 光學檢驗</b>：顯微鏡檢驗晶片鋁墊針印深度（要求 20–35% pad 深度）與中心偏位。<br>3. <b>執行針卡研磨清潔（Sand Sheet Cleaning）</b>：30 次 Overdrive 研磨後重測。',
+      en_title: 'Diagnosis: Probe Card Tip Wear / High Contact Resistance (Rc)',
+      en_body: '<b>Mechanism:</b> Concentrated fallout on a single DUT site in parallel probing points to tungsten oxide buildup or shallow scrub depth. Contact resistance (\(R_c\)) spikes from &lt; 0.5Ω to 15Ω, tripping false open/short limits.<br><b>Verification SOP:</b><br>1. <b>Site Swap Test</b>: Rotate DUT by 180° to confirm if failure tracks the test site.<br>2. <b>Scrub Mark Optical Inspection</b>: Verify scrub depth (20–35% of pad thickness) and centering.<br>3. <b>Probe Sand Sheet Polish</b>: Execute 30-touchdown abrasive cleaning and re-verify.'
+    },
+    multisite_droop: {
+      p: [15, 78, 5, 0, 2],
+      zh_title: '診斷結論：測試程式多站點並行電源突波塌陷 (Multi-DUT Concurrent IR Rail Droop)',
+      zh_body: '<b>機理解析：</b>單顆測試完全正常，但 8 顆同時測試時集體 Fail。成因為高功耗向量並行執行瞬態電流爆發（\(di/dt\)），測試座電源走線感抗造成 VDD 瞬間跌落（IR Droop），觸發晶片欠壓重置（POR）。<br><b>黃金驗證 SOP（3 步驟）：</b><br>1. <b>示波器抓取瞬態 VDD 波形</b>：於測試座去耦電容兩端量測 burst 期間的電壓跌落幅度。<br>2. <b>時序錯峰排程（Staggered Execution）</b>：在測試程式中微調各 Site 向量觸發時間錯開 50ns。<br>3. <b>負載板（DIB）加裝高頻去耦電容（MLCC）</b>：靠近 Socket 接腳補強 10μF + 0.1μF 電容。',
+      en_title: 'Diagnosis: Test Program Multi-DUT Concurrent IR Rail Droop',
+      en_body: '<b>Mechanism:</b> Single-site test passes, but simultaneous 8-site burst vectors trigger massive \(di/dt\) transient current, causing VDD rail collapse and tripping false Power-On-Reset (POR).<br><b>Verification SOP:</b><br>1. <b>Oscilloscope Transient Capture</b>: Probe VDD rail at socket decoupling pins during vector bursts.<br>2. <b>Staggered Vector Execution</b>: Introduce 50ns phase delay across DUT sites in test program.<br>3. <b>Add High-Frequency MLCCs</b>: Solder local low-ESR ceramic caps directly beneath the socket.'
+    },
+    probe_sanding: {
+      p: [92, 3, 2, 1, 2],
+      zh_title: '診斷結論：探針卡針尖微粒沾污與氧化膜 (Probe Tip Debris Buildup & Oxidation)',
+      zh_body: '<b>機理解析：</b>研磨片研磨後良率立即恢復，100% 證明屬於測試硬體機械沾污問題，與晶圓廠製造製程完全無關！<br><b>黃金驗證 SOP：</b><br>1. 統計探針卡 Clean Rate 衰減曲線（Touchdown vs. Yield Decay）。<br>2. 在測試機自動化流程中配置「每測試 150 片晶圓自動執行 15 次 Sand Sheet 清潔」。',
+      en_title: 'Diagnosis: Probe Needle Tip Contamination / Oxidation Layer',
+      en_body: '<b>Mechanism:</b> Yield recovery after abrasive sanding proves 100% test hardware contact issue, completely independent of fab process tools!<br><b>Verification SOP:</b><br>1. Characterize touchdown count vs. yield decay curve.<br>2. Configure automated prober abrasive polish every 150 touchdowns.'
+    },
+    socket_pogo: {
+      p: [88, 5, 4, 1, 2],
+      zh_title: '診斷結論：封裝測試座 Pogo Pin 疲勞與錫屑堆積 (Socket Pogo Pin Fatigue & Solder Debris)',
+      zh_body: '<b>機理解析：</b>更換測試座後良率反彈，代表原測試座 Pogo 針彈簧疲勞導致下壓力不足（&lt; 25g），或 BGA 錫球碎屑在 Crown 槽口堆積造成微短路。<br><b>黃金驗證 SOP：</b><br>1. 測試座超音波去離子水 + 異丙醇（IPA）清洗。<br>2. 測試座設定壽命計數器（觸探 50,000 次強制換新針）。',
+      en_title: 'Diagnosis: Socket Pogo Pin Fatigue & Solder Debris Accumulation',
+      en_body: '<b>Mechanism:</b> Immediate yield recovery upon socket replacement confirms pogo pin contact force degradation (&lt; 25g) or tin accumulation inside crown tips.<br><b>Verification SOP:</b><br>1. Ultrasonic cleaning of socket housing in IPA.<br>2. Implement strict socket touchdown lifecycle limits (mandatory replacement at 50k cycles).'
+    },
+    timing_strobe: {
+      p: [10, 80, 5, 2, 3],
+      zh_title: '診斷結論：測試程式時序頻閃選通邊限不足 (Strobe Timing Window Marginality)',
+      zh_body: '<b>機理解析：</b>高低溫切換時晶片訊號傳播延遲（Propagation Delay）隨溫度係數自然漂移。若 Strobe 取樣邊緣設置在跳變死角，將引發假性時序違規。<br><b>黃金驗證 SOP：</b><br>1. 執行 2D Shmoo Plot 測試（電壓 VDD vs 時序 Strobe Time 掃描）。<br>2. 重新校準選通邊緣至訊號眼圖（Eye Diagram）中心。',
+      en_title: 'Diagnosis: Test Program Strobe Timing Window Marginality',
+      en_body: '<b>Mechanism:</b> Signal propagation delay drifts with temperature. Tight strobe placement right at signal transition edges triggers false timing violations across thermal corners.<br><b>Verification SOP:</b><br>1. Run 2D Shmoo Plots (VDD Voltage vs. Strobe Timing).<br>2. Re-center strobe comparator edge into the center of the valid data eye.'
+    },
+    kelvin_open: {
+      p: [8, 4, 82, 3, 3],
+      zh_title: '診斷結論：量測系統 4 線 Kelvin Sense 開路退化為 2 線 (Kelvin Sense Line Open)',
+      zh_body: '<b>機理解析：</b>WAT/PCM 測試座 Sense 線路斷開，儀器由 4 線式退化為 2 線式，將測試電纜線路電阻（1–3Ω）計入晶片，誤判為薄膜電阻超標。<br><b>黃金驗證 SOP：</b><br>1. 執行測試座迴路導通性電阻量測（Loopback Test）。<br>2. 檢查 SMU 四線制 Sense 探針連接完整性。',
+      en_title: 'Diagnosis: Metrology System 4-Wire Kelvin Sense Open (Degraded to 2-Wire)',
+      en_body: '<b>Mechanism:</b> Broken Sense line silently converts 4-wire Kelvin sensing into a 2-wire measurement, adding 2–3Ω of harness resistance into the measured device resistance.<br><b>Verification SOP:</b><br>1. Execute automated Kelvin loopback continuity verification before test.<br>2. Inspect SMU Sense channel cabling and spring contact.'
+    },
+    leakage_settle: {
+      p: [6, 12, 75, 2, 5],
+      zh_title: '診斷結論：極小漏電取樣延時不足與 RC 充電截斷 (Settling Time Truncation)',
+      zh_body: '<b>機理解析：</b>pA 級微小漏電流測量時，三軸電纜（Triaxial Cable）與夾具存在等效電容（\(C_{cable} \approx 100\text{pF}\)）。測試程式取樣過快，測得的是電容充電位移電流而非真實矽漏電。<br><b>黃金驗證 SOP：</b><br>1. 在測試程式中將漏電量測延遲（Measure Wait / Settling Delay）由 5ms 調至 50ms。<br>2. 驗證充電曲線衰減趨勢。',
+      en_title: 'Diagnosis: Insufficient Settling Time / RC Displacement Current Truncation',
+      en_body: '<b>Mechanism:</b> When measuring pA-level leakage, cable parasitics (\(C \approx 100\text{pF}\)) create RC time constants. Premature sampling measures charging current rather than DC leakage.<br><b>Verification SOP:</b><br>1. Increase measurement settling delay from 5ms to 50ms in test program.<br>2. Observe RC decay curve until steady-state DC level is achieved.'
+    },
+    substrate_split: {
+      p: [2, 1, 5, 82, 10],
+      zh_title: '診斷結論：原始矽晶圓長晶與外延供應商變異 (Raw Ingot / Substrate & Epi Vendor Drift)',
+      zh_body: '<b>機理解析：</b>所有設備機台的晶圓良率同步下降，且統計顯示與特定矽片供應商（Epi Vendor B）高度吻合。主因為該廠商外延厚度均勻度超規或 CZ 晶棒氧含量（\(O_i\)）過高引發晶格沉澱缺陷。<br><b>黃金驗證 SOP：</b><br>1. 追溯晶圓原始生產序號與長晶 Ingot 切片分層統計。<br>2. 針對該廠商原材執行 FTIR 磊晶厚度與 Micro-PCP 載子壽命複測。',
+      en_title: 'Diagnosis: Raw Wafer Substrate Ingot & Epitaxial Vendor Drift',
+      en_body: '<b>Mechanism:</b> Fab-wide yield depression correlating strictly with raw wafer vendor batches. Root causes include epitaxial thickness non-uniformity or high interstitial oxygen (\(O_i\)).<br><b>Verification SOP:</b><br>1. Stratify yield tracking by Ingot slicing order and substrate vendor code.<br>2. Re-measure FTIR epi thickness and carrier recombination lifetime (Micro-PCP).'
+    }
+  };
+
+  function runTriangulatorDiagnosis() {
+    const sym = document.getElementById('selTriangulatorSymptom').value;
+    const rule = triangulatorRules[sym] || triangulatorRules['site_imbalance'];
+
+    const p = rule.p; // [HW, SW, MSA, Mat, Fab]
+    document.getElementById('barHW').style.width = p[0] + '%';
+    document.getElementById('pctHW').textContent = p[0] + '%';
+
+    document.getElementById('barSW').style.width = p[1] + '%';
+    document.getElementById('pctSW').textContent = p[1] + '%';
+
+    document.getElementById('barMSA').style.width = p[2] + '%';
+    document.getElementById('pctMSA').textContent = p[2] + '%';
+
+    document.getElementById('barMat').style.width = p[3] + '%';
+    document.getElementById('pctMat').textContent = p[3] + '%';
+
+    document.getElementById('barFab').style.width = p[4] + '%';
+    document.getElementById('pctFab').textContent = p[4] + '%';
+
+    const titleEl = document.getElementById('triDiagTitle');
+    const detailEl = document.getElementById('triDiagDetail');
+    if (titleEl && detailEl) {
+      titleEl.textContent = (currentLang === 'zh') ? rule.zh_title : rule.en_title;
+      detailEl.innerHTML = (currentLang === 'zh') ? rule.zh_body : rule.en_body;
+    }
+  }
+
+  // --- TOOL 4: CHAMBER COMMONALITY CALCULATIONS ---
   function recalcChamberStats() {
     const fA = parseInt(document.getElementById('chFailA').value) || 0;
     const fB = parseInt(document.getElementById('chFailB').value) || 0;
@@ -2074,7 +2377,6 @@
     document.getElementById('chRateC').textContent = rC.toFixed(2) + '%';
     document.getElementById('chRateD').textContent = rD.toFixed(2) + '%';
 
-    // Odds Ratios vs baseline average of other 3
     function calcOR(f, tot) {
       const p = tot - f;
       const f_others = failAll - f;
@@ -2088,7 +2390,6 @@
     document.getElementById('chORC').textContent = calcOR(fC, totC).toFixed(2);
     document.getElementById('chORD').textContent = calcOR(fD, totD).toFixed(2);
 
-    // 2x4 Contingency Chi-Square:
     let chi2 = 0;
     const rows = [ [fA, totA - fA], [fB, totB - fB], [fC, totC - fC], [fD, totD - fD] ];
     const grandTotal = totAll;
@@ -2104,7 +2405,7 @@
     });
 
     document.getElementById('valChi2').textContent = chi2.toFixed(1);
-    if (chi2 > 16.27) { // p < 0.001 for df=3
+    if (chi2 > 16.27) {
       document.getElementById('valPval').textContent = '< 0.00001';
       document.getElementById('valDecision').textContent = (currentLang === 'zh') ? '🚨 隔離 Chamber C' : '🚨 Isolate Chamber C';
     } else {
@@ -2113,7 +2414,7 @@
     }
   }
 
-  // --- TOOL 4: CPK & PAT CANVAS ---
+  // --- TOOL 5: CPK & PAT CANVAS ---
   function updateCpkView() {
     const mean = parseFloat(document.getElementById('inpMeanShift').value);
     const sigma = parseFloat(document.getElementById('inpSigma').value);
@@ -2131,7 +2432,6 @@
 
     document.getElementById('valCpk').textContent = cpk.toFixed(2);
 
-    // Approximate DPPM:
     function normalCDF(x) {
       const t = 1 / (1 + 0.2316419 * Math.abs(x));
       const d = 0.3989423 * Math.exp(-x * x / 2);
@@ -2171,7 +2471,6 @@
     const colBorder = isDark ? '#2a3634' : '#d1dcd9';
     const colAccent = isDark ? '#5bbcdd' : '#0b6e8f';
 
-    // X Range: 0.55V to 0.85V
     const xMin = 0.55;
     const xMax = 0.85;
 
@@ -2179,14 +2478,12 @@
       return 40 + ((v - xMin) / (xMax - xMin)) * (w - 80);
     }
 
-    // Normal curve formula
     function normPdf(x, m, s) {
       return (1 / (s * Math.sqrt(2 * Math.PI))) * Math.exp(-0.5 * Math.pow((x - m) / s, 2));
     }
 
     const maxPdf = normPdf(mean, mean, sigma);
 
-    // Draw baseline
     ctx.strokeStyle = colBorder;
     ctx.lineWidth = 1.5;
     ctx.beginPath();
@@ -2194,7 +2491,6 @@
     ctx.lineTo(w - 40, h - 35);
     ctx.stroke();
 
-    // Fill Curve
     ctx.beginPath();
     ctx.moveTo(getX(xMin), h - 35);
     for (let vx = xMin; vx <= xMax; vx += 0.002) {
@@ -2207,7 +2503,6 @@
     ctx.fillStyle = isDark ? 'rgba(91, 188, 221, 0.22)' : 'rgba(11, 110, 143, 0.15)';
     ctx.fill();
 
-    // Outline curve
     ctx.strokeStyle = colAccent;
     ctx.lineWidth = 2.5;
     ctx.beginPath();
@@ -2219,21 +2514,17 @@
     }
     ctx.stroke();
 
-    // Draw LSL & USL Lines
     ctx.strokeStyle = '#e28779';
     ctx.lineWidth = 2;
-    // LSL
     ctx.beginPath();
     ctx.moveTo(getX(LSL), 15);
     ctx.lineTo(getX(LSL), h - 35);
     ctx.stroke();
-    // USL
     ctx.beginPath();
     ctx.moveTo(getX(USL), 15);
     ctx.lineTo(getX(USL), h - 35);
     ctx.stroke();
 
-    // Draw Mean Line
     ctx.strokeStyle = colAccent;
     ctx.setLineDash([4, 4]);
     ctx.beginPath();
@@ -2242,7 +2533,6 @@
     ctx.stroke();
     ctx.setLineDash([]);
 
-    // Draw PAT Limits (mean ± 4*sigma)
     ctx.strokeStyle = '#dcab53';
     ctx.lineWidth = 1.5;
     ctx.setLineDash([3, 3]);
@@ -2258,7 +2548,6 @@
     ctx.stroke();
     ctx.setLineDash([]);
 
-    // Labels
     ctx.fillStyle = colInk;
     ctx.font = '11px IBM Plex Mono, monospace';
     ctx.textAlign = 'center';
@@ -2327,7 +2616,6 @@
     if (currentFindIndex < 0 || currentFindIndex >= findMatches.length) return;
 
     const item = findMatches[currentFindIndex];
-    // Automatically expand collapsed parent sections
     let cur = item.parent;
     while (cur && cur !== document.body) {
       if (cur.classList && cur.classList.contains('collapse-body') && cur.classList.contains('collapsed')) {
@@ -2360,6 +2648,7 @@
     initThemeAndLang();
     calcYieldModel();
     renderWaferPattern();
+    runTriangulatorDiagnosis();
     updateCpkView();
   });
 </script>
