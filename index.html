@@ -5641,6 +5641,82 @@
                 </tbody>
               </table>
             </div>
+
+            <!-- DETAILED CELL-AWARE WORKFLOW -->
+            <div style="background:var(--surface-2); border:1px solid var(--border); border-radius:6px; padding:14px; margin-top:14px;">
+              <div style="font-weight:700; color:var(--accent); font-size:12.5px; margin-bottom:6px;">
+                <span class="zh">🔬 深入詳解 1：Cell-Aware Test (CAT) 標準單元內部缺陷建模與 4 步特徵化流程</span>
+                <span class="en">🔬 Deep Dive 1: Cell-Aware Test (CAT) Intra-Cell Transistor Defect Modeling Flow</span>
+              </div>
+              <p style="font-size:12px; line-height:1.6; margin-bottom:8px;">
+                <span class="zh">
+                  傳統 ATPG 假設單元是布林理想邏輯，但先進 FinFET / GAA 製程中標準單元內部由數十根奈米級鰭片（Fins）、金屬閘極接觸（CA/CB）、中段製程（MOL / MEOL）走線構成。Cell-Aware 的核心是<b>「在晶圓量產前，先對整個 Standard Cell Library 做一次性的電晶體級缺陷物理特徵化」</b>：<br>
+                  &bull; <b>步驟 1 - 物理版圖提取 (GDSII Extraction)</b>：讀取單元 GDSII 物理版圖，執行奈米級寄生參數提取（PEX），取得所有內部電晶體源極、汲極、閘極與內部金屬走線的實體節點。<br>
+                  &bull; <b>步驟 2 - 窮舉缺陷注入 (Exhaustive Defect Injection)</b>：在單元內部所有幾何間隙相鄰處注入電橋短路電阻（\(R_{\text{bridge}} = 0 \sim 1\text{k}\Omega\)），在所有接觸孔與導線上注入斷路電阻（\(R_{\text{open}} = 10\text{M}\Omega \sim 1\text{G}\Omega\)）以及高阻抗微開路（\(R_{\text{res}} = 1\text{k}\Omega \sim 100\text{k}\Omega\)）。<br>
+                  &bull; <b>步驟 3 - 類比 SPICE 缺陷模擬 (Analog SPICE Simulation)</b>：對數萬種被注入缺陷的單元網表，施加所有可能靜態輸入狀態組合（\(2^N\) 狀態）與動態轉移對（\(2^N \times 2^N\) 序列），記錄哪些缺陷會改變輸出電位，或導致輸出上升/下降延遲增加（\(\Delta t > \Delta t_{\text{threshold}}\)）。<br>
+                  &bull; <b>步驟 4 - 產生自定義缺陷模型 (UDDM Generation)</b>：輸出單元感知故障模型庫（User-Defined Defect Model, UDDM）。ATPG 工具（如 Siemens Tessent Cell-Aware 或 Synopsys TestMAX）讀取 UDDM，在全晶片層級直接求解出能滿足單元內部敏化條件的專屬測試向量。
+                </span>
+                <span class="en">
+                  Classical ATPG models cells as Boolean logic, but modern FinFET/GAA standard cells comprise dense 3D structures with nano-scale fins, middle-of-line (MOL) contacts (CA/CB), and local interconnects. Cell-Aware characterizes physical library defects offline before volume silicon testing:<br>
+                  &bull; <b>Step 1 - GDSII Physical Layout Extraction (PEX)</b>: Extracts full parasitic RC transistor netlists from GDSII standard cell layout, identifying exact internal geometric coordinates.<br>
+                  &bull; <b>Step 2 - Systematic Defect Injection</b>: Injects intra-cell resistive bridges (\(R_{\text{bridge}} = 0 \sim 1\text{k}\Omega\)) between adjacent conductive layers, and resistive opens / contact voids (\(R_{\text{open}} = 1\text{k}\Omega \sim 1\text{G}\Omega\)) across internal vias and fin contacts.<br>
+                  &bull; <b>Step 3 - Transistor-Level Analog SPICE Simulation</b>: Runs analog SPICE simulations across all static input states (\(2^N\)) and dynamic two-pattern transitions to determine precisely which input combinations force internal defects to alter logical output or exceed delay thresholds (\(\Delta t > \Delta t_{\text{threshold}}\)).<br>
+                  &bull; <b>Step 4 - UDDM Library Export</b>: Generates the User-Defined Defect Model (UDDM) library. ATPG engines (e.g., Siemens Tessent Cell-Aware, Synopsys TestMAX) parse UDDM rules to justify required intra-cell stimulus states across the full-chip netlist.
+                </span>
+              </p>
+              <div style="font-size:11.5px; background:var(--surface); border-left:3px solid var(--accent); padding:8px 12px; font-family:var(--font-mono);">
+                <span class="zh"><b>【經典 NAND2 單元實例】</b>：傳統 Stuck-At 只需 3 組向量：(0,1)、(1,0)、(1,1)。但若 pMOS1 汲極與內部金屬出現 5kΩ 微開路，只有施加連續轉移序列 \((1,0) \to (1,1)\) 才能迫使輸出電容經由故障電阻放電暴露缺陷。傳統 ATPG 命中率為 0，Cell-Aware 命中率為 100%。</span>
+                <span class="en"><b>[Concrete NAND2 Example]</b>: Classical Stuck-At tests NAND2 with only 3 patterns: (0,1), (1,0), (1,1). However, if an internal 5kΩ resistive void exists beneath the pMOS1 drain contact, only the dynamic sequence \((1,0) \to (1,1)\) forces output node discharge through the offending path. Classical ATPG detection rate = 0%; Cell-Aware detection rate = 100%.</span>
+              </div>
+            </div>
+
+            <!-- DETAILED TIMING-AWARE WORKFLOW -->
+            <div style="background:var(--surface-2); border:1px solid var(--border); border-radius:6px; padding:14px; margin-top:14px;">
+              <div style="font-weight:700; color:var(--accent); font-size:12.5px; margin-bottom:6px;">
+                <span class="zh">⏱️ 深入詳解 2：Timing-Aware ATPG 關鍵路徑鬆弛度 (Slack) 演算法與 DDS 臨界尺寸</span>
+                <span class="en">⏱️ Deep Dive 2: Timing-Aware ATPG Critical Path Slack &amp; DDS Defect Calculation</span>
+              </div>
+              <p style="font-size:12px; line-height:1.6; margin-bottom:8px;">
+                <span class="zh">
+                  在先進節點高時脈頻率（&gt; 1.5 GHz）下，傳統 Transition ATPG 的最大軟肋在於<b>「向量生成演算法預設會尋找最容易敏化、最容易觀察的路徑」</b>，這類路徑往往是邏輯階數少、鬆弛度極大的「短路徑（Short Paths）」。Timing-Aware 透過與靜態時序分析（STA）深度綁定，徹底顛覆此行為：<br>
+                  &bull; <b>時序鬆弛度定義 (Timing Slack)</b>：對任意時序路徑 \(i\)，鬆弛度 \(\text{Slack}_i = T_{\text{required}} - T_{\text{arrival}}\)。<br>
+                  &bull; <b>可檢測缺陷尺寸 (Detectable Defect Size, DDS)</b>：路徑上能被 ATE 採樣到的微小延遲缺陷尺寸必須滿足：
+                  \[ \Delta t_{\text{defect}} > \text{Slack}_i \]
+                  &bull; <b>短路徑漏測機制 (Short-Path Masking Trap)</b>：若缺陷出現在 \(\text{Slack} = 650\text{ps}\) 的短路徑上，一個 \(\Delta t = 200\text{ps}\) 的高阻抗缺陷引發之延遲增加後，路徑總延遲依然滿足時鐘週期（\(\text{Slack}' = 450\text{ps} > 0\)）。該晶片以全及格良品出廠，但在車載高溫高壓環境下運作 3 個月後，熱應力使電阻飆升，最終造成現場災難！<br>
+                  &bull; <b>Timing-Aware 強制引導機制 (Slack-Directed Sensitization)</b>：Timing-Aware ATPG 讀取反標注 SDF/SPEF 檔案，強制將故障敏化路徑鎖定在<b>「\(\text{Slack} \le 80\text{ps}\) 的近臨界長路徑」</b>。此時相同的 \(\Delta t = 200\text{ps}\) 缺陷會使 \(\text{Slack}' = 80 - 200 = -120\text{ps} < 0\)，在晶圓測試站立刻觸發時序違規並精確攔截！
+                </span>
+                <span class="en">
+                  At gigahertz operating frequencies (&gt; 1.5 GHz), classical Transition ATPG suffers from a fatal blind spot: <b>its heuristic algorithms prioritize shortest, lowest-depth paths to minimize pattern count</b>. Timing-Aware ATPG eliminates this via direct coupling with Static Timing Analysis (STA):<br>
+                  &bull; <b>Timing Slack Definition</b>: For any sensitized path \(i\), slack is \(\text{Slack}_i = T_{\text{required}} - T_{\text{arrival}}\).<br>
+                  &bull; <b>Detectable Defect Size (DDS) Criterion</b>: A physical delay defect \(\Delta t_{\text{defect}}\) is only caught by the tester if:
+                  \[ \Delta t_{\text{defect}} > \text{Slack}_i \]
+                  &bull; <b>The Short-Path Masking Trap</b>: If a defect occurs on an easy-to-sensitize path with \(\text{Slack} = 650\text{ps}\), an interconnect void adding \(\Delta t = 200\text{ps}\) delay still yields positive slack (\(\text{Slack}' = 450\text{ps} > 0\)). The chip passes sort with flying colors, but field thermal cycling exacerbates contact degradation into catastrophic in-cabin field failures.<br>
+                  &bull; <b>Slack-Directed Sensitization</b>: Timing-Aware ATPG reads back-annotated SDF/SPEF parasitic databases to deliberately steer sensitization through <b>near-critical paths with \(\text{Slack} \le 80\text{ps}\)</b>. The identical 200ps defect now produces negative slack (\(\text{Slack}' = 80 - 200 = -120\text{ps} < 0\)), cleanly failing at wafer probe.
+                </span>
+              </p>
+            </div>
+
+            <!-- CELL-AWARE TIMING: THE ULTIMATE SYNTHESIS -->
+            <div style="background:var(--surface-2); border:1px solid var(--border); border-left:3px solid var(--danger); border-radius:6px; padding:14px; margin-top:14px;">
+              <div style="font-weight:700; color:var(--danger); font-size:12.5px; margin-bottom:6px;">
+                <span class="zh">🏆 終極綜效：Cell-Aware Timing (CAT + Timing: 雙劍合璧之車規零缺陷防線)</span>
+                <span class="en">🏆 The Ultimate Defense: Cell-Aware Timing (CAT + Timing for Sub-0.1 DPPM Quality)</span>
+              </div>
+              <p style="font-size:12px; line-height:1.6; margin-bottom:0;">
+                <span class="zh">
+                  在先進車用自駕晶片（ISO 26262 ASIL-D）量產實務中，頂尖晶圓廠已將兩者合成<b>「Cell-Aware Timing（單元時序雙感知）」</b>流程：<br>
+                  1. 利用 SPICE 量化標準單元內部每個接觸孔微開路造成的微觀延遲增量（\(\Delta t_{\text{cell}}\)）；<br>
+                  2. ATPG 引擎在全晶片網表中，尋找通過該單元且外部路徑鬆弛度 \(\text{Slack}_{\text{path}} < \Delta t_{\text{cell}}\) 的臨界路徑進行激勵。<br>
+                  <b>實戰效益</b>：比傳統 Stuck-at + Transition 測試額外降低 <b>65% 的潛在時序與微結構客訴</b>，將出貨缺陷率壓制至 <b>&lt; 0.05 DPPM</b> 極限水準。
+                </span>
+                <span class="en">
+                  In mission-critical autonomous driving silicon (ISO 26262 ASIL-D), tier-1 fabs merge both technologies into <b>Cell-Aware Timing</b>:<br>
+                  1. Analog SPICE quantifies the exact intra-cell delay penalty (\(\Delta t_{\text{cell}}\)) induced by every internal contact void;<br>
+                  2. The ATPG engine identifies external chip paths through that cell where \(\text{Slack}_{\text{path}} < \Delta t_{\text{cell}}\) to sensitize the defect.<br>
+                  <b>Production Impact</b>: Reduces latent timing and micro-structural field returns by an additional <b>65% over classical SAF+TDF</b>, driving outgoing quality down to <b>&lt; 0.05 DPPM</b>.
+                </span>
+              </p>
+            </div>
           </div>
 
 
@@ -6925,11 +7001,11 @@
     <div style="display:flex; flex-direction:column; align-items:flex-end; gap:5px;">
       <div style="display:flex; align-items:center; gap:8px;">
         <span class="badge badge-green" style="font-size:11px; padding:2px 8px;">● LIVE VERIFIED</span>
-        <span style="font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft);">Rev. Q</span>
+        <span style="font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft);">Rev. R</span>
       </div>
       <div style="font-family:var(--font-mono); font-size:12px; color:var(--ink);">
         <span class="zh">最後更新日期：</span><span class="en">Last Updated: </span>
-        <b style="color:var(--accent);">2026-10-22 17:05 (Asia/Taipei)</b>
+        <b style="color:var(--accent);">2026-10-22 18:50 (Asia/Taipei)</b>
       </div>
     </div>
   </footer>
