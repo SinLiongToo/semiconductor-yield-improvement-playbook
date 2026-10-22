@@ -5129,71 +5129,281 @@
         </div>
       </section>
 
-      <!-- PHASE 6: PARAMETRIC MARGIN & CPK ANALYSIS -->
+      <!-- PHASE 6: PARAMETRIC MARGIN, CPK DRIFT & FUNCTIONAL CAPABILITY -->
       <section id="phase6_cpk">
         <h2 class="collapsible-h" onclick="toggleCollapse(this)">
           <span>
-            <span class="zh">Phase 6: 參數 Margin 與 Cpk 飄移 (Parametric Margin & Cpk Drift)</span>
-            <span class="en">Phase 6: Parametric WAT/CP Margin & Cpk Drift</span>
+            <span class="zh">Phase 6: 參數 Margin、Cpk 飄移與功能測試等效能力分析 (Parametric Margin &amp; Functional Capability)</span>
+            <span class="en">Phase 6: Parametric Margin, Cpk Drift &amp; Functional Capability Modeling</span>
           </span>
           <span class="collapse-arrow">▼</span>
         </h2>
         <div class="collapse-body">
           <p>
             <span class="zh">
-              現代半導體良率競爭的勝負手在於<b>「參數型良率損失（Parametric Yield Loss）」</b>。晶片電路各節點皆可動作，但因臨界電壓（\(V_{th}\)）、驅動電流（\(I_{on}\)）、寄生電阻過大，導致工作頻率或功耗無法達標。
+              現代半導體良率競爭的勝負手在於<b>「參數型良率損失（Parametric Yield Loss）」</b>與<b>「功能測試漏測邊限（Functional Test Escape Margin）」</b>。晶片電路各節點皆可動作，但因臨界電壓（\(V_{th}\)）、驅動電流（\(I_{on}\)）、寄生電阻過大，導致工作頻率或功耗無法達標。
             </span>
             <span class="en">
-              While functional opens/shorts cause clear-cut fallout, the competitive battlefield lies in <b>Parametric Yield Loss</b>. Circuits function logically, but marginal threshold voltages (\(V_{th}\)), drive currents (\(I_{on}\)), or parasitic resistances degrade performance below datasheet limits.
+              While catastrophic opens and shorts cause clear-cut fallout, the ultimate competitive battlefield in advanced nodes lies in <b>Parametric Yield Loss</b> and <b>Functional Test Escape Margins</b>. Circuits function logically, but marginal threshold voltages (\(V_{th}\)), drive currents (\(I_{on}\)), or parasitic interconnect resistances degrade speed and power beyond datasheet guardbands.
+            </span>
+          </p>
+
+          <!-- 6.1 CLASSICAL PARAMETRIC CPK -->
+          <h3>
+            <span class="zh">6.1 參數型良率損失與傳統 Cpk / Ppk 指標體系 (Classical Parametric Cpk &amp; Ppk)</span>
+            <span class="en">6.1 Classical Parametric Cpk / Ppk Metrics &amp; Defect Rate Equivalence</span>
+          </h3>
+          <p>
+            <span class="zh">
+              在晶圓允收測試（WAT / PCM）與類比/DC 測試中，量測值為連續型數值（Continuous Variables），服從常態分佈。製程能力指標（Process Capability Index, \(C_{pk}\)）與製程績效指標（Process Performance Index, \(P_{pk}\)）是用以量化量產穩定度與邊界餘裕的業界標準：
+            </span>
+            <span class="en">
+              In Wafer Acceptance Testing (WAT / PCM) and DC parametric probing, measured data consists of continuous variables conforming to Gaussian normal distributions. Process Capability (\(C_{pk}\)) and Process Performance (\(P_{pk}\)) quantify margin and reproducibility:
             </span>
           </p>
 
           <div class="formula">
-            \[ C_{pk} = \min\left( \frac{USL - \mu}{3\sigma}, \frac{\mu - LSL}{3\sigma} \right) \]
+            \[ C_p = \frac{USL - LSL}{6\sigma_{\text{within}}}, \quad C_{pk} = \min\left( \frac{USL - \mu}{3\sigma_{\text{within}}}, \frac{\mu - LSL}{3\sigma_{\text{within}}} \right), \quad P_{pk} = \min\left( \frac{USL - \bar{\bar{X}}}{3\sigma_{\text{overall}}}, \frac{\bar{\bar{X}} - LSL}{3\sigma_{\text{overall}}} \right) \]
           </div>
 
           <div class="data-table-wrap">
             <table class="data-table">
               <thead>
                 <tr>
-                  <th>\(C_{pk}\) 水準</th>
+                  <th><span class="zh">\(C_{pk}\) 水準</span><span class="en">\(C_{pk}\) Level</span></th>
                   <th><span class="zh">單邊標準差距離</span><span class="en">Sigma Distance</span></th>
                   <th><span class="zh">預期不合格率 (DPPM)</span><span class="en">Defect Rate (DPPM)</span></th>
-                  <th><span class="zh">適用產業等級</span><span class="en">Industry Grade</span></th>
+                  <th><span class="zh">適用產業品質等級</span><span class="en">Target Industry Grade</span></th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td><b>1.00</b></td>
-                  <td>\(3\sigma\)</td>
+                  <td>\(3.0\sigma\)</td>
                   <td>2,700 DPPM</td>
-                  <td>標準低階消費性電子（嚴重良率耗損）</td>
+                  <td>
+                    <span class="zh">標準低階消費性電子（嚴重良率耗損與退件風險）</span>
+                    <span class="en">Standard low-tier consumer electronics (Severe yield loss risk)</span>
+                  </td>
                 </tr>
                 <tr>
                   <td><b>1.33</b></td>
-                  <td>\(4\sigma\)</td>
+                  <td>\(4.0\sigma\)</td>
                   <td>63 DPPM</td>
-                  <td>工業控制與一般商用規格基準線</td>
+                  <td>
+                    <span class="zh">工業控制與一般商用通訊規格基準線 (Industry Baseline)</span>
+                    <span class="en">Industrial control &amp; standard commercial baseline</span>
+                  </td>
                 </tr>
                 <tr>
                   <td><b>1.67</b></td>
-                  <td>\(5\sigma\)</td>
+                  <td>\(5.0\sigma\)</td>
                   <td>0.57 DPPM</td>
-                  <td>車用晶片（Automotive AEC-Q100）標準要求</td>
+                  <td>
+                    <span class="zh">車用晶片（Automotive AEC-Q100 / ISO 26262）強制門檻</span>
+                    <span class="en">Automotive grade (AEC-Q100 / ISO 26262 mandatory threshold)</span>
+                  </td>
                 </tr>
                 <tr>
                   <td><b>2.00</b></td>
-                  <td>\(6\sigma\)</td>
+                  <td>\(6.0\sigma\)</td>
                   <td>0.002 DPPM (2 PPB)</td>
-                  <td>航太航空與醫療植入物晶片極致要求</td>
+                  <td>
+                    <span class="zh">航太航空、伺服器核心與人體醫療植入物晶片極致要求</span>
+                    <span class="en">Aerospace, datacenter AI silicon &amp; implantable medical electronics</span>
+                  </td>
                 </tr>
               </tbody>
             </table>
           </div>
+
+          <!-- 6.2 HOW TO HANDLE FUNCTIONAL TEST NO CPK -->
+          <h3>
+            <span class="zh">6.2 功能測試「無 Cpk 難題」之 4 大工程解方 (Functional Test: Solving the "No Cpk" Dilemma)</span>
+            <span class="en">6.2 Functional Test: Solving the "No Cpk" Dilemma (4 Industry-Standard Methods)</span>
+          </h3>
+          <p>
+            <span class="zh">
+              <b>【工程痛點與本質矛盾】</b>：數位邏輯測試（Scan ATPG、Memory BIST、邏輯向量、高速傳輸協定握手）輸出的是<b>計數型屬性數據（Attribute Data: Pass / Fail, Bin 1 vs Fail Bin）</b>。晶片在額定條件下只有「過」或「不過」，沒有平均值 \(\mu\) 與標準差 \(\sigma\)，數學上無法直接計算傳統 \(C_{pk}\)。然而在客戶品質稽核（Customer Audit）時，車廠或大客戶往往強制要求所有測試站點皆須提供 \(C_{pk} \ge 1.67\) 證明。半導體頂尖晶圓廠與設計公司採用以下 <b>4 大標準工程應對方案</b>：
+            </span>
+            <span class="en">
+              <b>[The Core Dilemma]</b>: Digital functional patterns (Scan ATPG, MBIST, logic vectors, high-speed SerDes handshakes) produce discrete <b>Attribute Data (Pass/Fail, Bin 1 vs. Fail Bin)</b>. A die tested at nominal operating point either passes or fails—there is no continuous mean \(\mu\) or variance \(\sigma^2\), rendering classical \(C_{pk}\) mathematically undefined. Yet Tier-1 automotive and enterprise OEMs routinely mandate audit proof of \(C_{pk} \ge 1.67\). Leading fabs and design houses solve this via <b>4 standardized engineering frameworks</b>:
+            </span>
+          </p>
+
+          <div class="data-table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th><span class="zh">方法名稱</span><span class="en">Methodology</span></th>
+                  <th><span class="zh">核心工程作法</span><span class="en">Implementation Protocol</span></th>
+                  <th><span class="zh">數學計算與 Cpk 評估模型</span><span class="en">Mathematical Cpk Formula</span></th>
+                  <th><span class="zh">產線適用場景與稽核抗辯效益</span><span class="en">Application &amp; Audit Defense</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <span class="zh"><b>方案 A：功能邊界「參數化」搜索 (Parametric Boundary Search)</b></span>
+                    <span class="en"><b>Approach A: Parametric Boundary Search (Vmin/Fmax Shmoo)</b></span>
+                  </td>
+                  <td>
+                    <span class="zh">
+                      不只在標稱工作點測 Go/No-Go，而在 ATE 上執行二分法搜索（Binary Search）：<br>
+                      &bull; <b>\(V_{min}\) 搜索</b>：固定頻率，逐步降低核心電壓，記錄邏輯失效時的臨界電壓；<br>
+                      &bull; <b>\(F_{max}\) 搜索</b>：固定電壓，逐步超頻，記錄時序違規時的最高頻率；<br>
+                      &bull; <b>Strobe Window 搜索</b>：掃描比較器取樣時序，量測資料眼圖寬度（ps）。
+                    </span>
+                    <span class="en">
+                      Replace fixed-point Go/No-Go testing with rapid binary search algorithms on the ATE:<br>
+                      &bull; <b>\(V_{min}\) Search</b>: Keep frequency nominal, ramp down core voltage until vector fails;<br>
+                      &bull; <b>\(F_{max}\) Search</b>: Keep voltage nominal, overdrive clock frequency until timing fails;<br>
+                      &bull; <b>Strobe Window Search</b>: Sweep comparator strobe offset to measure eye width (ps).
+                    </span>
+                  </td>
+                  <td>
+                    <span class="zh">
+                      直接將所得連續數值帶入標準 \(C_{pk}\) 公式：<br>
+                      \[ C_{pk}(V_{min}) = \frac{USL(V_{min}) - \mu}{3\sigma} \]
+                      其中 \(USL = V_{DD,\text{spec}} - \text{Guardband}\)（如 0.85V）。
+                    </span>
+                    <span class="en">
+                      Directly compute classical \(C_{pk}\) on the resulting continuous distribution:<br>
+                      \[ C_{pk}(V_{min}) = \frac{USL(V_{min}) - \mu}{3\sigma} \]
+                      where \(USL = V_{DD,\text{spec}} - \text{Guardband}\) (e.g., 0.85V).
+                    </span>
+                  </td>
+                  <td>
+                    <span class="zh"><b>【業界黃金標準】</b>適用於 NPI 產品驗證、批次抽檢（1 wafer/lot）與關鍵車用產品全檢。能直接提供連續型分佈直方圖與常態分佈檢定（Anderson-Darling）。</span>
+                    <span class="en"><b>[The Gold Standard]</b> Deployed in NPI characterization, lot-level sample audits (1 wafer/lot), and mission-critical automotive flows. Directly generates continuous Gaussian histograms.</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="zh"><b>方案 B：計數型數據轉化「等效能力指標」 (Z-Score / Cpk,equiv)</b></span>
+                    <span class="en"><b>Approach B: Attribute Z-Score to Equivalent Cpk (Zbench)</b></span>
+                  </td>
+                  <td>
+                    <span class="zh">
+                      當量產測試時間（Test Time）極其受限無法執行 \(V_{min}\) 掃描時，依據大量樣品（&gt; 100,000 顆）的功能失效率（Defect Rate / DPPM），透過常態累積分佈函數反函數（Inverse CDF）換算為標準常態偏差值 \(Z_{\text{bench}}\)。
+                    </span>
+                    <span class="en">
+                      When production test-time economics forbid running binary searches on 100% of volume dies, convert massive-sample functional fallout rates (DPPM across &gt; 100,000 dies) via the standard normal inverse cumulative distribution function \(\Phi^{-1}\).
+                    </span>
+                  </td>
+                  <td>
+                    <span class="zh">
+                      \[ Z_{\text{bench}} = \Phi^{-1}(1 - \text{DPPM} \times 10^{-6}) \]
+                      \[ C_{pk,\text{equiv}} = \frac{Z_{\text{bench}}}{3} \]
+                      若計入六標準差長期漂移（\(1.5\sigma\) shift）：<br>
+                      \[ C_{pk,\text{equiv,lt}} = \frac{Z_{\text{bench}} - 1.5}{3} \]
+                    </span>
+                    <span class="en">
+                      \[ Z_{\text{bench}} = \Phi^{-1}(1 - \text{DPPM} \times 10^{-6}) \]
+                      \[ C_{pk,\text{equiv}} = \frac{Z_{\text{bench}}}{3} \]
+                      Accounting for long-term empirical drift (\(1.5\sigma\) shift):<br>
+                      \[ C_{pk,\text{equiv,lt}} = \frac{Z_{\text{bench}} - 1.5}{3} \]
+                    </span>
+                  </td>
+                  <td>
+                    <span class="zh"><b>【車載與通訊全檢首選】</b>滿足 ISO/TS 16949 / AEC-Q100 計數型數據製程能力稽核要求。例如功能失效率 &lt; 0.57 DPPM 即等同於 \(C_{pk} \ge 1.67\)（\(5\sigma\) 水準）。</span>
+                    <span class="en"><b>[Automotive &amp; High-Volume Standard]</b> Fully satisfies ISO/TS 16949 and AEC-Q100 audit criteria for attribute data. E.g., &lt; 0.57 DPPM translates mathematically to \(C_{pk} \ge 1.67\).</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="zh"><b>方案 C：硬體代理指標追蹤 (Hardware Proxy: RO &amp; CPM)</b></span>
+                    <span class="en"><b>Approach C: Hardware Proxy Monitoring (Ring Oscillators &amp; CPM)</b></span>
+                  </td>
+                  <td>
+                    <span class="zh">
+                      在晶片內部數位邏輯旁置入<b>環形振盪器（Ring Oscillator, RO）</b>或關鍵路徑複本（Critical Path Monitor, CPM）。RO 震盪頻率是連續型物理讀數，與數位電路閘極延遲（Gate Delay）、互連 RC 延遲及 IR 壓降 100% 同源物理機制。
+                    </span>
+                    <span class="en">
+                      Integrate on-chip <b>Ring Oscillators (RO)</b> and Critical Path Monitors (CPM) physically adjacent to logic cores. The RO output frequency provides a high-speed continuous parametric readout tracking identical gate delays, RC parasitic loading, and IR droop.
+                    </span>
+                  </td>
+                  <td>
+                    <span class="zh">
+                      量測 RO 頻率並計算：<br>
+                      \[ C_{pk}(\text{RO Freq}) = \min\left( \frac{USL - \mu_{\text{RO}}}{3\sigma_{\text{RO}}}, \frac{\mu_{\text{RO}} - LSL}{3\sigma_{\text{RO}}} \right) \]
+                      透過迴歸模型驗證 \(R^2 &gt; 0.92\)，以連續型 \(C_{pk}(\text{RO})\) 代表數位功能健康度。
+                    </span>
+                    <span class="en">
+                      Measure RO frequency distributions and compute:<br>
+                      \[ C_{pk}(\text{RO Freq}) = \min\left( \frac{USL - \mu_{\text{RO}}}{3\sigma_{\text{RO}}}, \frac{\mu_{\text{RO}} - LSL}{3\sigma_{\text{RO}}} \right) \]
+                      Establish linear regression with \(R^2 &gt; 0.92\) linking RO frequency to functional timing slack.
+                    </span>
+                  </td>
+                  <td>
+                    <span class="zh"><b>【先進製程 SoC 首選】</b>測試時間僅需數毫秒（ms），即可獲得具備連續常態分佈的高精度 \(C_{pk}\)，同時完全解耦測試機走線寄生電感與探針阻抗的干擾。</span>
+                    <span class="en"><b>[Advanced SoC Standard]</b> Requires only a few milliseconds of test execution to yield continuous parametric distributions while decoupling ATE fixture and loadboard parasitics.</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="zh"><b>方案 D：加嚴角隅應力篩選 (Guardbanded Multi-Corner Stress)</b></span>
+                    <span class="en"><b>Approach D: Guardbanded Multi-Corner Stress Screening</b></span>
+                  </td>
+                  <td>
+                    <span class="zh">
+                      不進行連續搜索，而在製造端執行<b>動態物理應力過載（Over-stress Screening）</b>：<br>
+                      &bull; 額定規格為 \(1.0\text{V} \pm 10\%\)（\(0.9\text{V} \sim 1.1\text{V}\)）；<br>
+                      &bull; 產線測試條件加嚴至：<b>\(0.82\text{V}\)（低壓極限角，抓 Setup Time 缺陷）</b>與 <b>\(1.18\text{V}\)（高壓極限角，抓 Hold Time 漏電）</b>。
+                    </span>
+                    <span class="en">
+                      Forego continuous search in favor of <b>deliberate stress corner overdrive</b>:<br>
+                      &bull; Target datasheet specification: \(1.0\text{V} \pm 10\%\) (\(0.9\text{V} \sim 1.1\text{V}\));<br>
+                      &bull; Guardbanded test conditions: <b>\(0.82\text{V}\) (Under-voltage setup hazard)</b> and <b>\(1.18\text{V}\) (Over-voltage hold time &amp; leakage hazard)</b>.
+                    </span>
+                  </td>
+                  <td>
+                    <span class="zh">
+                      物理餘裕（Physical Margin）量化：<br>
+                      \[ \Delta V_{\text{margin}} = |V_{\text{test,edge}} - V_{\text{datasheet,edge}}| \ge 80\text{mV} \]
+                      證明所放行晶粒皆距離客戶可能工作極限具備超過 \(4\sigma\) 等效實體保護屏障。
+                    </span>
+                    <span class="en">
+                      Quantified Physical Margin metric:<br>
+                      \[ \Delta V_{\text{margin}} = |V_{\text{test,edge}} - V_{\text{datasheet,edge}}| \ge 80\text{mV} \]
+                      Demonstrates that every shipped die possesses \(&gt; 4\sigma\) equivalent physical buffer from datasheet boundaries.
+                    </span>
+                  </td>
+                  <td>
+                    <span class="zh"><b>【高性價比量產標準】</b>無需修改 ATE 程式演算法，只要在測試流（Test Flow）中插入加嚴電壓條件，即可向客戶保證出貨良品絕對具備實體物理容限。</span>
+                    <span class="en"><b>[Cost-Effective High-Volume Defense]</b> Requires zero algorithmic tester redesign; seamlessly integrates into ATE flow to prove robust physical guardbands.</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- AUDIT DEFENSE SOP CALLOUT -->
+          <div style="background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--accent); border-radius:6px; padding:16px; font-family:var(--font-mono); font-size:12.5px; line-height:1.7; margin-top:20px;">
+            <div class="zh">
+              <b>【車規客戶稽核標準防禦對話指南 (AEC-Q100 / ISO 26262 Audit Defense Protocol)】</b><br>
+              <b>當稽核員詢問：「為什麼貴司 CP/FT 測試報告中，Scan/BIST 功能測試沒有列出 Cpk 統計值？」</b><br>
+              <b>標準回應步驟：</b><br>
+              &bull; <b>步驟 1 - 釐清統計本質</b>：「功能測試輸出為計數型（Attribute）判定，數學上傳統連續型高斯 \(C_{pk}\) 未定義。」<br>
+              &bull; <b>步驟 2 - 出示等效能力轉換</b>：「依據產線近 500,000 顆出貨數據，該 Pattern 失效率穩定低於 0.45 DPPM，依據標準正態反函數轉換，等效 \(Z_{\text{bench}} = 5.05\sigma\)，對應之短程 \(C_{pk,\text{equiv}} = 1.68\)（滿足車規 \(C_{pk} \ge 1.67\) 強制門檻）。」<br>
+              &bull; <b>步驟 3 - 呈交 NPI Vmin 搜索分佈圖</b>：「在每批次首片（Lot Start Wafer）與工程驗證階段，我們固定執行二分法 \(V_{min}\) 實測，附上各批次實測之 \(C_{pk}(V_{min})\) 連續分佈走勢圖，全數維持在 1.72–1.85 之間。」<br>
+              &bull; <b>步驟 4 - 展現量產加嚴防禦</b>：「在 100% 量產測試中，我們已配置 \(\pm 10\%\) 電壓與三溫（-40°C, 25°C, 125°C）實體 Guardband 屏障，徹底根除漏測風險。」
+            </div>
+            <div class="en">
+              <b>[Automotive &amp; Tier-1 Customer Audit Defense Protocol (AEC-Q100 / ISO 26262)]</b><br>
+              <b>When the Auditor asks: "Why does your CP/FT yield report omit Cpk values for digital Scan/BIST functional patterns?"</b><br>
+              <b>Standard Institutional Defense Script:</b><br>
+              &bull; <b>Step 1 - Clarify Statistical Data Type</b>: "Functional patterns produce discrete attribute data (Go/No-Go). Classical Gaussian \(C_{pk}\) requires continuous parametric variables."<br>
+              &bull; <b>Step 2 - Present Equivalent Z-Score Capability</b>: "Across our last 500,000 production units, the functional fallout rate is strictly below 0.45 DPPM. Converting via inverse normal distribution yields \(Z_{\text{bench}} = 5.05\sigma\), corresponding to an equivalent \(C_{pk,\text{equiv}} = 1.68\) (exceeding the automotive \(C_{pk} \ge 1.67\) requirement)."<br>
+              &bull; <b>Step 3 - Provide NPI Vmin/Fmax Shmoo Capability</b>: "During NPI characterization and 1-wafer-per-lot sample audits, we run continuous \(V_{min}\) binary searches. The historical trend chart demonstrates continuous \(C_{pk}(V_{min})\) consistently within 1.72–1.85."<br>
+              &bull; <b>Step 4 - Demonstrate In-Line Multi-Corner Guardbanding</b>: "For 100% production volume, we implement in-line \(\pm 10\%\) core voltage guardbanding across Tri-Temp (-40°C, 25°C, 125°C) to physically guarantee robust margin against test escapes."
+            </div>
+          </div>
+
         </div>
       </section>
 
-      <!-- PHASE 6: FAILURE ANALYSIS (FA) & PHYSICAL DEFECT TO PROCESS CORRELATION -->
+      <!-- PHASE 7: FAILURE ANALYSIS (FA) & PHYSICAL DEFECT TO PROCESS CORRELATION -->
       <section id="phase7_fa">
         <h2 class="collapsible-h" onclick="toggleCollapse(this)">
           <span>
@@ -6471,11 +6681,11 @@
     <div style="display:flex; flex-direction:column; align-items:flex-end; gap:5px;">
       <div style="display:flex; align-items:center; gap:8px;">
         <span class="badge badge-green" style="font-size:11px; padding:2px 8px;">● LIVE VERIFIED</span>
-        <span style="font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft);">Rev. O</span>
+        <span style="font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft);">Rev. P</span>
       </div>
       <div style="font-family:var(--font-mono); font-size:12px; color:var(--ink);">
         <span class="zh">最後更新日期：</span><span class="en">Last Updated: </span>
-        <b style="color:var(--accent);">2026-10-22 16:15 (Asia/Taipei)</b>
+        <b style="color:var(--accent);">2026-10-22 16:45 (Asia/Taipei)</b>
       </div>
     </div>
   </footer>
