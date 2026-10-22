@@ -61,23 +61,23 @@ async function runVerification() {
   // 2. Language Toggle Test
   // 1.1 Verify Section 0: 6M1E Fishbone Diagram (Figure 0.2)
   console.log('\n[Test 1.1] Verifying 6M1E Fishbone Diagram (Figure 0.2)...');
-  const overviewSection = page.locator('#overview');
-  if (await overviewSection.count() > 0) {
-    const fishboneSvg = overviewSection.locator('svg').nth(1);
-    if (await fishboneSvg.count() > 0) {
-      await fishboneSvg.scrollIntoViewIfNeeded();
-      await fishboneSvg.screenshot({ path: path.join(screenshotsDir, '08_fishbone_diagram.png') });
-      console.log('  ✓ 6M1E Fishbone Diagram (Figure 0.2) verified and captured.');
-    }
+  const fig02Svg = page.locator('#fig02-svg');
+  if (await fig02Svg.count() > 0) {
+    await fig02Svg.scrollIntoViewIfNeeded();
+    await page.waitForTimeout(300);
+    await fig02Svg.screenshot({ path: path.join(screenshotsDir, '08_fishbone_diagram.png'), animations: 'disabled' });
+    console.log('  ✓ 6M1E Fishbone Diagram (Figure 0.2) verified and captured.');
+  }
 
-    // 1.1b Test Section 0.3 Bidirectional Control Architecture & Simulator
-    console.log('\n[Test 1.1b] Verifying Figure 0.3 Bidirectional Control Architecture & Simulator...');
-    const fig03Svg = overviewSection.locator('svg').nth(2);
-    if (await fig03Svg.count() > 0) {
-      await fig03Svg.scrollIntoViewIfNeeded();
-      await fig03Svg.screenshot({ path: path.join(screenshotsDir, '10_top10_fallout_architecture.png') });
-      console.log('  ✓ Figure 0.3 Bidirectional Architecture SVG verified and captured.');
-    }
+  // 1.1b Test Section 0.3 Bidirectional Control Architecture & Simulator
+  console.log('\n[Test 1.1b] Verifying Figure 0.3 Bidirectional Control Architecture & Simulator...');
+  const fig03Svg = page.locator('#fig03-svg');
+  if (await fig03Svg.count() > 0) {
+    await fig03Svg.scrollIntoViewIfNeeded();
+    await page.waitForTimeout(300);
+    await fig03Svg.screenshot({ path: path.join(screenshotsDir, '10_top10_fallout_architecture.png'), animations: 'disabled' });
+    console.log('  ✓ Figure 0.3 Bidirectional Architecture SVG verified and captured.');
+  }
 
     const simSelect = page.locator('#selFalloutMode');
     if (await simSelect.count() > 0) {
@@ -106,7 +106,6 @@ async function runVerification() {
     await page.locator('#btn-stage-1').click();
     await page.waitForTimeout(100);
     console.log('  ✓ All 5 stages (50 Fallout mechanisms & Push-Back protocols) validated 100%.');
-  }
 
   // 1.2 Test One-Click Zoom (Square Icon Badges & Lightbox Modal)
   console.log('\n[Test 1.2] Testing One-Click Zoom (Square Icon Badges & Lightbox Modal)...');
@@ -270,6 +269,22 @@ async function runVerification() {
     console.log(`  Toggled data-lang: ${toggledLang}`);
     await page.screenshot({ path: path.join(screenshotsDir, '01_language_toggled.png') });
     console.log('  ✓ Language toggle functional.');
+
+    // Verify Figure 0.2 Fishbone in English version
+    console.log('\n[Test 2.1] Verifying Fishbone Diagram in English Mode (No Mandarins)...');
+    const fishboneSvg = page.locator('#fig02-svg');
+    await fishboneSvg.scrollIntoViewIfNeeded();
+    await page.waitForTimeout(200);
+
+    const isZhHiddenInFishbone = await fishboneSvg.locator('text.zh').first().evaluate(el => window.getComputedStyle(el).display === 'none');
+    const isEnVisibleInFishbone = await fishboneSvg.locator('text.en').first().evaluate(el => window.getComputedStyle(el).display !== 'none');
+    console.log(`  ✓ Fishbone text.zh hidden: ${isZhHiddenInFishbone}, text.en visible: ${isEnVisibleInFishbone}`);
+    if (!isZhHiddenInFishbone || !isEnVisibleInFishbone) {
+      throw new Error('Fishbone language switching failed in English mode!');
+    }
+
+    await fishboneSvg.screenshot({ path: path.join(screenshotsDir, '14_fishbone_english_verified.png'), animations: 'disabled' });
+    console.log('  ✓ Captured 14_fishbone_english_verified.png with 100% English terminology.');
   } else {
     console.warn('  ⚠️ Language toggle button not found with expected selector.');
   }

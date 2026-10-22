@@ -928,7 +928,7 @@
       </div>
       <div>
         <span class="zh">版次狀態</span><span class="en">Revision</span>
-        <b>Rev. K (Top Sticky Controls & Max Viewport Architecture)</b>
+        <b>Rev. L (Full English &amp; Mandarin Bilingual SVG Architecture)</b>
       </div>
       <div>
         <span class="zh">適用對象</span><span class="en">Audience</span>
@@ -936,7 +936,7 @@
       </div>
       <div>
         <span class="zh">最後修訂</span><span class="en">Last Updated</span>
-        <b>2026-10-22 04:58</b>
+        <b>2026-10-22 13:55</b>
       </div>
     </div>
   </header>
@@ -1023,7 +1023,7 @@
           </p>
 
           <figure>
-            <svg viewBox="0 0 1180 295" style="width:100%; height:auto; font-family:var(--font-sans, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);" xmlns="http://www.w3.org/2000/svg">
+            <svg id="fig01-svg" viewBox="0 0 1180 295" style="width:100%; height:auto; font-family:var(--font-sans, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);" xmlns="http://www.w3.org/2000/svg">
               <defs>
                 <filter id="shadow01" x="-5%" y="-10%" width="110%" height="130%">
                   <feDropShadow dx="0" dy="3" stdDeviation="3" flood-opacity="0.18"/>
@@ -1089,8 +1089,10 @@
 
                 <!-- Non-Process Artifact Filter Box -->
                 <rect x="345" y="125" width="590" height="48" rx="6" fill="var(--warn-soft)" stroke="var(--warn)" stroke-width="1.5"/>
-                <text x="640" y="145" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--warn)">⚠️ 非製程假異常防禦網 (Non-Process Artifact Filter)</text>
-                <text x="640" y="161" text-anchor="middle" font-size="10" fill="var(--ink-soft)">排除：Contact 接觸不良、Probe Card 磨損、Socket 錫屑、Program 頻閃時序、Gage R&amp;R 誤差</text>
+                <text class="zh" x="640" y="145" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--warn)">⚠️ 非製程假異常防禦網 (Non-Process Artifact Filter)</text>
+                <text class="en" x="640" y="145" text-anchor="middle" font-size="11" font-weight="700" fill="var(--warn)">⚠️ Non-Process Artifact Filter</text>
+                <text class="zh" x="640" y="161" text-anchor="middle" font-size="10" fill="var(--ink-soft)">排除：Contact 接觸不良、Probe Card 磨損、Socket 錫屑、Program 頻閃時序、Gage R&amp;R 誤差</text>
+                <text class="en" x="640" y="161" text-anchor="middle" font-size="9.5" fill="var(--ink-soft)">Filters: Contact Rc, Probe Wear, Socket Solder Debris, Strobe Jitter, Gage R&amp;R Errors</text>
 
                 <!-- Inputs into Filter from Testing Nodes -->
                 <path d="M 392 95 L 392 125" stroke="var(--warn)" stroke-width="1.5" stroke-dasharray="3,3"/>
@@ -1099,11 +1101,13 @@
 
                 <!-- Push-Back Loop 1: Assembly RCA to Packaging -->
                 <path d="M 897 173 L 897 205 L 725 205 L 725 99" fill="none" stroke="#38bdf8" stroke-width="2" stroke-dasharray="5,4" marker-end="url(#arr-pkg)"/>
-                <text x="811" y="222" text-anchor="middle" font-size="10" fill="#38bdf8" font-weight="700">封裝組裝缺陷閉環 (Push-Back to PKG: Wire Sweep / Underfill Void / CPI)</text>
+                <text class="zh" x="811" y="222" text-anchor="middle" font-size="10" fill="#38bdf8" font-weight="700">封裝組裝缺陷閉環 (Push-Back to PKG: Wire Sweep / Underfill Void / CPI)</text>
+                <text class="en" x="811" y="222" text-anchor="middle" font-size="9.5" fill="#38bdf8" font-weight="700">Push-Back to PKG: Wire Sweep / Underfill Void / CPI Delamination</text>
 
                 <!-- Push-Back Loop 2: True Fab Defect Closed-Loop -->
                 <path d="M 552 173 L 552 250 L 237 250 L 237 99" fill="none" stroke="var(--danger)" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#arr-danger)"/>
-                <text x="395" y="270" text-anchor="middle" font-size="11" fill="var(--danger)" font-weight="700">純製程缺陷閉環 (True Fab Defect Root Cause to Chamber &amp; Recipe Closed-Loop)</text>
+                <text class="zh" x="395" y="270" text-anchor="middle" font-size="11" fill="var(--danger)" font-weight="700">純製程缺陷閉環 (True Fab Defect Root Cause to Chamber &amp; Recipe Closed-Loop)</text>
+                <text class="en" x="395" y="270" text-anchor="middle" font-size="10.5" fill="var(--danger)" font-weight="700">True Fab Root Cause Closed-Loop (Chamber Matching &amp; Recipe Closed-Loop)</text>
               </g>
             </svg>
             <figcaption>
@@ -1144,7 +1148,7 @@
 
           <!-- FIGURE 0.2: FISHBONE DIAGRAM SVG -->
           <div class="figure-container">
-            <svg viewBox="0 0 1060 550" style="max-width: 100%; height: auto; font-family: var(--font-mono, monospace);">
+            <svg id="fig02-svg" viewBox="0 0 1060 550" style="max-width: 100%; height: auto; font-family: var(--font-mono, monospace);">
               <!-- Background -->
               <rect width="1060" height="550" fill="var(--surface-2)" rx="8" stroke="var(--border)" stroke-width="1.5"/>
 
@@ -1156,14 +1160,24 @@
               <g transform="translate(870, 205)">
                 <rect x="0" y="0" width="170" height="140" rx="8" fill="var(--surface-1)" stroke="var(--danger)" stroke-width="2.5" filter="drop-shadow(0 4px 12px rgba(0,0,0,0.15))"/>
                 <rect x="0" y="0" width="170" height="30" rx="8" fill="var(--danger)"/>
-                <text x="85" y="20" fill="#fff" font-size="11" font-weight="700" text-anchor="middle">良率損失與品質異常</text>
-                <text x="85" y="50" fill="var(--ink)" font-size="11" font-weight="700" text-anchor="middle">Low-Yield &amp; Defect</text>
-                <text x="85" y="66" fill="var(--ink-soft)" font-size="9" text-anchor="middle">Root Cause Target</text>
+                <text class="zh" x="85" y="20" fill="#fff" font-size="11" font-weight="700" text-anchor="middle">良率損失與品質異常</text>
+                <text class="en" x="85" y="20" fill="#fff" font-size="10" font-weight="700" text-anchor="middle">Yield Loss &amp; Excursions</text>
+                
+                <text class="zh" x="85" y="50" fill="var(--ink)" font-size="11" font-weight="700" text-anchor="middle">Low-Yield &amp; Defect</text>
+                <text class="en" x="85" y="50" fill="var(--ink)" font-size="11" font-weight="700" text-anchor="middle">Low-Yield &amp; Defects</text>
+                
+                <text class="zh" x="85" y="66" fill="var(--ink-soft)" font-size="9" text-anchor="middle">Root Cause Target</text>
+                <text class="en" x="85" y="66" fill="var(--ink-soft)" font-size="9" text-anchor="middle">Root Cause Target</text>
                 
                 <line x1="15" y1="76" x2="155" y2="76" stroke="var(--border)" stroke-dasharray="2,2"/>
-                <text x="85" y="93" fill="var(--danger)" font-size="9" font-weight="600" text-anchor="middle">• 功能性死晶 (Dead Die)</text>
-                <text x="85" y="108" fill="var(--warn)" font-size="9" font-weight="600" text-anchor="middle">• 參數出界 (Cpk 破功)</text>
-                <text x="85" y="123" fill="var(--accent)" font-size="9" font-weight="600" text-anchor="middle">• 惡鄰隱性漏測 (RMA)</text>
+                <text class="zh" x="85" y="93" fill="var(--danger)" font-size="9" font-weight="600" text-anchor="middle">• 功能性死晶 (Dead Die)</text>
+                <text class="en" x="85" y="93" fill="var(--danger)" font-size="9" font-weight="600" text-anchor="middle">• Functional Dead Die</text>
+                
+                <text class="zh" x="85" y="108" fill="var(--warn)" font-size="9" font-weight="600" text-anchor="middle">• 參數出界 (Cpk 破功)</text>
+                <text class="en" x="85" y="108" fill="var(--warn)" font-size="9" font-weight="600" text-anchor="middle">• Parametric Cpk Drift</text>
+                
+                <text class="zh" x="85" y="123" fill="var(--accent)" font-size="9" font-weight="600" text-anchor="middle">• 惡鄰隱性漏測 (RMA)</text>
+                <text class="en" x="85" y="123" fill="var(--accent)" font-size="9" font-weight="600" text-anchor="middle">• GDBN Escapes (RMA)</text>
               </g>
 
               <!-- ================= UPPER RIBS ================= -->
@@ -1174,28 +1188,33 @@
                 <line x1="280" y1="275" x2="160" y2="55" stroke="#f59e0b" stroke-width="3.5" stroke-linecap="round"/>
                 <!-- Category Badge -->
                 <rect x="70" y="25" width="180" height="30" rx="5" fill="#f59e0b"/>
-                <text x="160" y="45" fill="#fff" font-size="11.5" font-weight="700" text-anchor="middle">1. 機台設備 (Machine)</text>
+                <text class="zh" x="160" y="45" fill="#fff" font-size="11.5" font-weight="700" text-anchor="middle">1. 機台設備 (Machine)</text>
+                <text class="en" x="160" y="45" fill="#fff" font-size="11" font-weight="700" text-anchor="middle">1. Machine &amp; Tools</text>
                 
                 <!-- Sub-branches -->
                 <!-- Sub 1 -->
                 <line x1="185" y1="95" x2="80" y2="95" stroke="#f59e0b" stroke-width="1.8"/>
                 <circle cx="185" cy="95" r="3" fill="#f59e0b"/>
-                <text x="75" y="92" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">電漿聚焦環 (Focus Ring) 磨損偏蝕</text>
+                <text class="zh" x="75" y="92" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">電漿聚焦環 (Focus Ring) 磨損偏蝕</text>
+                <text class="en" x="75" y="92" fill="var(--ink)" font-size="8.5" font-weight="600" text-anchor="end">Etch Focus Ring Wear &amp; Tilting</text>
 
                 <!-- Sub 2 -->
                 <line x1="210" y1="135" x2="95" y2="135" stroke="#f59e0b" stroke-width="1.8"/>
                 <circle cx="210" cy="135" r="3" fill="#f59e0b"/>
-                <text x="90" y="132" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">微影透鏡熱效應與曝光劑量漂移</text>
+                <text class="zh" x="90" y="132" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">微影透鏡熱效應與曝光劑量漂移</text>
+                <text class="en" x="90" y="132" fill="var(--ink)" font-size="8.5" font-weight="600" text-anchor="end">Scanner Lens Heating &amp; Dose Drift</text>
 
                 <!-- Sub 3 -->
                 <line x1="235" y1="175" x2="110" y2="175" stroke="#f59e0b" stroke-width="1.8"/>
                 <circle cx="235" cy="175" r="3" fill="#f59e0b"/>
-                <text x="105" y="172" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">擴散爐管石英晶舟氣流耗盡階度</text>
+                <text class="zh" x="105" y="172" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">擴散爐管石英晶舟氣流耗盡階度</text>
+                <text class="en" x="105" y="172" fill="var(--ink)" font-size="8.5" font-weight="600" text-anchor="end">Furnace Quartz Boat Depletion</text>
 
                 <!-- Sub 4 -->
                 <line x1="258" y1="215" x2="130" y2="215" stroke="#f59e0b" stroke-width="1.8"/>
                 <circle cx="258" cy="215" r="3" fill="#f59e0b"/>
-                <text x="125" y="212" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">CMP 研磨頭多區氣壓囊失衡/Pad鈍化</text>
+                <text class="zh" x="125" y="212" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">CMP 研磨頭多區氣壓囊失衡/Pad鈍化</text>
+                <text class="en" x="125" y="212" fill="var(--ink)" font-size="8.5" font-weight="600" text-anchor="end">CMP Multi-Zone Bladder &amp; Pad Glaze</text>
               </g>
 
               <!-- 2. MATERIAL (原材與耗材 / MATERIALS) -->
@@ -1204,28 +1223,33 @@
                 <line x1="530" y1="275" x2="410" y2="55" stroke="#10b981" stroke-width="3.5" stroke-linecap="round"/>
                 <!-- Category Badge -->
                 <rect x="320" y="25" width="180" height="30" rx="5" fill="#10b981"/>
-                <text x="410" y="45" fill="#fff" font-size="11.5" font-weight="700" text-anchor="middle">2. 原材耗材 (Material)</text>
+                <text class="zh" x="410" y="45" fill="#fff" font-size="11.5" font-weight="700" text-anchor="middle">2. 原材耗材 (Material)</text>
+                <text class="en" x="410" y="45" fill="#fff" font-size="11" font-weight="700" text-anchor="middle">2. Materials &amp; Consumables</text>
 
                 <!-- Sub-branches -->
                 <!-- Sub 1 -->
                 <line x1="435" y1="95" x2="330" y2="95" stroke="#10b981" stroke-width="1.8"/>
                 <circle cx="435" cy="95" r="3" fill="#10b981"/>
-                <text x="325" y="92" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">CZ 矽錠軸向氧含量 (Oi) 與電阻率梯度</text>
+                <text class="zh" x="325" y="92" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">CZ 矽錠軸向氧含量 (Oi) 與電阻率梯度</text>
+                <text class="en" x="325" y="92" fill="var(--ink)" font-size="8.5" font-weight="600" text-anchor="end">CZ Ingot Axial Oi &amp; Rho Gradients</text>
 
                 <!-- Sub 2 -->
                 <line x1="460" y1="135" x2="345" y2="135" stroke="#10b981" stroke-width="1.8"/>
                 <circle cx="460" cy="135" r="3" fill="#10b981"/>
-                <text x="340" y="132" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">光阻感光度批次公差 (ΔE0) 與溶劑揮發</text>
+                <text class="zh" x="340" y="132" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">光阻感光度批次公差 (ΔE0) 與溶劑揮發</text>
+                <text class="en" x="340" y="132" fill="var(--ink)" font-size="8.5" font-weight="600" text-anchor="end">Photoresist Batch ΔE0 &amp; Solvent Aging</text>
 
                 <!-- Sub 3 -->
                 <line x1="485" y1="175" x2="360" y2="175" stroke="#10b981" stroke-width="1.8"/>
                 <circle cx="485" cy="175" r="3" fill="#10b981"/>
-                <text x="355" y="172" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">CMP 膠體研磨液酸化團聚微刮傷</text>
+                <text class="zh" x="355" y="172" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">CMP 膠體研磨液酸化團聚微刮傷</text>
+                <text class="en" x="355" y="172" fill="var(--ink)" font-size="8.5" font-weight="600" text-anchor="end">Slurry Acid Agglomeration Scratches</text>
 
                 <!-- Sub 4 -->
                 <line x1="508" y1="215" x2="375" y2="215" stroke="#10b981" stroke-width="1.8"/>
                 <circle cx="508" cy="215" r="3" fill="#10b981"/>
-                <text x="370" y="212" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">封裝模塑料 (EMC) 高收縮壓阻應力</text>
+                <text class="zh" x="370" y="212" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">封裝模塑料 (EMC) 高收縮壓阻應力</text>
+                <text class="en" x="370" y="212" fill="var(--ink)" font-size="8.5" font-weight="600" text-anchor="end">EMC Shrinkage &amp; Piezoresistive Stress</text>
               </g>
 
               <!-- 3. METHOD (製程方法 / METHOD & RECIPES) -->
@@ -1234,28 +1258,33 @@
                 <line x1="770" y1="275" x2="650" y2="55" stroke="#8b5cf6" stroke-width="3.5" stroke-linecap="round"/>
                 <!-- Category Badge -->
                 <rect x="560" y="25" width="180" height="30" rx="5" fill="#8b5cf6"/>
-                <text x="650" y="45" fill="#fff" font-size="11.5" font-weight="700" text-anchor="middle">3. 製程方法 (Method)</text>
+                <text class="zh" x="650" y="45" fill="#fff" font-size="11.5" font-weight="700" text-anchor="middle">3. 製程方法 (Method)</text>
+                <text class="en" x="650" y="45" fill="#fff" font-size="11" font-weight="700" text-anchor="middle">3. Methods &amp; Recipes</text>
 
                 <!-- Sub-branches -->
                 <!-- Sub 1 -->
                 <line x1="675" y1="95" x2="570" y2="95" stroke="#8b5cf6" stroke-width="1.8"/>
                 <circle cx="675" cy="95" r="3" fill="#8b5cf6"/>
-                <text x="565" y="92" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">狹窄焦點裕度 (DOF) 與 OPC 殘餘誤差</text>
+                <text class="zh" x="565" y="92" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">狹窄焦點裕度 (DOF) 與 OPC 殘餘誤差</text>
+                <text class="en" x="565" y="92" fill="var(--ink)" font-size="8.5" font-weight="600" text-anchor="end">Tight DOF Margin &amp; OPC Mask Errors</text>
 
                 <!-- Sub 2 -->
                 <line x1="700" y1="135" x2="585" y2="135" stroke="#8b5cf6" stroke-width="1.8"/>
                 <circle cx="700" cy="135" r="3" fill="#8b5cf6"/>
-                <text x="580" y="132" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">APC R2R 控制器過調振盪 (EWMA 飄移)</text>
+                <text class="zh" x="580" y="132" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">APC R2R 控制器過調振盪 (EWMA 飄移)</text>
+                <text class="en" x="580" y="132" fill="var(--ink)" font-size="8.5" font-weight="600" text-anchor="end">APC Run-to-Run Over-tuning &amp; EWMA Drift</text>
 
                 <!-- Sub 3 -->
                 <line x1="725" y1="175" x2="600" y2="175" stroke="#8b5cf6" stroke-width="1.8"/>
                 <circle cx="725" cy="175" r="3" fill="#8b5cf6"/>
-                <text x="595" y="172" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">濕洗 PM 後冷腔未充分 Seasoning (SS角)</text>
+                <text class="zh" x="595" y="172" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">濕洗 PM 後冷腔未充分 Seasoning (SS角)</text>
+                <text class="en" x="595" y="172" fill="var(--ink)" font-size="8.5" font-weight="600" text-anchor="end">Incomplete Cold Chamber Seasoning</text>
 
                 <!-- Sub 4 -->
                 <line x1="748" y1="215" x2="615" y2="215" stroke="#8b5cf6" stroke-width="1.8"/>
                 <circle cx="748" cy="215" r="3" fill="#8b5cf6"/>
-                <text x="610" y="212" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">覆晶 Corner 凸塊剪切撕裂極脆 ULK</text>
+                <text class="zh" x="610" y="212" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">覆晶 Corner 凸塊剪切撕裂極脆 ULK</text>
+                <text class="en" x="610" y="212" fill="var(--ink)" font-size="8.5" font-weight="600" text-anchor="end">Flip-Chip Bump Shear Stress &amp; ULK Tear</text>
               </g>
 
               <!-- ================= LOWER RIBS ================= -->
@@ -1266,28 +1295,33 @@
                 <line x1="280" y1="275" x2="160" y2="495" stroke="#0284c7" stroke-width="3.5" stroke-linecap="round"/>
                 <!-- Category Badge -->
                 <rect x="70" y="495" width="180" height="30" rx="5" fill="#0284c7"/>
-                <text x="160" y="515" fill="#fff" font-size="11.5" font-weight="700" text-anchor="middle">4. 量測測試 (Measure)</text>
+                <text class="zh" x="160" y="515" fill="#fff" font-size="11.5" font-weight="700" text-anchor="middle">4. 量測測試 (Measure)</text>
+                <text class="en" x="160" y="515" fill="#fff" font-size="11" font-weight="700" text-anchor="middle">4. Metrology &amp; ATE (MSA)</text>
 
                 <!-- Sub-branches -->
                 <!-- Sub 1 -->
                 <line x1="258" y1="335" x2="130" y2="335" stroke="#0284c7" stroke-width="1.8"/>
                 <circle cx="258" cy="335" r="3" fill="#0284c7"/>
-                <text x="125" y="340" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">量測系統重複再現性超規 (%GRR &gt; 30%)</text>
+                <text class="zh" x="125" y="340" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">量測系統重複再現性超規 (%GRR &gt; 30%)</text>
+                <text class="en" x="125" y="340" fill="var(--ink)" font-size="8.5" font-weight="600" text-anchor="end">Gage R&amp;R Precision Loss (%GRR &gt; 30%)</text>
 
                 <!-- Sub 2 -->
                 <line x1="235" y1="375" x2="110" y2="375" stroke="#0284c7" stroke-width="1.8"/>
                 <circle cx="235" cy="375" r="3" fill="#0284c7"/>
-                <text x="105" y="380" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">4 線 Kelvin Sense 開路退化為 2 線偽電阻</text>
+                <text class="zh" x="105" y="380" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">4 線 Kelvin Sense 開路退化為 2 線偽電阻</text>
+                <text class="en" x="105" y="380" fill="var(--ink)" font-size="8.5" font-weight="600" text-anchor="end">4-Wire Kelvin Open (2-Wire Resistance)</text>
 
                 <!-- Sub 3 -->
                 <line x1="210" y1="415" x2="95" y2="415" stroke="#0284c7" stroke-width="1.8"/>
                 <circle cx="210" cy="415" r="3" fill="#0284c7"/>
-                <text x="90" y="420" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">探針卡/測試座針尖氧化 WOx 阻抗 Rc 飆升</text>
+                <text class="zh" x="90" y="420" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">探針卡/測試座針尖氧化 WOx 阻抗 Rc 飆升</text>
+                <text class="en" x="90" y="420" fill="var(--ink)" font-size="8.5" font-weight="600" text-anchor="end">Probe / Socket Tip Oxidation &amp; Rc Spike</text>
 
                 <!-- Sub 4 -->
                 <line x1="185" y1="455" x2="80" y2="455" stroke="#0284c7" stroke-width="1.8"/>
                 <circle cx="185" cy="455" r="3" fill="#0284c7"/>
-                <text x="75" y="460" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">多 DUT 並行測試瞬態電源塌陷 (IR Droop)</text>
+                <text class="zh" x="75" y="460" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">多 DUT 並行測試瞬態電源塌陷 (IR Droop)</text>
+                <text class="en" x="75" y="460" fill="var(--ink)" font-size="8.5" font-weight="600" text-anchor="end">Multi-DUT Transient Power IR Droop</text>
               </g>
 
               <!-- 5. ENVIRONMENT (環境廠務 / ENVIRONMENT & FACILITY) -->
@@ -1296,28 +1330,33 @@
                 <line x1="530" y1="275" x2="410" y2="495" stroke="#0d9488" stroke-width="3.5" stroke-linecap="round"/>
                 <!-- Category Badge -->
                 <rect x="320" y="495" width="180" height="30" rx="5" fill="#0d9488"/>
-                <text x="410" y="515" fill="#fff" font-size="11.5" font-weight="700" text-anchor="middle">5. 環境廠務 (Environment)</text>
+                <text class="zh" x="410" y="515" fill="#fff" font-size="11.5" font-weight="700" text-anchor="middle">5. 環境廠務 (Environment)</text>
+                <text class="en" x="410" y="515" fill="#fff" font-size="11" font-weight="700" text-anchor="middle">5. Environment &amp; Facility</text>
 
                 <!-- Sub-branches -->
                 <!-- Sub 1 -->
                 <line x1="508" y1="335" x2="375" y2="335" stroke="#0d9488" stroke-width="1.8"/>
                 <circle cx="508" cy="335" r="3" fill="#0d9488"/>
-                <text x="370" y="340" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">氣態分子污染物 (AMC: 揮發有機物/胺鹽)</text>
+                <text class="zh" x="370" y="340" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">氣態分子污染物 (AMC: 揮發有機物/胺鹽)</text>
+                <text class="en" x="370" y="340" fill="var(--ink)" font-size="8.5" font-weight="600" text-anchor="end">AMC Molecular Airborne Contaminants</text>
 
                 <!-- Sub 2 -->
                 <line x1="485" y1="375" x2="360" y2="375" stroke="#0d9488" stroke-width="1.8"/>
                 <circle cx="485" cy="375" r="3" fill="#0d9488"/>
-                <text x="355" y="380" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">廠務超純水 (UPW) 總有機碳 TOC 超標</text>
+                <text class="zh" x="355" y="380" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">廠務超純水 (UPW) 總有機碳 TOC 超標</text>
+                <text class="en" x="355" y="380" fill="var(--ink)" font-size="8.5" font-weight="600" text-anchor="end">Ultra-Pure Water (UPW) TOC Excursion</text>
 
                 <!-- Sub 3 -->
                 <line x1="460" y1="415" x2="345" y2="415" stroke="#0d9488" stroke-width="1.8"/>
                 <circle cx="460" cy="415" r="3" fill="#0d9488"/>
-                <text x="340" y="420" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">無塵室濕度驟降引發靜電放電 (ESD 擊穿)</text>
+                <text class="zh" x="340" y="420" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">無塵室濕度驟降引發靜電放電 (ESD 擊穿)</text>
+                <text class="en" x="340" y="420" fill="var(--ink)" font-size="8.5" font-weight="600" text-anchor="end">Cleanroom Humidity Drop &amp; ESD Strike</text>
 
                 <!-- Sub 4 -->
                 <line x1="435" y1="455" x2="330" y2="455" stroke="#0d9488" stroke-width="1.8"/>
                 <circle cx="435" cy="455" r="3" fill="#0d9488"/>
-                <text x="325" y="460" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">低頻微振動引發微影重疊誤差 (Overlay)</text>
+                <text class="zh" x="325" y="460" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">低頻微振動引發微影重疊誤差 (Overlay)</text>
+                <text class="en" x="325" y="460" fill="var(--ink)" font-size="8.5" font-weight="600" text-anchor="end">Low-Frequency Vibration &amp; Overlay Errors</text>
               </g>
 
               <!-- 6. MAN & GOVERNANCE (人員體系 / OPERATION & SOP) -->
@@ -1326,28 +1365,33 @@
                 <line x1="770" y1="275" x2="650" y2="495" stroke="#e11d48" stroke-width="3.5" stroke-linecap="round"/>
                 <!-- Category Badge -->
                 <rect x="560" y="495" width="180" height="30" rx="5" fill="#e11d48"/>
-                <text x="650" y="515" fill="#fff" font-size="11.5" font-weight="700" text-anchor="middle">6. 人員體系 (Man/SOP)</text>
+                <text class="zh" x="650" y="515" fill="#fff" font-size="11.5" font-weight="700" text-anchor="middle">6. 人員體系 (Man/SOP)</text>
+                <text class="en" x="650" y="515" fill="#fff" font-size="11" font-weight="700" text-anchor="middle">6. Operation &amp; Governance</text>
 
                 <!-- Sub-branches -->
                 <!-- Sub 1 -->
                 <line x1="748" y1="335" x2="615" y2="335" stroke="#e11d48" stroke-width="1.8"/>
                 <circle cx="748" cy="335" r="3" fill="#e11d48"/>
-                <text x="610" y="340" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">晶圓盒 (FOUP) 碰撞振動致晶片邊緣崩裂</text>
+                <text class="zh" x="610" y="340" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">晶圓盒 (FOUP) 碰撞振動致晶片邊緣崩裂</text>
+                <text class="en" x="610" y="340" fill="var(--ink)" font-size="8.5" font-weight="600" text-anchor="end">FOUP Handling Shock &amp; Edge Die Chipping</text>
 
                 <!-- Sub 2 -->
                 <line x1="725" y1="375" x2="600" y2="375" stroke="#e11d48" stroke-width="1.8"/>
                 <circle cx="725" cy="375" r="3" fill="#e11d48"/>
-                <text x="595" y="380" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">機台配方版本 (Recipe) 未授權微調漂移</text>
+                <text class="zh" x="595" y="380" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">機台配方版本 (Recipe) 未授權微調漂移</text>
+                <text class="en" x="595" y="380" fill="var(--ink)" font-size="8.5" font-weight="600" text-anchor="end">Unauthorized Recipe Drift &amp; Offset Bias</text>
 
                 <!-- Sub 3 -->
                 <line x1="700" y1="415" x2="585" y2="415" stroke="#e11d48" stroke-width="1.8"/>
                 <circle cx="700" cy="415" r="3" fill="#e11d48"/>
-                <text x="580" y="420" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">重測政策 (Retest Policy) 濫用掩蓋缺陷</text>
+                <text class="zh" x="580" y="420" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">重測政策 (Retest Policy) 濫用掩蓋缺陷</text>
+                <text class="en" x="580" y="420" fill="var(--ink)" font-size="8.5" font-weight="600" text-anchor="end">Retest Abuse Masking Marginal Dies</text>
 
                 <!-- Sub 4 -->
                 <line x1="675" y1="455" x2="570" y2="455" stroke="#e11d48" stroke-width="1.8"/>
                 <circle cx="675" cy="455" r="3" fill="#e11d48"/>
-                <text x="565" y="460" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">惡鄰晶粒 (GDBN) 漏測致客戶客訴 RMA</text>
+                <text class="zh" x="565" y="460" fill="var(--ink)" font-size="9" font-weight="600" text-anchor="end">惡鄰晶粒 (GDBN) 漏測致客戶客訴 RMA</text>
+                <text class="en" x="565" y="460" fill="var(--ink)" font-size="8.5" font-weight="600" text-anchor="end">GDBN Clustering Escapes to Customer RMA</text>
               </g>
             </svg>
             <div class="figure-caption">
@@ -1546,7 +1590,7 @@
 
             <!-- FIGURE 0.3: BIDIRECTIONAL CONTROL ARCHITECTURE SVG -->
             <div class="figure-container" style="margin:25px 0;">
-              <svg viewBox="0 0 1060 480" style="max-width:100%; height:auto; font-family:var(--font-mono, monospace);" xmlns="http://www.w3.org/2000/svg">
+              <svg id="fig03-svg" viewBox="0 0 1060 480" style="max-width:100%; height:auto; font-family:var(--font-mono, monospace);" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                   <marker id="arr-ff" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
                     <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#38bdf8"/>
@@ -1567,16 +1611,21 @@
 
                 <!-- Top Title Bar -->
                 <rect x="10" y="10" width="1040" height="42" rx="10" fill="var(--surface-3, rgba(255,255,255,0.05))"/>
-                <text x="30" y="36" fill="var(--ink)" font-size="13.5" font-weight="700">Figure 0.3: 半導體跨工序雙向閉環前饋 (Feedforward) 與反饋 (Feedback) 控制體系架構圖</text>
-                <text x="730" y="36" fill="var(--ink-soft)" font-size="11">Bidirectional Cross-Stage APC Architecture</text>
+                <text class="zh" x="30" y="36" fill="var(--ink)" font-size="13.5" font-weight="700">Figure 0.3: 半導體跨工序雙向閉環前饋 (Feedforward) 與反饋 (Feedback) 控制體系架構圖</text>
+                <text class="en" x="30" y="36" fill="var(--ink)" font-size="12.5" font-weight="700">Figure 0.3: Bidirectional Cross-Stage Feedforward &amp; Feedback Quality Control Architecture</text>
+                <text class="zh" x="730" y="36" fill="var(--ink-soft)" font-size="11">Bidirectional Cross-Stage APC Architecture</text>
+                <text class="en" x="760" y="36" fill="var(--ink-soft)" font-size="11">Cross-Stage Quality Engineering Closed-Loop</text>
 
                 <!-- Stage 1: Fab FEOL/BEOL -->
                 <g transform="translate(40, 190)">
                   <rect x="0" y="0" width="200" height="110" rx="8" fill="var(--surface-1)" stroke="var(--border)" stroke-width="2" filter="url(#shadow3)"/>
                   <rect x="0" y="0" width="200" height="28" rx="8" fill="rgba(56, 189, 248, 0.15)"/>
-                  <text x="100" y="20" fill="var(--accent)" font-size="12" font-weight="700" text-anchor="middle">1. 晶圓製造站 (Fab)</text>
-                  <text x="100" y="48" fill="var(--ink)" font-size="11" text-anchor="middle">FEOL 擴散 / 薄膜 / 微影</text>
-                  <text x="100" y="66" fill="var(--ink)" font-size="11" text-anchor="middle">BEOL 金屬電鍍 / CMP</text>
+                  <text class="zh" x="100" y="20" fill="var(--accent)" font-size="12" font-weight="700" text-anchor="middle">1. 晶圓製造站 (Fab)</text>
+                  <text class="en" x="100" y="20" fill="var(--accent)" font-size="11.5" font-weight="700" text-anchor="middle">1. Wafer Fab (FEOL/BEOL)</text>
+                  <text class="zh" x="100" y="48" fill="var(--ink)" font-size="11" text-anchor="middle">FEOL 擴散 / 薄膜 / 微影</text>
+                  <text class="en" x="100" y="48" fill="var(--ink)" font-size="10.5" text-anchor="middle">FEOL Diff / Films / Litho</text>
+                  <text class="zh" x="100" y="66" fill="var(--ink)" font-size="11" text-anchor="middle">BEOL 金屬電鍍 / CMP</text>
+                  <text class="en" x="100" y="66" fill="var(--ink)" font-size="10.5" text-anchor="middle">BEOL Metallization / CMP</text>
                   <text x="100" y="92" fill="var(--ink-soft)" font-size="10" text-anchor="middle">CD-SEM / Defect Klarf</text>
                 </g>
 
@@ -1584,9 +1633,12 @@
                 <g transform="translate(295, 190)">
                   <rect x="0" y="0" width="200" height="110" rx="8" fill="var(--surface-1)" stroke="var(--border)" stroke-width="2" filter="url(#shadow3)"/>
                   <rect x="0" y="0" width="200" height="28" rx="8" fill="rgba(56, 189, 248, 0.15)"/>
-                  <text x="100" y="20" fill="var(--accent)" font-size="12" font-weight="700" text-anchor="middle">2. 晶圓針測站 (Sort/CP)</text>
-                  <text x="100" y="48" fill="var(--ink)" font-size="11" text-anchor="middle">WAT / PCM 參數測試</text>
-                  <text x="100" y="66" fill="var(--ink)" font-size="11" text-anchor="middle">CP1 / CP2 晶圓測試</text>
+                  <text class="zh" x="100" y="20" fill="var(--accent)" font-size="12" font-weight="700" text-anchor="middle">2. 晶圓針測站 (Sort/CP)</text>
+                  <text class="en" x="100" y="20" fill="var(--accent)" font-size="11.5" font-weight="700" text-anchor="middle">2. Wafer Sort &amp; WAT</text>
+                  <text class="zh" x="100" y="48" fill="var(--ink)" font-size="11" text-anchor="middle">WAT / PCM 參數測試</text>
+                  <text class="en" x="100" y="48" fill="var(--ink)" font-size="10.5" text-anchor="middle">WAT / PCM Parametric E-Test</text>
+                  <text class="zh" x="100" y="66" fill="var(--ink)" font-size="11" text-anchor="middle">CP1 / CP2 晶圓測試</text>
+                  <text class="en" x="100" y="66" fill="var(--ink)" font-size="10.5" text-anchor="middle">CP1 / CP2 Wafer Sort</text>
                   <text x="100" y="92" fill="var(--ink-soft)" font-size="10" text-anchor="middle">Vth / Idde / PAT Outliers</text>
                 </g>
 
@@ -1594,9 +1646,12 @@
                 <g transform="translate(555, 190)">
                   <rect x="0" y="0" width="205" height="110" rx="8" fill="var(--surface-1)" stroke="var(--border)" stroke-width="2" filter="url(#shadow3)"/>
                   <rect x="0" y="0" width="205" height="28" rx="8" fill="rgba(56, 189, 248, 0.15)"/>
-                  <text x="102" y="20" fill="var(--accent)" font-size="12" font-weight="700" text-anchor="middle">3. 封裝組裝站 (PKG)</text>
-                  <text x="102" y="48" fill="var(--ink)" font-size="11" text-anchor="middle">薄化研磨 / 晶粒黏貼</text>
-                  <text x="102" y="66" fill="var(--ink)" font-size="11" text-anchor="middle">打線 (WB) / 覆晶 (FCB)</text>
+                  <text class="zh" x="102" y="20" fill="var(--accent)" font-size="12" font-weight="700" text-anchor="middle">3. 封裝組裝站 (PKG)</text>
+                  <text class="en" x="102" y="20" fill="var(--accent)" font-size="11.5" font-weight="700" text-anchor="middle">3. Packaging &amp; Assembly</text>
+                  <text class="zh" x="102" y="48" fill="var(--ink)" font-size="11" text-anchor="middle">薄化研磨 / 晶粒黏貼</text>
+                  <text class="en" x="102" y="48" fill="var(--ink)" font-size="10.5" text-anchor="middle">Backgrind / Die Attach</text>
+                  <text class="zh" x="102" y="66" fill="var(--ink)" font-size="11" text-anchor="middle">打線 (WB) / 覆晶 (FCB)</text>
+                  <text class="en" x="102" y="66" fill="var(--ink)" font-size="10.5" text-anchor="middle">Wirebond / Flip-Chip</text>
                   <text x="102" y="92" fill="var(--ink-soft)" font-size="10" text-anchor="middle">C-SAM / Underfill / Mold</text>
                 </g>
 
@@ -1604,9 +1659,12 @@
                 <g transform="translate(820, 190)">
                   <rect x="0" y="0" width="200" height="110" rx="8" fill="var(--surface-1)" stroke="var(--border)" stroke-width="2" filter="url(#shadow3)"/>
                   <rect x="0" y="0" width="200" height="28" rx="8" fill="rgba(56, 189, 248, 0.15)"/>
-                  <text x="100" y="20" fill="var(--accent)" font-size="12" font-weight="700" text-anchor="middle">4. 終測與系統驗證 (FT)</text>
-                  <text x="100" y="48" fill="var(--ink)" font-size="11" text-anchor="middle">ATE 常溫/高低溫測試</text>
-                  <text x="100" y="66" fill="var(--ink)" font-size="11" text-anchor="middle">Burn-In / SLT 系統測</text>
+                  <text class="zh" x="100" y="20" fill="var(--accent)" font-size="12" font-weight="700" text-anchor="middle">4. 終測與系統驗證 (FT)</text>
+                  <text class="en" x="100" y="20" fill="var(--accent)" font-size="11.5" font-weight="700" text-anchor="middle">4. Final Test &amp; SLT</text>
+                  <text class="zh" x="100" y="48" fill="var(--ink)" font-size="11" text-anchor="middle">ATE 常溫/高低溫測試</text>
+                  <text class="en" x="100" y="48" fill="var(--ink)" font-size="10.5" text-anchor="middle">Tri-Temp ATE Testing</text>
+                  <text class="zh" x="100" y="66" fill="var(--ink)" font-size="11" text-anchor="middle">Burn-In / SLT 系統測</text>
+                  <text class="en" x="100" y="66" fill="var(--ink)" font-size="10.5" text-anchor="middle">Burn-In / System Level Test</text>
                   <text x="100" y="92" fill="var(--ink-soft)" font-size="10" text-anchor="middle">Eye Margin / AVS Fuse</text>
                 </g>
 
@@ -1623,10 +1681,17 @@
                 </g>
 
                 <g font-size="10" fill="#38bdf8" font-weight="700">
-                  <text x="260" y="95" text-anchor="middle">前饋 1: 膜厚拓撲/缺陷座標 (APC Focus &amp; EPD)</text>
-                  <text x="525" y="105" text-anchor="middle">前饋 2: 晶粒厚度/翹曲/Vth (點膠軌跡 &amp; 配對)</text>
-                  <text x="790" y="95" text-anchor="middle">前饋 3: C-SAM 氣泡/金線弧高 (四線式 Kelvin 測試)</text>
-                  <text x="530" y="60" text-anchor="middle">前饋 4: 晶圓 WAT 參數向量 → ATE 啟動自適應電壓調整 (AVS eFuse Trimming)</text>
+                  <text class="zh" x="260" y="95" text-anchor="middle">前饋 1: 膜厚拓撲/缺陷座標 (APC Focus &amp; EPD)</text>
+                  <text class="en" x="260" y="95" text-anchor="middle">FF 1: Film Topo / Defect Map (APC Focus &amp; EPD)</text>
+                  
+                  <text class="zh" x="525" y="105" text-anchor="middle">前饋 2: 晶粒厚度/翹曲/Vth (點膠軌跡 &amp; 配對)</text>
+                  <text class="en" x="525" y="105" text-anchor="middle">FF 2: Die Thickness / Warpage / Vth (Dispense &amp; Match)</text>
+                  
+                  <text class="zh" x="790" y="95" text-anchor="middle">前饋 3: C-SAM 氣泡/金線弧高 (四線式 Kelvin 測試)</text>
+                  <text class="en" x="790" y="95" text-anchor="middle">FF 3: C-SAM Void / Wire Loop (4-Wire Kelvin Guard)</text>
+                  
+                  <text class="zh" x="530" y="60" text-anchor="middle">前饋 4: 晶圓 WAT 參數向量 → ATE 啟動自適應電壓調整 (AVS eFuse Trimming)</text>
+                  <text class="en" x="530" y="60" text-anchor="middle">FF 4: Wafer WAT Vector → ATE Adaptive Voltage Scaling (AVS eFuse Trimming)</text>
                 </g>
 
                 <!-- BOTTOM SECTION: BACKWARD FEEDBACK PATHS (Red/Amber) -->
@@ -1642,10 +1707,17 @@
                 </g>
 
                 <g font-size="10" fill="#f87171" font-weight="700">
-                  <text x="790" y="380" text-anchor="middle">反饋 1: 虛焊/沖線/接觸阻抗 (機台 PM &amp; 磨針清潔)</text>
-                  <text x="500" y="375" text-anchor="middle">反饋 2: WAT Vth 角落漂移 / PID 天線 (微調 RIE / 爐管)</text>
-                  <text x="390" y="395" text-anchor="middle">反饋 3: 覆晶 CPI 開裂 (增厚 Polyimide 緩衝層 &amp; 凸塊平整度)</text>
-                  <text x="530" y="440" text-anchor="middle">反饋 4: 終測 TDDB 崩潰 / 系統邊限不足 → 閉環修正設計時序與光罩 OPC DRC</text>
+                  <text class="zh" x="790" y="380" text-anchor="middle">反饋 1: 虛焊/沖線/接觸阻抗 (機台 PM &amp; 磨針清潔)</text>
+                  <text class="en" x="790" y="380" text-anchor="middle">FB 1: Cold Joint / Wire Sweep / Rc (PM &amp; Needle Clean)</text>
+                  
+                  <text class="zh" x="500" y="375" text-anchor="middle">反饋 2: WAT Vth 角落漂移 / PID 天線 (微調 RIE / 爐管)</text>
+                  <text class="en" x="500" y="375" text-anchor="middle">FB 2: WAT Vth Drift / PID Antenna (Tune RIE &amp; Furnace)</text>
+                  
+                  <text class="zh" x="390" y="395" text-anchor="middle">反饋 3: 覆晶 CPI 開裂 (增厚 Polyimide 緩衝層 &amp; 凸塊平整度)</text>
+                  <text class="en" x="390" y="395" text-anchor="middle">FB 3: Flip-Chip CPI Crack (Polyimide Buffer &amp; Bump Coplanarity)</text>
+                  
+                  <text class="zh" x="530" y="440" text-anchor="middle">反饋 4: 終測 TDDB 崩潰 / 系統邊限不足 → 閉環修正設計時序與光罩 OPC DRC</text>
+                  <text class="en" x="530" y="440" text-anchor="middle">FB 4: TDDB Dielectric Breakdown / Margins → Closed-Loop OPC DRC &amp; Mask</text>
                 </g>
 
                 <!-- REWORK / SALVAGE LOOPS (Green) -->
@@ -1654,9 +1726,14 @@
                   <path d="M 680 190 C 720 150, 750 150, 740 185" marker-end="url(#arr-rw)"/>
                   <path d="M 950 190 C 990 150, 1020 150, 985 185" marker-end="url(#arr-rw)"/>
                 </g>
-                <text x="95" y="145" fill="#4ade80" font-size="9" font-weight="700" text-anchor="middle">ADI 光阻重工</text>
-                <text x="720" y="150" fill="#4ade80" font-size="9" font-weight="700" text-anchor="middle">封膠前補打線</text>
-                <text x="990" y="150" fill="#4ade80" font-size="9" font-weight="700" text-anchor="middle">受控清潔複測</text>
+                <text class="zh" x="95" y="145" fill="#4ade80" font-size="9" font-weight="700" text-anchor="middle">ADI 光阻重工</text>
+                <text class="en" x="95" y="145" fill="#4ade80" font-size="8.5" font-weight="700" text-anchor="middle">ADI Strip &amp; Rework</text>
+                
+                <text class="zh" x="720" y="150" fill="#4ade80" font-size="9" font-weight="700" text-anchor="middle">封膠前補打線</text>
+                <text class="en" x="720" y="150" fill="#4ade80" font-size="8.5" font-weight="700" text-anchor="middle">Pre-Mold Re-wire</text>
+                
+                <text class="zh" x="990" y="150" fill="#4ade80" font-size="9" font-weight="700" text-anchor="middle">受控清潔複測</text>
+                <text class="en" x="990" y="150" fill="#4ade80" font-size="8.5" font-weight="700" text-anchor="middle">Clean &amp; Controlled Retest</text>
               </svg>
               <div class="figure-caption">
                 <span class="zh">圖 0.3: 半導體跨工序雙向閉環前饋（藍色）與反饋（紅色）工程控制架構圖（含綠色關鍵重工救回迴路）</span>
@@ -6070,11 +6147,11 @@
     <div style="display:flex; flex-direction:column; align-items:flex-end; gap:5px;">
       <div style="display:flex; align-items:center; gap:8px;">
         <span class="badge badge-green" style="font-size:11px; padding:2px 8px;">● LIVE VERIFIED</span>
-        <span style="font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft);">Rev. K</span>
+        <span style="font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft);">Rev. L</span>
       </div>
       <div style="font-family:var(--font-mono); font-size:12px; color:var(--ink);">
         <span class="zh">最後更新日期：</span><span class="en">Last Updated: </span>
-        <b style="color:var(--accent);">2026-10-22 04:48 (Asia/Taipei)</b>
+        <b style="color:var(--accent);">2026-10-22 13:55 (Asia/Taipei)</b>
       </div>
     </div>
   </footer>
