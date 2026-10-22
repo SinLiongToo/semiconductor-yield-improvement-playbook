@@ -6086,7 +6086,7 @@
       </section>
 
       
-      <!-- PHASE 7: CUSTOMER RMA & FIELD RETURN ANALYSIS (NEW IN-DEPTH SECTION) -->
+      <!-- PHASE 8: CUSTOMER RMA & FIELD RETURN ANALYSIS -->
       <section id="phase8_rma">
         <h2 class="collapsible-h" onclick="toggleCollapse(this)">
           <span>
@@ -6106,8 +6106,8 @@
           </p>
 
           <h3>
-            <span class="zh">7.1 晶片身分追溯 (ECID) 與 Wafer Map 鄰域重現 (GDBN)</span>
-            <span class="en">7.1 Electronic Chip ID (ECID) & Wafer Map Neighborhood Reconstruction (GDBN)</span>
+            <span class="zh">8.1 晶片身分追溯 (ECID) 與 Wafer Map 鄰域重現 (GDBN)</span>
+            <span class="en">8.1 Electronic Chip ID (ECID) & Wafer Map Neighborhood Reconstruction (GDBN)</span>
           </h3>
           <p>
             <span class="zh">
@@ -6143,8 +6143,8 @@
           </div>
 
           <h3>
-            <span class="zh">7.2 漏測根因分析 (Test Escape Analysis) 與 潛在可靠度失效機理</span>
-            <span class="en">7.2 Test Escape Root Cause Analysis & Latent Reliability Mechanisms</span>
+            <span class="zh">8.2 漏測根因分析 (Test Escape Analysis) 與 潛在可靠度失效機理</span>
+            <span class="en">8.2 Test Escape Root Cause Analysis & Latent Reliability Mechanisms</span>
           </h3>
 
           <div class="data-table-wrap">
@@ -6159,56 +6159,120 @@
               </thead>
               <tbody>
                 <tr>
-                  <td><b>向量覆蓋率盲區 (Coverage Gap)</b></td>
-                  <td>ATE 測試向量邏輯故障覆蓋率（Stuck-at / Transition Fault Coverage）僅 92%，未覆蓋客戶實際工作時啟動的特定狀態機路徑。</td>
-                  <td>純邏輯設計與測試 Pattern 漏測（Functional Escape）。</td>
-                  <td>重新執行 ATPG（自動測試向量產生），導入全覆蓋 Scan Test，將 Transition 覆蓋率提升至 &gt; 98.5%。</td>
+                  <td>
+                    <span class="zh"><b>向量覆蓋率盲區 (Coverage Gap)</b></span>
+                    <span class="en"><b>Coverage Gap (Test Vectors)</b></span>
+                  </td>
+                  <td>
+                    <span class="zh">ATE 測試向量邏輯故障覆蓋率（Stuck-at / Transition Fault Coverage）僅 92%，未覆蓋客戶實際工作時啟動的特定狀態機路徑。</span>
+                    <span class="en">ATE test vector stuck-at/transition fault coverage only 92%, missing specific finite state machine (FSM) branch paths triggered in customer application.</span>
+                  </td>
+                  <td>
+                    <span class="zh">純邏輯設計與測試 Pattern 漏測（Functional Escape）。</span>
+                    <span class="en">Pure logic test pattern coverage escape (Functional Escape).</span>
+                  </td>
+                  <td>
+                    <span class="zh">重新執行 ATPG（自動測試向量產生），導入全覆蓋 Scan Test，將 Transition 覆蓋率提升至 &gt; 98.5%。</span>
+                    <span class="en">Rerun ATPG, mandate full-scan chain testing, and push transition fault coverage above 98.5%.</span>
+                  </td>
                 </tr>
                 <tr>
-                  <td><b>靜態常態極限漏測 (Static Margin Escape)</b></td>
-                  <td>晶圓在 25°C 室溫常溫測試合格，但客戶在 -40°C 極端低溫冷啟動或 125°C 引擎室高溫下運作。</td>
-                  <td>漏電流指數級飆升（(I_{leak} propto T^2 e^{-E_g/kT})），臨界電壓降低造成高溫閂鎖（Latch-up）。</td>
-                  <td>在測試流程強制導入三溫測試（Tri-Temp: -40°C, 25°C, 125°C），並建立跨溫角 Guardbanding 模型。</td>
+                  <td>
+                    <span class="zh"><b>靜態常態極限漏測 (Static Margin Escape)</b></span>
+                    <span class="en"><b>Static Margin &amp; Tri-Temp Escape</b></span>
+                  </td>
+                  <td>
+                    <span class="zh">晶圓在 25°C 室溫常溫測試合格，但客戶在 -40°C 極端低溫冷啟動或 125°C 引擎室高溫下運作。</span>
+                    <span class="en">Passing at 25°C room ambient sort, but failing during -40°C cold-boot or 125°C under-the-hood engine operations.</span>
+                  </td>
+                  <td>
+                    <span class="zh">漏電流指數級飆升（\(I_{\text{leak}} \propto T^2 e^{-E_g/kT}\)），臨界電壓降低造成高溫閂鎖（Latch-up）。</span>
+                    <span class="en">Exponential subthreshold leakage surge (\(I_{\text{leak}} \propto T^2 e^{-E_g/kT}\)), \(V_{th}\) drop triggering thermal runaway and high-temp latch-up.</span>
+                  </td>
+                  <td>
+                    <span class="zh">在測試流程強制導入三溫測試（Tri-Temp: -40°C, 25°C, 125°C），並建立跨溫角 Guardbanding 模型。</span>
+                    <span class="en">Mandate Tri-Temp testing (-40°C, 25°C, 125°C) and calibrate cross-temperature statistical guardbands.</span>
+                  </td>
                 </tr>
                 <tr>
-                  <td><b>閘極氧化層潛在擊穿 (TDDB / Latent Pinholes)</b></td>
-                  <td>微影或蝕刻微粒在閘極介電層留下微小凹坑（Pinhole），初始電阻極高（靜態測試漏電 &lt; 10nA）。</td>
-                  <td>經時介電質崩潰（TDDB, Time-Dependent Dielectric Breakdown），電場應力累積下導電絲貫穿。</td>
-                  <td>導入晶圓級高壓電應力過載測試（Voltage Stress Test / Burn-in Screen），提前擊潰潛在缺陷。</td>
+                  <td>
+                    <span class="zh"><b>閘極氧化層潛在擊穿 (TDDB / Latent Pinholes)</b></span>
+                    <span class="en"><b>Latent Gate Breakdown (TDDB)</b></span>
+                  </td>
+                  <td>
+                    <span class="zh">微影或蝕刻微粒在閘極介電層留下微小凹坑（Pinhole），初始電阻極高（靜態測試漏電 &lt; 10nA）。</span>
+                    <span class="en">Sub-micron particle causing localized gate dielectric thinning (pinhole); initial leakage &lt; 10nA at room temp sort.</span>
+                  </td>
+                  <td>
+                    <span class="zh">經時介電質崩潰（TDDB, Time-Dependent Dielectric Breakdown），電場應力累積下導電絲貫穿。</span>
+                    <span class="en">Time-Dependent Dielectric Breakdown (TDDB): cumulative electrical/thermal stress forms conductive percolation path.</span>
+                  </td>
+                  <td>
+                    <span class="zh">導入晶圓級高壓電應力過載測試（Voltage Stress Test / Burn-in Screen），提前擊潰潛在缺陷。</span>
+                    <span class="en">Introduce wafer-level High-Voltage Stress Screen (HVST) and dynamic burn-in to weed out infant mortality pinholes.</span>
+                  </td>
                 </tr>
                 <tr>
-                  <td><b>金屬線路電致遷移 (Electromigration, EM)</b></td>
-                  <td>CMP 拋光造成金屬走線局部凹陷微裂紋（Metal Necking），局部截面積縮減 40%。</td>
-                  <td>高電流密度下電子風撞擊金屬原子引發質量傳遞，線路空孔（Void）漸進式擴大斷路。</td>
-                  <td>導入動態高電流衝擊測試；執行 DFM 最小金屬寬度（Min Metal Width）規則加強。</td>
+                  <td>
+                    <span class="zh"><b>金屬線路電致遷移 (Electromigration, EM)</b></span>
+                    <span class="en"><b>Interconnect Electromigration (EM)</b></span>
+                  </td>
+                  <td>
+                    <span class="zh">CMP 拋光造成金屬走線局部凹陷微裂紋（Metal Necking），局部截面積縮減 40%。</span>
+                    <span class="en">CMP dishing inducing local interconnect necking with cross-sectional area reduced by 40%.</span>
+                  </td>
+                  <td>
+                    <span class="zh">高電流密度下電子風撞擊金屬原子引發質量傳遞，線路空孔（Void）漸進式擴大斷路。</span>
+                    <span class="en">High current density electron wind driving directional mass transfer, expanding voids into open circuits over time.</span>
+                  </td>
+                  <td>
+                    <span class="zh">導入動態高電流衝擊測試；執行 DFM 最小金屬寬度（Min Metal Width）規則加強。</span>
+                    <span class="en">Deploy high-current surge pulse stress testing; tighten DFM minimum metal width and redundant via rules.</span>
+                  </td>
                 </tr>
               </tbody>
             </table>
           </div>
 
           <h3>
-            <span class="zh">7.3 客訴 8D 處分戰略與「姊妹晶圓 (Sister Wafers)」即時攔截</span>
-            <span class="en">7.3 Customer 8D Action Plan & Sister Wafer Containment Protocol</span>
+            <span class="zh">8.3 客訴 8D 處分戰略與「姊妹晶圓 (Sister Wafers)」即時攔截</span>
+            <span class="en">8.3 Customer 8D Action Plan & Sister Wafer Containment Protocol</span>
           </h3>
 
           <div style="background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--danger); border-radius:6px; padding:16px; font-family:var(--font-mono); font-size:12.5px; line-height:1.7;">
-            <b>【客訴 8D 即時防禦協議 (Customer RMA Containment SOP)】</b><br>
-            <b>1. D3 即時圍堵與隔離 (24 Hours Containment):</b><br>
-            &bull; 依據客訴晶片 ECID 鎖定其生產批次（Lot ID）與晶圓號碼（Wafer ID）。<br>
-            &bull; <b>全廠追溯同批 24 片「姊妹晶圓（Sister Wafers）」</b>以及同一 Raw Ingot 長晶批次的所有晶圓。<br>
-            &bull; 透過 MES 系統立即將在製品（WIP）、庫存成品（Warehouse Stock）及在途貨物（In-transit）打上「Quality Hold」，全面暫停出貨。<br><br>
-            <b>2. D4 實體解剖真因鎖定 (Root Cause FA):</b><br>
-            &bull; 非破壞 X-Ray 封裝打線掃描 ➔ 聲波顯微鏡（C-SAM）檢查分層 ➔ OBIRCH 漏電發熱點定位 ➔ FIB 奈米切片 ➔ TEM + EDX 元素成份定罪。<br><br>
-            <b>3. D5/D6 糾正防範與驗證 (CAPA Implementation):</b><br>
-            &bull; 在 CP 測試程式導入動態 PAT 與 GDBN 剔除演算法。<br>
-            &bull; 在產線執行 5 批 Pilot 試產，驗證 0-km 失效率降至 0 PPM。<br><br>
-            <b>4. D7 體系性預防再發 (Systemic Prevention):</b><br>
-            &bull; 更新製程 FMEA（失效模式與效應分析）與 Control Plan 管制計畫；修改 DFM 設計規則庫。
+            <div class="zh">
+              <b>【客訴 8D 即時防禦協議 (Customer RMA Containment SOP)】</b><br>
+              <b>1. D3 即時圍堵與隔離 (24 Hours Containment):</b><br>
+              &bull; 依據客訴晶片 ECID 鎖定其生產批次（Lot ID）與晶圓號碼（Wafer ID）。<br>
+              &bull; <b>全廠追溯同批 24 片「姊妹晶圓（Sister Wafers）」</b>以及同一 Raw Ingot 長晶批次的所有晶圓。<br>
+              &bull; 透過 MES 系統立即將在製品（WIP）、庫存成品（Warehouse Stock）及在途貨物（In-transit）打上「Quality Hold」，全面暫停出貨。<br><br>
+              <b>2. D4 實體解剖真因鎖定 (Root Cause FA):</b><br>
+              &bull; 非破壞 X-Ray 封裝打線掃描 ➔ 聲波顯微鏡（C-SAM）檢查分層 ➔ OBIRCH 漏電發熱點定位 ➔ FIB 奈米切片 ➔ TEM + EDX 元素成份定罪。<br><br>
+              <b>3. D5/D6 糾正防範與驗證 (CAPA Implementation):</b><br>
+              &bull; 在 CP 測試程式導入動態 PAT 與 GDBN 剔除演算法。<br>
+              &bull; 在產線執行 5 批 Pilot 試產，驗證 0-km 失效率降至 0 PPM。<br><br>
+              <b>4. D7 體系性預防再發 (Systemic Prevention):</b><br>
+              &bull; 更新製程 FMEA（失效模式與效應分析）與 Control Plan 管制計畫；修改 DFM 設計規則庫。
+            </div>
+            <div class="en">
+              <b>[Customer RMA 8D Containment Protocol (Zero-Defect SOP)]</b><br>
+              <b>1. D3 Rapid Containment &amp; Quarantine (Within 24 Hours):</b><br>
+              &bull; Extract Electronic Chip ID (ECID) to trace Fab Lot ID, Wafer ID, and Die X/Y coordinates.<br>
+              &bull; <b>Execute factory-wide genealogy tracking across all 24 sister wafers</b> and identical raw crystal ingot batches.<br>
+              &bull; Issue instantaneous MES Quality Hold across all WIP lots, warehouse inventory, and in-transit shipments.<br><br>
+              <b>2. D4 Physics-of-Failure Root Cause Identification:</b><br>
+              &bull; Non-destructive X-Ray CT wirebond inspection ➔ Acoustic C-SAM delamination check ➔ OBIRCH thermal hotspot localization ➔ Dual-beam FIB lift-out ➔ Atomic HR-TEM &amp; EDX composition forensics.<br><br>
+              <b>3. D5/D6 Corrective Actions &amp; Verification (CAPA):</b><br>
+              &bull; Deploy Dynamic Part Average Testing (DPAT) and Good Die in Bad Neighborhood (GDBN) binning rules in CP sort programs.<br>
+              &bull; Run 5-lot pilot verification lots to confirm 0-km field return failure rate drops to 0 PPM.<br><br>
+              <b>4. D7 Systemic Prevention of Recurrence:</b><br>
+              &bull; Update Process FMEA, Control Plans, and DFM design rule check (DRC) libraries to permanently institutionalize guardbands.
+            </div>
           </div>
         </div>
       </section>
 
-      <!-- PHASE 8: IMPROVEMENT PLAYBOOK & ACTION LOOPS -->
+      <!-- PHASE 9: IMPROVEMENT PLAYBOOK & ACTION LOOPS -->
       <section id="phase9_action">
         <h2 class="collapsible-h" onclick="toggleCollapse(this)">
           <span>
@@ -6274,7 +6338,7 @@
         </div>
       </section>
 
-      <!-- PHASE 9: YIELD RAMP & AUDIT DEFENSE -->
+      <!-- PHASE 10: YIELD RAMP & AUDIT DEFENSE -->
       <section id="phase10_ramp">
         <h2 class="collapsible-h" onclick="toggleCollapse(this)">
           <span>
@@ -6407,11 +6471,11 @@
     <div style="display:flex; flex-direction:column; align-items:flex-end; gap:5px;">
       <div style="display:flex; align-items:center; gap:8px;">
         <span class="badge badge-green" style="font-size:11px; padding:2px 8px;">● LIVE VERIFIED</span>
-        <span style="font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft);">Rev. N</span>
+        <span style="font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft);">Rev. O</span>
       </div>
       <div style="font-family:var(--font-mono); font-size:12px; color:var(--ink);">
         <span class="zh">最後更新日期：</span><span class="en">Last Updated: </span>
-        <b style="color:var(--accent);">2026-10-22 15:50 (Asia/Taipei)</b>
+        <b style="color:var(--accent);">2026-10-22 16:15 (Asia/Taipei)</b>
       </div>
     </div>
   </footer>
