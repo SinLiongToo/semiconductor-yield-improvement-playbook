@@ -5400,6 +5400,250 @@
             </div>
           </div>
 
+          <!-- 6.3 SCAN CHAIN, FAULT MODELS & TIMING-AWARE VS CELL-AWARE -->
+          <h3>
+            <span class="zh">6.3 掃描鏈 (Scan Chain)、故障模型 (SAF/TDF/At-Speed) 與 Timing-Aware vs. Cell-Aware 深度解析</span>
+            <span class="en">6.3 Scan Chain Architecture, Fault Models (SAF/TDF/At-Speed) &amp; Timing-Aware vs. Cell-Aware (CAT)</span>
+          </h3>
+          <p>
+            <span class="zh">
+              現代超大型積體電路（VLSI）包含數千萬至數十億顆邏輯閘，直接由外部晶片接腳執行功能測試時，內部狀態極難控制（Controllability）且極難觀察（Observability）。<b>可測試性設計（Design for Testability, DFT）的核心基石即為掃描鏈（Scan Chain）</b>，配合 ATPG（自動測試向量產生）演算法將複雜的時序循序電路（Sequential Logic）轉化為簡單的組合邏輯（Combinational Logic）進行窮舉激勵。
+            </span>
+            <span class="en">
+              Modern VLSI SoCs integrate billions of transistors, making internal gate nodes virtually uncontrollable and unobservable from external package pins. <b>Design for Testability (DFT) solves this through Scan Chains</b>, which temporarily transform sequential state-machine flip-flops into accessible shift registers, allowing ATPG tools to treat sequential circuits as purely combinational logic for defect sensitization.
+            </span>
+          </p>
+
+          <!-- 6.3.1 SCAN CHAIN ARCHITECTURE & FLUSH DIAGNOSIS -->
+          <div style="background:var(--surface-2); border:1px solid var(--border); border-radius:6px; padding:16px; margin:16px 0;">
+            <div style="font-weight:700; color:var(--accent); font-size:13px; margin-bottom:8px;">
+              <span class="zh">【掃描鏈架構原理解構與斷鏈診斷 (Scan Chain Mechanics &amp; Flush Test Diagnosis)】</span>
+              <span class="en">[Scan Chain Architecture Mechanics &amp; Chain Flush Diagnosis]</span>
+            </div>
+            <p style="font-size:12.5px; line-height:1.6; margin-bottom:12px;">
+              <span class="zh">
+                <b>1. MUX-D 掃描觸發器 (Scan Flip-Flop) 與雙模運作：</b><br>
+                標準暫存器在輸入端加入 2-to-1 多工器，由<b>掃描致能信號（Scan Enable, SE）</b>控制：<br>
+                &bull; <b>移位模式 (Shift Mode, SE = 1)</b>：所有暫存器首尾串接成多條長度為 \(L\) 的序列移位暫存器（Scan Chain）。ATE 透過 Scan-In (SI) 針腳以低速時脈（20–50 MHz）將測試激勵一個 bit 一個 bit 串列推入暫存器。<br>
+                &bull; <b>捕獲模式 (Capture Mode, SE = 0)</b>：SE 切換為 0，暫存器恢復與前段組合邏輯相連。ATE 施加 1 或 2 個功能時脈脈衝，將組合邏輯計算結果鎖存進暫存器。<br>
+                &bull; <b>移出模式 (Shift-Out, SE = 1)</b>：再次切換 SE = 1，串列移出鎖存結果至 Scan-Out (SO) 針腳與金樣（Golden Vector）比對。<br><br>
+                <b>2. 掃描鏈自檢沖刷測試 (Scan Chain Flush Test)：</b><br>
+                在執行任何內部邏輯 ATPG 前，必須先證明掃描鏈本身完好無損。ATE 會先將 SE 恆定拉為 1，連續輸入沖刷碼型（如 <code>00110011...</code> 翻轉序列）。若 SO 輸出無法完整重現輸入碼型，代表該掃描鏈存在<b>斷鏈故障（Broken Scan Chain）</b>。<br><br>
+                <b>3. 斷鏈物理真因與 EDA 診斷定位 (Chain Diagnosis)：</b><br>
+                斷鏈通常源於：<b>Scan-Clock 局部斷線、時脈偏斜（Clock Skew）誘發 Shift 競爭冒險（Hold-Time Race）、或某顆 Scan-DFF 實體短路</b>。EDA 診斷工具利用特徵碼型（Passing/Failing bit index correlation）即可精確鎖定故障發生在第幾顆 Scan Flip-Flop，指導 FIB 進行奈米微區切片。
+              </span>
+              <span class="en">
+                <b>1. MUX-D Scan Flip-Flop Dual-Mode Architecture:</b><br>
+                Standard functional flip-flops are converted into scan flip-flops by integrating a 2:1 multiplexer at the D-input, gated by the <b>Scan Enable (SE)</b> control rail:<br>
+                &bull; <b>Shift Mode (SE = 1)</b>: Flip-flops are daisy-chained into parallel shift registers of length \(L\). The tester shifts input stimulus serially bit-by-bit via Scan-In (SI) pins at slow ATE shift clocks (20–50 MHz).<br>
+                &bull; <b>Capture Mode (SE = 0)</b>: SE is deasserted, connecting flip-flop inputs back to combinational logic cones. 1 or 2 capture clock pulses latch the combinational evaluation results into the scan cells.<br>
+                &bull; <b>Shift-Out Mode (SE = 1)</b>: SE is reasserted to serially unload captured logic states via Scan-Out (SO) pins for comparison against expected golden response vectors.<br><br>
+                <b>2. Scan Chain Flush Integrity Test:</b><br>
+                Before executing any internal combinational logic patterns, the tester must verify scan chain connectivity. With SE tied high, alternating toggle patterns (e.g., <code>00110011...</code>) are shifted through. Any corruption flags a <b>Broken Scan Chain</b>.<br><br>
+                <b>3. Chain Failure Root Causes &amp; EDA Diagnosis:</b><br>
+                Broken chains stem from: <b>Scan clock distribution opens, excessive clock skew causing shift hold-time races, or individual transistor cell bridging</b>. EDA chain diagnosis algorithms correlate failing shift cycles to pinpoint the exact broken scan flip-flop index for PFA cross-sectioning.
+              </span>
+            </p>
+          </div>
+
+          <!-- 6.3.2 DIGITAL FAULT MODEL MASTER TABLE -->
+          <div class="data-table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th><span class="zh">測試故障模型</span><span class="en">Fault Model</span></th>
+                  <th><span class="zh">物理缺陷機制 (Physical Defect)</span><span class="en">Physical Defect Target</span></th>
+                  <th><span class="zh">時脈機制 (Clock Scheme)</span><span class="en">Clocking Mechanism</span></th>
+                  <th><span class="zh">業界標準覆蓋率要求</span><span class="en">Coverage Benchmark</span></th>
+                  <th><span class="zh">等效品質與 Cpk 量化模型</span><span class="en">Equivalent Quality / Cpk Model</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <span class="zh"><b>靜態卡死故障 (Stuck-At Fault, SAF)</b></span>
+                    <span class="en"><b>Stuck-At Fault (SAF / DC Scan)</b></span>
+                  </td>
+                  <td>
+                    <span class="zh">DC 靜態死透缺陷：節點永久短路至 \(V_{DD}\) (SA0) 或地 (SA1)、Via 徹底未穿孔斷路、巨型金屬微粒橋接。</span>
+                    <span class="en">DC catastrophic defects: permanent shorts to \(V_{DD}\) (SA0) or GND (SA1), unetched non-conductive vias, gross metal bridging.</span>
+                  </td>
+                  <td>
+                    <span class="zh">低速測試機時脈（ATE Slow Clock, 10–50 MHz），無需考慮路徑傳播延遲。</span>
+                    <span class="en">Slow ATE clock (10–50 MHz); relaxed timing independent of interconnect delay.</span>
+                  </td>
+                  <td>
+                    <span class="zh">消費級 \(\ge 98.0\%\)；工業級 \(\ge 98.5\%\)；車用 AEC-Q100 \(\ge 99.5\%\)。</span>
+                    <span class="en">Consumer \(\ge 98.0\%\); Industrial \(\ge 98.5\%\); Automotive AEC-Q100 \(\ge 99.5\%\).</span>
+                  </td>
+                  <td>
+                    <span class="zh">
+                      <b>Williams-Brown 缺陷漏測模型：</b><br>
+                      \[ \text{DL} = 1 - Y^{1 - FC} \]
+                      將真實良率 \(Y\) 與覆蓋率 \(FC\) 換算為漏測 DPPM，再代入 \(Z_{\text{bench}} = \Phi^{-1}(1 - \text{DL})\) 取得等效 \(C_{pk}\)。
+                    </span>
+                    <span class="en">
+                      <b>Williams-Brown Escape Model:</b><br>
+                      \[ \text{DL} = 1 - Y^{1 - FC} \]
+                      Converts yield \(Y\) and fault coverage \(FC\) to escape DPPM, mapped to \(Z_{\text{bench}} = \Phi^{-1}(1 - \text{DL})\) and equivalent \(C_{pk}\).
+                    </span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="zh"><b>轉換延遲故障 (Transition Delay Fault, TDF)</b></span>
+                    <span class="en"><b>Transition Delay Fault (TDF / AC Scan)</b></span>
+                  </td>
+                  <td>
+                    <span class="zh">AC 動態慢速缺陷：通孔微殘留（Resistive Via）、接觸電阻過高、閘極 High-k 退化造成 Slow-to-Rise 或 Slow-to-Fall 延遲放大。</span>
+                    <span class="en">AC dynamic delay faults: resistive via under-etch, high contact resistance, or dielectric degradation causing Slow-to-Rise / Slow-to-Fall transitions.</span>
+                  </td>
+                  <td>
+                    <span class="zh">雙脈衝轉移時脈（2-Pulse: Launch 觸發翻轉 ➔ Capture 採樣），週期對應目標頻率。</span>
+                    <span class="en">Two-pulse at-speed clocking: Launch pulse induces logic transition; Capture pulse latches arrival within rated cycle.</span>
+                  </td>
+                  <td>
+                    <span class="zh">消費級 \(\ge 88.0\%\)；工業級 \(\ge 92.0\%\)；車用 AEC-Q100 \(\ge 95.0\%\)。</span>
+                    <span class="en">Consumer \(\ge 88.0\%\); Industrial \(\ge 92.0\%\); Automotive AEC-Q100 \(\ge 95.0\%\).</span>
+                  </td>
+                  <td>
+                    <span class="zh">
+                      <b>時序鬆弛度（Slack）分佈能力：</b><br>
+                      統計各關鍵路徑實際到達時間與目標時脈週期之差值（Timing Slack ps），計算 \(C_{pk}(\text{Slack})\)。
+                    </span>
+                    <span class="en">
+                      <b>Timing Slack Process Capability:</b><br>
+                      Measures distribution of arrival slack (ps) across timing paths to compute continuous \(C_{pk}(\text{Slack})\).
+                    </span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="zh"><b>全速測試 (At-Speed Test: LOC vs. LOS)</b></span>
+                    <span class="en"><b>At-Speed Testing (LOC vs. LOS via OCC)</b></span>
+                  </td>
+                  <td>
+                    <span class="zh">全頻率極限時序違規：真實 1–3 GHz 高頻下 Setup/Hold Time 邊限崩潰、內部多點翻轉引發之動態電源壓降（IR Droop）。</span>
+                    <span class="en">Rated functional clock race conditions: Setup/Hold time margin violations at 1–3 GHz, and pattern-induced dynamic peak IR droop.</span>
+                  </td>
+                  <td>
+                    <span class="zh">
+                      由內部 PLL 與 OCC（On-Chip Clock Controller）控制：<br>
+                      &bull; <b>LOC (Launch-off-Capture)</b>：慢速 Shift ➔ 內部 2 個全速脈衝（業界量產主流）；<br>
+                      &bull; <b>LOS (Launch-off-Shift)</b>：最後一個 Shift 脈衝 Launch ➔ 全速 Capture（需高速 SE 佈線）。
+                    </span>
+                    <span class="en">
+                      Gated by on-chip PLL &amp; OCC (On-Chip Clock Controller):<br>
+                      &bull; <b>LOC (Broadside)</b>: Slow shift ➔ 2 internal at-speed clock pulses (Industry standard);<br>
+                      &bull; <b>LOS (Pipelined)</b>: Launch on last shift clock ➔ capture on next cycle (Requires at-speed SE routing).
+                    </span>
+                  </td>
+                  <td>
+                    <span class="zh">At-Speed 向量測試通過率（Pass Rate）與動態 Shmoo 窗口。</span>
+                    <span class="en">At-Speed pattern pass rate and operational Shmoo operating envelope.</span>
+                  </td>
+                  <td>
+                    <span class="zh">
+                      <b>全速 \(V_{min}\) / \(F_{max}\) 連續搜索：</b><br>
+                      固定標稱頻率執行二分法向下搜尋最低可工作電壓，計算連續型 \(C_{pk}(V_{min,\text{at-speed}})\)。
+                    </span>
+                    <span class="en">
+                      <b>At-Speed Vmin/Fmax Binary Search:</b><br>
+                      Executes binary voltage sweep under at-speed clocking to determine \(V_{min,\text{at-speed}}\) for continuous \(C_{pk}\) analysis.
+                    </span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="zh"><b>微小延遲缺陷 (Small Delay Defect, SDD)</b></span>
+                    <span class="en"><b>Small Delay Defect (SDD / Timing-Aware)</b></span>
+                  </td>
+                  <td>
+                    <span class="zh">隱性亞微米缺陷：非關鍵路徑（Short Path）上的微小高阻抗（增加 50–200ps 延遲）。傳統 TDF 會漏測，但在車載高溫高頻下引發客訴。</span>
+                    <span class="en">Latent micro-defects: subtle high-R defects on short/medium paths adding 50–200ps delay that escape traditional TDF, but cause field failure under thermal stress.</span>
+                  </td>
+                  <td>
+                    <span class="zh">時序感知 ATPG（Timing-Aware ATPG）+ 動態頻率超頻（Clock Overdrive）。</span>
+                    <span class="en">Timing-Aware ATPG + selective tester clock overdrive (105%–115% nominal frequency).</span>
+                  </td>
+                  <td>
+                    <span class="zh">車規晶片 SDD 覆蓋率與最小鬆弛度路徑捕捉率 \(\ge 90\%\)。</span>
+                    <span class="en">Timing-Aware SDD coverage across paths with &lt; 100ps slack \(\ge 90\%\).</span>
+                  </td>
+                  <td>
+                    <span class="zh">
+                      <b>頻率過驅能力裕量：</b><br>
+                      在 \(F_{\text{nominal}} + 15\%\) 下篩選，以過頻通過率量化實體防禦能力。
+                    </span>
+                    <span class="en">
+                      <b>Overdrive Frequency Margin:</b><br>
+                      Validates operation at 115% rated speed to guarantee physical delay immunity.
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- 6.3.3 TIMING-AWARE VS CELL-AWARE COMPARISON -->
+          <div style="background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--good); border-radius:6px; padding:16px; margin:16px 0;">
+            <div style="font-weight:700; color:var(--good); font-size:13.5px; margin-bottom:8px;">
+              <span class="zh">【關鍵概念釐清：Timing-Aware ATPG 與 Cell-Aware Test (CAT) 是一樣的嗎？】</span>
+              <span class="en">[Key Clarification: Is Timing-Aware ATPG the Same as Cell-Aware Test (CAT)?]</span>
+            </div>
+            <p style="font-size:12.5px; line-height:1.7; margin-bottom:12px;">
+              <span class="zh">
+                <b>結論：完全不同！兩者是針對不同維度實體缺陷的互補型先進測試技術：</b><br>
+                &bull; <b>Timing-Aware ATPG（時序感知測試）針對的是「路徑層級的微小延遲（Inter-cell Path Slack）」：</b><br>
+                傳統 Transition ATPG 只要能翻轉某個節點即可，通常會隨機選擇容易敏化的短路徑（鬆弛度 Slack 很大，例如還有 600ps 餘裕）。此時若該節點存在一個 100ps 的微小延遲缺陷，因為 \(600\text{ps} - 100\text{ps} = 500\text{ps} > 0\)，傳統測試完全<b>漏測（Test Escape）</b>！<b>Timing-Aware ATPG 讀取晶片實際靜態時序分析（STA）之 SDF/SPEF 檔案，強制 ATPG 必須選擇「Slack 最小（最接近時脈邊界）的最長路徑」進行激勵</b>，使哪怕只有 50ps 的微小缺陷也會立刻超時違規爆發，徹底阻截車用 0-km 隱性缺陷。<br><br>
+                &bull; <b>Cell-Aware Test (CAT, 標準單元內部感知測試) 針對的是「電晶體佈局內部的微觀缺陷（Intra-cell Transistor Layout）」：</b><br>
+                傳統 ATPG 將標準單元（如 NAND2、MUX2、DFF）視為黑盒子（Black-Box Boolean Gates），只假設故障發生在單元的輸入腳（Inputs A, B）或輸出腳（Output Y）。然而在 FinFET / GAA 先進製程中，<b>超過 40% 的物理缺陷發生在標準單元內部的電晶體鰭片（Fin）、閘極多晶矽間隙、或內部接觸孔（Internal Contacts）</b>。Cell-Aware 透過對標準單元 GDSII 進行晶體管級 SPICE 佈局寄生提取，注入數千種內部短路、開路與橋接模型，產生能迫使標準單元內部缺陷暴露的特定輸入向量組合（如特定狀態下的轉移激勵），這是傳統黑盒子 ATPG 無論提高多少覆蓋率都永遠無法覆蓋的盲區！
+              </span>
+              <span class="en">
+                <b>Conclusion: They are completely different and complementary defect-reduction technologies:</b><br>
+                &bull; <b>Timing-Aware ATPG targets "Inter-Cell Path Slack &amp; Small Delay Defects":</b><br>
+                Traditional Transition ATPG sensitizes a fault along any arbitrary path. If it picks a path with large positive slack (e.g., +600ps), a subtle 100ps resistive via defect will pass unnoticed (\(600\text{ps} - 100\text{ps} = 500\text{ps} > 0\)), leading to a latent <b>Test Escape</b>. <b>Timing-Aware ATPG imports sign-off Static Timing Analysis (STA / SDF) data to deliberately steer fault propagation through the longest paths with minimal positive slack</b>, ensuring that even a 50ps delay excursion triggers a timing violation during test.<br><br>
+                &bull; <b>Cell-Aware Test (CAT) targets "Intra-Cell Physical Transistor &amp; Fin Defects":</b><br>
+                Traditional ATPG abstracts standard cells (NAND, NOR, Flip-Flops) as ideal Boolean black boxes, assuming faults only reside on cell peripheral boundary pins (A, B, Y). However, in FinFET/GAA nodes, <b>over 40% of physical defects occur inside the cell layout (broken fins, intra-cell poly shorts, local interconnect opens)</b>. Cell-Aware Test performs layout-extracted SPICE analog defect simulations across the GDSII cell library, injecting thousands of intra-cell bridges and opens to generate precise input vector states that force internal transistor faults to manifest externally at the cell output.
+              </span>
+            </p>
+
+            <div class="data-table-wrap">
+              <table class="data-table" style="font-size:12px;">
+                <thead>
+                  <tr>
+                    <th><span class="zh">維度比較</span><span class="en">Comparison Metric</span></th>
+                    <th><span class="zh">時序感知測試 (Timing-Aware ATPG)</span><span class="en">Timing-Aware ATPG</span></th>
+                    <th><span class="zh">單元內部感知測試 (Cell-Aware Test, CAT)</span><span class="en">Cell-Aware Test (CAT)</span></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><b><span class="zh">分析關注層級</span><span class="en">Target Domain</span></b></td>
+                    <td><span class="zh"><b>單元間互連路徑 (Inter-Cell Path)</b></span><span class="en"><b>Inter-Cell Interconnect Paths</b></span></td>
+                    <td><span class="zh"><b>單元內部電晶體佈局 (Intra-Cell Layout)</b></span><span class="en"><b>Intra-Cell Transistor Network</b></span></td>
+                  </tr>
+                  <tr>
+                    <td><b><span class="zh">依賴之底層輸入</span><span class="en">Required Input Data</span></b></td>
+                    <td><span class="zh">靜態時序分析資料庫（STA / SDF / SPEF 檔案）</span><span class="en">STA Timing Models (SDF / SPEF parasitic slack files)</span></td>
+                    <td><span class="zh">標準單元 GDSII 物理版圖與電晶體 SPICE 網表</span><span class="en">Standard Cell GDSII Layout &amp; Transistor SPICE Netlists</span></td>
+                  </tr>
+                  <tr>
+                    <td><b><span class="zh">針對之主要物理缺陷</span><span class="en">Target Physical Defects</span></b></td>
+                    <td><span class="zh">微通孔電阻過高、走線微頸縮、長路徑累積延遲</span><span class="en">Resistive vias, interconnect necking, cumulative path delay</span></td>
+                    <td><span class="zh">鰭片斷裂（Fin Open）、內部金屬橋接、電晶體漏電</span><span class="en">Fin cuts, internal poly bridges, partial gate opens</span></td>
+                  </tr>
+                  <tr>
+                    <td><b><span class="zh">車規 DPPM 降低效益</span><span class="en">Automotive DPPM Reduction</span></b></td>
+                    <td><span class="zh">消除 60% 以上高溫高頻動態時序客訴（0-km Escapes）</span><span class="en">Eliminates &gt; 60% of high-temperature dynamic timing returns</span></td>
+                    <td><span class="zh">額外抓出傳統 ATPG 無法感知的 1.5%–3.0% 隱性電晶體缺陷</span><span class="en">Uncovers 1.5%–3.0% latent transistor defects invisible to SAF/TDF</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+
         </div>
       </section>
 
@@ -6681,11 +6925,11 @@
     <div style="display:flex; flex-direction:column; align-items:flex-end; gap:5px;">
       <div style="display:flex; align-items:center; gap:8px;">
         <span class="badge badge-green" style="font-size:11px; padding:2px 8px;">● LIVE VERIFIED</span>
-        <span style="font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft);">Rev. P</span>
+        <span style="font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft);">Rev. Q</span>
       </div>
       <div style="font-family:var(--font-mono); font-size:12px; color:var(--ink);">
         <span class="zh">最後更新日期：</span><span class="en">Last Updated: </span>
-        <b style="color:var(--accent);">2026-10-22 16:45 (Asia/Taipei)</b>
+        <b style="color:var(--accent);">2026-10-22 17:05 (Asia/Taipei)</b>
       </div>
     </div>
   </footer>
