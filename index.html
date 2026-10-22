@@ -5220,10 +5220,15 @@
           <p>
             <span class="zh">
               FA 必須嚴格遵循由外而內、由非破壞到破壞性的分析階梯，避免在未鎖定精確微米座標前過早研磨造成「殺死現場證據（Killing the Evidence）」：
+            </span>
+            <span class="en">
+              FA must strictly follow a non-destructive to destructive analytical ladder, preventing premature polishing that destroys physical evidence:
+            </span>
+          </p>
 
           <!-- FIGURE 6.1: PFA ANALYTICAL LADDER -->
-          <figure>
-            <svg viewBox="0 0 960 270" style="width:100%; height:auto;" xmlns="http://www.w3.org/2000/svg">
+          <div class="figure-container">
+            <svg id="fig61-svg" viewBox="0 0 960 270" style="width:100%; height:auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;" xmlns="http://www.w3.org/2000/svg">
               <defs>
                 <filter id="pfaShadow" x="-5%" y="-10%" width="110%" height="130%">
                   <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.15"/>
@@ -5233,76 +5238,107 @@
                   <stop offset="100%" stop-color="var(--accent-strong)" stop-opacity="0.95"/>
                 </linearGradient>
               </defs>
-              <g fill="var(--ink)" font-family="var(--font-mono)">
+              <g fill="var(--ink)">
                 <!-- Step 1 -->
                 <rect x="15" y="30" width="160" height="90" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1.5" filter="url(#pfaShadow)"/>
-                <text x="95" y="55" text-anchor="middle" font-size="12" font-weight="700" fill="var(--accent)">1. 非破壞性檢驗</text>
+                <text class="zh" x="95" y="55" text-anchor="middle" font-size="12" font-weight="700" fill="var(--accent)">1. 非破壞性檢驗</text>
+                <text class="en" x="95" y="55" text-anchor="middle" font-size="11" font-weight="700" fill="var(--accent)">1. Non-Destructive</text>
+                
                 <text x="95" y="73" text-anchor="middle" font-size="10.5" fill="var(--ink-soft)">X-Ray CT / C-SAM</text>
-                <text x="95" y="90" text-anchor="middle" font-size="9.5" fill="var(--ink-faint)">封裝分層 / 錫球空孔</text>
-                <text x="95" y="105" text-anchor="middle" font-size="9" fill="var(--good)">保留原始物理現場</text>
+                
+                <text class="zh" x="95" y="90" text-anchor="middle" font-size="9.5" fill="var(--ink-faint)">封裝分層 / 錫球空孔</text>
+                <text class="en" x="95" y="90" text-anchor="middle" font-size="9" fill="var(--ink-faint)">Delam / Solder Voids</text>
+                
+                <text class="zh" x="95" y="105" text-anchor="middle" font-size="9" fill="var(--good)">保留原始物理現場</text>
+                <text class="en" x="95" y="105" text-anchor="middle" font-size="8.5" fill="var(--good)">Preserve Pristine State</text>
 
                 <!-- Arrow 1-2 -->
                 <path d="M 175 75 L 205 75" stroke="var(--accent)" stroke-width="2"/>
 
                 <!-- Step 2 -->
                 <rect x="205" y="30" width="170" height="90" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1.5" filter="url(#pfaShadow)"/>
-                <text x="290" y="55" text-anchor="middle" font-size="12" font-weight="700" fill="var(--accent)">2. 電性故障定位</text>
+                <text class="zh" x="290" y="55" text-anchor="middle" font-size="12" font-weight="700" fill="var(--accent)">2. 電性故障定位</text>
+                <text class="en" x="290" y="55" text-anchor="middle" font-size="11" font-weight="700" fill="var(--accent)">2. Fault Localization</text>
+                
                 <text x="290" y="73" text-anchor="middle" font-size="10.5" fill="var(--ink-soft)">OBIRCH / EMMI / LIT</text>
-                <text x="290" y="90" text-anchor="middle" font-size="9.5" fill="var(--ink-faint)">1340nm 雷射熱效應</text>
-                <text x="290" y="105" text-anchor="middle" font-size="9" fill="var(--warn)">縮小至 1μm 局部座標</text>
+                
+                <text class="zh" x="290" y="90" text-anchor="middle" font-size="9.5" fill="var(--ink-faint)">1340nm 雷射熱效應</text>
+                <text class="en" x="290" y="90" text-anchor="middle" font-size="9" fill="var(--ink-faint)">1340nm Laser Thermal</text>
+                
+                <text class="zh" x="290" y="105" text-anchor="middle" font-size="9" fill="var(--warn)">縮小至 1μm 局部座標</text>
+                <text class="en" x="290" y="105" text-anchor="middle" font-size="8.5" fill="var(--warn)">Isolate to 1μm Target</text>
 
                 <!-- Arrow 2-3 -->
                 <path d="M 375 75 L 405 75" stroke="var(--accent)" stroke-width="2"/>
 
                 <!-- Step 3 -->
                 <rect x="405" y="30" width="170" height="90" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1.5" filter="url(#pfaShadow)"/>
-                <text x="490" y="55" text-anchor="middle" font-size="12" font-weight="700" fill="var(--accent)">3. 奈米探針電性提取</text>
+                <text class="zh" x="490" y="55" text-anchor="middle" font-size="12" font-weight="700" fill="var(--accent)">3. 奈米探針電性提取</text>
+                <text class="en" x="490" y="55" text-anchor="middle" font-size="11" font-weight="700" fill="var(--accent)">3. Nano-Probing (EFL)</text>
+                
                 <text x="490" y="73" text-anchor="middle" font-size="10.5" fill="var(--ink-soft)">Nano-probing (AFM/SEM)</text>
-                <text x="490" y="90" text-anchor="middle" font-size="9.5" fill="var(--ink-faint)">4 根 20nm 鎢針扎刺</text>
-                <text x="490" y="105" text-anchor="middle" font-size="9" fill="var(--danger)">單顆 FinFET Id-Vg 曲線</text>
+                
+                <text class="zh" x="490" y="90" text-anchor="middle" font-size="9.5" fill="var(--ink-faint)">4 根 20nm 鎢針扎刺</text>
+                <text class="en" x="490" y="90" text-anchor="middle" font-size="9" fill="var(--ink-faint)">4x 20nm W-Tips Landing</text>
+                
+                <text class="zh" x="490" y="105" text-anchor="middle" font-size="9" fill="var(--danger)">單顆 FinFET Id-Vg 曲線</text>
+                <text class="en" x="490" y="105" text-anchor="middle" font-size="8.5" fill="var(--danger)">Single Transistor Id-Vg</text>
 
                 <!-- Arrow 3-4 -->
                 <path d="M 575 75 L 605 75" stroke="var(--accent)" stroke-width="2"/>
 
                 <!-- Step 4 -->
                 <rect x="605" y="30" width="165" height="90" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1.5" filter="url(#pfaShadow)"/>
-                <text x="687" y="55" text-anchor="middle" font-size="12" font-weight="700" fill="var(--accent)">4. 雙束 FIB 原位切片</text>
+                <text class="zh" x="687" y="55" text-anchor="middle" font-size="12" font-weight="700" fill="var(--accent)">4. 雙束 FIB 原位切片</text>
+                <text class="en" x="687" y="55" text-anchor="middle" font-size="11" font-weight="700" fill="var(--accent)">4. Dual-Beam FIB-SEM</text>
+                
                 <text x="687" y="73" text-anchor="middle" font-size="10.5" fill="var(--ink-soft)">Dual-beam FIB-SEM</text>
-                <text x="687" y="90" text-anchor="middle" font-size="9.5" fill="var(--ink-faint)">Ga+ 離子束 52° 研磨</text>
-                <text x="687" y="105" text-anchor="middle" font-size="9" fill="var(--ink-soft)">製備 &lt; 25nm 超薄截面</text>
+                
+                <text class="zh" x="687" y="90" text-anchor="middle" font-size="9.5" fill="var(--ink-faint)">Ga+ 離子束 52° 研磨</text>
+                <text class="en" x="687" y="90" text-anchor="middle" font-size="9" fill="var(--ink-faint)">Ga+ 52° Precision Mill</text>
+                
+                <text class="zh" x="687" y="105" text-anchor="middle" font-size="9" fill="var(--ink-soft)">製備 &lt; 25nm 超薄截面</text>
+                <text class="en" x="687" y="105" text-anchor="middle" font-size="8.5" fill="var(--ink-soft)">Prep &lt; 25nm Lamella</text>
 
                 <!-- Arrow 4-5 -->
                 <path d="M 770 75 L 800 75" stroke="var(--accent)" stroke-width="2"/>
 
                 <!-- Step 5 -->
                 <rect x="800" y="30" width="145" height="90" rx="6" fill="var(--accent)" filter="url(#pfaShadow)"/>
-                <text x="872" y="55" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">5. 原子成份定罪</text>
+                <text class="zh" x="872" y="55" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">5. 原子成份定罪</text>
+                <text class="en" x="872" y="55" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">5. Atomic PFA / TEM</text>
+                
                 <text x="872" y="73" text-anchor="middle" font-size="10.5" fill="#e0f2fe">HR-TEM + EDX</text>
-                <text x="872" y="90" text-anchor="middle" font-size="9.5" fill="#e0f2fe">原子級晶格錯位</text>
-                <text x="872" y="105" text-anchor="middle" font-size="9" fill="#fef08a">元素定性定罪 (Cu/F/Fe)</text>
+                
+                <text class="zh" x="872" y="90" text-anchor="middle" font-size="9.5" fill="#e0f2fe">原子級晶格錯位</text>
+                <text class="en" x="872" y="90" text-anchor="middle" font-size="9" fill="#e0f2fe">Atomic Lattice Imaging</text>
+                
+                <text class="zh" x="872" y="105" text-anchor="middle" font-size="9" fill="#fef08a">元素定性定罪 (Cu/F/Fe)</text>
+                <text class="en" x="872" y="105" text-anchor="middle" font-size="8.5" fill="#fef08a">EDX Fingerprint (Cu/F/Fe)</text>
 
                 <!-- Closed loop feedback bottom -->
                 <path d="M 872 120 L 872 195 L 95 195 L 95 120" fill="none" stroke="var(--danger)" stroke-width="2" stroke-dasharray="6,4"/>
-                <rect x="330" y="175" width="310" height="38" rx="4" fill="var(--surface)" stroke="var(--danger)" stroke-width="1.5"/>
-                <text x="485" y="198" text-anchor="middle" font-size="12" fill="var(--danger)" font-weight="700">
+                <rect x="230" y="175" width="510" height="38" rx="4" fill="var(--surface)" stroke="var(--danger)" stroke-width="1.5"/>
+                <text class="zh" x="485" y="198" text-anchor="middle" font-size="12" fill="var(--danger)" font-weight="700">
                   物理根因映射至晶圓廠機台處方 (Closed-Loop to Fab)
                 </text>
-                <text x="485" y="235" text-anchor="middle" font-size="10.5" fill="var(--ink-soft)">
+                <text class="en" x="485" y="198" text-anchor="middle" font-size="11" fill="var(--danger)" font-weight="700">
+                  Physical Root Cause Closed-Loop to Fab Recipe &amp; Tool PM
+                </text>
+                
+                <text class="zh" x="485" y="235" text-anchor="middle" font-size="10.5" fill="var(--ink-soft)">
                   調閱 EAP 感測訊號（RF 功率 / EPD 終點訊號）➔ PM 清洗 / 更換 Focus Ring / 調校 CMP 配方
+                </text>
+                <text class="en" x="485" y="235" text-anchor="middle" font-size="10" fill="var(--ink-soft)">
+                  Correlate FDC Sensors (RF Power / EPD Traces) ➔ Chamber Wet Clean / Replace Focus Ring / Tweak CMP
                 </text>
               </g>
             </svg>
-            <figcaption>
+            <div class="figure-caption">
               <span class="zh">圖 6.1：半導體 PFA 實體失效分析標準實驗室檢驗階梯全景圖</span>
               <span class="en">Figure 6.1: Semiconductor Physical Failure Analysis (PFA) Analytical Hierarchy Workflow</span>
-            </figcaption>
-          </figure>
-
-            </span>
-            <span class="en">
-              FA must strictly follow a non-destructive to destructive analytical ladder, preventing premature polishing that destroys physical evidence:
-            </span>
-          </p>
+            </div>
+          </div>
 
           <div class="data-table-wrap">
             <table class="data-table">
@@ -5316,58 +5352,123 @@
               </thead>
               <tbody>
                 <tr>
-                  <td><b>1. 非破壞性檢驗 (Non-Destructive)</b></td>
+                  <td><b><span class="zh">1. 非破壞性檢驗 (Non-Destructive)</span><span class="en">1. Non-Destructive Inspection</span></b></td>
                   <td>
-                    &bull; 2D/3D X-Ray CT 透視<br>
-                    &bull; C-SAM 超音波顯微鏡<br>
-                    &bull; SQUID 磁力電流成像
+                    <span class="zh">
+                      &bull; 2D/3D X-Ray CT 透視<br>
+                      &bull; C-SAM 超音波顯微鏡<br>
+                      &bull; SQUID 磁力電流成像
+                    </span>
+                    <span class="en">
+                      &bull; 2D/3D X-Ray CT Radiography<br>
+                      &bull; C-SAM Acoustic Microscopy<br>
+                      &bull; SQUID Magnetic Current Imaging
+                    </span>
                   </td>
-                  <td>X 射線密度差、高頻超音波聲阻抗反射、超導量子干涉儀偵測晶片內部微弱電流引發的磁場分佈。</td>
-                  <td>打線斷裂（Wire bond open）、錫球空孔（Solder void）、封裝環氧膠體與晶片分層（Delamination）、封裝微裂紋、金屬層短路磁場路徑追蹤。</td>
+                  <td>
+                    <span class="zh">X 射線密度差、高頻超音波聲阻抗反射、超導量子干涉儀偵測晶片內部微弱電流引發的磁場分佈。</span>
+                    <span class="en">X-ray density contrast, high-frequency acoustic impedance reflection, and SQUID quantum sensors mapping sub-mA leakage current paths.</span>
+                  </td>
+                  <td>
+                    <span class="zh">打線斷裂（Wire bond open）、錫球空孔（Solder void）、封裝環氧膠體與晶片分層（Delamination）、封裝微裂紋、金屬層短路磁場路徑追蹤。</span>
+                    <span class="en">Wire bond necking/open, solder ball voiding, mold compound/die delamination, package micro-cracks, and non-invasive short-circuit localization.</span>
+                  </td>
                 </tr>
                 <tr>
-                  <td><b>2. 電性故障定位 (EFL - Localization)</b></td>
+                  <td><b><span class="zh">2. 電性故障定位 (EFL - Localization)</span><span class="en">2. Electrical Fault Localization (EFL)</span></b></td>
                   <td>
-                    &bull; OBIRCH / TIVA (光阻抗改變)<br>
-                    &bull; EMMI / PEM (微光顯微)<br>
-                    &bull; Lock-in 熱成像 (LIT)<br>
-                    &bull; LVP 雷射電壓探針
+                    <span class="zh">
+                      &bull; OBIRCH / TIVA (光阻抗改變)<br>
+                      &bull; EMMI / PEM (微光顯微)<br>
+                      &bull; Lock-in 熱成像 (LIT)<br>
+                      &bull; LVP 雷射電壓探針
+                    </span>
+                    <span class="en">
+                      &bull; OBIRCH / TIVA (Laser Thermal Stim.)<br>
+                      &bull; EMMI / PEM (Photon Emission)<br>
+                      &bull; Lock-in Thermography (LIT)<br>
+                      &bull; LVP Laser Voltage Probing
+                    </span>
                   </td>
                   <td>
-                    1340nm 紅外線雷射熱效應誘發電阻擾動（(Delta R 	o Delta I)）；載子復合時釋放的光子偵測；毫瓦級鎖相紅外熱分佈；雷射電場調變高頻時序。
+                    <span class="zh">1340nm 紅外線雷射熱效應誘發電阻擾動（\(\Delta R \to \Delta I\)）；載子復合時釋放的光子偵測；毫瓦級鎖相紅外熱分佈；雷射電場調變高頻時序。</span>
+                    <span class="en">1340nm infrared laser heating inducing local resistance perturbation (\(\Delta R \to \Delta I\)); photon emission during carrier recombination; sub-mK lock-in thermal profiling; electro-optic time-resolved waveform capture.</span>
                   </td>
-                  <td>金屬線微米級短路點、Via 假接觸高阻抗、閘極氧化層微漏電發熱點、PN 接面反向崩潰、ESD 擊穿點、內部時序跳變波形捕獲。</td>
+                  <td>
+                    <span class="zh">金屬線微米級短路點、Via 假接觸高阻抗、閘極氧化層微漏電發熱點、PN 接面反向崩潰、ESD 擊穿點、內部時序跳變波形捕獲。</span>
+                    <span class="en">Metal line sub-micron bridging, via resistive marginality, gate dielectric leakage hot spots, PN junction reverse breakdown, ESD damage, and internal circuit logic timing race.</span>
+                  </td>
                 </tr>
                 <tr>
-                  <td><b>3. 次微米電性提取 (Nano-probing)</b></td>
+                  <td><b><span class="zh">3. 次微米電性提取 (Nano-probing)</span><span class="en">3. Sub-Micron Nano-Probing</span></b></td>
                   <td>
-                    &bull; AFM / SEM Nano-prober<br>
-                    &bull; 4 探針奈米鎢針模組
+                    <span class="zh">
+                      &bull; AFM / SEM Nano-prober<br>
+                      &bull; 4 探針奈米鎢針模組
+                    </span>
+                    <span class="en">
+                      &bull; AFM / SEM Nano-prober<br>
+                      &bull; 4-Point Tungsten Nano-probe Module
+                    </span>
                   </td>
-                  <td>壓電陶瓷驅動奈米針尖（針尖半徑 &lt; 20nm），在 SEM 實時導引下直接扎刺單顆電晶體的 Source, Drain, Gate 與 Contact。</td>
-                  <td>提取單顆 FinFET / GAA 的 (I_d-V_g)、(I_d-V_d) 轉移特性曲線；分離源汲極漏電、閘極穿隧漏電或基底漏電。</td>
+                  <td>
+                    <span class="zh">壓電陶瓷驅動奈米針尖（針尖半徑 &lt; 20nm），在 SEM 實時導引下直接扎刺單顆電晶體的 Source, Drain, Gate 與 Contact。</span>
+                    <span class="en">Piezoelectric actuators driving tungsten needle tips (radius &lt; 20nm) landed on single-transistor Source, Drain, Gate, and Contact under live high-res SEM guidance.</span>
+                  </td>
+                  <td>
+                    <span class="zh">提取單顆 FinFET / GAA 的 \(I_d\)-\(V_g\)、\(I_d\)-\(V_d\) 轉移特性曲線；分離源汲極漏電、閘極穿隧漏電或基底漏電。</span>
+                    <span class="en">Isolate single FinFET/GAA \(I_d\)-\(V_g\) and \(I_d\)-\(V_d\) transfer characteristics; decouple source-drain subthreshold leakage, gate oxide tunneling, and substrate punchthrough.</span>
+                  </td>
                 </tr>
                 <tr>
-                  <td><b>4. 去層解剖技術 (Deprocessing)</b></td>
+                  <td><b><span class="zh">4. 去層解剖技術 (Deprocessing)</span><span class="en">4. Delayering &amp; Deprocessing</span></b></td>
                   <td>
-                    &bull; 化學酸蝕開蓋 (Decap)<br>
-                    &bull; 平行斜向拋光 (CMP De-layering)<br>
-                    &bull; RIE 乾蝕刻去介電層<br>
-                    &bull; Wright / Dash 晶格染色
+                    <span class="zh">
+                      &bull; 化學酸蝕開蓋 (Decap)<br>
+                      &bull; 平行斜向拋光 (CMP De-layering)<br>
+                      &bull; RIE 乾蝕刻去介電層<br>
+                      &bull; Wright / Dash 晶格染色
+                    </span>
+                    <span class="en">
+                      &bull; Chemical Acid Decapsulation<br>
+                      &bull; Parallel Bevel CMP Delayering<br>
+                      &bull; RIE Plasma Dielectric Etch<br>
+                      &bull; Wright / Dash Defect Etch Stain
+                    </span>
                   </td>
-                  <td>熱發煙硝酸/硫酸溶除 EMC；金屬層逐層機械平行研磨；氟基/氧基電漿選擇性剝離層間介電質（ILD）；化學腐蝕液選擇性揭示結晶缺陷。</td>
-                  <td>完整裸露特定金屬層（M1–Mn）；觀察金屬橋接、通孔填充不全；揭露矽基底差排滑移線（Slip lines）與晶格堆垛層錯。</td>
+                  <td>
+                    <span class="zh">熱發煙硝酸/硫酸溶除 EMC；金屬層逐層機械平行研磨；氟基/氧基電漿選擇性剝離層間介電質（ILD）；化學腐蝕液選擇性揭示結晶缺陷。</span>
+                    <span class="en">Hot fuming HNO3/H2SO4 digesting epoxy mold compound; layer-by-layer mechanical CMP planarization; fluorine/oxygen plasma stripping ILD; selective wet etching decorating dislocations.</span>
+                  </td>
+                  <td>
+                    <span class="zh">完整裸露特定金屬層（M1–Mn）；觀察金屬橋接、通孔填充不全；揭露矽基底差排滑移線（Slip lines）與晶格堆垛層錯。</span>
+                    <span class="en">Unobstructed exposure of target metal interconnects (M1–Mn); inspection of metal stringers, voided vias; delineation of substrate slip lines and stacking faults.</span>
+                  </td>
                 </tr>
                 <tr>
-                  <td><b>5. 物理微觀與成份定罪 (PFA & EDX)</b></td>
+                  <td><b><span class="zh">5. 物理微觀與成份定罪 (PFA & EDX)</span><span class="en">5. Physical Defect &amp; Material Analysis (PFA)</span></b></td>
                   <td>
-                    &bull; 雙束 FIB-SEM 原位切片<br>
-                    &bull; HR-TEM 原子級穿透鏡<br>
-                    &bull; EDX / EDS 元素光譜<br>
-                    &bull; EELS 電子能量損失光譜
+                    <span class="zh">
+                      &bull; 雙束 FIB-SEM 原位切片<br>
+                      &bull; HR-TEM 原子級穿透鏡<br>
+                      &bull; EDX / EDS 元素光譜<br>
+                      &bull; EELS 電子能量損失光譜
+                    </span>
+                    <span class="en">
+                      &bull; Dual-Beam FIB-SEM In-Situ Sectioning<br>
+                      &bull; HR-TEM Atomic Lattice Imaging<br>
+                      &bull; EDX / EDS Elemental Spectroscopy<br>
+                      &bull; EELS Core-Loss Fine Structure
+                    </span>
                   </td>
-                  <td>高能量 (\text{Ga}^+) 離子束在 nm 級目標點切出超薄截面（厚度 &lt; 30nm）；加速高能電子束穿透晶格形成原子繞射條紋與特徵 X 射線。</td>
-                  <td>直接看見原子級晶格錯位、閘極 High-k 介電層破洞、金屬橋接異物成份（判定是 Cu, Al, W 還是外來雜質 Fe, Ni, Cr）。</td>
+                  <td>
+                    <span class="zh">高能量 \(\text{Ga}^+\) 離子束在 nm 級目標點切出超薄截面（厚度 &lt; 30nm）；加速高能電子束穿透晶格形成原子繞射條紋與特徵 X 射線。</span>
+                    <span class="en">High-energy \(\text{Ga}^+\) ion beam milling ultra-thin lamella (&lt; 30nm thickness); 200kV/300kV accelerated electrons transmitting through lattice for atomic phase contrast and characteristic X-ray emission.</span>
+                  </td>
+                  <td>
+                    <span class="zh">直接看見原子級晶格錯位、閘極 High-k 介電層破洞、金屬橋接異物成份（判定是 Cu, Al, W 還是外來雜質 Fe, Ni, Cr）。</span>
+                    <span class="en">Direct atomic lattice fringe imaging, gate High-k dielectric pinholes, interconnect bridging composition forensics (differentiating Cu/Al/W vs exogenous Fe, Ni, Cr contaminants).</span>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -5381,21 +5482,27 @@
           <p>
             <span class="zh">
               此矩陣是良率改善工程師（YEE）與晶圓廠整合工程師（PIE）對話的核心字典。當 FA 實驗室確認微觀物理圖像後，即可直接映射至具體機台腔體與化學反應：
+            </span>
+            <span class="en">
+              This master matrix is the Rosetta Stone bridging Yield Enhancement Engineers (YEE) with Fab Process Engineers (PIE). Once PFA micro-images are confirmed, they directly map into the offending equipment chamber and chemical reaction:
+            </span>
+          </p>
 
           <!-- FIGURE 6.2: 6 CANONICAL PHYSICAL DEFECT SCHEMATICS -->
-          <figure>
-            <svg viewBox="0 0 960 480" style="width:100%; height:auto;" xmlns="http://www.w3.org/2000/svg">
+          <div class="figure-container">
+            <svg id="fig62-svg" viewBox="0 0 960 480" style="width:100%; height:auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;" xmlns="http://www.w3.org/2000/svg">
               <defs>
                 <pattern id="diagHatch" width="8" height="8" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
                   <line x1="0" y1="0" x2="0" y2="8" stroke="var(--ink-faint)" stroke-width="1" />
                 </pattern>
               </defs>
-              <g fill="var(--ink)" font-family="var(--font-mono)">
+              <g fill="var(--ink)">
 
                 <!-- PANEL A: METAL BRIDGING SHORT (CMP DISHING) -->
                 <g transform="translate(15, 20)">
                   <rect x="0" y="0" width="295" height="195" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1.5"/>
-                  <text x="12" y="22" font-size="11" font-weight="700" fill="var(--accent)">[Panel A] 金屬橋接短路 (CMP Puddling)</text>
+                  <text class="zh" x="12" y="22" font-size="11" font-weight="700" fill="var(--accent)">[Panel A] 金屬橋接短路 (CMP Puddling)</text>
+                  <text class="en" x="12" y="22" font-size="11" font-weight="700" fill="var(--accent)">[Panel A] Metal Bridging (CMP Puddling)</text>
                   <!-- Dielectric ILD -->
                   <rect x="20" y="60" width="255" height="100" fill="var(--surface)" stroke="var(--border)"/>
                   <text x="145" y="145" text-anchor="middle" font-size="9" fill="var(--ink-faint)">Inter-Layer Dielectric (ILD SiO2)</text>
@@ -5410,14 +5517,18 @@
                   <path d="M 90 60 Q 147 75 205 60" fill="none" stroke="var(--border)" stroke-width="2"/>
                   <!-- Residual Metal Bridge -->
                   <path d="M 90 60 Q 147 72 205 60 L 205 66 Q 147 78 90 66 Z" fill="var(--danger)"/>
-                  <text x="147" y="95" text-anchor="middle" font-size="9" fill="var(--danger)" font-weight="bold">Cu 殘留金屬絲短路 ⚠️</text>
-                  <text x="147" y="180" text-anchor="middle" font-size="9" fill="var(--ink-soft)">製程真因: CMP 拋光不足 / 碟形凹坑金屬沉積</text>
+                  <text class="zh" x="147" y="95" text-anchor="middle" font-size="9" fill="var(--danger)" font-weight="bold">Cu 殘留金屬絲短路 ⚠️</text>
+                  <text class="en" x="147" y="95" text-anchor="middle" font-size="8.5" fill="var(--danger)" font-weight="bold">Cu Residual Stringer Short ⚠️</text>
+                  
+                  <text class="zh" x="147" y="180" text-anchor="middle" font-size="9" fill="var(--ink-soft)">製程真因: CMP 拋光不足 / 碟形凹坑金屬沉積</text>
+                  <text class="en" x="147" y="180" text-anchor="middle" font-size="8.5" fill="var(--ink-soft)">Root Cause: CMP Under-polish / Dishing Puddling</text>
                 </g>
 
                 <!-- PANEL B: VIA OPEN / POLYMER RESIDUE -->
                 <g transform="translate(330, 20)">
                   <rect x="0" y="0" width="295" height="195" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1.5"/>
-                  <text x="12" y="22" font-size="11" font-weight="700" fill="var(--accent)">[Panel B] 通孔底部聚合物阻隔 (Via Open)</text>
+                  <text class="zh" x="12" y="22" font-size="11" font-weight="700" fill="var(--accent)">[Panel B] 通孔底部聚合物阻隔 (Via Open)</text>
+                  <text class="en" x="12" y="22" font-size="11" font-weight="700" fill="var(--accent)">[Panel B] Via Bottom Residue (Via Open)</text>
                   <!-- Bottom Metal M1 -->
                   <rect x="35" y="130" width="225" height="30" fill="var(--accent)" stroke="var(--ink)"/>
                   <text x="147" y="150" text-anchor="middle" font-size="10" fill="#fff" font-weight="bold">Bottom Metal (M1)</text>
@@ -5428,14 +5539,18 @@
                   <text x="147" y="85" text-anchor="middle" font-size="10" fill="#fff" font-weight="bold">Via 1 (W)</text>
                   <!-- Polymer residue layer -->
                   <rect x="123" y="122" width="49" height="8" fill="var(--danger)"/>
-                  <text x="147" y="115" text-anchor="middle" font-size="9" fill="var(--danger)" font-weight="bold">碳氟聚合物 (CxFy) ⚠️</text>
-                  <text x="147" y="180" text-anchor="middle" font-size="9" fill="var(--ink-soft)">製程真因: 乾蝕刻後溶劑清洗不全 / Ar 預濺鍍弱</text>
+                  <text class="zh" x="147" y="115" text-anchor="middle" font-size="9" fill="var(--danger)" font-weight="bold">碳氟聚合物 (CxFy) ⚠️</text>
+                  <text class="en" x="147" y="115" text-anchor="middle" font-size="8.5" fill="var(--danger)" font-weight="bold">Fluorocarbon Residue (CxFy) ⚠️</text>
+                  
+                  <text class="zh" x="147" y="180" text-anchor="middle" font-size="9" fill="var(--ink-soft)">製程真因: 乾蝕刻後溶劑清洗不全 / Ar 預濺鍍弱</text>
+                  <text class="en" x="147" y="180" text-anchor="middle" font-size="8.5" fill="var(--ink-soft)">Root Cause: Post-Etch Strip Defect / Weak Ar Clean</text>
                 </g>
 
                 <!-- PANEL C: GATE OXIDE PINHOLE & HKMG BREAKDOWN -->
                 <g transform="translate(645, 20)">
                   <rect x="0" y="0" width="300" height="195" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1.5"/>
-                  <text x="12" y="22" font-size="11" font-weight="700" fill="var(--accent)">[Panel C] 閘極氧化層穿孔 (Gate Pinhole)</text>
+                  <text class="zh" x="12" y="22" font-size="11" font-weight="700" fill="var(--accent)">[Panel C] 閘極氧化層穿孔 (Gate Pinhole)</text>
+                  <text class="en" x="12" y="22" font-size="11" font-weight="700" fill="var(--accent)">[Panel C] Gate Dielectric Pinhole Breakdown</text>
                   <!-- Silicon Substrate -->
                   <rect x="25" y="120" width="250" height="40" fill="#334155" stroke="var(--ink)"/>
                   <text x="150" y="145" text-anchor="middle" font-size="10" fill="#fff" font-weight="bold">Silicon Substrate (Channel)</text>
@@ -5448,14 +5563,18 @@
                   <!-- Pinhole & Metallic Spike -->
                   <path d="M 145 110 L 155 110 L 152 124 L 148 124 Z" fill="var(--danger)"/>
                   <circle cx="150" cy="116" r="6" fill="none" stroke="var(--danger)" stroke-width="1.5"/>
-                  <text x="150" y="45" text-anchor="middle" font-size="9" fill="var(--danger)" font-weight="bold">微小金屬尖刺穿透 (Pinhole) ⚠️</text>
-                  <text x="150" y="180" text-anchor="middle" font-size="9" fill="var(--ink-soft)">製程真因: 氧化前金屬雜質 / 天線效應 (PID)</text>
+                  <text class="zh" x="150" y="45" text-anchor="middle" font-size="9" fill="var(--danger)" font-weight="bold">微小金屬尖刺穿透 (Pinhole) ⚠️</text>
+                  <text class="en" x="150" y="45" text-anchor="middle" font-size="8.5" fill="var(--danger)" font-weight="bold">Metallic Pinhole Spike ⚠️</text>
+                  
+                  <text class="zh" x="150" y="180" text-anchor="middle" font-size="9" fill="var(--ink-soft)">製程真因: 氧化前金屬雜質 / 天線效應 (PID)</text>
+                  <text class="en" x="150" y="180" text-anchor="middle" font-size="8.5" fill="var(--ink-soft)">Root Cause: Pre-Clean Metal Contam / Antenna PID</text>
                 </g>
 
                 <!-- PANEL D: STRESS-INDUCED VOIDING (SIV) -->
                 <g transform="translate(15, 235)">
                   <rect x="0" y="0" width="295" height="195" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1.5"/>
-                  <text x="12" y="22" font-size="11" font-weight="700" fill="var(--accent)">[Panel D] 銅線應力遷移空洞 (Cu SIV)</text>
+                  <text class="zh" x="12" y="22" font-size="11" font-weight="700" fill="var(--accent)">[Panel D] 銅線應力遷移空洞 (Cu SIV)</text>
+                  <text class="en" x="12" y="22" font-size="11" font-weight="700" fill="var(--accent)">[Panel D] Stress-Induced Voiding (Cu SIV)</text>
                   <!-- Wide Metal 1 -->
                   <rect x="25" y="110" width="245" height="50" fill="var(--accent)" stroke="var(--ink)"/>
                   <text x="147" y="145" text-anchor="middle" font-size="10" fill="#fff" font-weight="bold">Wide Copper Line (M1)</text>
@@ -5464,14 +5583,18 @@
                   <text x="147" y="75" text-anchor="middle" font-size="9.5" fill="#fff" font-weight="bold">Via 1</text>
                   <!-- Slit-like Void under Via -->
                   <ellipse cx="147" cy="112" rx="20" ry="6" fill="var(--surface-2)" stroke="var(--danger)" stroke-width="2"/>
-                  <text x="147" y="100" text-anchor="middle" font-size="9" fill="var(--danger)" font-weight="bold">狹縫空洞 (Slit Void) ⚠️</text>
-                  <text x="147" y="180" text-anchor="middle" font-size="9" fill="var(--ink-soft)">製程真因: 電鍍晶格空位 / Cap 阻擋層界面還原弱</text>
+                  <text class="zh" x="147" y="100" text-anchor="middle" font-size="9" fill="var(--danger)" font-weight="bold">狹縫空洞 (Slit Void) ⚠️</text>
+                  <text class="en" x="147" y="100" text-anchor="middle" font-size="8.5" fill="var(--danger)" font-weight="bold">Under-Via Slit Void ⚠️</text>
+                  
+                  <text class="zh" x="147" y="180" text-anchor="middle" font-size="9" fill="var(--ink-soft)">製程真因: 電鍍晶格空位 / Cap 阻擋層界面還原弱</text>
+                  <text class="en" x="147" y="180" text-anchor="middle" font-size="8.5" fill="var(--ink-soft)">Root Cause: Plating Vacancies / Weak Cap Interface</text>
                 </g>
 
                 <!-- PANEL E: STI CORNER DIVOT & GATE WRAP-AROUND -->
                 <g transform="translate(330, 235)">
                   <rect x="0" y="0" width="295" height="195" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1.5"/>
-                  <text x="12" y="22" font-size="11" font-weight="700" fill="var(--accent)">[Panel E] STI 尖角掏蝕駝峰 (Corner Divot)</text>
+                  <text class="zh" x="12" y="22" font-size="11" font-weight="700" fill="var(--accent)">[Panel E] STI 尖角掏蝕駝峰 (Corner Divot)</text>
+                  <text class="en" x="12" y="22" font-size="11" font-weight="700" fill="var(--accent)">[Panel E] STI Corner Divot &amp; Gate Wrap</text>
                   <!-- STI Oxide Left & Right -->
                   <rect x="25" y="90" width="65" height="70" fill="#93c5fd" stroke="var(--ink)"/>
                   <text x="57" y="130" text-anchor="middle" font-size="9" fill="#1e3a8a">STI Oxide</text>
@@ -5488,46 +5611,53 @@
                   <path d="M 201 90 C 201 105, 209 105, 209 90 Z" fill="var(--danger)"/>
                   <!-- Poly Gate Wrapping around -->
                   <path d="M 35 60 L 260 60 L 260 90 L 209 90 L 201 105 L 93 105 L 85 90 L 35 90 Z" fill="#64748b" fill-opacity="0.6" stroke="var(--ink)"/>
-                  <text x="147" y="50" text-anchor="middle" font-size="9" fill="var(--danger)" font-weight="bold">閘極多晶矽包覆尖角電場集中 ⚠️</text>
-                  <text x="147" y="180" text-anchor="middle" font-size="9" fill="var(--ink-soft)">製程真因: DHF 氫氟酸清洗過度掏蝕 STI 邊界</text>
+                  <text class="zh" x="147" y="50" text-anchor="middle" font-size="9" fill="var(--danger)" font-weight="bold">閘極多晶矽包覆尖角電場集中 ⚠️</text>
+                  <text class="en" x="147" y="50" text-anchor="middle" font-size="8.5" fill="var(--danger)" font-weight="bold">Poly Gate Wrap Field Crowding ⚠️</text>
+                  
+                  <text class="zh" x="147" y="180" text-anchor="middle" font-size="9" fill="var(--ink-soft)">製程真因: DHF 氫氟酸清洗過度掏蝕 STI 邊界</text>
+                  <text class="en" x="147" y="180" text-anchor="middle" font-size="8.5" fill="var(--ink-soft)">Root Cause: DHF Over-Etch at STI Boundary</text>
                 </g>
 
                 <!-- PANEL F: DUAL-BEAM FIB IN-SITU & TEM LIFT-OUT -->
                 <g transform="translate(645, 235)">
                   <rect x="0" y="0" width="300" height="195" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1.5"/>
-                  <text x="12" y="22" font-size="11" font-weight="700" fill="var(--accent)">[Panel F] 雙束 FIB 原位超薄切片 (TEM Lift-Out)</text>
+                  <text class="zh" x="12" y="22" font-size="11" font-weight="700" fill="var(--accent)">[Panel F] 雙束 FIB 原位超薄切片 (TEM Lift-Out)</text>
+                  <text class="en" x="12" y="22" font-size="11" font-weight="700" fill="var(--accent)">[Panel F] In-Situ Dual-Beam FIB TEM Lift-Out</text>
                   <!-- Silicon block with milled trenches -->
                   <polygon points="50,140 120,95 240,95 180,140" fill="#475569" stroke="var(--ink)"/>
                   <polygon points="180,140 240,95 240,125 180,165" fill="#334155" stroke="var(--ink)"/>
                   <polygon points="50,140 180,140 180,165 50,165" fill="#1e293b" stroke="var(--ink)"/>
                   <!-- Central Lamella with Pt Strap -->
                   <rect x="135" y="93" width="10" height="25" fill="#facc15" stroke="var(--ink)"/>
-                  <text x="140" y="85" text-anchor="middle" font-size="8.5" fill="var(--warn)" font-weight="bold">Pt 保護層</text>
+                  <text class="zh" x="140" y="85" text-anchor="middle" font-size="8.5" fill="var(--warn)" font-weight="bold">Pt 保護層</text>
+                  <text class="en" x="140" y="85" text-anchor="middle" font-size="8.5" fill="var(--warn)" font-weight="bold">Pt Strap</text>
+                  
                   <!-- Electron Beam (Vertical) -->
                   <line x1="140" y1="25" x2="140" y2="90" stroke="#38bdf8" stroke-width="2" stroke-dasharray="3,2"/>
-                  <text x="140" y="20" text-anchor="middle" font-size="8.5" fill="#0284c7">E-Beam (SEM 觀察)</text>
+                  <text class="zh" x="140" y="20" text-anchor="middle" font-size="8.5" fill="#0284c7">E-Beam (SEM 觀察)</text>
+                  <text class="en" x="140" y="20" text-anchor="middle" font-size="8.5" fill="#0284c7">E-Beam (SEM Monitor)</text>
+                  
                   <!-- FIB Ion Beam (at 52 degrees) -->
                   <line x1="225" y1="35" x2="145" y2="95" stroke="#ef4444" stroke-width="2"/>
-                  <text x="245" y="45" font-size="8.5" fill="#dc2626">Ga+ 離子束 (52° 切削)</text>
+                  <text class="zh" x="245" y="45" font-size="8.5" fill="#dc2626">Ga+ 離子束 (52° 切削)</text>
+                  <text class="en" x="245" y="45" font-size="8" fill="#dc2626">Ga+ FIB (52° Mill)</text>
+                  
                   <!-- Omniprobe needle -->
                   <line x1="60" y1="45" x2="135" y2="95" stroke="#22c55e" stroke-width="1.5"/>
-                  <text x="50" y="40" font-size="8.5" fill="#16a34a">Omniprobe 夾爪取出</text>
-                  <text x="150" y="180" text-anchor="middle" font-size="9" fill="var(--ink-soft)">目標厚度 &lt; 25nm ➔ 銅網 TEM 原子晶格分析</text>
+                  <text class="zh" x="50" y="40" font-size="8.5" fill="#16a34a">Omniprobe 夾爪取出</text>
+                  <text class="en" x="50" y="40" font-size="8.5" fill="#16a34a">Omniprobe Extract</text>
+                  
+                  <text class="zh" x="150" y="180" text-anchor="middle" font-size="9" fill="var(--ink-soft)">目標厚度 &lt; 25nm ➔ 銅網 TEM 原子晶格分析</text>
+                  <text class="en" x="150" y="180" text-anchor="middle" font-size="8.5" fill="var(--ink-soft)">Target &lt; 25nm Lamella ➔ Cu Grid TEM Analysis</text>
                 </g>
 
               </g>
             </svg>
-            <figcaption>
+            <div class="figure-caption">
               <span class="zh">圖 6.2：6 大經典實體物理缺陷微觀截面圖與雙束 FIB 原位切片示意圖</span>
-              <span class="en">Figure 6.2: Microscopic Cross-Sectional Schematics of 6 Canonical Physical Defects & Dual-Beam FIB Lift-Out</span>
-            </figcaption>
-          </figure>
-
-            </span>
-            <span class="en">
-              This master matrix is the Rosetta Stone bridging Yield Enhancement Engineers (YEE) with Fab Process Engineers (PIE). Once PFA micro-images are confirmed, they directly map into the offending equipment chamber and chemical reaction:
-            </span>
-          </p>
+              <span class="en">Figure 6.2: Microscopic Cross-Sectional Schematics of 6 Canonical Physical Defects &amp; Dual-Beam FIB Lift-Out</span>
+            </div>
+          </div>
 
           <div class="data-table-wrap">
             <table class="data-table">
@@ -5542,60 +5672,171 @@
               </thead>
               <tbody>
                 <tr>
-                  <td><b>金屬線微短路 (Metal Line Bridging)</b></td>
-                  <td>相鄰金屬線間存在連續薄膜絲狀橋接，或溝槽邊緣金屬凹陷殘留。</td>
-                  <td>Cu / TiN / Al 殘留；非外來異物。</td>
-                  <td><b>Metal CMP / Cu Dual Damascene</b></td>
-                  <td>CMP 拋光不足（Under-polishing），研磨液（Slurry）金屬絡合螯合劑濃度偏低；或氧化層碟形下凹（Dishing）內積蓄金屬泥（Metal Puddling），未被過拋（Over-polish）去除。</td>
+                  <td>
+                    <span class="zh"><b>金屬線微短路 (Metal Line Bridging)</b></span>
+                    <span class="en"><b>Metal Line Bridging Short</b></span>
+                  </td>
+                  <td>
+                    <span class="zh">相鄰金屬線間存在連續薄膜絲狀橋接，或溝槽邊緣金屬凹陷殘留。</span>
+                    <span class="en">Continuous metallic stringer bridging between adjacent metal lines or unpolished puddling along trench edges.</span>
+                  </td>
+                  <td>
+                    <span class="zh">Cu / TiN / Al 殘留；非外來異物。</span>
+                    <span class="en">Cu / TiN / Al residual metal; non-exogenous origin.</span>
+                  </td>
+                  <td>
+                    <b>Metal CMP / Cu Dual Damascene</b>
+                  </td>
+                  <td>
+                    <span class="zh">CMP 拋光不足（Under-polishing），研磨液（Slurry）金屬絡合螯合劑濃度偏低；或氧化層碟形下凹（Dishing）內積蓄金屬泥（Metal Puddling），未被過拋（Over-polish）去除。</span>
+                    <span class="en">CMP under-polishing; slurry complexing/chelating agent concentration deficit; or ILD dishing accumulating metal puddling not removed during over-polish.</span>
+                  </td>
                 </tr>
                 <tr>
-                  <td><b>通孔開路 / 接觸高阻 (Via / Contact Open)</b></td>
-                  <td>通孔底部與下層金屬間出現 5–15nm 厚度界面層，或通孔底部空洞（Void）。</td>
-                  <td>富含碳（C）、氟（F）聚合物，或氧（O）氧化層。</td>
-                  <td><b>Via RIE Etch / Pre-Sputter Clean</b></td>
-                  <td>介電層乾蝕刻使用 (\text{C}_4\text{F}_8 / \t\text{CF}_4) 產生之碳氟鈍化聚合物（(\text{C}_x\text{F}_y)），在後段濕式清洗（Wet Strip）溶劑中未徹底洗淨；或濺鍍阻障層前 Ar 反濺射清洗射頻功率不足，原生氧化物未被打掉。</td>
+                  <td>
+                    <span class="zh"><b>通孔開路 / 接觸高阻 (Via / Contact Open)</b></span>
+                    <span class="en"><b>Via / Contact Open &amp; High-R</b></span>
+                  </td>
+                  <td>
+                    <span class="zh">通孔底部與下層金屬間出現 5–15nm 厚度界面層，或通孔底部空洞（Void）。</span>
+                    <span class="en">5–15nm interfacial barrier layer between via bottom and underlayer metal, or bottom slit voiding.</span>
+                  </td>
+                  <td>
+                    <span class="zh">富含碳（C）、氟（F）聚合物，或氧（O）氧化層。</span>
+                    <span class="en">Carbon-fluorine polymers (C, F rich) or native oxide (O).</span>
+                  </td>
+                  <td>
+                    <b>Via RIE Etch / Pre-Sputter Clean</b>
+                  </td>
+                  <td>
+                    <span class="zh">介電層乾蝕刻使用 \(\text{C}_4\text{F}_8 / \text{CF}_4\) 產生之碳氟鈍化聚合物（\(\text{C}_x\text{F}_y\)），在後段濕式清洗（Wet Strip）溶劑中未徹底洗淨；或濺鍍阻障層前 Ar 反濺射清洗射頻功率不足，原生氧化物未被打掉。</span>
+                    <span class="en">Dielectric RIE fluorocarbon passivation polymers (\(\text{C}_x\text{F}_y\)) not completely stripped during post-etch wet cleans; or insufficient Ar pre-sputter RF power failing to clear native interfacial oxide.</span>
+                  </td>
                 </tr>
                 <tr>
-                  <td><b>閘極氧化層微漏電 (Gate Oxide Breakdown)</b></td>
-                  <td>閘極介電層局部微孔（Pinhole）、局部薄化、或金屬閘極凸起穿透。</td>
-                  <td>鐵（Fe）、銅（Cu）、鎳（Ni）過渡金屬原子富集；或局部氧缺失。</td>
-                  <td><b>Pre-Gate RCA Clean / High-k ALD / Poly Etch</b></td>
-                  <td>閘極熱氧化前 RCA SC1（(\text{NH}_4\text{OH}/\text{H}_2\text{O}_2/\text{H}_2\text{O})）清洗液槽體金屬離子超標形成晶格弱點；或金屬閘極蝕刻天線效應（PID / Antenna Effect），電漿電荷在金屬線累積擊穿薄氧化層。</td>
+                  <td>
+                    <span class="zh"><b>閘極氧化層微漏電 (Gate Oxide Breakdown)</b></span>
+                    <span class="en"><b>Gate Oxide Pinhole / Breakdown</b></span>
+                  </td>
+                  <td>
+                    <span class="zh">閘極介電層局部微孔（Pinhole）、局部薄化、或金屬閘極凸起穿透。</span>
+                    <span class="en">Local dielectric pinhole, localized thinning, or metallic spike protrusion into substrate.</span>
+                  </td>
+                  <td>
+                    <span class="zh">鐵（Fe）、銅（Cu）、鎳（Ni）過渡金屬原子富集；或局部氧缺失。</span>
+                    <span class="en">Fe, Cu, Ni transition metal atomic aggregation; or localized oxygen deficiency.</span>
+                  </td>
+                  <td>
+                    <b>Pre-Gate RCA Clean / High-k ALD / Poly Etch</b>
+                  </td>
+                  <td>
+                    <span class="zh">閘極熱氧化前 RCA SC1（\(\text{NH}_4\text{OH}/\text{H}_2\text{O}_2/\text{H}_2\text{O}\)）清洗液槽體金屬離子超標形成晶格弱點；或金屬閘極蝕刻天線效應（PID / Antenna Effect），電漿電荷在金屬線累積擊穿薄氧化層。</span>
+                    <span class="en">Pre-gate RCA SC1 bath heavy-metal contamination inducing gate oxide weak spots; or plasma antenna effect (PID) accumulating charges on long conductors, discharging and rupturing thin dielectric.</span>
+                  </td>
                 </tr>
                 <tr>
-                  <td><b>源汲極接面漏電 (Junction Leakage)</b></td>
-                  <td>源/汲極下方單晶矽內部出現 ({111}) 晶面滑移線（Slip lines）或 ({311}) 差排環（EOR Dislocation Loops）。</td>
-                  <td>矽晶格原子錯位，無外來雜質。</td>
-                  <td><b>Ion Implantation / RTA Spike Anneal</b></td>
-                  <td>重離子（如 (\t\text{As}^+)、(\t\text{BF}_2^+)）大劑量植入導致矽晶格深度非晶化（Amorphization）；隨後的快速熱退火（RTA）溫度不足或升降溫斜率過快（(&gt; 250^\circ\text{C/s})），晶格固相磊晶再生長（SPER）不完全留下差排。</td>
+                  <td>
+                    <span class="zh"><b>源汲極接面漏電 (Junction Leakage)</b></span>
+                    <span class="en"><b>Source/Drain Junction Leakage</b></span>
+                  </td>
+                  <td>
+                    <span class="zh">源/汲極下方單晶矽內部出現 {111} 晶面滑移線（Slip lines）或 {311} 差排環（EOR Dislocation Loops）。</span>
+                    <span class="en">{111} slip lines or {311} End-of-Range (EOR) dislocation loops in Si substrate beneath S/D junctions.</span>
+                  </td>
+                  <td>
+                    <span class="zh">矽晶格原子錯位，無外來雜質。</span>
+                    <span class="en">Silicon lattice displacement defects, devoid of exogenous contaminants.</span>
+                  </td>
+                  <td>
+                    <b>Ion Implantation / RTA Spike Anneal</b>
+                  </td>
+                  <td>
+                    <span class="zh">重離子（如 \(\text{As}^+\)、\(\text{BF}_2^+\)）大劑量植入導致矽晶格深度非晶化（Amorphization）；隨後的快速熱退火（RTA）溫度不足或升降溫斜率過快（\(> 250^\circ\text{C/s}\)），晶格固相磊晶再生長（SPER）不完全留下差排。</span>
+                    <span class="en">Heavy ion (\(\text{As}^+, \text{BF}_2^+\)) heavy-dose implant inducing deep amorphization; insufficient RTA spike temperature or excessive ramp rate (\(>250^\circ\text{C/s}\)) preventing complete Solid-Phase Epitaxial Regrowth (SPER).</span>
+                  </td>
                 </tr>
                 <tr>
-                  <td><b>STI 側壁反型漏電 (STI Sidewall Leakage)</b></td>
-                  <td>淺溝槽隔離（STI）頂部邊角下凹（Corner Divot），多晶矽閘極包覆尖角。</td>
-                  <td>幾何形貌異常，(\t\text{SiO}_2) 局部損失。</td>
-                  <td><b>STI Chemical Wet Clean (HF Dip)</b></td>
-                  <td>氮化矽阻擋層（Pad SiN）熱磷酸去除後，稀釋氫氟酸（DHF）清洗時間過長，STI 邊角氧化物被橫向過度掏蝕（Over-etch），閘極多晶矽填入尖角引發電場集中（Field Crowding），使次臨界斜率出現駝峰（Hump）。</td>
+                  <td>
+                    <span class="zh"><b>STI 側壁反型漏電 (STI Sidewall Leakage)</b></span>
+                    <span class="en"><b>STI Sidewall Inversion Leakage</b></span>
+                  </td>
+                  <td>
+                    <span class="zh">淺溝槽隔離（STI）頂部邊角下凹（Corner Divot），多晶矽閘極包覆尖角。</span>
+                    <span class="en">STI top oxide corner divot with gate electrode wrapping around active silicon corners.</span>
+                  </td>
+                  <td>
+                    <span class="zh">幾何形貌異常，\(\text{SiO}_2\) 局部損失。</span>
+                    <span class="en">Geometric corner profile anomaly, localized \(\text{SiO}_2\) recess loss.</span>
+                  </td>
+                  <td>
+                    <b>STI Chemical Wet Clean (HF Dip)</b>
+                  </td>
+                  <td>
+                    <span class="zh">氮化矽阻擋層（Pad SiN）熱磷酸去除後，稀釋氫氟酸（DHF）清洗時間過長，STI 邊角氧化物被橫向過度掏蝕（Over-etch），閘極多晶矽填入尖角引發電場集中（Field Crowding），使次臨界斜率出現駝峰（Hump）。</span>
+                    <span class="en">Excessive DHF cleaning after hot phosphoric Pad SiN strip over-etching STI corner oxides; gate electrode filling divots creates high electric field crowding, producing subthreshold hump leakage.</span>
+                  </td>
                 </tr>
                 <tr>
-                  <td><b>矽化物橋接短路 (Salicide Bridging)</b></td>
-                  <td>自我對準矽化物（(\t\text{NiPtSi}) 或 (\t\text{CoSi}_2)）橫向蔓延越過絕緣間隔層（Spacer），連接閘極與源汲極。</td>
-                  <td>Ni / Pt / Co / Si。</td>
-                  <td><b>Spacer RIE Etch / Salicide RTA-1 & 2</b></td>
-                  <td>氮化矽 Spacer 蝕刻過度掏蝕（Pull-back）使側壁絕緣距離縮減；或矽化物第一階段低溫退火（RTA-1）溫度偏高，誘發金屬原子沿氧化物/氮化物表面異常橫向擴散（Lateral Encroachment）。</td>
+                  <td>
+                    <span class="zh"><b>矽化物橋接短路 (Salicide Bridging)</b></span>
+                    <span class="en"><b>Salicide Bridging Short</b></span>
+                  </td>
+                  <td>
+                    <span class="zh">自我對準矽化物（\(\text{NiPtSi}\) 或 \(\text{CoSi}_2\)）橫向蔓延越過絕緣間隔層（Spacer），連接閘極與源汲極。</span>
+                    <span class="en">Self-aligned silicide (\(\text{NiPtSi}\) or \(\text{CoSi}_2\)) laterally encroaching across dielectric spacer, bridging gate to source/drain.</span>
+                  </td>
+                  <td>
+                    <b>Ni / Pt / Co / Si</b>
+                  </td>
+                  <td>
+                    <b>Spacer RIE Etch / Salicide RTA-1 &amp; 2</b>
+                  </td>
+                  <td>
+                    <span class="zh">氮化矽 Spacer 蝕刻過度掏蝕（Pull-back）使側壁絕緣距離縮減；或矽化物第一階段低溫退火（RTA-1）溫度偏高，誘發金屬原子沿氧化物/氮化物表面異常橫向擴散（Lateral Encroachment）。</span>
+                    <span class="en">SiN spacer over-etching/pull-back shortening isolation width; or elevated RTA-1 temperature triggering abnormal surface diffusion of metal atoms across the dielectric spacer.</span>
+                  </td>
                 </tr>
                 <tr>
-                  <td><b>銅導線應力空洞 (Stress-Induced Voiding, SIV)</b></td>
-                  <td>大金屬導線（Wide Metal）下方連接的單一 Via 底部出現微小狹縫狀空洞（Slit Void）。</td>
-                  <td>金屬原子缺失，無異物。</td>
-                  <td><b>Cu Plating / Dielectric Cap (SiCN)</b></td>
-                  <td>雙大馬士革銅電鍍時添加劑（抑制劑/加速劑）分佈不均產生晶格空位（Vacancies）；銅上層氮化矽介電阻擋層沉積前，(\t\text{NH}_3) 電漿預還原時間不足，界面結合力弱，在熱烘烤應力下空位向 Via 底部擴散聚集。</td>
+                  <td>
+                    <span class="zh"><b>銅導線應力空洞 (Stress-Induced Voiding, SIV)</b></span>
+                    <span class="en"><b>Stress-Induced Voiding (Cu SIV)</b></span>
+                  </td>
+                  <td>
+                    <span class="zh">大金屬導線（Wide Metal）下方連接的單一 Via 底部出現微小狹縫狀空洞（Slit Void）。</span>
+                    <span class="en">Slit-like voiding localized directly beneath a single via landing on a wide metal line.</span>
+                  </td>
+                  <td>
+                    <span class="zh">金屬原子缺失，無異物。</span>
+                    <span class="en">Metal atomic vacancies / lattice voiding; no foreign impurities.</span>
+                  </td>
+                  <td>
+                    <b>Cu Plating / Dielectric Cap (SiCN)</b>
+                  </td>
+                  <td>
+                    <span class="zh">雙大馬士革銅電鍍時添加劑（抑制劑/加速劑）分佈不均產生晶格空位（Vacancies）；銅上層氮化矽介電阻擋層沉積前，\(\text{NH}_3\) 電漿預還原時間不足，界面結合力弱，在熱烘烤應力下空位向 Via 底部擴散聚集。</span>
+                    <span class="en">Non-uniform ECD bath additives (suppressor/accelerator) generating excess vacancies; inadequate \(\text{NH}_3\) plasma pre-clean before dielectric cap (SiCN) deposition weakening interface adhesion, driving vacancy diffusion to via bases under thermal stress.</span>
+                  </td>
                 </tr>
                 <tr>
-                  <td><b>層間微影對位偏差 (V1-to-M1 Overlay Shift)</b></td>
-                  <td>通孔部分懸空搭在層間介電質上，另一側直接切入相鄰金屬線造成側向短路。</td>
-                  <td>幾何中心偏差 &gt; 15nm。</td>
-                  <td><b>Lithography Scanner Alignment / CMP</b></td>
-                  <td>前道金屬 CMP 拋光時，曝光對位標記（Alignment Mark）受到研磨方向非對稱磨耗（Asymmetric Mark Erosion），導致微影機光學感測器中心誤判，曝光座標全晶圓系統性偏斜。</td>
+                  <td>
+                    <span class="zh"><b>層間微影對位偏差 (V1-to-M1 Overlay Shift)</b></span>
+                    <span class="en"><b>Inter-Layer Overlay Shift (V1-M1)</b></span>
+                  </td>
+                  <td>
+                    <span class="zh">通孔部分懸空搭在層間介電質上，另一側直接切入相鄰金屬線造成側向短路。</span>
+                    <span class="en">Via partially landing on ILD dielectric and encroaching into adjacent metal lines causing lateral shorts.</span>
+                  </td>
+                  <td>
+                    <span class="zh">幾何中心偏差 &gt; 15nm。</span>
+                    <span class="en">Center-to-center overlay alignment error &gt; 15nm.</span>
+                  </td>
+                  <td>
+                    <b>Lithography Scanner Alignment / CMP</b>
+                  </td>
+                  <td>
+                    <span class="zh">前道金屬 CMP 拋光時，曝光對位標記（Alignment Mark）受到研磨方向非對稱磨耗（Asymmetric Mark Erosion），導致微影機光學感測器中心誤判，曝光座標全晶圓系統性偏斜。</span>
+                    <span class="en">Asymmetric alignment mark erosion during prior metal CMP polishing, misleading scanner optical sensors and causing systematic wafer-wide overlay offsets.</span>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -5604,25 +5845,44 @@
           <!-- 6.3 NANO-PROBING & ATOMIC TEM CLOSED-LOOP -->
           <h3>
             <span class="zh">7.3 電子束奈米探針 (Nano-probing) 與原子級 HR-TEM 閉環閉合程序</span>
-            <span class="en">7.3 Nano-probing & Atomic HR-TEM Closed-Loop Verification SOP</span>
+            <span class="en">7.3 Nano-probing &amp; Atomic HR-TEM Closed-Loop Verification SOP</span>
           </h3>
 
           <div style="background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--accent); border-radius:6px; padding:16px; font-family:var(--font-mono); font-size:12.5px; line-height:1.7;">
-            <b>【標準奈米級 FA 閉環閉合驗證 SOP (Nano-FA to Process Action Loop)】</b><br>
-            <b>步驟 1 - 故障精確降維 (OBIRCH ➔ Nano-probing):</b><br>
-            &bull; 先以 1340nm OBIRCH 鎖定漏電發熱點微米級座標（(\Delta X, \Delta Y &lt; 1\mu\text{m})）。<br>
-            &bull; 進行化學去層至 Contact 層，置入 SEM Nano-prober 腔體，使用 4 根奈米級鎢針直接接觸單顆故障電晶體。<br>
-            &bull; 掃描 (I_d-V_g) 曲線：若 (I_{off}) 隨 (V_g) 關閉但閘極電流 (I_g) 很大 ➔ 判定為閘極氧化層擊穿；若 (I_g) 很小但 (I_{ds}) 無法關斷 ➔ 判定為短通道效應穿隧或源汲極矽化物短路。<br><br>
-            <b>步驟 2 - 雙束 FIB 原位標定與超薄切片 (In-situ FIB Lift-Out):</b><br>
-            &bull; 在 Nano-probing 指認的單顆鰭片（Fin）上方沉積電子束鉑保護層（Pt deposition）。<br>
-            &bull; 以 (\text{Ga}^+) 離子束進行階梯狀粗切，使用微機械夾爪（Omniprobe）取出薄片，黏貼於銅 TEM 網格。<br>
-            &bull; 降低離子束能量至 2kV / 500V 進行精細減薄，去除表面非晶化損傷層，薄片最終厚度 &lt; 25nm。<br><br>
-            <b>步驟 3 - 原子級 HR-TEM + EDX 元素定罪:</b><br>
-            &bull; 放大至 500,000x–1,000,000x，觀察 High-k/Metal Gate 介面晶格連續性，量測物理膜厚（精確至 0.1nm）。<br>
-            &bull; 啟動 EDX Spot / Line Scan：確認短路或漏電微區的元素種類（精確判定是製程材料殘留還是外部污染）。<br><br>
-            <b>步驟 4 - 晶圓廠機台處方箋開立 (Direct Fab Action):</b><br>
-            &bull; 將 EDX 元素與缺陷形貌回溯至製程清單，調閱該批次在對應機台之 EAP 感測器數據（如 RIE 腔體射頻反射功率、CMP 研磨終點訊號 EPD、光阻塗佈杯排氣負壓）。<br>
-            &bull; 執行機台保養清洗（PM）、更換耗損配件（Focus Ring / Slurry Filter）、或修改製程配方（Recipe Tuning）。
+            <div class="zh">
+              <b>【標準奈米級 FA 閉環閉合驗證 SOP (Nano-FA to Process Action Loop)】</b><br>
+              <b>步驟 1 - 故障精確降維 (OBIRCH ➔ Nano-probing):</b><br>
+              &bull; 先以 1340nm OBIRCH 鎖定漏電發熱點微米級座標（\(\Delta X, \Delta Y &lt; 1\mu\text{m}\)）。<br>
+              &bull; 進行化學去層至 Contact 層，置入 SEM Nano-prober 腔體，使用 4 根奈米級鎢針直接接觸單顆故障電晶體。<br>
+              &bull; 掃描 \(I_d-V_g\) 曲線：若 \(I_{off}\) 隨 \(V_g\) 關閉但閘極電流 \(I_g\) 很大 ➔ 判定為閘極氧化層擊穿；若 \(I_g\) 很小但 \(I_{ds}\) 無法關斷 ➔ 判定為短通道效應穿隧或源汲極矽化物短路。<br><br>
+              <b>步驟 2 - 雙束 FIB 原位標定與超薄切片 (In-situ FIB Lift-Out):</b><br>
+              &bull; 在 Nano-probing 指認的單顆鰭片（Fin）上方沉積電子束鉑保護層（Pt deposition）。<br>
+              &bull; 以 \(\text{Ga}^+\) 離子束進行階梯狀粗切，使用微機械夾爪（Omniprobe）取出薄片，黏貼於銅 TEM 網格。<br>
+              &bull; 降低離子束能量至 2kV / 500V 進行精細減薄，去除表面非晶化損傷層，薄片最終厚度 &lt; 25nm。<br><br>
+              <b>步驟 3 - 原子級 HR-TEM + EDX 元素定罪:</b><br>
+              &bull; 放大至 500,000x–1,000,000x，觀察 High-k/Metal Gate 介面晶格連續性，量測物理膜厚（精確至 0.1nm）。<br>
+              &bull; 啟動 EDX Spot / Line Scan：確認短路或漏電微區的元素種類（精確判定是製程材料殘留還是外部污染）。<br><br>
+              <b>步驟 4 - 晶圓廠機台處方箋開立 (Direct Fab Action):</b><br>
+              &bull; 將 EDX 元素與缺陷形貌回溯至製程清單，調閱該批次在對應機台之 EAP 感測器數據（如 RIE 腔體射頻反射功率、CMP 研磨終點訊號 EPD、光阻塗佈杯排氣負壓）。<br>
+              &bull; 執行機台保養清洗（PM）、更換耗損配件（Focus Ring / Slurry Filter）、或修改製程配方（Recipe Tuning）。
+            </div>
+            <div class="en">
+              <b>[Standard Nano-FA Closed-Loop Verification SOP (Nano-FA to Process Action Loop)]</b><br>
+              <b>Step 1 - Precision Fault Dimension Reduction (OBIRCH ➔ Nano-probing):</b><br>
+              &bull; Localize leakage thermal hotspot to sub-micron coordinates (\(\Delta X, \Delta Y &lt; 1\mu\text{m}\)) via 1340nm laser OBIRCH.<br>
+              &bull; Chemical deprocessing down to Contact layer; transfer into SEM Nano-prober chamber, landing 4 atomic tungsten probes onto individual suspect transistor terminals.<br>
+              &bull; Sweep \(I_d-V_g\) curves: High gate current \(I_g\) with normal channel turn-off ➔ Gate dielectric breakdown; Low \(I_g\) with non-saturating channel current \(I_{ds}\) ➔ Short-channel punch-through or S/D salicide bridging.<br><br>
+              <b>Step 2 - In-situ Dual-Beam FIB Lamella Lift-Out:</b><br>
+              &bull; In-situ electron-beam Pt strap deposition protecting the identified individual Fin or Contact via.<br>
+              &bull; Dual-beam \(\text{Ga}^+\) staircase bulk milling; extract lamella via Omniprobe micro-manipulator and attach onto Cu TEM half-grid.<br>
+              &bull; Low-kV cleaning milling (2kV down to 500V) eliminating amorphous Ga-damage layers, thinning lamella to &lt; 25nm final thickness.<br><br>
+              <b>Step 3 - Atomic-Resolution HR-TEM + EDX Forensic Identification:</b><br>
+              &bull; Inspect High-k / Metal Gate interface atomic lattice continuity at 500,000x–1,000,000x; measure physical gate oxide thickness (0.1nm precision).<br>
+              &bull; Execute EDX Spot / STEM-EELS line scan across leakage path to identify chemical composition (process residue vs. exogenous contamination).<br><br>
+              <b>Step 4 - Direct Fab Equipment Corrective Action:</b><br>
+              &bull; Trace verified defect root cause and elemental fingerprint back to offending tool chambers; query FDC/EAP sensor trace databases (e.g. RIE RF reflect, CMP Endpoint Detection EPD, photoresist cup exhaust).<br>
+              &bull; Trigger equipment preventive maintenance (PM), consumable replacement (Focus Ring / Slurry Filter), or process recipe optimization.
+            </div>
           </div>
                   <!-- 7.4 REAL-WORLD FA & PHYSICAL DEFECT GALLERY -->
           <h3>
@@ -6147,11 +6407,11 @@
     <div style="display:flex; flex-direction:column; align-items:flex-end; gap:5px;">
       <div style="display:flex; align-items:center; gap:8px;">
         <span class="badge badge-green" style="font-size:11px; padding:2px 8px;">● LIVE VERIFIED</span>
-        <span style="font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft);">Rev. M</span>
+        <span style="font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft);">Rev. N</span>
       </div>
       <div style="font-family:var(--font-mono); font-size:12px; color:var(--ink);">
         <span class="zh">最後更新日期：</span><span class="en">Last Updated: </span>
-        <b style="color:var(--accent);">2026-10-22 14:35 (Asia/Taipei)</b>
+        <b style="color:var(--accent);">2026-10-22 15:50 (Asia/Taipei)</b>
       </div>
     </div>
   </footer>
