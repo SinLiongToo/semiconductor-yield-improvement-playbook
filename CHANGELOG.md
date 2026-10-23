@@ -9,6 +9,30 @@ Entry format / 格式:
 
 ---
 
+## 2026-10-23 — Claude Code — Rev. Y: mobile layout, content expansion, case study, CI
+
+- **Mobile layout fixed**: the page was 964 px wide on a 390 px phone. Causes and fixes (all in `<style>`):
+  - `.body-grid` below 950 px uses `minmax(0, 1fr)` (a bare `1fr` grows to its widest child).
+  - `.tool-grid` stacks below 760 px (`!important`, because tool grids carry inline column widths).
+  - `.katex { position: relative }`: KaTeX's hidden MathML copy is `position:absolute` and escaped every `overflow:auto` wrapper.
+  - `.katex-display { overflow-x: auto }` for display math outside `.formula`.
+  - Inline grids use `minmax(min(280px, 100%), 1fr)`, so 320–360 px phones fit.
+  - **When adding content**: avoid fixed px minimums in inline grids; put wide tables in `.data-table-wrap` and long formulas in `.formula`. Verified page width = viewport at 320/360/390/768/1024/1440 px.
+- **Figures**: the 7 `div.figure-container` wrappers are now `<figure>`/`<figcaption>` (classes kept for the lightbox JS). The Phase 7 figures were captioned 6.1/6.2 and are now 7.1/7.2.
+- **New content** (all bilingual; new SVGs use theme tokens only):
+  - Phase 0.3–0.5: yield metrics (FPY/RTY/GDPW), loss waterfall (Fig 0.4), baseline/trigger rules, cost of yield.
+  - Phase 1: data lineage (Fig 1.1), 1.1 join keys and how they break, 1.2 STDF V4 primer, data-quality checklist.
+  - Phase 2.3: inline inspection and kill ratio. 2.4: ML wafer-map classification (WM-811K).
+  - Phase 6: Cp vs Cpk figure (Fig 6.1).
+  - Phase 9.1–9.4: split-lot DOE, SPC run rules plus control chart (Fig 9.1), sample size with wafer-clustering design effect, DFM/critical area.
+  - Phase 10.1–10.3: learning-curve notes, ramp curve (Fig 10.1), standards table, audit evidence pack.
+  - New section `#case_study` (in both TOCs): one excursion walked through Phases 0–10.
+  - Appendix C (58-term glossary), Appendix D (standards and references).
+  - Chart numbers were computed, not estimated: Cpk 1.19 / 178 ppm; n ≈ 3,210 dies → ~71 wafers per arm at ρ = 0.02; case-study χ² = 37.9.
+- **CI**: `.github/workflows/verify.yml` runs `scripts/verify_index.js` on every push/PR. The script now counts unbalanced tags as errors and exits 1 on failure (it previously always exited 0).
+- **Known pre-existing issue, not fixed**: `scripts/audit_i18n_and_structure.js` reports 64 Chinese strings still visible in English mode, in Overview, Tools (mostly `<option>` text and JS-generated metric values), Phase 3, Phase 4 and Phase 7 badges. The same 64 existed before this session.
+- **Known numbering quirk**: the Overview section uses headings 0.2–0.4 and Phase 0 uses 0.1–0.5, so the "0.x" numbers overlap. Left as is.
+
 ## 2026-10-23 — Claude Code — Unify revision labels (Rev. X)
 
 - Header revision (was Rev. M) and footer revision (was Rev. W) had drifted apart as two separate counters. Both now read **Rev. X**, continuing from the higher letter. New rule in `AGENTS.md` (workflow rule 4): bump both together on every substantive change.

@@ -5,19 +5,21 @@ const content = fs.readFileSync('index.html', 'utf8');
 console.log('Total characters:', content.length);
 console.log('Total lines:', content.split('\n').length);
 
+let errors = 0;
+
 // 1. Tag balance check
-const tagsToCheck = ['section', 'figure', 'svg', 'table', 'thead', 'tbody', 'tr', 'td', 'th', 'div', 'p', 'span'];
+const tagsToCheck = ['section', 'figure', 'figcaption', 'svg', 'table', 'thead', 'tbody', 'tr', 'td', 'th', 'div', 'p', 'span'];
 tagsToCheck.forEach(tag => {
   const openCount = (content.match(new RegExp(`<${tag}(\\s+[^>]*)?>`, 'gi')) || []).length;
   const closeCount = (content.match(new RegExp(`</${tag}>`, 'gi')) || []).length;
   console.log(`Tag <${tag}>: open=${openCount}, close=${closeCount}, diff=${openCount - closeCount}`);
+  if (openCount !== closeCount) errors++;
 });
 
 // 2. Inline script check
 const scriptRegex = /<script(?:\s+[^>]*)?>([\s\S]*?)<\/script>/gi;
 let match;
 let scriptIndex = 0;
-let errors = 0;
 
 while ((match = scriptRegex.exec(content)) !== null) {
   scriptIndex++;
@@ -43,3 +45,4 @@ if (tabText) {
 }
 
 console.log(`Verification complete. Errors: ${errors}`);
+if (errors > 0) process.exit(1);

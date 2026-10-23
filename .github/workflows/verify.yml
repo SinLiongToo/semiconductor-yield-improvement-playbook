@@ -1,0 +1,17 @@
+name: Verify index.html
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      # Tag balance + inline JS syntax; no dependencies needed
+      - run: node scripts/verify_index.js
