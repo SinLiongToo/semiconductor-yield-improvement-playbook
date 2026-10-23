@@ -3542,108 +3542,266 @@
             </span>
           </p>
 
-          <div style="text-align: center; margin: 16px 0; font-size: 1.15em;">
-            $$\sigma^2_{\text{total}} = \sigma^2_{\text{L2L}} + \sigma^2_{\text{W2W}} + \sigma^2_{\text{WIW}} + \sigma^2_{\text{WID}}$$
+          <!-- NESTED ANOVA MATHEMATICAL FORMULATION CARD -->
+          <div style="background:var(--surface-2); border:1px solid var(--border); border-radius:8px; padding:16px; margin:16px 0;">
+            <div style="text-align:center; margin-bottom:12px;">
+              <span style="font-family:var(--font-mono); font-size:1.25em; font-weight:700; color:var(--accent);">
+                $$\sigma^2_{\text{total}} = \sigma^2_{\text{L2L}} + \sigma^2_{\text{W2W}} + \sigma^2_{\text{WIW}} + \sigma^2_{\text{WID}}$$
+              </span>
+            </div>
+            <!-- VISUAL 4-TIER HIERARCHICAL CARDS -->
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(210px, 1fr)); gap:12px; margin-top:12px;">
+              <div style="background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--warn); border-radius:6px; padding:10px 12px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                  <b style="color:var(--warn); font-size:12px;">\(\sigma^2_{\text{L2L}}\) Lot-to-Lot</b>
+                  <span class="badge badge-amber" style="font-size:10.5px;">40% ~ 55%</span>
+                </div>
+                <div style="font-size:11px; color:var(--ink-soft); line-height:1.4;">
+                  <span class="zh">批次間宏觀漂移：原物料批號更換、靶材濺鍍損耗、PM 洗機保養重啟</span>
+                  <span class="en">Batch drift: chemical lots, target erosion, preventative maintenance cycles</span>
+                </div>
+              </div>
+              <div style="background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--accent); border-radius:6px; padding:10px 12px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                  <b style="color:var(--accent); font-size:12px;">\(\sigma^2_{\text{W2W}}\) Wafer-to-Wafer</b>
+                  <span class="badge badge-blue" style="font-size:10.5px;">15% ~ 25%</span>
+                </div>
+                <div style="font-size:11px; color:var(--ink-soft); line-height:1.4;">
+                  <span class="zh">晶圓間槽位波動：垂直爐管氣流消耗階度、旋塗排氣微渦流、首片冷機瞬態</span>
+                  <span class="en">Slot variation: furnace gas depletion, coater turbulence, first-wafer cold transient</span>
+                </div>
+              </div>
+              <div style="background:var(--surface); border:1px solid var(--border); border-left:4px solid #a855f7; border-radius:6px; padding:10px 12px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                  <b style="color:#a855f7; font-size:12px;">\(\sigma^2_{\text{WIW}}\) Within-Wafer</b>
+                  <span class="badge badge-purple" style="font-size:10.5px;">15% ~ 25%</span>
+                </div>
+                <div style="font-size:11px; color:var(--ink-soft); line-height:1.4;">
+                  <span class="zh">晶圓內幾何分佈：聚焦環磨耗邊緣發散、CMP 多區氣囊壓差、退火同心圓輻射</span>
+                  <span class="en">Spatial profile: focus ring erosion flare, CMP bladder profiles, RTA thermal rings</span>
+                </div>
+              </div>
+              <div style="background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--danger); border-radius:6px; padding:10px 12px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                  <b style="color:var(--danger); font-size:12px;">\(\sigma^2_{\text{WID}}\) Within-Die / OCV</b>
+                  <span class="badge badge-red" style="font-size:10.5px;">10% ~ 20%</span>
+                </div>
+                <div style="font-size:11px; color:var(--ink-soft); line-height:1.4;">
+                  <span class="zh">晶粒內奈米擾動：微觀隨機摻雜 (RDF)、閘極功函數 (WFV)、線邊粗糙度 (LER)</span>
+                  <span class="en">Nanoscale OCV: random dopant fluctuation (RDF), WFV, line edge roughness (LER)</span>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <div class="table-container">
-            <table>
+          <!-- 4.1 VARIATION HIERARCHY DATA TABLE -->
+          <div class="data-table-wrap">
+            <table class="data-table">
               <thead>
                 <tr>
-                  <th><span class="zh">變異層級 (Component)</span><span class="en">Variation Level</span></th>
-                  <th><span class="zh">典型變異貢獻比</span><span class="en">Typical Variance %</span></th>
-                  <th><span class="zh">特徵時間/空間尺度</span><span class="en">Time/Spatial Scale</span></th>
-                  <th><span class="zh">主要物理與化學物理成因 (Root Causes)</span><span class="en">Key Physico-Chemical Root Causes</span></th>
-                  <th><span class="zh">監控站點與工程抑制手法</span><span class="en">Monitoring & Mitigation</span></th>
+                  <th style="min-width:130px;"><span class="zh">變異層級與代號</span><span class="en">Variation Level</span></th>
+                  <th style="min-width:110px;"><span class="zh">變異貢獻比 (ANOVA)</span><span class="en">Variance Ratio</span></th>
+                  <th style="min-width:120px;"><span class="zh">特徵時間與空間尺度</span><span class="en">Time &amp; Spatial Scale</span></th>
+                  <th><span class="zh">主導物理／化學反應與微觀成因 (Root Causes)</span><span class="en">Key Physico-Chemical Root Causes</span></th>
+                  <th style="min-width:160px;"><span class="zh">在線監控量測站點</span><span class="en">Metrology &amp; Sampling</span></th>
+                  <th style="min-width:170px;"><span class="zh">工程抑制對策與 APC 先進控制</span><span class="en">Engineering Mitigation &amp; APC</span></th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td><b>\(\sigma^2_{\text{L2L}}\) (Lot-to-Lot, 批次間)</b></td>
+                  <td>
+                    <b>\(\sigma^2_{\text{L2L}}\)</b><br>
+                    <span class="zh">批次間變異 (Lot-to-Lot)</span>
+                    <span class="en">Lot-to-Lot Variation</span>
+                  </td>
                   <td><span class="badge badge-amber">40% ~ 55%</span></td>
-                  <td>數天至數週 (Days ~ Weeks)</td>
+                  <td>
+                    <span class="zh">數天至數週<br>(Days ~ Weeks)</span>
+                    <span class="en">Days ~ Weeks<br>(Macro Temporal)</span>
+                  </td>
                   <td>
                     <span class="zh">
-                      1. 原生晶圓矽錠 (CZ Ingot) 頭尾端氧含量 (\(O_i\)) 與摻雜偏析梯度；<br>
-                      2. 化學藥液更換（CMP 研磨液批號更換、光阻感光度 \(\Delta E_0\) 波動）；<br>
-                      3. 機台預防性保養大修（Chamber PM kit 更換、PVD 靶材磁控消耗）；<br>
-                      4. 廠務冷卻水迴路溫度漂移與 FAB 大氣微壓氣候波動。
+                      &bull; <b>原生晶錠偏析</b>：CZ 矽錠頭尾端間隙氧含量（\(O_i\)）與摻雜劑軸向偏析梯度；<br>
+                      &bull; <b>化學耗材批次更換</b>：CMP 研磨液 Slurry 批號切換、光阻感光度（\(\Delta E_0\)）微漂移；<br>
+                      &bull; <b>機台保養週期</b>：PVD 靶材磁控侵蝕損耗、蝕刻腔體 PM 更換零件（Kit Swap）；<br>
+                      &bull; <b>廠務環境擾動</b>：冰水迴路溫度微振盪、大氣氣壓與濕度季節性氣候漂移。
                     </span>
                     <span class="en">
-                      1. Ingot axial oxygen (\(O_i\)) and dopant segregation gradient;<br>
-                      2. Chemical batch drift (CMP slurry lots, photoresist photospeed \(\Delta E_0\));<br>
-                      3. Preventative maintenance cycles (parts swap, target sputtering erosion);<br>
-                      4. Facility cooling water drift and atmospheric micro-pressure climate swings.
+                      &bull; <b>Crystal Ingot Segregation</b>: CZ silicon ingot axial oxygen (\(O_i\)) and dopant segregation gradients;<br>
+                      &bull; <b>Consumable Batch Swaps</b>: CMP slurry lot-to-lot chemical shifts, photoresist photospeed (\(\Delta E_0\)) drift;<br>
+                      &bull; <b>Tool Maintenance Aging</b>: PVD sputtering target erosion, dry etch chamber PM wet-clean cycles;<br>
+                      &bull; <b>Facility Micro-Climate</b>: Chilled water loop thermal swings, cleanroom atmospheric pressure variations.
                     </span>
                   </td>
                   <td>
-                    <span class="zh">APC Run-to-Run (R2R) 回饋/前饋控制器、原物料批號鎖定、靶材壽命自動補償。</span>
-                    <span class="en">APC R2R feedback/feedforward controllers, raw material lot clamping, target erosion compensation.</span>
+                    <span class="zh">
+                      &bull; 批次首片測試（First-Wafer Check）<br>
+                      &bull; 在線 SPC X-bar/R 管制圖<br>
+                      &bull; 原物料化驗批號登錄
+                    </span>
+                    <span class="en">
+                      &bull; First-wafer inline check<br>
+                      &bull; Online SPC X-bar/R charts<br>
+                      &bull; Raw material CoA clamping
+                    </span>
+                  </td>
+                  <td>
+                    <span class="zh">
+                      &bull; <b>APC Run-to-Run (R2R)</b>：前研磨厚度前饋至化學拋光時間；<br>
+                      &bull; <b>靶材壽命自動偏壓補償</b>（Target Erosion Bias Tuning）；<br>
+                      &bull; 原物料更換後強制 3–5 批 Pilot 試產鎖定配方。
+                    </span>
+                    <span class="en">
+                      &bull; <b>APC Run-to-Run (R2R)</b>: Feedforward pre-CMP thickness to dynamic polish timers;<br>
+                      &bull; <b>PVD Target Power/Bias Auto-Compensation</b>;<br>
+                      &bull; Mandatory 3-5 pilot qualification lots following raw material batch transitions.
+                    </span>
                   </td>
                 </tr>
                 <tr>
-                  <td><b>\(\sigma^2_{\text{W2W}}\) (Wafer-to-Wafer, 晶圓間)</b></td>
+                  <td>
+                    <b>\(\sigma^2_{\text{W2W}}\)</b><br>
+                    <span class="zh">晶圓間變異 (Wafer-to-Wafer)</span>
+                    <span class="en">Wafer-to-Wafer Variation</span>
+                  </td>
                   <td><span class="badge badge-blue">15% ~ 25%</span></td>
-                  <td>數小時 (1 Lot = 25 Wafers)</td>
+                  <td>
+                    <span class="zh">數小時<br>(1 Lot = 25 Wafers)</span>
+                    <span class="en">Hours<br>(Lot Slot Sequence)</span>
+                  </td>
                   <td>
                     <span class="zh">
-                      1. 垂直擴散爐管 (Furnace Boat) 氣流沿石英管軸向消耗 (Gas Depletion Gradient，Slot 1 到 Slot 25 膜厚遞減)；<br>
-                      2. 旋塗機 (Coater Cup) 排氣渦流擾動導致光阻膜厚片間微差；<br>
-                      3. 電漿乾蝕刻腔體第一片晶圓冷機效應 (First-Wafer Thermal & Radical Transient)。
+                      &bull; <b>擴散氣流沿程消耗</b>：垂直高溫爐管（Furnace Boat）反應氣體沿石英管軸向消耗，導致 Slot 1 至 Slot 25 膜厚遞減梯度；<br>
+                      &bull; <b>旋塗腔排氣渦流</b>：光阻塗佈旋杯（Coater Cup）微氣流擾動引發逐片膜厚輕微發散；<br>
+                      &bull; <b>電漿首片冷機瞬態</b>：蝕刻/CVD 腔體連續運行時，第 1 片晶圓腔壁溫度與自由基濃度未達熱平衡（Cold-Chamber Transient）。
                     </span>
                     <span class="en">
-                      1. Vertical furnace gas depletion along quartz boat axis (Slot 1 to 25 thickness taper);<br>
-                      2. Coater cup exhaust turbulence creating wafer-to-wafer resist thickness divergence;<br>
-                      3. Dry etch chamber thermal and reactive radical transients on the first production wafer.
+                      &bull; <b>Furnace Gas Depletion</b>: Vertical diffusion boat precursor consumption along quartz axis, creating Slot 1 to 25 thickness taper;<br>
+                      &bull; <b>Coater Cup Exhaust Turbulence</b>: Micro-vortices during high-speed spin coating generating wafer-to-wafer resist thickness divergence;<br>
+                      &bull; <b>First-Wafer Thermal Transient</b>: Plasma etch/CVD radical density and chamber wall temperature hysteresis on initial production wafers.
                     </span>
                   </td>
                   <td>
-                    <span class="zh">虛擬量測 (Virtual Metrology)、前導 Dummy 晶圓預熱熱機、爐管分區動態注氣流量閥。</span>
-                    <span class="en">Virtual Metrology (VM), thermal dummy pre-conditioning, multi-zone furnace gas injection valves.</span>
+                    <span class="zh">
+                      &bull; 晶圓槽位關聯圖（Slot Signature）<br>
+                      &bull; 虛擬量測（Virtual Metrology, VM）<br>
+                      &bull; 爐管五點式熱電偶監測
+                    </span>
+                    <span class="en">
+                      &bull; Wafer slot trend charts<br>
+                      &bull; Virtual Metrology (VM)<br>
+                      &bull; 5-zone thermocouple profiling
+                    </span>
+                  </td>
+                  <td>
+                    <span class="zh">
+                      &bull; <b>前導 Dummy 晶圓預熱熱機</b>（Chamber Pre-Seasoning）；<br>
+                      &bull; 爐管多區動態注氣流量閥與分區溫度補償（Multi-zone Temp Offsets）；<br>
+                      &bull; 塗佈旋杯排氣負壓主動閉環微調。
+                    </span>
+                    <span class="en">
+                      &bull; <b>Thermal Dummy Pre-Seasoning</b> for dry etch/CVD chambers;<br>
+                      &bull; Multi-zone gas injection valves and individual heating zone temperature offsets;<br>
+                      &bull; Closed-loop dynamic coater cup exhaust differential pressure control.
+                    </span>
                   </td>
                 </tr>
                 <tr>
-                  <td><b>\(\sigma^2_{\text{WIW}}\) (Within-Wafer, 晶圓內)</b></td>
+                  <td>
+                    <b>\(\sigma^2_{\text{WIW}}\)</b><br>
+                    <span class="zh">晶圓內變異 (Within-Wafer)</span>
+                    <span class="en">Within-Wafer / Spatial</span>
+                  </td>
                   <td><span class="badge badge-purple">15% ~ 25%</span></td>
-                  <td>300mm 晶圓直徑空間 (Spatial)</td>
+                  <td>
+                    <span class="zh">300mm 直徑空間分佈<br>(Wafer Radial / Edge)</span>
+                    <span class="en">300mm Diameter<br>(Concentric / Edge)</span>
+                  </td>
                   <td>
                     <span class="zh">
-                      1. 電漿鞘層邊緣電場畸變（聚焦環 Focus Ring 磨損使得外圈電場發散，造成邊緣 CD 偏移）；<br>
-                      2. CMP 多區研磨頭（Multi-zone Head）氣囊加壓補償邊界微差；<br>
-                      3. 快速高溫退火（RTA）晶圓邊緣黑體輻射散熱效應引發同心圓溫度階度。
+                      &bull; <b>電漿鞘層邊緣畸變</b>：電漿蝕刻聚焦環（Focus Ring）長期受離子轟擊磨耗下陷，外圈電場發散造成晶圓最外圍 10mm 臨界尺寸（CD）急劇飄移；<br>
+                      &bull; <b>研磨壓差邊界效應</b>：CMP 研磨多區氣囊（Multi-zone Bladder）在晶圓倒角邊緣壓降引發過拋或拋光不足；<br>
+                      &bull; <b>退火黑體輻射散熱</b>：快速熱退火（RTA）晶圓邊緣比表面積大、熱輻射快，引發同心圓徑向溫度梯度。
                     </span>
                     <span class="en">
-                      1. Plasma sheath edge distortion (Focus Ring erosion flaring edge E-fields and shifting CD);<br>
-                      2. CMP multi-zone bladder pressure profile boundary gradients;<br>
-                      3. Rapid thermal annealing (RTA) edge blackbody radiation heat loss causing concentric thermal rings.
+                      &bull; <b>Plasma Sheath Edge Flare</b>: Focus Ring ion erosion flaring RF sheath boundary electric fields, shifting poly/metal CD in the outer 10mm exclusion zone;<br>
+                      &bull; <b>CMP Edge Profile Gradient</b>: Multi-zone polish head bladder pressure rolloff at wafer bevel boundary creating edge over/under-polishing;<br>
+                      &bull; <b>RTA Blackbody Radiation Loss</b>: Rapid thermal annealing edge radiant dissipation generating radial concentric thermal gradients.
                     </span>
                   </td>
                   <td>
-                    <span class="zh">可調邊緣聚焦環偏壓 (Tunable Focus Ring Bias)、CMP 多區壓差微調、微影倍率與二階曲率補償。</span>
-                    <span class="en">Tunable focus ring bias control, CMP multi-zone pressure tuning, scanner high-order intra-field correction.</span>
+                    <span class="zh">
+                      &bull; 49 點 / 121 點極坐標膜厚儀量測<br>
+                      &bull; 晶圓空間缺陷特徵識別（Spatial Map）<br>
+                      &bull; 邊緣禁絕區（3mm Exclusion）掃描
+                    </span>
+                    <span class="en">
+                      &bull; 49/121-point polar metrology maps<br>
+                      &bull; Wafer spatial signature classification<br>
+                      &bull; 3mm edge-exclusion scans
+                    </span>
+                  </td>
+                  <td>
+                    <span class="zh">
+                      &bull; <b>可調邊緣聚焦環射頻偏壓</b>（Tunable Edge Bias Ring）；<br>
+                      &bull; <b>CMP 多區多通道氣囊獨立壓差控制</b>（Multi-zone Pressure Recipe Tuning）；<br>
+                      &bull; 微影機晶圓台多階曲率鏡像自動水平補正（High-Order Intra-field Correction）。
+                    </span>
+                    <span class="en">
+                      &bull; <b>Tunable Focus Ring RF Bias Tuning</b> to realign edge sheath E-fields;<br>
+                      &bull; <b>Multi-Zone CMP Bladder Pressure Optimization</b> (Retaining ring vs edge zone);<br>
+                      &bull; High-order scanner intra-field wafer leveling and magnification corrections.
+                    </span>
                   </td>
                 </tr>
                 <tr>
-                  <td><b>\(\sigma^2_{\text{WID}}\) (Within-Die / OCV, 晶粒內)</b></td>
+                  <td>
+                    <b>\(\sigma^2_{\text{WID}}\)</b><br>
+                    <span class="zh">晶粒內變異 (Within-Die / OCV)</span>
+                    <span class="en">Within-Die / OCV</span>
+                  </td>
                   <td><span class="badge badge-red">10% ~ 20%</span></td>
-                  <td>微米至毫米 (\(\mu\text{m} \sim \text{mm}\))</td>
+                  <td>
+                    <span class="zh">微米至奈米微觀節點<br>(\(\mu\text{m} \sim \text{nm}\))</span>
+                    <span class="en">Micro to Nano<br>(\(\mu\text{m} \sim \text{nm}\) Gate-to-Gate)</span>
+                  </td>
                   <td>
                     <span class="zh">
-                      1. 光學近接效應校正（OPC）殘餘模型誤差；<br>
-                      2. 微影光阻分子鏈線邊緣粗糙度（LER / LWR）；<br>
-                      3. 先進節點電晶體微觀通道內的隨機摻雜擾動（Random Dopant Fluctuation, RDF）與金屬閘極功函數波動（WFV）；<br>
-                      4. 銅導線局部圖樣密度差異引發之 CMP Dishing 與 Erosion。
+                      &bull; <b>奈米級隨機摻雜擾動 (RDF)</b>：先進通道中僅有數十顆摻雜原子，統計性泊松起伏引發閾值電壓（\(V_{th}\)）離散；<br>
+                      &bull; <b>金屬閘極功函數波動 (WFV)</b>：TiN / TaN 閘極奈米微晶晶向（Crystal Grain Orientation）不同導致功函數微差；<br>
+                      &bull; <b>光阻分子線邊緣粗糙度 (LER / LWR)</b>：聚合物分子鏈尺度引發之線寬高頻隨機鋸齒；<br>
+                      &bull; <b>圖樣密度負載效應</b>：金屬佈局密集區與稀疏區造成 CMP Dishing、Erosion 及微影光學近接誤差（OPC Residuals）。
                     </span>
                     <span class="en">
-                      1. Optical Proximity Correction (OPC) residual modeling error;<br>
-                      2. Photoresist polymer chain Line Edge / Line Width Roughness (LER/LWR);<br>
-                      3. Random Dopant Fluctuation (RDF) and Work Function Variation (WFV) in nanoscale channels;<br>
-                      4. Copper CMP dishing and dielectric erosion driven by local interconnect pattern density.
+                      &bull; <b>Random Dopant Fluctuation (RDF)</b>: Poisson statistical distribution of discrete dopant atoms in sub-10nm channel volumes spreading \(V_{th}\);<br>
+                      &bull; <b>Work Function Variation (WFV)</b>: Metal gate TiN/TaN crystal grain orientation anisotropy inducing local work function shifts;<br>
+                      &bull; <b>Line Edge / Line Width Roughness (LER/LWR)</b>: Polymer chain molecular granularity causing localized high-frequency CD roughness;<br>
+                      &bull; <b>Pattern Density Loading</b>: Dense vs. sparse interconnect metal pitch causing CMP dishing, dielectric erosion, and optical flare.
                     </span>
                   </td>
                   <td>
-                    <span class="zh">先進 EDA 統計時序分析 (SSTA / POCV)、嚴格 DFM 虛擬金屬填補 (Dummy Metal Fill) 規則。</span>
-                    <span class="en">Statistical Static Timing Analysis (SSTA/POCV), strict DFM dummy metal density rules.</span>
+                    <span class="zh">
+                      &bull; CD-SEM 奈米高倍率邊緣粗糙度檢驗<br>
+                      &bull; TEM 晶格切片與原子級 EDX 分析<br>
+                      &bull; 晶片內建環形振盪器（RO）陣列量測
+                    </span>
+                    <span class="en">
+                      &bull; High-res CD-SEM LER/LWR metrology<br>
+                      &bull; Cross-sectional atomic TEM &amp; EDX<br>
+                      &bull; On-chip Ring Oscillator (RO) arrays
+                    </span>
+                  </td>
+                  <td>
+                    <span class="zh">
+                      &bull; <b>嚴格 DFM 虛擬金屬填補規則</b>（Dummy Metal Fill Pattern Balancing）；<br>
+                      &bull; 導入逆向微影技術（Inverse Lithography Technology, ILT）；<br>
+                      &bull; EDA 統計靜態時序分析（SSTA / Parametric OCV）降低過度設計悲觀度。
+                    </span>
+                    <span class="en">
+                      &bull; <b>Strict DFM Dummy Metal Pattern Density Balancing</b>;<br>
+                      &bull; Full-chip Inverse Lithography Technology (ILT) to maximize process window;<br>
+                      &bull; Advanced Parametric On-Chip Variation (POCV/LVF) timing sign-off to eliminate margin pessimism.
+                    </span>
                   </td>
                 </tr>
               </tbody>
@@ -3653,7 +3811,7 @@
           <!-- 4.2 PROCESS CORNERS -->
           <h3>
             <span class="zh">4.2 五大製程角落 (Process Corners: TT, FF, SS, FS, SF) 物理成因與電氣特徵</span>
-            <span class="en">4.2 Five Major Process Corners (TT, FF, SS, FS, SF): Physical Origins & Electrical Behavior</span>
+            <span class="en">4.2 Five Major Process Corners (TT, FF, SS, FS, SF): Physical Origins &amp; Electrical Behavior</span>
           </h3>
           <p>
             <span class="zh">
@@ -3664,8 +3822,8 @@
             </span>
           </p>
 
-          <div class="table-container">
-            <table>
+          <div class="data-table-wrap">
+            <table class="data-table">
               <thead>
                 <tr>
                   <th><span class="zh">製程角落 (Corner)</span><span class="en">Process Corner</span></th>
@@ -7001,11 +7159,11 @@
     <div style="display:flex; flex-direction:column; align-items:flex-end; gap:5px;">
       <div style="display:flex; align-items:center; gap:8px;">
         <span class="badge badge-green" style="font-size:11px; padding:2px 8px;">● LIVE VERIFIED</span>
-        <span style="font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft);">Rev. R</span>
+        <span style="font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft);">Rev. S</span>
       </div>
       <div style="font-family:var(--font-mono); font-size:12px; color:var(--ink);">
         <span class="zh">最後更新日期：</span><span class="en">Last Updated: </span>
-        <b style="color:var(--accent);">2026-10-22 18:50 (Asia/Taipei)</b>
+        <b style="color:var(--accent);">2026-10-23 08:30 (Asia/Taipei)</b>
       </div>
     </div>
   </footer>

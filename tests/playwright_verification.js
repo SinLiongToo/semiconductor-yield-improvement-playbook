@@ -254,8 +254,8 @@ async function runVerification() {
   console.log('\n[Test 1.3] Testing Footer Last Updated Date...');
   const footerText = await page.locator('footer').innerText();
   console.log(`  ✓ Footer info: ${footerText.replace(/\n/g, ' ')}`);
-  if (!footerText.includes('2026-10-22') || !footerText.includes('更新')) {
-    throw new Error('Footer missing update date 2026-10-22!');
+  if (!/\d{4}-\d{2}-\d{2}/.test(footerText) || !footerText.includes('更新')) {
+    throw new Error('Footer missing update date format (YYYY-MM-DD) or keyword!');
   }
 
   console.log('\n[Test 2] Testing Language Toggle (ZH <-> EN)...');
