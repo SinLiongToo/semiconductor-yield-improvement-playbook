@@ -1002,7 +1002,8 @@
       <li><a href="#phase8_rma"><span class="zh">Phase 8: 客訴案件分析與良率溯源閉環</span><span class="en">Phase 8: Customer RMA & Field Return Closed-Loop</span></a></li>
       <li><a href="#phase9_action"><span class="zh">Phase 9: 系統性改善戰術與閉環</span><span class="en">Phase 9: Systematic Improvement Playbook</span></a></li>
       <li><a href="#phase10_ramp"><span class="zh">Phase 10: Ramp 學習曲線與稽核治理</span><span class="en">Phase 10: Yield Ramp & Audit Defense</span></a></li>
-      <li><a href="#appendices"><span class="zh">附錄: 工程範本與公式參考卡</span><span class="en">Appendices: Templates & Formula Cards</span></a></li>
+      <li><a href="#case_study"><span class="zh">實戰案例：端到端良率突降演練</span><span class="en">Case Study: End-to-End Excursion</span></a></li>
+      <li><a href="#appendices"><span class="zh">附錄: 範本、公式卡、詞彙表與參考文獻</span><span class="en">Appendices: Templates, Formulas, Glossary & References</span></a></li>
     </ol>
   </details>
 
@@ -1040,7 +1041,8 @@
         <li><a href="#phase8_rma"><span class="zh">Phase 8: 客訴 RMA 與溯源閉環</span><span class="en">Phase 8: Customer RMA Closed-Loop</span></a></li>
         <li><a href="#phase9_action"><span class="zh">Phase 9: 改善戰術與閉環</span><span class="en">Phase 9: Action Playbook</span></a></li>
         <li><a href="#phase10_ramp"><span class="zh">Phase 10: 學習曲線與稽核</span><span class="en">Phase 10: Ramp & Governance</span></a></li>
-        <li><a href="#appendices"><span class="zh">附錄: 範本與公式卡</span><span class="en">Appendices: Formulas</span></a></li>
+        <li><a href="#case_study"><span class="zh">實戰案例演練</span><span class="en">Case Study</span></a></li>
+        <li><a href="#appendices"><span class="zh">附錄: 公式、詞彙與參考</span><span class="en">Appendices: Formulas, Glossary</span></a></li>
       </ol>
     </nav>
 
@@ -4603,6 +4605,171 @@
                 The Poisson model \(Y = e^{-A D_0}\) assumes fully random defects; real defects cluster, so use the negative-binomial model \(Y = (1 + A D_0/\alpha)^{-\alpha}\). A smaller cluster parameter \(\alpha\) means stronger clustering (typical 0.5–5; \(\alpha \to \infty\) reduces to Poisson). A sudden drop in the fitted \(\alpha\) signals a new clustered signature (e.g., chamber flaking) — check #5 Cluster and #4 Scratch in Figure 2.1 first.
               </span>
             </p>
+          </div>
+
+          <!-- 2.3 INLINE DEFECT INSPECTION -->
+          <h3>
+            <span class="zh">2.3 線上缺陷檢測、致命率（Kill Ratio）與缺陷來源分析</span>
+            <span class="en">2.3 Inline Defect Inspection, Kill Ratio &amp; Defect Source Analysis</span>
+          </h3>
+          <p>
+            <span class="zh">
+              CP 晶圓圖告訴你「哪些晶粒壞了」，線上缺陷檢測則告訴你「缺陷在哪一站出現」。兩者疊圖，才能把電性失效連回製程站點。不同檢測技術各有盲區，需要依缺陷類型選擇：
+            </span>
+            <span class="en">
+              The CP wafer map tells you which dies failed; inline defect inspection tells you at which step the defect appeared. Overlaying the two links electrical fails back to a process step. Each inspection technology has blind spots, so match the tool to the defect type:
+            </span>
+          </p>
+
+          <div class="data-table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th><span class="zh">檢測技術</span><span class="en">Technology</span></th>
+                  <th><span class="zh">擅長偵測</span><span class="en">Best At</span></th>
+                  <th><span class="zh">限制</span><span class="en">Limitation</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b><span class="zh">明場光學（Brightfield）</span><span class="en">Optical Brightfield</span></b></td>
+                  <td>
+                    <span class="zh">圖形缺陷、橋接、殘留物；靈敏度高。</span>
+                    <span class="en">Pattern defects, bridges, residues; high sensitivity.</span>
+                  </td>
+                  <td>
+                    <span class="zh">產出速度較慢，通常只抽檢關鍵層。</span>
+                    <span class="en">Slower; usually sampled only at critical layers.</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b><span class="zh">暗場雷射掃描（Darkfield）</span><span class="en">Laser Darkfield</span></b></td>
+                  <td>
+                    <span class="zh">微粒、刮痕；速度快，適合高頻率監控。</span>
+                    <span class="en">Particles and scratches; fast, good for frequent monitoring.</span>
+                  </td>
+                  <td>
+                    <span class="zh">對細小的圖形缺陷與殘留物較不敏感。</span>
+                    <span class="en">Less sensitive to small pattern defects and residues.</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b><span class="zh">電子束檢測（E-beam）</span><span class="en">E-beam Inspection</span></b></td>
+                  <td>
+                    <span class="zh">電壓對比（Voltage Contrast）可看到埋在下方的通孔開路與短路。</span>
+                    <span class="en">Voltage contrast reveals buried via opens and shorts that optics cannot see.</span>
+                  </td>
+                  <td>
+                    <span class="zh">非常慢，只能檢查小面積或熱點區域。</span>
+                    <span class="en">Very slow; covers only small areas or known hotspots.</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b><span class="zh">缺陷複檢 SEM（Review SEM + ADC）</span><span class="en">Review SEM + ADC</span></b></td>
+                  <td>
+                    <span class="zh">對檢測到的缺陷拍高解析影像並自動分類（ADC）。</span>
+                    <span class="en">Takes high-resolution images of detected defects and classifies them automatically (ADC).</span>
+                  </td>
+                  <td>
+                    <span class="zh">只能複檢已被偵測到的缺陷，無法發現新缺陷。</span>
+                    <span class="en">Only reviews defects already detected; cannot find new ones.</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>
+            <span class="zh">
+              並非每個缺陷都會殺死晶粒。<b>致命率（Kill Ratio）</b>量化某類缺陷的殺傷力：比較「有該類缺陷的晶粒」與「完全乾淨的晶粒」的良率。再結合各類缺陷命中晶粒的比例 \(f_i\)，即可預估缺陷造成的良率損失：
+            </span>
+            <span class="en">
+              Not every defect kills a die. The <b>kill ratio</b> measures how lethal a defect class is by comparing the yield of dies carrying that defect with the yield of completely clean dies. Combined with the fraction of dies \(f_i\) hit by each class, it predicts the defect-limited yield:
+            </span>
+          </p>
+
+          <div class="formula">
+            \[ KR_i = 1 - \frac{Y_{\text{dies with defect } i}}{Y_{\text{clean dies}}}, \qquad Y_{defect\text{-}limited} \approx \prod_i \left(1 - KR_i \cdot f_i\right) \]
+          </div>
+
+          <div class="callout warn">
+            <div class="callout-title">
+              <span>⚠️</span>
+              <span class="zh">線上檢測的三個盲點</span>
+              <span class="en">Three blind spots of inline inspection</span>
+            </div>
+            <ul>
+              <li>
+                <span class="zh"><b>抽樣</b>：每批通常只檢查 2–3 片，沒被抽到的晶圓發生異常就看不到。CP 晶圓圖是 100% 全檢，兩者必須互補。</span>
+                <span class="en"><b>Sampling</b>: usually only 2–3 wafers per lot are inspected, so an excursion on an uninspected wafer is invisible. The CP map covers 100% of wafers; use both.</span>
+              </li>
+              <li>
+                <span class="zh"><b>缺陷來源分析（DSA）</b>：將各站缺陷圖依序疊合，缺陷「第一次出現」的那一站才是來源。後續站點看到的同一顆缺陷只是被帶下去，不要誤判為新增缺陷（Adder）。</span>
+                <span class="en"><b>Defect source analysis (DSA)</b>: stack the defect maps of successive steps; the step where a defect first appears is its source. Later steps that see the same defect only carry it along; do not count it as a new adder.</span>
+              </li>
+              <li>
+                <span class="zh"><b>擾動缺陷（Nuisance）</b>：檢測靈敏度調太高會抓到大量不影響良率的色差與顆粒，淹沒真正的致命缺陷。Kill Ratio 接近 0 的類別應調整檢測配方或 ADC 規則濾除。</span>
+                <span class="en"><b>Nuisance defects</b>: set the sensitivity too high and the tool reports thousands of harmless color variations, burying the real killers. Classes with a kill ratio near 0 should be filtered by tuning the inspection recipe or ADC rules.</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- 2.4 ML WAFER MAP CLASSIFICATION -->
+          <h3>
+            <span class="zh">2.4 晶圓圖自動分類：機器學習實務</span>
+            <span class="en">2.4 Automatic Wafer-Map Classification with Machine Learning</span>
+          </h3>
+          <p>
+            <span class="zh">
+              大廠每天產生數萬張晶圓圖，人工判讀不可能全部看完。自動分類可將每張晶圓圖標上空間簽名（如 Edge-Ring、Scratch），並自動通知對應的模組工程師。常見做法：
+            </span>
+            <span class="en">
+              A large fab produces tens of thousands of wafer maps a day, far more than engineers can review. Automatic classification tags each map with its spatial signature (Edge-Ring, Scratch and so on) and routes it to the responsible module engineer. Common approaches:
+            </span>
+          </p>
+          <ul>
+            <li>
+              <span class="zh"><b>特徵工程 + 傳統分類器</b>：計算徑向／角度分佈、區域良率、Radon 轉換等特徵，再以隨機森林或 SVM 分類。可解釋性高，資料量少時也能用。</span>
+              <span class="en"><b>Engineered features + classic classifier</b>: compute radial and angular profiles, zone yields or Radon-transform features, then classify with a random forest or SVM. Easy to explain and works with little data.</span>
+            </li>
+            <li>
+              <span class="zh"><b>卷積神經網路（CNN）</b>：直接把晶圓圖當影像輸入，準確率通常最高，但需要大量標註資料。</span>
+              <span class="en"><b>Convolutional neural networks (CNN)</b>: feed the wafer map in as an image. Usually the most accurate, but needs a lot of labeled data.</span>
+            </li>
+            <li>
+              <span class="zh"><b>非監督式分群</b>：不需標註，用來發現從未見過的新空間簽名。</span>
+              <span class="en"><b>Unsupervised clustering</b>: needs no labels, and is how new, never-seen signatures are discovered.</span>
+            </li>
+          </ul>
+
+          <div class="callout">
+            <div class="callout-title">
+              <span>🤖</span>
+              <span class="zh">公開資料集與導入陷阱</span>
+              <span class="en">Public dataset and deployment pitfalls</span>
+            </div>
+            <span class="zh">
+              最常用的公開資料集為 <b>WM-811K</b>（811,457 張真實晶圓圖，約 17 萬張有標註，共 9 類：Center、Donut、Edge-Loc、Edge-Ring、Loc、Near-full、Random、Scratch、None），出處見附錄 D。導入產線時常見問題：
+            </span>
+            <span class="en">
+              The most widely used public dataset is <b>WM-811K</b> (811,457 real wafer maps, about 170,000 labeled, in 9 classes: Center, Donut, Edge-Loc, Edge-Ring, Loc, Near-full, Random, Scratch, None); see Appendix D for the source. Common problems when deploying in a fab:
+            </span>
+            <ul>
+              <li>
+                <span class="zh"><b>類別極度不平衡</b>：絕大多數晶圓屬於「None」，模型只要全部猜 None 準確率就很高。請以各類別的 Recall 評估，而非整體準確率。</span>
+                <span class="en"><b>Extreme class imbalance</b>: most wafers are "None", so a model that always guesses None scores high accuracy. Judge it by per-class recall, not overall accuracy.</span>
+              </li>
+              <li>
+                <span class="zh"><b>晶粒尺寸不同</b>：不同產品的晶圓圖網格大小不一，需先重新取樣到固定解析度。</span>
+                <span class="en"><b>Different die sizes</b>: each product has a different map grid; resample to a fixed resolution first.</span>
+              </li>
+              <li>
+                <span class="zh"><b>新簽名</b>：分類器只能從已知類別中選一個。務必設定信心門檻，低信心的晶圓圖轉交工程師人工判讀，並回饋成新標註。</span>
+                <span class="en"><b>New signatures</b>: a classifier can only pick from known classes. Set a confidence threshold, send low-confidence maps to an engineer, and feed the answers back as new labels.</span>
+              </li>
+            </ul>
+            <span class="zh">可用上方「Tool 2 晶圓空間分佈簽名模擬器」產生各類簽名，作為分類規則的測試案例。</span>
+            <span class="en">Tool 2 (Wafer Map Spatial Pattern Simulator) above can generate each signature as a test case for classification rules.</span>
           </div>
         </div>
       </section>
@@ -10698,12 +10865,200 @@
         </div>
       </section>
 
+      <!-- CASE STUDY: END-TO-END EXCURSION -->
+      <section id="case_study">
+        <h2 class="collapsible-h" onclick="toggleCollapse(this)">
+          <span>
+            <span class="zh">實戰案例：一次良率突降的端到端演練 (End-to-End Case Study)</span>
+            <span class="en">Case Study: One Yield Excursion, End to End</span>
+          </span>
+          <span class="collapse-arrow">▼</span>
+        </h2>
+        <div class="collapse-body">
+          <p>
+            <span class="zh">
+              以下案例把 Phase 0–10 串成一條完整的調查路線，示範每一步該問什麼問題、用什麼工具。案例為綜合多個典型情境改寫的示範，數字為虛構但彼此一致。
+            </span>
+            <span class="en">
+              This case strings Phases 0–10 into one investigation, showing which question to ask and which tool to use at each step. It is a composite teaching example; the numbers are fictitious but consistent with each other.
+            </span>
+          </p>
+
+          <div class="callout danger">
+            <div class="callout-title">
+              <span>📉</span>
+              <span class="zh">情境</span>
+              <span class="en">Scenario</span>
+            </div>
+            <span class="zh">
+              28nm 車用 MCU，每片 520 顆總晶粒，CP 首次通過良率基線 94.1%。10 天內共 96 片晶圓完成 CP，其中 41 片良率降至 86–90%，平均 88.3%。客戶出貨排程只剩兩週。
+            </span>
+            <span class="en">
+              A 28nm automotive MCU, 520 gross die per wafer, CP first-pass yield baseline 94.1%. Over 10 days, 96 wafers finished CP; 41 of them dropped to 86–90%, averaging 88.3%. The next customer shipment is two weeks away.
+            </span>
+          </div>
+
+          <div class="data-table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th><span class="zh">時間</span><span class="en">Day</span></th>
+                  <th><span class="zh">階段</span><span class="en">Phase</span></th>
+                  <th><span class="zh">做了什麼</span><span class="en">Action</span></th>
+                  <th><span class="zh">發現</span><span class="en">Finding</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b>D0</b></td>
+                  <td>Phase 0</td>
+                  <td>
+                    <span class="zh">依 Bin 拆解損失，與基線比較。</span>
+                    <span class="en">Break the loss down by bin and compare with baseline.</span>
+                  </td>
+                  <td>
+                    <span class="zh">異常晶圓的 Bin 7（IDDQ 漏電）由 0.8% 升至 6.6%，超過基線 + 3σ，正好解釋 5.8 個百分點的損失；其他 Bin 持平。問題集中在單一失效模式。</span>
+                    <span class="en">On the affected wafers, Bin 7 (IDDQ leakage) rose from 0.8% to 6.6%, above baseline + 3σ, which accounts for the full 5.8-point loss; all other bins flat. One failure mode explains the drop.</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>D0</b></td>
+                  <td>Phase 3</td>
+                  <td>
+                    <span class="zh">先排除測試假異常：比較 4 個 Site 的 Bin 7 比例、檢查重測救回率、換一台測試機重測 2 片。</span>
+                    <span class="en">Rule out test artifacts first: compare the Bin 7 rate across the 4 sites, check retest recovery, retest 2 wafers on a second tester.</span>
+                  </td>
+                  <td>
+                    <span class="zh">4 個 Site 比例一致（χ² p = 0.71）；Bin 7 重測救回率僅 0.3%；換機台結果相同。確認是真實矽缺陷，不是測試問題。</span>
+                    <span class="en">The 4 sites match (χ² p = 0.71); Bin 7 retest recovery is only 0.3%; the second tester agrees. This is real silicon, not a test problem.</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>D1</b></td>
+                  <td>Phase 1–2</td>
+                  <td>
+                    <span class="zh">串接 MES 履歷與 CP 晶圓圖，檢視空間分佈並疊合線上檢測圖。</span>
+                    <span class="en">Join MES history with CP maps, look at the spatial pattern and overlay inline inspection maps.</span>
+                  </td>
+                  <td>
+                    <span class="zh">41 片晶圓的 Bin 7 都集中在最外圈 2 排晶粒（Edge Ring）。M1 暗場檢測沒有對應的新增缺陷，推測缺陷尺寸低於暗場靈敏度。</span>
+                    <span class="en">On all 41 wafers, Bin 7 sits in the outer 2 rows of dies (edge ring). Darkfield inspection at M1 shows no matching adders, suggesting the defect is below darkfield sensitivity.</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>D2</b></td>
+                  <td>Phase 4</td>
+                  <td>
+                    <span class="zh">對所有站點做 Chamber 層級共模分析（Tool 4）。</span>
+                    <span class="en">Run chamber-level commonality across every step (Tool 4).</span>
+                  </td>
+                  <td>
+                    <span class="zh">只有 M1 蝕刻站突出：異常的 41 片中有 39 片經過 ET-07 Chamber B，正常的 55 片中只有 18 片（χ² = 37.9，p ≈ 7×10⁻¹⁰）。該 Chamber 的 Focus Ring 已累計 4,700 RF 小時（保養上限 5,000）。</span>
+                    <span class="en">Only M1 etch stands out: 39 of the 41 bad wafers ran on ET-07 chamber B, versus 18 of the 55 good wafers (χ² = 37.9, p ≈ 7×10⁻¹⁰). That chamber's focus ring is at 4,700 RF hours (PM limit 5,000).</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>D2</b></td>
+                  <td>Phase 9</td>
+                  <td>
+                    <span class="zh">先圍堵，不等 FA：Chamber B 停機；6 批曾經過 Chamber B 的在製品暫停（Hold）。</span>
+                    <span class="en">Contain before FA confirms: chamber B is inhibited; 6 WIP lots that ran on chamber B are put on hold.</span>
+                  </td>
+                  <td>
+                    <span class="zh">止血：之後投入的晶圓不再出現 Edge Ring。</span>
+                    <span class="en">Bleeding stops: wafers started afterwards show no edge ring.</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>D3</b></td>
+                  <td>Phase 7</td>
+                  <td>
+                    <span class="zh">挑 3 顆邊緣 Bin 7 晶粒做 OBIRCH 定位，再以 FIB 切片 + TEM/EDX 分析。</span>
+                    <span class="en">OBIRCH on 3 edge Bin 7 dies, then FIB cross-section with TEM/EDX.</span>
+                  </td>
+                  <td>
+                    <span class="zh">熱點位於相鄰 M1 導線之間；切片可見金屬殘留細絲橋接兩條導線。Focus Ring 磨耗改變晶圓邊緣電漿鞘層，邊緣蝕刻不足留下殘留。</span>
+                    <span class="en">Hotspot between adjacent M1 lines; the cross-section shows a metal residue stringer bridging them. Focus-ring wear changed the plasma sheath at the wafer edge, leaving under-etched residue there.</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>D4</b></td>
+                  <td>Phase 6, 8</td>
+                  <td>
+                    <span class="zh">評估已出貨風險：漏電晶粒已在 CP 被剔除，但邊緣附近可能有輕微漏電仍通過的晶粒。對暫停批與庫存加嚴 IDDQ 動態 PAT，並對邊緣 2 排啟用 GDBN；依品質協議通知客戶。</span>
+                    <span class="en">Assess shipped risk: leaking dies were rejected at CP, but marginally leaky dies near the edge may have passed. Apply tighter IDDQ dynamic PAT and edge-row GDBN to held lots and inventory; notify the customer per the quality agreement.</span>
+                  </td>
+                  <td>
+                    <span class="zh">庫存中再剔除 0.4% 邊緣晶粒；客戶端無失效回報。</span>
+                    <span class="en">A further 0.4% of edge dies screened out of inventory; no failures reported by the customer.</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>D5–D10</b></td>
+                  <td>Phase 9</td>
+                  <td>
+                    <span class="zh">更換 Focus Ring、Chamber 重新驗證（Seasoning + 邊緣蝕刻率監控片）。以 3 批做分批驗證：Chamber A 與 B 各半，Slot 交錯。</span>
+                    <span class="en">Replace the focus ring and requalify the chamber (seasoning plus edge etch-rate monitor wafers). Verify with 3 split lots: half chamber A, half chamber B, slots interleaved.</span>
+                  </td>
+                  <td>
+                    <span class="zh">兩組 Bin 7 皆回到 0.8%；以晶圓為分析單位，兩組無顯著差異，B 修復前後差異顯著（p &lt; 0.001）。</span>
+                    <span class="en">Bin 7 back to 0.8% in both arms; with the wafer as the unit of analysis, the arms do not differ, while chamber B before vs after is significant (p &lt; 0.001).</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>D14</b></td>
+                  <td>Phase 9–10</td>
+                  <td>
+                    <span class="zh">預防再發：Focus Ring 保養週期由 5,000 改為 3,500 RF 小時；邊緣蝕刻率加入 SPC，並啟用趨勢判異規則 ⑤；更新 PFMEA 與 Control Plan。</span>
+                    <span class="en">Prevent recurrence: focus-ring PM interval cut from 5,000 to 3,500 RF hours; edge etch rate added to SPC with trend rule ⑤ enabled; PFMEA and control plan updated.</span>
+                  </td>
+                  <td>
+                    <span class="zh">8D 結案；改善措施寫進管制文件，而不只是一次性修理。</span>
+                    <span class="en">8D closed; the fix is written into the control documents, not just a one-off repair.</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="callout good">
+            <div class="callout-title">
+              <span>🏆</span>
+              <span class="zh">這個案例做對了什麼</span>
+              <span class="en">What this case got right</span>
+            </div>
+            <ol>
+              <li>
+                <span class="zh"><b>依 Bin 看，不只看總良率</b>：第一天就鎖定單一失效模式，縮小調查範圍（Phase 0）。</span>
+                <span class="en"><b>Looked at bins, not just total yield</b>: one failure mode was isolated on day one, narrowing the search (Phase 0).</span>
+              </li>
+              <li>
+                <span class="zh"><b>先花幾個小時排除測試假異常</b>：避免整個團隊追錯方向好幾天（Phase 3）。</span>
+                <span class="en"><b>Spent a few hours ruling out test artifacts first</b>: saved the team days of chasing the wrong lead (Phase 3).</span>
+              </li>
+              <li>
+                <span class="zh"><b>MES 記錄到 Chamber 層級</b>：若只記錄到機台，ET-07 的 A、B 兩個 Chamber 混在一起，訊號會被稀釋（Phase 1）。</span>
+                <span class="en"><b>MES logged down to chamber level</b>: with tool-level logging only, chambers A and B of ET-07 would have been mixed together and the signal diluted (Phase 1).</span>
+              </li>
+              <li>
+                <span class="zh"><b>先圍堵再確認真因</b>：共模分析證據足夠強時就先停機，不等 FA 結果（Phase 9）。</span>
+                <span class="en"><b>Contained before root cause was confirmed</b>: once the commonality evidence was strong, the chamber was stopped without waiting for FA (Phase 9).</span>
+              </li>
+              <li>
+                <span class="zh"><b>改善寫進制度</b>：保養週期、SPC 規則與 PFMEA 都更新，防止同樣問題在下一次磨耗週期再發生（Phase 10）。</span>
+                <span class="en"><b>The fix became part of the system</b>: PM interval, SPC rules and PFMEA were all updated so the next wear cycle cannot repeat it (Phase 10).</span>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
       <!-- APPENDICES -->
       <section id="appendices">
         <h2 class="collapsible-h" onclick="toggleCollapse(this)">
           <span>
-            <span class="zh">附錄: 工程範本與公式參考卡 (Appendices & Reference Cards)</span>
-            <span class="en">Appendices: Templates & Formula Reference Cards</span>
+            <span class="zh">附錄: 工程範本、公式參考卡、詞彙表與參考文獻 (Appendices)</span>
+            <span class="en">Appendices: Templates, Formula Cards, Glossary &amp; References</span>
           </span>
           <span class="collapse-arrow">▼</span>
         </h2>
