@@ -35,3 +35,19 @@
 1. **本地優先，乾淨純原生**：產出單一 `index.html` 確保在無外網工廠內網環境或本機瀏覽器皆可 100% 獨立運行。
 2. **每次編輯完 `index.html` 都要 commit + push**：GitHub Pages 網站（https://sinliongtoo.github.io/semiconductor-yield-improvement-playbook/）需要 `git add` + `git commit` + `git push` 到 `origin/master` 線上版本才會跟著更新。
 3. **提交品質把關**：每次實質修改均確保標籤成對平衡、時間戳同步更新、JavaScript 無語法錯誤後進行 git 提交。
+
+## 多 AI 代理協作規則 / Multi-Agent Collaboration
+
+本專案會交替使用 Google Antigravity 與 Claude Code 維護。各工具的私有記憶彼此不互通，**本檔（`AGENTS.md`）是唯一的規則來源**，`CHANGELOG.md` 是共用的變更紀錄。
+This project is maintained alternately with Google Antigravity and Claude Code. Their private memories are not shared, so **this file is the single source of truth for rules** and `CHANGELOG.md` is the shared change log.
+
+1. **開工前先讀**：本檔全文 + `CHANGELOG.md` 最新幾筆 + `git log --oneline -15`，了解其他代理最近改了什麼、為什麼改。
+   **Before starting**: read this file, the latest `CHANGELOG.md` entries, and `git log --oneline -15`.
+2. **完工後要寫**：每次實質修改，在 `CHANGELOG.md` 最上方新增一筆（日期、代理名稱、改了什麼、為什麼、注意事項）。
+   **After finishing**: add an entry at the top of `CHANGELOG.md` (date, agent, what, why, caveats).
+3. **新規則寫進本檔**：使用者提出的長期偏好或新慣例，寫進本檔而非任一工具的私有記憶，讓下一個代理也會遵守。
+   **New rules go here**, not into any tool's private memory, so the next agent follows them too.
+4. **一次性腳本不進版控**：臨時檢查/轉換腳本放 `scripts/archive/`（已列入 `.gitignore`）；只有可重複使用的工具（如 `scripts/verify_index.js`）才留在 `scripts/` 並提交。
+   **One-off scripts** go in `scripts/archive/` (git-ignored); only reusable tools stay tracked in `scripts/`.
+5. **離線資源**：第三方函式庫（KaTeX 等）放在 `assets/vendor/` 本地載入，不得改回 CDN，以維持工廠內網離線可用。
+   **Vendored libraries** (KaTeX etc.) live in `assets/vendor/` and load locally — never switch back to a CDN.
