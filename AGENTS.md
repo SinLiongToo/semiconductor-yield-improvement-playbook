@@ -5,7 +5,7 @@
 ## 內容規則（文件與工具標準）
 
 1. **雙語是硬性要求**：每一段可見文字都要有成對的 `<span class="zh">` / `<span class="en">`，靠根元素的 `data-lang` 屬性切換顯示（CSS `[data-lang="en"] .zh{display:none}` 與 `:root:not([data-lang="en"]) .en{display:none}` 規則），不是機器即時翻譯。新增任何內容都要中英雙語寫齊。
-2. **Phase 編號 vs Section 編號兩套系統**：Phase 0–10 代表良率改善工程的實務生命週期階段（Baseline 分解、跨站追溯、空間分佈、非製程假異常過濾、晶圓製程變異/Corners/批次相依性與共模分析、FT/SLT 成品封測、參數 Margin、FA 實體驗證、客訴 RMA/GDBN 溯源、改善閉環、稽核治理），不隨篇幅重組而異動。TOC 與段落編號需嚴格同步（含桌面端 `nav.toc` 與行動端 `details.toc-m`）。
+2. **Phase 編號 vs Section 編號兩套系統**：Phase 0–10 代表良率改善工程的實務生命週期階段（Baseline 分解、跨站追溯、空間分佈、非製程假異常過濾、晶圓製程變異/Corners/批次相依性與共模分析、FT/SLT 成品封測、參數 Margin、FA 實體驗證、客訴 RMA/GDBN 溯源、改善閉環、稽核治理），不隨篇幅重組而異動。TOC 與段落編號需嚴格同步（含桌面端 `nav.toc` 與行動端 `details.toc-m`）。編號規則：Phase N 的小節與圖號一律用 `N.x`（如 4.2、圖 4.1）；開頭的「總覽」章節不屬於任何 Phase，使用 `OV.x`（如 OV.2、圖 OV.1），避免與 Phase 0 的 `0.x` 重疊。
 3. **callout 語意分級標準**：
    - `callout danger`（紅）：重大良率災情、假性相關陷阱（Simpson's Paradox）、4 線式 Kelvin Sense 斷線退化、GDBN 惡鄰晶粒漏測、高額 Overkill / Underkill、違背稽核要求之不可逆操作。
    - `callout warn`（橘）：工程盲點、多站點測試針卡偏位（Multi-site skew）、Retest 政策失真、樣本數統計不足之虛假安全感。
@@ -21,7 +21,7 @@
 ## 技術規則（HTML / CSS / JS）
 
 1. **色彩一律使用語意化 CSS Token**（`var(--bg)`, `var(--surface)`, `var(--surface-2)`, `var(--ink)`, `var(--ink-soft)`, `var(--border)`, `var(--accent)`, `var(--good)`, `var(--warn)`, `var(--danger)` 等），淺色、深色媒體查詢以及 `[data-theme="dark"]` / `[data-theme="light"]` 三重定義完整。
-2. **單一自包含檔案（Zero External Build Dependency）**：核心分析工具、演算法（Poisson / Murphy / Seeds 數值計算、Chi-square 檢定、ANOVA 變異數分析、Wafer Map 網格渲染、Cpk 數值求解、Root Cause Triangulator）均以乾淨原生 Vanilla JavaScript 實作，CDN 僅引用 KaTeX 提供數學公式渲染。
+2. **單一自包含檔案（Zero External Build Dependency）**：核心分析工具、演算法（Poisson / Murphy / Seeds 數值計算、Chi-square 檢定、ANOVA 變異數分析、Wafer Map 網格渲染、Cpk 數值求解、Root Cause Triangulator）均以乾淨原生 Vanilla JavaScript 實作，唯一第三方函式庫 KaTeX 放在 `assets/vendor/` 本地載入（見協作規則 5）。
 3. **即時站內搜尋（Find in Document）**：搜尋時支援展開當前收合之章節並平滑捲動，鍵盤快捷鍵（Enter / Shift+Enter / Esc）運作順暢。
 4. **互動工具實用性要求**：
    - Tool 1: 缺陷密度與良率模型計算機（Poisson, Murphy, Seeds, Negative Binomial）。
@@ -29,6 +29,14 @@
    - Tool 3: 非製程假異常與客訴根因排查決策矩陣（Hardware, Program, Metrology, Material, OTP/Trim, RMA/GDBN）。
    - Tool 4: 機台 Chamber 共模相關性與統計檢定工具（ANOVA / 卡方獨立性檢定）。
    - Tool 5: 參數型良率與 Cpk / PAT 臨界邊界分析器（常態分佈動態偏移與 DPPM 換算）。
+
+5. **雙語實作陷阱（已實際踩過）**：
+   - `<span class="zh|en">` 內**不可**放 `<ul>`、`<div>`、`<p>`、`<table>` 等區塊元素：瀏覽器會提早關閉 span，區塊內容就逃出語言切換。需要區塊時改用 `<div class="zh">` / `<div class="en">`，且外層不可是 `<p>`。
+   - SVG `<text>` 內**不可**放 HTML 標籤（如 `<b>`、`<br>`、`<span>`）：HTML 解析器會把整個 `<svg>` 提早關閉。粗體請用 `<tspan font-weight="700">`；雙語文字用兩個 `<text class="zh">` / `<text class="en">`。
+   - `<option>` 不能放 span：在 `<option>` 加 `data-en="..."`，由 `applyOptionLang()` 切換文字。
+   - JS 產生的輸出文字要依 `currentLang` 選擇中英文，並把該函式加入 `refreshDynamicLang()`，切換語言時才會重繪。
+   - JS 字串中的 KaTeX 要寫雙反斜線（`'\\(R_c\\)'`）；單反斜線的 `\(` 會被 JS 吃掉，`\text`、`\frac` 開頭的 `\t`、`\f` 還會變成 Tab 與換頁字元。插入 innerHTML 後呼叫 `typesetMath(el)`。
+6. **提交前檢查**：`npm run verify`（標籤平衡與 JS 語法，CI 也會跑）＋ `node scripts/audit_i18n_and_structure.js`（英文模式中文外洩與編號，需本機 Chrome/Edge）。
 
 ## 工作流程規則
 

@@ -9,6 +9,21 @@ Entry format / 格式:
 
 ---
 
+## 2026-10-24 — Claude Code — Rev. Z: full EN/ZH parity, OV numbering, parser bugs
+
+- **All English-mode Chinese leaks fixed.** `scripts/audit_i18n_and_structure.js` now passes for the first time. Root causes:
+  - `toggleLang()` only re-rendered the triangulator. It now calls `refreshDynamicLang()`, which re-renders every tool output (yield metrics, wafer diagnosis, triangulator, chamber stats, fallout simulator) and swaps `<option>` text.
+  - Startup now also runs `recalcChamberStats()` and `updateFalloutSimulator()`, whose initial output was hard-coded Chinese HTML.
+  - 29 `<option>`s got `data-en` translations; `applyOptionLang()` swaps them.
+  - Remaining static leaks were wrapped in zh/en (Phase 3, Fig 3.3 badges, Phase 4, Phase 7 badges).
+- **Two HTML parser bugs fixed:**
+  - Fig 3.2 had `<b>` inside SVG `<text>`. That closed the whole `<svg>` early and broke Panel C; it now uses `<tspan>`.
+  - The Phase 4 seasoning callout had `<ul>` inside `<span class="zh|en">`, so both lists escaped the language toggle (the English list showed in Chinese mode too). It is now `<div class="zh|en">`; the callout class also changed from `warning` (undefined) to `warn`.
+- **Formulas in tool outputs now render.** JS strings used `'\(R_c\)'`, and JS drops the single backslash. 24 escapes were doubled; the new `typesetMath(el)` re-runs KaTeX after each innerHTML update.
+- **Numbering overlap fixed.** The Overview section is now unnumbered, with subsections OV.1–OV.3 and figures OV.1–OV.3. Phase 0 keeps 0.1–0.5, and its waterfall figure is renumbered 0.4 → 0.1. TOCs and the README were updated.
+- **AGENTS.md**: new technical rules 5–6 (bilingual implementation pitfalls, pre-commit checks) and the OV/N.x numbering rule. Tech rule 2 now says KaTeX loads locally.
+- Verified: every option of all 3 select tools, in both languages via the real toggle, gives no Chinese in EN output, no raw TeX and no visible `.en` in ZH mode; there are no JS errors.
+
 ## 2026-10-23 — Claude Code — Rev. Y: mobile layout, content expansion, case study, CI
 
 - **Mobile layout fixed**: the page was 964 px wide on a 390 px phone. Causes and fixes (all in `<style>`):
