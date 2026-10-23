@@ -959,7 +959,7 @@
       </div>
       <div>
         <span class="zh">版次狀態</span><span class="en">Revision</span>
-        <b>Rev. L (Full English &amp; Mandarin Bilingual SVG Architecture)</b>
+        <b>Rev. M (16-Site 2x8 Array Mechanics &amp; Phase 3 Statistical Visualizer Suite)</b>
       </div>
       <div>
         <span class="zh">適用對象</span><span class="en">Audience</span>
@@ -967,7 +967,7 @@
       </div>
       <div>
         <span class="zh">最後修訂</span><span class="en">Last Updated</span>
-        <b>2026-10-22 13:55</b>
+        <b>2026-10-23 11:15</b>
       </div>
     </div>
   </header>
@@ -4555,6 +4555,180 @@
             </p>
           </div>
 
+          <!-- FIGURE 3.1: METROLOGY VARIANCE DECOMPOSITION & GUARDBAND OPTIMIZATION -->
+          <figure style="margin:20px 0;">
+            <svg id="fig31-svg" viewBox="0 0 980 430" style="width:100%; height:auto; font-family:var(--font-mono, monospace);" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Metrology Variance Decomposition and Guardband Optimization Model">
+              <defs>
+                <marker id="arr-fig31-danger" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--danger)"/>
+                </marker>
+                <marker id="arr-fig31-left" viewBox="0 0 10 10" refX="2" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+                  <path d="M 8 1.5 L 0 5 L 8 8.5 z" fill="var(--ink-soft)"/>
+                </marker>
+                <marker id="arr-fig31-right" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+                  <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--ink-soft)"/>
+                </marker>
+              </defs>
+
+              <!-- PANEL A: VARIANCE DECOMPOSITION -->
+              <rect x="10" y="10" width="475" height="410" rx="8" fill="var(--surface)" stroke="var(--border)"/>
+              <text class="zh" x="25" y="34" font-size="13" font-weight="700" fill="var(--accent)">A. 量測系統變異分解與分佈擴張 (Variance Spread)</text>
+              <text class="en" x="25" y="34" font-size="12.5" font-weight="700" fill="var(--accent)">A. Metrology Variance Spread &amp; %GRR Decomposition</text>
+              <text class="zh" x="25" y="52" font-size="10" fill="var(--ink-soft)">總觀測變異 σ²_Total = 製程變異 σ²_Part + 量測系統變異 σ²_MS (EV + AV + T2T)</text>
+              <text class="en" x="25" y="52" font-size="9.5" fill="var(--ink-soft)">Observed σ²_Total = Process σ²_Part + Metrology σ²_MS (EV + AV + T2T)</text>
+
+              <!-- Bell Curves -->
+              <line x1="35" y1="205" x2="465" y2="205" stroke="var(--ink-soft)" stroke-width="1.2"/>
+              <line x1="247" y1="65" x2="247" y2="205" stroke="var(--ink-faint)" stroke-dasharray="3,3"/>
+              <text x="247" y="62" text-anchor="middle" font-size="9.5" fill="var(--ink-soft)">Nominal Target (μ)</text>
+
+              <!-- True Process Curve (Narrow) -->
+              <path d="M 115 205 Q 185 205, 215 135 Q 247 68, 247 68 Q 247 68, 279 135 Q 309 205, 379 205" fill="rgba(56,189,248,0.18)" stroke="#0284c7" stroke-width="2.2"/>
+              <text class="zh" x="195" y="100" text-anchor="end" font-size="10" font-weight="700" fill="#0284c7">真實製程分佈 N(μ, σ²_Part)</text>
+              <text class="en" x="195" y="100" text-anchor="end" font-size="9.5" font-weight="700" fill="#0284c7">True Process N(μ, σ²_Part)</text>
+
+              <!-- Total Observed Curve (Broadened by Gage Noise) -->
+              <path d="M 50 205 Q 155 205, 195 160 Q 247 115, 247 115 Q 247 115, 299 160 Q 339 205, 444 205" fill="none" stroke="var(--warn)" stroke-width="2" stroke-dasharray="5,3"/>
+              <text class="zh" x="305" y="125" text-anchor="start" font-size="10" font-weight="700" fill="var(--warn)">總觀測分佈 N(μ, σ²_Total)</text>
+              <text class="en" x="305" y="125" text-anchor="start" font-size="9.5" font-weight="700" fill="var(--warn)">Observed N(μ, σ²_Total)</text>
+
+              <!-- Gage Noise Spread Arrow -->
+              <line x1="379" y1="192" x2="444" y2="192" stroke="var(--danger)" stroke-width="1.8" marker-end="url(#arr-fig31-danger)"/>
+              <text class="zh" x="412" y="184" text-anchor="middle" font-size="9" font-weight="700" fill="var(--danger)">雜訊擴張 +σ_MS</text>
+              <text class="en" x="412" y="184" text-anchor="middle" font-size="8.5" font-weight="700" fill="var(--danger)">Gage Noise +σ_MS</text>
+
+              <!-- Stacked Variance Bar -->
+              <text class="zh" x="25" y="232" font-size="10.5" font-weight="700" fill="var(--ink)">總變異貢獻比例堆疊 (Variance Contribution %):</text>
+              <text class="en" x="25" y="232" font-size="10" font-weight="700" fill="var(--ink)">Total Variance Stacked Decomposition (%):</text>
+
+              <rect x="25" y="242" width="445" height="24" rx="4" fill="var(--surface-2)" stroke="var(--border)"/>
+              <rect x="25" y="242" width="316" height="24" rx="4" fill="#0284c7" opacity="0.85"/>
+              <text x="183" y="258" text-anchor="middle" font-size="9.5" font-weight="700" fill="#ffffff">σ²_Part: 71% (True Silicon Process)</text>
+
+              <rect x="341" y="242" width="67" height="24" fill="#eab308" opacity="0.9"/>
+              <text x="374" y="258" text-anchor="middle" font-size="9" font-weight="700" fill="#ffffff">EV: 15%</text>
+
+              <rect x="408" y="242" width="40" height="24" fill="#10b981" opacity="0.9"/>
+              <text x="428" y="258" text-anchor="middle" font-size="8.5" font-weight="700" fill="#ffffff">AV: 9%</text>
+
+              <rect x="448" y="242" width="22" height="24" rx="4" fill="#ef4444" opacity="0.9"/>
+              <text x="459" y="258" text-anchor="middle" font-size="8" font-weight="700" fill="#ffffff">T2T</text>
+
+              <!-- MSA Metrics Summary Cards -->
+              <g transform="translate(25, 280)">
+                <rect x="0" y="0" width="140" height="125" rx="6" fill="var(--surface-2)" stroke="var(--border)"/>
+                <text class="zh" x="10" y="20" font-size="10.5" font-weight="700" fill="var(--accent)">1. %GRR_TV</text>
+                <text class="en" x="10" y="20" font-size="10" font-weight="700" fill="var(--accent)">1. %GRR_TV</text>
+                <text x="10" y="42" font-size="9.5" fill="var(--ink-soft)">σ_MS / σ_Total</text>
+                <text x="10" y="66" font-size="16" font-weight="700" fill="var(--warn)">28.3%</text>
+                <text class="zh" x="10" y="86" font-size="9" fill="var(--warn)">邊際可接受 (10-30%)</text>
+                <text class="en" x="10" y="86" font-size="8.5" fill="var(--warn)">Marginal Acceptable</text>
+                <text class="zh" x="10" y="106" font-size="8.5" fill="var(--ink-faint)">需多次抽樣平均</text>
+                <text class="en" x="10" y="106" font-size="8" fill="var(--ink-faint)">Averaging required</text>
+
+                <rect x="152" y="0" width="140" height="125" rx="6" fill="var(--surface-2)" stroke="var(--border)"/>
+                <text class="zh" x="162" y="20" font-size="10.5" font-weight="700" fill="var(--accent)">2. P/T Ratio</text>
+                <text class="en" x="162" y="20" font-size="10" font-weight="700" fill="var(--accent)">2. P/T Ratio</text>
+                <text x="162" y="42" font-size="9.5" fill="var(--ink-soft)">6σ_MS / Tolerance</text>
+                <text x="162" y="66" font-size="16" font-weight="700" fill="var(--warn)">24.1%</text>
+                <text class="zh" x="162" y="86" font-size="9" fill="var(--warn)">需加裝 Guardband</text>
+                <text class="en" x="162" y="86" font-size="8.5" fill="var(--warn)">Guardband Mandatory</text>
+                <text class="zh" x="162" y="106" font-size="8.5" fill="var(--ink-faint)">防止客戶端漏測</text>
+                <text class="en" x="162" y="106" font-size="8" fill="var(--ink-faint)">Block field escapes</text>
+
+                <rect x="305" y="0" width="140" height="125" rx="6" fill="var(--surface-2)" stroke="var(--border)"/>
+                <text class="zh" x="315" y="20" font-size="10.5" font-weight="700" fill="var(--accent)">3. ndc 分辨數</text>
+                <text class="en" x="315" y="20" font-size="10" font-weight="700" fill="var(--accent)">3. ndc Metric</text>
+                <text x="315" y="42" font-size="9.5" fill="var(--ink-soft)">1.41 · (σ_Part / σ_MS)</text>
+                <text x="315" y="66" font-size="16" font-weight="700" fill="var(--danger)">3.6</text>
+                <text class="zh" x="315" y="86" font-size="9" fill="var(--danger)">解析度粗糙 (&lt; 5)</text>
+                <text class="en" x="315" y="86" font-size="8.5" fill="var(--danger)">Coarse Grouping (&lt; 5)</text>
+                <text class="zh" x="315" y="106" font-size="8.5" fill="var(--ink-faint)">僅能粗分高/中/低批</text>
+                <text class="en" x="315" y="106" font-size="8" fill="var(--ink-faint)">Hi/Med/Low bins only</text>
+              </g>
+
+              <!-- PANEL B: GUARDBAND TYPE I VS TYPE II -->
+              <rect x="495" y="10" width="475" height="410" rx="8" fill="var(--surface)" stroke="var(--border)"/>
+              <text class="zh" x="510" y="34" font-size="13" font-weight="700" fill="var(--warn)">B. Guardband 測試護欄 Type I 假殺 vs Type II 漏測</text>
+              <text class="en" x="510" y="34" font-size="12.5" font-weight="700" fill="var(--warn)">B. Guardband Type I (False Kill) vs Type II (Escape) Risk</text>
+              <text class="zh" x="510" y="52" font-size="10" fill="var(--ink-soft)">測試上限內縮 TUL = USL - k·σ_MS，消減 Type II 漏測但付出 Type I 良殺代價</text>
+              <text class="en" x="510" y="52" font-size="9.5" fill="var(--ink-soft)">Shrink TUL = USL - k·σ_MS to eliminate escape, trading off false kill yield loss</text>
+
+              <!-- Upper Tail Curve -->
+              <line x1="515" y1="205" x2="955" y2="205" stroke="var(--ink-soft)" stroke-width="1.2"/>
+              <path d="M 520 85 Q 660 95, 730 145 Q 780 185, 950 205" fill="none" stroke="var(--ink)" stroke-width="2"/>
+
+              <!-- TUL and USL Lines -->
+              <line x1="755" y1="65" x2="755" y2="205" stroke="#f97316" stroke-width="2.2"/>
+              <text x="755" y="60" text-anchor="middle" font-size="10" font-weight="700" fill="#f97316">TUL</text>
+
+              <line x1="845" y1="65" x2="845" y2="205" stroke="var(--danger)" stroke-width="2.2" stroke-dasharray="4,3"/>
+              <text x="845" y="60" text-anchor="middle" font-size="10" font-weight="700" fill="var(--danger)">USL</text>
+
+              <!-- Guardband Width -->
+              <line x1="755" y1="78" x2="845" y2="78" stroke="var(--ink-soft)" stroke-width="1.4" marker-start="url(#arr-fig31-left)" marker-end="url(#arr-fig31-right)"/>
+              <text x="800" y="74" text-anchor="middle" font-size="9" font-weight="700" fill="var(--ink)">GB = k·σ_MS</text>
+
+              <!-- Shaded Type I: False Kill -->
+              <path d="M 755 161 Q 780 180, 845 196 L 845 205 L 755 205 Z" fill="rgba(239,68,68,0.3)" stroke="var(--danger)" stroke-width="1" stroke-dasharray="2,2"/>
+              <line x1="785" y1="185" x2="735" y2="135" stroke="var(--danger)" stroke-width="1.2"/>
+              <circle cx="785" cy="185" r="2.5" fill="var(--danger)"/>
+              <rect x="625" y="105" width="145" height="42" rx="4" fill="var(--surface-2)" stroke="var(--danger)"/>
+              <text class="zh" x="697" y="122" text-anchor="middle" font-size="9.5" font-weight="700" fill="var(--danger)">Type I: 假殺 (False Kill)</text>
+              <text class="en" x="697" y="122" text-anchor="middle" font-size="9" font-weight="700" fill="var(--danger)">Type I: False Kill (α Error)</text>
+              <text class="zh" x="697" y="137" text-anchor="middle" font-size="8.5" fill="var(--ink-soft)">良品被量測正噪聲推超 TUL 報廢</text>
+              <text class="en" x="697" y="137" text-anchor="middle" font-size="8" fill="var(--ink-soft)">Conforming die killed by gage noise</text>
+
+              <!-- Shaded Type II: Test Escape -->
+              <path d="M 845 196 Q 890 202, 950 205 L 845 205 Z" fill="rgba(234,179,8,0.35)" stroke="var(--warn)" stroke-width="1" stroke-dasharray="2,2"/>
+              <line x1="885" y1="200" x2="895" y2="155" stroke="var(--warn)" stroke-width="1.2"/>
+              <circle cx="885" cy="200" r="2.5" fill="var(--warn)"/>
+              <rect x="830" y="115" width="130" height="42" rx="4" fill="var(--surface-2)" stroke="var(--warn)"/>
+              <text class="zh" x="895" y="132" text-anchor="middle" font-size="9.5" font-weight="700" fill="var(--warn)">Type II: 漏測 (Escape)</text>
+              <text class="en" x="895" y="132" text-anchor="middle" font-size="9" font-weight="700" fill="var(--warn)">Type II: Escape (β Error)</text>
+              <text class="zh" x="895" y="147" text-anchor="middle" font-size="8.5" fill="var(--ink-soft)">不良品被負噪聲拉回合格</text>
+              <text class="en" x="895" y="147" text-anchor="middle" font-size="8" fill="var(--ink-soft)">Defective die escapes to customer</text>
+
+              <!-- Cost Trade-Off Curve -->
+              <g transform="translate(515, 230)">
+                <rect x="0" y="0" width="435" height="175" rx="6" fill="var(--surface-2)" stroke="var(--border)"/>
+                <text class="zh" x="12" y="20" font-size="10.5" font-weight="700" fill="var(--ink)">經濟成本平衡曲線 (Cost vs. Guardband Width k·σ):</text>
+                <text class="en" x="12" y="20" font-size="10" font-weight="700" fill="var(--ink)">Economic Cost Optimization (Cost vs. Guardband k·σ):</text>
+
+                <!-- Mini Plot Axes -->
+                <line x1="45" y1="140" x2="415" y2="140" stroke="var(--ink-soft)" stroke-width="1.2"/>
+                <line x1="45" y1="35" x2="45" y2="140" stroke="var(--ink-soft)" stroke-width="1.2"/>
+                <text class="zh" x="415" y="155" text-anchor="end" font-size="9" fill="var(--ink-soft)">護欄寬度 k·σ →</text>
+                <text class="en" x="415" y="155" text-anchor="end" font-size="8.5" fill="var(--ink-soft)">Guardband k·σ →</text>
+                <text class="zh" x="42" y="30" text-anchor="end" font-size="9" fill="var(--ink-soft)">成本 ($)</text>
+                <text class="en" x="42" y="30" text-anchor="end" font-size="8.5" fill="var(--ink-soft)">Cost ($)</text>
+
+                <!-- Cost 1: Type I Scrap Cost (Rising curve) -->
+                <path d="M 50 135 Q 160 130, 240 100 Q 340 60, 400 40" fill="none" stroke="var(--danger)" stroke-width="1.8" stroke-dasharray="3,2"/>
+                <text class="zh" x="395" y="34" text-anchor="end" font-size="8.5" fill="var(--danger)">良率假殺報廢成本 (Type I)</text>
+                <text class="en" x="395" y="34" text-anchor="end" font-size="8" fill="var(--danger)">Yield Scrap Cost (Type I)</text>
+
+                <!-- Cost 2: Type II RMA Cost (Falling curve) -->
+                <path d="M 50 42 Q 100 50, 160 95 Q 230 132, 400 138" fill="none" stroke="var(--warn)" stroke-width="1.8" stroke-dasharray="3,2"/>
+                <text class="zh" x="55" y="55" font-size="8.5" fill="var(--warn)">客戶 RMA 索賠成本 (Type II)</text>
+                <text class="en" x="55" y="55" font-size="8" fill="var(--warn)">Customer RMA Cost (Type II)</text>
+
+                <!-- Cost 3: Total Cost Curve (U-Shaped) -->
+                <path d="M 50 95 Q 120 120, 210 122 Q 280 115, 400 55" fill="none" stroke="var(--good)" stroke-width="2.5"/>
+                <circle cx="210" cy="122" r="4" fill="var(--good)"/>
+                <line x1="210" y1="35" x2="210" y2="140" stroke="var(--good)" stroke-width="1.2" stroke-dasharray="2,2"/>
+                <text class="zh" x="210" y="155" text-anchor="middle" font-size="9.5" font-weight="700" fill="var(--good)">最佳平衡點 k* (約 2.0σ ~ 3.0σ)</text>
+                <text class="en" x="210" y="155" text-anchor="middle" font-size="9" font-weight="700" fill="var(--good)">Optimal k* Balance (2.0σ - 3.0σ)</text>
+                <text class="zh" x="218" y="112" font-size="8.5" font-weight="700" fill="var(--good)">總成本最低點 (Min Total Loss)</text>
+                <text class="en" x="218" y="112" font-size="8" font-weight="700" fill="var(--good)">Min Total Loss Point</text>
+              </g>
+            </svg>
+            <figcaption style="text-align:center; margin-top:8px; font-size:12px; color:var(--ink-soft);">
+              <span class="zh">圖 3.1：半導體量測系統變異分解架構、%GRR/P-T 指標與 Guardband 測試護欄 Type I / Type II 成本最佳化模型</span>
+              <span class="en">Figure 3.1: Metrology Variance Decomposition, %GRR / P-T Metrics &amp; Guardband Type I (False Kill) vs. Type II (Escape) Risk Trade-Off</span>
+            </figcaption>
+          </figure>
+
           <!-- 3.3.4 TOOL-TO-TOOL MATCHING 5-STEP SOP -->
           <div style="background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:16px; margin:16px 0;">
             <div style="font-weight:700; color:var(--accent); font-size:14px; margin-bottom:8px;">
@@ -4713,6 +4887,392 @@
                 <b>Step 1</b> Immediately execute in-situ automated laser/abrasive probe tip cleaning;
                 <b>Step 2</b> If failures persist for 2 touchdowns after cleaning, the tester auto-engages <b>"Site Disable Mode" (runs as 15-site)</b>, allowing production to continue safely while completely eliminating false fallout from the defective site.
               </span>
+            </div>
+
+            <!-- 3.3.6.1 16-SITE 2-ROW TOPOLOGY DEEP DIVE -->
+            <div style="background:var(--surface-2); border:1px solid var(--border); border-radius:6px; padding:16px; margin-top:16px;">
+              <div style="font-weight:700; color:var(--danger); font-size:13.5px; margin-bottom:8px;">
+                <span class="zh">3.3.6.1 16-Site 雙排長條陣列（2×8 拓撲）極限邊緣站點（Sites 1, 9, 8, 16）平整度傾角與補償過壓（Overdrive Trap）失效深度剖析</span>
+                <span class="en">3.3.6.1 16-Site 2-Row Dual-Strip Topology (2×8 Array) Extreme Corner Sites (1, 9, 8, 16) Flatness Tilt &amp; Compensatory Overdrive Trap Deep Dive</span>
+              </div>
+              <p style="font-size:12.5px; line-height:1.7; margin-bottom:10px; color:var(--ink-soft);">
+                <span class="zh">
+                  在先進晶圓測試（CP / Wafer Sort）中，為適配長條形測試頭與探針卡走線，許多 16-Site 採用 <b>2 排 × 8 列（2×8 Strip Array）</b> 排列：第一排為 Sites 1 至 8，第二排為 Sites 9 至 16。此種高長寬比（Aspect Ratio 4:1）架構下，現場最常遭遇的並非隨機針損，而是<b>最外側四個邊角站點——左端 Sites 1, 9 與右端 Sites 8, 16 週期性集體崩潰</b>。其背後物理與機械機理如下：
+                </span>
+                <span class="en">
+                  In high-density wafer sort (CP), many 16-site layouts deploy a <b>2-row × 8-column (2×8 dual-strip array)</b> topology (Row 1: Sites 1 to 8; Row 2: Sites 9 to 16) to optimize interface space transformers. Under this high aspect-ratio (4:1) geometry, test floors frequently witness severe, recurring yield depressions concentrated specifically on the <b>four extreme outer corner sites: left edge Sites 1, 9 and right edge Sites 8, 16</b>. The underlying physical and mechanical mechanics include:
+                </span>
+              </p>
+
+              <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:12px; margin:12px 0;">
+                <div style="background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:12px;">
+                  <div style="font-weight:700; color:var(--warn); font-size:12px; margin-bottom:4px;">
+                    <span class="zh">1. 幾何長力臂傾角放大 (Lever Arm Tilt Amplification)</span>
+                    <span class="en">1. Moment Arm Tilt Amplification</span>
+                  </div>
+                  <p style="font-size:11.5px; line-height:1.6; margin:0; color:var(--ink-soft);">
+                    <span class="zh">
+                      2×8 陣列沿 X 軸物理跨距極大（\(L_x \ge 80\text{--}120\text{ mm}\)）。機台吸盤（Chuck）或針卡基座只要有極微小的機械傾角（\(\theta_x = 0.03^\circ\)），外側極限站點的 Z 軸高度差即被力臂放大：\(\Delta Z = \pm \frac{L_x}{2} \cdot \sin(\theta_x) \approx 20\text{--}35\ \mu\text{m}\)，相當於正常接觸下壓量的一半！
+                    </span>
+                    <span class="en">
+                      The 2×8 array spans a wide horizontal pitch (\(L_x \ge 80\text{--}120\text{ mm}\)). A minuscule mechanical chuck or card tilt (\(\theta_x = 0.03^\circ\)) is amplified by the long lever arm into a vertical delta \(\Delta Z = \pm \frac{L_x}{2} \cdot \sin(\theta_x) \approx 20\text{--}35\ \mu\text{m}\)—consuming half of the nominal overdrive budget.
+                    </span>
+                  </p>
+                </div>
+
+                <div style="background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:12px;">
+                  <div style="font-weight:700; color:var(--danger); font-size:12px; margin-bottom:4px;">
+                    <span class="zh">2. 中央上凸形變與補償過壓陷阱 (Overdrive Trap)</span>
+                    <span class="en">2. Center Bowing &amp; Compensatory Overdrive Trap</span>
+                  </div>
+                  <p style="font-size:11.5px; line-height:1.6; margin:0; color:var(--ink-soft);">
+                    <span class="zh">
+                      16-Site 總針數常達 2,000–5,000 針，下壓總反作用力達 100–250N。強大應力使針卡加強背板（Stiffener）在中央微幅上凸形變（Center Bowing）。操作員為使中央 Sites (4, 5, 12, 13) 壓實導通，被迫加大機台總 Overdrive（由 \(50\ \mu\text{m}\) 加壓至 \(85\ \mu\text{m}\)），導致<b>未受形變緩衝的外角 Sites 1, 9, 8, 16 承受過載破壞性下壓（Over-OD &gt; 115 μm）</b>！
+                    </span>
+                    <span class="en">
+                      With 2,000–5,000 needles touching down simultaneously, total contact reaction force reaches 100–250N, causing upward center bowing of the probe card stiffener. Increasing global Z-overdrive (from \(50\ \mu\text{m}\) to \(85\ \mu\text{m}\)) to force contact on center sites (4, 5, 12, 13) subjects the stiff outer corners (Sites 1, 9, 8, 16) to <b>destructive over-OD (&gt;115 μm)</b>!
+                    </span>
+                  </p>
+                </div>
+
+                <div style="background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:12px;">
+                  <div style="font-weight:700; color:var(--danger); font-size:12px; margin-bottom:4px;">
+                    <span class="zh">3. 邊角針印出界與介電層崩塌 (Pad Cratering)</span>
+                    <span class="en">3. Scrub Breach &amp; Dielectric Cratering</span>
+                  </div>
+                  <p style="font-size:11.5px; line-height:1.6; margin:0; color:var(--ink-soft);">
+                    <span class="zh">
+                      過大 OD 使 Sites 1, 9, 8, 16 針尖滑移行程暴增（Scrub Length 由 \(18\ \mu\text{m}\) 暴增至 \(&gt;38\ \mu\text{m}\)），直接滑出鋁墊/銅柱邊界，刺破保護層鈍化層（Passivation Crack，假報 Bin 2 Open）。巨幅衝擊力更壓碎 Pad 底層脆性 Low-k 介電層（Pad Cratering，真因漏電報廢）。
+                    </span>
+                    <span class="en">
+                      Excessive OD forces scrub lengths on Sites 1, 9, 8, 16 to balloon from \(18\ \mu\text{m}\) to \(&gt;38\ \mu\text{m}\), skating past the bond pad boundary and cracking the polyimide passivation (false Bin 2 Open). High impact pressure crushes underlying ultra-low-k dielectrics (Pad Cratering, causing leakage).
+                    </span>
+                  </p>
+                </div>
+
+                <div style="background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:12px;">
+                  <div style="font-weight:700; color:var(--warn); font-size:12px; margin-bottom:4px;">
+                    <span class="zh">4. 金屬堆屑沾黏與接觸阻抗失控 (Rc Spike)</span>
+                    <span class="en">4. Debris Fouling &amp; Rapid Rc Escalation</span>
+                  </div>
+                  <p style="font-size:11.5px; line-height:1.6; margin:0; color:var(--ink-soft);">
+                    <span class="zh">
+                      邊緣過壓猛烈刮削金屬墊產生大量鋁屑/錫渣碎屑，迅速包覆氧化於針尖。外角 Sites 1, 9, 8, 16 的接觸電阻（\(R_c\)）在 20 次 Touchdown 內即由 \(0.35\,\Omega\) 飆升至 \(&gt;3.0\,\Omega\)，引發高頻時序混亂與大電流壓降。
+                    </span>
+                    <span class="en">
+                      Aggressive over-scrubbing gouges massive aluminum/solder debris, encapsulating probe tips with resistive oxide. Contact resistance (\(R_c\)) on Sites 1, 9, 8, 16 skyrockets from \(0.35\,\Omega\) to \(&gt;3.0\,\Omega\) within 20 touchdowns, triggering false timing and IR droop fails.
+                    </span>
+                  </p>
+                </div>
+              </div>
+
+              <!-- FIGURE 3.2: 16-SITE 2X8 MECHANICAL DEFLECTION AND YIELD PARETO -->
+              <figure style="margin:16px 0;">
+                <svg id="fig32-svg" viewBox="0 0 980 500" style="width:100%; height:auto; font-family:var(--font-mono, monospace);" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="16-Site 2x8 Multi-Site Array Mechanics and Extreme Corner Degradation">
+                  <defs>
+                    <marker id="arr-fig32-danger" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--danger)"/>
+                    </marker>
+                    <marker id="arr-fig32-accent" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--accent)"/>
+                    </marker>
+                  </defs>
+
+                  <!-- PANEL A: TOPOLOGY & MECHANICAL TILT PROFILE -->
+                  <rect x="10" y="10" width="960" height="205" rx="8" fill="var(--surface)" stroke="var(--border)"/>
+                  <text class="zh" x="25" y="32" font-size="13" font-weight="700" fill="var(--accent)">A. 16-Site（2×8 矩陣）幾何力臂傾角 (Tilt) 與中央上凸補償過壓 (Overdrive Trap)</text>
+                  <text class="en" x="25" y="32" font-size="12.5" font-weight="700" fill="var(--accent)">A. 16-Site (2×8 Array) Moment Arm Tilt &amp; Center Bowing Compensatory Overdrive Trap</text>
+                  <text class="zh" x="25" y="50" font-size="10" fill="var(--ink-soft)">長寬比 4:1 放大 X 軸力臂傾角；中央探針反作用力推擠針卡上凸，導致外側 Sites 1, 9, 8, 16 承受最大過壓應力</text>
+                  <text class="en" x="25" y="50" font-size="9.5" fill="var(--ink-soft)">4:1 aspect ratio amplifies X-tilt; multi-pin reaction bows card upward, driving destructive over-OD on corner Sites 1, 9, 8, 16</text>
+
+                  <!-- 2x8 Array Layout Visual Grid -->
+                  <g transform="translate(30, 64)">
+                    <!-- Row 1: Sites 1 to 8 -->
+                    <!-- S1 (Corner Left) -->
+                    <rect x="0" y="0" width="52" height="34" rx="4" fill="rgba(239,68,68,0.22)" stroke="var(--danger)" stroke-width="2"/>
+                    <text x="26" y="16" text-anchor="middle" font-size="10.5" font-weight="700" fill="var(--danger)">Site 1</text>
+                    <text class="zh" x="26" y="28" text-anchor="middle" font-size="7.5" font-weight="700" fill="var(--danger)">外角過壓</text>
+                    <text class="en" x="26" y="28" text-anchor="middle" font-size="7.5" font-weight="700" fill="var(--danger)">Over-OD</text>
+
+                    <!-- S2 to S7 -->
+                    <rect x="58" y="0" width="52" height="34" rx="4" fill="var(--surface-2)" stroke="var(--border)"/>
+                    <text x="84" y="22" text-anchor="middle" font-size="10.5" font-weight="600" fill="var(--ink)">Site 2</text>
+
+                    <rect x="116" y="0" width="52" height="34" rx="4" fill="var(--surface-2)" stroke="var(--border)"/>
+                    <text x="142" y="22" text-anchor="middle" font-size="10.5" font-weight="600" fill="var(--ink)">Site 3</text>
+
+                    <!-- S4, S5 (Center) -->
+                    <rect x="174" y="0" width="52" height="34" rx="4" fill="rgba(56,189,248,0.18)" stroke="var(--accent)" stroke-width="1.5"/>
+                    <text x="200" y="16" text-anchor="middle" font-size="10.5" font-weight="700" fill="var(--accent)">Site 4</text>
+                    <text class="zh" x="200" y="28" text-anchor="middle" font-size="7.5" fill="var(--accent)">中央上凸</text>
+                    <text class="en" x="200" y="28" text-anchor="middle" font-size="7.5" fill="var(--accent)">Bowing</text>
+
+                    <rect x="232" y="0" width="52" height="34" rx="4" fill="rgba(56,189,248,0.18)" stroke="var(--accent)" stroke-width="1.5"/>
+                    <text x="258" y="16" text-anchor="middle" font-size="10.5" font-weight="700" fill="var(--accent)">Site 5</text>
+                    <text class="zh" x="258" y="28" text-anchor="middle" font-size="7.5" fill="var(--accent)">中央上凸</text>
+                    <text class="en" x="258" y="28" text-anchor="middle" font-size="7.5" fill="var(--accent)">Bowing</text>
+
+                    <rect x="290" y="0" width="52" height="34" rx="4" fill="var(--surface-2)" stroke="var(--border)"/>
+                    <text x="316" y="22" text-anchor="middle" font-size="10.5" font-weight="600" fill="var(--ink)">Site 6</text>
+
+                    <rect x="348" y="0" width="52" height="34" rx="4" fill="var(--surface-2)" stroke="var(--border)"/>
+                    <text x="374" y="22" text-anchor="middle" font-size="10.5" font-weight="600" fill="var(--ink)">Site 7</text>
+
+                    <!-- S8 (Corner Right) -->
+                    <rect x="406" y="0" width="52" height="34" rx="4" fill="rgba(239,68,68,0.22)" stroke="var(--danger)" stroke-width="2"/>
+                    <text x="432" y="16" text-anchor="middle" font-size="10.5" font-weight="700" fill="var(--danger)">Site 8</text>
+                    <text class="zh" x="432" y="28" text-anchor="middle" font-size="7.5" font-weight="700" fill="var(--danger)">外角過壓</text>
+                    <text class="en" x="432" y="28" text-anchor="middle" font-size="7.5" font-weight="700" fill="var(--danger)">Over-OD</text>
+
+                    <!-- Row 2: Sites 9 to 16 -->
+                    <!-- S9 (Corner Left) -->
+                    <rect x="0" y="40" width="52" height="34" rx="4" fill="rgba(239,68,68,0.22)" stroke="var(--danger)" stroke-width="2"/>
+                    <text x="26" y="56" text-anchor="middle" font-size="10.5" font-weight="700" fill="var(--danger)">Site 9</text>
+                    <text class="zh" x="26" y="68" text-anchor="middle" font-size="7.5" font-weight="700" fill="var(--danger)">外角過壓</text>
+                    <text class="en" x="26" y="68" text-anchor="middle" font-size="7.5" font-weight="700" fill="var(--danger)">Over-OD</text>
+
+                    <!-- S10 to S15 -->
+                    <rect x="58" y="40" width="52" height="34" rx="4" fill="var(--surface-2)" stroke="var(--border)"/>
+                    <text x="84" y="62" text-anchor="middle" font-size="10" font-weight="600" fill="var(--ink)">Site 10</text>
+
+                    <rect x="116" y="40" width="52" height="34" rx="4" fill="var(--surface-2)" stroke="var(--border)"/>
+                    <text x="142" y="62" text-anchor="middle" font-size="10" font-weight="600" fill="var(--ink)">Site 11</text>
+
+                    <!-- S12, S13 (Center) -->
+                    <rect x="174" y="40" width="52" height="34" rx="4" fill="rgba(56,189,248,0.18)" stroke="var(--accent)" stroke-width="1.5"/>
+                    <text x="200" y="56" text-anchor="middle" font-size="10" font-weight="700" fill="var(--accent)">Site 12</text>
+                    <text class="zh" x="200" y="68" text-anchor="middle" font-size="7.5" fill="var(--accent)">中央上凸</text>
+                    <text class="en" x="200" y="68" text-anchor="middle" font-size="7.5" fill="var(--accent)">Bowing</text>
+
+                    <rect x="232" y="40" width="52" height="34" rx="4" fill="rgba(56,189,248,0.18)" stroke="var(--accent)" stroke-width="1.5"/>
+                    <text x="258" y="56" text-anchor="middle" font-size="10" font-weight="700" fill="var(--accent)">Site 13</text>
+                    <text class="zh" x="258" y="68" text-anchor="middle" font-size="7.5" fill="var(--accent)">中央上凸</text>
+                    <text class="en" x="258" y="68" text-anchor="middle" font-size="7.5" fill="var(--accent)">Bowing</text>
+
+                    <rect x="290" y="40" width="52" height="34" rx="4" fill="var(--surface-2)" stroke="var(--border)"/>
+                    <text x="316" y="62" text-anchor="middle" font-size="10" font-weight="600" fill="var(--ink)">Site 14</text>
+
+                    <rect x="348" y="40" width="52" height="34" rx="4" fill="var(--surface-2)" stroke="var(--border)"/>
+                    <text x="374" y="62" text-anchor="middle" font-size="10" font-weight="600" fill="var(--ink)">Site 15</text>
+
+                    <!-- S16 (Corner Right) -->
+                    <rect x="406" y="40" width="52" height="34" rx="4" fill="rgba(239,68,68,0.22)" stroke="var(--danger)" stroke-width="2"/>
+                    <text x="432" y="56" text-anchor="middle" font-size="10" font-weight="700" fill="var(--danger)">Site 16</text>
+                    <text class="zh" x="432" y="68" text-anchor="middle" font-size="7.5" font-weight="700" fill="var(--danger)">外角過壓</text>
+                    <text class="en" x="432" y="68" text-anchor="middle" font-size="7.5" font-weight="700" fill="var(--danger)">Over-OD</text>
+
+                    <!-- Span Annotations -->
+                    <line x1="0" y1="84" x2="458" y2="84" stroke="var(--accent)" stroke-width="1.5"/>
+                    <text class="zh" x="229" y="97" text-anchor="middle" font-size="9" font-weight="700" fill="var(--accent)">X 軸長跨距力臂 Lx ≈ 100 mm (長寬比 4:1 放大傾角 θx)</text>
+                    <text class="en" x="229" y="97" text-anchor="middle" font-size="8.5" font-weight="700" fill="var(--accent)">X-axis long lever arm Lx ≈ 100 mm (4:1 Aspect Ratio amplifies θx)</text>
+                  </g>
+
+                  <!-- Mechanical Bowing & Overdrive Profile (Right Side of Panel A) -->
+                  <g transform="translate(525, 60)">
+                    <rect x="0" y="0" width="425" height="135" rx="6" fill="var(--surface-2)" stroke="var(--border)"/>
+                    <text class="zh" x="12" y="20" font-size="10.5" font-weight="700" fill="var(--ink)">載台傾角與探針卡中心反作用力上凸物理模型：</text>
+                    <text class="en" x="12" y="20" font-size="10" font-weight="700" fill="var(--ink)">Chuck Tilt &amp; Probe Card Center Bowing Reaction Mechanics:</text>
+
+                    <!-- Wafer Chuck (Tilted line) -->
+                    <line x1="20" y1="108" x2="405" y2="108" stroke="var(--ink-soft)" stroke-width="2"/>
+                    <text class="zh" x="25" y="124" font-size="9" fill="var(--ink-soft)">晶圓載台 (Wafer Chuck Plane)</text>
+                    <text class="en" x="25" y="124" font-size="8.5" fill="var(--ink-soft)">Wafer Chuck Plane</text>
+
+                    <!-- Probe Card Stiffener (Upward curved path due to center reaction force) -->
+                    <path d="M 30 75 Q 212 55, 395 75" fill="none" stroke="var(--accent)" stroke-width="2.5"/>
+                    <text class="zh" x="212" y="48" text-anchor="middle" font-size="9" font-weight="700" fill="var(--accent)">探針卡反彈上凸 (Center Bowing ΔZ &gt; 25μm)</text>
+                    <text class="en" x="212" y="48" text-anchor="middle" font-size="8.5" font-weight="700" fill="var(--accent)">Probe Card Center Bowing (ΔZ &gt; 25μm)</text>
+
+                    <!-- Needles contact arrows -->
+                    <!-- Center Needles: Under-driven before compensation -->
+                    <line x1="212" y1="58" x2="212" y2="92" stroke="var(--accent)" stroke-width="1.8" marker-end="url(#arr-fig32-accent)"/>
+                    <text class="zh" x="212" y="103" text-anchor="middle" font-size="8" fill="var(--accent)">中央下壓力不足</text>
+                    <text class="en" x="212" y="103" text-anchor="middle" font-size="7.5" fill="var(--accent)">Under-drive before comp</text>
+
+                    <!-- Corner Needles: Overdrive Trap -->
+                    <line x1="38" y1="75" x2="38" y2="105" stroke="var(--danger)" stroke-width="2.2" marker-end="url(#arr-fig32-danger)"/>
+                    <text class="zh" x="38" y="70" text-anchor="middle" font-size="8" font-weight="700" fill="var(--danger)">過補償過壓</text>
+                    <text class="en" x="38" y="70" text-anchor="middle" font-size="7.5" font-weight="700" fill="var(--danger)">Destructive Over-OD</text>
+
+                    <line x1="387" y1="75" x2="387" y2="105" stroke="var(--danger)" stroke-width="2.2" marker-end="url(#arr-fig32-danger)"/>
+                    <text class="zh" x="387" y="70" text-anchor="middle" font-size="8" font-weight="700" fill="var(--danger)">過補償過壓</text>
+                    <text class="en" x="387" y="70" text-anchor="middle" font-size="7.5" font-weight="700" fill="var(--danger)">Destructive Over-OD</text>
+
+                    <!-- Reaction Force Arrows -->
+                    <path d="M 195 90 L 195 68" stroke="var(--warn)" stroke-width="1.5" marker-end="url(#arr-fig32-accent)"/>
+                    <path d="M 230 90 L 230 68" stroke="var(--warn)" stroke-width="1.5" marker-end="url(#arr-fig32-accent)"/>
+                    <text x="270" y="82" font-size="8.5" font-weight="700" fill="var(--warn)">ΣF &gt; 160N</text>
+                  </g>
+
+                  <!-- PANEL B: SCRUB MARK COMPARISON (BOTTOM LEFT) -->
+                  <rect x="10" y="225" width="475" height="265" rx="8" fill="var(--surface)" stroke="var(--border)"/>
+                  <text class="zh" x="25" y="248" font-size="12.5" font-weight="700" fill="var(--ink)">B. 針印顯微鏡形貌：中央正常 (Nominal) vs. 外角刮穿 (Scrub Out)</text>
+                  <text class="en" x="25" y="248" font-size="12" font-weight="700" fill="var(--ink)">B. Scrub Mark Review: Center Nominal vs. Corner Scrub Breach</text>
+
+                  <!-- Left Die: Center Sites (Nominal Contact) -->
+                  <g transform="translate(35, 265)">
+                    <!-- Pad Outline (60x60 um equivalent) -->
+                    <rect x="0" y="0" width="180" height="150" rx="4" fill="var(--surface-2)" stroke="var(--border)"/>
+                    <rect x="25" y="15" width="130" height="120" rx="4" fill="rgba(14,165,233,0.12)" stroke="var(--accent)" stroke-dasharray="2,2"/>
+                    <text class="zh" x="90" y="32" text-anchor="middle" font-size="9" fill="var(--accent)">鋁墊/銅柱開口 (Bond Pad)</text>
+                    <text class="en" x="90" y="32" text-anchor="middle" font-size="8.5" fill="var(--accent)">Bond Pad Opening (60×60μm)</text>
+
+                    <!-- Nominal Scrub Mark in Center -->
+                    <ellipse cx="90" cy="78" rx="22" ry="7" fill="var(--good)" opacity="0.8"/>
+                    <circle cx="73" cy="78" r="4.5" fill="var(--good)"/>
+                    <text class="zh" x="90" y="102" text-anchor="middle" font-size="8.5" font-weight="700" fill="var(--good)">針印居中 · 長度 18μm</text>
+                    <text class="en" x="90" y="102" text-anchor="middle" font-size="8" font-weight="700" fill="var(--good)">Centered · Scrub 18μm</text>
+                    <text class="zh" x="90" y="116" text-anchor="middle" font-size="8" fill="var(--ink-soft)">深度 25% · 未傷及鈍化層</text>
+                    <text class="en" x="90" y="116" text-anchor="middle" font-size="7.5" fill="var(--ink-soft)">Depth 25% · Passivation Intact</text>
+
+                    <!-- Status Badge -->
+                    <rect x="50" y="126" width="80" height="18" rx="3" fill="rgba(16,185,129,0.2)" stroke="var(--good)"/>
+                    <text class="zh" x="90" y="139" text-anchor="middle" font-size="8.5" font-weight="700" fill="var(--good)">Sites 4, 5, 12, 13 PASS</text>
+                    <text class="en" x="90" y="139" text-anchor="middle" font-size="8" font-weight="700" fill="var(--good)">Sites 4, 5, 12, 13 PASS</text>
+                  </g>
+
+                  <!-- Right Die: Corner Sites 1, 9, 8, 16 (Scrub Out & Pad Cratering) -->
+                  <g transform="translate(245, 265)">
+                    <rect x="0" y="0" width="225" height="150" rx="4" fill="var(--surface-2)" stroke="var(--border)"/>
+                    <rect x="20" y="15" width="130" height="120" rx="4" fill="rgba(239,68,68,0.12)" stroke="var(--danger)" stroke-dasharray="2,2"/>
+
+                    <!-- Massive Elongated Scrub Mark skating out of pad -->
+                    <path d="M 40 78 Q 110 78, 172 78" stroke="var(--danger)" stroke-width="8" stroke-linecap="round"/>
+                    <circle cx="40" cy="78" r="7" fill="var(--danger)"/>
+                    <circle cx="172" cy="78" r="6" fill="#b91c1c"/>
+
+                    <!-- Cratering & Passivation Cracks -->
+                    <path d="M 150 70 L 165 58 M 155 86 L 170 98 M 160 78 L 180 72" stroke="var(--danger)" stroke-width="1.8"/>
+
+                    <text class="zh" x="110" y="32" text-anchor="middle" font-size="9" font-weight="700" fill="var(--danger)">針印滑出開口 (&gt;38μm)</text>
+                    <text class="en" x="110" y="32" text-anchor="middle" font-size="8.5" font-weight="700" fill="var(--danger)">Scrub Out of Pad (&gt;38μm)</text>
+
+                    <text class="zh" x="110" y="102" text-anchor="middle" font-size="8" font-weight="700" fill="var(--danger)">鈍化層爆裂 (PI Crack) · 假報 Bin 2</text>
+                    <text class="en" x="110" y="102" text-anchor="middle" font-size="7.5" font-weight="700" fill="var(--danger)">PI Passivation Crack · False Bin 2</text>
+
+                    <text class="zh" x="110" y="116" text-anchor="middle" font-size="8" font-weight="700" fill="var(--danger)">底層 Low-k 壓碎 (Pad Cratering)</text>
+                    <text class="en" x="110" y="116" text-anchor="middle" font-size="7.5" font-weight="700" fill="var(--danger)">Under-pad Low-k Cratering</text>
+
+                    <rect x="65" y="126" width="95" height="18" rx="3" fill="rgba(239,68,68,0.25)" stroke="var(--danger)"/>
+                    <text class="zh" x="112" y="139" text-anchor="middle" font-size="8.5" font-weight="700" fill="var(--danger)">Sites 1, 9, 8, 16 CRITICAL</text>
+                    <text class="en" x="112" y="139" text-anchor="middle" font-size="8" font-weight="700" fill="var(--danger)">Sites 1, 9, 8, 16 CRITICAL</text>
+                  </g>
+
+                  <!-- Bottom Annotation for Panel B -->
+                  <text class="zh" x="247" y="468" text-anchor="middle" font-size="9.5" fill="var(--ink-soft)">FA 驗證對策：光學壓痕長度若 &gt; Pad 尺寸 50% 且金屬堆屑氧化，100% 判定為邊角過壓殺良品</text>
+                  <text class="en" x="247" y="468" text-anchor="middle" font-size="9" fill="var(--ink-soft)">FA Verification: Scrub &gt;50% pad width with piled oxide debris confirms corner over-OD kill</text>
+
+                  <!-- PANEL C: SITE YIELD PARETO & RC SPIKE (BOTTOM RIGHT) -->
+                  <rect x="495" y="225" width="475" height="265" rx="8" fill="var(--surface)" stroke="var(--border)"/>
+                  <text class="zh" x="510" y="248" font-size="12.5" font-weight="700" fill="var(--ink)">C. 16-Site 站點良率與接觸阻抗 (Rc) 浴缸狀塌陷特徵</text>
+                  <text class="en" x="510" y="248" font-size="12" font-weight="700" fill="var(--ink)">C. 16-Site Yield &amp; Contact Resistance (Rc) Bathtub Profile</text>
+
+                  <!-- Bar Chart Axis -->
+                  <g transform="translate(525, 270)">
+                    <line x1="30" y1="140" x2="420" y2="140" stroke="var(--ink-soft)" stroke-width="1.2"/>
+                    <line x1="30" y1="20" x2="30" y2="140" stroke="var(--ink-soft)" stroke-width="1.2"/>
+                    <text x="25" y="25" text-anchor="end" font-size="8.5" fill="var(--ink-soft)">100%</text>
+                    <text x="25" y="60" text-anchor="end" font-size="8.5" fill="var(--ink-soft)">90%</text>
+                    <text x="25" y="95" text-anchor="end" font-size="8.5" fill="var(--ink-soft)">80%</text>
+                    <text x="25" y="130" text-anchor="end" font-size="8.5" fill="var(--ink-soft)">70%</text>
+
+                    <!-- Threshold dashed line (93% control limit) -->
+                    <line x1="30" y1="50" x2="420" y2="50" stroke="var(--warn)" stroke-width="1.4" stroke-dasharray="3,2"/>
+                    <text class="zh" x="420" y="46" text-anchor="end" font-size="8" fill="var(--warn)">多站點良率差異管制線 ΔY &gt; 2.0%</text>
+                    <text class="en" x="420" y="46" text-anchor="end" font-size="7.5" fill="var(--warn)">Site Delta Alarm Limit ΔY &gt; 2.0%</text>
+
+                    <!-- 16 Bars (Width 18, Gap 6) -->
+                    <!-- S1 (Fail 74.2%) -->
+                    <rect x="36" y="115" width="18" height="25" rx="2" fill="var(--danger)" opacity="0.9"/>
+                    <text x="45" y="153" text-anchor="middle" font-size="7.5" font-weight="700" fill="var(--danger)">S1</text>
+                    <text x="45" y="110" text-anchor="middle" font-size="7.5" font-weight="700" fill="var(--danger)">74</text>
+
+                    <!-- S2 to S7 (Pass 95.8% - 96.9%) -->
+                    <rect x="60" y="32" width="18" height="108" rx="2" fill="var(--good)" opacity="0.8"/>
+                    <text x="69" y="153" text-anchor="middle" font-size="7.5" fill="var(--ink-soft)">S2</text>
+
+                    <rect x="84" y="30" width="18" height="110" rx="2" fill="var(--good)" opacity="0.8"/>
+                    <text x="93" y="153" text-anchor="middle" font-size="7.5" fill="var(--ink-soft)">S3</text>
+
+                    <rect x="108" y="28" width="18" height="112" rx="2" fill="var(--good)" opacity="0.8"/>
+                    <text x="117" y="153" text-anchor="middle" font-size="7.5" fill="var(--ink-soft)">S4</text>
+
+                    <rect x="132" y="27" width="18" height="113" rx="2" fill="var(--good)" opacity="0.8"/>
+                    <text x="141" y="153" text-anchor="middle" font-size="7.5" fill="var(--ink-soft)">S5</text>
+
+                    <rect x="156" y="31" width="18" height="109" rx="2" fill="var(--good)" opacity="0.8"/>
+                    <text x="165" y="153" text-anchor="middle" font-size="7.5" fill="var(--ink-soft)">S6</text>
+
+                    <rect x="180" y="33" width="18" height="107" rx="2" fill="var(--good)" opacity="0.8"/>
+                    <text x="189" y="153" text-anchor="middle" font-size="7.5" fill="var(--ink-soft)">S7</text>
+
+                    <!-- S8 (Fail 77.4%) -->
+                    <rect x="204" y="104" width="18" height="36" rx="2" fill="var(--danger)" opacity="0.9"/>
+                    <text x="213" y="153" text-anchor="middle" font-size="7.5" font-weight="700" fill="var(--danger)">S8</text>
+                    <text x="213" y="99" text-anchor="middle" font-size="7.5" font-weight="700" fill="var(--danger)">77</text>
+
+                    <!-- S9 (Fail 76.1%) -->
+                    <rect x="228" y="108" width="18" height="32" rx="2" fill="var(--danger)" opacity="0.9"/>
+                    <text x="237" y="153" text-anchor="middle" font-size="7.5" font-weight="700" fill="var(--danger)">S9</text>
+                    <text x="237" y="103" text-anchor="middle" font-size="7.5" font-weight="700" fill="var(--danger)">76</text>
+
+                    <!-- S10 to S15 (Pass 95.5% - 96.8%) -->
+                    <rect x="252" y="32" width="18" height="108" rx="2" fill="var(--good)" opacity="0.8"/>
+                    <text x="261" y="153" text-anchor="middle" font-size="7.5" fill="var(--ink-soft)">S10</text>
+
+                    <rect x="276" y="29" width="18" height="111" rx="2" fill="var(--good)" opacity="0.8"/>
+                    <text x="285" y="153" text-anchor="middle" font-size="7.5" fill="var(--ink-soft)">S11</text>
+
+                    <rect x="300" y="28" width="18" height="112" rx="2" fill="var(--good)" opacity="0.8"/>
+                    <text x="309" y="153" text-anchor="middle" font-size="7.5" fill="var(--ink-soft)">S12</text>
+
+                    <rect x="324" y="27" width="18" height="113" rx="2" fill="var(--good)" opacity="0.8"/>
+                    <text x="333" y="153" text-anchor="middle" font-size="7.5" fill="var(--ink-soft)">S13</text>
+
+                    <rect x="348" y="30" width="18" height="110" rx="2" fill="var(--good)" opacity="0.8"/>
+                    <text x="357" y="153" text-anchor="middle" font-size="7.5" fill="var(--ink-soft)">S14</text>
+
+                    <rect x="372" y="34" width="18" height="106" rx="2" fill="var(--good)" opacity="0.8"/>
+                    <text x="381" y="153" text-anchor="middle" font-size="7.5" fill="var(--ink-soft)">S15</text>
+
+                    <!-- S16 (Fail 73.8%) -->
+                    <rect x="396" y="117" width="18" height="23" rx="2" fill="var(--danger)" opacity="0.9"/>
+                    <text x="405" y="153" text-anchor="middle" font-size="7.5" font-weight="700" fill="var(--danger)">S16</text>
+                    <text x="405" y="112" text-anchor="middle" font-size="7.5" font-weight="700" fill="var(--danger)">74</text>
+                  </g>
+
+                  <!-- Chi-Square Diagnostic Badge -->
+                  <g transform="translate(525, 435)">
+                    <rect x="0" y="0" width="425" height="42" rx="4" fill="var(--surface-2)" stroke="var(--danger)"/>
+                    <text class="zh" x="10" y="17" font-size="9.5" font-weight="700" fill="var(--danger)">統計檢定確診：卡方值 χ² = 84.6 &gt;&gt; 臨界值 37.7 (p &lt; 0.0001)</text>
+                    <text class="en" x="10" y="17" font-size="9" font-weight="700" fill="var(--danger)">Homogeneity Audit: Chi-square χ² = 84.6 &gt;&gt; Critical 37.7 (p &lt; 0.0001)</text>
+                    <text class="zh" x="10" y="32" font-size="8.5" fill="var(--ink-soft)">拒絕站點同質性假設！Sites 1, 9, 8, 16 假殺確認，立即停機執行 4 點平整度調校與清針。</text>
+                    <text class="en" x="10" y="32" font-size="8" fill="var(--ink-soft)">Reject homogeneity! False kill on Sites 1, 9, 8, 16 confirmed; execute chuck 4-point leveling.</text>
+                  </g>
+                </svg>
+                <figcaption style="text-align:center; margin-top:8px; font-size:12px; color:var(--ink-soft);">
+                  <span class="zh">圖 3.2：16-Site（2×8 排列）多站點測試針卡力臂傾角、中央上凸補償過壓（Overdrive Trap）與外角 Site 1, 9, 8, 16 壓痕/良率異常物理機理</span>
+                  <span class="en">Figure 3.2: 16-Site (2×8 Array) Multi-Site Mechanical Lever Arm Tilt, Center Bowing Overdrive Trap &amp; Extreme Corner Sites (1, 9, 8, 16) Scrub/Yield Degradation</span>
+                </figcaption>
+              </figure>
+
+              <!-- ACTIONABLE COUNTERMEASURES FOR 2X8 -->
+              <div style="background:var(--surface); border-left:3px solid var(--accent); padding:10px 14px; margin-top:10px; font-size:12px; line-height:1.6;">
+                <span class="zh">
+                  <b>2×8 陣列邊角過壓根治 SOP（4 大黃金處方）</b>：<br>
+                  1. <b>機台載台 4 點高精度平整度校正（Chuck Planarity 4-Point Alignment）</b>：將 X 軸（長邊）傾斜公差嚴格鎖定於 \(\le 5\ \mu\text{m}\) 以內；<br>
+                  2. <b>針卡長軸加裝高剛性 Invar 加強肋（Longitudinal Rib Stiffener）</b>：抑制 160N 總針壓引發的中央向上拱起，平衡全陣列下壓行程；<br>
+                  3. <b>優化最小安全 Overdrive 窗口</b>：以中央 Sites 4, 5, 12, 13 剛好達到穩定 \(R_c &lt; 0.5\,\Omega\) 為基準下限，嚴禁任意往上加壓補償；<br>
+                  4. <b>自適應單站隔離（Adaptive Site Disable）</b>：量產中一旦外角 Site 1 或 16 觸發壓痕報警或連續 2 次接觸異常，自動隔離該站並轉為 14/15-Site 安全運行，防止良品被邊緣刮穿屠殺。
+                </span>
+                <span class="en">
+                  <b>2×8 Array Extreme Corner Over-OD Engineering Countermeasures (4-Step SOP)</b>:<br>
+                  1. <b>Chuck Planarity 4-Point High-Precision Alignment</b>: Constrain X-axis longitudinal tilt to within \(\le 5\ \mu\text{m}\);<br>
+                  2. <b>Reinforce Longitudinal Invar Stiffener Ribs</b>: Prevent probe card center upward bowing under 160N total needle contact loads;<br>
+                  3. <b>Tune Minimum Stable Overdrive Window</b>: Calibrate global OD to the minimum depth ensuring center Sites 4, 5, 12, 13 achieve \(R_c &lt; 0.5\,\Omega\); prohibit unchecked upward OD tuning;<br>
+                  4. <b>Adaptive Site Disable</b>: Auto-isolate corner Site 1, 9, 8, or 16 upon consecutive scrub alarms or contact degradation, switching dynamically to a 14/15-site safe operating envelope to eliminate false die kills.
+                </span>
+              </div>
             </div>
           </div>
 
@@ -4956,6 +5516,153 @@
                 &bull; <b>Periodic sinusoidal cycling (Mode 6)</b>: FFT analysis of the time series directly maps to the facility chiller compressor or cleanroom FFU HVAC cycle!
               </span>
             </div>
+
+            <!-- FIGURE 3.3: 6 METROLOGY DRIFT SIGNATURES -->
+            <figure style="margin:20px 0;">
+              <svg id="fig33-svg" viewBox="0 0 980 440" style="width:100%; height:auto; font-family:var(--font-mono, monospace);" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="MSA Six Canonical Metrology Drift Signatures">
+                <rect x="10" y="10" width="960" height="420" rx="8" fill="var(--surface)" stroke="var(--border)"/>
+                <text class="zh" x="25" y="32" font-size="13" font-weight="700" fill="var(--good)">MSA 量測儀表 6 大漂移模式時序特徵與統計分佈圖 (Mapped to 10 Loop Runs Mock Dataset)</text>
+                <text class="en" x="25" y="32" font-size="12.5" font-weight="700" fill="var(--good)">Six Canonical Metrology Drift &amp; Fluctuation Signatures (Mapped to 10 Loop Runs Mock Dataset)</text>
+                <text class="zh" x="25" y="48" font-size="10" fill="var(--ink-soft)">標準黃金元件基準 Nominal = 1.0000V，工程規格門檻 LSL = 0.9800V, USL = 1.0200V</text>
+                <text class="en" x="25" y="48" font-size="9.5" fill="var(--ink-soft)">Standard Golden Unit: Nominal = 1.0000V, Specification Limits LSL = 0.9800V, USL = 1.0200V</text>
+
+                <!-- ROW 1 -->
+                <!-- SUBPLOT 1: MODE 1 IN-CONTROL -->
+                <g transform="translate(25, 62)">
+                  <rect x="0" y="0" width="295" height="165" rx="6" fill="var(--surface-2)" stroke="var(--border)"/>
+                  <text class="zh" x="12" y="18" font-size="10.5" font-weight="700" fill="var(--good)">模式 1: 正常受控 (In-Control)</text>
+                  <text class="en" x="12" y="18" font-size="10" font-weight="700" fill="var(--good)">Mode 1: Normal In-Control</text>
+                  <!-- Axes -->
+                  <line x1="35" y1="130" x2="280" y2="130" stroke="var(--ink-soft)" stroke-width="1"/>
+                  <line x1="35" y1="30" x2="35" y2="130" stroke="var(--ink-soft)" stroke-width="1"/>
+                  <!-- USL / LSL / Nominal lines -->
+                  <line x1="35" y1="45" x2="280" y2="45" stroke="var(--danger)" stroke-width="1" stroke-dasharray="2,2"/>
+                  <text x="32" y="48" text-anchor="end" font-size="7.5" fill="var(--danger)">USL</text>
+                  <line x1="35" y1="85" x2="280" y2="85" stroke="var(--ink-faint)" stroke-width="1" stroke-dasharray="2,2"/>
+                  <text x="32" y="88" text-anchor="end" font-size="7.5" fill="var(--ink-faint)">Nom</text>
+                  <line x1="35" y1="125" x2="280" y2="125" stroke="var(--danger)" stroke-width="1" stroke-dasharray="2,2"/>
+                  <text x="32" y="128" text-anchor="end" font-size="7.5" fill="var(--danger)">LSL</text>
+                  <!-- Data Points (Tight centered around 85) -->
+                  <polyline points="45,84.6 70,85.6 95,84.0 120,85.4 145,84.4 170,85.2 195,84.8 220,84.2 245,85.8 270,84.8" fill="none" stroke="var(--good)" stroke-width="1.8"/>
+                  <circle cx="270" cy="84.8" r="3" fill="var(--good)"/>
+                  <!-- Badge -->
+                  <rect x="45" y="138" width="225" height="18" rx="3" fill="rgba(16,185,129,0.2)" stroke="var(--good)"/>
+                  <text x="157" y="151" text-anchor="middle" font-size="8.5" font-weight="700" fill="var(--good)">σ = 0.0003V · 完全受控白雜訊</text>
+                </g>
+
+                <!-- SUBPLOT 2: MODE 2 MEDIAN SHIFT -->
+                <g transform="translate(340, 62)">
+                  <rect x="0" y="0" width="295" height="165" rx="6" fill="var(--surface-2)" stroke="var(--border)"/>
+                  <text class="zh" x="12" y="18" font-size="10.5" font-weight="700" fill="var(--warn)">模式 2: 中位數平移 (Median Shift)</text>
+                  <text class="en" x="12" y="18" font-size="10" font-weight="700" fill="var(--warn)">Mode 2: Median Step Shift (+18mV)</text>
+                  <!-- Axes -->
+                  <line x1="35" y1="130" x2="280" y2="130" stroke="var(--ink-soft)" stroke-width="1"/>
+                  <line x1="35" y1="30" x2="35" y2="130" stroke="var(--ink-soft)" stroke-width="1"/>
+                  <line x1="35" y1="45" x2="280" y2="45" stroke="var(--danger)" stroke-width="1" stroke-dasharray="2,2"/>
+                  <text x="32" y="48" text-anchor="end" font-size="7.5" fill="var(--danger)">USL</text>
+                  <line x1="35" y1="85" x2="280" y2="85" stroke="var(--ink-faint)" stroke-width="1" stroke-dasharray="2,2"/>
+                  <text x="32" y="88" text-anchor="end" font-size="7.5" fill="var(--ink-faint)">Nom</text>
+                  <!-- Shifted Line near USL (y=49) -->
+                  <polyline points="45,48.8 70,49.2 95,48.2 120,49.0 145,48.6 170,48.0 195,49.0 220,48.4 245,49.4 270,48.6" fill="none" stroke="var(--warn)" stroke-width="1.8"/>
+                  <circle cx="170" cy="48.0" r="3.5" fill="var(--danger)"/>
+                  <!-- Shift Arrow -->
+                  <line x1="157" y1="85" x2="157" y2="52" stroke="var(--warn)" stroke-width="1.5" marker-end="url(#arr-fig31-danger)"/>
+                  <!-- Badge -->
+                  <rect x="45" y="138" width="225" height="18" rx="3" fill="rgba(245,158,11,0.2)" stroke="var(--warn)"/>
+                  <text x="157" y="151" text-anchor="middle" font-size="8.5" font-weight="700" fill="var(--warn)">Δμ = +18.1mV · 校準歸零缺失 (Offset)</text>
+                </g>
+
+                <!-- SUBPLOT 3: MODE 3 VARIANCE EXPLOSION -->
+                <g transform="translate(655, 62)">
+                  <rect x="0" y="0" width="295" height="165" rx="6" fill="var(--surface-2)" stroke="var(--border)"/>
+                  <text class="zh" x="12" y="18" font-size="10.5" font-weight="700" fill="var(--danger)">模式 3: 離散度暴增 (Variance Explosion)</text>
+                  <text class="en" x="12" y="18" font-size="10" font-weight="700" fill="var(--danger)">Mode 3: Variance Explosion (59x σ)</text>
+                  <!-- Axes -->
+                  <line x1="35" y1="130" x2="280" y2="130" stroke="var(--ink-soft)" stroke-width="1"/>
+                  <line x1="35" y1="30" x2="35" y2="130" stroke="var(--ink-soft)" stroke-width="1"/>
+                  <line x1="35" y1="45" x2="280" y2="45" stroke="var(--danger)" stroke-width="1" stroke-dasharray="2,2"/>
+                  <text x="32" y="48" text-anchor="end" font-size="7.5" fill="var(--danger)">USL</text>
+                  <line x1="35" y1="85" x2="280" y2="85" stroke="var(--ink-faint)" stroke-width="1" stroke-dasharray="2,2"/>
+                  <line x1="35" y1="125" x2="280" y2="125" stroke="var(--danger)" stroke-width="1" stroke-dasharray="2,2"/>
+                  <text x="32" y="128" text-anchor="end" font-size="7.5" fill="var(--danger)">LSL</text>
+                  <!-- Jagged Wild Line -->
+                  <polyline points="45,86.8 70,48.2 95,116.6 120,46.0 145,122.8 170,43.0 195,128.0 220,50.6 245,119.0 270,41.4" fill="none" stroke="var(--danger)" stroke-width="1.8"/>
+                  <circle cx="170" cy="43.0" r="3.5" fill="var(--danger)"/>
+                  <circle cx="195" cy="128.0" r="3.5" fill="var(--danger)"/>
+                  <circle cx="270" cy="41.4" r="3.5" fill="var(--danger)"/>
+                  <!-- Badge -->
+                  <rect x="45" y="138" width="225" height="18" rx="3" fill="rgba(239,68,68,0.2)" stroke="var(--danger)"/>
+                  <text x="157" y="151" text-anchor="middle" font-size="8.5" font-weight="700" fill="var(--danger)">σ = 0.0178V (59x) · 屏蔽破裂/探針震動</text>
+                </g>
+
+                <!-- ROW 2 -->
+                <!-- SUBPLOT 4: MODE 4 HIGH-SIDE SKEW -->
+                <g transform="translate(25, 245)">
+                  <rect x="0" y="0" width="295" height="165" rx="6" fill="var(--surface-2)" stroke="var(--border)"/>
+                  <text class="zh" x="12" y="18" font-size="10.5" font-weight="700" fill="var(--danger)">模式 4: 針尖氧化偏斜 (High-Side Skew)</text>
+                  <text class="en" x="12" y="18" font-size="10" font-weight="700" fill="var(--danger)">Mode 4: High-Side Skew (Tip Oxide)</text>
+                  <line x1="35" y1="130" x2="280" y2="130" stroke="var(--ink-soft)" stroke-width="1"/>
+                  <line x1="35" y1="30" x2="35" y2="130" stroke="var(--ink-soft)" stroke-width="1"/>
+                  <line x1="35" y1="45" x2="280" y2="45" stroke="var(--danger)" stroke-width="1" stroke-dasharray="2,2"/>
+                  <text x="32" y="48" text-anchor="end" font-size="7.5" fill="var(--danger)">USL</text>
+                  <line x1="35" y1="85" x2="280" y2="85" stroke="var(--ink-faint)" stroke-width="1" stroke-dasharray="2,2"/>
+                  <!-- Spiking Line -->
+                  <polyline points="45,84.2 70,84.8 95,83.8 120,84.6 145,84.0 170,83.0 195,84.4 220,45.4 245,42.0 270,84.2" fill="none" stroke="var(--danger)" stroke-width="1.8"/>
+                  <circle cx="220" cy="45.4" r="3.5" fill="var(--danger)"/>
+                  <circle cx="245" cy="42.0" r="4" fill="var(--danger)"/>
+                  <!-- Spike Callout -->
+                  <text class="zh" x="232" y="34" text-anchor="middle" font-size="8" font-weight="700" fill="var(--danger)">氧化突波 Spike</text>
+                  <text class="en" x="232" y="34" text-anchor="middle" font-size="7.5" font-weight="700" fill="var(--danger)">Oxide Spikes</text>
+                  <rect x="45" y="138" width="225" height="18" rx="3" fill="rgba(239,68,68,0.2)" stroke="var(--danger)"/>
+                  <text x="157" y="151" text-anchor="middle" font-size="8.5" font-weight="700" fill="var(--danger)">偏度 +2.31 · 針尖沾黏氧化 (Polish Needed)</text>
+                </g>
+
+                <!-- SUBPLOT 5: MODE 5 SELF-HEAT DRIFT -->
+                <g transform="translate(340, 245)">
+                  <rect x="0" y="0" width="295" height="165" rx="6" fill="var(--surface-2)" stroke="var(--border)"/>
+                  <text class="zh" x="12" y="18" font-size="10.5" font-weight="700" fill="#a855f7">模式 5: 連續自發熱漂移 (Self-Heat Drift)</text>
+                  <text class="en" x="12" y="18" font-size="10" font-weight="700" fill="#a855f7">Mode 5: Monotonic Self-Heat Drift</text>
+                  <line x1="35" y1="130" x2="280" y2="130" stroke="var(--ink-soft)" stroke-width="1"/>
+                  <line x1="35" y1="30" x2="35" y2="130" stroke="var(--ink-soft)" stroke-width="1"/>
+                  <line x1="35" y1="45" x2="280" y2="45" stroke="var(--danger)" stroke-width="1" stroke-dasharray="2,2"/>
+                  <text x="32" y="48" text-anchor="end" font-size="7.5" fill="var(--danger)">USL</text>
+                  <line x1="35" y1="85" x2="280" y2="85" stroke="var(--ink-faint)" stroke-width="1" stroke-dasharray="2,2"/>
+                  <!-- Monotonic Upward Ramp Line -->
+                  <polyline points="45,84.6 70,81.4 95,77.2 120,72.8 145,68.2 170,64.0 195,59.4 220,55.2 245,50.6 270,46.0" fill="none" stroke="#a855f7" stroke-width="2"/>
+                  <circle cx="270" cy="46.0" r="3.5" fill="var(--danger)"/>
+                  <!-- Ramp Arrow -->
+                  <path d="M 60 92 L 250 48" fill="none" stroke="#a855f7" stroke-width="1.2" stroke-dasharray="3,2"/>
+                  <rect x="45" y="138" width="225" height="18" rx="3" fill="rgba(168,85,247,0.2)" stroke="#a855f7"/>
+                  <text x="157" y="151" text-anchor="middle" font-size="8.5" font-weight="700" fill="#a855f7">單調直線爬升 · 需插入 10ms 冷卻延時</text>
+                </g>
+
+                <!-- SUBPLOT 6: MODE 6 PERIODIC SINE WAVE -->
+                <g transform="translate(655, 245)">
+                  <rect x="0" y="0" width="295" height="165" rx="6" fill="var(--surface-2)" stroke="var(--border)"/>
+                  <text class="zh" x="12" y="18" font-size="10.5" font-weight="700" fill="var(--accent)">模式 6: 溫控正弦振盪 (Periodic Trend)</text>
+                  <text class="en" x="12" y="18" font-size="10" font-weight="700" fill="var(--accent)">Mode 6: Periodic HVAC Sine Wave</text>
+                  <line x1="35" y1="130" x2="280" y2="130" stroke="var(--ink-soft)" stroke-width="1"/>
+                  <line x1="35" y1="30" x2="35" y2="130" stroke="var(--ink-soft)" stroke-width="1"/>
+                  <line x1="35" y1="45" x2="280" y2="45" stroke="var(--danger)" stroke-width="1" stroke-dasharray="2,2"/>
+                  <text x="32" y="48" text-anchor="end" font-size="7.5" fill="var(--danger)">USL</text>
+                  <line x1="35" y1="85" x2="280" y2="85" stroke="var(--ink-faint)" stroke-width="1" stroke-dasharray="2,2"/>
+                  <!-- Sine Wave Line -->
+                  <path d="M 45 85 Q 95 62, 120 65 Q 170 70, 195 105 Q 220 108, 270 80" fill="none" stroke="var(--accent)" stroke-width="2"/>
+                  <circle cx="95" cy="65" r="3" fill="var(--accent)"/>
+                  <circle cx="195" cy="105" r="3" fill="var(--accent)"/>
+                  <!-- Sine cycle annotation -->
+                  <line x1="95" y1="58" x2="245" y2="58" stroke="var(--accent)" stroke-width="1" stroke-dasharray="2,2"/>
+                  <text class="zh" x="170" y="52" text-anchor="middle" font-size="8" fill="var(--accent)">15 分鐘空調週期</text>
+                  <text class="en" x="170" y="52" text-anchor="middle" font-size="7.5" fill="var(--accent)">15-min Chiller Cycle</text>
+                  <rect x="45" y="138" width="225" height="18" rx="3" fill="rgba(14,165,233,0.2)" stroke="var(--accent)"/>
+                  <text x="157" y="151" text-anchor="middle" font-size="8.5" font-weight="700" fill="var(--accent)">FFT 鎖定廠務冰水機 · 需安裝隔溫箱</text>
+                </g>
+              </svg>
+              <figcaption style="text-align:center; margin-top:8px; font-size:12px; color:var(--ink-soft);">
+                <span class="zh">圖 3.3：MSA 量測系統 6 種典型漂移與失效模式之時序波動與統計分佈特徵圖（對照 10 次 Loop Run 模擬數據）</span>
+                <span class="en">Figure 3.3: Six Canonical Metrology Drift &amp; Fluctuation Signatures in Time-Series &amp; Statistical Distributions (Mapped to 10 Loop Runs Mock Data)</span>
+              </figcaption>
+            </figure>
           </div>
 
           <!-- 3.4 RAW MATERIALS & DIFFUSION -->
@@ -5046,10 +5753,7 @@
               </tbody>
             </table>
           </div>
-        </div>
-      </section>
 
-      
           <!-- 3.5 OTP / EFUSE / LASER TRIM FAILURES -->
           <h3>
             <span class="zh">3.5 OTP / eFuse / Laser Trim 寫入與校準失效 (OTP / Trim Calibration & Programming Failures)</span>
@@ -5153,8 +5857,10 @@
               </tbody>
             </table>
           </div>
+        </div>
+      </section>
 
-            <!-- PHASE 4: FAB PROCESS VARIATIONS, CORNERS, LOT DEPENDENCY & EQUIPMENT COMMONALITY -->
+      <!-- PHASE 4: FAB PROCESS VARIATIONS, CORNERS, LOT DEPENDENCY & EQUIPMENT COMMONALITY -->
       <section id="phase4">
         <h2 class="collapsible-h" onclick="toggleCollapse(this)">
           <span>
