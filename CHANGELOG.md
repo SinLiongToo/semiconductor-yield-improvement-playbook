@@ -9,6 +9,10 @@ Entry format / 格式:
 
 ---
 
+## 2026-10-23 — Claude Code — Unify revision labels (Rev. X)
+
+- Header revision (was Rev. M) and footer revision (was Rev. W) had drifted apart as two separate counters. Both now read **Rev. X**, continuing from the higher letter. New rule in `AGENTS.md` (workflow rule 4): bump both together on every substantive change.
+
 ## 2026-10-23 — Claude Code — Offline KaTeX, image compression, repo cleanup
 
 - **KaTeX vendored**: `index.html` now loads KaTeX 0.16.8 from `assets/vendor/katex-0.16.8/` instead of the jsDelivr CDN (woff2 fonts only). Why: AGENTS.md requires 100% offline use on factory intranets; formulas previously broke offline. Verified offline in Chrome: 480 formulas rendered, 0 failed requests. **Do not switch back to a CDN.**

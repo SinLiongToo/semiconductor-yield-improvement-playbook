@@ -35,6 +35,8 @@
 1. **本地優先，乾淨純原生**：產出單一 `index.html` 確保在無外網工廠內網環境或本機瀏覽器皆可 100% 獨立運行。
 2. **每次編輯完 `index.html` 都要 commit + push**：GitHub Pages 網站（https://sinliongtoo.github.io/semiconductor-yield-improvement-playbook/）需要 `git add` + `git commit` + `git push` 到 `origin/master` 線上版本才會跟著更新。
 3. **提交品質把關**：每次實質修改均確保標籤成對平衡、時間戳同步更新、JavaScript 無語法錯誤後進行 git 提交。
+4. **版次號同步**：`index.html` 有兩處版次號（頁首「版次狀態 Revision」與頁尾 `Rev.`），兩處必須永遠相同；每次實質修改後兩處一起進一個字母（如 Rev. X → Rev. Y），並同步更新兩處「最後修訂 / Last Updated」時間戳。
+   **Revision sync**: the header and footer `Rev.` labels must always match; bump both by one letter per substantive change and update both Last Updated timestamps.
 
 ## 多 AI 代理協作規則 / Multi-Agent Collaboration
 
