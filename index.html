@@ -379,28 +379,38 @@
   .callout.good .callout-title { color: var(--good); }
 
   /* Tables */
-  .data-table-wrap { overflow-x: auto; margin: 20px 0; border: 1px solid var(--border); border-radius: 6px; }
-  table.data-table {
+  .data-table-wrap, .table-container { 
+    overflow-x: auto; 
+    margin: 20px 0; 
+    border: 1px solid var(--border); 
+    border-radius: 6px; 
+    background: var(--surface);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  }
+  table.data-table, .table-container table {
     width: 100%;
     border-collapse: collapse;
     background: var(--surface);
     font-size: 13.5px;
     text-align: left;
   }
-  table.data-table th, table.data-table td {
+  table.data-table th, table.data-table td,
+  .table-container th, .table-container td {
     padding: 10px 14px;
     border-bottom: 1px solid var(--border);
     vertical-align: top;
   }
-  table.data-table th {
+  table.data-table th, .table-container th {
     background: var(--surface-2);
     font-family: var(--font-mono);
     font-size: 12px;
     text-transform: uppercase;
     letter-spacing: .05em;
     color: var(--ink-soft);
+    font-weight: 600;
+    border-bottom: 2px solid var(--border);
   }
-  table.data-table tr:hover { background: var(--accent-soft); }
+  table.data-table tr:hover, .table-container tr:hover { background: var(--accent-soft); }
 
   /* Interactive Tool Card */
   .tool-card {
@@ -5373,10 +5383,10 @@
           </h3>
           <p>
             <span class="zh">
-              高階微處理器與通訊晶片在 FT 站進行價值最大化分級（Binning）：透過 2D Shmoo 測試繪製工作電壓 (V_{dd}) 與最高工作頻率 (F_{max}) 邊界曲線，區隔出旗艦伺服器級（高頻低功耗 Tier 1）、主流商用級（Tier 2）與邊緣物聯網級（Tier 3），實現產品利潤最大化。
+              高階微處理器與通訊晶片在 FT 站進行價值最大化分級（Binning）：透過 2D Shmoo 測試繪製工作電壓 \(V_{dd}\) 與最高工作頻率 \(F_{max}\) 邊界曲線，區隔出旗艦伺服器級（高頻低功耗 Tier 1）、主流商用級（Tier 2）與邊緣物聯網級（Tier 3），實現產品利潤最大化。
             </span>
             <span class="en">
-              Advanced computing processors maximize silicon profitability at FT via Speed & Power Binning. By plotting 2D Shmoo curves ((V_{dd}) vs. (F_{max})), production splits units into flagship server tier (high-freq low-leakage), mainstream client tier, and budget tiers.
+              Advanced computing processors maximize silicon profitability at FT via Speed & Power Binning. By plotting 2D Shmoo curves (\(V_{dd}\) vs. \(F_{max}\)), production splits units into flagship server tier (high-freq low-leakage), mainstream client tier, and budget tiers.
             </span>
           </p>
 
@@ -5386,12 +5396,12 @@
               <span class="zh">車用零缺陷防線：HTOL 預燒老化模型</span>
               <span class="en">Automotive Zero-Defect: Arrhenius HTOL Burn-In Acceleration</span>
             </div>
-            <div class="formula" style="background:transparent; border:none; margin:4px 0;">
-              [ AF = left( rac{V_{stress}}{V_{use}} ight)^gamma 	imes expleft[ rac{E_a}{k} left( rac{1}{T_{use}} - rac{1}{T_{stress}} ight) ight] ]
+            <div class="formula" style="background:transparent; border:none; margin:8px 0; text-align:center;">
+              \[ AF = \left( \frac{V_{\text{stress}}}{V_{\text{use}}} \right)^\gamma \times \exp \left[ \frac{E_a}{k} \left( \frac{1}{T_{\text{use}}} - \frac{1}{T_{\text{stress}}} \right) \right] \]
             </div>
             <p style="margin-bottom:0;">
-              <span class="zh">依據阿瑞尼斯（Arrhenius）溫度與電壓加速模型，在 125°C、(1.2 	imes V_{dd}) 下預燒 48–168 小時，相當於在車載環境中提前模擬運作 10 年，將早期失效率（ELFR / 浴缸曲線初期的 Infant Mortality）在出廠前 100% 激發並篩除！</span>
-              <span class="en">Leveraging Arrhenius acceleration, dynamic burn-in at 125°C and (1.2 	imes V_{dd}) for 48–168 hours compresses 10 years of vehicle operational stress, weeding out infant mortality defects prior to customer shipment!</span>
+              <span class="zh">依據阿瑞尼斯（Arrhenius）溫度與電壓加速模型，在 125°C、\(1.2 \times V_{dd}\) 下預燒 48–168 小時，相當於在車載環境中提前模擬運作 10 年，將早期失效率（ELFR / 浴缸曲線初期的 Infant Mortality）在出廠前 100% 激發並篩除！</span>
+              <span class="en">Leveraging Arrhenius acceleration, dynamic burn-in at 125°C and \(1.2 \times V_{dd}\) for 48–168 hours compresses 10 years of vehicle operational stress, weeding out infant mortality defects prior to customer shipment!</span>
             </p>
           </div>
 
@@ -5409,8 +5419,8 @@
             </span>
           </p>
 
-          <div class="table-container">
-            <table>
+          <div class="data-table-wrap">
+            <table class="data-table">
               <thead>
                 <tr>
                   <th><span class="zh">封裝認證失效機制</span><span class="en">Failure Mechanism</span></th>
