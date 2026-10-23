@@ -261,8 +261,9 @@
   .body-grid.sidebar-collapsed nav.toc {
     display: none;
   }
-  @media (max-width: 950px) { 
-    .body-grid { grid-template-columns: 1fr; } 
+  @media (max-width: 950px) {
+    /* minmax(0,1fr), not 1fr: a bare 1fr column grows to its widest child and pushes the page past the phone viewport */
+    .body-grid { grid-template-columns: minmax(0, 1fr); }
     .sidebar-expand-btn, .sidebar-toggle-btn { display: none !important; }
   }
 
@@ -457,9 +458,13 @@
   }
   .tool-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
     gap: 20px;
     align-items: start;
+  }
+  /* Tool grids carry inline fixed column widths (e.g. 340px minmax(0,1fr)); stack them on narrow screens */
+  @media (max-width: 760px) {
+    .tool-grid { grid-template-columns: minmax(0, 1fr) !important; }
   }
   .param-group { margin-bottom: 14px; }
   .param-group label {
@@ -556,6 +561,11 @@
   .legend-item { display: flex; align-items: center; gap: 5px; }
   .legend-dot { width: 10px; height: 10px; border-radius: 2px; }
 
+  /* KaTeX overflow containment: .katex-mathml is position:absolute, so without a positioned
+     .katex ancestor it escapes overflow:auto wrappers and widens the whole page on phones */
+  .katex { position: relative; }
+  .katex-display { overflow-x: auto; overflow-y: hidden; padding-bottom: 2px; }
+
   /* Formula display */
   .formula {
     background: var(--surface-2);
@@ -625,7 +635,7 @@
   /* Real-world FA Micrograph Gallery */
   .fa-gallery-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
     gap: 20px;
     margin: 20px 0 30px 0;
   }
@@ -1181,7 +1191,7 @@
           </p>
 
           <!-- FIGURE 0.2: FISHBONE DIAGRAM SVG -->
-          <div class="figure-container">
+          <figure class="figure-container">
             <svg id="fig02-svg" viewBox="0 0 1200 600" style="max-width: 100%; height: auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
               <!-- Background -->
               <rect width="1200" height="600" fill="var(--surface-2)" rx="8" stroke="var(--border)" stroke-width="1.5"/>
@@ -1428,11 +1438,11 @@
                 <text class="en" x="850" y="500" fill="var(--ink)" font-size="8.5" font-weight="600" text-anchor="end">GDBN Clustering Escapes to Customer RMA</text>
               </g>
             </svg>
-            <div class="figure-caption">
+            <figcaption class="figure-caption">
               <span class="zh">圖 0.2：半導體良率損失與潛在缺陷根因全景因果魚骨圖 (6M1E 完整架構)</span>
               <span class="en">Figure 0.2: Semiconductor Low-Yield Root Cause Ishikawa Fishbone Taxonomy (6M1E Master Architecture)</span>
-            </div>
-          </div>
+            </figcaption>
+          </figure>
 
           <!-- 6M1E DETAILED MAPPING TABLE -->
           <div class="table-container">
@@ -1554,7 +1564,7 @@
             </p>
 
             <!-- FIGURE 0.3: BIDIRECTIONAL CONTROL ARCHITECTURE SVG -->
-            <div class="figure-container" style="margin:25px 0;">
+            <figure class="figure-container" style="margin:25px 0;">
               <svg id="fig03-svg" viewBox="0 0 1060 480" style="max-width:100%; height:auto; font-family:var(--font-mono, monospace);" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                   <marker id="arr-ff" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
@@ -1700,11 +1710,11 @@
                 <text class="zh" x="990" y="150" fill="#4ade80" font-size="9" font-weight="700" text-anchor="middle">受控清潔複測</text>
                 <text class="en" x="990" y="150" fill="#4ade80" font-size="8.5" font-weight="700" text-anchor="middle">Clean &amp; Controlled Retest</text>
               </svg>
-              <div class="figure-caption">
+              <figcaption class="figure-caption">
                 <span class="zh">圖 0.3: 半導體跨工序雙向閉環前饋（藍色）與反饋（紅色）工程控制架構圖（含綠色關鍵重工救回迴路）</span>
                 <span class="en">Figure 0.3: Cross-stage bidirectional feedforward (blue) and feedback (red) quality engineering architecture with green rework loops.</span>
-              </div>
-            </div>
+              </figcaption>
+            </figure>
 
             <!-- INTERACTIVE TOP 10 FALLOUT SIMULATOR -->
             <div class="tool-card" style="margin:25px 0;">
@@ -1723,7 +1733,7 @@
                 <label style="font-weight:700; font-size:13px; font-family:var(--font-mono);">
                   <span class="zh">選擇失效模式：</span><span class="en">Select Fallout Mode:</span>
                 </label>
-                <select id="selFalloutMode" class="ctrl-input" style="min-width:320px; font-weight:600;" onchange="updateFalloutSimulator()">
+                <select id="selFalloutMode" class="ctrl-input" style="min-width:min(320px, 100%); max-width:100%; font-weight:600;" onchange="updateFalloutSimulator()">
                   <option value="1">1. 閘極氧化層經時擊穿 (TDDB) 與接面超額漏電</option>
                   <option value="2">2. 後段金屬層短路橋接與 CMP 殘留/凹陷 (Puddling)</option>
                   <option value="3">3. 微影散焦、線寬細頸與接觸孔開路 (Via Open)</option>
@@ -1738,7 +1748,7 @@
               </div>
 
               <!-- SIMULATOR DISPLAY PANELS -->
-              <div style="margin-top:20px; display:grid; grid-template-columns:repeat(auto-fit, minmax(310px, 1fr)); gap:15px;">
+              <div style="margin-top:20px; display:grid; grid-template-columns:repeat(auto-fit, minmax(min(310px, 100%), 1fr)); gap:15px;">
                 <!-- Card 1: PoF & Stage -->
                 <div style="background:var(--surface-1); border:1px solid var(--border); border-radius:6px; padding:14px;">
                   <div style="font-family:var(--font-mono); font-size:11px; color:var(--accent); font-weight:700; text-transform:uppercase;">
@@ -4291,7 +4301,7 @@
             </p>
 
             <!-- 3 METRIC BOXES -->
-            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:12px; margin-top:14px;">
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(280px, 100%), 1fr)); gap:12px; margin-top:14px;">
               <div style="background:var(--surface-2); border:1px solid var(--border); border-radius:6px; padding:12px;">
                 <div style="font-weight:700; color:var(--ink); font-size:13px; margin-bottom:6px;">
                   <span class="zh">指標 1：%GRR（相對於總變異）</span>
@@ -4803,7 +4813,7 @@
             </p>
 
             <!-- 4 DIMENSIONS GRID -->
-            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:12px; margin-top:12px;">
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(280px, 100%), 1fr)); gap:12px; margin-top:12px;">
               <div style="background:var(--surface-2); border-radius:6px; padding:12px; border:1px solid var(--border);">
                 <div style="font-weight:700; color:var(--ink); font-size:12.5px; margin-bottom:4px;">
                   <span class="zh">1. 幾何步進映射與 Modulo 簽名 (Touchdown Mapping)</span>
@@ -4907,7 +4917,7 @@
                 </span>
               </p>
 
-              <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:12px; margin:12px 0;">
+              <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(280px, 100%), 1fr)); gap:12px; margin:12px 0;">
                 <div style="background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:12px;">
                   <div style="font-weight:700; color:var(--warn); font-size:12px; margin-bottom:4px;">
                     <span class="zh">1. 幾何長力臂傾角放大 (Lever Arm Tilt Amplification)</span>
@@ -6011,7 +6021,7 @@
               </span>
             </div>
             <!-- VISUAL 4-TIER HIERARCHICAL CARDS -->
-            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(210px, 1fr)); gap:12px; margin-top:12px;">
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(210px, 100%), 1fr)); gap:12px; margin-top:12px;">
               <div style="background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--warn); border-radius:6px; padding:10px 12px;">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
                   <b style="color:var(--warn); font-size:12px;">\(\sigma^2_{\text{L2L}}\) Lot-to-Lot</b>
@@ -6488,13 +6498,13 @@
           </div>
 
           <!-- FIGURE 4.1 SVG -->
-          <div class="figure-container">
+          <figure class="figure-container">
             <!--GEN:fig41--><svg id="fig41-svg" viewBox="0 0 1000 520" style="width:100%; height:auto; font-family:var(--font-mono);" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Process corners and shmoo"><rect x="6" y="6" width="482" height="508" rx="10" fill="var(--surface)" stroke="var(--border)"/><rect x="500" y="6" width="494" height="508" rx="10" fill="var(--surface)" stroke="var(--border)"/><text class="zh" x="24" y="34" font-size="14" font-weight="700" fill="var(--accent)">A. 製程角落電氣空間 (Ion,N × Ion,P)</text><text class="en" x="24" y="34" font-size="14" font-weight="700" fill="var(--accent)">A. Process-Corner Space (Ion,N × Ion,P)</text><text class="zh" x="24" y="52" font-size="10.5" fill="var(--ink-soft)">批次散佈點與功能良率邊界</text><text class="en" x="24" y="52" font-size="10.5" fill="var(--ink-soft)">Lot scatter vs. functional yield boundaries</text><g transform="translate(96,78)"><path d="M230,0 L360,0 L360,130 Z" fill="var(--danger)" fill-opacity="0.14"/><line x1="230" y1="0" x2="360" y2="130" stroke="var(--danger)" stroke-width="2" stroke-dasharray="5,4"/><path d="M0,230 L130,360 L0,360 Z" fill="var(--accent)" fill-opacity="0.14"/><line x1="0" y1="230" x2="130" y2="360" stroke="var(--accent)" stroke-width="2" stroke-dasharray="5,4"/><line x1="60" y1="0" x2="60" y2="360" stroke="var(--border)" stroke-dasharray="3,3"/><line x1="0" y1="300" x2="360" y2="300" stroke="var(--border)" stroke-dasharray="3,3"/><text x="60" y="376" text-anchor="middle" font-size="10" fill="var(--ink-faint)">−3σ</text><text x="-8" y="304" text-anchor="end" font-size="10" fill="var(--ink-faint)">−3σ</text><line x1="180" y1="0" x2="180" y2="360" stroke="var(--border)" stroke-dasharray="3,3"/><line x1="0" y1="180" x2="360" y2="180" stroke="var(--border)" stroke-dasharray="3,3"/><text x="180" y="376" text-anchor="middle" font-size="10" fill="var(--ink-faint)">TT</text><text x="-8" y="184" text-anchor="end" font-size="10" fill="var(--ink-faint)">TT</text><line x1="300" y1="0" x2="300" y2="360" stroke="var(--border)" stroke-dasharray="3,3"/><line x1="0" y1="60" x2="360" y2="60" stroke="var(--border)" stroke-dasharray="3,3"/><text x="300" y="376" text-anchor="middle" font-size="10" fill="var(--ink-faint)">+3σ</text><text x="-8" y="64" text-anchor="end" font-size="10" fill="var(--ink-faint)">+3σ</text><line x1="0" y1="360" x2="360" y2="360" stroke="var(--ink-soft)" stroke-width="1.8"/><line x1="0" y1="0" x2="0" y2="360" stroke="var(--ink-soft)" stroke-width="1.8"/><text class="zh" x="180" y="396" text-anchor="middle" font-size="11.5" font-weight="600" fill="var(--ink)">NMOS 驅動電流 Ion,N ➔</text><text class="en" x="180" y="396" text-anchor="middle" font-size="11.5" font-weight="600" fill="var(--ink)">NMOS drive current Ion,N ➔</text><text class="zh" x="-46" y="180" text-anchor="middle" font-size="11.5" font-weight="600" fill="var(--ink)" transform="rotate(-90 -46 180)">PMOS 驅動電流 Ion,P ➔</text><text class="en" x="-46" y="180" text-anchor="middle" font-size="11.5" font-weight="600" fill="var(--ink)" transform="rotate(-90 -46 180)">PMOS drive current Ion,P ➔</text><rect x="40" y="40" width="280" height="280" rx="12" fill="var(--good)" fill-opacity="0.06" stroke="var(--good)" stroke-width="1.8" stroke-dasharray="7,4"/><text class="zh" x="180" y="312" text-anchor="middle" font-size="10.5" font-weight="700" fill="var(--good)">良率規格窗 (±3σ Spec)</text><text class="en" x="180" y="312" text-anchor="middle" font-size="10.5" font-weight="700" fill="var(--good)">Spec envelope (±3σ)</text><ellipse cx="180" cy="180" rx="34" ry="24" fill="var(--good)" fill-opacity="0.16" stroke="var(--good)" stroke-width="1.8"/><text x="180" y="185" text-anchor="middle" font-size="13" font-weight="700" fill="var(--good)">TT</text><ellipse cx="290" cy="70" rx="34" ry="24" fill="var(--danger)" fill-opacity="0.16" stroke="var(--danger)" stroke-width="1.8"/><text x="290" y="75" text-anchor="middle" font-size="13" font-weight="700" fill="var(--danger)">FF</text><ellipse cx="70" cy="290" rx="34" ry="24" fill="var(--accent)" fill-opacity="0.16" stroke="var(--accent)" stroke-width="1.8"/><text x="70" y="295" text-anchor="middle" font-size="13" font-weight="700" fill="var(--accent)">SS</text><ellipse cx="70" cy="70" rx="34" ry="24" fill="#0d9488" fill-opacity="0.16" stroke="#0d9488" stroke-width="1.8"/><text x="70" y="75" text-anchor="middle" font-size="13" font-weight="700" fill="#0d9488">SF</text><ellipse cx="290" cy="290" rx="34" ry="24" fill="#9333ea" fill-opacity="0.16" stroke="#9333ea" stroke-width="1.8"/><text x="290" y="295" text-anchor="middle" font-size="13" font-weight="700" fill="#9333ea">FS</text><circle cx="184.6" cy="239.1" r="3" fill="var(--good)" fill-opacity="0.85"/><circle cx="130.1" cy="141.2" r="3" fill="var(--good)" fill-opacity="0.85"/><circle cx="240.1" cy="197.5" r="3" fill="var(--good)" fill-opacity="0.85"/><circle cx="169.9" cy="191" r="3" fill="var(--good)" fill-opacity="0.85"/><circle cx="241.4" cy="205.8" r="3" fill="var(--good)" fill-opacity="0.85"/><circle cx="229" cy="172.3" r="3" fill="var(--good)" fill-opacity="0.85"/><circle cx="131.8" cy="193.7" r="3" fill="var(--good)" fill-opacity="0.85"/><circle cx="132.5" cy="146.5" r="3" fill="var(--good)" fill-opacity="0.85"/><circle cx="188.2" cy="140.6" r="3" fill="var(--good)" fill-opacity="0.85"/><circle cx="117.9" cy="189.3" r="3" fill="var(--good)" fill-opacity="0.85"/><circle cx="149.3" cy="212.7" r="3" fill="var(--good)" fill-opacity="0.85"/><circle cx="229.5" cy="209.3" r="3" fill="var(--good)" fill-opacity="0.85"/><circle cx="200.6" cy="148" r="3" fill="var(--good)" fill-opacity="0.85"/><circle cx="209.2" cy="235.4" r="3" fill="var(--good)" fill-opacity="0.85"/><circle cx="213.1" cy="209" r="3" fill="var(--good)" fill-opacity="0.85"/><circle cx="158.4" cy="185.5" r="3" fill="var(--good)" fill-opacity="0.85"/><circle cx="220.6" cy="212.1" r="3" fill="var(--good)" fill-opacity="0.85"/><circle cx="182.8" cy="162.2" r="3" fill="var(--good)" fill-opacity="0.85"/><circle cx="128.3" cy="143.3" r="3" fill="var(--good)" fill-opacity="0.85"/><circle cx="174.8" cy="227.4" r="3" fill="var(--good)" fill-opacity="0.85"/><circle cx="157.1" cy="207.7" r="3" fill="var(--good)" fill-opacity="0.85"/><circle cx="122.6" cy="175.9" r="3" fill="var(--good)" fill-opacity="0.85"/><circle cx="170.1" cy="202.9" r="3" fill="var(--good)" fill-opacity="0.85"/><circle cx="217.9" cy="145.1" r="3" fill="var(--good)" fill-opacity="0.85"/><circle cx="130.6" cy="222.6" r="3" fill="var(--good)" fill-opacity="0.85"/><circle cx="151.4" cy="182.5" r="3" fill="var(--good)" fill-opacity="0.85"/><circle cx="262" cy="112" r="3.6" fill="var(--warn)"/><circle cx="118" cy="250" r="3.6" fill="var(--warn)"/><circle cx="254" cy="248" r="3.6" fill="var(--warn)"/><circle cx="112" cy="118" r="3.6" fill="var(--warn)"/><circle cx="338" cy="48" r="4" fill="var(--danger)" stroke="var(--surface)"/><circle cx="22" cy="332" r="4" fill="var(--danger)" stroke="var(--surface)"/><circle cx="326" cy="30" r="4" fill="var(--danger)" stroke="var(--surface)"/><text class="zh" x="356" y="16" text-anchor="end" font-size="10.5" font-weight="700" fill="var(--danger)">漏電 / Hold 違規</text><text class="en" x="356" y="16" text-anchor="end" font-size="10.5" font-weight="700" fill="var(--danger)">Leakage / Hold fail</text><text class="zh" x="6" y="352" font-size="10.5" font-weight="700" fill="var(--accent)">速度 / Setup 違規</text><text class="en" x="6" y="352" font-size="10.5" font-weight="700" fill="var(--accent)">Speed / Setup fail</text><text class="zh" x="8" y="16" font-size="10" fill="#0d9488" font-weight="600">SF：PMOS 偏強 → DCD 失真</text><text class="en" x="8" y="16" font-size="10" fill="#0d9488" font-weight="600">SF: PMOS strong → DCD</text><text class="zh" x="356" y="352" text-anchor="end" font-size="10" fill="#9333ea" font-weight="600">FS：NMOS 偏強 → 眼圖偏斜</text><text class="en" x="356" y="352" text-anchor="end" font-size="10" fill="#9333ea" font-weight="600">FS: NMOS strong → eye skew</text></g><circle cx="120" cy="498" r="4" fill="var(--good)"/><text class="zh" x="129" y="502" font-size="10.5" fill="var(--ink-soft)">合格批</text><text class="en" x="129" y="502" font-size="10.5" fill="var(--ink-soft)">Pass lot</text><circle cx="230" cy="498" r="4" fill="var(--warn)"/><text class="zh" x="239" y="502" font-size="10.5" fill="var(--ink-soft)">邊際批</text><text class="en" x="239" y="502" font-size="10.5" fill="var(--ink-soft)">Marginal</text><circle cx="340" cy="498" r="4" fill="var(--danger)"/><text class="zh" x="349" y="502" font-size="10.5" fill="var(--ink-soft)">失效批</text><text class="en" x="349" y="502" font-size="10.5" fill="var(--ink-soft)">Fail lot</text><text class="zh" x="518" y="34" font-size="14" font-weight="700" fill="var(--accent)">B. Shmoo 電壓-頻率通過圖 (Vdd × Freq)</text><text class="en" x="518" y="34" font-size="14" font-weight="700" fill="var(--accent)">B. Shmoo Plot: Vdd × Frequency Pass/Fail</text><text class="zh" x="518" y="52" font-size="10.5" fill="var(--ink-soft)">格點 = TT 樣品實測；曲線 = SS / FF 角落邊界</text><text class="en" x="518" y="52" font-size="10.5" fill="var(--ink-soft)">Cells = TT part measured; lines = SS / FF corner edges</text><path d="M581 389h28v22h-28zM611 389h28v22h-28zM611 365h28v22h-28zM641 389h28v22h-28zM641 365h28v22h-28zM641 341h28v22h-28zM671 389h28v22h-28zM671 365h28v22h-28zM671 341h28v22h-28zM671 317h28v22h-28zM671 293h28v22h-28zM701 389h28v22h-28zM701 365h28v22h-28zM701 341h28v22h-28zM701 317h28v22h-28zM701 293h28v22h-28zM701 269h28v22h-28zM731 389h28v22h-28zM731 365h28v22h-28zM731 341h28v22h-28zM731 317h28v22h-28zM731 293h28v22h-28zM731 269h28v22h-28zM731 245h28v22h-28zM761 389h28v22h-28zM761 365h28v22h-28zM761 341h28v22h-28zM761 317h28v22h-28zM761 293h28v22h-28zM761 269h28v22h-28zM761 245h28v22h-28zM761 221h28v22h-28zM791 389h28v22h-28zM791 365h28v22h-28zM791 341h28v22h-28zM791 317h28v22h-28zM791 293h28v22h-28zM791 269h28v22h-28zM791 245h28v22h-28zM791 221h28v22h-28zM791 197h28v22h-28zM791 173h28v22h-28zM821 389h28v22h-28zM821 365h28v22h-28zM821 341h28v22h-28zM821 317h28v22h-28zM821 293h28v22h-28zM821 269h28v22h-28zM821 245h28v22h-28zM821 221h28v22h-28zM821 197h28v22h-28zM821 173h28v22h-28zM821 149h28v22h-28zM851 389h28v22h-28zM851 365h28v22h-28zM851 341h28v22h-28zM851 317h28v22h-28zM851 293h28v22h-28zM851 269h28v22h-28zM851 245h28v22h-28zM851 221h28v22h-28zM851 197h28v22h-28zM851 173h28v22h-28zM851 149h28v22h-28zM851 125h28v22h-28zM881 389h28v22h-28zM881 365h28v22h-28zM881 341h28v22h-28zM881 317h28v22h-28zM881 293h28v22h-28zM881 269h28v22h-28zM881 245h28v22h-28zM881 221h28v22h-28zM881 197h28v22h-28zM881 173h28v22h-28zM881 149h28v22h-28zM881 125h28v22h-28zM881 101h28v22h-28z" fill="var(--good)" fill-opacity="0.45"/><path d="M581 365h28v22h-28zM581 341h28v22h-28zM581 317h28v22h-28zM581 293h28v22h-28zM581 269h28v22h-28zM581 245h28v22h-28zM581 221h28v22h-28zM581 197h28v22h-28zM581 173h28v22h-28zM581 149h28v22h-28zM581 125h28v22h-28zM581 101h28v22h-28zM581 77h28v22h-28zM611 341h28v22h-28zM611 317h28v22h-28zM611 293h28v22h-28zM611 269h28v22h-28zM611 245h28v22h-28zM611 221h28v22h-28zM611 197h28v22h-28zM611 173h28v22h-28zM611 149h28v22h-28zM611 125h28v22h-28zM611 101h28v22h-28zM611 77h28v22h-28zM641 317h28v22h-28zM641 293h28v22h-28zM641 269h28v22h-28zM641 245h28v22h-28zM641 221h28v22h-28zM641 197h28v22h-28zM641 173h28v22h-28zM641 149h28v22h-28zM641 125h28v22h-28zM641 101h28v22h-28zM641 77h28v22h-28zM671 269h28v22h-28zM671 245h28v22h-28zM671 221h28v22h-28zM671 197h28v22h-28zM671 173h28v22h-28zM671 149h28v22h-28zM671 125h28v22h-28zM671 101h28v22h-28zM671 77h28v22h-28zM701 245h28v22h-28zM701 221h28v22h-28zM701 197h28v22h-28zM701 173h28v22h-28zM701 149h28v22h-28zM701 125h28v22h-28zM701 101h28v22h-28zM701 77h28v22h-28zM731 221h28v22h-28zM731 197h28v22h-28zM731 173h28v22h-28zM731 149h28v22h-28zM731 125h28v22h-28zM731 101h28v22h-28zM731 77h28v22h-28zM761 197h28v22h-28zM761 173h28v22h-28zM761 149h28v22h-28zM761 125h28v22h-28zM761 101h28v22h-28zM761 77h28v22h-28zM791 149h28v22h-28zM791 125h28v22h-28zM791 101h28v22h-28zM791 77h28v22h-28zM821 125h28v22h-28zM821 101h28v22h-28zM821 77h28v22h-28zM851 101h28v22h-28zM851 77h28v22h-28zM881 77h28v22h-28zM911 389h28v22h-28zM911 365h28v22h-28zM911 341h28v22h-28zM911 317h28v22h-28zM911 293h28v22h-28zM911 269h28v22h-28zM911 245h28v22h-28zM911 221h28v22h-28zM911 197h28v22h-28zM911 173h28v22h-28zM911 149h28v22h-28zM911 125h28v22h-28zM911 101h28v22h-28zM911 77h28v22h-28z" fill="var(--danger)" fill-opacity="0.16"/><polyline points="625,407.9 631,402.7 637,397.5 643,392.3 649,387.1 655,382 661,376.8 667,371.6 673,366.4 679,361.2 685,356 691,350.8 697,345.7 703,340.5 709,335.3 715,330.1 721,324.9 727,319.7 733,314.6 739,309.4 745,304.2 751,299 757,293.8 763,288.6 769,283.5 775,278.3 781,273.1 787,267.9 793,262.7 799,257.5 805,252.4 811,247.2 817,242 823,236.8 829,231.6 835,226.4 841,221.2 847,216.1 853,210.9 859,205.7 865,200.5 871,195.3 877,190.1 883,185 889,179.8 895,174.6 901,169.4 907,164.2 913,159 919,153.9 925,148.7" fill="none" stroke="var(--accent)" stroke-width="2.6"/><polyline points="595,341.4 601,334.7 607,328 613,321.3 619,314.6 625,307.8 631,301.1 637,294.4 643,287.7 649,281 655,274.2 661,267.5 667,260.8 673,254.1 679,247.4 685,240.6 691,233.9 697,227.2 703,220.5 709,213.8 715,207 721,200.3 727,193.6 733,186.9 739,180.2 745,173.4 751,166.7 757,160 763,153.3 769,146.6 775,139.8 781,133.1 787,126.4 793,119.7 799,113 805,106.2 811,99.5 817,92.8 823,86.1 829,79.4" fill="none" stroke="var(--danger)" stroke-width="2.6"/><line x1="880" y1="76" x2="880" y2="412" stroke="var(--danger)" stroke-width="2" stroke-dasharray="6,4"/><line x1="580" y1="188.8" x2="940" y2="188.8" stroke="var(--warn)" stroke-width="2" stroke-dasharray="6,3"/><text x="586" y="182.8" font-size="10.5" font-weight="700" fill="var(--warn)">Ftarget = 3.2 GHz</text><circle cx="731.3" cy="188.8" r="5" fill="var(--danger)" stroke="var(--surface)" stroke-width="1.5"/><circle cx="796.7" cy="188.8" r="5" fill="var(--good)" stroke="var(--surface)" stroke-width="1.5"/><circle cx="878.6" cy="188.8" r="5" fill="var(--accent)" stroke="var(--surface)" stroke-width="1.5"/><rect x="580" y="76" width="360" height="336" fill="none" stroke="var(--ink-soft)" stroke-width="1.5"/><text x="595" y="427" text-anchor="middle" font-size="9.5" fill="var(--ink-faint)">0.60</text><text x="655" y="427" text-anchor="middle" font-size="9.5" fill="var(--ink-faint)">0.70</text><text x="715" y="427" text-anchor="middle" font-size="9.5" fill="var(--ink-faint)">0.80</text><text x="775" y="427" text-anchor="middle" font-size="9.5" fill="var(--ink-faint)">0.90</text><text x="835" y="427" text-anchor="middle" font-size="9.5" fill="var(--ink-faint)">1.00</text><text x="895" y="427" text-anchor="middle" font-size="9.5" fill="var(--ink-faint)">1.10</text><text x="574" y="404" text-anchor="end" font-size="9.5" fill="var(--ink-faint)">1.0</text><text x="574" y="356" text-anchor="end" font-size="9.5" fill="var(--ink-faint)">1.5</text><text x="574" y="308" text-anchor="end" font-size="9.5" fill="var(--ink-faint)">2.0</text><text x="574" y="260" text-anchor="end" font-size="9.5" fill="var(--ink-faint)">2.5</text><text x="574" y="212" text-anchor="end" font-size="9.5" fill="var(--ink-faint)">3.0</text><text x="574" y="164" text-anchor="end" font-size="9.5" fill="var(--ink-faint)">3.5</text><text x="574" y="116" text-anchor="end" font-size="9.5" fill="var(--ink-faint)">4.0</text><text class="zh" x="760" y="446" text-anchor="middle" font-size="11.5" font-weight="600" fill="var(--ink)">核心電壓 Vdd (V) ➔</text><text class="en" x="760" y="446" text-anchor="middle" font-size="11.5" font-weight="600" fill="var(--ink)">Core voltage Vdd (V) ➔</text><text class="zh" x="536" y="244" text-anchor="middle" font-size="11.5" font-weight="600" fill="var(--ink)" transform="rotate(-90 536 244)">頻率 (GHz) ➔</text><text class="en" x="536" y="244" text-anchor="middle" font-size="11.5" font-weight="600" fill="var(--ink)" transform="rotate(-90 536 244)">Frequency (GHz) ➔</text><rect x="588" y="84" width="150" height="62" rx="5" fill="var(--surface)" fill-opacity="0.92" stroke="var(--border)"/><text class="zh" x="596" y="102" font-size="10.5" font-weight="700" fill="var(--danger)">— FF 邊界 (快)</text><text class="en" x="596" y="102" font-size="10.5" font-weight="700" fill="var(--danger)">— FF edge (fast)</text><text class="zh" x="596" y="118" font-size="10.5" font-weight="700" fill="var(--accent)">— SS 邊界 (慢)</text><text class="en" x="596" y="118" font-size="10.5" font-weight="700" fill="var(--accent)">— SS edge (slow)</text><text class="zh" x="596" y="134" font-size="10.5" font-weight="700" fill="var(--good)">■ TT 實測通過格</text><text class="en" x="596" y="134" font-size="10.5" font-weight="700" fill="var(--good)">■ TT measured pass</text><text class="zh" x="518" y="470" font-size="10.5" fill="var(--accent)" font-weight="600">SS：達 3.2 GHz 需 Vmin ≈ 1.07 V → 低壓 CP/FT 大量 Fail</text><text class="en" x="518" y="470" font-size="10.5" fill="var(--accent)" font-weight="600">SS: needs Vmin ≈ 1.07 V for 3.2 GHz → low-V CP/FT fails</text><text class="zh" x="518" y="488" font-size="10.5" fill="var(--danger)" font-weight="600">FF：0.83 V 即達標，但 &gt; 1.075 V 漏電熱失控 (Iddq)</text><text class="en" x="518" y="488" font-size="10.5" fill="var(--danger)" font-weight="600">FF: meets target at 0.83 V, but &gt; 1.075 V leakage runaway</text><text class="zh" x="518" y="506" font-size="10.5" fill="var(--good)" font-weight="600">TT：Vmin ≈ 0.94 V，電壓裕度最寬</text><text class="en" x="518" y="506" font-size="10.5" fill="var(--good)" font-weight="600">TT: Vmin ≈ 0.94 V, widest voltage margin</text></svg><!--/GEN:fig41-->
-            <div class="figure-caption">
+            <figcaption class="figure-caption">
               <span class="zh">圖 4.1：五大製程角落 (Process Corners: TT/FF/SS/FS/SF) 雙變數散佈等高線與電壓-頻率 (Shmoo) 良率邊界行為分析</span>
               <span class="en">Figure 4.1: Bivariate Scatter Contours of Five Process Corners (TT/FF/SS/FS/SF) & Shmoo Operating Yield Margins</span>
-            </div>
-          </div>
+            </figcaption>
+          </figure>
 
           <!-- 4.3 LOT DEPENDENCY -->
           <h3>
@@ -6541,13 +6551,13 @@
           </div>
 
           <!-- FIGURE 4.2 SVG -->
-          <div class="figure-container">
+          <figure class="figure-container">
             <!--GEN:fig42--><svg id="fig42-svg" viewBox="0 0 1000 470" style="width:100%; height:auto; font-family:var(--font-mono);" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Nested ANOVA and APC sawtooth"><rect x="6" y="6" width="472" height="458" rx="10" fill="var(--surface)" stroke="var(--border)"/><rect x="490" y="6" width="504" height="458" rx="10" fill="var(--surface)" stroke="var(--border)"/><text class="zh" x="24" y="34" font-size="14" font-weight="700" fill="var(--accent)">A. 巢狀變異數分解 (Nested ANOVA)</text><text class="en" x="24" y="34" font-size="14" font-weight="700" fill="var(--accent)">A. Nested ANOVA Variance Decomposition</text><text x="24" y="54" font-size="11" fill="var(--ink-soft)">σ²total = σ²L2L + σ²W2W + σ²WIW + σ²WID</text><rect x="24" y="72" width="194.2" height="34" rx="4" fill="var(--danger)" fill-opacity="0.85"/><text x="122.1" y="87" text-anchor="middle" font-size="10.5" font-weight="700" fill="#fff">L2L</text><text x="122.1" y="100" text-anchor="middle" font-size="10" fill="#fff">45%</text><rect x="220.2" y="72" width="93.9" height="34" rx="4" fill="var(--warn)" fill-opacity="0.85"/><text x="268.2" y="87" text-anchor="middle" font-size="10.5" font-weight="700" fill="#fff">W2W</text><text x="268.2" y="100" text-anchor="middle" font-size="10" fill="#fff">22%</text><rect x="316.1" y="72" width="85.2" height="34" rx="4" fill="var(--accent)" fill-opacity="0.85"/><text x="359.7" y="87" text-anchor="middle" font-size="10.5" font-weight="700" fill="#fff">WIW</text><text x="359.7" y="100" text-anchor="middle" font-size="10" fill="#fff">20%</text><rect x="403.3" y="72" width="54.7" height="34" rx="4" fill="#9333ea" fill-opacity="0.85"/><text x="431.7" y="87" text-anchor="middle" font-size="10.5" font-weight="700" fill="#fff">WID</text><text x="431.7" y="100" text-anchor="middle" font-size="10" fill="#fff">13%</text><rect x="24" y="124" width="436" height="72" rx="8" fill="var(--danger)" fill-opacity="0.07" stroke="var(--danger)" stroke-width="1.3"/><rect x="24" y="124" width="6" height="72" rx="3" fill="var(--danger)"/><text class="zh" x="42" y="144" font-size="12" font-weight="700" fill="var(--danger)">1. 批次間 Lot-to-Lot</text><text class="en" x="42" y="144" font-size="12" font-weight="700" fill="var(--danger)">1. Lot-to-Lot</text><text x="448" y="144" text-anchor="end" font-size="12" font-weight="700" fill="var(--danger)">σ²L2L ≈ 45%</text><text class="zh" x="42" y="164" font-size="10.5" fill="var(--ink-soft)">PM 週期、化學品/靶材批號、矽錠梯度</text><text class="en" x="42" y="164" font-size="10.5" fill="var(--ink-soft)">PM cycle, chemical/target lot, ingot gradient</text><text class="zh" x="42" y="182" font-size="10.5" fill="var(--ink)" font-weight="600">對策：R2R APC、耗材批號 ANOVA</text><text class="en" x="42" y="182" font-size="10.5" fill="var(--ink)" font-weight="600">Fix: R2R APC, consumable-lot ANOVA</text><rect x="24" y="206" width="436" height="72" rx="8" fill="var(--warn)" fill-opacity="0.07" stroke="var(--warn)" stroke-width="1.3"/><rect x="24" y="206" width="6" height="72" rx="3" fill="var(--warn)"/><text class="zh" x="42" y="226" font-size="12" font-weight="700" fill="var(--warn)">2. 片間 Wafer-to-Wafer</text><text class="en" x="42" y="226" font-size="12" font-weight="700" fill="var(--warn)">2. Wafer-to-Wafer</text><text x="448" y="226" text-anchor="end" font-size="12" font-weight="700" fill="var(--warn)">σ²W2W ≈ 22%</text><text class="zh" x="42" y="246" font-size="10.5" fill="var(--ink-soft)">爐管晶舟氣流耗盡、腔體首片熱暫態</text><text class="en" x="42" y="246" font-size="10.5" fill="var(--ink-soft)">Boat gas depletion, first-wafer thermal transient</text><text class="zh" x="42" y="264" font-size="10.5" fill="var(--ink)" font-weight="600">對策：Slot 補償、多區溫控</text><text class="en" x="42" y="264" font-size="10.5" fill="var(--ink)" font-weight="600">Fix: slot compensation, multi-zone heat</text><rect x="24" y="288" width="436" height="72" rx="8" fill="var(--accent)" fill-opacity="0.07" stroke="var(--accent)" stroke-width="1.3"/><rect x="24" y="288" width="6" height="72" rx="3" fill="var(--accent)"/><text class="zh" x="42" y="308" font-size="12" font-weight="700" fill="var(--accent)">3. 片內 Within-Wafer</text><text class="en" x="42" y="308" font-size="12" font-weight="700" fill="var(--accent)">3. Within-Wafer</text><text x="448" y="308" text-anchor="end" font-size="12" font-weight="700" fill="var(--accent)">σ²WIW ≈ 20%</text><text class="zh" x="42" y="328" font-size="10.5" fill="var(--ink-soft)">Focus Ring 侵蝕、CMP 邊緣、RTA 邊緣熱損</text><text class="en" x="42" y="328" font-size="10.5" fill="var(--ink-soft)">Focus-ring erosion, CMP edge, RTA edge loss</text><text class="zh" x="42" y="346" font-size="10.5" fill="var(--ink)" font-weight="600">對策：多區 Showerhead / 背壓</text><text class="en" x="42" y="346" font-size="10.5" fill="var(--ink)" font-weight="600">Fix: multi-zone showerhead / back-pressure</text><rect x="24" y="370" width="436" height="72" rx="8" fill="#9333ea" fill-opacity="0.07" stroke="#9333ea" stroke-width="1.3"/><rect x="24" y="370" width="6" height="72" rx="3" fill="#9333ea"/><text class="zh" x="42" y="390" font-size="12" font-weight="700" fill="#9333ea">4. 晶粒內 Within-Die (OCV)</text><text class="en" x="42" y="390" font-size="12" font-weight="700" fill="#9333ea">4. Within-Die (OCV)</text><text x="448" y="390" text-anchor="end" font-size="12" font-weight="700" fill="#9333ea">σ²WID ≈ 13%</text><text class="zh" x="42" y="410" font-size="10.5" fill="var(--ink-soft)">OPC 殘差、RDF、LER、金屬 Dishing</text><text class="en" x="42" y="410" font-size="10.5" fill="var(--ink-soft)">OPC residual, RDF, LER, metal dishing</text><text class="zh" x="42" y="428" font-size="10.5" fill="var(--ink)" font-weight="600">對策：OPC/RDR、SSTA 時序裕度</text><text class="en" x="42" y="428" font-size="10.5" fill="var(--ink)" font-weight="600">Fix: OPC/RDR, SSTA timing margin</text><text class="zh" x="508" y="34" font-size="14" font-weight="700" fill="var(--accent)">B. PM 鋸齒漂移 vs. dEWMA APC 閉環</text><text class="en" x="508" y="34" font-size="14" font-weight="700" fill="var(--accent)">B. PM Sawtooth Drift vs. dEWMA APC Loop</text><text class="zh" x="508" y="54" font-size="10.5" fill="var(--ink-soft)">同一腔體兩個 PM 週期的 CD 量測 (每點 = 1 批)</text><text class="en" x="508" y="54" font-size="10.5" fill="var(--ink-soft)">CD per lot over two PM cycles on the same chamber</text><line x1="568" y1="118.9" x2="938" y2="118.9" stroke="var(--danger)" stroke-width="1.4" stroke-dasharray="5,4"/><text x="942" y="122.9" font-size="9.5" fill="var(--danger)">USL +3σ</text><line x1="568" y1="226" x2="938" y2="226" stroke="var(--good)" stroke-width="1.4" stroke-dasharray="2,3"/><text x="942" y="230" font-size="9.5" fill="var(--good)">Target</text><line x1="568" y1="333.1" x2="938" y2="333.1" stroke="var(--danger)" stroke-width="1.4" stroke-dasharray="5,4"/><text x="942" y="337.1" font-size="9.5" fill="var(--danger)">LSL −3σ</text><line x1="753" y1="76" x2="753" y2="376" stroke="var(--ink-faint)" stroke-width="1.5" stroke-dasharray="2,3"/><text x="753" y="391" text-anchor="middle" font-size="9.5" fill="var(--ink-faint)">Wet-Clean PM</text><polyline points="574,357.8 581.6,353.1 589.2,328.5 596.9,302.3 604.5,296.7 612.1,303.1 619.7,272 627.3,286.5 634.9,259.9 642.6,260 650.2,249.4 657.8,230.2 665.4,218.6 673,205.7 680.6,221.1 688.3,197.6 695.9,189 703.5,194.1 711.1,155.4 718.7,154.8 726.3,160.3 734,115.9 741.6,94.4 749.2,90" fill="none" stroke="var(--danger)" stroke-width="2.2"/><polyline points="756.8,357 764.4,339.2 772,322 779.7,302.2 787.3,322.1 794.9,285.3 802.5,285.6 810.1,287.3 817.7,259.4 825.4,263.5 833,239.4 840.6,244.4 848.2,235.2 855.8,224.6 863.4,201.2 871.1,202.5 878.7,185.8 886.3,160.6 893.9,172.7 901.5,148.6 909.1,129.5 916.8,123.9 924.4,114.1 932,79.6" fill="none" stroke="var(--danger)" stroke-width="2.2"/><polyline points="574,236.4 581.6,235.9 589.2,214.3 596.9,201.5 604.5,218.1 612.1,241.2 619.7,215.3 627.3,247 634.9,221.7 642.6,233.9 650.2,229.3 657.8,217.5 665.4,219.3 673,220 680.6,249.7 688.3,225.1 695.9,225.3 703.5,239.2 711.1,201.9 718.7,221.1 726.3,239.5 734,198.6 741.6,201.1 749.2,223.4 756.8,235.6 764.4,222.6 772,215.8 779.7,210.7 787.3,249.6 794.9,212.8 802.5,229.7 810.1,240.7 817.7,215.6 825.4,234 833,215.6 840.6,235.3 848.2,231.5 855.8,227 863.4,211.4 871.1,228.8 878.7,220.9 886.3,208.4 893.9,240.8 901.5,221.9 909.1,216.2 916.8,227.7 924.4,230.1 932,201.7" fill="none" stroke="var(--good)" stroke-width="2.4"/><circle cx="574" cy="357.8" r="3.5" fill="var(--danger)" stroke="var(--surface)"/><circle cx="581.6" cy="353.1" r="3.5" fill="var(--danger)" stroke="var(--surface)"/><circle cx="734" cy="115.9" r="3.5" fill="var(--danger)" stroke="var(--surface)"/><circle cx="741.6" cy="94.4" r="3.5" fill="var(--danger)" stroke="var(--surface)"/><circle cx="749.2" cy="90" r="3.5" fill="var(--danger)" stroke="var(--surface)"/><circle cx="756.8" cy="357" r="3.5" fill="var(--danger)" stroke="var(--surface)"/><circle cx="764.4" cy="339.2" r="3.5" fill="var(--danger)" stroke="var(--surface)"/><circle cx="924.4" cy="114.1" r="3.5" fill="var(--danger)" stroke="var(--surface)"/><circle cx="932" cy="79.6" r="3.5" fill="var(--danger)" stroke="var(--surface)"/><rect x="568" y="76" width="370" height="300" fill="none" stroke="var(--ink-soft)" stroke-width="1.5"/><text class="zh" x="753" y="410" text-anchor="middle" font-size="11.5" font-weight="600" fill="var(--ink)">加工批次序 (Lot sequence) ➔</text><text class="en" x="753" y="410" text-anchor="middle" font-size="11.5" font-weight="600" fill="var(--ink)">Lot sequence ➔</text><text class="zh" x="546" y="226" text-anchor="middle" font-size="11.5" font-weight="600" fill="var(--ink)" transform="rotate(-90 546 226)">閘極 CD 偏差 (σ)</text><text class="en" x="546" y="226" text-anchor="middle" font-size="11.5" font-weight="600" fill="var(--ink)" transform="rotate(-90 546 226)">Gate CD offset (σ)</text><text class="zh" x="578" y="354.6" font-size="10" fill="var(--danger)" font-weight="600">① PM 後初批偏低 (未季化)</text><text class="en" x="578" y="354.6" font-size="10" fill="var(--danger)" font-weight="600">① Post-PM first lots low (unseasoned)</text><text class="zh" x="578" y="92.1" font-size="10" fill="var(--danger)" font-weight="600">② 壽限末期上衝出 USL</text><text class="en" x="578" y="92.1" font-size="10" fill="var(--danger)" font-weight="600">② End-of-life overshoot &gt; USL</text><line x1="520" y1="436" x2="544" y2="436" stroke="var(--danger)" stroke-width="2.5"/><text class="zh" x="550" y="440" font-size="10.5" fill="var(--ink-soft)">無 APC：鋸齒漂移 (OOC)</text><text class="en" x="550" y="440" font-size="10.5" fill="var(--ink-soft)">No APC: sawtooth (OOC)</text><line x1="740" y1="436" x2="764" y2="436" stroke="var(--good)" stroke-width="2.5"/><text class="zh" x="770" y="440" font-size="10.5" fill="var(--ink-soft)">dEWMA APC 閉環</text><text class="en" x="770" y="440" font-size="10.5" fill="var(--ink-soft)">dEWMA APC loop</text></svg><!--/GEN:fig42-->
-            <div class="figure-caption">
+            <figcaption class="figure-caption">
               <span class="zh">圖 4.2：晶圓製程變異階層分解模型 (Nested ANOVA) 與機台保養週期鋸齒狀漂移 (Sawtooth Drift) vs. APC 控制效能對比</span>
               <span class="en">Figure 4.2: Hierarchical Variation Decomposition (Nested ANOVA) & Chamber Seasoning Sawtooth Cycle vs. APC Mitigation</span>
-            </div>
-          </div>
+            </figcaption>
+          </figure>
 
           <!-- 4.4 APC CONTROL LOOPS -->
           <h3>
@@ -7453,7 +7463,7 @@
           </div>
 
           <!-- FIGURE 5.3 SVG -->
-          <div class="figure-container">
+          <figure class="figure-container">
             <svg viewBox="0 0 1000 520" style="max-width: 100%; height: auto; font-family: var(--font-mono, monospace);">
               <rect width="1000" height="520" fill="var(--surface-2)" rx="8" stroke="var(--border)" stroke-width="1.5"/>
 
@@ -7619,11 +7629,11 @@
                 </g>
               </g>
             </svg>
-            <div class="figure-caption">
+            <figcaption class="figure-caption">
               <span class="zh">圖 5.3：封裝工程認證 (Package Qual) 5 大微觀失效物理機理與晶片-封裝交互作用 (CPI) 應力傳遞圖</span>
               <span class="en">Figure 5.3: Package Qualification Microscopic Failure Mechanisms, Chip-Package Interaction (CPI) &amp; Reliability Excursions</span>
-            </div>
-          </div>
+            </figcaption>
+          </figure>
 
         </div>
       </section>
@@ -8256,7 +8266,7 @@
           </p>
 
           <!-- FIGURE 6.1: PFA ANALYTICAL LADDER -->
-          <div class="figure-container">
+          <figure class="figure-container">
             <svg id="fig61-svg" viewBox="0 0 960 270" style="width:100%; height:auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;" xmlns="http://www.w3.org/2000/svg">
               <defs>
                 <filter id="pfaShadow" x="-5%" y="-10%" width="110%" height="130%">
@@ -8363,11 +8373,11 @@
                 </text>
               </g>
             </svg>
-            <div class="figure-caption">
-              <span class="zh">圖 6.1：半導體 PFA 實體失效分析標準實驗室檢驗階梯全景圖</span>
-              <span class="en">Figure 6.1: Semiconductor Physical Failure Analysis (PFA) Analytical Hierarchy Workflow</span>
-            </div>
-          </div>
+            <figcaption class="figure-caption">
+              <span class="zh">圖 7.1：半導體 PFA 實體失效分析標準實驗室檢驗階梯全景圖</span>
+              <span class="en">Figure 7.1: Semiconductor Physical Failure Analysis (PFA) Analytical Hierarchy Workflow</span>
+            </figcaption>
+          </figure>
 
           <div class="data-table-wrap">
             <table class="data-table">
@@ -8518,7 +8528,7 @@
           </p>
 
           <!-- FIGURE 6.2: 6 CANONICAL PHYSICAL DEFECT SCHEMATICS -->
-          <div class="figure-container">
+          <figure class="figure-container">
             <svg id="fig62-svg" viewBox="0 0 960 480" style="width:100%; height:auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;" xmlns="http://www.w3.org/2000/svg">
               <defs>
                 <pattern id="diagHatch" width="8" height="8" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
@@ -8682,11 +8692,11 @@
 
               </g>
             </svg>
-            <div class="figure-caption">
-              <span class="zh">圖 6.2：6 大經典實體物理缺陷微觀截面圖與雙束 FIB 原位切片示意圖</span>
-              <span class="en">Figure 6.2: Microscopic Cross-Sectional Schematics of 6 Canonical Physical Defects &amp; Dual-Beam FIB Lift-Out</span>
-            </div>
-          </div>
+            <figcaption class="figure-caption">
+              <span class="zh">圖 7.2：6 大經典實體物理缺陷微觀截面圖與雙束 FIB 原位切片示意圖</span>
+              <span class="en">Figure 7.2: Microscopic Cross-Sectional Schematics of 6 Canonical Physical Defects &amp; Dual-Beam FIB Lift-Out</span>
+            </figcaption>
+          </figure>
 
           <div class="data-table-wrap">
             <table class="data-table">
