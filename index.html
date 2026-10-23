@@ -3884,6 +3884,207 @@
               </tbody>
             </table>
           </div>
+
+          <!-- 0.3 YIELD METRIC HIERARCHY -->
+          <h3>
+            <span class="zh">0.3 良率指標階層：FPY、Final Yield、RTY 與 GDPW</span>
+            <span class="en">0.3 Yield Metric Hierarchy: FPY, Final Yield, RTY &amp; GDPW</span>
+          </h3>
+          <p>
+            <span class="zh">
+              同一批晶圓在不同部門報表中可能出現 5 個不同的「良率」數字。開會前先確認大家講的是哪一個，否則 Fab、測試廠與封裝廠會為了不同定義爭論一整個下午。完整出貨良率是各段良率的連乘積：
+            </span>
+            <span class="en">
+              The same lot can show five different "yield" numbers in five different reports. Agree on which one is being discussed before any review, otherwise fab, test and assembly will argue about definitions instead of root cause. Composite shipment yield is the product of every stage:
+            </span>
+          </p>
+
+          <div class="formula">
+            \[ Y_{composite} = Y_{line} \times Y_{CP} \times Y_{assy} \times Y_{FT}, \qquad RTY = \prod_{i=1}^{n} FPY_i, \qquad GDPW = N_{gross} \times Y_{CP} \]
+          </div>
+
+          <div class="data-table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th><span class="zh">指標</span><span class="en">Metric</span></th>
+                  <th><span class="zh">定義</span><span class="en">Definition</span></th>
+                  <th><span class="zh">工程用途與判讀陷阱</span><span class="en">Engineering Use &amp; Pitfall</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b>FPY</b><br><span class="zh">首次通過良率</span><span class="en">First-Pass Yield</span></td>
+                  <td>
+                    <span class="zh">第一次插入測試即通過的比例，不含任何重測。</span>
+                    <span class="en">Fraction passing on the first test insertion, with no retest.</span>
+                  </td>
+                  <td>
+                    <span class="zh">反映矽本質品質，<b>良率分析一律以 FPY 為準</b>。</span>
+                    <span class="en">Reflects intrinsic silicon quality. <b>Always use FPY for yield analysis.</b></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>Final Yield</b><br><span class="zh">最終良率</span><span class="en">Final Yield</span></td>
+                  <td>
+                    <span class="zh">包含重測救回後的通過比例。</span>
+                    <span class="en">Pass fraction after retest recovery.</span>
+                  </td>
+                  <td>
+                    <span class="zh">用於出貨與財務規劃；但會掩蓋接觸不良等假異常。</span>
+                    <span class="en">Used for shipments and finance, but it hides contact and test artifacts.</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>Retest Recovery</b><br><span class="zh">重測救回率</span><span class="en">Retest Recovery Rate</span></td>
+                  <td>
+                    <span class="zh">重測後轉為 Pass 的晶粒數 ÷ 重測晶粒數。</span>
+                    <span class="en">Dies passing on retest ÷ dies retested.</span>
+                  </td>
+                  <td>
+                    <span class="zh">真實的矽缺陷重測後幾乎不會恢復。救回率異常偏高時，優先懷疑探針卡、Socket 接觸或測試程式邊限（見 Phase 3），不要先查製程。</span>
+                    <span class="en">Real silicon defects rarely recover on retest. An unusually high recovery rate points first to probe card, socket contact or test-program margin (see Phase 3), not to the fab.</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>RTY</b><br><span class="zh">累積直通率</span><span class="en">Rolled Throughput Yield</span></td>
+                  <td>
+                    <span class="zh">各工序 FPY 的連乘積。</span>
+                    <span class="en">Product of the FPY at every step.</span>
+                  </td>
+                  <td>
+                    <span class="zh">揭露隱藏工廠（Hidden Factory）：重工、重測所耗費的產能與成本。</span>
+                    <span class="en">Exposes the "hidden factory": capacity and cost spent on rework and retest.</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>GDPW</b><br><span class="zh">每片良品晶粒數</span><span class="en">Good Die Per Wafer</span></td>
+                  <td>
+                    <span class="zh">單片晶圓的總晶粒數 × 晶粒良率。</span>
+                    <span class="en">Gross die per wafer × die yield.</span>
+                  </td>
+                  <td>
+                    <span class="zh">跨產品比較時比百分比更公平：大晶粒產品良率百分比天生較低，但這不代表製程比較差。</span>
+                    <span class="en">Fairer than a percentage across products: large dies always show lower percentage yield, which does not mean a worse process.</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- 0.4 LOSS WATERFALL -->
+          <h3>
+            <span class="zh">0.4 良率損失瀑布圖與基線設定</span>
+            <span class="en">0.4 Yield Loss Waterfall &amp; Baseline Setting</span>
+          </h3>
+          <p>
+            <span class="zh">
+              將總損失依類別拆成瀑布圖，可以一眼看出哪一塊最值得投入工程資源。注意圖中的「測試假異常損失」：這部分完全不需要修改晶圓製程就能救回，通常是投資報酬率最高的改善項目。
+            </span>
+            <span class="en">
+              Breaking total loss into a waterfall shows at a glance where engineering effort pays off most. Note the "test-artifact loss" bar: it can be recovered without touching the fab process at all, and is usually the highest-return item.
+            </span>
+          </p>
+
+          <figure>
+            <svg id="fig04-svg" viewBox="0 0 960 345" style="width:100%; height:auto; font-family:var(--font-mono);" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Yield loss waterfall chart">
+              <g fill="var(--ink)">
+                <g stroke="var(--border)" stroke-width="1"><line x1="90" y1="50" x2="920" y2="50"/><line x1="90" y1="110" x2="920" y2="110"/><line x1="90" y1="170" x2="920" y2="170"/><line x1="90" y1="230" x2="920" y2="230"/><line x1="90" y1="290" x2="920" y2="290" stroke="var(--ink-soft)"/></g>
+                <g font-size="12" fill="var(--ink-soft)" text-anchor="end"><text x="82" y="54">100%</text><text x="82" y="114">95%</text><text x="82" y="174">90%</text><text x="82" y="234">85%</text><text x="82" y="294">80%</text></g>
+                <text class="zh" x="90" y="24" font-size="12" fill="var(--ink-soft)">（縱軸自 80% 起，以放大損失差異；數值為示意範例）</text>
+                <text class="en" x="90" y="24" font-size="12" fill="var(--ink-soft)">(Axis starts at 80% to magnify the losses; values are an illustrative example)</text>
+                <g stroke="var(--ink-faint)" stroke-width="1" stroke-dasharray="4,3"><line x1="170" y1="50.0" x2="205" y2="50.0"/><line x1="275" y1="64.4" x2="310" y2="64.4"/><line x1="380" y1="116.0" x2="415" y2="116.0"/><line x1="485" y1="147.2" x2="520" y2="147.2"/><line x1="590" y1="168.8" x2="625" y2="168.8"/><line x1="695" y1="186.8" x2="730" y2="186.8"/><line x1="800" y1="206.0" x2="835" y2="206.0"/></g>
+                <rect x="100" y="50" width="70" height="240" fill="var(--accent)" opacity="0.85" rx="2"/>
+                <text x="135.0" y="44" text-anchor="middle" font-size="13" font-weight="700">100.0</text>
+                <text class="zh" x="135.0" y="310" text-anchor="middle" font-size="12">總晶粒潛力</text><text class="en" x="135.0" y="310" text-anchor="middle" font-size="12">Gross die</text>
+                <rect x="205" y="50.0" width="70" height="14.4" fill="var(--danger)" opacity="0.85" rx="2"/>
+                <text x="240.0" y="80.4" text−anchor="middle" font−size="13" font−weight="700" fill="var(−−danger)">−1.2</text>
+                <text class="zh" x="240.0" y="310" text-anchor="middle" font-size="12">線良率</text><text class="en" x="240.0" y="310" text-anchor="middle" font-size="12">Line loss</text>
+                <text class="zh" x="240.0" y="326" text-anchor="middle" font-size="10.5" fill="var(--ink-soft)">破片、報廢</text><text class="en" x="240.0" y="326" text-anchor="middle" font-size="10.5" fill="var(--ink-soft)">breakage, scrap</text>
+                <rect x="310" y="64.4" width="70" height="51.6" fill="var(--danger)" opacity="0.85" rx="2"/>
+                <text x="345.0" y="132.0" text−anchor="middle" font−size="13" font−weight="700" fill="var(−−danger)">−4.3</text>
+                <text class="zh" x="345.0" y="310" text-anchor="middle" font-size="12">隨機缺陷</text><text class="en" x="345.0" y="310" text-anchor="middle" font-size="12">Random</text>
+                <text class="zh" x="345.0" y="326" text-anchor="middle" font-size="10.5" fill="var(--ink-soft)">微粒 Poisson</text><text class="en" x="345.0" y="326" text-anchor="middle" font-size="10.5" fill="var(--ink-soft)">particles</text>
+                <rect x="415" y="116.0" width="70" height="31.2" fill="var(--warn)" opacity="0.85" rx="2"/>
+                <text x="450.0" y="163.2" text−anchor="middle" font−size="13" font−weight="700" fill="var(−−warn)">−2.6</text>
+                <text class="zh" x="450.0" y="310" text-anchor="middle" font-size="12">系統性</text><text class="en" x="450.0" y="310" text-anchor="middle" font-size="12">Systematic</text>
+                <text class="zh" x="450.0" y="326" text-anchor="middle" font-size="10.5" fill="var(--ink-soft)">邊緣環、重複項</text><text class="en" x="450.0" y="326" text-anchor="middle" font-size="10.5" fill="var(--ink-soft)">edge ring, repeater</text>
+                <rect x="520" y="147.2" width="70" height="21.6" fill="var(--warn)" opacity="0.85" rx="2"/>
+                <text x="555.0" y="184.8" text−anchor="middle" font−size="13" font−weight="700" fill="var(−−warn)">−1.8</text>
+                <text class="zh" x="555.0" y="310" text-anchor="middle" font-size="12">參數邊限</text><text class="en" x="555.0" y="310" text-anchor="middle" font-size="12">Parametric</text>
+                <text class="zh" x="555.0" y="326" text-anchor="middle" font-size="10.5" fill="var(--ink-soft)">Vth、Fmax</text><text class="en" x="555.0" y="326" text-anchor="middle" font-size="10.5" fill="var(--ink-soft)">Vth, Fmax</text>
+                <rect x="625" y="168.8" width="70" height="18.0" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2" stroke-dasharray="5,3" rx="2"/>
+                <text x="660.0" y="202.8" text−anchor="middle" font−size="13" font−weight="700" fill="var(−−accent)">−1.5</text>
+                <text class="zh" x="660.0" y="310" text-anchor="middle" font-size="12">測試假異常</text><text class="en" x="660.0" y="310" text-anchor="middle" font-size="12">Test artifact</text>
+                <text class="zh" x="660.0" y="326" text-anchor="middle" font-size="10.5" fill="var(--ink-soft)">免改製程可救回</text><text class="en" x="660.0" y="326" text-anchor="middle" font-size="10.5" fill="var(--ink-soft)">no fab change</text>
+                <rect x="730" y="186.8" width="70" height="19.2" fill="var(--danger)" opacity="0.85" rx="2"/>
+                <text x="765.0" y="222.0" text−anchor="middle" font−size="13" font−weight="700" fill="var(−−danger)">−1.6</text>
+                <text class="zh" x="765.0" y="310" text-anchor="middle" font-size="12">封裝與 FT</text><text class="en" x="765.0" y="310" text-anchor="middle" font-size="12">Assy + FT</text>
+                <text class="zh" x="765.0" y="326" text-anchor="middle" font-size="10.5" fill="var(--ink-soft)">打線、Socket</text><text class="en" x="765.0" y="326" text-anchor="middle" font-size="10.5" fill="var(--ink-soft)">wirebond, socket</text>
+                <rect x="835" y="206.0" width="70" height="84.0" fill="var(--good)" opacity="0.85" rx="2"/>
+                <text x="870.0" y="200.0" text-anchor="middle" font-size="13" font-weight="700" fill="var(--good)">87.0</text>
+                <text class="zh" x="870.0" y="310" text-anchor="middle" font-size="12">出貨良率</text><text class="en" x="870.0" y="310" text-anchor="middle" font-size="12">Shipped</text>
+              </g>
+            </svg>
+            <figcaption>
+              <span class="zh">圖 0.4：良率損失瀑布圖：由總晶粒潛力逐項扣除至出貨良率（示意範例）</span>
+              <span class="en">Figure 0.4: Yield loss waterfall from gross die potential to shipped yield (illustrative example)</span>
+            </figcaption>
+          </figure>
+
+          <div class="callout">
+            <div class="callout-title">
+              <span>📏</span>
+              <span class="zh">基線（Baseline）怎麼定才不會誤判</span>
+              <span class="en">Setting a baseline that does not mislead</span>
+            </div>
+            <ul>
+              <li>
+                <span class="zh">以最近 4–8 週的<b>中位數</b>作為基線，並剔除已確認的異常批，避免少數災難批把基線拉低。</span>
+                <span class="en">Use the <b>median</b> of the last 4–8 weeks and exclude confirmed excursion lots, so a few disaster lots do not drag the baseline down.</span>
+              </li>
+              <li>
+                <span class="zh">異常觸發條件要<b>依 Bin 設定</b>，不只看總良率：兩個 Bin 一升一降時，總良率可能完全不變，但其實已經發生兩個問題。</span>
+                <span class="en">Set excursion triggers <b>per bin</b>, not only on total yield: when one bin rises and another falls, total yield can stay flat while two real problems are developing.</span>
+              </li>
+              <li>
+                <span class="zh">常用觸發規則：批良率 &lt; 基線 − 3σ<sub>lot</sub>，或任一 Bin 失效率 &gt; 該 Bin 基線 + 3σ。σ 須以「批與批之間」的變異計算，而非單批內晶粒變異。</span>
+                <span class="en">A common trigger: lot yield &lt; baseline − 3σ<sub>lot</sub>, or any bin's fail rate &gt; that bin's baseline + 3σ. Compute σ from lot-to-lot variation, not from die-to-die variation inside a lot.</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- 0.5 COST OF YIELD -->
+          <h3>
+            <span class="zh">0.5 良率的經濟價值：1% 良率值多少錢？</span>
+            <span class="en">0.5 The Economics of Yield: What Is 1% Worth?</span>
+          </h3>
+          <p>
+            <span class="zh">
+              良率專案要爭取資源（機台時間、FA 實驗室排程、改版費用），必須把良率換算成金額。以下兩個公式是與管理層溝通最直接的工具：
+            </span>
+            <span class="en">
+              A yield project competes for resources (tool time, FA lab slots, mask revisions), so translate yield into money. These two formulas are the most direct way to talk to management:
+            </span>
+          </p>
+
+          <div class="formula">
+            \[ \Delta Revenue_{month} = W_{month} \times N_{gross} \times \Delta Y \times ASP, \qquad Cost_{good\,die} = \frac{Cost_{wafer}}{N_{gross} \times Y} \]
+          </div>
+
+          <div class="callout good">
+            <div class="callout-title">
+              <span>💰</span>
+              <span class="zh">計算範例</span>
+              <span class="en">Worked example</span>
+            </div>
+            <span class="zh">
+              每月投片 10,000 片、每片 500 顆總晶粒、晶片均價（ASP）US$8：良率每提升 1%，每月增加 10,000 × 500 × 1% × $8 = <b>US$400,000</b> 營收（每年約 US$4.8M）。若晶圓成本為 US$5,000，良率由 90% 提升至 91%，單顆良品成本由 $11.11 降至 $10.99。
+            </span>
+            <span class="en">
+              10,000 wafers per month, 500 gross die per wafer and an average selling price (ASP) of US$8: every 1% of yield adds 10,000 × 500 × 1% × $8 = <b>US$400,000</b> of revenue per month (about US$4.8M per year). At a wafer cost of US$5,000, raising yield from 90% to 91% cuts the cost per good die from $11.11 to $10.99.
+            </span>
+          </div>
         </div>
       </section>
 
@@ -3964,6 +4165,302 @@
                 </tr>
               </tbody>
             </table>
+          </div>
+
+          <figure>
+            <svg id="fig11-svg" viewBox="0 0 960 330" style="width:100%; height:auto; font-family:var(--font-mono);" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cross-stage data lineage from fab to field">
+              <defs>
+                <marker id="arr-p1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M 0 1 L 9 5 L 0 9 z" fill="var(--ink-soft)"/>
+                </marker>
+              </defs>
+              <g fill="var(--ink)">
+                <!-- feeds into YMS (drawn first, behind) -->
+                <g stroke="var(--ink-faint)" stroke-width="1" stroke-dasharray="3,4" fill="none">
+                  <path d="M 78 110 L 78 125 L 380 262"/>
+                  <path d="M 212 110 L 212 125 L 420 262"/>
+                  <path d="M 346 110 L 346 125 L 450 262"/>
+                  <path d="M 480 110 L 480 262"/>
+                  <path d="M 614 110 L 614 125 L 510 262"/>
+                  <path d="M 748 110 L 748 125 L 540 262"/>
+                  <path d="M 882 110 L 882 125 L 580 262"/>
+                </g>
+
+                <!-- stage boxes: x = 19 + i*134, w=118 -->
+                <g stroke="var(--border)" stroke-width="1.5">
+                  <rect x="19" y="40" width="118" height="70" rx="6" fill="var(--surface-2)"/>
+                  <rect x="153" y="40" width="118" height="70" rx="6" fill="var(--surface-2)"/>
+                  <rect x="287" y="40" width="118" height="70" rx="6" fill="var(--surface-2)"/>
+                  <rect x="421" y="40" width="118" height="70" rx="6" fill="var(--accent-soft)" stroke="var(--accent)"/>
+                  <rect x="555" y="40" width="118" height="70" rx="6" fill="var(--surface-2)"/>
+                  <rect x="689" y="40" width="118" height="70" rx="6" fill="var(--accent-soft)" stroke="var(--accent)"/>
+                  <rect x="823" y="40" width="118" height="70" rx="6" fill="var(--danger-soft)" stroke="var(--danger)"/>
+                </g>
+                <g stroke="var(--ink-soft)" stroke-width="1.5" marker-end="url(#arr-p1)">
+                  <line x1="137" y1="75" x2="151" y2="75"/>
+                  <line x1="271" y1="75" x2="285" y2="75"/>
+                  <line x1="405" y1="75" x2="419" y2="75"/>
+                  <line x1="539" y1="75" x2="553" y2="75"/>
+                  <line x1="673" y1="75" x2="687" y2="75"/>
+                  <line x1="807" y1="75" x2="821" y2="75"/>
+                </g>
+                <g font-size="13" font-weight="700" text-anchor="middle">
+                  <text x="78" y="66">FAB</text>
+                  <text class="zh" x="212" y="66">線上缺陷</text><text class="en" x="212" y="66">Inline Defect</text>
+                  <text x="346" y="66">WAT / PCM</text>
+                  <text x="480" y="66">CP Sort</text>
+                  <text class="zh" x="614" y="66">封裝</text><text class="en" x="614" y="66">Assembly</text>
+                  <text x="748" y="66">FT / SLT</text>
+                  <text class="zh" x="882" y="66">客戶 / 客訴</text><text class="en" x="882" y="66">Field / RMA</text>
+                </g>
+                <g font-size="11" text-anchor="middle" fill="var(--ink-soft)">
+                  <text x="78" y="88">MES · FDC</text>
+                  <text x="212" y="88">KLARF</text>
+                  <text x="346" y="88">WAT DB</text>
+                  <text x="480" y="88">STDF V4</text>
+                  <text x="614" y="88">SEMI E142</text>
+                  <text x="748" y="88">STDF V4</text>
+                  <text x="882" y="88">8D · FA</text>
+                </g>
+
+                <!-- key ribbons -->
+                <rect x="19" y="132" width="520" height="22" rx="11" fill="var(--accent)" opacity="0.9"/>
+                <text class="zh" x="279" y="147" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--surface)">Lot ID + Wafer ID（晶圓雷射刻號）</text>
+                <text class="en" x="279" y="147" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--surface)">Lot ID + Wafer ID (laser scribe)</text>
+                <rect x="153" y="162" width="654" height="22" rx="11" fill="var(--warn)" opacity="0.9"/>
+                <text class="zh" x="480" y="177" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--surface)">晶粒座標 Die X/Y → 燒入 ECID（晶片電子身分證）</text>
+                <text class="en" x="480" y="177" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--surface)">Die X/Y coordinates → fused into ECID</text>
+                <rect x="689" y="192" width="252" height="22" rx="11" fill="var(--danger)" opacity="0.85"/>
+                <text class="zh" x="815" y="207" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--surface)">ECID / 成品序號</text>
+                <text class="en" x="815" y="207" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--surface)">ECID / unit serial</text>
+
+                <!-- YMS -->
+                <rect x="330" y="262" width="300" height="48" rx="8" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>
+                <text class="zh" x="480" y="283" text-anchor="middle" font-size="13" font-weight="700" fill="var(--accent)">YMS 良率資料倉儲</text>
+                <text class="en" x="480" y="283" text-anchor="middle" font-size="13" font-weight="700" fill="var(--accent)">YMS Yield Data Warehouse</text>
+                <text class="zh" x="480" y="300" text-anchor="middle" font-size="10.5" fill="var(--ink-soft)">以 Wafer ID + X/Y 為主鍵，全段資料合併</text>
+                <text class="en" x="480" y="300" text-anchor="middle" font-size="10.5" fill="var(--ink-soft)">all stages joined on Wafer ID + X/Y</text>
+                <text class="zh" x="19" y="24" font-size="12" fill="var(--ink-soft)">彩帶 = 該段資料可互相串接所用的鍵值</text>
+                <text class="en" x="19" y="24" font-size="12" fill="var(--ink-soft)">Ribbons = the key that joins data across those stages</text>
+              </g>
+            </svg>
+            <figcaption>
+              <span class="zh">圖 1.1：跨站資料血緣圖：每一段交接靠哪個鍵值串起來</span>
+              <span class="en">Figure 1.1: Cross-stage data lineage and the key that links each hand-off</span>
+            </figcaption>
+          </figure>
+
+          <!-- 1.1 JOIN KEYS & GENEALOGY -->
+          <h3>
+            <span class="zh">1.1 串接鍵值與批次族譜：每一段交接最常斷在哪裡</span>
+            <span class="en">1.1 Join Keys &amp; Genealogy: Where Each Hand-off Usually Breaks</span>
+          </h3>
+          <p>
+            <span class="zh">
+              跨站分析失敗，十之八九不是統計方法錯，而是資料根本沒有對上。下表列出每一段交接的鍵值、最常見的斷鏈原因與對策：
+            </span>
+            <span class="en">
+              When cross-stage analysis fails, the statistics are rarely the problem; the data simply did not join. The table lists the key at each hand-off, the most common way it breaks, and the fix:
+            </span>
+          </p>
+
+          <div class="data-table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th><span class="zh">交接段</span><span class="en">Hand-off</span></th>
+                  <th><span class="zh">鍵值</span><span class="en">Key Fields</span></th>
+                  <th><span class="zh">常見斷鏈原因</span><span class="en">Typical Break</span></th>
+                  <th><span class="zh">對策</span><span class="en">Mitigation</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b>Fab → WAT / CP</b></td>
+                  <td><code>Lot_ID, Wafer_ID, Slot</code></td>
+                  <td>
+                    <span class="zh">測試廠重新命名批號；分批／合批後產生子批號（如 A1234.1），原始批號遺失。</span>
+                    <span class="en">The test house renames lots; split and merge create child lots (e.g. A1234.1) and the parent lot is lost.</span>
+                  </td>
+                  <td>
+                    <span class="zh">以晶圓雷射刻號（Laser Scribe ID，OCR 讀取）串接，而非批號名稱；維護母批→子批族譜表。</span>
+                    <span class="en">Join on the wafer laser-scribe ID (read by OCR), not the lot name; keep a parent→child genealogy table.</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b><span class="zh">晶圓 → 晶粒</span><span class="en">Wafer → Die</span></b></td>
+                  <td><code>Die_X, Die_Y, Reticle_Shot, Probe_Site</code></td>
+                  <td>
+                    <span class="zh">線上檢測（KLARF，μm 座標、Notch 朝下）與 CP（晶粒索引座標、平邊朝向）的原點與軸向不同；重測產生重複記錄。</span>
+                    <span class="en">Inline inspection (KLARF, µm coordinates, notch down) and sort (die-index coordinates, flat orientation) use different origins and axis directions; retest creates duplicate records.</span>
+                  </td>
+                  <td>
+                    <span class="zh">全廠統一一個參考方位（Notch 位置）與座標轉換表；每筆記錄保留 First-pass / Final-pass 旗標。</span>
+                    <span class="en">Define one reference orientation (notch position) and one coordinate transform for the whole site; keep first-pass and final-pass flags on every record.</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b><span class="zh">晶粒 → 封裝成品</span><span class="en">Die → Package</span></b></td>
+                  <td><code>ECID, Substrate/Strip Map (SEMI E142)</code></td>
+                  <td>
+                    <span class="zh">部分產品未燒錄 ECID 或 FT 讀取失敗；挑片時電子晶圓圖（E-map）與實際取片不一致。</span>
+                    <span class="en">Some products have no ECID fuses, or the read fails at FT; the electronic wafer map used for die pick does not match what was actually picked.</span>
+                  </td>
+                  <td>
+                    <span class="zh">在 FT 監控 ECID 讀取率（目標 ≥ 99.9%）；封裝出站時核對取片圖與 CP 晶圓圖。</span>
+                    <span class="en">Monitor the ECID read rate at FT (target ≥ 99.9%); reconcile the pick map against the CP wafer map at assembly out.</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b><span class="zh">成品 → 客戶系統</span><span class="en">Unit → System</span></b></td>
+                  <td><code>Unit_Serial, 2D Data Matrix, Customer_SN</code></td>
+                  <td>
+                    <span class="zh">客訴退回品缺少序號或標籤已磨損。</span>
+                    <span class="en">Returned units arrive without a serial number, or the mark is worn off.</span>
+                  </td>
+                  <td>
+                    <span class="zh">確保客戶端可透過 JTAG / 測試模式讀出 ECID，不依賴外觀標記（見 Phase 8.1）。</span>
+                    <span class="en">Make sure the ECID can be read through JTAG or a test mode at the customer, without relying on the package mark (see Phase 8.1).</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b><span class="zh">時間與機台</span><span class="en">Time &amp; Equipment</span></b></td>
+                  <td><code>Timestamp, Tool_ID, Chamber_ID, Recipe</code></td>
+                  <td>
+                    <span class="zh">各系統時鐘未同步；MES 只記錄機台而未記錄 Chamber，導致共模分析失準。</span>
+                    <span class="en">System clocks are not synchronized; MES logs the tool but not the chamber, so commonality analysis points at the wrong level.</span>
+                  </td>
+                  <td>
+                    <span class="zh">全廠 NTP 時間同步；MES 強制記錄到 Chamber 層級。</span>
+                    <span class="en">Site-wide NTP time sync; make MES log down to chamber level.</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- 1.2 STDF -->
+          <h3>
+            <span class="zh">1.2 STDF V4 測試資料格式速查</span>
+            <span class="en">1.2 STDF V4 Test Data Format Primer</span>
+          </h3>
+          <p>
+            <span class="zh">
+              STDF（Standard Test Data Format）是 ATE 測試機的業界通用二進位格式，CP 與 FT 都使用。良率分析最常用到的記錄如下：
+            </span>
+            <span class="en">
+              STDF (Standard Test Data Format) is the industry-standard binary format written by ATE testers at both CP and FT. These are the records yield analysis uses most:
+            </span>
+          </p>
+
+          <div class="data-table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th><span class="zh">記錄</span><span class="en">Record</span></th>
+                  <th><span class="zh">內容</span><span class="en">Contents</span></th>
+                  <th><span class="zh">良率分析用途</span><span class="en">Yield Use</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b>MIR / MRR</b></td>
+                  <td>
+                    <span class="zh">主資訊／主結果：批號、產品型號、測試機台、測試程式版本、開始與結束時間。</span>
+                    <span class="en">Master information / results: lot ID, part type, tester, test program revision, start and finish time.</span>
+                  </td>
+                  <td>
+                    <span class="zh">切換測試程式版本前後的良率對照。</span>
+                    <span class="en">Compare yield before and after a test-program revision.</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>WIR / WRR</b></td>
+                  <td>
+                    <span class="zh">晶圓資訊／結果：Wafer ID、該片測試與通過的晶粒數。</span>
+                    <span class="en">Wafer information / results: wafer ID, parts tested and passed on that wafer.</span>
+                  </td>
+                  <td>
+                    <span class="zh">片良率趨勢、Slot 效應。</span>
+                    <span class="en">Wafer yield trends, slot effects.</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>PIR / PRR</b></td>
+                  <td>
+                    <span class="zh">每顆晶粒的測試開始／結果：Site 編號、X/Y 座標、Hard Bin、Soft Bin、重測旗標。</span>
+                    <span class="en">Per-part start / result: site number, X/Y coordinates, hard bin, soft bin, retest flag.</span>
+                  </td>
+                  <td>
+                    <span class="zh">晶圓圖、Bin 分佈、多站點平衡分析（Phase 3）。</span>
+                    <span class="en">Wafer maps, bin Paretos, multi-site balance (Phase 3).</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>PTR / MPR</b></td>
+                  <td>
+                    <span class="zh">參數測試結果：測試編號、量測值、上下限、單位（MPR 為多值版本）。</span>
+                    <span class="en">Parametric test results: test number, measured value, limits, units (MPR holds multiple results).</span>
+                  </td>
+                  <td>
+                    <span class="zh">Cpk、PAT 動態限值、參數飄移（Phase 6）。</span>
+                    <span class="en">Cpk, dynamic PAT limits, parametric drift (Phase 6).</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>FTR</b></td>
+                  <td>
+                    <span class="zh">功能測試結果：失效向量、失效腳位。</span>
+                    <span class="en">Functional test results: failing vector, failing pins.</span>
+                  </td>
+                  <td>
+                    <span class="zh">Scan 診斷與失效定位（Phase 6.3、Phase 7）。</span>
+                    <span class="en">Scan diagnosis and fault localization (Phase 6.3, Phase 7).</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>HBR / SBR / PCR</b></td>
+                  <td>
+                    <span class="zh">Hard Bin、Soft Bin 與數量摘要。</span>
+                    <span class="en">Hard-bin, soft-bin and part-count summaries.</span>
+                  </td>
+                  <td>
+                    <span class="zh">快速 Bin Pareto；須與 PRR 逐顆加總結果核對。</span>
+                    <span class="en">Quick bin Paretos; check them against the per-part PRR totals.</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="callout warn">
+            <div class="callout-title">
+              <span>⚠️</span>
+              <span class="zh">資料品質檢查清單：分析前先跑一遍</span>
+              <span class="en">Data quality checklist: run it before any analysis</span>
+            </div>
+            <ul>
+              <li>
+                <span class="zh"><b>座標方位</b>：把 KLARF 缺陷圖與 CP 晶圓圖疊在一起，邊緣環是否落在同一位置？</span>
+                <span class="en"><b>Orientation</b>: overlay the KLARF defect map on the CP wafer map. Does the edge ring land in the same place?</span>
+              </li>
+              <li>
+                <span class="zh"><b>重複晶粒</b>：同一 Wafer ID + X/Y 是否出現多筆記錄？分析時只取 First-pass。</span>
+                <span class="en"><b>Duplicate dies</b>: does any Wafer ID + X/Y appear more than once? Use first-pass records only.</span>
+              </li>
+              <li>
+                <span class="zh"><b>缺片</b>：MES 出貨片數與 STDF 實際測試片數是否一致？</span>
+                <span class="en"><b>Missing wafers</b>: does the wafer count shipped from MES match the wafers actually present in STDF?</span>
+              </li>
+              <li>
+                <span class="zh"><b>Bin 定義版本</b>：測試程式改版後 Bin 編號是否重新定義？跨版本比較前要先對照 Bin 對應表。</span>
+                <span class="en"><b>Bin definition version</b>: did a test-program revision renumber the bins? Map bins across revisions before comparing.</span>
+              </li>
+              <li>
+                <span class="zh"><b>時間同步</b>：機台事件時間是否晚於晶圓的出站時間？若是，代表時鐘未同步。</span>
+                <span class="en"><b>Clock sync</b>: does any tool event appear after the wafer's move-out time? If so, clocks are out of sync.</span>
+              </li>
+            </ul>
           </div>
         </div>
       </section>
@@ -7726,6 +8223,63 @@
             </table>
           </div>
 
+          <p>
+            <span class="zh">
+              \(C_p\) 只看散佈寬度，\(C_{pk}\) 同時考慮平均值有沒有置中。兩者差距大，代表問題是<b>偏移</b>而不是<b>變異</b>：此時調整製程目標值（例如 APC 補償、離子植入劑量微調）通常就能大幅改善，不需要投資降低變異。上表的 DPPM 為分佈完全置中時的雙側總和；分佈偏移時，請依偏移側的 \(z\) 值重新計算。
+            </span>
+            <span class="en">
+              \(C_p\) measures spread only; \(C_{pk}\) also accounts for whether the mean is centered. A large gap between them means the problem is an <b>offset</b>, not <b>variation</b>: retargeting the process (APC compensation, a small implant dose trim) usually recovers most of it with no investment in reducing variation. The DPPM values in the table above assume a perfectly centered distribution (both tails summed); for an off-center distribution, recompute from the \(z\) of the near side.
+            </span>
+          </p>
+
+          <figure>
+            <svg id="fig61c-svg" viewBox="0 0 960 330" style="width:100%; height:auto; font-family:var(--font-mono);" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cp versus Cpk on an off-center normal distribution">
+              <defs><marker id="arr-c" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9 z" fill="var(--good)"/></marker><marker id="arr-c2" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9 z" fill="var(--danger)"/></marker></defs>
+              <g fill="var(--ink)">
+                <line x1="80" y1="250" x2="920" y2="250" stroke="var(--ink-soft)" stroke-width="1.5"/>
+                <path d="M 90 250.0 L 94 250.0 L 98 250.0 L 102 250.0 L 106 250.0 L 110 250.0 L 114 250.0 L 118 250.0 L 122 250.0 L 126 250.0 L 130 250.0 L 134 250.0 L 138 250.0 L 142 250.0 L 146 250.0 L 150 250.0 L 154 250.0 L 158 250.0 L 162 250.0 L 166 250.0 L 170 250.0 L 174 250.0 L 178 250.0 L 182 250.0 L 186 250.0 L 190 250.0 L 194 250.0 L 198 249.9 L 202 249.9 L 206 249.9 L 210 249.9 L 214 249.9 L 218 249.8 L 222 249.8 L 226 249.8 L 230 249.7 L 234 249.6 L 238 249.6 L 242 249.5 L 246 249.4 L 250 249.2 L 254 249.1 L 258 248.9 L 262 248.7 L 266 248.4 L 270 248.1 L 274 247.8 L 278 247.4 L 282 246.9 L 286 246.3 L 290 245.7 L 294 245.0 L 298 244.2 L 302 243.3 L 306 242.3 L 310 241.1 L 314 239.8 L 318 238.3 L 322 236.7 L 326 234.9 L 330 232.9 L 334 230.7 L 338 228.3 L 342 225.6 L 346 222.8 L 350 219.7 L 354 216.4 L 358 212.8 L 362 208.9 L 366 204.9 L 370 200.5 L 374 196.0 L 378 191.2 L 382 186.2 L 386 181.0 L 390 175.6 L 394 170.1 L 398 164.4 L 402 158.6 L 406 152.8 L 410 146.9 L 414 141.0 L 418 135.2 L 422 129.4 L 426 123.8 L 430 118.3 L 434 113.0 L 438 108.0 L 442 103.3 L 446 98.9 L 450 94.9 L 454 91.3 L 458 88.2 L 462 85.5 L 466 83.4 L 470 81.7 L 474 80.6 L 478 80.1 L 482 80.1 L 486 80.6 L 490 81.7 L 494 83.4 L 498 85.5 L 502 88.2 L 506 91.3 L 510 94.9 L 514 98.9 L 518 103.3 L 522 108.0 L 526 113.0 L 530 118.3 L 534 123.8 L 538 129.4 L 542 135.2 L 546 141.0 L 550 146.9 L 554 152.8 L 558 158.6 L 562 164.4 L 566 170.1 L 570 175.6 L 574 181.0 L 578 186.2 L 582 191.2 L 586 196.0 L 590 200.5 L 594 204.9 L 598 208.9 L 602 212.8 L 606 216.4 L 610 219.7 L 614 222.8 L 618 225.6 L 622 228.3 L 626 230.7 L 630 232.9 L 634 234.9 L 638 236.7 L 642 238.3 L 646 239.8 L 650 241.1 L 654 242.3 L 658 243.3 L 662 244.2 L 666 245.0 L 670 245.7 L 674 246.3 L 678 246.9 L 682 247.4 L 686 247.8 L 690 248.1 L 694 248.4 L 698 248.7 L 702 248.9 L 706 249.1 L 710 249.2 L 714 249.4 L 718 249.5 L 722 249.6 L 726 249.6 L 730 249.7 L 734 249.8 L 738 249.8 L 742 249.8 L 746 249.9 L 750 249.9 L 754 249.9 L 758 249.9 L 762 249.9 L 766 250.0 L 770 250.0 L 774 250.0 L 778 250.0 L 782 250.0 L 786 250.0 L 790 250.0 L 794 250.0 L 798 250.0 L 802 250.0 L 806 250.0 L 810 250.0 L 814 250.0 L 818 250.0 L 822 250.0 L 826 250.0 L 830 250.0 L 834 250.0 L 838 250.0 L 842 250.0 L 846 250.0 L 850 250.0 L 854 250.0 L 858 250.0 L 862 250.0 L 866 250.0 L 870 250.0 L 874 250.0 L 878 250.0 L 882 250.0 L 886 250.0 L 890 250.0 L 894 250.0 L 898 250.0 L 902 250.0 L 906 250.0 L 910 250.0" fill="none" stroke="var(--ink-faint)" stroke-width="1.5" stroke-dasharray="5,4"/>
+                <path d="M 90 250.0 L 94 250.0 L 98 250.0 L 102 250.0 L 106 250.0 L 110 250.0 L 114 250.0 L 118 250.0 L 122 250.0 L 126 250.0 L 130 250.0 L 134 250.0 L 138 250.0 L 142 250.0 L 146 250.0 L 150 250.0 L 154 250.0 L 158 250.0 L 162 250.0 L 166 250.0 L 170 250.0 L 174 250.0 L 178 250.0 L 182 250.0 L 186 250.0 L 190 250.0 L 194 250.0 L 198 250.0 L 202 250.0 L 206 250.0 L 210 250.0 L 214 250.0 L 218 250.0 L 222 250.0 L 226 250.0 L 230 250.0 L 234 250.0 L 238 250.0 L 242 250.0 L 246 250.0 L 250 250.0 L 254 250.0 L 258 250.0 L 262 250.0 L 266 250.0 L 270 250.0 L 274 250.0 L 278 249.9 L 282 249.9 L 286 249.9 L 290 249.9 L 294 249.9 L 298 249.8 L 302 249.8 L 306 249.8 L 310 249.7 L 314 249.6 L 318 249.6 L 322 249.5 L 326 249.4 L 330 249.2 L 334 249.1 L 338 248.9 L 342 248.7 L 346 248.4 L 350 248.1 L 354 247.8 L 358 247.4 L 362 246.9 L 366 246.3 L 370 245.7 L 374 245.0 L 378 244.2 L 382 243.3 L 386 242.3 L 390 241.1 L 394 239.8 L 398 238.3 L 402 236.7 L 406 234.9 L 410 232.9 L 414 230.7 L 418 228.3 L 422 225.6 L 426 222.8 L 430 219.7 L 434 216.4 L 438 212.8 L 442 208.9 L 446 204.9 L 450 200.5 L 454 196.0 L 458 191.2 L 462 186.2 L 466 181.0 L 470 175.6 L 474 170.1 L 478 164.4 L 482 158.6 L 486 152.8 L 490 146.9 L 494 141.0 L 498 135.2 L 502 129.4 L 506 123.8 L 510 118.3 L 514 113.0 L 518 108.0 L 522 103.3 L 526 98.9 L 530 94.9 L 534 91.3 L 538 88.2 L 542 85.5 L 546 83.4 L 550 81.7 L 554 80.6 L 558 80.1 L 562 80.1 L 566 80.6 L 570 81.7 L 574 83.4 L 578 85.5 L 582 88.2 L 586 91.3 L 590 94.9 L 594 98.9 L 598 103.3 L 602 108.0 L 606 113.0 L 610 118.3 L 614 123.8 L 618 129.4 L 622 135.2 L 626 141.0 L 630 146.9 L 634 152.8 L 638 158.6 L 642 164.4 L 646 170.1 L 650 175.6 L 654 181.0 L 658 186.2 L 662 191.2 L 666 196.0 L 670 200.5 L 674 204.9 L 678 208.9 L 682 212.8 L 686 216.4 L 690 219.7 L 694 222.8 L 698 225.6 L 702 228.3 L 706 230.7 L 710 232.9 L 714 234.9 L 718 236.7 L 722 238.3 L 726 239.8 L 730 241.1 L 734 242.3 L 738 243.3 L 742 244.2 L 746 245.0 L 750 245.7 L 754 246.3 L 758 246.9 L 762 247.4 L 766 247.8 L 770 248.1 L 774 248.4 L 778 248.7 L 782 248.9 L 786 249.1 L 790 249.2 L 794 249.4 L 798 249.5 L 802 249.6 L 806 249.6 L 810 249.7 L 814 249.8 L 818 249.8 L 822 249.8 L 826 249.9 L 830 249.9 L 834 249.9 L 838 249.9 L 842 249.9 L 846 250.0 L 850 250.0 L 854 250.0 L 858 250.0 L 862 250.0 L 866 250.0 L 870 250.0 L 874 250.0 L 878 250.0 L 882 250.0 L 886 250.0 L 890 250.0 L 894 250.0 L 898 250.0 L 902 250.0 L 906 250.0 L 910 250.0 L 910 250 L 90 250 Z" fill="var(--accent-soft)" stroke="none"/>
+                <path d="M 90 250.0 L 94 250.0 L 98 250.0 L 102 250.0 L 106 250.0 L 110 250.0 L 114 250.0 L 118 250.0 L 122 250.0 L 126 250.0 L 130 250.0 L 134 250.0 L 138 250.0 L 142 250.0 L 146 250.0 L 150 250.0 L 154 250.0 L 158 250.0 L 162 250.0 L 166 250.0 L 170 250.0 L 174 250.0 L 178 250.0 L 182 250.0 L 186 250.0 L 190 250.0 L 194 250.0 L 198 250.0 L 202 250.0 L 206 250.0 L 210 250.0 L 214 250.0 L 218 250.0 L 222 250.0 L 226 250.0 L 230 250.0 L 234 250.0 L 238 250.0 L 242 250.0 L 246 250.0 L 250 250.0 L 254 250.0 L 258 250.0 L 262 250.0 L 266 250.0 L 270 250.0 L 274 250.0 L 278 249.9 L 282 249.9 L 286 249.9 L 290 249.9 L 294 249.9 L 298 249.8 L 302 249.8 L 306 249.8 L 310 249.7 L 314 249.6 L 318 249.6 L 322 249.5 L 326 249.4 L 330 249.2 L 334 249.1 L 338 248.9 L 342 248.7 L 346 248.4 L 350 248.1 L 354 247.8 L 358 247.4 L 362 246.9 L 366 246.3 L 370 245.7 L 374 245.0 L 378 244.2 L 382 243.3 L 386 242.3 L 390 241.1 L 394 239.8 L 398 238.3 L 402 236.7 L 406 234.9 L 410 232.9 L 414 230.7 L 418 228.3 L 422 225.6 L 426 222.8 L 430 219.7 L 434 216.4 L 438 212.8 L 442 208.9 L 446 204.9 L 450 200.5 L 454 196.0 L 458 191.2 L 462 186.2 L 466 181.0 L 470 175.6 L 474 170.1 L 478 164.4 L 482 158.6 L 486 152.8 L 490 146.9 L 494 141.0 L 498 135.2 L 502 129.4 L 506 123.8 L 510 118.3 L 514 113.0 L 518 108.0 L 522 103.3 L 526 98.9 L 530 94.9 L 534 91.3 L 538 88.2 L 542 85.5 L 546 83.4 L 550 81.7 L 554 80.6 L 558 80.1 L 562 80.1 L 566 80.6 L 570 81.7 L 574 83.4 L 578 85.5 L 582 88.2 L 586 91.3 L 590 94.9 L 594 98.9 L 598 103.3 L 602 108.0 L 606 113.0 L 610 118.3 L 614 123.8 L 618 129.4 L 622 135.2 L 626 141.0 L 630 146.9 L 634 152.8 L 638 158.6 L 642 164.4 L 646 170.1 L 650 175.6 L 654 181.0 L 658 186.2 L 662 191.2 L 666 196.0 L 670 200.5 L 674 204.9 L 678 208.9 L 682 212.8 L 686 216.4 L 690 219.7 L 694 222.8 L 698 225.6 L 702 228.3 L 706 230.7 L 710 232.9 L 714 234.9 L 718 236.7 L 722 238.3 L 726 239.8 L 730 241.1 L 734 242.3 L 738 243.3 L 742 244.2 L 746 245.0 L 750 245.7 L 754 246.3 L 758 246.9 L 762 247.4 L 766 247.8 L 770 248.1 L 774 248.4 L 778 248.7 L 782 248.9 L 786 249.1 L 790 249.2 L 794 249.4 L 798 249.5 L 802 249.6 L 806 249.6 L 810 249.7 L 814 249.8 L 818 249.8 L 822 249.8 L 826 249.9 L 830 249.9 L 834 249.9 L 838 249.9 L 842 249.9 L 846 250.0 L 850 250.0 L 854 250.0 L 858 250.0 L 862 250.0 L 866 250.0 L 870 250.0 L 874 250.0 L 878 250.0 L 882 250.0 L 886 250.0 L 890 250.0 L 894 250.0 L 898 250.0 L 902 250.0 L 906 250.0 L 910 250.0" fill="none" stroke="var(--accent)" stroke-width="2.5"/>
+                <line x1="150" y1="50" x2="150" y2="250" stroke="var(--danger)" stroke-width="2"/>
+                <text x="150" y="44" text-anchor="middle" font-size="13" font-weight="700" fill="var(--danger)">LSL</text>
+                <line x1="810" y1="50" x2="810" y2="250" stroke="var(--danger)" stroke-width="2"/>
+                <text x="810" y="44" text-anchor="middle" font-size="13" font-weight="700" fill="var(--danger)">USL</text>
+                <line x1="560" y1="72" x2="560" y2="250" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="3,3"/>
+                <text x="560" y="66" text-anchor="middle" font-size="13" font-weight="700" fill="var(--accent)">μ</text>
+                <line x1="480" y1="72" x2="480" y2="250" stroke="var(--ink-faint)" stroke-width="1" stroke-dasharray="2,3"/>
+                <text class="zh" x="480" y="66" text-anchor="middle" font-size="11.5" fill="var(--ink-soft)">目標值</text><text class="en" x="480" y="66" text-anchor="middle" font-size="11.5" fill="var(--ink-soft)">Target</text>
+                <line x1="350" y1="250" x2="350" y2="256" stroke="var(--ink-soft)"/>
+                <text x="350" y="269" text−anchor="middle" font−size="10.5" fill="var(−−ink−soft)">−3σ</text>
+                <line x1="420" y1="250" x2="420" y2="256" stroke="var(--ink-soft)"/>
+                <text x="420" y="269" text−anchor="middle" font−size="10.5" fill="var(−−ink−soft)">−2σ</text>
+                <line x1="490" y1="250" x2="490" y2="256" stroke="var(--ink-soft)"/>
+                <text x="490" y="269" text−anchor="middle" font−size="10.5" fill="var(−−ink−soft)">−1σ</text>
+                <line x1="630" y1="250" x2="630" y2="256" stroke="var(--ink-soft)"/>
+                <text x="630" y="269" text−anchor="middle" font−size="10.5" fill="var(−−ink−soft)">+1σ</text>
+                <line x1="700" y1="250" x2="700" y2="256" stroke="var(--ink-soft)"/>
+                <text x="700" y="269" text−anchor="middle" font−size="10.5" fill="var(−−ink−soft)">+2σ</text>
+                <line x1="770" y1="250" x2="770" y2="256" stroke="var(--ink-soft)"/>
+                <text x="770" y="269" text−anchor="middle" font−size="10.5" fill="var(−−ink−soft)">+3σ</text>
+                <line x1="153" y1="290" x2="557" y2="290" stroke="var(--good)" stroke-width="1.5" marker-start="url(#arr-c)" marker-end="url(#arr-c)"/>
+                <line x1="563" y1="290" x2="807" y2="290" stroke="var(--danger)" stroke-width="1.5" marker-start="url(#arr-c2)" marker-end="url(#arr-c2)"/>
+                <text class="zh" x="355.0" y="308" text-anchor="middle" font-size="12" fill="var(--good)" font-weight="700">μ − LSL = 5.86σ → Cpk(下) = 1.95</text><text class="en" x="355.0" y="308" text-anchor="middle" font-size="12" fill="var(--good)" font-weight="700">μ − LSL = 5.86σ → Cpk(lower) = 1.95</text>
+                <text class="zh" x="685.0" y="308" text-anchor="middle" font-size="12" fill="var(--danger)" font-weight="700">USL − μ = 3.57σ → Cpk(上) = 1.19</text><text class="en" x="685.0" y="308" text-anchor="middle" font-size="12" fill="var(--danger)" font-weight="700">USL − μ = 3.57σ → Cpk(upper) = 1.19</text>
+                <path d="M 840 246 Q 865 200 840 165" fill="none" stroke="var(--danger)" stroke-width="1.2" marker-start="url(#arr-c2)"/>
+                <text class="zh" x="828" y="138" font-size="11.5" fill="var(--danger)" font-weight="700">超出 USL 尾端</text><text class="en" x="828" y="138" font-size="11.5" fill="var(--danger)" font-weight="700">tail beyond USL</text>
+                <text x="828" y="154" font-size="11.5" fill="var(--danger)">≈ 178 ppm</text>
+                <rect x="160" y="54" width="250" height="88" rx="6" fill="var(--surface)" stroke="var(--border)"/>
+                <text class="zh" x="172" y="74" font-size="12" font-weight="700">Cp = 1.57（只看散佈）</text><text class="en" x="172" y="74" font-size="12" font-weight="700">Cp = 1.57 (spread only)</text>
+                <text class="zh" x="172" y="93" font-size="12" font-weight="700" fill="var(--danger)">Cpk = 1.19（受上限側限制）</text><text class="en" x="172" y="93" font-size="12" font-weight="700" fill="var(--danger)">Cpk = 1.19 (upper side limits)</text>
+                <text class="zh" x="172" y="112" font-size="11" fill="var(--ink-soft)">不良 ≈ 178 ppm，全在上側</text><text class="en" x="172" y="112" font-size="11" fill="var(--ink-soft)">≈ 178 ppm out of spec, all high</text>
+                <text class="zh" x="172" y="130" font-size="11" fill="var(--ink-soft)">若置中（虛線）：Cpk 1.57，≈ 2.4 ppm</text><text class="en" x="172" y="130" font-size="11" fill="var(--ink-soft)">Centered (dashed): Cpk 1.57, 2.4 ppm</text>
+              </g>
+            </svg>
+            <figcaption>
+              <span class="zh">圖 6.1：Cp 與 Cpk 的差別：同樣的散佈寬度，平均值偏移使不良率由約 2.4 ppm 升至約 178 ppm</span>
+              <span class="en">Figure 6.1: Cp versus Cpk — the same spread, but an off-center mean raises the out-of-spec rate from about 2.4 ppm to about 178 ppm</span>
+            </figcaption>
+          </figure>
+
           <!-- 6.2 HOW TO HANDLE FUNCTIONAL TEST NO CPK -->
           <h3>
             <span class="zh">6.2 功能測試「無 Cpk 難題」之 4 大工程解方 (Functional Test: Solving the "No Cpk" Dilemma)</span>
@@ -9413,6 +9967,431 @@
               </tbody>
             </table>
           </div>
+
+          <!-- 9.1 SPLIT-LOT DOE -->
+          <h3>
+            <span class="zh">9.1 分批實驗設計（Split-Lot DOE）：讓實驗結果經得起質疑</span>
+            <span class="en">9.1 Split-Lot DOE: Designing Experiments That Survive Review</span>
+          </h3>
+          <p>
+            <span class="zh">
+              改善方案在全面導入前，必須以分批實驗證明有效。晶圓廠實驗最大的敵人是「批與批之間的變異」：如果新條件跑在 A 批、對照組跑在 B 批，你永遠無法分辨差異是來自條件還是來自批次。
+            </span>
+            <span class="en">
+              Before a fix goes into production, a split-lot experiment must prove it works. The biggest enemy of a fab experiment is lot-to-lot variation: if the new condition runs on lot A and the control on lot B, you can never tell whether the difference came from the condition or from the lot.
+            </span>
+          </p>
+
+          <div class="data-table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th><span class="zh">設計</span><span class="en">Design</span></th>
+                  <th><span class="zh">適用情境</span><span class="en">When to Use</span></th>
+                  <th><span class="zh">晶圓需求與注意事項</span><span class="en">Wafer Budget &amp; Notes</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b><span class="zh">單因子分批</span><span class="en">One-Factor Split</span></b></td>
+                  <td>
+                    <span class="zh">驗證單一修正（例如更換耗材、單一配方參數）。</span>
+                    <span class="en">Verifying one change (a new consumable, one recipe parameter).</span>
+                  </td>
+                  <td>
+                    <span class="zh">同一批內對半分：新條件與對照組各一半，Slot 交錯排列。</span>
+                    <span class="en">Split one lot in half, new condition versus control, with slots interleaved.</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b><span class="zh">2<sup>k</sup> 全因子</span><span class="en">2<sup>k</sup> Full Factorial</span></b></td>
+                  <td>
+                    <span class="zh">2–3 個因子，需要了解交互作用（例如溫度 × 氣體比）。</span>
+                    <span class="en">2–3 factors where interactions matter (e.g. temperature × gas ratio).</span>
+                  </td>
+                  <td>
+                    <span class="zh">k = 3 需 8 個條件；一批 25 片可做 8 × 3 片 + 1 片對照。</span>
+                    <span class="en">k = 3 needs 8 conditions; a 25-wafer lot fits 8 × 3 wafers plus 1 control.</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b><span class="zh">2<sup>k−p</sup> 部分因子</span><span class="en">2<sup>k−p</sup> Fractional Factorial</span></b></td>
+                  <td>
+                    <span class="zh">4 個以上因子的初步篩選，找出真正重要的少數因子。</span>
+                    <span class="en">Screening 4+ factors to find the vital few.</span>
+                  </td>
+                  <td>
+                    <span class="zh">交互作用會與主效應混淆（Aliasing），篩選後須再做確認實驗。</span>
+                    <span class="en">Interactions are aliased with main effects; follow up with a confirmation run.</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b><span class="zh">反應曲面（RSM）</span><span class="en">Response Surface (RSM)</span></b></td>
+                  <td>
+                    <span class="zh">已知關鍵因子，要找出最佳操作點與製程窗口。</span>
+                    <span class="en">Key factors are known; find the optimum and the process window.</span>
+                  </td>
+                  <td>
+                    <span class="zh">中心複合設計（CCD）：2 因子約需 9–13 個條件（含中心點重複）。</span>
+                    <span class="en">Central composite design (CCD): about 9–13 runs for 2 factors, including center-point repeats.</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="callout good">
+            <div class="callout-title">
+              <span>✅</span>
+              <span class="zh">分批實驗的 5 條鐵律</span>
+              <span class="en">Five rules for split-lot experiments</span>
+            </div>
+            <ol>
+              <li>
+                <span class="zh"><b>同批分組</b>：新條件與對照組放在同一批，抵銷批次變異。</span>
+                <span class="en"><b>Split within a lot</b>: new condition and control share the same lot, cancelling lot-to-lot variation.</span>
+              </li>
+              <li>
+                <span class="zh"><b>Slot 交錯</b>：不要把新條件全放在 Slot 1–12，避免與 Slot 效應（爐管位置、清洗槽順序）混淆。</span>
+                <span class="en"><b>Interleave slots</b>: never put all new-condition wafers in slots 1–12, or the result is confounded with slot effects (furnace position, wet-bench order).</span>
+              </li>
+              <li>
+                <span class="zh"><b>固定其他機台</b>：實驗站以外的站點，兩組要跑同一台機台、同一 Chamber。</span>
+                <span class="en"><b>Pin the other tools</b>: at every step other than the one under test, both groups run on the same tool and chamber.</span>
+              </li>
+              <li>
+                <span class="zh"><b>事先定好判定標準</b>：在看到數據前就寫下「良率提升 ≥ X% 且 p &lt; 0.05 才算有效」。</span>
+                <span class="en"><b>Define success before you look</b>: write down "yield gain ≥ X% with p &lt; 0.05" before the data comes in.</span>
+              </li>
+              <li>
+                <span class="zh"><b>至少 2 批重複</b>：單批結果可能只是運氣；跨 2–3 批重現才能放行量產。</span>
+                <span class="en"><b>Replicate on at least 2 lots</b>: one lot can be luck; release to production only after it repeats on 2–3 lots.</span>
+              </li>
+            </ol>
+          </div>
+
+          <!-- 9.2 SPC -->
+          <h3>
+            <span class="zh">9.2 SPC 管制圖與判異規則：在良率掉下去之前就抓到</span>
+            <span class="en">9.2 SPC Control Charts &amp; Run Rules: Catch It Before Yield Drops</span>
+          </h3>
+          <p>
+            <span class="zh">
+              改善完成後，要用統計製程管制（SPC）守住成果。管制界限（UCL / LCL）由製程本身的變異計算而來（平均 ± 3σ），與產品規格（USL / LSL）無關。只看「有沒有超出管制界限」會錯過大部分早期訊號，以下判異規則可以在超出界限之前就發出警報：
+            </span>
+            <span class="en">
+              Once a fix is in place, statistical process control (SPC) keeps it there. Control limits (UCL / LCL) come from the process's own variation (mean ± 3σ) and have nothing to do with product specification limits (USL / LSL). Watching only for points outside the limits misses most early warnings; these run rules fire before the limit is crossed:
+            </span>
+          </p>
+
+          <figure>
+            <svg id="fig91-svg" viewBox="0 0 960 340" style="width:100%; height:auto; font-family:var(--font-mono);" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="SPC control chart with three rule violations">
+              <g fill="var(--ink)">
+                <rect x="90" y="75" width="820" height="180" fill="var(--surface-2)"/>
+                <line x1="90" y1="75" x2="910" y2="75" stroke="var(--danger)" stroke-width="1.8"/>
+                <text x="84" y="79" text-anchor="end" font-size="11" fill="var(--danger)">UCL</text>
+                <line x1="90" y1="255" x2="910" y2="255" stroke="var(--danger)" stroke-width="1.8"/>
+                <text x="84" y="259" text-anchor="end" font-size="11" fill="var(--danger)">LCL</text>
+                <line x1="90" y1="105" x2="910" y2="105" stroke="var(--warn)" stroke-width="1" stroke-dasharray="4,4"/>
+                <text x="84" y="109" text-anchor="end" font-size="11" fill="var(--warn)">+2σ</text>
+                <line x1="90" y1="225" x2="910" y2="225" stroke="var(--warn)" stroke-width="1" stroke-dasharray="4,4"/>
+                <text x="84" y="229" text-anchor="end" font-size="11" fill="var(--warn)">−2σ</text>
+                <line x1="90" y1="135" x2="910" y2="135" stroke="var(--ink-faint)" stroke-width="1" stroke-dasharray="2,4"/>
+                <text x="84" y="139" text-anchor="end" font-size="11" fill="var(--ink-faint)">+1σ</text>
+                <line x1="90" y1="195" x2="910" y2="195" stroke="var(--ink-faint)" stroke-width="1" stroke-dasharray="2,4"/>
+                <text x="84" y="199" text-anchor="end" font-size="11" fill="var(--ink-faint)">−1σ</text>
+                <line x1="90" y1="165" x2="910" y2="165" stroke="var(--ink-soft)" stroke-width="1.8"/>
+                <text x="84" y="169" text-anchor="end" font-size="11" fill="var(--ink-soft)">CL</text>
+                <rect x="476.2" y="108.0" width="213.09999999999997" height="57.0" rx="6" fill="var(--warn-soft)" stroke="var(--warn)" stroke-dasharray="4,3"/>
+                <rect x="696.9" y="108.0" width="157.89999999999998" height="114.0" rx="6" fill="none" stroke="var(--accent)" stroke-dasharray="4,3"/>
+                <polyline points="100.0,156.0 127.6,189.0 155.2,150.0 182.8,132.0 210.3,177.0 237.9,201.0 265.5,159.0 293.1,138.0 320.7,183.0 348.3,162.0 375.9,195.0 403.4,147.0 431.0,63.0 458.6,174.0 486.2,147.0 513.8,129.0 541.4,153.0 569.0,138.0 596.6,120.0 624.1,156.0 651.7,141.0 679.3,132.0 706.9,117.0 734.5,135.0 762.1,153.0 789.7,174.0 817.2,192.0 844.8,213.0 872.4,180.0 900.0,159.0" fill="none" stroke="var(--ink-soft)" stroke-width="1.5"/>
+                <circle cx="100.0" cy="156.0" r="4" fill="var(--ink)" stroke="var(--surface)" stroke-width="1.5"/>
+                <circle cx="127.6" cy="189.0" r="4" fill="var(--ink)" stroke="var(--surface)" stroke-width="1.5"/>
+                <circle cx="155.2" cy="150.0" r="4" fill="var(--ink)" stroke="var(--surface)" stroke-width="1.5"/>
+                <circle cx="182.8" cy="132.0" r="4" fill="var(--ink)" stroke="var(--surface)" stroke-width="1.5"/>
+                <circle cx="210.3" cy="177.0" r="4" fill="var(--ink)" stroke="var(--surface)" stroke-width="1.5"/>
+                <circle cx="237.9" cy="201.0" r="4" fill="var(--ink)" stroke="var(--surface)" stroke-width="1.5"/>
+                <circle cx="265.5" cy="159.0" r="4" fill="var(--ink)" stroke="var(--surface)" stroke-width="1.5"/>
+                <circle cx="293.1" cy="138.0" r="4" fill="var(--ink)" stroke="var(--surface)" stroke-width="1.5"/>
+                <circle cx="320.7" cy="183.0" r="4" fill="var(--ink)" stroke="var(--surface)" stroke-width="1.5"/>
+                <circle cx="348.3" cy="162.0" r="4" fill="var(--ink)" stroke="var(--surface)" stroke-width="1.5"/>
+                <circle cx="375.9" cy="195.0" r="4" fill="var(--ink)" stroke="var(--surface)" stroke-width="1.5"/>
+                <circle cx="403.4" cy="147.0" r="4" fill="var(--ink)" stroke="var(--surface)" stroke-width="1.5"/>
+                <circle cx="431.0" cy="63.0" r="6" fill="var(--danger)" stroke="var(--surface)" stroke-width="1.5"/>
+                <circle cx="458.6" cy="174.0" r="4" fill="var(--ink)" stroke="var(--surface)" stroke-width="1.5"/>
+                <circle cx="486.2" cy="147.0" r="4" fill="var(--warn)" stroke="var(--surface)" stroke-width="1.5"/>
+                <circle cx="513.8" cy="129.0" r="4" fill="var(--warn)" stroke="var(--surface)" stroke-width="1.5"/>
+                <circle cx="541.4" cy="153.0" r="4" fill="var(--warn)" stroke="var(--surface)" stroke-width="1.5"/>
+                <circle cx="569.0" cy="138.0" r="4" fill="var(--warn)" stroke="var(--surface)" stroke-width="1.5"/>
+                <circle cx="596.6" cy="120.0" r="4" fill="var(--warn)" stroke="var(--surface)" stroke-width="1.5"/>
+                <circle cx="624.1" cy="156.0" r="4" fill="var(--warn)" stroke="var(--surface)" stroke-width="1.5"/>
+                <circle cx="651.7" cy="141.0" r="4" fill="var(--warn)" stroke="var(--surface)" stroke-width="1.5"/>
+                <circle cx="679.3" cy="132.0" r="4" fill="var(--warn)" stroke="var(--surface)" stroke-width="1.5"/>
+                <circle cx="706.9" cy="117.0" r="4" fill="var(--accent)" stroke="var(--surface)" stroke-width="1.5"/>
+                <circle cx="734.5" cy="135.0" r="4" fill="var(--accent)" stroke="var(--surface)" stroke-width="1.5"/>
+                <circle cx="762.1" cy="153.0" r="4" fill="var(--accent)" stroke="var(--surface)" stroke-width="1.5"/>
+                <circle cx="789.7" cy="174.0" r="4" fill="var(--accent)" stroke="var(--surface)" stroke-width="1.5"/>
+                <circle cx="817.2" cy="192.0" r="4" fill="var(--accent)" stroke="var(--surface)" stroke-width="1.5"/>
+                <circle cx="844.8" cy="213.0" r="4" fill="var(--accent)" stroke="var(--surface)" stroke-width="1.5"/>
+                <circle cx="872.4" cy="180.0" r="4" fill="var(--ink)" stroke="var(--surface)" stroke-width="1.5"/>
+                <circle cx="900.0" cy="159.0" r="4" fill="var(--ink)" stroke="var(--surface)" stroke-width="1.5"/>
+                <text class="zh" x="443.0" y="67.0" font-size="12" font-weight="700" fill="var(--danger)">① 單點超出 3σ：突發事件</text><text class="en" x="443.0" y="67.0" font-size="12" font-weight="700" fill="var(--danger)">① 1 point beyond 3σ: sudden event</text>
+                <text class="zh" x="443.0" y="83.0" font-size="11" fill="var(--ink-soft)">（Chamber 電弧、研磨液批異常）</text><text class="en" x="443.0" y="83.0" font-size="11" fill="var(--ink-soft)">(chamber arcing, bad slurry lot)</text>
+                <text class="zh" x="582.75" y="277" text-anchor="middle" font-size="12" font-weight="700" fill="var(--warn)">④ 連續 8 點同側：持續偏移</text><text class="en" x="582.75" y="277" text-anchor="middle" font-size="12" font-weight="700" fill="var(--warn)">④ 8 in a row on one side: shift</text>
+                <text class="zh" x="582.75" y="293" text-anchor="middle" font-size="11" fill="var(--ink-soft)">（新耗材批、配方變更）</text><text class="en" x="582.75" y="293" text-anchor="middle" font-size="11" fill="var(--ink-soft)">(new consumable lot, recipe change)</text>
+                <text class="zh" x="789.7" y="277" text-anchor="middle" font-size="12" font-weight="700" fill="var(--accent)">⑤ 連續 6 點遞減：磨耗</text><text class="en" x="789.7" y="277" text-anchor="middle" font-size="12" font-weight="700" fill="var(--accent)">⑤ 6 in a row falling: wear-out</text>
+                <text class="zh" x="789.7" y="293" text-anchor="middle" font-size="11" fill="var(--ink-soft)">（Focus Ring、CMP 研磨墊）</text><text class="en" x="789.7" y="293" text-anchor="middle" font-size="11" fill="var(--ink-soft)">(focus ring, CMP pad)</text>
+                <text class="zh" x="90" y="319" font-size="11" fill="var(--ink-soft)">X 軸：依時間排序的晶圓或批次；Y 軸：監控參數（如蝕刻率、膜厚）</text><text class="en" x="90" y="319" font-size="11" fill="var(--ink-soft)">X: wafers or lots in time order; Y: monitored parameter (e.g. etch rate, film thickness)</text>
+              </g>
+            </svg>
+            <figcaption>
+              <span class="zh">圖 9.1：SPC 管制圖與三種典型判異訊號：突發事件、持續偏移與磨耗趨勢</span>
+              <span class="en">Figure 9.1: SPC control chart with three typical signals: sudden event, sustained shift and wear-out trend</span>
+            </figcaption>
+          </figure>
+
+          <div class="data-table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th><span class="zh">判異規則</span><span class="en">Rule</span></th>
+                  <th><span class="zh">統計意義</span><span class="en">Meaning</span></th>
+                  <th><span class="zh">半導體常見成因</span><span class="en">Typical Fab Cause</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b>①</b></td>
+                  <td>
+                    <span class="zh">1 點超出 ±3σ</span>
+                    <span class="en">1 point beyond ±3σ</span>
+                  </td>
+                  <td>
+                    <span class="zh">突發的特殊原因</span>
+                    <span class="en">Sudden special cause</span>
+                  </td>
+                  <td>
+                    <span class="zh">Chamber 電弧、微粒爆發、錯誤配方、研磨液批異常</span>
+                    <span class="en">Chamber arcing, particle burst, wrong recipe, bad slurry lot</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>②</b></td>
+                  <td>
+                    <span class="zh">連續 3 點中有 2 點超出 ±2σ（同側）</span>
+                    <span class="en">2 of 3 points beyond ±2σ (same side)</span>
+                  </td>
+                  <td>
+                    <span class="zh">平均值開始偏移</span>
+                    <span class="en">Mean starting to shift</span>
+                  </td>
+                  <td>
+                    <span class="zh">保養（PM）後未完成 Seasoning、氣體流量計飄移</span>
+                    <span class="en">Incomplete seasoning after PM, mass-flow controller drift</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>③</b></td>
+                  <td>
+                    <span class="zh">連續 5 點中有 4 點超出 ±1σ（同側）</span>
+                    <span class="en">4 of 5 points beyond ±1σ (same side)</span>
+                  </td>
+                  <td>
+                    <span class="zh">小幅但持續的偏移</span>
+                    <span class="en">Small but persistent shift</span>
+                  </td>
+                  <td>
+                    <span class="zh">量測機台校正偏差、光阻批次差異</span>
+                    <span class="en">Metrology calibration offset, resist lot difference</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>④</b></td>
+                  <td>
+                    <span class="zh">連續 8 點落在中心線同一側</span>
+                    <span class="en">8 points in a row on one side of the center line</span>
+                  </td>
+                  <td>
+                    <span class="zh">製程平均已改變</span>
+                    <span class="en">Process mean has changed</span>
+                  </td>
+                  <td>
+                    <span class="zh">更換耗材批、配方修改、機台軟體更新</span>
+                    <span class="en">New consumable lot, recipe edit, tool software update</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>⑤</b></td>
+                  <td>
+                    <span class="zh">連續 6 點持續上升或下降</span>
+                    <span class="en">6 points in a row steadily rising or falling</span>
+                  </td>
+                  <td>
+                    <span class="zh">趨勢（漂移）</span>
+                    <span class="en">Trend (drift)</span>
+                  </td>
+                  <td>
+                    <span class="zh">Focus Ring、CMP 研磨墊、靶材等耗材磨耗</span>
+                    <span class="en">Wear of consumables: focus ring, CMP pad, sputter target</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>⑥</b></td>
+                  <td>
+                    <span class="zh">連續 14 點上下交替</span>
+                    <span class="en">14 points in a row alternating up and down</span>
+                  </td>
+                  <td>
+                    <span class="zh">兩個來源交替混合</span>
+                    <span class="en">Two sources alternating</span>
+                  </td>
+                  <td>
+                    <span class="zh">雙 Chamber 機台輪流進片、兩台量測機交替使用</span>
+                    <span class="en">Dual-chamber tool alternating wafers, two metrology tools used in turn</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>⑦</b></td>
+                  <td>
+                    <span class="zh">連續 15 點都在 ±1σ 內</span>
+                    <span class="en">15 points in a row within ±1σ</span>
+                  </td>
+                  <td>
+                    <span class="zh">變異異常地小（分層）</span>
+                    <span class="en">Suspiciously low variation (stratification)</span>
+                  </td>
+                  <td>
+                    <span class="zh">管制界限過時（製程已改善但界限未更新），或數據經過平均處理</span>
+                    <span class="en">Stale control limits (process improved but limits never recalculated), or data was pre-averaged</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p style="font-size:13px; color:var(--ink-soft);">
+            <span class="zh">規則 ①–④ 為 Western Electric 規則；⑤–⑦ 為 Nelson 規則的補充。規則開得越多，誤報率越高，建議每個參數只啟用 ①、④、⑤，並依實際誤報率調整。</span>
+            <span class="en">Rules ①–④ are the Western Electric rules; ⑤–⑦ come from the Nelson rules. Every extra rule raises the false-alarm rate, so start with ①, ④ and ⑤ on each parameter and tune from the observed false-alarm rate.</span>
+          </p>
+
+          <!-- 9.3 STATISTICAL VERIFICATION -->
+          <h3>
+            <span class="zh">9.3 如何證明改善有效：樣本數與晶圓叢聚效應</span>
+            <span class="en">9.3 Proving the Fix Worked: Sample Size &amp; Wafer Clustering</span>
+          </h3>
+          <p>
+            <span class="zh">
+              比較改善前後的良率，最常用的是雙比例檢定。要能偵測到良率差異 \(p_1 \rightarrow p_2\)，每組所需的晶粒數為：
+            </span>
+            <span class="en">
+              Comparing yield before and after a fix is usually a two-proportion test. To detect a change from \(p_1\) to \(p_2\), each group needs this many dies:
+            </span>
+          </p>
+
+          <div class="formula">
+            \[ n_{die} = \frac{\left(z_{1-\alpha/2} + z_{1-\beta}\right)^2 \left[p_1(1-p_1) + p_2(1-p_2)\right]}{(p_1 - p_2)^2}, \qquad DEFF = 1 + (m - 1)\,\rho \]
+          </div>
+
+          <div class="callout danger">
+            <div class="callout-title">
+              <span>🚨</span>
+              <span class="zh">最常見的錯誤：把晶粒當成獨立樣本</span>
+              <span class="en">The most common mistake: treating dies as independent samples</span>
+            </div>
+            <span class="zh">
+              範例：良率由 90% 提升至 92%，α = 0.05、檢定力 80%，公式算出每組約需 <b>3,210 顆晶粒</b>，看起來只要 7 片晶圓（每片 500 顆）。但缺陷在晶圓內是叢聚的，同一片晶圓上的晶粒並不獨立。若組內相關係數 \(\rho = 0.02\)，設計效應 \(DEFF = 1 + 499 \times 0.02 \approx 11\)，實際需要約 35,200 顆，也就是<b>每組約 71 片晶圓</b>。只用 7 片晶圓就宣布「顯著改善」，很可能只是隨機波動。實務上可直接以「晶圓」為分析單位，對片良率做 t 檢定或無母數檢定。
+            </span>
+            <span class="en">
+              Example: yield goes from 90% to 92%, α = 0.05, power 80%. The formula gives about <b>3,210 dies per group</b>, which looks like just 7 wafers at 500 dies each. But defects cluster within a wafer, so dies on the same wafer are not independent. With an intra-wafer correlation of \(\rho = 0.02\), the design effect is \(DEFF = 1 + 499 \times 0.02 \approx 11\), so you really need about 35,200 dies, or <b>about 71 wafers per group</b>. Declaring a "significant improvement" from 7 wafers is very likely noise. In practice, use the wafer as the unit of analysis and run a t-test or a non-parametric test on wafer yields.
+            </span>
+          </div>
+
+          <!-- 9.4 DFM & CRITICAL AREA -->
+          <h3>
+            <span class="zh">9.4 設計端槓桿：關鍵面積（Critical Area）與 DFM 熱點</span>
+            <span class="en">9.4 Design-Side Levers: Critical Area &amp; DFM Hotspots</span>
+          </h3>
+          <p>
+            <span class="zh">
+              同樣的缺陷密度 \(D_0\)，對不同佈局的殺傷力不同。只有落在「關鍵面積」內的缺陷（足以造成兩條導線短路或一條導線斷路的位置）才會致命。將晶粒面積 \(A\) 換成各層、各尺寸的關鍵面積後，良率模型更準確，也指出設計端可以改善的方向：
+            </span>
+            <span class="en">
+              The same defect density \(D_0\) does different damage to different layouts. Only defects that land in the "critical area" (where a particle of that size would short two wires or open one) kill the die. Replacing die area \(A\) with the critical area per layer and per defect size makes the yield model more accurate, and shows where design changes pay off:
+            </span>
+          </p>
+
+          <div class="formula">
+            \[ Y_{rand} = \exp\left(-\sum_{i \in layers} \int_{0}^{\infty} A_{c,i}(x)\, D_{i}(x)\, dx\right) \]
+          </div>
+
+          <div class="data-table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th><span class="zh">DFM 手法</span><span class="en">DFM Technique</span></th>
+                  <th><span class="zh">作用機制</span><span class="en">Mechanism</span></th>
+                  <th><span class="zh">代價</span><span class="en">Trade-off</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b><span class="zh">冗餘通孔（Double Via）</span><span class="en">Redundant Vias (Double Via)</span></b></td>
+                  <td>
+                    <span class="zh">單一通孔開路時仍有備援，大幅降低 Via Open 失效。</span>
+                    <span class="en">If one via opens, the other still connects; greatly reduces via-open fails.</span>
+                  </td>
+                  <td>
+                    <span class="zh">佔用繞線資源，可能增加面積。</span>
+                    <span class="en">Uses routing resources; may grow area.</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b><span class="zh">導線加寬／加大間距</span><span class="en">Wire Widening / Spreading</span></b></td>
+                  <td>
+                    <span class="zh">在時序寬鬆的區域加大線距，減少短路的關鍵面積。</span>
+                    <span class="en">Increases spacing where timing allows, shrinking short-circuit critical area.</span>
+                  </td>
+                  <td>
+                    <span class="zh">耦合電容與繞線密度的取捨。</span>
+                    <span class="en">Trade-off against coupling capacitance and routing density.</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b><span class="zh">微影熱點修正</span><span class="en">Litho Hotspot Fixing</span></b></td>
+                  <td>
+                    <span class="zh">以微影模擬找出製程窗口過窄的圖形（禁制節距、線端縮短），在佈局階段修改。</span>
+                    <span class="en">Lithography simulation finds patterns with too little process window (forbidden pitches, line-end shortening) and fixes them in layout.</span>
+                  </td>
+                  <td>
+                    <span class="zh">需要晶圓廠提供的熱點規則庫與模擬時間。</span>
+                    <span class="en">Needs the foundry's hotspot library and simulation run time.</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b><span class="zh">金屬密度填充</span><span class="en">Metal Density Fill</span></b></td>
+                  <td>
+                    <span class="zh">使 CMP 研磨均勻，降低 Dishing / Erosion 造成的厚度不均。</span>
+                    <span class="en">Evens out CMP removal, reducing dishing and erosion thickness variation.</span>
+                  </td>
+                  <td>
+                    <span class="zh">增加寄生電容，須避開敏感類比電路。</span>
+                    <span class="en">Adds parasitic capacitance; keep fill away from sensitive analog blocks.</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b><span class="zh">記憶體冗餘修復</span><span class="en">Memory Redundancy &amp; Repair</span></b></td>
+                  <td>
+                    <span class="zh">以備用行／列取代失效位元（BIST + eFuse），將大面積 SRAM 的隨機缺陷損失轉為可修復。</span>
+                    <span class="en">Spare rows and columns replace failing bits (BIST + eFuse), turning random-defect loss in large SRAM arrays into repairable fails.</span>
+                  </td>
+                  <td>
+                    <span class="zh">增加面積與測試時間，詳見 Phase 3.5。</span>
+                    <span class="en">Adds area and test time; see Phase 3.5.</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </section>
 
@@ -9435,8 +10414,110 @@
             </span>
           </p>
 
+          <h3>
+            <span class="zh">10.1 良率學習曲線模型</span>
+            <span class="en">10.1 Yield Learning Curve Models</span>
+          </h3>
           <div class="formula">
             \[ Y(t) = Y_\infty - (Y_\infty - Y_0) e^{-k \cdot C(t)} \]
+          </div>
+
+          <ul>
+            <li>
+              <span class="zh">\(Y_0\)：導入初期良率；\(Y_\infty\)：製程成熟後的極限良率（由隨機缺陷密度與設計決定）。</span>
+              <span class="en">\(Y_0\): yield at the start of the ramp; \(Y_\infty\): the mature ceiling, set by random defect density and the design.</span>
+            </li>
+            <li>
+              <span class="zh">\(C(t)\)：累積學習量，可用累積投片數或<b>完成的學習週期數</b>；\(k\)：每單位學習量能消除的損失比例。</span>
+              <span class="en">\(C(t)\): cumulative learning, measured as cumulative wafer starts or <b>completed learning cycles</b>; \(k\): the fraction of remaining loss removed per unit of learning.</span>
+            </li>
+            <li>
+              <span class="zh">若初期良率上升緩慢、中期才加速，可改用 S 型的 Gompertz 模型：\(Y(t) = Y_\infty \exp\left(-b\,e^{-k t}\right)\)。</span>
+              <span class="en">If yield climbs slowly at first and accelerates mid-ramp, an S-shaped Gompertz model fits better: \(Y(t) = Y_\infty \exp\left(-b\,e^{-k t}\right)\).</span>
+            </li>
+          </ul>
+
+          <figure>
+            <svg id="fig101-svg" viewBox="0 0 960 335" style="width:100%; height:auto; font-family:var(--font-mono);" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Yield ramp learning curves for two learning-cycle times">
+              <g fill="var(--ink)">
+                <line x1="90" y1="280.0" x2="900" y2="280.0" stroke="var(--border)"/>
+                <text x="82" y="284.0" text-anchor="end" font-size="11" fill="var(--ink-soft)">0%</text>
+                <line x1="90" y1="232.0" x2="900" y2="232.0" stroke="var(--border)"/>
+                <text x="82" y="236.0" text-anchor="end" font-size="11" fill="var(--ink-soft)">20%</text>
+                <line x1="90" y1="184.0" x2="900" y2="184.0" stroke="var(--border)"/>
+                <text x="82" y="188.0" text-anchor="end" font-size="11" fill="var(--ink-soft)">40%</text>
+                <line x1="90" y1="136.0" x2="900" y2="136.0" stroke="var(--border)"/>
+                <text x="82" y="140.0" text-anchor="end" font-size="11" fill="var(--ink-soft)">60%</text>
+                <line x1="90" y1="88.0" x2="900" y2="88.0" stroke="var(--border)"/>
+                <text x="82" y="92.0" text-anchor="end" font-size="11" fill="var(--ink-soft)">80%</text>
+                <line x1="90" y1="40.0" x2="900" y2="40.0" stroke="var(--border)"/>
+                <text x="82" y="44.0" text-anchor="end" font-size="11" fill="var(--ink-soft)">100%</text>
+                <text x="90.0" y="298" text-anchor="middle" font-size="11" fill="var(--ink-soft)">0</text>
+                <text x="191.2" y="298" text-anchor="middle" font-size="11" fill="var(--ink-soft)">3</text>
+                <text x="292.5" y="298" text-anchor="middle" font-size="11" fill="var(--ink-soft)">6</text>
+                <text x="393.8" y="298" text-anchor="middle" font-size="11" fill="var(--ink-soft)">9</text>
+                <text x="495.0" y="298" text-anchor="middle" font-size="11" fill="var(--ink-soft)">12</text>
+                <text x="596.2" y="298" text-anchor="middle" font-size="11" fill="var(--ink-soft)">15</text>
+                <text x="697.5" y="298" text-anchor="middle" font-size="11" fill="var(--ink-soft)">18</text>
+                <text x="798.8" y="298" text-anchor="middle" font-size="11" fill="var(--ink-soft)">21</text>
+                <text x="900.0" y="298" text-anchor="middle" font-size="11" fill="var(--ink-soft)">24</text>
+                <text class="zh" x="495.0" y="318" text-anchor="middle" font-size="11.5" fill="var(--ink-soft)">量產導入後月數</text><text class="en" x="495.0" y="318" text-anchor="middle" font-size="11.5" fill="var(--ink-soft)">Months from start of ramp</text>
+                <line x1="90" y1="88.0" x2="900" y2="88.0" stroke="var(--good)" stroke-width="1.5" stroke-dasharray="6,4"/>
+                <text class="zh" x="896" y="104.0" text-anchor="end" font-size="11.5" font-weight="700" fill="var(--good)">量產良率門檻 80%</text><text class="en" x="896" y="104.0" text-anchor="end" font-size="11.5" font-weight="700" fill="var(--good)">HVM yield gate 80%</text>
+                <line x1="90" y1="59.2" x2="900" y2="59.2" stroke="var(--ink-faint)" stroke-dasharray="2,4"/>
+                <text class="zh" x="896" y="53.2" text-anchor="end" font-size="11" fill="var(--ink-soft)">成熟良率 Y∞ = 92%</text><text class="en" x="896" y="53.2" text-anchor="end" font-size="11" fill="var(--ink-soft)">Mature yield Y∞ = 92%</text>
+                <polyline points="90.0,232.0 98.4,226.9 106.9,221.9 115.3,217.1 123.8,212.5 132.2,207.9 140.6,203.5 149.1,199.3 157.5,195.1 165.9,191.1 174.4,187.2 182.8,183.4 191.2,179.8 199.7,176.2 208.1,172.7 216.6,169.4 225.0,166.1 233.4,163.0 241.9,159.9 250.3,156.9 258.8,154.0 267.2,151.2 275.6,148.5 284.1,145.9 292.5,143.3 300.9,140.8 309.4,138.4 317.8,136.1 326.2,133.8 334.7,131.6 343.1,129.5 351.6,127.4 360.0,125.4 368.4,123.4 376.9,121.5 385.3,119.7 393.8,117.9 402.2,116.1 410.6,114.5 419.1,112.8 427.5,111.2 435.9,109.7 444.4,108.2 452.8,106.8 461.2,105.4 469.7,104.0 478.1,102.7 486.6,101.4 495.0,100.1 503.4,98.9 511.9,97.8 520.3,96.6 528.8,95.5 537.2,94.4 545.6,93.4 554.1,92.4 562.5,91.4 570.9,90.5 579.4,89.5 587.8,88.6 596.2,87.8 604.7,86.9 613.1,86.1 621.6,85.3 630.0,84.5 638.4,83.8 646.9,83.1 655.3,82.4 663.8,81.7 672.2,81.0 680.6,80.4 689.1,79.7 697.5,79.1 705.9,78.5 714.4,78.0 722.8,77.4 731.2,76.9 739.7,76.4 748.1,75.8 756.6,75.4 765.0,74.9 773.4,74.4 781.9,74.0 790.3,73.5 798.8,73.1 807.2,72.7 815.6,72.3 824.1,71.9 832.5,71.5 840.9,71.2 849.4,70.8 857.8,70.5 866.2,70.1 874.7,69.8 883.1,69.5 891.6,69.2 900.0,68.9" fill="none" stroke="var(--ink-soft)" stroke-width="2.5"/>
+                <line x1="593.9" y1="88.0" x2="593.9" y2="280" stroke="var(--ink-soft)" stroke-dasharray="3,3"/>
+                <circle cx="593.9" cy="88.0" r="5" fill="var(--ink-soft)"/>
+                <text x="599.9" y="274" font-size="11" font-weight="700" fill="var(--ink-soft)">14.9</text>
+                <polyline points="90.0,232.0 98.4,221.9 106.9,212.5 115.3,203.5 123.8,195.1 132.2,187.2 140.6,179.8 149.1,172.7 157.5,166.1 165.9,159.9 174.4,154.0 182.8,148.5 191.2,143.3 199.7,138.4 208.1,133.8 216.6,129.5 225.0,125.4 233.4,121.5 241.9,117.9 250.3,114.5 258.8,111.2 267.2,108.2 275.6,105.4 284.1,102.7 292.5,100.1 300.9,97.8 309.4,95.5 317.8,93.4 326.2,91.4 334.7,89.5 343.1,87.8 351.6,86.1 360.0,84.5 368.4,83.1 376.9,81.7 385.3,80.4 393.8,79.1 402.2,78.0 410.6,76.9 419.1,75.8 427.5,74.9 435.9,74.0 444.4,73.1 452.8,72.3 461.2,71.5 469.7,70.8 478.1,70.1 486.6,69.5 495.0,68.9 503.4,68.3 511.9,67.8 520.3,67.3 528.8,66.8 537.2,66.4 545.6,66.0 554.1,65.6 562.5,65.2 570.9,64.9 579.4,64.5 587.8,64.2 596.2,63.9 604.7,63.6 613.1,63.4 621.6,63.1 630.0,62.9 638.4,62.7 646.9,62.5 655.3,62.3 663.8,62.1 672.2,62.0 680.6,61.8 689.1,61.6 697.5,61.5 705.9,61.4 714.4,61.2 722.8,61.1 731.2,61.0 739.7,60.9 748.1,60.8 756.6,60.7 765.0,60.6 773.4,60.5 781.9,60.5 790.3,60.4 798.8,60.3 807.2,60.3 815.6,60.2 824.1,60.1 832.5,60.1 840.9,60.0 849.4,60.0 857.8,59.9 866.2,59.9 874.7,59.9 883.1,59.8 891.6,59.8 900.0,59.7" fill="none" stroke="var(--accent)" stroke-width="3"/>
+                <line x1="342.0" y1="88.0" x2="342.0" y2="280" stroke="var(--accent)" stroke-dasharray="3,3"/>
+                <circle cx="342.0" cy="88.0" r="5" fill="var(--accent)"/>
+                <text x="348.0" y="274" font-size="11" font-weight="700" fill="var(--accent)">7.5</text>
+                <rect x="440" y="168" width="440" height="82" rx="6" fill="var(--surface)" stroke="var(--border)"/>
+                <line x1="454" y1="190" x2="484" y2="190" stroke="var(--accent)" stroke-width="3"/>
+                <text class="zh" x="492" y="194" font-size="11.5" fill="var(--accent)" font-weight="700">學習週期 4 週（k = 0.24 / 月）</text><text class="en" x="492" y="194" font-size="11.5" fill="var(--accent)" font-weight="700">4-week learning cycle (k = 0.24 / month)</text>
+                <line x1="454" y1="212" x2="484" y2="212" stroke="var(--ink-soft)" stroke-width="2.5"/>
+                <text class="zh" x="492" y="216" font-size="11.5" fill="var(--ink-soft)">學習週期 8 週（k = 0.12 / 月）</text><text class="en" x="492" y="216" font-size="11.5" fill="var(--ink-soft)">8-week learning cycle (k = 0.12 / month)</text>
+                <text class="zh" x="454" y="239" font-size="11.5" font-weight="700">週期減半 → 提早約 7.5 個月達到 80%</text><text class="en" x="454" y="239" font-size="11.5" font-weight="700">Half the cycle → reach 80% about 7.5 months sooner</text>
+              </g>
+            </svg>
+            <figcaption>
+              <span class="zh">圖 10.1：良率學習曲線：學習週期由 8 週縮短為 4 週，達到 80% 量產門檻的時間由 14.9 個月提早至 7.5 個月（假設每個學習週期的改善幅度相同）</span>
+              <span class="en">Figure 10.1: Yield learning curves — halving the learning cycle from 8 to 4 weeks brings the 80% HVM gate forward from 14.9 to 7.5 months (assuming equal improvement per learning cycle)</span>
+            </figcaption>
+          </figure>
+
+          <div class="callout good">
+            <div class="callout-title">
+              <span>⏱️</span>
+              <span class="zh">加速 Ramp 最有效的槓桿：縮短學習週期</span>
+              <span class="en">The strongest ramp lever: shorten the learning cycle</span>
+            </div>
+            <span class="zh">
+              一個學習週期 = 發現問題 → 投入實驗晶圓 → 晶圓產出 → 測試 → FA → 確認真因。全流程晶圓週期常達 2–3 個月，因此縮短回饋時間比任何單一製程改善都重要：
+            </span>
+            <span class="en">
+              One learning cycle = spot a problem → start experiment wafers → wafers come out → test → FA → confirm root cause. A full-flow wafer can take 2–3 months, so cutting feedback time matters more than any single process fix:
+            </span>
+            <ul>
+              <li>
+                <span class="zh"><b>短流程測試載具（Short-Loop）</b>：只跑到 M1 或 Via1 即可電性量測，週期由數月縮短為數週。</span>
+                <span class="en"><b>Short-loop test vehicles</b>: process only up to M1 or Via1 and test electrically, cutting the cycle from months to weeks.</span>
+              </li>
+              <li>
+                <span class="zh"><b>線上電性測試與電子束檢測</b>：在製程中途就發現開短路，不必等到 CP。</span>
+                <span class="en"><b>Inline e-test and e-beam inspection</b>: catch opens and shorts mid-flow instead of waiting for CP.</span>
+              </li>
+              <li>
+                <span class="zh"><b>FA 快速通道</b>：Ramp 期間 FA 實驗室保留固定產能給良率案件，避免排隊數週。</span>
+                <span class="en"><b>FA fast lane</b>: during ramp, reserve fixed FA lab capacity for yield cases so they do not queue for weeks.</span>
+              </li>
+              <li>
+                <span class="zh"><b>熱批（Hot Lot）</b>：學習批在產線上優先處理，週期可縮短 30–50%。</span>
+                <span class="en"><b>Hot lots</b>: learning lots get priority on the line, cutting their cycle time by 30–50%.</span>
+              </li>
+            </ul>
           </div>
 
           <div class="callout warn">
@@ -9467,6 +10548,152 @@
                 <span class="en"><b>Environment (Cleanroom)</b>: Stringent cleanroom micro-climate temperature (\(\pm 0.5^\circ\text{C}\)), humidity (\(\pm 2\%\)), airborne molecular contamination (AMC), and particle counts.</span>
               </li>
             </ul>
+          </div>
+
+          <!-- 10.2 STANDARDS -->
+          <h3>
+            <span class="zh">10.2 稽核常引用的標準與規範</span>
+            <span class="en">10.2 Standards Auditors Commonly Reference</span>
+          </h3>
+          <div class="data-table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th><span class="zh">標準</span><span class="en">Standard</span></th>
+                  <th><span class="zh">範圍</span><span class="en">Scope</span></th>
+                  <th><span class="zh">與良率工程的關聯</span><span class="en">Relevance to Yield Engineering</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b>IATF 16949</b></td>
+                  <td>
+                    <span class="zh">汽車產業品質管理系統</span>
+                    <span class="en">Automotive quality management system</span>
+                  </td>
+                  <td>
+                    <span class="zh">要求 Control Plan、PFMEA、MSA、SPC 與變更管理有完整記錄。</span>
+                    <span class="en">Requires documented control plans, PFMEA, MSA, SPC and change management.</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>VDA 6.3</b></td>
+                  <td>
+                    <span class="zh">德國汽車工業協會製程稽核</span>
+                    <span class="en">German automotive (VDA) process audit</span>
+                  </td>
+                  <td>
+                    <span class="zh">現場逐站稽核，檢查異常處置與追溯能力。</span>
+                    <span class="en">Station-by-station audit on the floor, checking excursion handling and traceability.</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>AEC-Q100</b></td>
+                  <td>
+                    <span class="zh">車用積體電路應力測試認證</span>
+                    <span class="en">Stress-test qualification for automotive ICs</span>
+                  </td>
+                  <td>
+                    <span class="zh">定義 HTOL、溫度循環等認證項目（見 Phase 5.6）。</span>
+                    <span class="en">Defines qualification tests such as HTOL and temperature cycling (see Phase 5.6).</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>AEC-Q001</b></td>
+                  <td>
+                    <span class="zh">零件平均測試（PAT）指引</span>
+                    <span class="en">Part Average Testing (PAT) guideline</span>
+                  </td>
+                  <td>
+                    <span class="zh">以統計方式剔除參數離群晶粒（見 Tool 5、Phase 6）。</span>
+                    <span class="en">Statistically screens out parametric outlier dies (see Tool 5, Phase 6).</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>AEC-Q002</b></td>
+                  <td>
+                    <span class="zh">統計良率分析指引</span>
+                    <span class="en">Statistical yield analysis guideline</span>
+                  </td>
+                  <td>
+                    <span class="zh">定義統計良率界限（SYL）與統計 Bin 界限（SBL），異常批須隔離審查。</span>
+                    <span class="en">Defines statistical yield limits (SYL) and statistical bin limits (SBL); abnormal lots are held for review.</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>AEC-Q004</b></td>
+                  <td>
+                    <span class="zh">零缺陷指引</span>
+                    <span class="en">Zero Defects guideline</span>
+                  </td>
+                  <td>
+                    <span class="zh">整合 PAT、SYL、GDBN 等手法的零缺陷框架。</span>
+                    <span class="en">A zero-defect framework combining PAT, SYL, GDBN and related methods.</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>ISO 26262</b></td>
+                  <td>
+                    <span class="zh">道路車輛功能安全</span>
+                    <span class="en">Road-vehicle functional safety</span>
+                  </td>
+                  <td>
+                    <span class="zh">ASIL 等級影響可接受的失效率與測試覆蓋率要求。</span>
+                    <span class="en">The ASIL level drives acceptable failure rates and test-coverage requirements.</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>JESD47 / JEP148</b></td>
+                  <td>
+                    <span class="zh">JEDEC 可靠度認證（應力測試導向／失效物理導向）</span>
+                    <span class="en">JEDEC reliability qualification (stress-test-driven / physics-of-failure-based)</span>
+                  </td>
+                  <td>
+                    <span class="zh">非車用產品的可靠度認證基準。</span>
+                    <span class="en">Reliability qualification baseline for non-automotive products.</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- 10.3 AUDIT EVIDENCE -->
+          <h3>
+            <span class="zh">10.3 稽核證據包：稽核員實際會要求看什麼</span>
+            <span class="en">10.3 Audit Evidence Pack: What Auditors Actually Ask to See</span>
+          </h3>
+          <div class="callout">
+            <div class="callout-title">
+              <span>🗂️</span>
+              <span class="zh">事先準備好，稽核當天才不會手忙腳亂</span>
+              <span class="en">Have these ready before audit day</span>
+            </div>
+            <ol>
+              <li>
+                <span class="zh"><b>追溯演練</b>：稽核員隨機挑一顆成品，你能否在約定時間內（常見要求為 4 小時內）由 ECID 追出 Lot、Wafer、X/Y、所有經過的機台與 Chamber，以及同批的 CP/FT 數據？</span>
+                <span class="en"><b>Traceability drill</b>: the auditor picks a random unit. Can you go from its ECID to lot, wafer, X/Y, every tool and chamber it passed through, and its CP/FT data within the agreed time (often 4 hours)?</span>
+              </li>
+              <li>
+                <span class="zh"><b>Control Plan 與 PFMEA</b>：每個關鍵參數的管制方法、取樣頻率、反應計畫（OCAP），且與現場實際做法一致。</span>
+                <span class="en"><b>Control plan and PFMEA</b>: control method, sampling frequency and reaction plan (OCAP) for every key parameter, matching what the floor actually does.</span>
+              </li>
+              <li>
+                <span class="zh"><b>SPC 與 Cpk 報告</b>：最近 3–6 個月的趨勢，以及每一次超出管制的處置記錄。</span>
+                <span class="en"><b>SPC and Cpk reports</b>: trends for the last 3–6 months, plus the handling record for every out-of-control event.</span>
+              </li>
+              <li>
+                <span class="zh"><b>MSA 記錄</b>：關鍵量測機台的 Gage R&amp;R 結果與校正有效期（見 Phase 3.3）。</span>
+                <span class="en"><b>MSA records</b>: Gage R&amp;R results and calibration validity for key metrology tools (see Phase 3.3).</span>
+              </li>
+              <li>
+                <span class="zh"><b>變更記錄</b>：所有 ECN/PCN、對應的驗證數據與客戶核准文件。</span>
+                <span class="en"><b>Change records</b>: every ECN/PCN with its validation data and customer approval.</span>
+              </li>
+              <li>
+                <span class="zh"><b>異常與 8D 記錄</b>：近期良率異常的 8D 報告，以及「預防再發」措施是否真的落實到 Control Plan。</span>
+                <span class="en"><b>Excursion and 8D records</b>: recent yield-excursion 8D reports, and proof that the "prevent recurrence" actions actually made it into the control plan.</span>
+              </li>
+            </ol>
           </div>
         </div>
       </section>
