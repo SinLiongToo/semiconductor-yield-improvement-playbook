@@ -4963,56 +4963,252 @@
             </span>
           </div>
 
-          <div class="callout warn">
-            <span class="zh">
-              <b>陷阱 2：多站點（Multi-Site）異步交錯寫入導致狀態機錯亂</b><br>
-              在高並行測試（x8, x16, x32）中，不同 Site 的測試時長因動態停止（Early Fail Stop）而完全不同。STDF 記錄<b>並不是 Site 1 測完才寫 Site 2，而是所有 Site 的 PIR、PTR、PRR 混雜交錯輸出</b>！<br>
-              • <b>防禦規範：</b>STDF 解析器絕對不可使用單一全域變數記錄當前測試晶粒，必須維護以 <code>(HEAD_NUM, SITE_NUM)</code> 為鍵值的多工狀態機（Multi-thread State Machine）。
-            </span>
-            <span class="en">
-              <b>Trap 2: Asynchronous Multi-Site Interleaved Stream Deserialization</b><br>
-              Under high-site parallelism (x8, x16, x32), early fail vector stopping causes test times across sites to diverge. ATE outputs PIR, PTR, and PRR records in <b>asynchronously interleaved sequences across active sites</b>!<br>
-              • <b>Engineering Rule:</b> Parsers must maintain an isolated per-site state machine keyed on <code>(HEAD_NUM, SITE_NUM)</code> rather than assuming sequential PIR-to-PRR ordering.
-            </span>
-          </div>
+<!-- 1.2.3 COMMERCIAL YIELD SOLUTIONS: PDF SOLUTIONS EXENSIO & SAS JMP -->
+          <h4>
+            <span class="zh">1.2.3 商業級良率系統實踐：PDF Solutions Exensio 與 SAS JMP 的 STDF 陷阱自動化清洗、防禦配方與企業級架構</span>
+            <span class="en">1.2.3 Commercial Yield Solutions: Automated STDF Sanitization &amp; Trap Prevention in PDF Solutions Exensio &amp; SAS JMP</span>
+          </h4>
 
-          <div class="callout warn">
+          <p>
             <span class="zh">
-              <b>陷阱 3：機台異常急停（Crash / Abort）造成 PRR 截斷遺失</b><br>
-              當測試中途遭遇分選機卡料（Jam）、真空度失效或作業系統崩潰時，STDF 寫入會瞬間中斷，造成只有 <code>PIR</code> 與部分 <code>PTR</code>，卻永久缺少 <code>PRR</code> 與 <code>WRR</code>。<br>
-              • <b>防禦規範：</b>現代良率入庫管道需支援<b>容錯補齊模式（Fault-Tolerant Ingestion）</b>：若遇到未閉合的 PIR，自動將其標記為 <code>Bin 999 (Aborted / Incomplete)</code>，並以最後時間戳產生告警，不可使整個數百 MB 的批次資料直接報錯丟棄。
+              在現代半導體量產實務中（如每日自台積電、日月光、安靠等全球代工廠接收數千個批次的 <code>.stdf.gz</code> 檔案），產品工程師（PE）與良率工程師（YE）不可能依賴手寫二進位解析器進行日常作業。業界超過 90% 的一線晶圓廠（Foundry）、晶片設計巨頭（Fabless）與封測廠（OSAT）皆建構以 <b>PDF Solutions Exensio（企業級良率管理系統 YMS）</b> 與 <b>SAS JMP（工程師端深度統計建模工具）</b> 為核心的分析生態。
+              然而，<b>「Garbage In, Garbage Out」</b>：若未在 Exensio 入庫規則引擎（DFX / DEX Loader Recipes）與 JMP 前處理工作流中正確配置防禦參數，上述 5 大 STDF 陷阱依然會直接污染生產資料庫，導致工程師在戰情看板上得出嚴重失真的良率結論。
             </span>
             <span class="en">
-              <b>Trap 3: Abrupt Tester Crashes Causing Truncated Missing PRRs</b><br>
-              Handler jams, vacuum loss, or OS panics truncate STDF streams abruptly, stranding initiated <code>PIR</code>s and <code>PTR</code>s without closing <code>PRR</code>s or <code>WRR</code>s.<br>
-              • <b>Engineering Rule:</b> Ingestion pipelines must deploy fault-tolerant parsing: unclosed PIRs must be synthesized as <code>Bin 999 (Aborted)</code>, generating audit tickets without discarding the entire valid multi-wafer dataset.
+              In high-volume semiconductor manufacturing—where engineering teams ingest thousands of <code>.stdf.gz</code> lot streams daily from OSATs and foundries worldwide—engineers cannot handcraft binary parsers for production analytics. Over 90% of global semiconductor enterprises rely on <b>PDF Solutions Exensio (Enterprise Yield Management System, YMS)</b> and <b>SAS JMP (desktop statistical modeling &amp; DOE workhorse)</b>.
+              However, the immutable rule of <b>"Garbage In, Garbage Out"</b> governs all automated analytics: if the Exensio data loader recipes (DFX/DEX) and JMP preprocessing scripts are misconfigured, the 5 canonical STDF traps will silently pollute production data warehouses, misleading yield investigations and triggering false alarms.
             </span>
-          </div>
+          </p>
 
-          <div class="callout">
-            <span class="zh">
-              <b>陷阱 4：PTR 單邊極限（Single-Sided Limit）的無效值標記陷阱</b><br>
-              在許多漏電測試中，規範只有上限（如 \(I_{\text{leak}} < 50\text{ nA}\)），下限無物理意義。在 STDF PTR 記錄中，未定義的下限欄位通常填入預設的特殊常數（例如 \(-9.999 \times 10^{37}\) 或單精度浮點極限）。<br>
-              • <b>防禦規範：</b>讀取 PTR 時必須先檢查 <code>TEST_FLG</code> 之 Bit 4（Low Limit Invalid）與 Bit 5（High Limit Invalid）。切忌盲目把 <code>LO_LIMIT</code> 當成 <code>0</code> 帶入公式，否則會算出極端荒謬的 Cpk 數值！
-            </span>
-            <span class="en">
-              <b>Trap 4: Single-Sided Parametric Limit Sentinel Values Corrupting Cpk</b><br>
-              For unipolar measurements (e.g. leakage current with only an upper spec limit \(I_{\text{leak}} < 50\text{ nA}\)), the missing lower limit in PTR is populated with IEEE sentinel floats (e.g., \(-9.999 \times 10^{37}\)).<br>
-              • <b>Engineering Rule:</b> Always inspect <code>TEST_FLG</code> Bit 4 (Lo Limit Invalid) and Bit 5 (Hi Limit Invalid). Never default missing lower limits to zero, which severely distorts Cpk and standard deviation calculations.
-            </span>
-          </div>
+          <!-- FIGURE 1.3: ENTERPRISE TEST DATA PIPELINE (EXENSIO & JMP) -->
+          <figure>
+            <svg viewBox="0 0 960 490" style="width:100%; height:auto;" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Enterprise Semiconductor Test Data Pipeline: OSAT to Exensio to JMP">
+              <defs>
+                <filter id="p13Shadow" x="-5%" y="-10%" width="110%" height="130%">
+                  <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.12"/>
+                </filter>
+                <marker id="pipeArrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M 0 1 L 8 5 L 0 9 z" fill="var(--accent)"/>
+                </marker>
+                <marker id="pipeArrowGood" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M 0 1 L 8 5 L 0 9 z" fill="var(--good)"/>
+                </marker>
+                <marker id="pipeArrowWarn" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M 0 1 L 8 5 L 0 9 z" fill="var(--warn)"/>
+                </marker>
+              </defs>
+              <g fill="var(--ink)" font-family="var(--font-mono)">
 
-          <div class="callout">
-            <span class="zh">
-              <b>陷阱 5：晶圓座標翻轉與旋轉（Wafer Map Coordinate Rotation）</b><br>
-              不同晶圓廠與測試廠的探針台原點定義互不相容（有的以左下角為 (0,0)，有的以晶圓幾何中心為 (0,0)）。若未比對 <code>WCR</code> 中的 <code>WF_FLAT</code> 凹口方向，Wafer Map 繪製出的缺陷分佈會發生<b>左右鏡射或 180° 顛倒</b>，導致工程師在 Phase 4 錯怪曝光機或蝕刻機台！<br>
-              • <b>防禦規範：</b>入庫前強制與 MES 物理晶圓刻號（Wafer Scribe Mark）及劃切道測試鍵（Test Key / Scribe Line Die）進行物理基準校準。
-            </span>
-            <span class="en">
-              <b>Trap 5: Coordinate System Inversion &amp; Notch Rotation Inconsistencies</b><br>
-              Prober coordinates differ across vendors (center-origin vs. bottom-left origin). Neglecting <code>WCR</code> <code>WF_FLAT</code> notch orientation causes wafer maps to <b>mirror horizontally or rotate 180°</b>, leading engineers in Phase 4 to wrongly blame the wrong lithography slit or etch injector!<br>
-              • <b>Engineering Rule:</b> Always cross-validate coordinates against MES wafer laser scribe positions and optical scribe-line test keys.
-            </span>
+                <!-- TIER 1: OSAT / FACTORY FLOOR -->
+                <rect x="20" y="20" width="260" height="450" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1.5" filter="url(#p13Shadow)"/>
+                <text class="zh" x="35" y="45" font-size="12" font-weight="700" fill="var(--accent)">1. OSAT 測試廠產線端</text><text class="en" x="35" y="45" font-size="12" font-weight="700" fill="var(--accent)">1. OSAT Test Floor</text>
+                <text x="35" y="62" font-size="9.5" fill="var(--ink-soft)">Raw Binary Data Stream</text>
+
+                <!-- Box 1.1: ATE Testers -->
+                <rect x="35" y="78" width="230" height="95" rx="4" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+                <text class="zh" x="45" y="98" font-size="10.5" font-weight="700" fill="var(--accent)">ATE 測試機群 (CP / FT)</text><text class="en" x="45" y="98" font-size="10.5" font-weight="700" fill="var(--accent)">ATE Tester Fleets (CP/FT)</text>
+                <text x="45" y="115" font-size="9" fill="var(--ink-soft)">Advantest V93000 / Teradyne UF+</text>
+                <text class="zh" x="45" y="132" font-size="8.5" fill="var(--ink-soft)">• 多 Site 異步輸出 (Site 1–x32)</text><text class="en" x="45" y="132" font-size="8.5" fill="var(--ink-soft)">• Multi-site async streams (x1-x32)</text>
+                <text class="zh" x="45" y="148" font-size="8.5" fill="var(--warn)">• 探針接觸不良動態重測 (Retest)</text><text class="en" x="45" y="148" font-size="8.5" fill="var(--warn)">• In-line dynamic retest touchdowns</text>
+                <text class="zh" x="45" y="164" font-size="8.5" fill="var(--danger)">• 異常中斷產生未閉合檔案 (Crash)</text><text class="en" x="45" y="164" font-size="8.5" fill="var(--danger)">• Jam/abort crashes unclosed STDF</text>
+
+                <!-- Down arrow -->
+                <path d="M 150 175 L 150 195" stroke="var(--border)" stroke-width="1.5" marker-end="url(#pipeArrow)"/>
+
+                <!-- Box 1.2: Local Gateway -->
+                <rect x="35" y="200" width="230" height="85" rx="4" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+                <text class="zh" x="45" y="220" font-size="10.5" font-weight="700" fill="var(--accent)">廠端邊緣資料閘道</text><text class="en" x="45" y="220" font-size="10.5" font-weight="700" fill="var(--accent)">Factory Edge Gateway</text>
+                <text class="zh" x="45" y="238" font-size="8.5" fill="var(--ink-soft)">• 即時串流壓縮 (.stdf.gz / .std)</text><text class="en" x="45" y="238" font-size="8.5" fill="var(--ink-soft)">• Stream gzip compression (.stdf.gz)</text>
+                <text class="zh" x="45" y="254" font-size="8.5" fill="var(--ink-soft)">• MD5 雜湊校驗碼與封裝</text><text class="en" x="45" y="254" font-size="8.5" fill="var(--ink-soft)">• MD5 checksum validation &amp; audit</text>
+                <text class="zh" x="45" y="270" font-size="8.5" fill="var(--good)">• Secure SFTP / Apache Kafka 傳輸</text><text class="en" x="45" y="270" font-size="8.5" fill="var(--good)">• Secure SFTP / Kafka ingestion bus</text>
+
+                <!-- Summary callout bottom -->
+                <rect x="35" y="300" width="230" height="155" rx="4" fill="var(--surface)" stroke="var(--warn)" stroke-width="1"/>
+                <text class="zh" x="45" y="322" font-size="9.5" font-weight="700" fill="var(--warn)">產線原始資料高危特徵：</text><text class="en" x="45" y="322" font-size="9.5" font-weight="700" fill="var(--warn)">High-Risk Raw Data Attributes:</text>
+                <text class="zh" x="45" y="342" font-size="8.5" fill="var(--danger)">⚠️ 5%–15% 晶片存在重複 (X,Y) PRR</text><text class="en" x="45" y="342" font-size="8.5" fill="var(--danger)">⚠️ 5%-15% dies have duplicate PRRs</text>
+                <text class="zh" x="45" y="362" font-size="8.5" fill="var(--danger)">⚠️ 單邊限值填入 -9.999e37 哨兵值</text><text class="en" x="45" y="362" font-size="8.5" fill="var(--danger)">⚠️ Unbounded limits hold sentinels</text>
+                <text class="zh" x="45" y="382" font-size="8.5" fill="var(--danger)">⚠️ 座標凹口方向未經幾何校準</text><text class="en" x="45" y="382" font-size="8.5" fill="var(--danger)">⚠️ Uncalibrated notch coordinate maps</text>
+                <text class="zh" x="45" y="402" font-size="8.5" fill="var(--danger)">⚠️ 站點間交錯記錄未解碼</text><text class="en" x="45" y="402" font-size="8.5" fill="var(--danger)">⚠️ Interleaved multi-site buffers</text>
+                <text class="zh" x="45" y="430" font-size="8.5" fill="var(--accent)">[必須由入庫規則引擎全面清洗]</text><text class="en" x="45" y="430" font-size="8.5" fill="var(--accent)">[Mandatory Ingestion Sanitization]</text>
+
+                <!-- Connect Arrow Tier 1 -> Tier 2 -->
+                <path d="M 280 240 L 310 240" stroke="var(--accent)" stroke-width="2.5" marker-end="url(#pipeArrow)"/>
+
+                <!-- TIER 2: PDF SOLUTIONS EXENSIO RULES ENGINE -->
+                <rect x="315" y="20" width="330" height="450" rx="6" fill="var(--surface)" stroke="var(--accent)" stroke-width="2" filter="url(#p13Shadow)"/>
+                <text class="zh" x="330" y="45" font-size="12" font-weight="700" fill="var(--accent)">2. PDF Solutions Exensio 自動化清洗引擎</text><text class="en" x="330" y="45" font-size="12" font-weight="700" fill="var(--accent)">2. PDF Solutions Exensio Ingestion Engine</text>
+                <text x="330" y="62" font-size="9.5" fill="var(--ink-soft)">Enterprise Data Loader (DFX / DEX Platform)</text>
+
+                <!-- Exensio Rule 1 -->
+                <rect x="330" y="75" width="300" height="68" rx="4" fill="var(--surface-2)" stroke="var(--good)" stroke-width="1.2"/>
+                <text class="zh" x="340" y="93" font-size="10" font-weight="700" fill="var(--good)">配方 1: 重測自動合併 (Merge / Composite Recipe)</text><text class="en" x="340" y="93" font-size="10" font-weight="700" fill="var(--good)">Recipe 1: Automated Retest / Composite Merge</text>
+                <text class="zh" x="340" y="108" font-size="8.5" fill="var(--ink-soft)">• <tspan font-weight="700">FPY 模式</tspan>: 取 PART_FLG Bit 0=0 初測紀錄，供機台接觸監控</text><text class="en" x="340" y="108" font-size="8.5" fill="var(--ink-soft)">• FPY Mode: isolates Bit 0=0 initial touchdowns</text>
+                <text class="zh" x="340" y="122" font-size="8.5" fill="var(--ink-soft)">• <tspan font-weight="700">Composite 模式</tspan>: 依座標覆蓋取最後有效 Pass，供出貨良率</text><text class="en" x="340" y="122" font-size="8.5" fill="var(--ink-soft)">• Composite: merges latest pass per coordinate for shipping</text>
+                <text class="zh" x="340" y="135" font-size="8" fill="var(--warn)">• <tspan font-weight="700">Retest Delta 警報</tspan>: 當挽回率 &gt; 3% 自動觸發針卡異常工單</text><text class="en" x="340" y="135" font-size="8" fill="var(--warn)">• Retest Alarm: triggers probe card alert if recovery &gt; 3%</text>
+
+                <!-- Exensio Rule 2 -->
+                <rect x="330" y="148" width="300" height="60" rx="4" fill="var(--surface-2)" stroke="var(--accent)" stroke-width="1"/>
+                <text class="zh" x="340" y="165" font-size="10" font-weight="700" fill="var(--accent)">配方 2: 多 Site 狀態解耦 (Per-Site State Buffers)</text><text class="en" x="340" y="165" font-size="10" font-weight="700" fill="var(--accent)">Recipe 2: Multi-Site State Machine Buffering</text>
+                <text class="zh" x="340" y="180" font-size="8.5" fill="var(--ink-soft)">• 維護 (HEAD_NUM, SITE_NUM) 獨立通道快取，杜絕亂序掛載</text><text class="en" x="340" y="180" font-size="8.5" fill="var(--ink-soft)">• Isolated site buffers prevent interleaved parameter corruption</text>
+                <text class="zh" x="340" y="195" font-size="8.5" fill="var(--good)">• 自動計算各站 Site Delta 良率與 ANOVA 變異數顯著性檢定</text><text class="en" x="340" y="195" font-size="8.5" fill="var(--good)">• Automatic per-site ANOVA and Kruskal-Wallis skew test</text>
+
+                <!-- Exensio Rule 3 -->
+                <rect x="330" y="213" width="300" height="62" rx="4" fill="var(--surface-2)" stroke="var(--danger)" stroke-width="1"/>
+                <text class="zh" x="340" y="230" font-size="10" font-weight="700" fill="var(--danger)">配方 3: 異常檔案容錯隔離 (Tolerant Ingestion)</text><text class="en" x="340" y="230" font-size="10" font-weight="700" fill="var(--danger)">Recipe 3: Truncated File Ingestion &amp; Quarantine</text>
+                <text class="zh" x="340" y="246" font-size="8.5" fill="var(--ink-soft)">• 未閉合 PIR 自動填補虛擬 Bin 999 (Aborted) 避免整檔拋棄</text><text class="en" x="340" y="246" font-size="8.5" fill="var(--ink-soft)">• Unclosed PIRs synthesized as Bin 999; wafer saved as partial</text>
+                <text class="zh" x="340" y="261" font-size="8.5" fill="var(--danger)">• 標記 Partial Tested 狀態，自動通知產線補測並鎖定隔離</text><text class="en" x="340" y="261" font-size="8.5" fill="var(--danger)">• Flags partial lots and dispatches incident alert to test line</text>
+
+                <!-- Exensio Rule 4 -->
+                <rect x="330" y="280" width="300" height="60" rx="4" fill="var(--surface-2)" stroke="var(--accent)" stroke-width="1"/>
+                <text class="zh" x="340" y="297" font-size="10" font-weight="700" fill="var(--accent)">配方 4: 極限主檔校驗 (Limit Master &amp; Sentinel Nullify)</text><text class="en" x="340" y="297" font-size="10" font-weight="700" fill="var(--accent)">Recipe 4: Limit Master &amp; Sentinel Float Nullification</text>
+                <text class="zh" x="340" y="313" font-size="8.5" fill="var(--ink-soft)">• 檢查 TEST_FLG：哨兵極限 ((le -10^{30})) 強制轉換為 NULL</text><text class="en" x="340" y="313" font-size="8.5" fill="var(--ink-soft)">• Sentinel limits ((le -10^{30})) converted to database NULL</text>
+                <text class="zh" x="340" y="328" font-size="8.5" fill="var(--good)">• 自動套用單邊極限公式計算 (C_{pu}) / (C_{pl})，消除虛假變異</text><text class="en" x="340" y="328" font-size="8.5" fill="var(--good)">• Computes true single-sided (C_{pu})/(C_{pl}) instead of broken Cpk</text>
+
+                <!-- Exensio Rule 5 -->
+                <rect x="330" y="345" width="300" height="62" rx="4" fill="var(--surface-2)" stroke="var(--good)" stroke-width="1"/>
+                <text class="zh" x="340" y="362" font-size="10" font-weight="700" fill="var(--good)">配方 5: 晶圓幾何自動矩陣對齊 (CAD/Klarf Alignment)</text><text class="en" x="340" y="362" font-size="10" font-weight="700" fill="var(--good)">Recipe 5: Wafer Geometric Alignment &amp; Normalization</text>
+                <text class="zh" x="340" y="378" font-size="8.5" fill="var(--ink-soft)">• 交叉比對 WCR Notch 與 Master GDS 版圖原點座標</text><text class="en" x="340" y="378" font-size="8.5" fill="var(--ink-soft)">• Validates WCR notch against master CAD/GDS layout origin</text>
+                <text class="zh" x="340" y="393" font-size="8.5" fill="var(--good)">• 自動執行座標旋轉平移變換矩陣，與 KLARF 缺陷圖 100% 貼合</text><text class="en" x="340" y="393" font-size="8.5" fill="var(--good)">• Applies rotation/flip matrix for pixel-perfect Klarf alignment</text>
+
+                <!-- Loading to DWH -->
+                <rect x="330" y="413" width="300" height="45" rx="4" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1"/>
+                <text class="zh" x="480" y="432" text-anchor="middle" font-size="9.5" font-weight="700" fill="var(--good)">清洗後資料寫入 Exensio Yield 列式分析資料庫</text><text class="en" x="480" y="432" text-anchor="middle" font-size="9.5" font-weight="700" fill="var(--good)">Sanitized Data Loaded into Exensio Columnar DWH</text>
+                <text class="zh" x="480" y="446" text-anchor="middle" font-size="8" fill="var(--ink-soft)">提供全公司單一數據真理來源 (Single Source of Truth)</text><text class="en" x="480" y="446" text-anchor="middle" font-size="8" fill="var(--ink-soft)">Enterprise Single Source of Truth for Yield Analytics</text>
+
+                <!-- Connect Arrow Tier 2 -> Tier 3 -->
+                <path d="M 645 240 L 675 240" stroke="var(--accent)" stroke-width="2.5" marker-end="url(#pipeArrow)"/>
+
+                <!-- TIER 3: SAS JMP & ENGINEERING ANALYTICS -->
+                <rect x="680" y="20" width="260" height="450" rx="6" fill="var(--surface-2)" stroke="var(--good)" stroke-width="1.8" filter="url(#p13Shadow)"/>
+                <text class="zh" x="695" y="45" font-size="12" font-weight="700" fill="var(--good)">3. SAS JMP 工程師分析閉環</text><text class="en" x="695" y="45" font-size="12" font-weight="700" fill="var(--good)">3. SAS JMP Analytics Loop</text>
+                <text x="695" y="62" font-size="9.5" fill="var(--ink-soft)">Statistical Modeling &amp; DOE Workhorse</text>
+
+                <!-- JMP Flow 1 -->
+                <rect x="695" y="78" width="230" height="85" rx="4" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+                <text class="zh" x="705" y="98" font-size="10" font-weight="700" fill="var(--accent)">JMP 連接與清洗腳本 (JSL)</text><text class="en" x="705" y="98" font-size="10" font-weight="700" fill="var(--accent)">JMP Link &amp; JSL Automation</text>
+                <text class="zh" x="705" y="115" font-size="8.5" fill="var(--ink-soft)">• 透過 Exensio ODBC / Parquet 載入</text><text class="en" x="705" y="115" font-size="8.5" fill="var(--ink-soft)">• Direct Exensio ODBC / Parquet link</text>
+                <text class="zh" x="705" y="130" font-size="8.5" fill="var(--ink-soft)">• <tspan font-weight="700">JSL 缺失值註冊</tspan>: 標記 Missing Code</text><text class="en" x="705" y="130" font-size="8.5" fill="var(--ink-soft)">• JSL recodes sentinels to missing</text>
+                <text class="zh" x="705" y="146" font-size="8.5" fill="var(--good)">• <tspan font-weight="700">子集過濾</tspan>: 快速切換 FPY / Final</text><text class="en" x="705" y="146" font-size="8.5" fill="var(--good)">• Subset table: toggles FPY vs Final</text>
+
+                <!-- Down arrow -->
+                <path d="M 810 165 L 810 182" stroke="var(--border)" stroke-width="1.5" marker-end="url(#pipeArrow)"/>
+
+                <!-- JMP Flow 2 -->
+                <rect x="695" y="185" width="230" height="92" rx="4" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+                <text class="zh" x="705" y="205" font-size="10" font-weight="700" fill="var(--accent)">多變量 ANOVA 與變異分解</text><text class="en" x="705" y="205" font-size="10" font-weight="700" fill="var(--accent)">Multivariate ANOVA &amp; Variance</text>
+                <text class="zh" x="705" y="222" font-size="8.5" fill="var(--ink-soft)">• <tspan font-weight="700">Fit Y by X</tspan>: 站點偏差 (Site Skew)</text><text class="en" x="705" y="222" font-size="8.5" fill="var(--ink-soft)">• Fit Y by X: isolates site delta skew</text>
+                <text class="zh" x="705" y="238" font-size="8.5" fill="var(--ink-soft)">• <tspan font-weight="700">Tukey-Kramer HSD</tspan>: 機台差異檢定</text><text class="en" x="705" y="238" font-size="8.5" fill="var(--ink-soft)">• Tukey-Kramer tool-to-tool comparison</text>
+                <text class="zh" x="705" y="254" font-size="8.5" fill="var(--good)">• 變異數成份分析: 批次 vs 晶圓 vs 晶粒</text><text class="en" x="705" y="254" font-size="8.5" fill="var(--good)">• Variance components: lot vs wafer vs die</text>
+
+                <!-- Down arrow -->
+                <path d="M 810 280 L 810 297" stroke="var(--border)" stroke-width="1.5" marker-end="url(#pipeArrow)"/>
+
+                <!-- JMP Flow 3 -->
+                <rect x="695" y="300" width="230" height="158" rx="4" fill="var(--surface)" stroke="var(--good)" stroke-width="1.2"/>
+                <text class="zh" x="705" y="320" font-size="10" font-weight="700" fill="var(--good)">互動視覺化與 6σ 決策閉環</text><text class="en" x="705" y="320" font-size="10" font-weight="700" fill="var(--good)">Interactive Visualization &amp; 6σ</text>
+                <text class="zh" x="705" y="338" font-size="8.5" fill="var(--ink-soft)">• <tspan font-weight="700">Graph Builder</tspan>: 空間晶圓圖疊合</text><text class="en" x="705" y="338" font-size="8.5" fill="var(--ink-soft)">• Graph Builder: wafer map stacking</text>
+                <text class="zh" x="705" y="354" font-size="8.5" fill="var(--ink-soft)">• <tspan font-weight="700">Distribution</tspan>: 動態 PAT 限值篩選</text><text class="en" x="705" y="354" font-size="8.5" fill="var(--ink-soft)">• Distribution: dynamic PAT outlier cut</text>
+                <text class="zh" x="705" y="370" font-size="8.5" fill="var(--ink-soft)">• <tspan font-weight="700">Cpk Capability</tspan>: 參數邊限漂移監控</text><text class="en" x="705" y="370" font-size="8.5" fill="var(--ink-soft)">• Cpk capability: parametric drift alert</text>
+                <text class="zh" x="705" y="390" font-size="8.5" fill="var(--accent)">• 導出座標名單直送 Phase 7 FA</text><text class="en" x="705" y="390" font-size="8.5" fill="var(--accent)">• Exports defect die list to Phase 7 FA</text>
+                <text class="zh" x="705" y="415" font-size="8.5" fill="var(--good)">[企業工程師最核心日常武器]</text><text class="en" x="705" y="415" font-size="8.5" fill="var(--good)">[The Core Workhorse for Yield Engineers]</text>
+
+              </g>
+            </svg>
+            <figcaption class="figure-caption">
+              <span class="zh">圖 1.3：企業級半導體測試資料自動化清洗與良率分析流水線全貌圖 — 從 OSAT ATE 機台、PDF Exensio 入庫規則引擎到 JMP 統計建模閉環</span>
+              <span class="en">Figure 1.3: Enterprise Semiconductor Test Data Automated Ingestion Pipeline — From OSAT ATE, PDF Exensio Rules Engine to SAS JMP Statistical Modeling</span>
+            </figcaption>
+          </figure>
+
+          <!-- COMPARISON MATRIX TABLE -->
+          <h4>
+            <span class="zh">1.2.4 STDF 5 大陷阱在 PDF Exensio、SAS JMP 與 Python 腳本中的對照解法矩陣</span>
+            <span class="en">1.2.4 STDF Traps Resolution Matrix: PDF Exensio vs. SAS JMP vs. Python Scripts</span>
+          </h4>
+
+          <div class="data-table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th><span class="zh">STDF 實戰陷阱</span><span class="en">STDF Data Trap</span></th>
+                  <th><span class="zh">PDF Solutions Exensio 自動化解法</span><span class="en">PDF Solutions Exensio Recipe</span></th>
+                  <th><span class="zh">SAS JMP 工程分析清洗手法</span><span class="en">SAS JMP Engineering Method</span></th>
+                  <th><span class="zh">Python / 自研解析器防禦代碼 (FastSTDF)</span><span class="en">Python / Custom Script Defense</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b><span class="zh">1. 重測資料重複計入</span><span class="en">1. Retest Duplication</span></b></td>
+                  <td>
+                    <span class="zh">配置 <b>Merge Rules / Retest Policy</b>：系統自動依 <code>PART_FLG</code> 拆分為 <code>FPY_Yield</code> 與 <code>Final_Yield</code> 雙指標；並設挽回率閥值警報（(Delta Y &gt; 3%)）。</span>
+                    <span class="en">Configure <b>Merge Rules / Retest Policy</b>: separates <code>FPY_Yield</code> and <code>Final_Yield</code> via <code>PART_FLG</code>; triggers recovery alarm if (Delta Y &gt; 3%).</span>
+                  </td>
+                  <td>
+                    <span class="zh">在 JSL 中使用 <code>Select Where(:PART_FLG == 0)</code> 建立 FPY 子集；或以 <code>Summary(Group(:X_COORD, :Y_COORD), Max(:TEST_NUM))</code> 產生最新通過晶粒表。</span>
+                    <span class="en">Use JSL <code>Select Where(:PART_FLG == 0)</code> for FPY subset, or <code>Summary(Group(:X,:Y), Max(:TEST_NUM))</code> to extract final composite dies.</span>
+                  </td>
+                  <td>
+                    <code>if part_flg &amp; 0x01 == 0: fpy_map[(x,y)] = bin<br>final_map[(x,y)] = bin # overwrite</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b><span class="zh">2. 多 Site 異步亂序交錯</span><span class="en">2. Multi-Site Asynchrony</span></b></td>
+                  <td>
+                    <span class="zh"><b>DFX Loader</b> 內建硬體站點狀態機：依 <code>(HEAD_NUM, SITE_NUM)</code> 分配專屬串流 Buffer，保證參數指標 100% 歸入正確 Site，並自動計算 ANOVA。</span>
+                    <span class="en"><b>DFX Loader</b> isolates stream buffers keyed on <code>(HEAD_NUM, SITE_NUM)</code>; automatically performs oneway ANOVA across test sites.</span>
+                  </td>
+                  <td>
+                    <span class="zh">執行 <b>Analyze ➔ Fit Y by X</b>，以 <code>SITE_NUM</code> 為 X 軸，觀察各 Site 均值與標準差，使用 <b>Oneway ANOVA / Welch Test</b> 檢驗站點顯著性偏位。</span>
+                    <span class="en">Execute <b>Analyze ➔ Fit Y by X</b> with <code>SITE_NUM</code> as X; run <b>Oneway ANOVA / Welch Test</b> to detect statistically significant site bias.</span>
+                  </td>
+                  <td>
+                    <code>site_ctx = defaultdict(list)<br>site_ctx[(head, site)].append(ptr)</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b><span class="zh">3. 機台崩潰遺失 PRR</span><span class="en">3. Missing PRR on Abort</span></b></td>
+                  <td>
+                    <span class="zh">啟用 <b>Tolerant Ingestion Mode</b>：對未閉合的 PIR 自動補齊合成記錄 <code>Bin 999 (Incomplete / Aborted)</code>，批次標記為 Partial 并派發異常工單。</span>
+                    <span class="en">Enable <b>Tolerant Ingestion Mode</b>: synthesizes <code>Bin 999 (Aborted)</code> for orphaned PIRs; marks lot as partial and issues an incident ticket.</span>
+                  </td>
+                  <td>
+                    <span class="zh">使用 <b>Tables ➔ Missing Value Analysis</b> 識別中途截斷之晶粒；比對 MES 應測晶粒總數，計算截斷損失率（Abort Rate）。</span>
+                    <span class="en">Run <b>Tables ➔ Missing Value Analysis</b> to isolate truncated units; cross-check MES planned counts to calculate test abort rates.</span>
+                  </td>
+                  <td>
+                    <code>if unclosed_pir: yield_record.append(PRR(bin=999, status='ABORT'))</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b><span class="zh">4. 單邊極限定義哨兵值</span><span class="en">4. Single-Sided Sentinel Floats</span></b></td>
+                  <td>
+                    <span class="zh"><b>Limit Master</b> 規則：偵測 <code>TEST_FLG</code> 無效位元或小於 (-10^{30}) 之極值，自動轉為 SQL <code>NULL</code>，並自動調用單邊極限公式計算 (C_{pu}) / (C_{pl})。</span>
+                    <span class="en"><b>Limit Master</b> converts floats (le -10^{30}) or flagged invalid limits to SQL <code>NULL</code>; applies single-sided (C_{pu})/(C_{pl}) algorithms.</span>
+                  </td>
+                  <td>
+                    <span class="zh">在 <b>Column Properties ➔ Spec Limits</b> 中僅輸入 USL（留空 LSL）；在偏好設定中將 <code>-9.999e37</code> 填入 <b>Missing Value Codes</b>，分佈圖恢復常態。</span>
+                    <span class="en">In <b>Column Properties ➔ Spec Limits</b>, input USL only; register <code>-9.999e37</code> in <b>Missing Value Codes</b> to restore natural histogram scaling.</span>
+                  </td>
+                  <td>
+                    <code>lo_lim = None if (test_flg &amp; 0x10 or val &lt; -1e30) else val</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b><span class="zh">5. 晶圓座標系翻轉與鏡射</span><span class="en">5. Coordinate Inversion / Flip</span></b></td>
+                  <td>
+                    <span class="zh"><b>Wafer Alignment Master</b>：交叉比對 WCR 之 <code>WF_FLAT</code> 與 GDS 版圖，若發現原點不一致，自動執行旋轉平移變換矩陣，確保與 KLARF 缺陷圖 100% 貼合。</span>
+                    <span class="en"><b>Wafer Alignment Master</b> matches WCR <code>WF_FLAT</code> with GDS origin; applies automated transformation matrix for pixel-level Klarf defect overlay.</span>
+                  </td>
+                  <td>
+                    <span class="zh">在 <b>Graph Builder</b> 建立 Wafer Map（X 對應 X_COORD，Y 對應 Y_COORD）；在座標軸反轉（Reversed Scale）中手動校正，並鎖定 1:1 長寬比驗證 Notch 方位。</span>
+                    <span class="en">In <b>Graph Builder</b>, map X_COORD/Y_COORD; toggle <b>Reversed Scale</b> if prober inverted axes; lock 1:1 aspect ratio to confirm notch orientation.</span>
+                  </td>
+                  <td>
+                    <code>if notch == 'D': x_rot, y_rot = -y, x<br># Transform to standard GDS grid</code>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
 
           <div class="callout warn">
@@ -12105,6 +12301,31 @@
               </thead>
               <tbody>
                 <tr>
+                  <td><b>Exensio</b></td>
+                  <td>PDF Solutions Exensio Platform</td>
+                  <td><span class="zh">全球半導體領導級企業大數據良率管理系統（YMS），具備自動化 STDF 清洗、重測合併與機台共模歸因能力</span><span class="en">Enterprise Yield Management System (YMS) by PDF Solutions with automated STDF ingestion, retest policies, and tool commonality analytics</span></td>
+                </tr>
+                <tr>
+                  <td><b>FPY</b></td>
+                  <td>First Pass Yield</td>
+                  <td><span class="zh">初測良率，未計入任何重測挽回之真實晶圓製程與測試硬體接觸良率</span><span class="en">First Pass Yield; raw testing yield prior to any retest recovery attempts</span></td>
+                </tr>
+                <tr>
+                  <td><b>JMP</b></td>
+                  <td>SAS JMP Statistical Software</td>
+                  <td><span class="zh">半導體工程師核心統計分析工具，用於多站點 ANOVA、動態 PAT 限值篩選、Cpk 分析與實驗設計（DOE）</span><span class="en">Interactive statistical discovery software widely deployed for semiconductor ANOVA, PAT outlier screening, and DOE</span></td>
+                </tr>
+                <tr>
+                  <td><b>Sentinel Value</b></td>
+                  <td>Sentinel Float / Sentinel Code</td>
+                  <td><span class="zh">哨兵值，STDF 參數極限未定義時 ATE 填入之特殊常數（如 (-9.999 \times 10^{37})），入庫需強制轉為 NULL</span><span class="en">Extreme dummy float populated in STDF when a limit is unbounded; must be converted to SQL NULL</span></td>
+                </tr>
+                <tr>
+                  <td><b>YMS</b></td>
+                  <td>Yield Management System</td>
+                  <td><span class="zh">企業級晶圓與封測良率大數據管理平台架構</span><span class="en">Enterprise Yield Management System for cross-facility semiconductor manufacturing analytics</span></td>
+                </tr>
+                <tr>
                   <td><b>MIR / MRR</b></td>
                   <td>Master Information / Results Record</td>
                   <td><span class="zh">STDF 批次主資訊與全批測試結果匯總紀錄</span><span class="en">STDF Master Information and Master Results Records</span></td>
@@ -12491,6 +12712,14 @@
               <li>
                 Teradyne Inc., "Standard Test Data Format (STDF) Specification Version 4," <i>Teradyne System Documentation</i>, 2007.<br>
                 <span style="font-size:12.5px; color:var(--ink-soft);"><span class="zh">半導體 ATE 測試資料二進位格式標準規範 V4</span><span class="en">Standard Test Data Format (STDF) Specification Version 4</span></span>
+              </li>
+              <li>
+                PDF Solutions Inc., "Exensio Yield &amp; Manufacturing Analytics Platform Architecture," <i>PDF Solutions Technical Whitepaper</i>, 2022.<br>
+                <span style="font-size:12.5px; color:var(--ink-soft);"><span class="zh">PDF Solutions Exensio 企業級半導體良率大數據平台架構</span><span class="en">PDF Solutions Exensio Enterprise Yield &amp; Manufacturing Platform Architecture</span></span>
+              </li>
+              <li>
+                SAS Institute, "JMP for Semiconductor Applications: Statistical Quality Control &amp; Yield Modeling Guide," <i>SAS Press</i>, 2021.<br>
+                <span style="font-size:12.5px; color:var(--ink-soft);"><span class="zh">SAS JMP 半導體良率統計分析與品質工程應用指南</span><span class="en">JMP for Semiconductor Applications: Statistical Quality Control &amp; Yield Modeling Guide</span></span>
               </li></ul>
           <h4><span class="zh">統計、SPC 與實驗設計</span><span class="en">Statistics, SPC &amp; DOE</span></h4>
           <ul>
@@ -12573,11 +12802,11 @@
     <div style="display:flex; flex-direction:column; align-items:flex-end; gap:5px;">
       <div style="display:flex; align-items:center; gap:8px;">
         <span class="badge badge-green" style="font-size:11px; padding:2px 8px;">● LIVE VERIFIED</span>
-        <span style="font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft);">Rev. AC</span>
+        <span style="font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft);">Rev. AD</span>
       </div>
       <div style="font-family:var(--font-mono); font-size:12px; color:var(--ink);">
         <span class="zh">最後更新日期：</span><span class="en">Last Updated: </span>
-        <b style="color:var(--accent);">2026-10-28 05:00 (Asia/Taipei)</b>
+        <b style="color:var(--accent);">2026-10-28 07:00 (Asia/Taipei)</b>
       </div>
     </div>
   </footer>

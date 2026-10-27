@@ -9,6 +9,37 @@ Entry format / 格式:
 
 ---
 
+## 2026-10-28 — Google Antigravity — Rev. AD: Commercial Yield Solutions: Automated STDF Sanitization & Trap Prevention in PDF Solutions Exensio & SAS JMP (Section 1.2.3, Fig 1.3, Table 1.2.4)
+
+- **Added Section 1.2.3: 商業級良率系統實踐：PDF Solutions Exensio 與 SAS JMP 的 STDF 陷阱自動化清洗、防禦配方與企業級架構 (Commercial Yield Solutions: Automated STDF Sanitization & Trap Prevention in PDF Solutions Exensio & SAS JMP)**:
+  - Deep-dive into how Tier 1 foundries (TSMC, GF) and fabless giants (NVIDIA, Qualcomm, Apple, MediaTek) automate STDF ingestion and prevent data corruption using PDF Solutions Exensio and SAS JMP.
+  - Detailed the 5 Exensio Ingestion Guardrails:
+    - Recipe 1: Retest Merge Policy (FPY vs Composite Final yield separation, Retest Recovery Delta > 3% alarm).
+    - Recipe 2: Multi-Site Asynchronous De-interleaving (per-site hardware buffer states, automated ANOVA).
+    - Recipe 3: Tolerant Ingestion & Incomplete File Quarantine (synthesizes unclosed PIRs into Bin 999 Aborted, marking partial test lots).
+    - Recipe 4: Limit Master & Sentinel Float Nullification (converts -9.999e37 to database NULL, executing single-sided \(C_{pu}/C_{pl}\) algorithms).
+    - Recipe 5: Wafer Geometric Alignment & CAD Master Overlay (auto-detects WCR notch and rotates prober axes to achieve pixel-perfect KLARF defect overlay).
+  - Detailed SAS JMP Desktop Engineering Workflows & JSL scripts:
+    - Missing Value Codes registration to prevent histogram distortion.
+    - Subset tables for FPY vs Final composite yield.
+    - Fit Y by X Oneway ANOVA / Welch tests for site delta skew.
+    - Graph Builder 1:1 aspect ratio spatial wafer map verification.
+- **Added Figure 1.3**:
+  - Full-width, high-precision technical SVG diagram (`viewBox="0 0 960 490"`) depicting the enterprise pipeline: OSAT ATE → Edge Gateway → PDF Exensio Rules Engine → Columnar DWH → JMP Engineering Analytics loop.
+- **Added Table 1.2.4**:
+  - Comprehensive comparison matrix contrasting all 5 STDF traps across PDF Solutions Exensio, SAS JMP, and Python (FastSTDF) custom scripts.
+- **Removed Duplicate Text**:
+  - Cleaned up redundant copy of Traps 2–5 from earlier editing transition.
+- **Appendix C & D Updates**:
+  - Appendix C: Added `Exensio`, `FPY`, `JMP`, `Sentinel Value`, and `YMS`.
+  - Appendix D: Added PDF Solutions Exensio Platform Architecture and SAS JMP Semiconductor Applications whitepaper citations.
+- **Verification**:
+  - `npm run verify` passed: 0 errors, 15 sections, 23 figures, 44 tables, 457 divs, 3442 spans balanced.
+  - `node scripts/audit_i18n_and_structure.js` passed: 0 numbering drift, 0 Chinese leaks in English mode across all sections.
+  - Bumped revision header and footer labels to Rev. AD with timestamp 2026-10-28 07:00 (Asia/Taipei).
+
+---
+
 ## 2026-10-28 — Google Antigravity — Rev. AC: Interactive Search Dropdown Window & Quick Navigation (搜尋即時下拉式選單與一鍵跳轉視窗)
 
 - **Interactive Search Dropdown Window (`.find-dropdown`)**:
