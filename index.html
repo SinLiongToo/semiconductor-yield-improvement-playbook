@@ -471,8 +471,8 @@
   nav.toc li { margin: 0; }
   nav.toc a {
     display: block;
-    padding: 5px 0 5px 12px;
-    font-size: 12.5px;
+    padding: 4px 0 4px 12px;
+    font-size: 12px;
     color: var(--ink-soft);
     text-decoration: none;
     border-left: 2px solid transparent;
@@ -485,6 +485,53 @@
     border-left-color: var(--accent);
     font-weight: 600;
   }
+  nav.toc a.active-parent {
+    color: var(--accent);
+    font-weight: 600;
+  }
+  nav.toc .toc-sub {
+    list-style: none;
+    margin: 0;
+    padding: 0 0 4px 0;
+  }
+  nav.toc .toc-sub li a {
+    display: block;
+    padding: 2.5px 0 2.5px 20px;
+    font-size: 11px;
+    color: var(--ink-faint);
+    line-height: 1.35;
+    border-left: 2px solid transparent;
+    margin-left: -2px;
+  }
+  nav.toc .toc-sub li a:hover, nav.toc .toc-sub li a.active {
+    color: var(--accent);
+    border-left-color: var(--accent);
+    font-weight: 600;
+    background: var(--surface-2);
+  }
+  nav.toc.hide-subheadings .toc-sub {
+    display: none;
+  }
+
+  /* Mobile TOC Subheadings */
+  .toc-m .toc-sub {
+    list-style: none;
+    margin: 4px 0 8px 0;
+    padding: 0 0 0 12px;
+    border-left: 1.5px solid var(--border);
+  }
+  .toc-m .toc-sub li { margin: 2px 0; }
+  .toc-m .toc-sub li a {
+    display: block;
+    padding: 2px 0;
+    font-size: 12px;
+    color: var(--ink-faint);
+    line-height: 1.4;
+  }
+  .toc-m .toc-sub li a:hover {
+    color: var(--accent);
+  }
+
   .toc-header {
     display: flex;
     align-items: center;
@@ -1206,21 +1253,141 @@
   <details class="toc-m">
     <summary><span class="zh">📑 目錄快速導覽</span><span class="en">📑 Table of Contents</span></summary>
     <ol>
-      <li><a href="#overview"><span class="zh">總覽：流程、6M1E 魚骨圖與十大失效前饋控制</span><span class="en">Overview: Process, 6M1E Fishbone & Top 10 Feedforward</span></a></li>
-      <li><a href="#tools"><span class="zh">🛠️ 5 大內建互動分析工具</span><span class="en">🛠️ 5 Interactive Analyzers</span></a></li>
-      <li><a href="#phase0"><span class="zh">Phase 0: 良率基線與損失解構</span><span class="en">Phase 0: Baseline & Yield Loss Decomposition</span></a></li>
-      <li><a href="#phase1"><span class="zh">Phase 1: 跨站資料架構與全履歷鏈接</span><span class="en">Phase 1: Cross-Stage Data Architecture</span></a></li>
-      <li><a href="#phase2"><span class="zh">Phase 2: 晶圓空間分佈簽名辨識</span><span class="en">Phase 2: Spatial Wafer Map Signatures</span></a></li>
-      <li><a href="#phase3_nonproc"><span class="zh">Phase 3: 非製程假異常：硬體、程式、量測與材料擴散變異</span><span class="en">Phase 3: Hardware, Program, Metrology & Material Variations</span></a></li>
-      <li><a href="#phase4"><span class="zh">Phase 4: 晶圓製程變異、Corners、批次相依性與共模歸因</span><span class="en">Phase 4: Variations, Corners, Lots & Chamber Attribution</span></a></li>
-      <li><a href="#phase5_ft"><span class="zh">Phase 5: 封裝成品測試 (FT) 與 系統級測試 (SLT) 實務全攻略</span><span class="en">Phase 5: Final Test (FT), SLT & Packaging Yield</span></a></li>
-      <li><a href="#phase6_cpk"><span class="zh">Phase 6: 參數 Margin 與 Cpk 飄移</span><span class="en">Phase 6: Parametric Margin & Cpk Drift</span></a></li>
-      <li><a href="#phase7_fa"><span class="zh">Phase 7: 失效分析 (FA) 實體物理驗證與製程反饋</span><span class="en">Phase 7: Failure Analysis (FA) Verification</span></a></li>
-      <li><a href="#phase8_rma"><span class="zh">Phase 8: 客訴案件分析與良率溯源閉環</span><span class="en">Phase 8: Customer RMA & Field Return Closed-Loop</span></a></li>
-      <li><a href="#phase9_action"><span class="zh">Phase 9: 系統性改善戰術與閉環</span><span class="en">Phase 9: Systematic Improvement Playbook</span></a></li>
-      <li><a href="#phase10_ramp"><span class="zh">Phase 10: Ramp 學習曲線與稽核治理</span><span class="en">Phase 10: Yield Ramp & Audit Defense</span></a></li>
-      <li><a href="#case_study"><span class="zh">實戰案例：端到端良率突降演練</span><span class="en">Case Study: End-to-End Excursion</span></a></li>
-      <li><a href="#appendices"><span class="zh">附錄: 範本、公式卡、詞彙表與參考文獻</span><span class="en">Appendices: Templates, Formulas, Glossary & References</span></a></li>
+      <li>
+        <a href="#overview"><span class="zh">總覽：流程、6M1E 魚骨圖與十大失效前饋控制</span><span class="en">Overview: Process, 6M1E Fishbone & Top 10 Feedforward</span></a>
+        <ul class="toc-sub">
+          <li><a href="#sec_ov_1"><span class="zh">OV.1 6M1E 因果魚骨圖</span><span class="en">OV.1 6M1E Ishikawa Fishbone</span></a></li>
+          <li><a href="#sec_ov_2"><span class="zh">OV.2 十大核心良率失效模式</span><span class="en">OV.2 Top 10 Fallouts Matrix</span></a></li>
+          <li><a href="#sec_ov_3"><span class="zh">OV.3 跨工序分站審查與溯源</span><span class="en">OV.3 Stage-by-Stage Review</span></a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#tools"><span class="zh">🛠️ 5 大內建互動分析工具</span><span class="en">🛠️ 5 Interactive Analyzers</span></a>
+        <ul class="toc-sub">
+          <li><a href="#tool_1"><span class="zh">Tool 1: 缺陷密度與良率模型</span><span class="en">Tool 1: Defect & Yield Model</span></a></li>
+          <li><a href="#tool_2"><span class="zh">Tool 2: 空間缺陷簽名模擬器</span><span class="en">Tool 2: Spatial Simulator</span></a></li>
+          <li><a href="#tool_3"><span class="zh">Tool 3: 非製程假異常決策矩陣</span><span class="en">Tool 3: Root Cause Triangulator</span></a></li>
+          <li><a href="#tool_4"><span class="zh">Tool 4: 機台/腔體共模檢定</span><span class="en">Tool 4: Chamber Commonality</span></a></li>
+          <li><a href="#tool_5"><span class="zh">Tool 5: 參數型良率與 Cpk/PAT</span><span class="en">Tool 5: Parametric Cpk & PAT</span></a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#phase0"><span class="zh">Phase 0: 良率基線與損失解構</span><span class="en">Phase 0: Baseline & Yield Loss Decomposition</span></a>
+        <ul class="toc-sub">
+          <li><a href="#sec_0_1"><span class="zh">0.1 線良率 vs 晶粒良率</span><span class="en">0.1 Line vs Die Yield</span></a></li>
+          <li><a href="#sec_0_2"><span class="zh">0.2 系統性 vs 隨機性損失</span><span class="en">0.2 Systematic vs Random Loss</span></a></li>
+          <li><a href="#sec_0_3"><span class="zh">0.3 指標階層：FPY/RTY/GDPW</span><span class="en">0.3 Metric Hierarchy: FPY/RTY</span></a></li>
+          <li><a href="#sec_0_4"><span class="zh">0.4 良率損失瀑布圖與基線</span><span class="en">0.4 Waterfall & Baseline</span></a></li>
+          <li><a href="#sec_0_5"><span class="zh">0.5 良率經濟價值 (1% 值多少)</span><span class="en">0.5 Economics of Yield</span></a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#phase1"><span class="zh">Phase 1: 跨站資料架構與全履歷鏈接</span><span class="en">Phase 1: Cross-Stage Data Architecture</span></a>
+        <ul class="toc-sub">
+          <li><a href="#sec_1_1"><span class="zh">1.1 串接鍵值與批次族譜</span><span class="en">1.1 Join Keys & Genealogy</span></a></li>
+          <li><a href="#sec_1_2"><span class="zh">1.2 STDF V4 規範解析與陷阱</span><span class="en">1.2 STDF V4 Deep Dive & Traps</span></a></li>
+          <li><a href="#sec_1_2_1"><span class="zh">　• 1.2.1 核心記錄規範全覽</span><span class="en">　• 1.2.1 Record Specifications</span></a></li>
+          <li><a href="#sec_1_2_2"><span class="zh">　• 1.2.2 STDF 5 大實戰陷阱</span><span class="en">　• 1.2.2 5 Critical Data Traps</span></a></li>
+          <li><a href="#sec_1_2_3"><span class="zh">　• 1.2.3 Exensio 與 JMP 洗水線</span><span class="en">　• 1.2.3 Exensio & JMP Pipelines</span></a></li>
+          <li><a href="#sec_1_2_4"><span class="zh">　• 1.2.4 三大解法對照矩陣</span><span class="en">　• 1.2.4 Solutions Matrix</span></a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#phase2"><span class="zh">Phase 2: 晶圓空間分佈簽名辨識</span><span class="en">Phase 2: Spatial Wafer Map Signatures</span></a>
+        <ul class="toc-sub">
+          <li><a href="#sec_2_1"><span class="zh">2.1 八大典型晶圓圖簽名</span><span class="en">2.1 Canonical Signatures</span></a></li>
+          <li><a href="#sec_2_2"><span class="zh">2.2 空間分解量化方法</span><span class="en">2.2 Spatial Decomposition</span></a></li>
+          <li><a href="#sec_2_3"><span class="zh">2.3 線上缺陷檢測與致命率</span><span class="en">2.3 Inline Defect & Kill Ratio</span></a></li>
+          <li><a href="#sec_2_4"><span class="zh">2.4 晶圓圖自動分類 (ML)</span><span class="en">2.4 Automatic Classification</span></a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#phase3_nonproc"><span class="zh">Phase 3: 非製程假異常：硬體、程式、量測與材料擴散變異</span><span class="en">Phase 3: Hardware, Program, Metrology & Material Variations</span></a>
+        <ul class="toc-sub">
+          <li><a href="#sec_3_1"><span class="zh">3.1 測試硬體介面異常</span><span class="en">3.1 Test Hardware Interfaces</span></a></li>
+          <li><a href="#sec_3_2"><span class="zh">3.2 程式邊限與 IR Droop</span><span class="en">3.2 Program Timing & IR Droop</span></a></li>
+          <li><a href="#sec_3_3"><span class="zh">3.3 量測系統誤差 (MSA/Gage R&R)</span><span class="en">3.3 Metrology Error & MSA</span></a></li>
+          <li><a href="#sec_3_4"><span class="zh">3.4 矽基板、外延與摻雜變異</span><span class="en">3.4 Substrate, Epi & Diffusion</span></a></li>
+          <li><a href="#sec_3_5"><span class="zh">3.5 OTP / Trim 寫入與校準</span><span class="en">3.5 OTP/Trim Calibration</span></a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#phase4"><span class="zh">Phase 4: 晶圓製程變異、Corners、批次相依性與共模歸因</span><span class="en">Phase 4: Variations, Corners, Lots & Chamber Attribution</span></a>
+        <ul class="toc-sub">
+          <li><a href="#sec_4_1"><span class="zh">4.1 製程變異層級分解模型</span><span class="en">4.1 Variation Hierarchy</span></a></li>
+          <li><a href="#sec_4_2"><span class="zh">4.2 五大製程角落 (Corners)</span><span class="en">4.2 Process Corners (TT/FF/SS)</span></a></li>
+          <li><a href="#sec_4_3"><span class="zh">4.3 批次相依性 (Lot Dependency)</span><span class="en">4.3 Lot Dependency Root Causes</span></a></li>
+          <li><a href="#sec_4_4"><span class="zh">4.4 先進製程控制 (APC) 演算法</span><span class="en">4.4 Advanced Process Control</span></a></li>
+          <li><a href="#sec_4_5"><span class="zh">4.5 機台腔體共模統計歸因</span><span class="en">4.5 Chamber Commonality</span></a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#phase5_ft"><span class="zh">Phase 5: 封裝成品測試 (FT) 與 系統級測試 (SLT) 實務全攻略</span><span class="en">Phase 5: Final Test (FT), SLT & Packaging Yield</span></a>
+        <ul class="toc-sub">
+          <li><a href="#sec_5_1"><span class="zh">5.1 封裝引致良率損失機理</span><span class="en">5.1 Packaging Yield Loss</span></a></li>
+          <li><a href="#sec_5_2"><span class="zh">5.2 三溫測試極限與動態熱控</span><span class="en">5.2 Tri-Temp & Active Thermal</span></a></li>
+          <li><a href="#sec_5_3"><span class="zh">5.3 FT 測試介面消耗品管理</span><span class="en">5.3 FT Test Consumables</span></a></li>
+          <li><a href="#sec_5_4"><span class="zh">5.4 系統級測試 (SLT) vs ATE FT</span><span class="en">5.4 SLT vs ATE Architecture</span></a></li>
+          <li><a href="#sec_5_5"><span class="zh">5.5 CP 與 FT 跨站良率轉移矩陣</span><span class="en">5.5 CP-to-FT Bin Migration</span></a></li>
+          <li><a href="#sec_5_6"><span class="zh">5.6 頻率功耗分級與預燒老化</span><span class="en">5.6 Speed Binning & HTOL</span></a></li>
+          <li><a href="#sec_5_7"><span class="zh">5.7 封裝工程認證與防禦閉環</span><span class="en">5.7 Package Qual & Defense</span></a></li>
+          <li><a href="#sec_5_8"><span class="zh">5.8 Advantest V93000 架構實務</span><span class="en">5.8 Advantest V93000 Guide</span></a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#phase6_cpk"><span class="zh">Phase 6: 參數 Margin 與 Cpk 飄移</span><span class="en">Phase 6: Parametric Margin & Cpk Drift</span></a>
+        <ul class="toc-sub">
+          <li><a href="#sec_6_1"><span class="zh">6.1 參數型良率與 Cpk/Ppk 指標</span><span class="en">6.1 Parametric Cpk/Ppk</span></a></li>
+          <li><a href="#sec_6_2"><span class="zh">6.2 功能測試「無 Cpk 難題」4 大解方</span><span class="en">6.2 Functional No-Cpk Solutions</span></a></li>
+          <li><a href="#sec_6_3"><span class="zh">6.3 掃描鏈、故障模型與 CAT</span><span class="en">6.3 Scan Chain, Fault Models & CAT</span></a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#phase7_fa"><span class="zh">Phase 7: 失效分析 (FA) 實體物理驗證與製程反饋</span><span class="en">Phase 7: Failure Analysis (FA) Verification</span></a>
+        <ul class="toc-sub">
+          <li><a href="#sec_7_1"><span class="zh">7.1 FA 完整手法階梯</span><span class="en">7.1 FA Analytical Hierarchy</span></a></li>
+          <li><a href="#sec_7_2"><span class="zh">7.2 Bin ➔ 實體缺陷 ➔ 製程歸因</span><span class="en">7.2 Bin to Defect to Process Map</span></a></li>
+          <li><a href="#sec_7_3"><span class="zh">7.3 奈米探針與原子級 HR-TEM</span><span class="en">7.3 Nano-probing & HR-TEM SOP</span></a></li>
+          <li><a href="#sec_7_4"><span class="zh">7.4 實體失效分析真機顯微圖鑑</span><span class="en">7.4 Microscopic Defect Gallery</span></a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#phase8_rma"><span class="zh">Phase 8: 客訴案件分析與良率溯源閉環</span><span class="en">Phase 8: Customer RMA & Field Return Closed-Loop</span></a>
+        <ul class="toc-sub">
+          <li><a href="#sec_8_1"><span class="zh">8.1 晶片身分追溯 (ECID) 與 GDBN</span><span class="en">8.1 ECID & GDBN Reconstruction</span></a></li>
+          <li><a href="#sec_8_2"><span class="zh">8.2 漏測根因分析 (Test Escape)</span><span class="en">8.2 Test Escape Root Causes</span></a></li>
+          <li><a href="#sec_8_3"><span class="zh">8.3 客訴 8D 處分與姊妹晶圓</span><span class="en">8.3 8D & Sister Wafer Containment</span></a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#phase9_action"><span class="zh">Phase 9: 系統性改善戰術與閉環</span><span class="en">Phase 9: Systematic Improvement Playbook</span></a>
+        <ul class="toc-sub">
+          <li><a href="#sec_9_1"><span class="zh">9.1 分批實驗設計 (Split-Lot DOE)</span><span class="en">9.1 Split-Lot DOE Design</span></a></li>
+          <li><a href="#sec_9_2"><span class="zh">9.2 SPC 管制圖與判異規則</span><span class="en">9.2 SPC Control Charts & Rules</span></a></li>
+          <li><a href="#sec_9_3"><span class="zh">9.3 改善成效證明與叢聚效應</span><span class="en">9.3 Statistical Proof & Clustering</span></a></li>
+          <li><a href="#sec_9_4"><span class="zh">9.4 設計端槓桿：關鍵面積/DFM</span><span class="en">9.4 Critical Area & DFM Hotspots</span></a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#phase10_ramp"><span class="zh">Phase 10: Ramp 學習曲線與稽核治理</span><span class="en">Phase 10: Yield Ramp & Audit Defense</span></a>
+        <ul class="toc-sub">
+          <li><a href="#sec_10_1"><span class="zh">10.1 良率學習曲線模型</span><span class="en">10.1 Yield Learning Curves</span></a></li>
+          <li><a href="#sec_10_2"><span class="zh">10.2 稽核常引用的標準規範</span><span class="en">10.2 Automotive & Quality Stds</span></a></li>
+          <li><a href="#sec_10_3"><span class="zh">10.3 稽核證據包 (Evidence Pack)</span><span class="en">10.3 Audit Evidence Pack</span></a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#case_study"><span class="zh">實戰案例：端到端良率突降演練</span><span class="en">Case Study: End-to-End Excursion</span></a>
+      </li>
+      <li>
+        <a href="#appendices"><span class="zh">附錄: 範本、公式卡、詞彙表與參考文獻</span><span class="en">Appendices: Templates, Formulas, Glossary & References</span></a>
+        <ul class="toc-sub">
+          <li><a href="#app_a"><span class="zh">附錄 A: 經典良率數學模型公式卡</span><span class="en">Appendix A: Math Formula Card</span></a></li>
+          <li><a href="#app_b"><span class="zh">附錄 B: 8D 異常調查標準模板</span><span class="en">Appendix B: 8D Report Template</span></a></li>
+          <li><a href="#app_c"><span class="zh">附錄 C: 雙語縮寫詞彙表</span><span class="en">Appendix C: Bilingual Glossary</span></a></li>
+          <li><a href="#app_d"><span class="zh">附錄 D: 標準規範與延伸閱讀</span><span class="en">Appendix D: Standards & References</span></a></li>
+        </ul>
+      </li>
     </ol>
   </details>
 
@@ -1238,28 +1405,160 @@
     <nav class="toc" id="sidebarNav">
       <div class="toc-header">
         <div class="toc-title"><span class="zh">章節索引</span><span class="en">Navigation</span></div>
-        <button id="btnToggleSidebar" class="sidebar-toggle-btn" onclick="toggleSidebar()" title="Collapse Navigation Sidebar / 收合側邊導覽列" aria-label="Collapse Navigation Sidebar">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="15 18 9 12 15 6"></polyline>
-          </svg>
-        </button>
+        <div style="display:flex; gap:4px; align-items:center;">
+          <button id="btnToggleSubheadings" class="sidebar-toggle-btn" onclick="toggleTocSubheadings()" title="Toggle Subheadings / 切換小標展開收合" aria-label="Toggle Subheadings">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="8" y1="6" x2="21" y2="6"></line>
+              <line x1="8" y1="12" x2="21" y2="12"></line>
+              <line x1="8" y1="18" x2="21" y2="18"></line>
+              <line x1="3" y1="6" x2="3.01" y2="6"></line>
+              <line x1="3" y1="12" x2="3.01" y2="12"></line>
+              <line x1="3" y1="18" x2="3.01" y2="18"></line>
+            </svg>
+          </button>
+          <button id="btnToggleSidebar" class="sidebar-toggle-btn" onclick="toggleSidebar()" title="Collapse Navigation Sidebar / 收合側邊導覽列" aria-label="Collapse Navigation Sidebar">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+          </button>
+        </div>
       </div>
       <ol>
-        <li><a href="#overview"><span class="zh">總覽與 6M1E 魚骨圖</span><span class="en">Overview & 6M1E Fishbone</span></a></li>
-        <li><a href="#tools"><span class="zh">🛠️ 5 大互動分析工具</span><span class="en">🛠️ 5 Interactive Tools</span></a></li>
-        <li><a href="#phase0"><span class="zh">Phase 0: 良率基線與解構</span><span class="en">Phase 0: Loss Decomposition</span></a></li>
-        <li><a href="#phase1"><span class="zh">Phase 1: 跨站資料架構</span><span class="en">Phase 1: Data Architecture</span></a></li>
-        <li><a href="#phase2"><span class="zh">Phase 2: 晶圓空間分佈簽名</span><span class="en">Phase 2: Spatial Signatures</span></a></li>
-        <li><a href="#phase3_nonproc"><span class="zh">Phase 3: 硬體/程式/量測/材料</span><span class="en">Phase 3: Hardware/Software/MSA/Material</span></a></li>
-        <li><a href="#phase4"><span class="zh">Phase 4: 製程變異/Corners/批次/共模</span><span class="en">Phase 4: Variations/Corners/Lots/Chamber</span></a></li>
-        <li><a href="#phase5_ft"><span class="zh">Phase 5: 封裝成品測試 (FT) / SLT 攻略</span><span class="en">Phase 5: Final Test (FT) & SLT Guide</span></a></li>
-        <li><a href="#phase6_cpk"><span class="zh">Phase 6: 參數 Margin / Cpk</span><span class="en">Phase 6: Parametric Cpk</span></a></li>
-        <li><a href="#phase7_fa"><span class="zh">Phase 7: 失效分析 FA 實體回饋</span><span class="en">Phase 7: Failure Analysis</span></a></li>
-        <li><a href="#phase8_rma"><span class="zh">Phase 8: 客訴 RMA 與溯源閉環</span><span class="en">Phase 8: Customer RMA Closed-Loop</span></a></li>
-        <li><a href="#phase9_action"><span class="zh">Phase 9: 改善戰術與閉環</span><span class="en">Phase 9: Action Playbook</span></a></li>
-        <li><a href="#phase10_ramp"><span class="zh">Phase 10: 學習曲線與稽核</span><span class="en">Phase 10: Ramp & Governance</span></a></li>
-        <li><a href="#case_study"><span class="zh">實戰案例演練</span><span class="en">Case Study</span></a></li>
-        <li><a href="#appendices"><span class="zh">附錄: 公式、詞彙與參考</span><span class="en">Appendices: Formulas, Glossary</span></a></li>
+        <li>
+          <a href="#overview" class="toc-link-main"><span class="zh">總覽與 6M1E 魚骨圖</span><span class="en">Overview & 6M1E Fishbone</span></a>
+          <ul class="toc-sub">
+            <li><a href="#sec_ov_1"><span class="zh">OV.1 6M1E 因果魚骨圖</span><span class="en">OV.1 6M1E Ishikawa Fishbone</span></a></li>
+            <li><a href="#sec_ov_2"><span class="zh">OV.2 十大核心良率失效模式</span><span class="en">OV.2 Top 10 Fallouts Matrix</span></a></li>
+            <li><a href="#sec_ov_3"><span class="zh">OV.3 跨工序分站審查與溯源</span><span class="en">OV.3 Stage-by-Stage Review</span></a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#tools" class="toc-link-main"><span class="zh">🛠️ 5 大互動分析工具</span><span class="en">🛠️ 5 Interactive Tools</span></a>
+          <ul class="toc-sub">
+            <li><a href="#tool_1"><span class="zh">Tool 1: 缺陷密度與良率模型</span><span class="en">Tool 1: Defect & Yield Model</span></a></li>
+            <li><a href="#tool_2"><span class="zh">Tool 2: 空間缺陷簽名模擬器</span><span class="en">Tool 2: Spatial Simulator</span></a></li>
+            <li><a href="#tool_3"><span class="zh">Tool 3: 非製程假異常決策矩陣</span><span class="en">Tool 3: Root Cause Triangulator</span></a></li>
+            <li><a href="#tool_4"><span class="zh">Tool 4: 機台/腔體共模檢定</span><span class="en">Tool 4: Chamber Commonality</span></a></li>
+            <li><a href="#tool_5"><span class="zh">Tool 5: 參數型良率與 Cpk/PAT</span><span class="en">Tool 5: Parametric Cpk & PAT</span></a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#phase0" class="toc-link-main"><span class="zh">Phase 0: 良率基線與解構</span><span class="en">Phase 0: Loss Decomposition</span></a>
+          <ul class="toc-sub">
+            <li><a href="#sec_0_1"><span class="zh">0.1 線良率 vs 晶粒良率</span><span class="en">0.1 Line vs Die Yield</span></a></li>
+            <li><a href="#sec_0_2"><span class="zh">0.2 系統性 vs 隨機性損失</span><span class="en">0.2 Systematic vs Random Loss</span></a></li>
+            <li><a href="#sec_0_3"><span class="zh">0.3 指標階層：FPY/RTY/GDPW</span><span class="en">0.3 Metric Hierarchy: FPY/RTY</span></a></li>
+            <li><a href="#sec_0_4"><span class="zh">0.4 良率損失瀑布圖與基線</span><span class="en">0.4 Waterfall & Baseline</span></a></li>
+            <li><a href="#sec_0_5"><span class="zh">0.5 良率經濟價值 (1% 值多少)</span><span class="en">0.5 Economics of Yield</span></a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#phase1" class="toc-link-main"><span class="zh">Phase 1: 跨站資料架構</span><span class="en">Phase 1: Data Architecture</span></a>
+          <ul class="toc-sub">
+            <li><a href="#sec_1_1"><span class="zh">1.1 串接鍵值與批次族譜</span><span class="en">1.1 Join Keys & Genealogy</span></a></li>
+            <li><a href="#sec_1_2"><span class="zh">1.2 STDF V4 規範解析與陷阱</span><span class="en">1.2 STDF V4 Deep Dive & Traps</span></a></li>
+            <li><a href="#sec_1_2_1"><span class="zh">　• 1.2.1 核心記錄規範全覽</span><span class="en">　• 1.2.1 Record Specifications</span></a></li>
+            <li><a href="#sec_1_2_2"><span class="zh">　• 1.2.2 STDF 5 大實戰陷阱</span><span class="en">　• 1.2.2 5 Critical Data Traps</span></a></li>
+            <li><a href="#sec_1_2_3"><span class="zh">　• 1.2.3 Exensio 與 JMP 洗水線</span><span class="en">　• 1.2.3 Exensio & JMP Pipelines</span></a></li>
+            <li><a href="#sec_1_2_4"><span class="zh">　• 1.2.4 三大解法對照矩陣</span><span class="en">　• 1.2.4 Solutions Matrix</span></a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#phase2" class="toc-link-main"><span class="zh">Phase 2: 晶圓空間分佈簽名</span><span class="en">Phase 2: Spatial Signatures</span></a>
+          <ul class="toc-sub">
+            <li><a href="#sec_2_1"><span class="zh">2.1 八大典型晶圓圖簽名</span><span class="en">2.1 Canonical Signatures</span></a></li>
+            <li><a href="#sec_2_2"><span class="zh">2.2 空間分解量化方法</span><span class="en">2.2 Spatial Decomposition</span></a></li>
+            <li><a href="#sec_2_3"><span class="zh">2.3 線上缺陷檢測與致命率</span><span class="en">2.3 Inline Defect & Kill Ratio</span></a></li>
+            <li><a href="#sec_2_4"><span class="zh">2.4 晶圓圖自動分類 (ML)</span><span class="en">2.4 Automatic Classification</span></a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#phase3_nonproc" class="toc-link-main"><span class="zh">Phase 3: 硬體/程式/量測/材料</span><span class="en">Phase 3: Hardware/Software/MSA/Material</span></a>
+          <ul class="toc-sub">
+            <li><a href="#sec_3_1"><span class="zh">3.1 測試硬體介面異常</span><span class="en">3.1 Test Hardware Interfaces</span></a></li>
+            <li><a href="#sec_3_2"><span class="zh">3.2 程式邊限與 IR Droop</span><span class="en">3.2 Program Timing & IR Droop</span></a></li>
+            <li><a href="#sec_3_3"><span class="zh">3.3 量測系統誤差 (MSA/Gage R&R)</span><span class="en">3.3 Metrology Error & MSA</span></a></li>
+            <li><a href="#sec_3_4"><span class="zh">3.4 矽基板、外延與摻雜變異</span><span class="en">3.4 Substrate, Epi & Diffusion</span></a></li>
+            <li><a href="#sec_3_5"><span class="zh">3.5 OTP / Trim 寫入與校準</span><span class="en">3.5 OTP/Trim Calibration</span></a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#phase4" class="toc-link-main"><span class="zh">Phase 4: 製程變異/Corners/批次/共模</span><span class="en">Phase 4: Variations/Corners/Lots/Chamber</span></a>
+          <ul class="toc-sub">
+            <li><a href="#sec_4_1"><span class="zh">4.1 製程變異層級分解模型</span><span class="en">4.1 Variation Hierarchy</span></a></li>
+            <li><a href="#sec_4_2"><span class="zh">4.2 五大製程角落 (Corners)</span><span class="en">4.2 Process Corners (TT/FF/SS)</span></a></li>
+            <li><a href="#sec_4_3"><span class="zh">4.3 批次相依性 (Lot Dependency)</span><span class="en">4.3 Lot Dependency Root Causes</span></a></li>
+            <li><a href="#sec_4_4"><span class="zh">4.4 先進製程控制 (APC) 演算法</span><span class="en">4.4 Advanced Process Control</span></a></li>
+            <li><a href="#sec_4_5"><span class="zh">4.5 機台腔體共模統計歸因</span><span class="en">4.5 Chamber Commonality</span></a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#phase5_ft" class="toc-link-main"><span class="zh">Phase 5: 封裝成品測試 (FT) / SLT 攻略</span><span class="en">Phase 5: Final Test (FT) & SLT Guide</span></a>
+          <ul class="toc-sub">
+            <li><a href="#sec_5_1"><span class="zh">5.1 封裝引致良率損失機理</span><span class="en">5.1 Packaging Yield Loss</span></a></li>
+            <li><a href="#sec_5_2"><span class="zh">5.2 三溫測試極限與動態熱控</span><span class="en">5.2 Tri-Temp & Active Thermal</span></a></li>
+            <li><a href="#sec_5_3"><span class="zh">5.3 FT 測試介面消耗品管理</span><span class="en">5.3 FT Test Consumables</span></a></li>
+            <li><a href="#sec_5_4"><span class="zh">5.4 系統級測試 (SLT) vs ATE FT</span><span class="en">5.4 SLT vs ATE Architecture</span></a></li>
+            <li><a href="#sec_5_5"><span class="zh">5.5 CP 與 FT 跨站良率轉移矩陣</span><span class="en">5.5 CP-to-FT Bin Migration</span></a></li>
+            <li><a href="#sec_5_6"><span class="zh">5.6 頻率功耗分級與預燒老化</span><span class="en">5.6 Speed Binning & HTOL</span></a></li>
+            <li><a href="#sec_5_7"><span class="zh">5.7 封裝工程認證與防禦閉環</span><span class="en">5.7 Package Qual & Defense</span></a></li>
+            <li><a href="#sec_5_8"><span class="zh">5.8 Advantest V93000 架構實務</span><span class="en">5.8 Advantest V93000 Guide</span></a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#phase6_cpk" class="toc-link-main"><span class="zh">Phase 6: 參數 Margin / Cpk</span><span class="en">Phase 6: Parametric Cpk</span></a>
+          <ul class="toc-sub">
+            <li><a href="#sec_6_1"><span class="zh">6.1 參數型良率與 Cpk/Ppk 指標</span><span class="en">6.1 Parametric Cpk/Ppk</span></a></li>
+            <li><a href="#sec_6_2"><span class="zh">6.2 功能測試「無 Cpk 難題」4 大解方</span><span class="en">6.2 Functional No-Cpk Solutions</span></a></li>
+            <li><a href="#sec_6_3"><span class="zh">6.3 掃描鏈、故障模型與 CAT</span><span class="en">6.3 Scan Chain, Fault Models & CAT</span></a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#phase7_fa" class="toc-link-main"><span class="zh">Phase 7: 失效分析 FA 實體回饋</span><span class="en">Phase 7: Failure Analysis</span></a>
+          <ul class="toc-sub">
+            <li><a href="#sec_7_1"><span class="zh">7.1 FA 完整手法階梯</span><span class="en">7.1 FA Analytical Hierarchy</span></a></li>
+            <li><a href="#sec_7_2"><span class="zh">7.2 Bin ➔ 實體缺陷 ➔ 製程歸因</span><span class="en">7.2 Bin to Defect to Process Map</span></a></li>
+            <li><a href="#sec_7_3"><span class="zh">7.3 奈米探針與原子級 HR-TEM</span><span class="en">7.3 Nano-probing & HR-TEM SOP</span></a></li>
+            <li><a href="#sec_7_4"><span class="zh">7.4 實體失效分析真機顯微圖鑑</span><span class="en">7.4 Microscopic Defect Gallery</span></a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#phase8_rma" class="toc-link-main"><span class="zh">Phase 8: 客訴 RMA 與溯源閉環</span><span class="en">Phase 8: Customer RMA Closed-Loop</span></a>
+          <ul class="toc-sub">
+            <li><a href="#sec_8_1"><span class="zh">8.1 晶片身分追溯 (ECID) 與 GDBN</span><span class="en">8.1 ECID & GDBN Reconstruction</span></a></li>
+            <li><a href="#sec_8_2"><span class="zh">8.2 漏測根因分析 (Test Escape)</span><span class="en">8.2 Test Escape Root Causes</span></a></li>
+            <li><a href="#sec_8_3"><span class="zh">8.3 客訴 8D 處分與姊妹晶圓</span><span class="en">8.3 8D & Sister Wafer Containment</span></a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#phase9_action" class="toc-link-main"><span class="zh">Phase 9: 改善戰術與閉環</span><span class="en">Phase 9: Action Playbook</span></a>
+          <ul class="toc-sub">
+            <li><a href="#sec_9_1"><span class="zh">9.1 分批實驗設計 (Split-Lot DOE)</span><span class="en">9.1 Split-Lot DOE Design</span></a></li>
+            <li><a href="#sec_9_2"><span class="zh">9.2 SPC 管制圖與判異規則</span><span class="en">9.2 SPC Control Charts & Rules</span></a></li>
+            <li><a href="#sec_9_3"><span class="zh">9.3 改善成效證明與叢聚效應</span><span class="en">9.3 Statistical Proof & Clustering</span></a></li>
+            <li><a href="#sec_9_4"><span class="zh">9.4 設計端槓桿：關鍵面積/DFM</span><span class="en">9.4 Critical Area & DFM Hotspots</span></a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#phase10_ramp" class="toc-link-main"><span class="zh">Phase 10: 學習曲線與稽核</span><span class="en">Phase 10: Ramp & Governance</span></a>
+          <ul class="toc-sub">
+            <li><a href="#sec_10_1"><span class="zh">10.1 良率學習曲線模型</span><span class="en">10.1 Yield Learning Curves</span></a></li>
+            <li><a href="#sec_10_2"><span class="zh">10.2 稽核常引用的標準規範</span><span class="en">10.2 Automotive & Quality Stds</span></a></li>
+            <li><a href="#sec_10_3"><span class="zh">10.3 稽核證據包 (Evidence Pack)</span><span class="en">10.3 Audit Evidence Pack</span></a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#case_study" class="toc-link-main"><span class="zh">實戰案例演練</span><span class="en">Case Study</span></a>
+        </li>
+        <li>
+          <a href="#appendices" class="toc-link-main"><span class="zh">附錄: 公式、詞彙與參考</span><span class="en">Appendices: Formulas, Glossary</span></a>
+          <ul class="toc-sub">
+            <li><a href="#app_a"><span class="zh">附錄 A: 經典良率數學模型公式卡</span><span class="en">Appendix A: Math Formula Card</span></a></li>
+            <li><a href="#app_b"><span class="zh">附錄 B: 8D 異常調查標準模板</span><span class="en">Appendix B: 8D Report Template</span></a></li>
+            <li><a href="#app_c"><span class="zh">附錄 C: 雙語縮寫詞彙表</span><span class="en">Appendix C: Bilingual Glossary</span></a></li>
+            <li><a href="#app_d"><span class="zh">附錄 D: 標準規範與延伸閱讀</span><span class="en">Appendix D: Standards & References</span></a></li>
+          </ul>
+        </li>
       </ol>
     </nav>
 
@@ -1396,7 +1695,7 @@
           </div>
         
           <!-- OV.1 FISHBONE / ISHIKAWA ROOT CAUSE TAXONOMY -->
-          <h3>
+          <h3 id="sec_ov_1">
             <span class="zh">OV.1 半導體低良率根因全景因果魚骨圖 (Semiconductor Low-Yield Ishikawa Fishbone Diagram)</span>
             <span class="en">OV.1 Semiconductor Low-Yield Root Cause Ishikawa Fishbone Taxonomy (6M1E Analysis)</span>
           </h3>
@@ -1758,7 +2057,7 @@
           <!-- SUBSECTION OV.2: TOP 10 FALLOUTS & BIDIRECTIONAL FEEDFORWARD / FEEDBACK MATRIX -->
           <div style="margin-top:45px; border-top:1px dashed var(--border); padding-top:30px;">
             <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:15px;">
-              <h3 style="border-left:4px solid var(--accent); padding-left:12px; margin:0; font-size:18px;">
+              <h3 id="sec_ov_2" style="border-left:4px solid var(--accent); padding-left:12px; margin:0; font-size:18px;">
                 <span class="zh">OV.2 半導體十大核心良率失效模式審查與雙向閉環前饋 / 反饋控制矩陣</span>
                 <span class="en">OV.2 Top 10 Semiconductor Yield Fallouts Deep Review & Bidirectional Feedforward / Feedback Control Matrix</span>
               </h3>
@@ -2257,7 +2556,7 @@
           <!-- SUBSECTION OV.3: STAGE-BY-STAGE TOP 10 FALLOUTS REVIEW & PUSH-BACK MATRIX -->
           <div style="margin-top:45px; border-top:1px dashed var(--border); padding-top:30px;">
             <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:15px;">
-              <h3 style="border-left:4px solid var(--accent); padding-left:12px; margin:0; font-size:18px;">
+              <h3 id="sec_ov_3" style="border-left:4px solid var(--accent); padding-left:12px; margin:0; font-size:18px;">
                 <span class="zh">OV.3 跨工序分站審查：五大製造階段各站 Top 10 失效模式、物理根因與逆向推回溯源矩陣</span>
                 <span class="en">OV.3 Stage-by-Stage Top 10 Fallouts Review: Physics of Failure (PoF) &amp; Push-Back to Earlier Stages</span>
               </h3>
@@ -3532,7 +3831,7 @@
             <div class="tool-card-header">
               <div>
                 <span class="tool-tag">TOOL 01</span>
-                <h3 style="margin:4px 0 0;">
+                <h3 id="tool_1" style="margin:4px 0 0;">
                   <span class="zh">缺陷密度與良率模型計算機</span>
                   <span class="en">Defect Density & Yield Modeling Calculator</span>
                 </h3>
@@ -3635,7 +3934,7 @@
             <div class="tool-card-header">
               <div>
                 <span class="tool-tag">TOOL 02</span>
-                <h3 style="margin:4px 0 0;">
+                <h3 id="tool_2" style="margin:4px 0 0;">
                   <span class="zh">晶圓空間缺陷簽名模擬器與根因排查</span>
                   <span class="en">Wafer Map Spatial Pattern Simulator & Root Cause Prescriber</span>
                 </h3>
@@ -3712,7 +4011,7 @@
             <div class="tool-card-header">
               <div>
                 <span class="tool-tag" style="background:var(--warn-soft); color:var(--warn);">TOOL 03</span>
-                <h3 style="margin:4px 0 0;">
+                <h3 id="tool_3" style="margin:4px 0 0;">
                   <span class="zh">非製程假異常根因排查決策矩陣 (Root Cause Triangulator)</span>
                   <span class="en">Root Cause Triangulator: Hardware / Program / Metrology / Material</span>
                 </h3>
@@ -3820,7 +4119,7 @@
             <div class="tool-card-header">
               <div>
                 <span class="tool-tag">TOOL 04</span>
-                <h3 style="margin:4px 0 0;">
+                <h3 id="tool_4" style="margin:4px 0 0;">
                   <span class="zh">機台 / 腔體共模相關性檢定工具</span>
                   <span class="en">Tool & Chamber Commonality Analyzer (Chi-Square & ANOVA)</span>
                 </h3>
@@ -3916,7 +4215,7 @@
             <div class="tool-card-header">
               <div>
                 <span class="tool-tag">TOOL 05</span>
-                <h3 style="margin:4px 0 0;">
+                <h3 id="tool_5" style="margin:4px 0 0;">
                   <span class="zh">參數型良率與 Cpk / PAT 臨界邊界分析器</span>
                   <span class="en">Parametric Margin, Cpk & Dynamic PAT Analyzer</span>
                 </h3>
@@ -3999,7 +4298,7 @@
             </span>
           </p>
 
-          <h3>
+          <h3 id="sec_0_1">
             <span class="zh">0.1 線良率 (Line Yield) 與 晶粒良率 (Die Yield)</span>
             <span class="en">0.1 Line Yield (FAB Out/In) vs. Die Yield (Sort/CP)</span>
           </h3>
@@ -4029,7 +4328,7 @@
             </li>
           </ul>
 
-          <h3>
+          <h3 id="sec_0_2">
             <span class="zh">0.2 系統性良率損失 vs. 隨機性良率損失</span>
             <span class="en">0.2 Systematic vs. Random Yield Loss</span>
           </h3>
@@ -4105,7 +4404,7 @@
           </div>
 
           <!-- 0.3 YIELD METRIC HIERARCHY -->
-          <h3>
+          <h3 id="sec_0_3">
             <span class="zh">0.3 良率指標階層：FPY、Final Yield、RTY 與 GDPW</span>
             <span class="en">0.3 Yield Metric Hierarchy: FPY, Final Yield, RTY &amp; GDPW</span>
           </h3>
@@ -4192,7 +4491,7 @@
           </div>
 
           <!-- 0.4 LOSS WATERFALL -->
-          <h3>
+          <h3 id="sec_0_4">
             <span class="zh">0.4 良率損失瀑布圖與基線設定</span>
             <span class="en">0.4 Yield Loss Waterfall &amp; Baseline Setting</span>
           </h3>
@@ -4274,7 +4573,7 @@
           </div>
 
           <!-- 0.5 COST OF YIELD -->
-          <h3>
+          <h3 id="sec_0_5">
             <span class="zh">0.5 良率的經濟價值：1% 良率值多少錢？</span>
             <span class="en">0.5 The Economics of Yield: What Is 1% Worth?</span>
           </h3>
@@ -4470,7 +4769,7 @@
           </figure>
 
           <!-- 1.1 JOIN KEYS & GENEALOGY -->
-          <h3>
+          <h3 id="sec_1_1">
             <span class="zh">1.1 串接鍵值與批次族譜：每一段交接最常斷在哪裡</span>
             <span class="en">1.1 Join Keys &amp; Genealogy: Where Each Hand-off Usually Breaks</span>
           </h3>
@@ -4559,7 +4858,7 @@
           </div>
 
           <!-- 1.2 STDF DEEP DIVE -->
-          <h3>
+          <h3 id="sec_1_2">
             <span class="zh">1.2 STDF V4 規範深度解析：二進位結構、階層生命週期、資料流圖與良率分析實務</span>
             <span class="en">1.2 STDF V4 Deep Dive: Binary Structure, Hierarchical Lifecycle, Data Flow &amp; Yield Engineering Analytics</span>
           </h3>
@@ -4765,7 +5064,7 @@
           </figure>
 
           <!-- 1.2.1 COMPREHENSIVE RECORD SPECIFICATION TABLE -->
-          <h4>
+          <h4 id="sec_1_2_1">
             <span class="zh">1.2.1 STDF V4 核心記錄規範與良率分析影響全覽</span>
             <span class="en">1.2.1 STDF V4 Comprehensive Record Specification &amp; Yield Impact</span>
           </h4>
@@ -4885,7 +5184,7 @@
           </div>
 
           <!-- 1.2.2 5 CRITICAL STDF TRAPS & PITFALLS -->
-          <h4>
+          <h4 id="sec_1_2_2">
             <span class="zh">1.2.2 良率工程師解析 STDF 的 5 大實戰陷阱與防坑規範 (STDF Traps)</span>
             <span class="en">1.2.2 5 Critical STDF Data Parsing Traps &amp; Engineering Guardrails</span>
           </h4>
@@ -4964,7 +5263,7 @@
           </div>
 
 <!-- 1.2.3 COMMERCIAL YIELD SOLUTIONS: PDF SOLUTIONS EXENSIO & SAS JMP -->
-          <h4>
+          <h4 id="sec_1_2_3">
             <span class="zh">1.2.3 商業級良率系統實踐：PDF Solutions Exensio 與 SAS JMP 的 STDF 陷阱自動化清洗、防禦配方與企業級架構</span>
             <span class="en">1.2.3 Commercial Yield Solutions: Automated STDF Sanitization &amp; Trap Prevention in PDF Solutions Exensio &amp; SAS JMP</span>
           </h4>
@@ -5121,7 +5420,7 @@
           </figure>
 
           <!-- COMPARISON MATRIX TABLE -->
-          <h4>
+          <h4 id="sec_1_2_4">
             <span class="zh">1.2.4 STDF 5 大陷阱在 PDF Exensio、SAS JMP 與 Python 腳本中的對照解法矩陣</span>
             <span class="en">1.2.4 STDF Traps Resolution Matrix: PDF Exensio vs. SAS JMP vs. Python Scripts</span>
           </h4>
@@ -5263,7 +5562,7 @@
           </p>
 
           <!-- 2.1 SIGNATURE GALLERY -->
-          <h3>
+          <h3 id="sec_2_1">
             <span class="zh">2.1 八大典型晶圓圖簽名圖鑑 (Canonical Wafer-Map Signature Gallery)</span>
             <span class="en">2.1 Canonical Wafer-Map Signature Gallery</span>
           </h3>
@@ -5341,7 +5640,7 @@
           </div>
 
           <!-- 2.2 SPATIAL DECOMPOSITION -->
-          <h3>
+          <h3 id="sec_2_2">
             <span class="zh">2.2 空間分解量化方法 (Zone / Reticle / Probe-Site Decomposition)</span>
             <span class="en">2.2 Quantitative Spatial Decomposition (Zone / Reticle / Probe-Site)</span>
           </h3>
@@ -5384,7 +5683,7 @@
           </div>
 
           <!-- 2.3 INLINE DEFECT INSPECTION -->
-          <h3>
+          <h3 id="sec_2_3">
             <span class="zh">2.3 線上缺陷檢測、致命率（Kill Ratio）與缺陷來源分析</span>
             <span class="en">2.3 Inline Defect Inspection, Kill Ratio &amp; Defect Source Analysis</span>
           </h3>
@@ -5491,7 +5790,7 @@
           </div>
 
           <!-- 2.4 ML WAFER MAP CLASSIFICATION -->
-          <h3>
+          <h3 id="sec_2_4">
             <span class="zh">2.4 晶圓圖自動分類：機器學習實務</span>
             <span class="en">2.4 Automatic Wafer-Map Classification with Machine Learning</span>
           </h3>
@@ -5570,7 +5869,7 @@
           </p>
 
           <!-- 3.1 TEST HARDWARE -->
-          <h3>
+          <h3 id="sec_3_1">
             <span class="zh">3.1 測試硬體介面異常 (Contact, Probe Card, Socket, Loadboard)</span>
             <span class="en">3.1 Test Hardware Interface Degradation (Contact, Probe Card, Socket, Loadboard)</span>
           </h3>
@@ -5651,7 +5950,7 @@
           </div>
 
           <!-- 3.2 TEST PROGRAM -->
-          <h3>
+          <h3 id="sec_3_2">
             <span class="zh">3.2 測試程式邊限與軟體邏輯缺陷 (Test Program Timing, Limits & Multi-DUT IR Droop)</span>
             <span class="en">3.2 Test Program Marginality & Software Bugs (Timing, Limits & Multi-DUT IR Droop)</span>
           </h3>
@@ -5695,7 +5994,7 @@
           </ul>
 
           <!-- 3.3 METROLOGY & GAGE R&R -->
-          <h3>
+          <h3 id="sec_3_3">
             <span class="zh">3.3 量測系統誤差、MSA 與機台對齊 (Measurement System Analysis & Gage R&R)</span>
             <span class="en">3.3 Metrology Error, Measurement System Analysis (MSA) & Tool-to-Tool Matching</span>
           </h3>
@@ -7232,7 +7531,7 @@
           </div>
 
           <!-- 3.4 RAW MATERIALS & DIFFUSION -->
-          <h3>
+          <h3 id="sec_3_4">
             <span class="zh">3.4 矽晶圓基板長晶、外延磊晶與擴散摻雜變異 (Substrate, Epi & Diffusion Variations)</span>
             <span class="en">3.4 Raw Substrate Ingot, Epitaxial Layer & Dopant Diffusion Variations</span>
           </h3>
@@ -7321,7 +7620,7 @@
           </div>
 
           <!-- 3.5 OTP / EFUSE / LASER TRIM FAILURES -->
-          <h3>
+          <h3 id="sec_3_5">
             <span class="zh">3.5 OTP / eFuse / Laser Trim 寫入與校準失效 (OTP / Trim Calibration & Programming Failures)</span>
             <span class="en">3.5 OTP / eFuse / Laser Trim Calibration & Programming Failures</span>
           </h3>
@@ -7446,7 +7745,7 @@
           </p>
 
           <!-- 4.1 VARIATION HIERARCHY -->
-          <h3>
+          <h3 id="sec_4_1">
             <span class="zh">4.1 晶圓製程變異層級分解模型 (Hierarchical Process Variation Decomposition)</span>
             <span class="en">4.1 Hierarchical Process Variation Decomposition Model</span>
           </h3>
@@ -7726,7 +8025,7 @@
           </div>
 
           <!-- 4.2 PROCESS CORNERS -->
-          <h3>
+          <h3 id="sec_4_2">
             <span class="zh">4.2 五大製程角落 (Process Corners: TT, FF, SS, FS, SF) 物理成因與電氣特徵</span>
             <span class="en">4.2 Five Major Process Corners (TT, FF, SS, FS, SF): Physical Origins &amp; Electrical Behavior</span>
           </h3>
@@ -7953,7 +8252,7 @@
           </figure>
 
           <!-- 4.3 LOT DEPENDENCY -->
-          <h3>
+          <h3 id="sec_4_3">
             <span class="zh">4.3 批次相依性 (Lot Dependency) 根因解構與機台歷程</span>
             <span class="en">4.3 Lot Dependency Root Causes & Equipment Lifecycle Dynamics</span>
           </h3>
@@ -8004,7 +8303,7 @@
           </figure>
 
           <!-- 4.4 APC CONTROL LOOPS -->
-          <h3>
+          <h3 id="sec_4_4">
             <span class="zh">4.4 先進製程控制 (APC: Advanced Process Control) 實務演算法</span>
             <span class="en">4.4 Advanced Process Control (APC) Engineering Algorithms</span>
           </h3>
@@ -8084,7 +8383,7 @@
           </div>
 
           <!-- 4.5 STATISTICAL COMMONALITY ATTRIBUTION -->
-          <h3>
+          <h3 id="sec_4_5">
             <span class="zh">4.5 機台腔體共模統計歸因 (Chamber Commonality Attribution)</span>
             <span class="en">4.5 Equipment Chamber Commonality & Multivariate Attribution</span>
           </h3>
@@ -8227,7 +8526,7 @@
           </figure>
 
           <!-- 5.1 PACKAGING INDUCED YIELD LOSS -->
-          <h3>
+          <h3 id="sec_5_1">
             <span class="zh">5.1 封裝引致良率損失機理 (Packaging-Induced Yield Loss & Assembly Stress)</span>
             <span class="en">5.1 Packaging-Induced Yield Loss & Assembly Physical Stress</span>
           </h3>
@@ -8359,7 +8658,7 @@
           </figure>
 
           <!-- 5.2 TRI-TEMP CORNER TESTING & ATC -->
-          <h3>
+          <h3 id="sec_5_2">
             <span class="zh">5.2 三溫測試極限挑戰與動態熱控制 (Tri-Temp Corner Testing & ATC)</span>
             <span class="en">5.2 Tri-Temp Corner Testing (-40°C, 25°C, 125°C/150°C) & Active Thermal Control</span>
           </h3>
@@ -8433,7 +8732,7 @@
           </div>
 
           <!-- 5.3 FT TEST HARDWARE & SOCKET MANAGEMENT -->
-          <h3>
+          <h3 id="sec_5_3">
             <span class="zh">5.3 FT 測試介面消耗品管理：Pogo Socket、Contactor、Handler 與 Loadboard</span>
             <span class="en">5.3 FT Test Interface Consumables: Pogo Sockets, Contactors, Handlers & DIBs</span>
           </h3>
@@ -8514,7 +8813,7 @@
           </div>
 
           <!-- 5.4 SYSTEM-LEVEL TEST (SLT) VS ATE FT -->
-          <h3>
+          <h3 id="sec_5_4">
             <span class="zh">5.4 系統級測試 (System-Level Test, SLT) vs ATE FT 差異與漏測防禦</span>
             <span class="en">5.4 System-Level Test (SLT) vs. ATE FT Architecture & Test Escape Defense</span>
           </h3>
@@ -8591,7 +8890,7 @@
           </div>
 
           <!-- 5.5 CP-TO-FT BIN MIGRATION MATRIX -->
-          <h3>
+          <h3 id="sec_5_5">
             <span class="zh">5.5 CP 與 FT 跨站良率關聯與轉移矩陣 (CP-to-FT Bin Migration Analysis)</span>
             <span class="en">5.5 Cross-Stage Yield Tracking & CP-to-FT Bin Migration Matrix</span>
           </h3>
@@ -8668,7 +8967,7 @@
           </div>
 
           <!-- 5.6 SPEED BINNING & BURN-IN -->
-          <h3>
+          <h3 id="sec_5_6">
             <span class="zh">5.6 頻率功耗分級 (Speed/Power Binning) 與 車用預燒老化 (Burn-In / HTOL)</span>
             <span class="en">5.6 Speed/Power Binning & Automotive High-Temperature Operating Life (HTOL)</span>
           </h3>
@@ -8697,7 +8996,7 @@
           </div>
 
                   <!-- 5.7 PACKAGE QUALIFICATION & CPI STRESS EXCURSIONS -->
-          <h3>
+          <h3 id="sec_5_7">
             <span class="zh">5.7 封裝工程認證 (Package Qualification) 引致低良率真因解構與防禦閉環</span>
             <span class="en">5.7 Package Qualification Low-Yield Excursions, CPI Stress &amp; Defense Playbook</span>
           </h3>
@@ -9083,7 +9382,7 @@
           <!-- ================================================================= -->
           <!-- 5.8 ADVANTEST V93000 (93K) ATE ARCHITECTURE & YIELD ENGINEERING   -->
           <!-- ================================================================= -->
-          <h3>
+          <h3 id="sec_5_8">
             <span class="zh">5.8 Advantest V93000 (93k) 測試機台架構、SmarTest 軟體與高階晶片良率工程實務</span>
             <span class="en">5.8 Advantest V93000 (93k) Architecture, SmarTest Environment &amp; Advanced Silicon Yield Engineering</span>
           </h3>
@@ -9462,7 +9761,7 @@
           </p>
 
           <!-- 6.1 CLASSICAL PARAMETRIC CPK -->
-          <h3>
+          <h3 id="sec_6_1">
             <span class="zh">6.1 參數型良率損失與傳統 Cpk / Ppk 指標體系 (Classical Parametric Cpk &amp; Ppk)</span>
             <span class="en">6.1 Classical Parametric Cpk / Ppk Metrics &amp; Defect Rate Equivalence</span>
           </h3>
@@ -9588,7 +9887,7 @@
           </figure>
 
           <!-- 6.2 HOW TO HANDLE FUNCTIONAL TEST NO CPK -->
-          <h3>
+          <h3 id="sec_6_2">
             <span class="zh">6.2 功能測試「無 Cpk 難題」之 4 大工程解方 (Functional Test: Solving the "No Cpk" Dilemma)</span>
             <span class="en">6.2 Functional Test: Solving the "No Cpk" Dilemma (4 Industry-Standard Methods)</span>
           </h3>
@@ -9771,7 +10070,7 @@
           </div>
 
           <!-- 6.3 SCAN CHAIN, FAULT MODELS & TIMING-AWARE VS CELL-AWARE -->
-          <h3>
+          <h3 id="sec_6_3">
             <span class="zh">6.3 掃描鏈 (Scan Chain)、故障模型 (SAF/TDF/At-Speed) 與 Timing-Aware vs. Cell-Aware 深度解析</span>
             <span class="en">6.3 Scan Chain Architecture, Fault Models (SAF/TDF/At-Speed) &amp; Timing-Aware vs. Cell-Aware (CAT)</span>
           </h3>
@@ -10113,7 +10412,7 @@
           </p>
 
           <!-- 6.1 FA WORKFLOW HIERARCHY -->
-          <h3>
+          <h3 id="sec_7_1">
             <span class="zh">7.1 FA 完整手法階梯：非破壞 ➔ 電性定位 ➔ 去層解剖 ➔ 原子物理分析</span>
             <span class="en">7.1 FA Analytical Hierarchy: Non-Destructive ➔ Fault Localization ➔ Delayering ➔ Material PFA</span>
           </h3>
@@ -10375,7 +10674,7 @@
           </div>
 
           <!-- 6.2 THE MASTER FA-TO-PROCESS MATRIX -->
-          <h3>
+          <h3 id="sec_7_2">
             <span class="zh">7.2 8 大經典電性失效 ──▶ 實體物理缺陷 (PFA) ──▶ 製程物理/化學反應歸因矩陣</span>
             <span class="en">7.2 Master Mapping: Electrical Bin ➔ Physical Defect (PFA) ➔ Fab Process Reaction</span>
           </h3>
@@ -10743,7 +11042,7 @@
           </div>
 
           <!-- 6.3 NANO-PROBING & ATOMIC TEM CLOSED-LOOP -->
-          <h3>
+          <h3 id="sec_7_3">
             <span class="zh">7.3 電子束奈米探針 (Nano-probing) 與原子級 HR-TEM 閉環閉合程序</span>
             <span class="en">7.3 Nano-probing &amp; Atomic HR-TEM Closed-Loop Verification SOP</span>
           </h3>
@@ -10785,7 +11084,7 @@
             </div>
           </div>
                   <!-- 7.4 REAL-WORLD FA & PHYSICAL DEFECT GALLERY -->
-          <h3>
+          <h3 id="sec_7_4">
             <span class="zh">7.4 實體失效分析真機顯微照片圖解畫廊 (Real-world Microscopic FA & Defect Gallery)</span>
             <span class="en">7.4 Real-world Microscopic FA & Physical Defect Gallery (Open-Access Case Studies)</span>
           </h3>
@@ -11005,7 +11304,7 @@
             </span>
           </p>
 
-          <h3>
+          <h3 id="sec_8_1">
             <span class="zh">8.1 晶片身分追溯 (ECID) 與 Wafer Map 鄰域重現 (GDBN)</span>
             <span class="en">8.1 Electronic Chip ID (ECID) & Wafer Map Neighborhood Reconstruction (GDBN)</span>
           </h3>
@@ -11042,7 +11341,7 @@
             </p>
           </div>
 
-          <h3>
+          <h3 id="sec_8_2">
             <span class="zh">8.2 漏測根因分析 (Test Escape Analysis) 與 潛在可靠度失效機理</span>
             <span class="en">8.2 Test Escape Root Cause Analysis & Latent Reliability Mechanisms</span>
           </h3>
@@ -11134,7 +11433,7 @@
             </table>
           </div>
 
-          <h3>
+          <h3 id="sec_8_3">
             <span class="zh">8.3 客訴 8D 處分戰略與「姊妹晶圓 (Sister Wafers)」即時攔截</span>
             <span class="en">8.3 Customer 8D Action Plan & Sister Wafer Containment Protocol</span>
           </h3>
@@ -11276,7 +11575,7 @@
           </div>
 
           <!-- 9.1 SPLIT-LOT DOE -->
-          <h3>
+          <h3 id="sec_9_1">
             <span class="zh">9.1 分批實驗設計（Split-Lot DOE）：讓實驗結果經得起質疑</span>
             <span class="en">9.1 Split-Lot DOE: Designing Experiments That Survive Review</span>
           </h3>
@@ -11378,7 +11677,7 @@
           </div>
 
           <!-- 9.2 SPC -->
-          <h3>
+          <h3 id="sec_9_2">
             <span class="zh">9.2 SPC 管制圖與判異規則：在良率掉下去之前就抓到</span>
             <span class="en">9.2 SPC Control Charts &amp; Run Rules: Catch It Before Yield Drops</span>
           </h3>
@@ -11582,7 +11881,7 @@
           </p>
 
           <!-- 9.3 STATISTICAL VERIFICATION -->
-          <h3>
+          <h3 id="sec_9_3">
             <span class="zh">9.3 如何證明改善有效：樣本數與晶圓叢聚效應</span>
             <span class="en">9.3 Proving the Fix Worked: Sample Size &amp; Wafer Clustering</span>
           </h3>
@@ -11614,7 +11913,7 @@
           </div>
 
           <!-- 9.4 DFM & CRITICAL AREA -->
-          <h3>
+          <h3 id="sec_9_4">
             <span class="zh">9.4 設計端槓桿：關鍵面積（Critical Area）與 DFM 熱點</span>
             <span class="en">9.4 Design-Side Levers: Critical Area &amp; DFM Hotspots</span>
           </h3>
@@ -11721,7 +12020,7 @@
             </span>
           </p>
 
-          <h3>
+          <h3 id="sec_10_1">
             <span class="zh">10.1 良率學習曲線模型</span>
             <span class="en">10.1 Yield Learning Curve Models</span>
           </h3>
@@ -11858,7 +12157,7 @@
           </div>
 
           <!-- 10.2 STANDARDS -->
-          <h3>
+          <h3 id="sec_10_2">
             <span class="zh">10.2 稽核常引用的標準與規範</span>
             <span class="en">10.2 Standards Auditors Commonly Reference</span>
           </h3>
@@ -11965,7 +12264,7 @@
           </div>
 
           <!-- 10.3 AUDIT EVIDENCE -->
-          <h3>
+          <h3 id="sec_10_3">
             <span class="zh">10.3 稽核證據包：稽核員實際會要求看什麼</span>
             <span class="en">10.3 Audit Evidence Pack: What Auditors Actually Ask to See</span>
           </h3>
@@ -12204,7 +12503,7 @@
         </h2>
         <div class="collapse-body">
 
-          <h3>
+          <h3 id="app_a">
             <span class="zh">附錄 A: 經典半導體良率數學模型公式卡</span>
             <span class="en">Appendix A: Mathematical Formula Reference Card</span>
           </h3>
@@ -12263,7 +12562,7 @@
             </table>
           </div>
 
-          <h3>
+          <h3 id="app_b">
             <span class="zh">附錄 B: 良率突降 8D 異常調查標準模板</span>
             <span class="en">Appendix B: Yield Excursion 8D Investigation Template</span>
           </h3>
@@ -12281,7 +12580,7 @@
           </div>
 
 
-          <h3>
+          <h3 id="app_c">
             <span class="zh">附錄 C: 雙語縮寫詞彙表</span>
             <span class="en">Appendix C: Bilingual Glossary of Acronyms</span>
           </h3>
@@ -12674,7 +12973,7 @@
             </table>
           </div>
 
-          <h3>
+          <h3 id="app_d">
             <span class="zh">附錄 D: 標準規範與延伸閱讀</span>
             <span class="en">Appendix D: Standards &amp; Further Reading</span>
           </h3>
@@ -12859,23 +13158,30 @@
     if (el && typeof renderMathInElement === 'function') renderMathInElement(el, MATH_RENDER_OPTS);
   }
 
-  // --- SIDEBAR NAVIGATION SMOOTH SCROLL TO TITLE ---
+  // --- SIDEBAR NAVIGATION SMOOTH SCROLL, SUBHEADINGS & SCROLLSPY ---
   function initSidebarNavScroll() {
-    const navAnchors = document.querySelectorAll('nav.toc a[href^="#"], .sidebar a[href^="#"], nav a[href^="#"]');
+    const navAnchors = document.querySelectorAll('nav.toc a[href^="#"], .sidebar a[href^="#"], nav a[href^="#"], .toc-m a[href^="#"]');
     navAnchors.forEach(anchor => {
       anchor.addEventListener('click', function(e) {
         const targetId = this.getAttribute('href');
         if (!targetId || targetId === '#' || targetId.startsWith('#!')) return;
-        const targetSec = document.querySelector(targetId);
-        if (targetSec) {
-          // If section is collapsed, expand it
-          const h2 = targetSec.querySelector('h2.collapsible-h');
-          const body = targetSec.querySelector('.collapse-body');
+        const targetEl = document.querySelector(targetId);
+        if (targetEl) {
+          // If target is inside a collapsed section, expand parent section
+          const parentSec = targetEl.closest('section') || targetEl;
+          const h2 = parentSec.querySelector('h2.collapsible-h');
+          const body = parentSec.querySelector('.collapse-body');
           if (h2 && h2.classList.contains('is-collapsed')) {
             h2.classList.remove('is-collapsed');
           }
           if (body && body.classList.contains('collapsed')) {
             body.classList.remove('collapsed');
+          }
+
+          // If mobile toc details is open, collapse it
+          const tocM = document.querySelector('details.toc-m');
+          if (tocM && tocM.hasAttribute('open')) {
+            tocM.removeAttribute('open');
           }
           
           e.preventDefault();
@@ -12883,8 +13189,7 @@
           
           const nav = document.getElementById('topNavbar');
           const navHeight = nav ? nav.offsetHeight : 44;
-          const targetTitle = targetSec.querySelector('h2') || targetSec;
-          const rect = targetTitle.getBoundingClientRect();
+          const rect = targetEl.getBoundingClientRect();
           const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
           const targetY = rect.top + scrollTop - navHeight - 16;
           
@@ -12894,16 +13199,94 @@
           });
 
           // Add flash highlight to title
-          targetTitle.classList.remove('nav-highlight');
-          void targetTitle.offsetWidth; // trigger reflow
-          targetTitle.classList.add('nav-highlight');
-          setTimeout(() => targetTitle.classList.remove('nav-highlight'), 1800);
+          targetEl.classList.remove('nav-highlight');
+          void targetEl.offsetWidth; // trigger reflow
+          targetEl.classList.add('nav-highlight');
+          setTimeout(() => targetEl.classList.remove('nav-highlight'), 1800);
         }
       });
     });
   }
-  document.addEventListener('DOMContentLoaded', initSidebarNavScroll);
-  setTimeout(initSidebarNavScroll, 100);
+
+  function toggleTocSubheadings() {
+    const nav = document.getElementById('sidebarNav');
+    if (nav) {
+      nav.classList.toggle('hide-subheadings');
+      const isHidden = nav.classList.contains('hide-subheadings');
+      localStorage.setItem('toc_hide_subheadings', isHidden ? '1' : '0');
+    }
+  }
+
+  function initTocSubheadingsState() {
+    if (localStorage.getItem('toc_hide_subheadings') === '1') {
+      const nav = document.getElementById('sidebarNav');
+      if (nav) nav.classList.add('hide-subheadings');
+    }
+  }
+
+  function initScrollSpy() {
+    const tocLinks = Array.from(document.querySelectorAll('nav.toc a[href^="#"]'));
+    if (!tocLinks.length) return;
+    
+    const targets = [];
+    tocLinks.forEach(link => {
+      const id = link.getAttribute('href');
+      if (id && id !== '#' && !id.startsWith('#!')) {
+        const el = document.querySelector(id);
+        if (el) targets.push({ id, el, link });
+      }
+    });
+
+    let ticking = false;
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const nav = document.getElementById('topNavbar');
+        const topOffset = (nav ? nav.offsetHeight : 44) + 60;
+        let currentActive = null;
+
+        for (let i = 0; i < targets.length; i++) {
+          const rect = targets[i].el.getBoundingClientRect();
+          if (rect.top <= topOffset) {
+            currentActive = targets[i];
+          } else {
+            break;
+          }
+        }
+
+        if (currentActive) {
+          tocLinks.forEach(l => {
+            l.classList.remove('active');
+            l.classList.remove('active-parent');
+          });
+          currentActive.link.classList.add('active');
+          const parentLi = currentActive.link.closest('.toc-sub')?.closest('li');
+          if (parentLi) {
+            const mainLink = parentLi.querySelector('a:first-child');
+            if (mainLink && mainLink !== currentActive.link) {
+              mainLink.classList.add('active-parent');
+            }
+          }
+        }
+        ticking = false;
+      });
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    setTimeout(onScroll, 200);
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    initSidebarNavScroll();
+    initTocSubheadingsState();
+    initScrollSpy();
+  });
+  setTimeout(() => {
+    initSidebarNavScroll();
+    initTocSubheadingsState();
+    initScrollSpy();
+  }, 100);
 
   // Language & Theme State
   let currentTheme = localStorage.getItem('theme') || 'light';

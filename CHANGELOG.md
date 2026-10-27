@@ -8,6 +8,27 @@ Entry format / 格式:
 `## YYYY-MM-DD — <agent> — <short title>` then bullets: what changed, why, caveats for the next agent.
 
 ---
+## 2026-10-28 — Google Antigravity — Rev. AE: Hierarchical Navigation with Subheadings, Dynamic ScrollSpy & Subheading Toggle in Sidebar and Mobile TOC
+
+- **Added Complete Subheading Hierarchy in Left Sidebar (`nav.toc`) & Mobile (`details.toc-m`)**:
+  - Addressed user feedback where the sidebar previously only showed top-level phase titles without any subsections.
+  - Linked all 58 major subsections (`h3`) and key technical deep-dives (`h4`, including 1.2.1–1.2.4 for STDF specifications, traps, Exensio/JMP recipes, and comparison matrix; 5.8 for Advantest V93000; and Tools 1–5).
+  - Every subheading in the Table of Contents features strict bilingual parity (`<span class="zh">` / `<span class="en">`).
+- **Added Unique Anchors across all Subsections**:
+  - Tagged all 62 `h3` and `h4` headings with standard, predictable semantic IDs (`sec_ov_1`–`sec_ov_3`, `tool_1`–`tool_5`, `sec_0_1`–`sec_0_5`, `sec_1_1`–`sec_1_2_4`, `sec_5_1`–`sec_5_8`, `app_a`–`app_d`).
+- **Enhanced Navigation Click Handler & Auto-Expand**:
+  - `initSidebarNavScroll()` now automatically checks if the clicked target belongs to a collapsed parent section, dynamically uncollapses the parent `<section>` and `.collapse-body`, calculates scroll offset considering `#topNavbar`, executes smooth scroll, and flashes `.nav-highlight` directly on the target title.
+  - Mobile TOC (`details.toc-m`) automatically closes upon selecting any item for a seamless mobile browsing experience.
+- **Added Real-time ScrollSpy & Subheading Toggle**:
+  - `initScrollSpy()` dynamically observes viewport scroll positions and updates the `.active` class on the current subsection in `nav.toc`, simultaneously highlighting `.active-parent` on the parent phase link.
+  - Added a dedicated toggle button (`#btnToggleSubheadings`) in `.toc-header` allowing readers to switch between full hierarchical view and compact phase-only view, with user preference persisted in `localStorage`.
+- **Quality & Verification**:
+  - Passed `npm run verify` with 0 tag mismatches and valid JavaScript syntax.
+  - Passed `node scripts/audit_i18n_and_structure.js` with 0 numbering drift, 0 Chinese leaks in English mode across all sections, and 100% table cells localized.
+  - Synchronized Rev. AE and Last Updated (2026-10-28) across header and footer.
+
+---
+
 
 ## 2026-10-28 — Google Antigravity — Rev. AD: Commercial Yield Solutions: Automated STDF Sanitization & Trap Prevention in PDF Solutions Exensio & SAS JMP (Section 1.2.3, Fig 1.3, Table 1.2.4)
 
