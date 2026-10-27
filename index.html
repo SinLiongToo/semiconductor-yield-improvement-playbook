@@ -225,6 +225,203 @@
   mark.find-hl { background: var(--warn-soft); color: var(--ink); border-radius: 2px; padding: 0 1px; }
   mark.find-hl.find-current { background: var(--accent); color: #fff; }
 
+  /* Find Dropdown Window */
+  .find-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    width: 440px;
+    max-width: min(440px, calc(100vw - 24px));
+    max-height: 420px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.22), 0 2px 8px rgba(0, 0, 0, 0.08);
+    z-index: 1020;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    text-align: left;
+  }
+  @media (max-width: 600px) {
+    .find-dropdown {
+      right: -8px;
+      width: calc(100vw - 20px);
+      max-width: calc(100vw - 20px);
+    }
+  }
+  .find-dropdown-header {
+    padding: 8px 12px;
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+  .find-dropdown-title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .find-dropdown-title {
+    font-weight: 700;
+    font-size: 12px;
+    color: var(--ink);
+    font-family: var(--font-display);
+  }
+  .find-dropdown-count {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 1px 7px;
+    border-radius: 99px;
+    font-weight: 700;
+  }
+  .find-dropdown-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .find-dropdown-hint {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    color: var(--ink-faint);
+  }
+  .find-dropdown-close {
+    width: 20px;
+    height: 20px;
+    border: none;
+    background: transparent;
+    border-radius: 50%;
+    color: var(--ink-soft);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    padding: 0;
+    line-height: 1;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .find-dropdown-close:hover {
+    background: var(--surface);
+    color: var(--danger);
+  }
+  .find-dropdown-list {
+    max-height: 330px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    display: flex;
+    flex-direction: column;
+  }
+  .find-dropdown-list::-webkit-scrollbar {
+    width: 6px;
+  }
+  .find-dropdown-list::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 3px;
+  }
+  .find-dropdown-item {
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    border-left: 3px solid transparent;
+    transition: background 0.12s ease, border-left-color 0.12s ease;
+  }
+  .find-dropdown-item:last-child {
+    border-bottom: none;
+  }
+  .find-dropdown-item:hover {
+    background: var(--surface-2);
+  }
+  .find-dropdown-item.is-active {
+    background: var(--accent-soft);
+    border-left-color: var(--accent);
+  }
+  .find-item-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .find-item-badge {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    font-weight: 600;
+    color: var(--accent);
+    background: var(--surface-2);
+    padding: 2px 7px;
+    border-radius: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 82%;
+    border: 1px solid var(--border);
+  }
+  .find-dropdown-item.is-active .find-item-badge {
+    background: var(--surface);
+    color: var(--accent-strong);
+    border-color: var(--accent);
+  }
+  .find-item-num {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    color: var(--ink-faint);
+    flex-shrink: 0;
+  }
+  .find-item-snippet {
+    font-size: 12px;
+    color: var(--ink-soft);
+    line-height: 1.45;
+    word-break: break-word;
+    font-family: var(--font-body);
+  }
+  .find-match-kw {
+    background: var(--warn-soft);
+    color: var(--ink);
+    font-weight: 700;
+    border-radius: 2px;
+    padding: 0 2px;
+  }
+  .find-dropdown-item.is-active .find-match-kw {
+    background: var(--accent);
+    color: #ffffff;
+  }
+  .find-empty {
+    padding: 22px 14px;
+    text-align: center;
+    color: var(--ink-faint);
+    font-size: 12.5px;
+    font-family: var(--font-mono);
+  }
+  .find-dropdown-footer {
+    padding: 6px 12px;
+    text-align: center;
+    background: var(--surface-2);
+    border-top: 1px solid var(--border);
+    font-size: 10.5px;
+    color: var(--ink-faint);
+    font-family: var(--font-mono);
+    flex-shrink: 0;
+  }
+  @keyframes findPulseAnim {
+    0% { outline: 3px solid var(--accent); background-color: var(--accent-soft); }
+    70% { outline: 3px solid var(--accent); background-color: var(--accent-soft); }
+    100% { outline: 3px solid transparent; background-color: transparent; }
+  }
+  .find-target-pulse {
+    animation: findPulseAnim 2.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    border-radius: 4px;
+  }
+
   .masthead .sub {
     color: var(--ink-soft);
     font-size: 13.5px;
@@ -934,11 +1131,31 @@
         <button class="ctrl-btn" id="sidebarToggleMasthead" onclick="toggleSidebar()" title="Toggle Sidebar Navigation / 收合展開導覽列"><span class="zh">📑 導覽</span><span class="en">📑 Sidebar</span></button>
         <button class="ctrl-btn" id="themeToggle" onclick="toggleTheme()" title="Toggle Dark/Light Mode">🌙 / ☀️ Theme</button>
         <button class="ctrl-btn" id="langToggle" onclick="toggleLang()" title="Toggle Language">🌐 EN / 中文</button>
-        <div class="find-box">
-          <input type="search" id="findInput" placeholder="Find / 搜尋..." oninput="handleFindInput()" onkeydown="handleFindKey(event)">
+        <div class="find-box" id="findBox">
+          <input type="search" id="findInput" placeholder="Find / 搜尋..." oninput="handleFindInput()" onsearch="handleFindInput()" onkeydown="handleFindKey(event)" autocomplete="off">
           <span class="find-count" id="findCount">0/0</span>
           <button class="find-nav" onclick="findNav(-1)" title="Previous">▲</button>
           <button class="find-nav" onclick="findNav(1)" title="Next">▼</button>
+          <div class="find-dropdown" id="findDropdown" style="display:none;" role="region" aria-label="Search results dropdown">
+            <div class="find-dropdown-header">
+              <div class="find-dropdown-title-wrap">
+                <span class="find-dropdown-title">
+                  <span class="zh">搜尋結果</span>
+                  <span class="en">Search Results</span>
+                </span>
+                <span class="find-dropdown-count" id="findDropdownCount">0</span>
+              </div>
+              <div class="find-dropdown-meta">
+                <span class="find-dropdown-hint">
+                  <span class="zh">↑↓ 瀏覽 · Enter 跳轉</span>
+                  <span class="en">↑↓ browse · Enter jump</span>
+                </span>
+                <button type="button" class="find-dropdown-close" onclick="closeFindDropdown()" title="Close / 關閉" aria-label="Close">✕</button>
+              </div>
+            </div>
+            <div class="find-dropdown-list" id="findDropdownList" role="listbox"></div>
+            <div class="find-dropdown-footer" id="findDropdownFooter" style="display:none;"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -972,7 +1189,7 @@
       </div>
       <div>
         <span class="zh">版次狀態</span><span class="en">Revision</span>
-        <b>Rev. Z (Full EN/ZH Parity &amp; OV Numbering)</b>
+        <b>Rev. AC (Interactive Search Dropdown &amp; Quick Navigation)</b>
       </div>
       <div>
         <span class="zh">適用對象</span><span class="en">Audience</span>
@@ -980,7 +1197,7 @@
       </div>
       <div>
         <span class="zh">最後修訂</span><span class="en">Last Updated</span>
-        <b>2026-10-23 23:30</b>
+        <b>2026-10-28 05:00 (Asia/Taipei)</b>
       </div>
     </div>
   </header>
@@ -12356,11 +12573,11 @@
     <div style="display:flex; flex-direction:column; align-items:flex-end; gap:5px;">
       <div style="display:flex; align-items:center; gap:8px;">
         <span class="badge badge-green" style="font-size:11px; padding:2px 8px;">● LIVE VERIFIED</span>
-        <span style="font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft);">Rev. AB</span>
+        <span style="font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft);">Rev. AC</span>
       </div>
       <div style="font-family:var(--font-mono); font-size:12px; color:var(--ink);">
         <span class="zh">最後更新日期：</span><span class="en">Last Updated: </span>
-        <b style="color:var(--accent);">2026-10-27 21:00 (Asia/Taipei)</b>
+        <b style="color:var(--accent);">2026-10-28 05:00 (Asia/Taipei)</b>
       </div>
     </div>
   </footer>
@@ -12503,6 +12720,7 @@
     runTriangulatorDiagnosis();
     recalcChamberStats();
     updateFalloutSimulator();
+    if (typeof refreshFindDropdown === 'function') refreshFindDropdown();
   }
 
   function updateLangUI() {
@@ -13071,59 +13289,251 @@
     ctx.fillText('μ ' + mean.toFixed(2) + 'V', getX(mean), h - 16);
   }
 
-  // --- FIND / SEARCH IN DOCUMENT ---
+  // --- FIND / SEARCH IN DOCUMENT WITH DROPDOWN MENU ---
   let findMatches = [];
   let currentFindIndex = -1;
+  let lastHighlightedEl = null;
+  const MAX_DROPDOWN_ITEMS = 40;
+
+  function extractHeadingText(h, lang) {
+    if (!h) return '';
+    const langSpan = h.querySelector(lang === 'en' ? '.en' : '.zh');
+    let t = langSpan ? langSpan.textContent : h.textContent;
+    t = t.replace(/[▼▲]/g, '').replace(/\s+/g, ' ').trim();
+    if (t.length > 42) t = t.slice(0, 40) + '…';
+    return t;
+  }
+
+  function getHeadingForElement(el, lang) {
+    if (!el) return '';
+    const fig = el.closest('figure');
+    if (fig) {
+      const cap = fig.querySelector('figcaption');
+      if (cap) {
+        const capSpan = cap.querySelector(lang === 'en' ? '.en' : '.zh');
+        const capText = (capSpan ? capSpan.textContent : cap.textContent).replace(/\s+/g, ' ').trim();
+        const m = capText.match(/^(?:圖|Figure)\s*[\w\.\-]+/i);
+        if (m) return m[0];
+      }
+    }
+
+    let cur = el;
+    while (cur && cur !== document.body && cur.tagName !== 'MAIN') {
+      let prev = cur.previousElementSibling;
+      while (prev) {
+        if (/^H[1-4]$/i.test(prev.tagName)) {
+          return extractHeadingText(prev, lang);
+        }
+        const hs = prev.querySelectorAll('h4, h3, h2, h1');
+        if (hs.length > 0) return extractHeadingText(hs[hs.length - 1], lang);
+        prev = prev.previousElementSibling;
+      }
+      cur = cur.parentElement;
+      if (cur && /^H[1-4]$/i.test(cur.tagName)) {
+        return extractHeadingText(cur, lang);
+      }
+    }
+    const sec = el.closest('section');
+    if (sec) {
+      const h = sec.querySelector('h2, h3');
+      if (h) return extractHeadingText(h, lang);
+      return sec.id || '';
+    }
+    return '';
+  }
+
+  function escapeHtml(str) {
+    return str.replace(/[&<>"']/g, function(m) {
+      switch (m) {
+        case '&': return '&amp;';
+        case '<': return '&lt;';
+        case '>': return '&gt;';
+        case '"': return '&quot;';
+        case "'": return '&#39;';
+        default: return m;
+      }
+    });
+  }
+
+  function highlightSnippetHtml(snippetText, q) {
+    if (!snippetText) return '';
+    const escaped = escapeHtml(snippetText);
+    const escapedQ = escapeHtml(q);
+    const regex = new RegExp(escapedQ.replace(/[-\[\]{}()*+?.,\\^$|#\s]/g, '\\$&'), 'gi');
+    return escaped.replace(regex, '<mark class="find-match-kw">$&</mark>');
+  }
+
+  function closeFindDropdown() {
+    const dd = document.getElementById('findDropdown');
+    if (dd) dd.style.display = 'none';
+  }
+
+  function openFindDropdown() {
+    const dd = document.getElementById('findDropdown');
+    if (dd && (findMatches.length > 0 || document.getElementById('findInput').value.trim().length >= 2)) {
+      dd.style.display = 'flex';
+    }
+  }
+
+  function renderFindDropdown(query) {
+    const dd = document.getElementById('findDropdown');
+    const list = document.getElementById('findDropdownList');
+    const countEl = document.getElementById('findDropdownCount');
+    const footer = document.getElementById('findDropdownFooter');
+    if (!dd || !list) return;
+
+    if (countEl) countEl.textContent = findMatches.length;
+
+    if (findMatches.length === 0) {
+      list.innerHTML = '<div class="find-empty"><span class="zh">未找到與「' + escapeHtml(query) + '」相關的內容</span><span class="en">No matches found for "' + escapeHtml(query) + '"</span></div>';
+      if (footer) footer.style.display = 'none';
+      dd.style.display = 'flex';
+      return;
+    }
+
+    const itemsToRender = findMatches.slice(0, MAX_DROPDOWN_ITEMS);
+    let html = '';
+
+    itemsToRender.forEach(function(m, idx) {
+      const activeCls = (idx === currentFindIndex) ? ' is-active' : '';
+      const headingBadge = m.heading ? '<span class="find-item-badge" title="' + escapeHtml(m.heading) + '">' + escapeHtml(m.heading) + '</span>' : '<span class="find-item-badge">Document</span>';
+      const snippetHtml = highlightSnippetHtml(m.snippet, query);
+
+      html += '<div class="find-dropdown-item' + activeCls + '" data-find-idx="' + idx + '" onclick="selectFindMatch(' + idx + ')">' +
+        '<div class="find-item-meta">' +
+          headingBadge +
+          '<span class="find-item-num">#' + (idx + 1) + '</span>' +
+        '</div>' +
+        '<div class="find-item-snippet">' + snippetHtml + '</div>' +
+      '</div>';
+    });
+
+    list.innerHTML = html;
+
+    if (footer) {
+      if (findMatches.length > MAX_DROPDOWN_ITEMS) {
+        footer.innerHTML = '<span class="zh">顯示前 ' + MAX_DROPDOWN_ITEMS + ' 項（共 ' + findMatches.length + ' 項），按 ▲/▼ 可跳轉全部</span>' +
+          '<span class="en">Showing first ' + MAX_DROPDOWN_ITEMS + ' of ' + findMatches.length + ', use ▲/▼ to cycle all</span>';
+        footer.style.display = 'block';
+      } else {
+        footer.style.display = 'none';
+      }
+    }
+
+    dd.style.display = 'flex';
+  }
+
+  function updateDropdownActiveItem(scrollIntoView) {
+    const list = document.getElementById('findDropdownList');
+    if (!list) return;
+    const items = list.querySelectorAll('.find-dropdown-item');
+    items.forEach(function(item) {
+      const matchIdx = parseInt(item.getAttribute('data-find-idx'), 10);
+      if (matchIdx === currentFindIndex) {
+        item.classList.add('is-active');
+        if (scrollIntoView) {
+          item.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+        }
+      } else {
+        item.classList.remove('is-active');
+      }
+    });
+  }
 
   function handleFindInput() {
     clearFindHighlights();
     const query = document.getElementById('findInput').value.trim();
     if (!query || query.length < 2) {
       document.getElementById('findCount').textContent = '0/0';
+      findMatches = [];
+      currentFindIndex = -1;
+      closeFindDropdown();
       return;
     }
 
     const walker = document.createTreeWalker(document.querySelector('main'), NodeFilter.SHOW_TEXT, null, false);
     let node;
     findMatches = [];
+    const hiddenLangSelector = (currentLang === 'en') ? '.zh' : '.en';
 
     while (node = walker.nextNode()) {
       const parent = node.parentElement;
       if (!parent || parent.tagName === 'SCRIPT' || parent.tagName === 'STYLE' || parent.tagName === 'MARK') continue;
-      
+      if (parent.closest('.find-box') || parent.closest('#findDropdown')) continue;
+      if (parent.closest(hiddenLangSelector)) continue;
+
       const text = node.nodeValue;
+      if (!text || !text.trim()) continue;
       const idx = text.toLowerCase().indexOf(query.toLowerCase());
       if (idx !== -1) {
-        findMatches.push({ node: node, parent: parent });
+        const start = Math.max(0, idx - 26);
+        const end = Math.min(text.length, idx + query.length + 36);
+        let snippet = text.substring(start, end).replace(/\s+/g, ' ');
+        if (start > 0) snippet = '…' + snippet;
+        if (end < text.length) snippet = snippet + '…';
+
+        const heading = getHeadingForElement(parent, currentLang);
+        findMatches.push({ node: node, parent: parent, heading: heading, snippet: snippet });
       }
     }
 
-    document.getElementById('findCount').textContent = findMatches.length > 0 ? `1/${findMatches.length}` : '0/0';
+    document.getElementById('findCount').textContent = findMatches.length > 0 ? ('1/' + findMatches.length) : '0/0';
     if (findMatches.length > 0) {
       currentFindIndex = 0;
       highlightCurrentFind();
     }
+    renderFindDropdown(query);
   }
 
-  function handleFindKey(e) {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      findNav(e.shiftKey ? -1 : 1);
-    } else if (e.key === 'Escape') {
-      document.getElementById('findInput').value = '';
-      clearFindHighlights();
-      document.getElementById('findCount').textContent = '0/0';
-    }
+  function selectFindMatch(idx) {
+    if (idx < 0 || idx >= findMatches.length) return;
+    currentFindIndex = idx;
+    document.getElementById('findCount').textContent = (currentFindIndex + 1) + '/' + findMatches.length;
+    highlightCurrentFind();
+    updateDropdownActiveItem(true);
   }
 
-  function findNav(direction) {
+  function findNav(direction, scrollDropdown) {
     if (findMatches.length === 0) return;
     currentFindIndex += direction;
     if (currentFindIndex >= findMatches.length) currentFindIndex = 0;
     if (currentFindIndex < 0) currentFindIndex = findMatches.length - 1;
 
-    document.getElementById('findCount').textContent = `${currentFindIndex + 1}/${findMatches.length}`;
+    document.getElementById('findCount').textContent = (currentFindIndex + 1) + '/' + findMatches.length;
     highlightCurrentFind();
+    updateDropdownActiveItem(scrollDropdown);
+  }
+
+  function handleFindKey(e) {
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      const dd = document.getElementById('findDropdown');
+      if (dd && dd.style.display === 'none') {
+        openFindDropdown();
+      } else {
+        findNav(1, true);
+      }
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      const dd = document.getElementById('findDropdown');
+      if (dd && dd.style.display === 'none') {
+        openFindDropdown();
+      } else {
+        findNav(-1, true);
+      }
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      findNav(e.shiftKey ? -1 : 1, true);
+    } else if (e.key === 'Escape') {
+      e.preventDefault();
+      closeFindDropdown();
+      document.getElementById('findInput').value = '';
+      clearFindHighlights();
+      document.getElementById('findCount').textContent = '0/0';
+      findMatches = [];
+      currentFindIndex = -1;
+      document.getElementById('findInput').blur();
+    }
   }
 
   function highlightCurrentFind() {
@@ -13139,22 +13549,45 @@
           cur.previousElementSibling.classList.remove('is-collapsed');
         }
       }
+      if (cur.tagName === 'DETAILS' && !cur.open) {
+        cur.open = true;
+      }
       cur = cur.parentElement;
     }
 
     item.parent.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    item.parent.style.outline = '2px solid var(--accent)';
-    setTimeout(() => { if (item.parent) item.parent.style.outline = 'none'; }, 2000);
+    item.parent.classList.add('find-target-pulse');
+    lastHighlightedEl = item.parent;
+    setTimeout(function() {
+      if (item.parent) item.parent.classList.remove('find-target-pulse');
+    }, 2400);
   }
 
   function clearFindHighlights() {
-    const highlights = document.querySelectorAll('mark.find-hl');
-    highlights.forEach(el => {
-      const parent = el.parentNode;
-      if (parent) {
-        parent.replaceChild(document.createTextNode(el.textContent), el);
-        parent.normalize();
-      }
+    if (lastHighlightedEl) {
+      lastHighlightedEl.classList.remove('find-target-pulse');
+      lastHighlightedEl = null;
+    }
+  }
+
+  function refreshFindDropdown() {
+    const input = document.getElementById('findInput');
+    if (input && input.value.trim().length >= 2) {
+      handleFindInput();
+    }
+  }
+
+  // Global listeners for Find Dropdown
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('#findBox')) {
+      closeFindDropdown();
+    }
+  });
+
+  const findInputEl = document.getElementById('findInput');
+  if (findInputEl) {
+    findInputEl.addEventListener('focus', function() {
+      if (findMatches.length > 0) openFindDropdown();
     });
   }
 

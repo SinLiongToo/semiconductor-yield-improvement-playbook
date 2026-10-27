@@ -9,6 +9,33 @@ Entry format / 格式:
 
 ---
 
+## 2026-10-28 — Google Antigravity — Rev. AC: Interactive Search Dropdown Window & Quick Navigation (搜尋即時下拉式選單與一鍵跳轉視窗)
+
+- **Interactive Search Dropdown Window (`.find-dropdown`)**:
+  - Implemented real-time dropdown window attached below the top navbar search box (`#findBox`), providing instant visual selection of search hits.
+  - Context-rich item cards:
+    - **Section Location Badge**: dynamically traces DOM hierarchy upwards to the nearest section/subsection heading (`h2`, `h3`, `h4`) or figure caption (`圖 X.Y / Fig X.Y`), showing exact chapter context (e.g., `Phase 1 · 1.2 STDF V4`, `7.4 實體失效分析...`).
+    - **Context Snippet**: extracts 60-character surrounding text with matched keyword highlighted via `<mark class="find-match-kw">`.
+    - **Match Index**: sequence numbering (`#1`, `#2`, ...).
+  - Navigation & Interactions:
+    - Click any result item to jump directly to target, auto-expand collapsed sections/details, smoothly center viewport, and trigger a 2.2s pulse animation (`.find-target-pulse`).
+    - Full keyboard navigation: `ArrowDown` / `ArrowUp` cycles through dropdown items and syncs with active highlighting; `Enter` jumps to selected match; `Escape` closes dropdown.
+    - Click-outside detection to auto-close dropdown, and focus event on input to re-open active matches.
+    - Close button (`✕`) in header for explicit user dismissal.
+    - Empty state message (`未找到相關內容 / No matches found`) when query yields zero results.
+    - Result truncation protection: renders top 40 matches with scrollable container and footer notification.
+  - Responsive & Theme Parity:
+    - Mobile-adapted width (`max-width: calc(100vw - 20px)`) with zero horizontal page overflow.
+    - 100% CSS semantic token compliance across dark and light themes.
+    - Language switcher hook (`refreshDynamicLang()`): dynamic re-querying and re-rendering of badges/snippets on language toggle.
+- **Verification**:
+  - `npm run verify` passed: 0 errors, 15 sections, 22 figures, 460 divs, 3388 spans balanced.
+  - `node scripts/audit_i18n_and_structure.js` passed: 0 numbering drift, 0 Chinese leaks in English mode.
+  - Playwright browser test passed: SMT search, Poisson multi-match, keyboard navigation, mobile responsiveness.
+  - Bumped revision header and footer labels to Rev. AC with timestamp 2026-10-28 05:00 (Asia/Taipei).
+
+---
+
 ## 2026-10-27 — Google Antigravity — Rev. AB: STDF V4 Specification Deep Dive, Binary Structure, Hierarchical Lifecycle, Figure 1.2 & Yield Traps
 
 - **Expanded Section 1.2: STDF V4 規範深度解析：二進位結構、階層生命週期、資料流圖與良率分析實務 (STDF V4 Deep Dive: Binary Structure, Hierarchical Lifecycle, Data Flow & Yield Engineering Analytics)**:
