@@ -8303,6 +8303,366 @@
             </figcaption>
           </figure>
 
+        
+          <!-- ================================================================= -->
+          <!-- 5.8 ADVANTEST V93000 (93K) ATE ARCHITECTURE & YIELD ENGINEERING   -->
+          <!-- ================================================================= -->
+          <h3>
+            <span class="zh">5.8 Advantest V93000 (93k) 測試機台架構、SmarTest 軟體與高階晶片良率工程實務</span>
+            <span class="en">5.8 Advantest V93000 (93k) Architecture, SmarTest Environment &amp; Advanced Silicon Yield Engineering</span>
+          </h3>
+
+          <p>
+            <span class="zh">
+              在現代半導體成品測試（Final Test, FT）與晶圓針測（Circuit Probe, CP）工程中，<b>Advantest V93000（業界通稱「93k」或「V93k」）</b>是全球高階運算晶片（AI 加速器、高效能 CPU/GPU、5G/6G 射頻、車用 SoC 與高速網路交換晶片）市佔率最高且最具指標性的自動化測試機台（ATE）。93k 憑藉其首創的<b>「每引腳獨立資源（Tester-per-pin）」</b>架構、<b>「分佈式板載運算（Distributed On-Card Intelligence）」</b>以及極低信號衰減的<b>「直驅對接（Direct Dock）」</b>機械堆疊，成為數百瓦至上千瓦級超大規模積體電路良率把關與物理診斷的核心基礎設施。
+            </span>
+            <span class="en">
+              In advanced semiconductor Final Test (FT) and Circuit Probe (CP) engineering, the <b>Advantest V93000 (universally known as "93k" or "V93k")</b> serves as the preeminent Automated Test Equipment (ATE) platform for high-performance computing (AI accelerators, server CPUs/GPUs, 5G/6G RF, automotive SoCs, and hyperscale switch silicon). Anchored by its pioneer <b>"Tester-per-pin"</b> architecture, <b>"Distributed On-Card Intelligence"</b>, and ultra-short <b>"Direct Dock"</b> mechanical interconnect stack, the V93000 forms the bedrock infrastructure for yield optimization and physical silicon failure diagnosis across modern multi-hundred-watt chiplets.
+            </span>
+          </p>
+
+          <!-- FIGURE 5.4: ADVANTEST V93000 ARCHITECTURE & SIGNAL CHAIN -->
+          <figure>
+            <svg viewBox="0 0 960 500" style="width:100%; height:auto;" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Advantest V93000 (93k) ATE Architecture and Signal Chain">
+              <defs>
+                <filter id="v93kShadow" x="-5%" y="-10%" width="110%" height="130%">
+                  <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.12"/>
+                </filter>
+                <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M 0 1 L 8 5 L 0 9 z" fill="var(--accent)"/>
+                </marker>
+                <marker id="arrowGood" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M 0 1 L 8 5 L 0 9 z" fill="var(--good)"/>
+                </marker>
+                <marker id="arrowWarn" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M 0 1 L 8 5 L 0 9 z" fill="var(--warn)"/>
+                </marker>
+              </defs>
+              <g fill="var(--ink)" font-family="var(--font-mono)">
+
+                <!-- ==================== TIER 1 & 2: HOST, NETWORK & CONTROLLER ==================== -->
+                <!-- Host & SmarTest Box -->
+                <rect x="20" y="20" width="280" height="90" rx="6" fill="var(--surface-2)" stroke="var(--accent)" stroke-width="1.8" filter="url(#v93kShadow)"/>
+                <text class="zh" x="35" y="42" font-size="12" font-weight="700" fill="var(--accent)">1. 主控工作站與 SmarTest 軟體層</text><text class="en" x="35" y="42" font-size="12" font-weight="700" fill="var(--accent)">1. Host &amp; SmarTest Software Tier</text>
+                <text x="35" y="60" font-size="10" fill="var(--ink-soft)">RHEL Linux / SmarTest 8 (ST8)</text>
+                <text class="zh" x="35" y="78" font-size="9.5" fill="var(--ink-soft)">Testflow API / Shmoo / 向量邊限偵錯</text><text class="en" x="35" y="78" font-size="9.5" fill="var(--ink-soft)">Testflow API / Shmoo / Pattern Debug</text>
+                <text class="zh" x="35" y="95" font-size="9.5" fill="var(--good)">STDF V4 即時資料串流輸出</text><text class="en" x="35" y="95" font-size="9.5" fill="var(--good)">STDF V4 Real-time Data Streaming</text>
+
+                <!-- Arrow Host -> Xtreme Link -->
+                <path d="M 300 65 L 330 65" stroke="var(--accent)" stroke-width="2" marker-end="url(#arrow)"/>
+
+                <!-- Xtreme Link Backbone Box -->
+                <rect x="335" y="20" width="270" height="90" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1.5" filter="url(#v93kShadow)"/>
+                <text class="zh" x="350" y="42" font-size="12" font-weight="700" fill="var(--accent)">2. Xtreme Link™ 專利卡間網路骨幹</text><text class="en" x="350" y="42" font-size="12" font-weight="700" fill="var(--accent)">2. Xtreme Link™ ATE High-Speed Bus</text>
+                <text x="350" y="60" font-size="10" fill="var(--ink-soft)">Patented Distributed Optical/Electrical</text>
+                <text class="zh" x="350" y="78" font-size="9.5" fill="var(--ink-soft)">數十 Gbps 點對點同動，徹底消除主控 CPU 瓶頸</text><text class="en" x="350" y="78" font-size="9.5" fill="var(--ink-soft)">Gbps Peer-to-Peer; zero CPU bottlenecks</text>
+                <text class="zh" x="350" y="95" font-size="9.5" fill="var(--good)">全卡籠皮秒級超低抖動同步觸發時脈</text><text class="en" x="350" y="95" font-size="9.5" fill="var(--good)">Sub-picosecond global sync trigger grid</text>
+
+                <!-- Arrow Xtreme Link -> Multi-Site -->
+                <path d="M 605 65 L 635 65" stroke="var(--accent)" stroke-width="2" marker-end="url(#arrow)"/>
+
+                <!-- Multi-Site Controller Box -->
+                <rect x="640" y="20" width="300" height="90" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1.5" filter="url(#v93kShadow)"/>
+                <text class="zh" x="655" y="42" font-size="12" font-weight="700" fill="var(--accent)">3. 高並行多工測試管理 (Multi-Site)</text><text class="en" x="655" y="42" font-size="12" font-weight="700" fill="var(--accent)">3. High-Site Parallel Test Controller</text>
+                <text x="655" y="60" font-size="10" fill="var(--ink-soft)">Multi-Site Architecture: x8 / x16 / x32 / x64</text>
+                <text class="zh" x="655" y="78" font-size="9.5" fill="var(--warn)">站點間動態隔離 (Site Delta Yield 監控)</text><text class="en" x="655" y="78" font-size="9.5" fill="var(--warn)">Dynamic Site Isolation &amp; Delta Tracking</text>
+                <text class="zh" x="655" y="95" font-size="9.5" fill="var(--good)">各站獨立 Binning / 自動跳過接觸不良站點</text><text class="en" x="655" y="95" font-size="9.5" fill="var(--good)">Per-site autonomous binning &amp; fault skip</text>
+
+                <!-- Vertical Down Bus from Tier 1/2 to Tier 3 -->
+                <path d="M 470 110 L 470 135" stroke="var(--accent)" stroke-width="2" marker-end="url(#arrow)"/>
+
+                <!-- ==================== TIER 3: TEST HEAD & CARD CAGES ==================== -->
+                <!-- Big Test Head Frame -->
+                <rect x="20" y="140" width="920" height="155" rx="8" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.8" filter="url(#v93kShadow)"/>
+                <text class="zh" x="35" y="160" font-size="12.5" font-weight="700" fill="var(--accent)">Advantest V93000 水冷測試頭 (Test Head, TH) 與 儀器卡籠 (Card Cage) 模組矩陣</text><text class="en" x="35" y="160" font-size="12.5" font-weight="700" fill="var(--accent)">Advantest V93000 Liquid-Cooled Test Head (TH) &amp; Modular Card Cage Instrumentation</text>
+
+                <!-- Sub-Module 1: Pin Scale (Digital) -->
+                <rect x="35" y="172" width="210" height="110" rx="5" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1.2"/>
+                <text class="zh" x="45" y="192" font-size="11" font-weight="700" fill="var(--accent)">數位: Pin Scale 5000 / 1600</text><text class="en" x="45" y="192" font-size="11" font-weight="700" fill="var(--accent)">Digital: Pin Scale 5000/1600</text>
+                <text x="45" y="208" font-size="9.5" fill="var(--ink-soft)">256 Ch/Card | Up to 5 Gbps</text>
+                <text class="zh" x="45" y="225" font-size="9" fill="var(--ink)">板載 8 核 CPU 就地解壓縮</text><text class="en" x="45" y="225" font-size="9" fill="var(--ink)">On-card 8-core local DSP/CPU</text>
+                <text class="zh" x="45" y="241" font-size="9" fill="var(--ink)">邊緣定位精度 EPA &lt; 50 ps</text><text class="en" x="45" y="241" font-size="9" fill="var(--ink)">Edge Accuracy EPA &lt; 50 ps</text>
+                <text class="zh" x="45" y="258" font-size="9" fill="var(--good)">失效位元即時 Cycle Dump</text><text class="en" x="45" y="258" font-size="9" fill="var(--good)">Real-time fail-cycle logging</text>
+                <text class="zh" x="45" y="274" font-size="8.5" fill="var(--accent)">[每引腳獨立時序與驅動資源]</text><text class="en" x="45" y="274" font-size="8.5" fill="var(--accent)">[Per-pin timing &amp; level resources]</text>
+
+                <!-- Sub-Module 2: DC Scale / DPS -->
+                <rect x="260" y="172" width="210" height="110" rx="5" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1.2"/>
+                <text class="zh" x="270" y="192" font-size="11" font-weight="700" fill="var(--accent)">電源: DC Scale / XPS256 / DPS</text><text class="en" x="270" y="192" font-size="11" font-weight="700" fill="var(--accent)">Power: DC Scale / XPS256 / DPS</text>
+                <text x="270" y="208" font-size="9.5" fill="var(--ink-soft)">&gt;1,000A Dynamic High Current</text>
+                <text class="zh" x="270" y="225" font-size="9" fill="var(--danger)">瞬態響應 &gt; 1,000 A/µs</text><text class="en" x="270" y="225" font-size="9" fill="var(--danger)">Slew rate &gt; 1,000 A/µs</text>
+                <text class="zh" x="270" y="241" font-size="9" fill="var(--good)">4-Wire 遠端主動 Kelvin 感測</text><text class="en" x="270" y="241" font-size="9" fill="var(--good)">4-Wire Remote Kelvin Sense</text>
+                <text class="zh" x="270" y="258" font-size="9" fill="var(--ink)">Core Rail 抗電壓塌陷鉗位</text><text class="en" x="270" y="258" font-size="9" fill="var(--ink)">Anti-droop active clamp</text>
+                <text class="zh" x="270" y="274" font-size="8.5" fill="var(--accent)">[mA 至 kA 級精密多相電源]</text><text class="en" x="270" y="274" font-size="8.5" fill="var(--accent)">[mA to kA multi-phase supplies]</text>
+
+                <!-- Sub-Module 3: Link Scale & RF -->
+                <rect x="485" y="172" width="210" height="110" rx="5" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1.2"/>
+                <text class="zh" x="495" y="192" font-size="11" font-weight="700" fill="var(--accent)">高速/射頻: Link Scale &amp; WSRF</text><text class="en" x="495" y="192" font-size="11" font-weight="700" fill="var(--accent)">High-Speed: Link Scale &amp; WSRF</text>
+                <text x="495" y="208" font-size="9.5" fill="var(--ink-soft)">PCIe Gen 5/6 | PAM4 112G/224G</text>
+                <text class="zh" x="495" y="225" font-size="9" fill="var(--ink)">SerDes 眼圖與誤碼率 (BER)</text><text class="en" x="495" y="225" font-size="9" fill="var(--ink)">SerDes Eye &amp; BER analysis</text>
+                <text class="zh" x="495" y="241" font-size="9" fill="var(--ink)">Wave Scale 5G/Wi-Fi 7 mmWave</text><text class="en" x="495" y="241" font-size="9" fill="var(--ink)">Wave Scale 5G/Wi-Fi 7 mmWave</text>
+                <text class="zh" x="495" y="258" font-size="9" fill="var(--good)">TDR 自動化治具去嵌入 (De-embed)</text><text class="en" x="495" y="258" font-size="9" fill="var(--good)">Automated TDR fixture de-embed</text>
+                <text class="zh" x="495" y="274" font-size="8.5" fill="var(--accent)">[數十 GHz 超高頻率信號完整性]</text><text class="en" x="495" y="274" font-size="8.5" fill="var(--accent)">[Multi-GHz high-speed signal integrity]</text>
+
+                <!-- Sub-Module 4: Liquid Cooling & Chassis -->
+                <rect x="710" y="172" width="215" height="110" rx="5" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1.2"/>
+                <text class="zh" x="720" y="192" font-size="11" font-weight="700" fill="var(--accent)">溫控: 水冷歧管與盲插背板</text><text class="en" x="720" y="192" font-size="11" font-weight="700" fill="var(--accent)">Thermal: Liquid Cooling Manifold</text>
+                <text x="720" y="208" font-size="9.5" fill="var(--ink-soft)">Closed-Loop Chilled Water</text>
+                <text class="zh" x="720" y="225" font-size="9" fill="var(--good)">儀器卡籠溫度恆定 ±0.5°C</text><text class="en" x="720" y="225" font-size="9" fill="var(--good)">Chassis thermal stability ±0.5°C</text>
+                <text class="zh" x="720" y="241" font-size="9" fill="var(--ink)">萬瓦級總熱耗動態冷卻排出</text><text class="en" x="720" y="241" font-size="9" fill="var(--ink)">Multi-kW total heat dissipation</text>
+                <text class="zh" x="720" y="258" font-size="9" fill="var(--ink)">盲插自鎖高密背板接頭</text><text class="en" x="720" y="258" font-size="9" fill="var(--ink)">Blind-mate high-density backplane</text>
+                <text class="zh" x="720" y="274" font-size="8.5" fill="var(--accent)">[維持測試量測極高重複性 (Gage)]</text><text class="en" x="720" y="274" font-size="8.5" fill="var(--accent)">[Sustaining Gage R&amp;R repeatability]</text>
+
+                <!-- Vertical Down Arrow from Tier 3 to Tier 4 -->
+                <path d="M 280 295 L 280 320" stroke="var(--accent)" stroke-width="2" marker-end="url(#arrow)"/>
+                <path d="M 680 295 L 680 320" stroke="var(--accent)" stroke-width="2" marker-end="url(#arrow)"/>
+
+                <!-- ==================== TIER 4 & 5: DIRECT DOCK, LOADBOARD, SOCKET & ATC ==================== -->
+                <!-- Left Box: Direct Dock & Loadboard Stack -->
+                <rect x="20" y="325" width="530" height="155" rx="6" fill="var(--surface-2)" stroke="var(--accent)" stroke-width="1.8" filter="url(#v93kShadow)"/>
+                <text class="zh" x="35" y="347" font-size="12" font-weight="700" fill="var(--accent)">4. 直驅對接機械堆疊 (Direct Dock) 與 負載板 (DIB/Loadboard)</text><text class="en" x="35" y="347" font-size="12" font-weight="700" fill="var(--accent)">4. Direct Dock Interconnect &amp; Multilayer DUT Loadboard (DIB)</text>
+                
+                <!-- Stack Layers Drawing -->
+                <!-- Direct Dock Guide Pin & Cam -->
+                <rect x="35" y="360" width="500" height="24" rx="3" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+                <text class="zh" x="45" y="376" font-size="9.5" font-weight="600" fill="var(--accent)">[對接層] Direct Dock 氣動凸輪鎖緊導引銷 (微米級對位無纜線直連)</text><text class="en" x="45" y="376" font-size="9.5" font-weight="600" fill="var(--accent)">[Docking] Cam Latch Guide Pins: direct blind-mate, zero-cable connection</text>
+
+                <!-- Pogo Block Matrix -->
+                <rect x="35" y="388" width="500" height="24" rx="3" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+                <text class="zh" x="45" y="404" font-size="9.5" font-weight="600" fill="var(--good)">[探針塔] 高密度 Pogo Block 矩陣 (同軸高頻針 + 50A 大電流鍍金彈簧針)</text><text class="en" x="45" y="404" font-size="9.5" font-weight="600" fill="var(--good)">[Pogo Tower] High-Density Pogo Block Matrix: coaxial RF &amp; 50A power spring pins</text>
+
+                <!-- DUT Board -->
+                <rect x="35" y="416" width="500" height="26" rx="3" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+                <text class="zh" x="45" y="433" font-size="9.5" font-weight="600" fill="var(--ink)">[負載板] 28–44 層超低損耗 Megtron 6/Rogers 負載板 (DIB) + 密鑰去耦電容陣列</text><text class="en" x="45" y="433" font-size="9.5" font-weight="600" fill="var(--ink)">[Loadboard] 28-44 Layer Ultra-Low-Loss Megtron 6 PCB + Dense Decoupling Caps</text>
+
+                <!-- Contactor Socket -->
+                <rect x="35" y="446" width="500" height="24" rx="3" fill="var(--surface)" stroke="var(--warn)" stroke-width="1.2"/>
+                <text class="zh" x="45" y="462" font-size="9.5" font-weight="600" fill="var(--warn)">[測試座] 高頻導電橡膠 (Elastomer) / 超短 Pogo Pin Contactor (Rc &lt; 30 mΩ)</text><text class="en" x="45" y="462" font-size="9.5" font-weight="600" fill="var(--warn)">[Socket] RF Conductive Elastomer / Short Pogo Socket (Rc &lt; 30 mΩ)</text>
+
+                <!-- Right Box: DUT & Active Thermal Control -->
+                <rect x="565" y="325" width="375" height="155" rx="6" fill="var(--surface-2)" stroke="var(--danger)" stroke-width="1.8" filter="url(#v93kShadow)"/>
+                <text class="zh" x="580" y="347" font-size="12" font-weight="700" fill="var(--danger)">5. 待測晶片 (DUT) 與 主動熱控制 (ATC)</text><text class="en" x="580" y="347" font-size="12" font-weight="700" fill="var(--danger)">5. Device Under Test (DUT) &amp; Active Thermal Control</text>
+
+                <rect x="580" y="360" width="345" height="48" rx="4" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+                <text class="zh" x="590" y="378" font-size="10" font-weight="700" fill="var(--accent)">先進高階封裝 DUT (AI GPU / 2.5D Chiplet / SoC)</text><text class="en" x="590" y="378" font-size="10" font-weight="700" fill="var(--accent)">Advanced DUT (AI Accelerator / 2.5D Chiplet)</text>
+                <text class="zh" x="590" y="396" font-size="9" fill="var(--ink-soft)">內建熱敏二極體 (Vbe) ➔ SmarTest 高速 ADC 即時監控 Tj</text><text class="en" x="590" y="396" font-size="9" fill="var(--ink-soft)">On-die thermal diode (Vbe) monitored by SmarTest ADC</text>
+
+                <rect x="580" y="414" width="345" height="56" rx="4" fill="var(--surface)" stroke="var(--danger)" stroke-width="1.2"/>
+                <text class="zh" x="590" y="432" font-size="10" font-weight="700" fill="var(--danger)">ATC 動態熱壓頭 (Active Thermal Head)</text><text class="en" x="590" y="432" font-size="10" font-weight="700" fill="var(--danger)">Active Thermal Control (ATC) Contact Head</text>
+                <text class="zh" x="590" y="449" font-size="9" fill="var(--danger)">-40°C 至 +150°C 閉環溫控 | 壓制 500W–1000W 暫態熱突波</text><text class="en" x="590" y="449" font-size="9" fill="var(--danger)">-40°C to +150°C closed-loop; clamps 500W-1000W burst heat</text>
+                <text class="zh" x="590" y="463" font-size="8.5" fill="var(--good)">杜絕因熱衝擊導致之時序邊界假性失敗 (Timing False Fail)</text><text class="en" x="590" y="463" font-size="8.5" fill="var(--good)">Averting thermal-burst timing false fallout</text>
+
+              </g>
+            </svg>
+            <figcaption class="figure-caption">
+              <span class="zh">圖 5.4：Advantest V93000 (93k) 測試機台核心架構與信號鏈全貌圖 — 從 SmarTest 軟體環境、Card Cage 儀器模組、Direct Dock 測試頭到 DUT 負載板與主動熱控 (ATC)</span>
+              <span class="en">Figure 5.4: Advantest V93000 (93k) System Architecture &amp; Signal Chain — From SmarTest Host, Card Cage Instrumentation, Direct Dock Test Head to DUT Loadboard &amp; Active Thermal Control (ATC)</span>
+            </figcaption>
+          </figure>
+
+          <!-- 5.8.1 PLATFORM ARCHITECTURE TABLE -->
+          <h4>
+            <span class="zh">5.8.1 V93000 (93k) 關鍵子系統規格與良率分析影響矩陣</span>
+            <span class="en">5.8.1 V93000 Key Subsystems, Specs &amp; Yield Engineering Impact Matrix</span>
+          </h4>
+
+          <div class="data-table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th><span class="zh">93k 系統模組</span><span class="en">System Subsystem</span></th>
+                  <th><span class="zh">代表性硬體卡別與架構</span><span class="en">Representative Hardware &amp; Cards</span></th>
+                  <th><span class="zh">核心電氣規格與能力</span><span class="en">Electrical Specs &amp; Capabilities</span></th>
+                  <th><span class="zh">引發之假性良率異常與工程對策</span><span class="en">Yield Traps &amp; Engineering Solutions</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b><span class="zh">數位引腳通道</span><span class="en">Digital Pin Electronics</span><br><span style="font-size:11px; color:var(--ink-soft);">(Digital Subsystem)</span></b></td>
+                  <td>
+                    <b>Pin Scale 5000 / 5000B</b><br>
+                    (Pin Scale 1600 / PS9G)
+                  </td>
+                  <td>
+                    <span class="zh">
+                      每張卡 256 個獨立數位引腳；支援高達 5 Gbps 向量資料率；板載嵌入式 8 核心處理器；邊緣定位精度（EPA）&lt; 50 ps；深度向量失效快閃記憶體。
+                    </span>
+                    <span class="en">
+                      256 independent digital channels/card; up to 5 Gbps data rates; on-card embedded 8-core test processors; Edge Placement Accuracy (EPA) &lt; 50 ps; deep vector fail memory.
+                    </span>
+                  </td>
+                  <td>
+                    <span class="zh">
+                      <b>引腳間時序偏位（Pin Skew）</b>：若 EPA 漂移超過 80 ps，高頻 Setup/Hold 邊限測試將出現假性 Bin 5/6 失敗。<b>對策：定期執行全自動 TDR (Time Domain Reflectometry) 治具去嵌入校準。</b>
+                    </span>
+                    <span class="en">
+                      <b>Pin Skew Drift:</b> EPA drift &gt; 80 ps causes false Bin 5/6 setup/hold violations. <b>Mitigation: routine automated TDR fixture de-embedding calibration.</b>
+                    </span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b><span class="zh">晶片電源供應</span><span class="en">Device Power Supply</span><br><span style="font-size:11px; color:var(--ink-soft);">(DPS / DC Scale)</span></b></td>
+                  <td>
+                    <b>XPS256 / XPS128 / XHC32</b><br>
+                    (DPS128 / UHC4)
+                  </td>
+                  <td>
+                    <span class="zh">
+                      支援先進 3nm/2nm 核心電壓（0.5V–0.85V）；單卡至多相併聯供電能力 <b>&gt; 1,000A</b>；電流斜率 \(\text{di/dt} &gt; 1,000\text{ A/}\mu\text{s}\)；硬體級超快電壓塌陷鉗位與過流保護。
+                    </span>
+                    <span class="en">
+                      Sub-1V core supplies (0.5V-0.85V); multi-phase ganged capability <b>&gt; 1,000A</b>; transient slew rate \(\text{di/dt} &gt; 1,000\text{ A/}\mu\text{s}\); ultra-fast hardware voltage droop clamp &amp; OCP.
+                    </span>
+                  </td>
+                  <td>
+                    <span class="zh">
+                      <b>動態 IR Droop 導致邏輯重置</b>：千安培瞬態跳變引發電源軌震盪，導致 Scan 測試向量突發當機。<b>對策：啟用 4-Wire 遠端主動 Kelvin 感測反饋，並在 Loadboard 緊鄰測試座處佈署高頻 MLCC 電容矩陣。</b>
+                    </span>
+                    <span class="en">
+                      <b>Dynamic IR Droop Reset:</b> kA-level current steps induce supply rail bounce, crashing scan vectors. <b>Mitigation: 4-wire active remote Kelvin sensing + tight MLCC arrays adjacent to sockets.</b>
+                    </span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b><span class="zh">高速串列與射頻</span><span class="en">High-Speed I/O &amp; RF</span><br><span style="font-size:11px; color:var(--ink-soft);">(HSIO / RF Subsystem)</span></b></td>
+                  <td>
+                    <b>Link Scale / Wave Scale RF</b><br>
+                    (WSRF / HSIO SerDes)
+                  </td>
+                  <td>
+                    <span class="zh">
+                      PCIe Gen 5/6、PAM4 112G/224G 串列通道；5G NR 毫米波與 Wi-Fi 7 調製解調；內建眼圖（Eye Diagram）重構與誤碼率（BER）浴缸曲線計算器。
+                    </span>
+                    <span class="en">
+                      PCIe Gen 5/6, PAM4 112G/224G SerDes; 5G NR mmWave and Wi-Fi 7 modulation; built-in Eye Diagram reconstruction and BER bathtub curve modeling.
+                    </span>
+                  </td>
+                  <td>
+                    <span class="zh">
+                      <b>高頻反射與信號衰減</b>：測試座 Pogo 針接觸面沾錫氧化，造成 S 參數反射係數 \(S_{11}\) 惡化與眼高閉合。<b>對策：更換為高頻導電橡膠測試座（Conductive Elastomer），並於 SmarTest 啟用即時通道去紋波濾波。</b>
+                    </span>
+                    <span class="en">
+                      <b>High-Frequency Return Loss:</b> Solder buildup on pogo tips degrades \(S_{11}\) return loss, closing eye height. <b>Mitigation: deploy conductive elastomer sockets + SmarTest de-embedding filters.</b>
+                    </span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b><span class="zh">直驅對接機械介面</span><span class="en">Direct Dock Interface</span><br><span style="font-size:11px; color:var(--ink-soft);">(Mechanical Docking)</span></b></td>
+                  <td>
+                    <b>CTH / STH / EXA Scale Frame</b><br>
+                    (Direct Dock Pogo Tower)
+                  </td>
+                  <td>
+                    <span class="zh">
+                      氣動/凸輪機械鎖緊；微米級精密導引定位銷；Pogo Block 矩陣垂直頂壓；無同軸電纜雜散電感直達負載板（DIB）。
+                    </span>
+                    <span class="en">
+                      Pneumatic/cam mechanical locking; micron-level guide pins; vertical compression Pogo Block matrix; zero-cable stray inductance direct to DIB.
+                    </span>
+                  </td>
+                  <td>
+                    <span class="zh">
+                      <b>對接偏心磨損與接觸電阻飄移</b>：測試頭反覆對接致使導向套管磨損，部分 Pogo 針偏心下壓造成 \(R_c &gt; 1\Omega\)。<b>對策：每季使用雷射水平儀檢驗對接平面度（Planarity &lt; 0.05mm），定期更換探針塔磨耗組件。</b>
+                    </span>
+                    <span class="en">
+                      <b>Docking Eccentricity Wear:</b> Repeated docking wears alignment bushings, tilting pins and raising \(R_c &gt; 1\Omega\). <b>Mitigation: quarterly laser planarity verification (&lt; 0.05mm) + pogo block refurbishment.</b>
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- 5.8.2 4 KEY YIELD ENGINEERING PLAYBOOKS ON 93K -->
+          <h4>
+            <span class="zh">5.8.2 V93000 (93k) 產線 4 大高頻良率工程陷阱與標準排查對策</span>
+            <span class="en">5.8.2 V93000 (93k) 4 Critical Yield Traps &amp; Standard Troubleshooting SOP</span>
+          </h4>
+
+          <div class="callout warn">
+            <span class="zh">
+              <b>陷阱 1：並行多工測試站點良率偏位 (Multi-Site Delta Yield Skew)</b><br>
+              在 x8 或 x16 測試中，若 Site 1 良率達 98.5%，但 Site 4 良率僅有 91.2%（\(\Delta Y &gt; 1.5\%\)），切勿直接認定為晶圓製程變異！此為典型的<b>測試機台站點假異常</b>。<br>
+              <b>排查步驟：</b>
+            </span>
+            <span class="en">
+              <b>Trap 1: Multi-Site Delta Yield Skew</b><br>
+              In x8 or x16 parallel test cells, if Site 1 yields 98.5% while Site 4 plunges to 91.2% (\(\Delta Y &gt; 1.5\%\)), never prematurely blame fab processing! This is a textbook <b>tester multi-site artifact</b>.<br>
+              <b>Troubleshooting Steps:</b>
+            </span>
+            <ol>
+              <li>
+                <span class="zh"><b>單站隔離測試 (Site Isolation)：</b>在 SmarTest 控制器中暫時 Mask 掉其他站點，僅單獨運行 Site 4。若良率立即恢復至 98.5%，代表存在<b>跨站電源共享壓降（DPS Shared-Rail IR Droop）或地彈（Ground Bounce）干擾</b>。</span>
+                <span class="en"><b>Site Isolation Test:</b> Temporarily mask all other sites in SmarTest and run Site 4 in isolation. If yield snaps back to 98.5%, cross-site power rail IR droop or ground bounce is confirmed.</span>
+              </li>
+              <li>
+                <span class="zh"><b>晶片對調互換 (Site-Swap Verification)：</b>將在 Site 4 判定失敗的晶粒放至 Site 1 複測；若 100% 轉為 Pass，直接確認為 Site 4 負載板硬體或測試座接觸電阻超標。</span>
+                <span class="en"><b>Site-Swap Verification:</b> Re-test Site 4 rejected units on Site 1. If they pass 100%, Site 4 loadboard routing or socket contact resistance is conclusively defective.</span>
+              </li>
+              <li>
+                <span class="zh"><b>STDF 站點矩陣分析：</b>利用 STDF 中之 <code>SITE_NUM</code> 欄位，針對各測試項目繪製站點分佈箱形圖（Box Plot），快速鎖定是哪一條 DPS 或數位引腳發生站點偏移。</span>
+                <span class="en"><b>STDF Site Matrix Analysis:</b> Group STDF <code>SITE_NUM</code> records to generate per-site parametric box plots, pin-pointing the exact drifting DPS rail or digital channel.</span>
+              </li>
+            </ol>
+          </div>
+
+          <div class="callout danger">
+            <span class="zh">
+              <b>陷阱 2：TDR 治具去嵌入漂移與邊緣定位精度 (EPA) 失真引致時序假報</b><br>
+              高階 SoC 包含數十條 DDR5、LPDDR5X 與 PCIe 時序敏感引腳。測試工程師常發現：<b>「每逢清晨大夜班或換班後，高頻時序測試項目（Setup/Hold Margin）突然成批報錯，導致良率驟降 5%–10%！」</b><br>
+              <b>真因解構：</b>測試車間溫濕度微幅波動（\(\Delta T &gt; 3^\circ\text{C}\)）使 Loadboard 介質介電常數（\(\epsilon_r\)）產生微小飄移，伴隨 Pogo 探針反覆按壓氧化，造成引腳信號飛行時間（Time of Flight, ToF）改變數十皮秒，破壞了原本的 EPA 校準平衡。<br>
+              <b>SOP 根治解法：</b>建立機台 <b>Auto-TDR 定時巡檢機制</b>。93k 配備高精度 TDR 模組，可自動向負載板發送皮秒級階躍脈衝，量測反射波波形並自動反推走線延遲，自動更新 SmarTest 的 Deskew 補償表，將全通道 Pin-to-Pin Skew 嚴格壓制在 <b>&lt; 30 ps</b> 以內。
+            </span>
+            <span class="en">
+              <b>Trap 2: TDR Calibration Drift &amp; EPA Distortion Causing False Timing Violations</b><br>
+              High-end SoCs integrate dozens of timing-critical DDR5, LPDDR5X, and PCIe channels. Engineers frequently encounter: <b>"During shift handovers, high-speed setup/hold margin tests suddenly trigger mass fallout, dropping yield by 5%-10%!"</b><br>
+              <b>Root Cause:</b> Minor cleanroom temperature fluctuations (\(\Delta T &gt; 3^\circ\text{C}\)) alter PCB substrate dielectric constants (\(\epsilon_r\)). Compounded by pogo pin oxidation, signal Time of Flight (ToF) drifts by tens of picoseconds, invalidating edge placement accuracy (EPA).<br>
+              <b>Standard Fix:</b> Mandate automated <b>Auto-TDR periodic calibration</b>. The V93000 sends picosecond step pulses into loadboard traces, measures reflection signatures, and recalculates SmarTest deskew tables, strictly clamping pin-to-pin skew to <b>&lt; 30 ps</b>.
+            </span>
+          </div>
+
+          <div class="callout good">
+            <span class="zh">
+              <b>陷阱 3：SmarTest Scan 失效循環記錄與 EDA 實體良率定位閉環 (Yield Triangulation to Phase 7 FA)</b><br>
+              在 93k 機台上進行大規模數位邏輯 Scan ATPG 測試時，當晶片發生邏輯錯誤，<b>千萬不要只記錄粗略的 Bin 7（Scan Fail）</b>！<br>
+              <b>最佳實務閉環流程：</b>
+            </span>
+            <span class="en">
+              <b>Practice 3: SmarTest Scan Fail Cycle Logging &amp; EDA Yield Triangulation (Direct Bridge to Phase 7 FA)</b><br>
+              During large-scale Scan ATPG execution on the V93000, when a unit fails, <b>never settle for a coarse Bin 7 (Scan Fail) summary</b>!<br>
+              <b>Best Practice Closed-Loop Flow:</b>
+            </span>
+            <ol>
+              <li>
+                <span class="zh"><b>啟用 SmarTest Fail Cycle Dump：</b>在測試程式中調用 <code>FAIL_CYCLE_LIMIT</code>，精確擷取前 1,024 個錯誤時脈週期（Fail Cycles）、受影響引腳（Pin List）與掃描鏈索引（Scan Chain Bit Index）。</span>
+                <span class="en"><b>Enable SmarTest Fail Cycle Dump:</b> Configure <code>FAIL_CYCLE_LIMIT</code> to capture the first 1,024 failing clock cycles, pin names, and scan chain cell bit indices.</span>
+              </li>
+              <li>
+                <span class="zh"><b>EDA 軟體自動化逆向診斷：</b>將 93k 產出的錯誤紀錄（Fail Log）直接餵入 <b>Siemens Tessent YieldFast 或 Synopsys TestMAX</b> 診斷引擎。</span>
+                <span class="en"><b>Automated EDA Diagnosis:</b> Feed the 93k fail log directly into <b>Siemens Tessent YieldFast or Synopsys TestMAX</b> diagnosis engines.</span>
+              </li>
+              <li>
+                <span class="zh"><b>物理佈局反標註（Layout GDS Triangulation）：</b>診斷引擎比對網表（Netlist）與版圖 GDS/LEF，在 10 分鐘內精準定位出故障邏輯閘、過孔（Via）或金屬導線（Metal Line）之空間座標（X, Y, Layer），直接無縫移交 <b>Phase 7 失效分析實驗室進行聚焦離子束（FIB）切割與 TEM 檢驗</b>，達成 100% 數據驅動的良率改善閉環！</span>
+                <span class="en"><b>Physical Layout GDS Triangulation:</b> Correlating the netlist with layout GDS/LEF, the tool triangulates the exact failing gate, via, or metal line coordinates (X, Y, Layer) within 10 minutes, transferring coordinates to <b>Phase 7 FA for FIB cut and TEM inspection</b>—a 100% closed-loop yield resolution!</span>
+              </li>
+            </ol>
+          </div>
+
+          <div class="callout">
+            <span class="zh">
+              <b>陷阱 4：主動熱控制 (ATC) 響應滯後引發的暫態熱突波假性降頻失效</b><br>
+              AI 運算晶片在全負載向量突發（Burst Vector）啟動時，晶片瞬態功耗在數十微秒內從 15W 激增至 600W，<b>矽晶面升溫速率高達 \(&gt; 1,000^\circ\text{C/s}\)</b>。分選機（Handler）傳統水冷壓頭熱響應延遲通常需 200–500 ms，在此空窗期接面溫度（\(T_j\)）瞬間衝破 \(145^\circ\text{C}\)，引發時序違規或晶片硬體熱保護。<br>
+              <b>工程防禦解法：</b><br>
+              1. <b>熱預調向量（Thermal Pre-conditioning Vectors）：</b>在正式執行高敏感時序測試前，先執行 50 ms 虛擬功耗震盪向量，讓 ATC 溫控壓頭提前偵測熱流並達到熱阻平衡；<br>
+              2. <b>SmarTest 即時熱敏二極體回饋：</b>利用 93k 儀器卡精密 ADC 即時採樣晶片內置溫度二極體壓降（\(V_{be}\)），與 Handler ATC 建立毫秒級閉環 PID 連動，徹底根治熱突波假異常。
+            </span>
+            <span class="en">
+              <b>Trap 4: Active Thermal Control (ATC) Thermal Lag Causing False Frequency Fallout</b><br>
+              When high-power AI accelerators execute burst test vectors, chip power skyrockets from 15W to 600W in microseconds, <b>heating silicon at \(&gt; 1,000^\circ\text{C/s}\)</b>. Handler thermal heads typically exhibit 200-500 ms thermal inertia, causing junction temperature (\(T_j\)) to briefly breach \(145^\circ\text{C}\), tripping timing fails or thermal shutdown.<br>
+              <b>Engineering Defense:</b><br>
+              1. <b>Thermal Pre-conditioning Vectors:</b> Inject 50 ms dummy power toggle vectors prior to critical timing strobes, allowing the ATC thermal head to establish thermal equilibrium;<br>
+              2. <b>Real-time SmarTest Thermal Diode Feedback:</b> Utilize V93000 high-speed ADCs to continuously sample on-die diode drop (\(V_{be}\)), driving closed-loop millisecond PID control with the handler to eliminate thermal false rejects.
+            </span>
+          </div>
         </div>
       </section>
 
@@ -11165,6 +11525,36 @@
               </thead>
               <tbody>
                 <tr>
+                  <td><b>93k / V93000</b></td>
+                  <td>Advantest V93000</td>
+                  <td><span class="zh">愛德萬測試旗艦級 SoC/HPC 自動化測試機台平台（ATE）</span><span class="en">Advantest flagship SoC/HPC Automated Test Equipment platform</span></td>
+                </tr>
+                <tr>
+                  <td><b>EPA</b></td>
+                  <td>Edge Placement Accuracy</td>
+                  <td><span class="zh">測試機引腳數位時序邊緣定位精度（通常要求 &lt; 50 ps）</span><span class="en">Tester digital pin timing edge placement accuracy (typically &lt; 50 ps)</span></td>
+                </tr>
+                <tr>
+                  <td><b>EXA Scale</b></td>
+                  <td>Advantest EXA Scale</td>
+                  <td><span class="zh">93k 最新世代高密度、分佈式板載運算與大電流 ATE 架構</span><span class="en">Advantest next-gen high-density, distributed-compute ATE platform</span></td>
+                </tr>
+                <tr>
+                  <td><b>Pin Scale</b></td>
+                  <td>Pin Scale Digital Subsystem</td>
+                  <td><span class="zh">93k 專利每引腳獨立架構（Tester-per-pin）高速數位測試卡系列</span><span class="en">93k tester-per-pin high-speed digital instrumentation card family</span></td>
+                </tr>
+                <tr>
+                  <td><b>SmarTest</b></td>
+                  <td>SmarTest Software Suite</td>
+                  <td><span class="zh">Advantest V93000 原生 Linux 測試作業系統與開發環境（ST7 / ST8）</span><span class="en">Advantest native Linux test operating system &amp; environment (ST7/ST8)</span></td>
+                </tr>
+                <tr>
+                  <td><b>TDR</b></td>
+                  <td>Time Domain Reflectometry</td>
+                  <td><span class="zh">時域反射計，用於 ATE 治具、探針與負載板高頻延遲自動化校準與去嵌入</span><span class="en">Time Domain Reflectometry for fixture, probe, and loadboard deskew calibration</span></td>
+                </tr>
+                <tr>
                   <td><b>8D</b></td>
                   <td>Eight Disciplines</td>
                   <td><span class="zh">八步驟問題解決與客訴回覆格式</span><span class="en">Eight-step problem-solving and customer-response format</span></td>
@@ -11484,7 +11874,15 @@
                 W. Kuo, T. Kim, "An overview of manufacturing yield and reliability modeling for semiconductor products," <i>Proc. IEEE</i>, vol. 87, no. 8, 1999.<br>
                 <span style="font-size:12.5px; color:var(--ink-soft);"><span class="zh">良率與可靠度模型綜論</span><span class="en">Survey of yield and reliability models</span></span>
               </li>
-          </ul>
+          
+              <li>
+                Advantest Corporation, "V93000 EXA Scale Platform: High-Density SoC &amp; Advanced Packaging Test Architecture," <i>Advantest Technical Whitepaper</i>, 2021.<br>
+                <span style="font-size:12.5px; color:var(--ink-soft);"><span class="zh">Advantest V93000 EXA Scale 測試機台架構白皮書</span><span class="en">Advantest V93000 EXA Scale test platform architecture whitepaper</span></span>
+              </li>
+              <li>
+                Advantest Corporation, "SmarTest 8 Test Methodology &amp; Direct Dock Loadboard Design Guide," <i>Advantest Application Manual</i>, 2022.<br>
+                <span style="font-size:12.5px; color:var(--ink-soft);"><span class="zh">SmarTest 測試方法論與直驅對接負載板設計規範</span><span class="en">SmarTest methodology &amp; direct dock loadboard layout guidelines</span></span>
+              </li></ul>
           <h4><span class="zh">統計、SPC 與實驗設計</span><span class="en">Statistics, SPC &amp; DOE</span></h4>
           <ul>
               <li>
@@ -11566,11 +11964,11 @@
     <div style="display:flex; flex-direction:column; align-items:flex-end; gap:5px;">
       <div style="display:flex; align-items:center; gap:8px;">
         <span class="badge badge-green" style="font-size:11px; padding:2px 8px;">● LIVE VERIFIED</span>
-        <span style="font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft);">Rev. Z</span>
+        <span style="font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft);">Rev. AA</span>
       </div>
       <div style="font-family:var(--font-mono); font-size:12px; color:var(--ink);">
         <span class="zh">最後更新日期：</span><span class="en">Last Updated: </span>
-        <b style="color:var(--accent);">2026-10-23 23:30 (Asia/Taipei)</b>
+        <b style="color:var(--accent);">2026-10-27 20:00 (Asia/Taipei)</b>
       </div>
     </div>
   </footer>

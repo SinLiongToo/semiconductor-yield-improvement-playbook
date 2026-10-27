@@ -9,6 +9,33 @@ Entry format / 格式:
 
 ---
 
+## 2026-10-27 — Google Antigravity — Rev. AA: Advantest V93000 (93k) ATE Architecture, SmarTest Environment, Signal Chain & Yield Engineering Playbook
+
+- **Added Section 5.8: Advantest V93000 (93k) ATE Platform Architecture, SmarTest Environment & Advanced Silicon Yield Engineering**:
+  - Comprehensive introduction to the industry-standard V93000 ("93k") platform (over 70% share in advanced HPC / AI GPU / Mobile AP / RF testing).
+  - Detailed architectural breakdown across all 5 tiers:
+    - Tier 1: Host Workstation & SmarTest 8 (ST8) on RHEL Linux (Testflow API, Shmoo Tool, STDF V4 logger).
+    - Tier 2: Patented Xtreme Link™ high-speed ATE backbone (Gbps peer-to-peer data streaming, zero-host CPU bottlenecks).
+    - Tier 3: Liquid-cooled Test Head (TH) & Card Cages: Pin Scale 5000/1600 (256 ch/card, up to 5 Gbps, on-card 8-core CPU, EPA < 50 ps), DC Scale / XPS256 / DPS128 (>1000A dynamic transient power, 4-wire remote Kelvin sensing), Link Scale / Wave Scale RF (PCIe 5/6, PAM4 112G/224G, 5G/Wi-Fi 7 mmWave), and liquid cooling manifold (±0.5°C thermal stability).
+    - Tier 4: Direct Dock Interface Stack: Pneumatic cam latch guide pins, high-density Pogo Block / Tower matrix, 28–44 layer low-loss Megtron 6 DIB loadboard, and RF elastomer/pogo contactors.
+    - Tier 5: Advanced DUT & Active Thermal Control (ATC): On-die thermal diode feedback (\(V_{be}\)), dynamic -40°C to +150°C closed-loop thermal head sinking 500W–1000W+ burst heat.
+- **Added Figure 5.4**:
+  - Full-width, high-precision technical SVG diagram (`viewBox="0 0 960 500"`) depicting the V93000 system hierarchy, signal chain pipeline, and multi-site testing setup. Fully responsive, 100% theme-token compliant for light/dark mode, and fully bilingual.
+- **V93000 4 Major Yield Engineering Traps & Standard Troubleshooting SOPs**:
+  - Trap 1: Multi-Site Delta Yield Skew (isolation test, site-swap verification, STDF `SITE_NUM` correlation).
+  - Trap 2: TDR Calibration Drift & EPA Distortion causing false timing violations (Auto-TDR deskew SOP to < 30 ps).
+  - Trap 3: SmarTest Scan Fail Cycle Logging directly connecting to EDA layout diagnosis (Tessent YieldFast / Synopsys TestMAX) and Phase 7 physical FA (FIB/TEM).
+  - Trap 4: Active Thermal Control (ATC) thermal inertia lag causing false frequency fallout (thermal pre-conditioning vectors + real-time diode PID feedback).
+- **Appendix C & D Updates**:
+  - Appendix C: Added 6 terms (`93k / V93000`, `EPA`, `EXA Scale`, `Pin Scale`, `SmarTest`, `TDR`).
+  - Appendix D: Added Advantest EXA Scale technical whitepaper and SmarTest 8 / DUT Board Design Guide citations.
+- **Verification**:
+  - `npm run verify` passed: 0 errors, all 15 sections, 21 figures, 440 divs, 3324 spans balanced.
+  - `node scripts/audit_i18n_and_structure.js` passed: Section 5.8 validated, zero numbering drift, zero untranslated Chinese leaks in English mode across all sections.
+  - Bumped revision header and footer labels to Rev. AA with timestamp 2026-10-27.
+
+---
+
 ## 2026-10-24 — Claude Code — Rev. Z: full EN/ZH parity, OV numbering, parser bugs
 
 - **All English-mode Chinese leaks fixed.** `scripts/audit_i18n_and_structure.js` now passes for the first time. Root causes:
