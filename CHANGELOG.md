@@ -9,6 +9,35 @@ Entry format / 格式:
 
 ---
 
+## 2026-10-27 — Google Antigravity — Rev. AB: STDF V4 Specification Deep Dive, Binary Structure, Hierarchical Lifecycle, Figure 1.2 & Yield Traps
+
+- **Expanded Section 1.2: STDF V4 規範深度解析：二進位結構、階層生命週期、資料流圖與良率分析實務 (STDF V4 Deep Dive: Binary Structure, Hierarchical Lifecycle, Data Flow & Yield Engineering Analytics)**:
+  - Deep-dive into the industry-standard STDF V4 specification created by Teradyne and adopted across IEEE/SEMI.
+  - Complete 4-byte universal header breakdown: `REC_LEN` (2B, U*2), `REC_TYP` (1B, U*1), `REC_SUB` (1B, U*1), and variable payload data types (`U*n`, `I*n`, `R*4/R*8`, `C*n`, `B*n`).
+  - Hierarchical container lifecycle:
+    - File & Lot Level: `FAR` (File Attributes with endianness auto-detection), `MIR` (Master Info: Lot, Part, Tester, Rev), `MRR` (Master Results).
+    - Wafer Level (CP): `WCR` (Wafer Config: physical diameter, notch orientation, die dimensions), `WIR` (Wafer ID), `WRR` (Wafer Results: totals, passed, yield).
+    - Hardware Setup: `SDR` (Site Description), `PMR` (Pin Map), `PGR` (Pin Group), `RDR` (Retest Rules).
+    - Part Loop: `PIR` (Start per head/site), `PTR` (Parametric results), `MPR` (Multi-result pin arrays), `FTR` (Functional vector fail cycles and pins), `PRR` (Part Results: Hard/Soft Bin, (X, Y) coordinates, test execution time, `PART_FLG` retest bit, `PART_ID` unique chip Fuse ID).
+    - Summary Level: `TSR` (Test Synopsis per-test fail rates), `HBR`/`SBR` (Hard/Soft Bin rollups), `PCR` (Part Count per site).
+- **Added Figure 1.2**:
+  - Full-width, high-precision technical SVG diagram (`viewBox="0 0 960 500"`) depicting STDF 4-byte binary encapsulation, hierarchical record lifecycle tree, and the 4 downstream yield extraction pipelines (spatial wafer maps, multi-site balance, Cpk / dynamic PAT, and cross-stage CP-to-FT tracking). 100% theme-token compliant, zero HTML in text, fully bilingual.
+- **Added Section 1.2.2: 5 Critical STDF Engineering Traps & Guardrails**:
+  - Trap 1: Retest data naive aggregation causing yield inflation or depression (parsing `PART_FLG` Bit 0 for FPY vs. Final Yield).
+  - Trap 2: Asynchronous multi-site interleaved stream deserialization (per-site state machines keyed on `(HEAD_NUM, SITE_NUM)`).
+  - Trap 3: Abrupt tester crashes causing missing PRRs (synthesizing incomplete PIRs as `Bin 999 (Aborted)`).
+  - Trap 4: Single-sided limit sentinel values (-9.999e37) corrupting standard deviation and Cpk (gating via `TEST_FLG` Bit 4/5).
+  - Trap 5: Wafer coordinate inversion and notch rotation inconsistencies (aligning `WCR` `WF_FLAT` with MES wafer laser scribes).
+- **Appendix C & D Updates**:
+  - Appendix C: Added 5 core STDF record families (`MIR / MRR`, `PIR / PRR`, `PTR / MPR`, `TSR`, `WCR / WIR / WRR`).
+  - Appendix D: Added Teradyne STDF Version 4 official specification system manual citation.
+- **Verification**:
+  - `npm run verify` passed: 0 errors, 15 sections, 22 figures, 447 divs, 3374 spans balanced.
+  - `node scripts/audit_i18n_and_structure.js` passed: 0 numbering drift, 0 Chinese leaks in English mode across all sections.
+  - Bumped revision header and footer labels to Rev. AB with timestamp 2026-10-27 21:00 (Asia/Taipei).
+
+---
+
 ## 2026-10-27 — Google Antigravity — Rev. AA: Advantest V93000 (93k) ATE Architecture, SmarTest Environment, Signal Chain & Yield Engineering Playbook
 
 - **Added Section 5.8: Advantest V93000 (93k) ATE Platform Architecture, SmarTest Environment & Advanced Silicon Yield Engineering**:

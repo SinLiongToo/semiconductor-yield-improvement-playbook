@@ -4341,98 +4341,461 @@
             </table>
           </div>
 
-          <!-- 1.2 STDF -->
+          <!-- 1.2 STDF DEEP DIVE -->
           <h3>
-            <span class="zh">1.2 STDF V4 測試資料格式速查</span>
-            <span class="en">1.2 STDF V4 Test Data Format Primer</span>
+            <span class="zh">1.2 STDF V4 規範深度解析：二進位結構、階層生命週期、資料流圖與良率分析實務</span>
+            <span class="en">1.2 STDF V4 Deep Dive: Binary Structure, Hierarchical Lifecycle, Data Flow &amp; Yield Engineering Analytics</span>
           </h3>
+
           <p>
             <span class="zh">
-              STDF（Standard Test Data Format）是 ATE 測試機的業界通用二進位格式，CP 與 FT 都使用。良率分析最常用到的記錄如下：
+              <b>STDF（Standard Test Data Format，標準測試資料格式）</b>是由 Teradyne 原創制訂、隨後成為半導體測試領域（IEEE / SEMI）全球通用的黃金二進位檔案標準。不論是晶圓針測（CP / Wafer Sort）或是成品封測（FT / Final Test），全世界主流 ATE 機台（包括 Advantest V93000、Teradyne UltraFLEX、Chroma、Cohu 等）皆以 STDF 格式記錄晶粒的完整測試生命歷程。
+              相較於臃腫易損的 CSV 或 JSON 格式，STDF 採用<b>高密度二進位串流編碼（Compact Binary Stream）</b>，能將數十萬顆晶粒、上百萬次高頻參數測量的體積壓縮至數十 MB（通常以 <code>.std.gz</code> 或 <code>.stdf.gz</code> 即時壓縮存儲），是整個半導體大數據良率分析系統（Exensio, YieldExplorer, Tessent）的血液與基石。
             </span>
             <span class="en">
-              STDF (Standard Test Data Format) is the industry-standard binary format written by ATE testers at both CP and FT. These are the records yield analysis uses most:
+              <b>STDF (Standard Test Data Format)</b>, originally formulated by Teradyne and universally adopted across the semiconductor industry (IEEE/SEMI), stands as the international gold standard for test datalogging. Whether at Circuit Probe (CP / Wafer Sort) or Final Test (FT), every mainstream ATE platform (including Advantest V93000, Teradyne UltraFLEX, Chroma, Cohu) streams test results natively into STDF.
+              Unlike bloated and fragile CSV/JSON text formats, STDF employs a <b>compact binary stream encoding</b> capable of compressing hundreds of thousands of die records and multi-million parametric strobe points into mere tens of megabytes (typically stream-compressed into <code>.std.gz</code> or <code>.stdf.gz</code>). It serves as the foundational data fabric powering modern enterprise yield analytics platforms (Exensio, YieldExplorer, Tessent).
             </span>
           </p>
+
+          <!-- FIGURE 1.2: STDF V4 ARCHITECTURE & YIELD PIPELINE -->
+          <figure>
+            <svg viewBox="0 0 960 500" style="width:100%; height:auto;" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="STDF V4 Binary Hierarchy and Yield Data Extraction Pipeline">
+              <defs>
+                <filter id="stdfShadow" x="-5%" y="-10%" width="110%" height="130%">
+                  <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.12"/>
+                </filter>
+                <marker id="stdfArrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M 0 1 L 8 5 L 0 9 z" fill="var(--accent)"/>
+                </marker>
+                <marker id="stdfArrowGood" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M 0 1 L 8 5 L 0 9 z" fill="var(--good)"/>
+                </marker>
+              </defs>
+              <g fill="var(--ink)" font-family="var(--font-mono)">
+
+                <!-- ==================== LEFT COLUMN: BINARY RECORD ARCHITECTURE ==================== -->
+                <rect x="20" y="20" width="280" height="460" rx="6" fill="var(--surface-2)" stroke="var(--accent)" stroke-width="1.8" filter="url(#stdfShadow)"/>
+                <text class="zh" x="35" y="45" font-size="12" font-weight="700" fill="var(--accent)">1. STDF 二進位包頭與編碼結構</text><text class="en" x="35" y="45" font-size="12" font-weight="700" fill="var(--accent)">1. Binary Record Header &amp; Format</text>
+                <text x="35" y="62" font-size="9.5" fill="var(--ink-soft)">Standard 4-Byte Universal Header</text>
+
+                <!-- 4-Byte Header Breakdown Box -->
+                <g transform="translate(35, 75)">
+                  <!-- REC_LEN -->
+                  <rect x="0" y="0" width="120" height="42" rx="3" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+                  <text x="60" y="18" text-anchor="middle" font-size="10" font-weight="700" fill="var(--accent)">REC_LEN (2B)</text>
+                  <text class="zh" x="60" y="32" text-anchor="middle" font-size="8.5" fill="var(--ink-soft)">負載長度 (U*2)</text><text class="en" x="60" y="32" text-anchor="middle" font-size="8.5" fill="var(--ink-soft)">Payload Len (U*2)</text>
+
+                  <!-- REC_TYP -->
+                  <rect x="125" y="0" width="60" height="42" rx="3" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+                  <text x="155" y="18" text-anchor="middle" font-size="10" font-weight="700" fill="var(--good)">TYP (1B)</text>
+                  <text class="zh" x="155" y="32" text-anchor="middle" font-size="8.5" fill="var(--ink-soft)">大類 (U*1)</text><text class="en" x="155" y="32" text-anchor="middle" font-size="8.5" fill="var(--ink-soft)">Type (U*1)</text>
+
+                  <!-- REC_SUB -->
+                  <rect x="190" y="0" width="60" height="42" rx="3" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+                  <text x="220" y="18" text-anchor="middle" font-size="10" font-weight="700" fill="var(--warn)">SUB (1B)</text>
+                  <text class="zh" x="220" y="32" text-anchor="middle" font-size="8.5" fill="var(--ink-soft)">子類 (U*1)</text><text class="en" x="220" y="32" text-anchor="middle" font-size="8.5" fill="var(--ink-soft)">Subtype</text>
+
+                  <!-- Payload -->
+                  <rect x="0" y="48" width="250" height="45" rx="3" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.2"/>
+                  <text x="125" y="68" text-anchor="middle" font-size="10.5" font-weight="700" fill="var(--accent)">Record Payload Data</text>
+                  <text class="zh" x="125" y="83" text-anchor="middle" font-size="8.5" fill="var(--ink-soft)">變長位元組資料 (依欄位規範依序存放)</text><text class="en" x="125" y="83" text-anchor="middle" font-size="8.5" fill="var(--ink-soft)">Variable Bytes defined by STDF spec</text>
+                </g>
+
+                <!-- Core Binary Types Reference -->
+                <text class="zh" x="35" y="190" font-size="10.5" font-weight="700" fill="var(--ink)">主要二進位欄位資料型別：</text><text class="en" x="35" y="190" font-size="10.5" font-weight="700" fill="var(--ink)">STDF Core Primitive Data Types:</text>
+                <text x="35" y="208" font-size="9" fill="var(--ink-soft)">• U*1, U*2, U*4 : 1/2/4-Byte Unsigned Int</text>
+                <text x="35" y="224" font-size="9" fill="var(--ink-soft)">• I*1, I*2, I*4 : 1/2/4-Byte Signed Int</text>
+                <text x="35" y="240" font-size="9" fill="var(--ink-soft)">• R*4, R*8 : IEEE-754 4/8-Byte Float</text>
+                <text x="35" y="256" font-size="9" fill="var(--ink-soft)">• C*n : Length-Preceded ASCII String</text>
+                <text x="35" y="272" font-size="9" fill="var(--ink-soft)">• B*n, N*1 : Bit Array, Nibble (4-bit)</text>
+
+                <!-- Endianness & Storage -->
+                <rect x="35" y="290" width="250" height="85" rx="4" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+                <text class="zh" x="45" y="310" font-size="10" font-weight="700" fill="var(--good)">字節序自動探測 (Endianness)</text><text class="en" x="45" y="310" font-size="10" font-weight="700" fill="var(--good)">Endianness Auto-Detection</text>
+                <text class="zh" x="45" y="328" font-size="8.5" fill="var(--ink-soft)">FAR 記錄以首位元組偵測 Little/Big Endian</text><text class="en" x="45" y="328" font-size="8.5" fill="var(--ink-soft)">FAR byte-order sniff enables auto byte-swap</text>
+                <text class="zh" x="45" y="344" font-size="8.5" fill="var(--ink-soft)">現代解析器自動翻轉位元組，無痛跨平台</text><text class="en" x="45" y="344" font-size="8.5" fill="var(--ink-soft)">Parsers auto-swap endianness transparently</text>
+                <text class="zh" x="45" y="360" font-size="8.5" fill="var(--accent)">常態以 gzip 即時壓縮 (.std.gz)</text><text class="en" x="45" y="360" font-size="8.5" fill="var(--accent)">Real-time stream compressed as .std.gz</text>
+
+                <!-- Major Record Typ Codes -->
+                <rect x="35" y="385" width="250" height="80" rx="4" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+                <text class="zh" x="45" y="403" font-size="9.5" font-weight="700" fill="var(--accent)">常見 REC_TYP 分類代碼：</text><text class="en" x="45" y="403" font-size="9.5" font-weight="700" fill="var(--accent)">Standard REC_TYP Categories:</text>
+                <text x="45" y="420" font-size="8.5" fill="var(--ink-soft)">Type 0: File | Type 1: Lot | Type 2: Wafer</text>
+                <text x="45" y="436" font-size="8.5" fill="var(--ink-soft)">Type 5: Part (PIR/PRR) | Type 10: Parametric</text>
+                <text x="45" y="452" font-size="8.5" fill="var(--ink-soft)">Type 15: Functional (FTR) | Type 20: Summary</text>
+
+                <!-- Arrow Col 1 -> Col 2 -->
+                <path d="M 300 240 L 330 240" stroke="var(--accent)" stroke-width="2" marker-end="url(#stdfArrow)"/>
+
+                <!-- ==================== MIDDLE COLUMN: HIERARCHICAL CONTAINER TREE ==================== -->
+                <rect x="335" y="20" width="310" height="460" rx="6" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.8" filter="url(#stdfShadow)"/>
+                <text class="zh" x="350" y="45" font-size="12" font-weight="700" fill="var(--accent)">2. STDF V4 階層式紀錄樹狀與生命週期</text><text class="en" x="350" y="45" font-size="12" font-weight="700" fill="var(--accent)">2. STDF V4 Hierarchical Record Container</text>
+                <text x="350" y="62" font-size="9.5" fill="var(--ink-soft)">Structured Test Execution Lifecyle</text>
+
+                <!-- Level 1: File & Lot -->
+                <rect x="350" y="75" width="280" height="52" rx="3" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1"/>
+                <text x="360" y="93" font-size="10.5" font-weight="700" fill="var(--accent)">File &amp; Lot Level: FAR / MIR ... MRR</text>
+                <text class="zh" x="360" y="108" font-size="8.5" fill="var(--ink-soft)">批號 (LOT_ID)、產品 (PART_TYP)、測試機 (NODE_NAM)</text><text class="en" x="360" y="108" font-size="8.5" fill="var(--ink-soft)">Lot ID, Part Type, Tester Node, Start/Stop Time</text>
+                <text class="zh" x="360" y="120" font-size="8.5" fill="var(--ink-faint)">測試程式版本 (EXEC_VER)、工程操作員編號</text><text class="en" x="360" y="120" font-size="8.5" fill="var(--ink-faint)">Test program revision, test socket config</text>
+
+                <!-- Down arrow -->
+                <path d="M 490 127 L 490 138" stroke="var(--border)" stroke-width="1.5" marker-end="url(#stdfArrow)"/>
+
+                <!-- Level 2: Wafer -->
+                <rect x="350" y="140" width="280" height="52" rx="3" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1"/>
+                <text x="360" y="158" font-size="10.5" font-weight="700" fill="var(--accent)">Wafer Level (CP): WCR / WIR ... WRR</text>
+                <text class="zh" x="360" y="173" font-size="8.5" fill="var(--ink-soft)">晶圓實體座標幾何 (WCR: 凹口方向 Notch、Die X/Y Size)</text><text class="en" x="360" y="173" font-size="8.5" fill="var(--ink-soft)">Wafer Geometry (WCR: Notch orientation, Die X/Y Size)</text>
+                <text class="zh" x="360" y="185" font-size="8.5" fill="var(--good)">晶圓編號 (WAFER_ID)、片統計 (WRR: 總數/Pass數/良率)</text><text class="en" x="360" y="185" font-size="8.5" fill="var(--good)">Wafer ID, Wafer Results (WRR: Tested, Passed, Yield)</text>
+
+                <!-- Down arrow -->
+                <path d="M 490 192 L 490 203" stroke="var(--border)" stroke-width="1.5" marker-end="url(#stdfArrow)"/>
+
+                <!-- Level 3: Hardware Site & Pin Map -->
+                <rect x="350" y="205" width="280" height="38" rx="3" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1"/>
+                <text x="360" y="221" font-size="9.5" font-weight="700" fill="var(--ink)">Setup: SDR / PMR / PGR / RDR</text>
+                <text class="zh" x="360" y="235" font-size="8" fill="var(--ink-soft)">測試站點描述 (Site Description)、引腳通道映射 (Pin Map)</text><text class="en" x="360" y="235" font-size="8" fill="var(--ink-soft)">Site Description (SDR), Pin Map (PMR), Retest Rules (RDR)</text>
+
+                <!-- Down arrow -->
+                <path d="M 490 243 L 490 254" stroke="var(--border)" stroke-width="1.5" marker-end="url(#stdfArrow)"/>
+
+                <!-- Level 4: Part Loop (The Engine) -->
+                <rect x="350" y="256" width="280" height="130" rx="3" fill="var(--surface-2)" stroke="var(--warn)" stroke-width="1.5"/>
+                <text class="zh" x="360" y="273" font-size="10.5" font-weight="700" fill="var(--warn)">[逐顆晶粒測試迴圈] Part Test Loop</text><text class="en" x="360" y="273" font-size="10.5" font-weight="700" fill="var(--warn)">[Per-Die Testing Engine] Part Test Loop</text>
+                
+                <!-- PIR -->
+                <rect x="360" y="280" width="260" height="20" fill="var(--surface)" rx="2"/>
+                <text class="zh" x="365" y="294" font-size="9" fill="var(--ink)">• <tspan font-weight="700">PIR</tspan>: 測試開始 (HEAD_NUM, SITE_NUM)</text><text class="en" x="365" y="294" font-size="9" fill="var(--ink)">• <tspan font-weight="700">PIR</tspan>: Part Start (HEAD_NUM, SITE_NUM)</text>
+
+                <!-- PTR / MPR / FTR -->
+                <rect x="360" y="303" width="260" height="30" fill="var(--surface)" rx="2"/>
+                <text class="zh" x="365" y="316" font-size="9" fill="var(--accent)">• <tspan font-weight="700">PTR/MPR</tspan>: 參數測量值、測試號、極限值</text><text class="en" x="365" y="316" font-size="9" fill="var(--accent)">• <tspan font-weight="700">PTR/MPR</tspan>: Parametric values, limits, units</text>
+                <text class="zh" x="365" y="328" font-size="8.5" fill="var(--ink-soft)">• <tspan font-weight="700">FTR</tspan>: 功能向量測試失效週數、失效 Pin</text><text class="en" x="365" y="328" font-size="8.5" fill="var(--ink-soft)">• <tspan font-weight="700">FTR</tspan>: Functional fail cycle &amp; pin vectors</text>
+
+                <!-- PRR -->
+                <rect x="360" y="336" width="260" height="44" fill="var(--surface)" stroke="var(--good)" stroke-width="1" rx="2"/>
+                <text class="zh" x="365" y="350" font-size="9.5" font-weight="700" fill="var(--good)">• <tspan font-weight="700">PRR</tspan> (Part Results Record - 良率靈魂):</text><text class="en" x="365" y="350" font-size="9.5" font-weight="700" fill="var(--good)">• <tspan font-weight="700">PRR</tspan> (Part Results Record - Yield Core):</text>
+                <text class="zh" x="375" y="364" font-size="8.5" fill="var(--ink)">Hard/Soft Bin, (X, Y) 座標, 測試耗時, 重測 Flag</text><text class="en" x="375" y="364" font-size="8.5" fill="var(--ink)">Hard/Soft Bin, (X,Y) coords, test time, retest flag</text>
+                <text class="zh" x="375" y="375" font-size="8" fill="var(--good)">PART_ID: 晶粒唯一熔絲編號 (跨站串聯關鍵)</text><text class="en" x="375" y="375" font-size="8" fill="var(--good)">PART_ID: Unique Fuse ID (cross-stage join key)</text>
+
+                <!-- Down arrow -->
+                <path d="M 490 386 L 490 397" stroke="var(--border)" stroke-width="1.5" marker-end="url(#stdfArrow)"/>
+
+                <!-- Level 5: Summary -->
+                <rect x="350" y="399" width="280" height="66" rx="3" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1"/>
+                <text x="360" y="416" font-size="10" font-weight="700" fill="var(--accent)">Summary: TSR / HBR / SBR / PCR</text>
+                <text class="zh" x="360" y="432" font-size="8.5" fill="var(--ink-soft)">• TSR: 每個測試項目的全批失效率統計</text><text class="en" x="360" y="432" font-size="8.5" fill="var(--ink-soft)">• TSR: Per-test summary &amp; failure rate stats</text>
+                <text class="zh" x="360" y="446" font-size="8.5" fill="var(--ink-soft)">• HBR / SBR: 分類 Bin 累計顆數與百分比</text><text class="en" x="360" y="446" font-size="8.5" fill="var(--ink-soft)">• HBR / SBR: Cumulative bin tally &amp; pareto</text>
+                <text class="zh" x="360" y="458" font-size="8.5" fill="var(--ink-faint)">• PCR: 依測試頭/站點加總之總良率結果</text><text class="en" x="360" y="458" font-size="8.5" fill="var(--ink-faint)">• PCR: Per-head/site part count rollup</text>
+
+                <!-- Arrow Col 2 -> Col 3 -->
+                <path d="M 645 240 L 675 240" stroke="var(--accent)" stroke-width="2" marker-end="url(#stdfArrow)"/>
+
+                <!-- ==================== RIGHT COLUMN: YIELD EXTRACTION PIPELINE ==================== -->
+                <rect x="680" y="20" width="260" height="460" rx="6" fill="var(--surface-2)" stroke="var(--good)" stroke-width="1.8" filter="url(#stdfShadow)"/>
+                <text class="zh" x="695" y="45" font-size="12" font-weight="700" fill="var(--good)">3. 良率工程資料萃取與閉環</text><text class="en" x="695" y="45" font-size="12" font-weight="700" fill="var(--good)">3. Yield Data Extraction &amp; Apps</text>
+                <text x="695" y="62" font-size="9.5" fill="var(--ink-soft)">Downstream Analytics Integration</text>
+
+                <!-- Step 1: Ingestion -->
+                <rect x="695" y="75" width="230" height="55" rx="3" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+                <text class="zh" x="705" y="93" font-size="9.5" font-weight="700" fill="var(--accent)">高效能二進位解析引擎</text><text class="en" x="705" y="93" font-size="9.5" font-weight="700" fill="var(--accent)">High-Throughput Binary Parsers</text>
+                <text x="705" y="108" font-size="8.5" fill="var(--ink-soft)">Rust / C++ / Python (FastSTDF)</text>
+                <text class="zh" x="705" y="122" font-size="8.5" fill="var(--good)">吞吐量 &gt; 100 MB/s (處理數百萬 PTR)</text><text class="en" x="705" y="122" font-size="8.5" fill="var(--good)">Throughput &gt; 100 MB/s for millions of PTRs</text>
+
+                <!-- Down arrow -->
+                <path d="M 810 130 L 810 142" stroke="var(--border)" stroke-width="1.5" marker-end="url(#stdfArrow)"/>
+
+                <!-- Step 2: Data Cleaning -->
+                <rect x="695" y="145" width="230" height="65" rx="3" fill="var(--surface)" stroke="var(--warn)" stroke-width="1"/>
+                <text class="zh" x="705" y="163" font-size="9.5" font-weight="700" fill="var(--warn)">測試資料清洗與防坑前處理</text><text class="en" x="705" y="163" font-size="9.5" font-weight="700" fill="var(--warn)">Data Sanitization &amp; Deduplication</text>
+                <text class="zh" x="705" y="179" font-size="8.5" fill="var(--ink-soft)">• <tspan font-weight="700">重測剔除</tspan>: 區分 FPY 與 Final Pass</text><text class="en" x="705" y="179" font-size="8.5" fill="var(--ink-soft)">• <tspan font-weight="700">Retest deduplication</tspan>: FPY vs Final</text>
+                <text class="zh" x="705" y="193" font-size="8.5" fill="var(--ink-soft)">• <tspan font-weight="700">座標校準</tspan>: WCR 凹口方向翻轉補正</text><text class="en" x="705" y="193" font-size="8.5" fill="var(--ink-soft)">• <tspan font-weight="700">Coord alignment</tspan>: notch rotation check</text>
+                <text class="zh" x="705" y="205" font-size="8.5" fill="var(--danger)">• <tspan font-weight="700">無效 PRR 修復</tspan>: 機台崩潰容錯補齊</text><text class="en" x="705" y="205" font-size="8.5" fill="var(--danger)">• <tspan font-weight="700">Crash recovery</tspan>: incomplete PIR autofill</text>
+
+                <!-- Down arrow -->
+                <path d="M 810 210 L 810 222" stroke="var(--border)" stroke-width="1.5" marker-end="url(#stdfArrow)"/>
+
+                <!-- Step 3: Database & Warehousing -->
+                <rect x="695" y="225" width="230" height="55" rx="3" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+                <text class="zh" x="705" y="243" font-size="9.5" font-weight="700" fill="var(--accent)">良率資料庫 (Yield Lakehouse)</text><text class="en" x="705" y="243" font-size="9.5" font-weight="700" fill="var(--accent)">Yield Data Lakehouse / Warehouse</text>
+                <text x="705" y="258" font-size="8.5" fill="var(--ink-soft)">ClickHouse / PostgreSQL / Parquet</text>
+                <text class="zh" x="705" y="272" font-size="8.5" fill="var(--good)">列式存儲 + 空間索引加速查詢</text><text class="en" x="705" y="272" font-size="8.5" fill="var(--good)">Columnar storage + spatial indexing</text>
+
+                <!-- Down arrow -->
+                <path d="M 810 280 L 810 292" stroke="var(--border)" stroke-width="1.5" marker-end="url(#stdfArrow)"/>
+
+                <!-- Step 4: Downstream Analytics -->
+                <rect x="695" y="295" width="230" height="170" rx="3" fill="var(--surface)" stroke="var(--good)" stroke-width="1.2"/>
+                <text class="zh" x="705" y="313" font-size="9.5" font-weight="700" fill="var(--good)">4 大良率分析核心落地場景：</text><text class="en" x="705" y="313" font-size="9.5" font-weight="700" fill="var(--good)">4 Core Yield Engineering Applications:</text>
+                
+                <text class="zh" x="705" y="333" font-size="8.5" fill="var(--ink)"><tspan font-weight="700">1. 空間晶圓圖重構 (Wafer Map)</tspan></text><text class="en" x="705" y="333" font-size="8.5" fill="var(--ink)"><tspan font-weight="700">1. Spatial Wafer Map Reconstruction</tspan></text>
+                <text class="zh" x="715" y="347" font-size="8" fill="var(--ink-soft)">PRR (X, Y) 座標對應 8 大空間瑕疵分類 (Phase 2)</text><text class="en" x="715" y="347" font-size="8" fill="var(--ink-soft)">PRR coordinates feed spatial AI clustering</text>
+
+                <text class="zh" x="705" y="367" font-size="8.5" fill="var(--ink)"><tspan font-weight="700">2. 多站點偏位監控 (Site Delta)</tspan></text><text class="en" x="705" y="367" font-size="8.5" fill="var(--ink)"><tspan font-weight="700">2. Multi-Site Balance &amp; Skew</tspan></text>
+                <text class="zh" x="715" y="381" font-size="8" fill="var(--ink-soft)">SITE_NUM 良率直方圖與 ANOVA 變異檢定 (Phase 3)</text><text class="en" x="715" y="381" font-size="8" fill="var(--ink-soft)">Group by SITE_NUM for ANOVA &amp; contact wear</text>
+
+                <text class="zh" x="705" y="401" font-size="8.5" fill="var(--ink)"><tspan font-weight="700">3. 參數能力 Cpk 與動態 PAT</tspan></text><text class="en" x="705" y="401" font-size="8.5" fill="var(--ink)"><tspan font-weight="700">3. Parametric Cpk &amp; Dynamic PAT</tspan></text>
+                <text class="zh" x="715" y="415" font-size="8" fill="var(--ink-soft)">PTR 數值即時計算 6σ 常態分佈邊界 (Phase 6)</text><text class="en" x="715" y="415" font-size="8" fill="var(--ink-soft)">PTR distributions drive 6σ outlier gating</text>
+
+                <text class="zh" x="705" y="435" font-size="8.5" fill="var(--ink)"><tspan font-weight="700">4. 跨站 CP ➔ FT 晶粒追溯閉環</tspan></text><text class="en" x="705" y="435" font-size="8.5" fill="var(--ink)"><tspan font-weight="700">4. Cross-Stage CP-to-FT Traceability</tspan></text>
+                <text class="zh" x="715" y="449" font-size="8" fill="var(--good)">PART_ID 熔絲追溯 CP Bin 1 轉 FT Bin 壞死 (Phase 5.5)</text><text class="en" x="715" y="449" font-size="8" fill="var(--good)">PART_ID links CP pass to FT package fallout</text>
+
+              </g>
+            </svg>
+            <figcaption class="figure-caption">
+              <span class="zh">圖 1.2：STDF V4 二進位檔案階層樹狀架構、包頭格式與良率資料抽取信號鏈全貌圖</span>
+              <span class="en">Figure 1.2: STDF V4 Binary Hierarchy, Record Header Layout &amp; Yield Data Extraction Pipeline</span>
+            </figcaption>
+          </figure>
+
+          <!-- 1.2.1 COMPREHENSIVE RECORD SPECIFICATION TABLE -->
+          <h4>
+            <span class="zh">1.2.1 STDF V4 核心記錄規範與良率分析影響全覽</span>
+            <span class="en">1.2.1 STDF V4 Comprehensive Record Specification &amp; Yield Impact</span>
+          </h4>
 
           <div class="data-table-wrap">
             <table class="data-table">
               <thead>
                 <tr>
-                  <th><span class="zh">記錄</span><span class="en">Record</span></th>
-                  <th><span class="zh">內容</span><span class="en">Contents</span></th>
-                  <th><span class="zh">良率分析用途</span><span class="en">Yield Use</span></th>
+                  <th><span class="zh">記錄代碼</span><span class="en">Record Code</span></th>
+                  <th><span class="zh">TYP / SUB</span><span class="en">TYP / SUB</span></th>
+                  <th><span class="zh">主要欄位與封裝內容</span><span class="en">Key Fields &amp; Payload Structure</span></th>
+                  <th><span class="zh">良率工程分析核心用途</span><span class="en">Yield Engineering Application</span></th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td><b>MIR / MRR</b></td>
+                  <td><b>FAR</b><br><span style="font-size:11px; color:var(--ink-soft);">File Attributes</span></td>
+                  <td><code>0 / 10</code></td>
                   <td>
-                    <span class="zh">主資訊／主結果：批號、產品型號、測試機台、測試程式版本、開始與結束時間。</span>
-                    <span class="en">Master information / results: lot ID, part type, tester, test program revision, start and finish time.</span>
+                    <code>CPU_TYPE (U*1)</code>, <code>STDF_VER (U*1 = 4)</code>
                   </td>
                   <td>
-                    <span class="zh">切換測試程式版本前後的良率對照。</span>
-                    <span class="en">Compare yield before and after a test-program revision.</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td><b>WIR / WRR</b></td>
-                  <td>
-                    <span class="zh">晶圓資訊／結果：Wafer ID、該片測試與通過的晶粒數。</span>
-                    <span class="en">Wafer information / results: wafer ID, parts tested and passed on that wafer.</span>
-                  </td>
-                  <td>
-                    <span class="zh">片良率趨勢、Slot 效應。</span>
-                    <span class="en">Wafer yield trends, slot effects.</span>
+                    <span class="zh">檔案有效性驗證；判斷 CPU 字節序（Little-Endian vs Big-Endian），引導解析引擎正確進行字節翻轉（Byte Swapping）。</span>
+                    <span class="en">File validity verification; identifies CPU byte-order (Little vs Big Endian) to guide parser byte-swapping logic.</span>
                   </td>
                 </tr>
                 <tr>
-                  <td><b>PIR / PRR</b></td>
+                  <td><b>MIR / MRR</b><br><span style="font-size:11px; color:var(--ink-soft);">Master Info/Results</span></td>
+                  <td><code>1 / 10</code><br><code>1 / 20</code></td>
                   <td>
-                    <span class="zh">每顆晶粒的測試開始／結果：Site 編號、X/Y 座標、Hard Bin、Soft Bin、重測旗標。</span>
-                    <span class="en">Per-part start / result: site number, X/Y coordinates, hard bin, soft bin, retest flag.</span>
+                    <code>LOT_ID</code>, <code>PART_TYP</code>, <code>NODE_NAM</code>, <code>OPER_STA</code>, <code>EXEC_VER</code>, <code>SETUP_T</code>, <code>START_T</code>, <code>FINISH_T</code>
                   </td>
                   <td>
-                    <span class="zh">晶圓圖、Bin 分佈、多站點平衡分析（Phase 3）。</span>
-                    <span class="en">Wafer maps, bin Paretos, multi-site balance (Phase 3).</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td><b>PTR / MPR</b></td>
-                  <td>
-                    <span class="zh">參數測試結果：測試編號、量測值、上下限、單位（MPR 為多值版本）。</span>
-                    <span class="en">Parametric test results: test number, measured value, limits, units (MPR holds multiple results).</span>
-                  </td>
-                  <td>
-                    <span class="zh">Cpk、PAT 動態限值、參數飄移（Phase 6）。</span>
-                    <span class="en">Cpk, dynamic PAT limits, parametric drift (Phase 6).</span>
+                    <span class="zh">良率分群主鍵：過濾測試程式版本變更（<code>EXEC_VER</code>）、機台對齊（<code>NODE_NAM</code> Tool Matching）與測試開始/結束時間漂移。</span>
+                    <span class="en">Primary yield segmentation keys: filter test program revisions (<code>EXEC_VER</code>), tool matching (<code>NODE_NAM</code>), and test duration drift.</span>
                   </td>
                 </tr>
                 <tr>
-                  <td><b>FTR</b></td>
+                  <td><b>WCR</b><br><span style="font-size:11px; color:var(--ink-soft);">Wafer Configuration</span></td>
+                  <td><code>2 / 30</code></td>
                   <td>
-                    <span class="zh">功能測試結果：失效向量、失效腳位。</span>
-                    <span class="en">Functional test results: failing vector, failing pins.</span>
+                    <code>WAFR_SIZ</code> (mm), <code>DIE_HT</code>, <code>DIE_WID</code>, <code>WF_FLAT</code> (<span class="zh">Notch 凹口方向:</span><span class="en">Notch direction:</span> 'U','D','L','R'), <code>POS_X</code>, <code>POS_Y</code>
                   </td>
                   <td>
-                    <span class="zh">Scan 診斷與失效定位（Phase 6.3、Phase 7）。</span>
-                    <span class="en">Scan diagnosis and fault localization (Phase 6.3, Phase 7).</span>
+                    <span class="zh"><b>晶圓物理幾何定義</b>：空間晶圓圖（Wafer Map）繪製的核心基準。若缺此記錄或 Notch 標記錯誤，晶圓缺陷簽名將發生 90°/180° 誤判！</span>
+                    <span class="en"><b>Physical Wafer Geometry:</b> Foundational baseline for Wafer Map reconstruction. Missing WCR or wrong notch causes 90°/180° spatial defect signature misorientation!</span>
                   </td>
                 </tr>
                 <tr>
-                  <td><b>HBR / SBR / PCR</b></td>
+                  <td><b>WIR / WRR</b><br><span style="font-size:11px; color:var(--ink-soft);">Wafer Info/Results</span></td>
+                  <td><code>2 / 10</code><br><code>2 / 20</code></td>
                   <td>
-                    <span class="zh">Hard Bin、Soft Bin 與數量摘要。</span>
-                    <span class="en">Hard-bin, soft-bin and part-count summaries.</span>
+                    <code>WAFER_ID</code>, <code>START_T</code>, <code>PART_CNT</code> (<span class="zh">總測試數</span><span class="en">Total parts</span>), <code>GOOD_CNT</code> (<span class="zh">良品數</span><span class="en">Passed parts</span>), <code>FUNC_CNT</code>
                   </td>
                   <td>
-                    <span class="zh">快速 Bin Pareto；須與 PRR 逐顆加總結果核對。</span>
-                    <span class="en">Quick bin Paretos; check them against the per-part PRR totals.</span>
+                    <span class="zh">單片晶圓良率計算基準；對比 MES 投片清單確認是否缺片（Missing Wafer）以及 Slot 位置相關性分析。</span>
+                    <span class="en">Per-wafer yield baseline; cross-referenced against MES traveler to identify missing wafers and FOUP slot correlation.</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>SDR</b><br><span style="font-size:11px; color:var(--ink-soft);">Site Description</span></td>
+                  <td><code>1 / 80</code></td>
+                  <td>
+                    <code>HEAD_NUM</code>, <code>SITE_GRP</code>, <code>SITE_CNT</code>, <code>SITE_NUM[]</code>, <code>HAND_TYP</code>, <code>LOAD_TYP</code>
+                  </td>
+                  <td>
+                    <span class="zh">定義並行測試站點硬體架構（如 x16 測試中各 Site 的實體分佈），為多站點接觸電阻偏差（Site Skew）提供硬體對應關聯。</span>
+                    <span class="en">Defines parallel test site architecture (e.g. x16 site mapping), providing the hardware topology for multi-site skew isolation.</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>PIR / PRR</b><br><span style="font-size:11px; color:var(--ink-soft);">Part Info/Results</span></td>
+                  <td><code>5 / 10</code><br><code>5 / 20</code></td>
+                  <td>
+                    <code>HEAD_NUM</code>, <code>SITE_NUM</code>, <code>NUM_TEST</code>, <code>HARD_BIN</code>, <code>SOFT_BIN</code>, <code>X_COORD</code>, <code>Y_COORD</code>, <code>TEST_T</code>, <code>PART_FLG</code>, <code>PART_ID</code>
+                  </td>
+                  <td>
+                    <span class="zh"><b>良率工程核心靈魂</b>：提供每顆晶粒的物理座標 (X, Y)、判定 Bin、測試耗時、重測標記（<code>PART_FLG</code> Bit 0）與晶片唯一識別碼（Fuse ID）。</span>
+                    <span class="en"><b>The Heart of Yield Analytics:</b> Per-die physical coordinates (X, Y), bin assignment, test duration, retest flag (<code>PART_FLG</code> Bit 0), and unique Fuse ID (<code>PART_ID</code>).</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>PTR / MPR</b><br><span style="font-size:11px; color:var(--ink-soft);">Parametric Test</span></td>
+                  <td><code>15 / 10</code><br><code>15 / 15</code></td>
+                  <td>
+                    <code>TEST_NUM</code>, <code>TEST_TXT</code>, <code>RESULT</code>, <code>LO_LIMIT</code>, <code>HI_LIMIT</code>, <code>UNITS</code>, <code>TEST_FLG</code>, <code>PARM_FLG</code>
+                  </td>
+                  <td>
+                    <span class="zh">參數型良率與製程變異分析：提供靜態與動態漏電、電壓、時脈頻率等連續測量值，用於 Cpk 求解、PAT 動態邊界篩選與常態分佈飄移建模。</span>
+                    <span class="en">Parametric yield &amp; process margin analysis: continuous measurements (leakage, voltage, frequency) driving Cpk, dynamic PAT gating, and 6σ drift modeling.</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>FTR</b><br><span style="font-size:11px; color:var(--ink-soft);">Functional Test</span></td>
+                  <td><code>15 / 20</code></td>
+                  <td>
+                    <code>TEST_NUM</code>, <code>VECT_NUM</code>, <code>FAIL_PIN</code>, <code>SPIN_MAP</code>, <code>PINS_PER_CYCLE</code>
+                  </td>
+                  <td>
+                    <span class="zh">數位邏輯功能測試失敗向量紀錄：輸出精確之錯誤時脈週期（Fail Cycles）與引腳，直接供 EDA 軟體逆向定位物理金屬層缺陷（直通 Phase 7）。</span>
+                    <span class="en">Functional pattern failure logs: outputs exact fail cycles and pin states for automated EDA physical fault localization (direct bridge to Phase 7 FA).</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>TSR / HBR / SBR</b><br><span style="font-size:11px; color:var(--ink-soft);">Test Synopsis / Bins</span></td>
+                  <td><code>10 / 30</code><br><code>1 / 40</code><br><code>1 / 50</code></td>
+                  <td>
+                    <code>TEST_NUM</code>, <code>EXEC_CNT</code>, <code>FAIL_CNT</code>, <code>OPT_FLAG</code>, <code>HBIN_NUM</code>, <code>SBIN_NUM</code>, <code>HBIN_CNT</code>, <code>SBIN_CNT</code>
+                  </td>
+                  <td>
+                    <span class="zh">快速良率審計與 Bin Pareto 生成：無需逐行掃描百萬顆 PRR 即可在數百毫秒內產生整批晶圓的失效排行榜（Top Failure Bins）。</span>
+                    <span class="en">Rapid yield audit &amp; Bin Pareto generation: aggregates lot-level failure counts in milliseconds without scanning millions of individual PRRs.</span>
                   </td>
                 </tr>
               </tbody>
             </table>
+          </div>
+
+          <!-- 1.2.2 5 CRITICAL STDF TRAPS & PITFALLS -->
+          <h4>
+            <span class="zh">1.2.2 良率工程師解析 STDF 的 5 大實戰陷阱與防坑規範 (STDF Traps)</span>
+            <span class="en">1.2.2 5 Critical STDF Data Parsing Traps &amp; Engineering Guardrails</span>
+          </h4>
+
+          <div class="callout danger">
+            <span class="zh">
+              <b>陷阱 1：重測（Retest）資料直接加總引發「良率灌水」或「假性暴跌」</b><br>
+              在產線測試中，若探針卡或測試座接觸不良，機台會針對失敗晶粒啟動重測（In-line Retest）。此時同一顆晶粒在 STDF 中會寫入<b>兩筆甚至三筆具有相同 (X, Y) 座標的 PRR 記錄</b>！<br>
+              • <b>錯誤操作：</b>若解析時直接 <code>SELECT COUNT(*) FROM prr WHERE hard_bin = 1 / COUNT(*)</code>，分母會包含重測失敗紀錄，導致<b>良率被嚴重低估 2%–8%</b>！反之若分子重複計算轉 Pass 晶粒，又會發生良率虛增。<br>
+              • <b>防禦規範：</b>解析引擎必須檢查 PRR 之 <code>PART_FLG</code> 欄位：
+            </span>
+            <span class="en">
+              <b>Trap 1: Naive Retest Aggregation Causing Yield Inflation or False Depression</b><br>
+              When contact resistance trips false rejects, ATE initiates in-line retesting. Consequently, STDF records contain <b>two or more PRRs sharing identical (X, Y) coordinates</b>!<br>
+              • <b>Critical Mistake:</b> Blindly computing <code>SELECT COUNT(*) FROM prr WHERE hard_bin = 1 / COUNT(*)</code> inflates the denominator with duplicate tests, <b>falsely depressing reported yield by 2%-8%</b>!<br>
+              • <b>Engineering Rule:</b> Always inspect <code>PART_FLG</code> bitfields in PRR records:
+            </span>
+            <div style="font-family:var(--font-mono); font-size:12px; background:var(--surface); padding:8px; border-radius:4px; margin:6px 0;">
+              <span class="zh">Bit 0 = 0 (首次測試 Initial Test) ➔ 納入 <b>初測良率 (First Pass Yield, FPY)</b> 計算<br>
+              Bit 0 = 1 (重測 Part Retest) ➔ 覆蓋前次結果，僅取最後一筆有效結果計算 <b>最終良率 (Final Yield)</b></span>
+              <span class="en">Bit 0 = 0 (Initial Test) ➔ Include strictly in <b>First Pass Yield (FPY)</b><br>
+              Bit 0 = 1 (Retest Part) ➔ Overwrite prior attempts to calculate true <b>Final Yield</b></span>
+            </div>
+          </div>
+
+          <div class="callout warn">
+            <span class="zh">
+              <b>陷阱 2：多站點（Multi-Site）異步交錯寫入導致狀態機錯亂</b><br>
+              在高並行測試（x8, x16, x32）中，不同 Site 的測試時長因動態停止（Early Fail Stop）而完全不同。STDF 記錄<b>並不是 Site 1 測完才寫 Site 2，而是所有 Site 的 PIR、PTR、PRR 混雜交錯輸出</b>！<br>
+              • <b>防禦規範：</b>STDF 解析器絕對不可使用單一全域變數記錄當前測試晶粒，必須維護以 <code>(HEAD_NUM, SITE_NUM)</code> 為鍵值的多工狀態機（Multi-thread State Machine）。
+            </span>
+            <span class="en">
+              <b>Trap 2: Asynchronous Multi-Site Interleaved Stream Deserialization</b><br>
+              Under high-site parallelism (x8, x16, x32), early fail vector stopping causes test times across sites to diverge. ATE outputs PIR, PTR, and PRR records in <b>asynchronously interleaved sequences across active sites</b>!<br>
+              • <b>Engineering Rule:</b> Parsers must maintain an isolated per-site state machine keyed on <code>(HEAD_NUM, SITE_NUM)</code> rather than assuming sequential PIR-to-PRR ordering.
+            </span>
+          </div>
+
+          <div class="callout warn">
+            <span class="zh">
+              <b>陷阱 3：機台異常急停（Crash / Abort）造成 PRR 截斷遺失</b><br>
+              當測試中途遭遇分選機卡料（Jam）、真空度失效或作業系統崩潰時，STDF 寫入會瞬間中斷，造成只有 <code>PIR</code> 與部分 <code>PTR</code>，卻永久缺少 <code>PRR</code> 與 <code>WRR</code>。<br>
+              • <b>防禦規範：</b>現代良率入庫管道需支援<b>容錯補齊模式（Fault-Tolerant Ingestion）</b>：若遇到未閉合的 PIR，自動將其標記為 <code>Bin 999 (Aborted / Incomplete)</code>，並以最後時間戳產生告警，不可使整個數百 MB 的批次資料直接報錯丟棄。
+            </span>
+            <span class="en">
+              <b>Trap 3: Abrupt Tester Crashes Causing Truncated Missing PRRs</b><br>
+              Handler jams, vacuum loss, or OS panics truncate STDF streams abruptly, stranding initiated <code>PIR</code>s and <code>PTR</code>s without closing <code>PRR</code>s or <code>WRR</code>s.<br>
+              • <b>Engineering Rule:</b> Ingestion pipelines must deploy fault-tolerant parsing: unclosed PIRs must be synthesized as <code>Bin 999 (Aborted)</code>, generating audit tickets without discarding the entire valid multi-wafer dataset.
+            </span>
+          </div>
+
+          <div class="callout">
+            <span class="zh">
+              <b>陷阱 4：PTR 單邊極限（Single-Sided Limit）的無效值標記陷阱</b><br>
+              在許多漏電測試中，規範只有上限（如 (I_{\text{leak}} < 50\text{ nA})），下限無物理意義。在 STDF PTR 記錄中，未定義的下限欄位通常填入預設的特殊常數（例如 (-9.999 \times 10^{37}) 或單精度浮點極限）。<br>
+              • <b>防禦規範：</b>讀取 PTR 時必須先檢查 <code>TEST_FLG</code> 之 Bit 4（Low Limit Invalid）與 Bit 5（High Limit Invalid）。切忌盲目把 <code>LO_LIMIT</code> 當成 <code>0</code> 帶入公式，否則會算出極端荒謬的 Cpk 數值！
+            </span>
+            <span class="en">
+              <b>Trap 4: Single-Sided Parametric Limit Sentinel Values Corrupting Cpk</b><br>
+              For unipolar measurements (e.g. leakage current with only an upper spec limit (I_{\text{leak}} < 50\text{ nA})), the missing lower limit in PTR is populated with IEEE sentinel floats (e.g., (-9.999 \times 10^{37})).<br>
+              • <b>Engineering Rule:</b> Always inspect <code>TEST_FLG</code> Bit 4 (Lo Limit Invalid) and Bit 5 (Hi Limit Invalid). Never default missing lower limits to zero, which severely distorts Cpk and standard deviation calculations.
+            </span>
+          </div>
+
+          <div class="callout">
+            <span class="zh">
+              <b>陷阱 5：晶圓座標翻轉與旋轉（Wafer Map Coordinate Rotation）</b><br>
+              不同晶圓廠與測試廠的探針台原點定義互不相容（有的以左下角為 (0,0)，有的以晶圓幾何中心為 (0,0)）。若未比對 <code>WCR</code> 中的 <code>WF_FLAT</code> 凹口方向，Wafer Map 繪製出的缺陷分佈會發生<b>左右鏡射或 180° 顛倒</b>，導致工程師在 Phase 4 錯怪曝光機或蝕刻機台！<br>
+              • <b>防禦規範：</b>入庫前強制與 MES 物理晶圓刻號（Wafer Scribe Mark）及劃切道測試鍵（Test Key / Scribe Line Die）進行物理基準校準。
+            </span>
+            <span class="en">
+              <b>Trap 5: Coordinate System Inversion &amp; Notch Rotation Inconsistencies</b><br>
+              Prober coordinates differ across vendors (center-origin vs. bottom-left origin). Neglecting <code>WCR</code> <code>WF_FLAT</code> notch orientation causes wafer maps to <b>mirror horizontally or rotate 180°</b>, leading engineers in Phase 4 to wrongly blame the wrong lithography slit or etch injector!<br>
+              • <b>Engineering Rule:</b> Always cross-validate coordinates against MES wafer laser scribe positions and optical scribe-line test keys.
+            </span>
+          </div>
+
+          <div class="callout warn">
+            <span class="zh">
+              <b>陷阱 2：多站點（Multi-Site）異步交錯寫入導致狀態機錯亂</b><br>
+              在高並行測試（x8, x16, x32）中，不同 Site 的測試時長因動態停止（Early Fail Stop）而完全不同。STDF 記錄<b>並不是 Site 1 測完才寫 Site 2，而是所有 Site 的 PIR、PTR、PRR 混雜交錯輸出</b>！<br>
+              • <b>防禦規範：</b>STDF 解析器絕對不可使用單一全域變數記錄當前測試晶粒，必須維護以 <code>(HEAD_NUM, SITE_NUM)</code> 為鍵值的多工狀態機（Multi-thread State Machine）。
+            </span>
+            <span class="en">
+              <b>Trap 2: Asynchronous Multi-Site Interleaved Stream Deserialization</b><br>
+              Under high-site parallelism (x8, x16, x32), early fail vector stopping causes test times across sites to diverge. ATE outputs PIR, PTR, and PRR records in <b>asynchronously interleaved sequences across active sites</b>!<br>
+              • <b>Engineering Rule:</b> Parsers must maintain an isolated per-site state machine keyed on <code>(HEAD_NUM, SITE_NUM)</code> rather than assuming sequential PIR-to-PRR ordering.
+            </span>
+          </div>
+
+          <div class="callout warn">
+            <span class="zh">
+              <b>陷阱 3：機台異常急停（Crash / Abort）造成 PRR 截斷遺失</b><br>
+              當測試中途遭遇分選機卡料（Jam）、真空度失效或作業系統崩潰時，STDF 寫入會瞬間中斷，造成只有 <code>PIR</code> 與部分 <code>PTR</code>，卻永久缺少 <code>PRR</code> 與 <code>WRR</code>。<br>
+              • <b>防禦規範：</b>現代良率入庫管道需支援<b>容錯補齊模式（Fault-Tolerant Ingestion）</b>：若遇到未閉合的 PIR，自動將其標記為 <code>Bin 999 (Aborted / Incomplete)</code>，並以最後時間戳產生告警，不可使整個數百 MB 的批次資料直接報錯丟棄。
+            </span>
+            <span class="en">
+              <b>Trap 3: Abrupt Tester Crashes Causing Truncated Missing PRRs</b><br>
+              Handler jams, vacuum loss, or OS panics truncate STDF streams abruptly, stranding initiated <code>PIR</code>s and <code>PTR</code>s without closing <code>PRR</code>s or <code>WRR</code>s.<br>
+              • <b>Engineering Rule:</b> Ingestion pipelines must deploy fault-tolerant parsing: unclosed PIRs must be synthesized as <code>Bin 999 (Aborted)</code>, generating audit tickets without discarding the entire valid multi-wafer dataset.
+            </span>
+          </div>
+
+          <div class="callout">
+            <span class="zh">
+              <b>陷阱 4：PTR 單邊極限（Single-Sided Limit）的無效值標記陷阱</b><br>
+              在許多漏電測試中，規範只有上限（如 \(I_{\text{leak}} < 50\text{ nA}\)），下限無物理意義。在 STDF PTR 記錄中，未定義的下限欄位通常填入預設的特殊常數（例如 \(-9.999 \times 10^{37}\) 或單精度浮點極限）。<br>
+              • <b>防禦規範：</b>讀取 PTR 時必須先檢查 <code>TEST_FLG</code> 之 Bit 4（Low Limit Invalid）與 Bit 5（High Limit Invalid）。切忌盲目把 <code>LO_LIMIT</code> 當成 <code>0</code> 帶入公式，否則會算出極端荒謬的 Cpk 數值！
+            </span>
+            <span class="en">
+              <b>Trap 4: Single-Sided Parametric Limit Sentinel Values Corrupting Cpk</b><br>
+              For unipolar measurements (e.g. leakage current with only an upper spec limit \(I_{\text{leak}} < 50\text{ nA}\)), the missing lower limit in PTR is populated with IEEE sentinel floats (e.g., \(-9.999 \times 10^{37}\)).<br>
+              • <b>Engineering Rule:</b> Always inspect <code>TEST_FLG</code> Bit 4 (Lo Limit Invalid) and Bit 5 (Hi Limit Invalid). Never default missing lower limits to zero, which severely distorts Cpk and standard deviation calculations.
+            </span>
+          </div>
+
+          <div class="callout">
+            <span class="zh">
+              <b>陷阱 5：晶圓座標翻轉與旋轉（Wafer Map Coordinate Rotation）</b><br>
+              不同晶圓廠與測試廠的探針台原點定義互不相容（有的以左下角為 (0,0)，有的以晶圓幾何中心為 (0,0)）。若未比對 <code>WCR</code> 中的 <code>WF_FLAT</code> 凹口方向，Wafer Map 繪製出的缺陷分佈會發生<b>左右鏡射或 180° 顛倒</b>，導致工程師在 Phase 4 錯怪曝光機或蝕刻機台！<br>
+              • <b>防禦規範：</b>入庫前強制與 MES 物理晶圓刻號（Wafer Scribe Mark）及劃切道測試鍵（Test Key / Scribe Line Die）進行物理基準校準。
+            </span>
+            <span class="en">
+              <b>Trap 5: Coordinate System Inversion &amp; Notch Rotation Inconsistencies</b><br>
+              Prober coordinates differ across vendors (center-origin vs. bottom-left origin). Neglecting <code>WCR</code> <code>WF_FLAT</code> notch orientation causes wafer maps to <b>mirror horizontally or rotate 180°</b>, leading engineers in Phase 4 to wrongly blame the wrong lithography slit or etch injector!<br>
+              • <b>Engineering Rule:</b> Always cross-validate coordinates against MES wafer laser scribe positions and optical scribe-line test keys.
+            </span>
           </div>
 
           <div class="callout warn">
@@ -11525,6 +11888,31 @@
               </thead>
               <tbody>
                 <tr>
+                  <td><b>MIR / MRR</b></td>
+                  <td>Master Information / Results Record</td>
+                  <td><span class="zh">STDF 批次主資訊與全批測試結果匯總紀錄</span><span class="en">STDF Master Information and Master Results Records</span></td>
+                </tr>
+                <tr>
+                  <td><b>PIR / PRR</b></td>
+                  <td>Part Information / Results Record</td>
+                  <td><span class="zh">STDF 單顆晶粒測試開始與最終測試判定結果紀錄（良率分析核心）</span><span class="en">STDF Part Information and Part Results Records (core die yield record)</span></td>
+                </tr>
+                <tr>
+                  <td><b>PTR / MPR</b></td>
+                  <td>Parametric Test Record (Single / Multi)</td>
+                  <td><span class="zh">STDF 單值與多值參數測試連續測量結果紀錄（Cpk 求解依據）</span><span class="en">STDF Parametric Test Records for single- and multi-result measurements</span></td>
+                </tr>
+                <tr>
+                  <td><b>TSR</b></td>
+                  <td>Test Synopsis Record</td>
+                  <td><span class="zh">STDF 個別測試項目失效率與執行次數匯總統計紀錄</span><span class="en">STDF Test Synopsis Record providing per-test fallout statistics</span></td>
+                </tr>
+                <tr>
+                  <td><b>WCR / WIR / WRR</b></td>
+                  <td>Wafer Config / Info / Results Record</td>
+                  <td><span class="zh">STDF 晶圓物理幾何定義、晶圓代號與單片良率匯總統計紀錄</span><span class="en">STDF Wafer Configuration, Information, and Results Records</span></td>
+                </tr>
+                <tr>
                   <td><b>93k / V93000</b></td>
                   <td>Advantest V93000</td>
                   <td><span class="zh">愛德萬測試旗艦級 SoC/HPC 自動化測試機台平台（ATE）</span><span class="en">Advantest flagship SoC/HPC Automated Test Equipment platform</span></td>
@@ -11882,6 +12270,10 @@
               <li>
                 Advantest Corporation, "SmarTest 8 Test Methodology &amp; Direct Dock Loadboard Design Guide," <i>Advantest Application Manual</i>, 2022.<br>
                 <span style="font-size:12.5px; color:var(--ink-soft);"><span class="zh">SmarTest 測試方法論與直驅對接負載板設計規範</span><span class="en">SmarTest methodology &amp; direct dock loadboard layout guidelines</span></span>
+              </li>
+              <li>
+                Teradyne Inc., "Standard Test Data Format (STDF) Specification Version 4," <i>Teradyne System Documentation</i>, 2007.<br>
+                <span style="font-size:12.5px; color:var(--ink-soft);"><span class="zh">半導體 ATE 測試資料二進位格式標準規範 V4</span><span class="en">Standard Test Data Format (STDF) Specification Version 4</span></span>
               </li></ul>
           <h4><span class="zh">統計、SPC 與實驗設計</span><span class="en">Statistics, SPC &amp; DOE</span></h4>
           <ul>
@@ -11964,11 +12356,11 @@
     <div style="display:flex; flex-direction:column; align-items:flex-end; gap:5px;">
       <div style="display:flex; align-items:center; gap:8px;">
         <span class="badge badge-green" style="font-size:11px; padding:2px 8px;">● LIVE VERIFIED</span>
-        <span style="font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft);">Rev. AA</span>
+        <span style="font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft);">Rev. AB</span>
       </div>
       <div style="font-family:var(--font-mono); font-size:12px; color:var(--ink);">
         <span class="zh">最後更新日期：</span><span class="en">Last Updated: </span>
-        <b style="color:var(--accent);">2026-10-27 20:00 (Asia/Taipei)</b>
+        <b style="color:var(--accent);">2026-10-27 21:00 (Asia/Taipei)</b>
       </div>
     </div>
   </footer>
