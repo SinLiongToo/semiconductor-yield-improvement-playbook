@@ -8,6 +8,33 @@ Entry format / 格式:
 `## YYYY-MM-DD — <agent> — <short title>` then bullets: what changed, why, caveats for the next agent.
 
 ---
+## 2026-11-02 — Google Antigravity — Rev. AJ: Wafer Scratch Inking Defense Algorithms: RANSAC/Hough Trajectory Fitting, Morphological Corridor Dilation & KLARF In-line Overlay (Section 6.4.2, Fig 6.6, Table 6.4.2)
+
+- **Added Section 6.4.2: 晶圓刮傷 (Scratch) 缺陷虛擬墨印防禦演算法：RANSAC/Hough 軌跡擬合、形態學走廊膨脹與 KLARF 光學疊圖 (Wafer Scratch Inking Defense Algorithms: RANSAC/Hough Trajectory Fitting, Morphological Corridor Dilation & KLARF In-line Overlay)**:
+  - Added Figure 6.6 (`viewBox="0 0 960 520"`): Comprehensive dual-panel SVG diagram presenting:
+    - Part A: The Skipping Scratch Paradox & Mathematical Trajectory Gap-Bridging:
+      - Physical intermittent broken-line failure on active silicon (P* latent killer dies passing electrical probe tests).
+      - Collinear Hough Space accumulation and RANSAC polynomial trajectory curve fitting (\(y = mx + b \pm \delta\)).
+      - Unconditional Trajectory Inking: force-scrapping electrically passing dies intersected by the mechanical path.
+    - Part B: Morphological Corridor Dilation & In-Line KLARF Defense Hierarchy:
+      - Morphological Dilation (\(S_{\text{corridor}} = S_{\text{scratch}} \oplus B\)) establishing Ring 1 (\(D=1\), high-risk corridor) and Ring 2 (\(D=2\), buffer corridor) Chebyshev rings.
+      - Directional Anisotropic GDBN weighting collinear defect neighbors along scratch angle \(\theta_{\text{scratch}}\).
+      - In-line optical inspection (KLA/AMAT) KLARF file multi-station overlay with automated polygon clustering (aspect ratio > 10:1) and SEMI E142 Virtual Inking strip map generation before ATE wafer sort.
+  - Added Table 6.4.2: Master Inking Disposition Matrix across product reliability tiers (Automotive ASIL-D, Industrial/Server, Commercial/IoT) with explicit international standard mappings (AEC-Q001, AEC-Q100 Grade 0, ISO 26262, JEDEC JESD47).
+  - Clarified Best Practice on Virtual Inking: completely abandoning physical liquid ink dots to prevent chemical solvent etching of exposed copper traces and optical camera contamination.
+- **Renumbered Subsection IDs under Section 6.4 for Structural Consistency**:
+  - `sec_6_4_1`: AEC-Q001 & 6 Outlier Screening Algorithms + Table 6.4.
+  - `sec_6_4_2`: Wafer Scratch Inking Defense Algorithms (Fig 6.6 & Table 6.4.2).
+  - `sec_6_4_3`: Multivariate Outlier Detection & Mahalanobis Distance.
+  - `sec_6_4_4`: Maverick Die Disposition Economics & Real-time ATE Limit Injection.
+- **Synchronized Header & Footer Revision Metadata**:
+  - Bumped revision label to `Rev. AJ` and Last Updated timestamp to `2026-11-02 10:55 (Asia/Taipei)` in both header and footer.
+- **Quality & Verification**:
+  - Passed `npm run verify` with 0 tag mismatches and valid JavaScript syntax (17,555 lines).
+  - Passed `node scripts/audit_i18n_and_structure.js` with 0 numbering drift, 0 Chinese leaks in English mode across all sections, and 100% of all 1,565 table cells localized.
+
+---
+
 ## 2026-11-02 — Google Antigravity — Rev. AI: Semiconductor AI/ML Methodologies: Autoencoders, Isolation Forest, Tree Ensembles & SHAP in Maverick Screening & Root Cause Tracing (Section 6.5, Fig 6.5, Table 6.5)
 
 - **Added Section 6.5: 機器學習與 AI 演算法在半導體異常篩檢與根因歸因之實踐 (AI & Machine Learning Methodologies: Autoencoders, Random Forest, Isolation Forest, XGBoost & SHAP in Screening & Root Cause Analysis)**:

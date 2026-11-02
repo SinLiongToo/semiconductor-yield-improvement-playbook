@@ -1311,7 +1311,7 @@
       </div>
       <div>
         <span class="zh">版次狀態</span><span class="en">Revision</span>
-        <b>Rev. AI (Semiconductor AI/ML: Autoencoders, Isolation Forest, XGBoost &amp; SHAP)</b>
+        <b>Rev. AJ (Wafer Scratch Inking Algorithms: RANSAC, Corridor Dilation &amp; KLARF Overlay)</b>
       </div>
       <div>
         <span class="zh">適用對象</span><span class="en">Audience</span>
@@ -1319,7 +1319,7 @@
       </div>
       <div>
         <span class="zh">最後修訂</span><span class="en">Last Updated</span>
-        <b>2026-11-02 09:45 (Asia/Taipei)</b>
+        <b>2026-11-02 10:55 (Asia/Taipei)</b>
       </div>
     </div>
   </header>
@@ -11858,10 +11858,10 @@
           </div>
 
           <!-- TABLE 6.4: COMPARISON MATRIX -->
-          <h4>
-            <span class="zh">6.4.2 半導體 6 大離群值篩選技術深度對照與實務決策矩陣</span>
-            <span class="en">6.4.2 Comprehensive Comparison Matrix of 6 Outlier Detection Methods</span>
-          </h4>
+          <div style="font-weight:700; font-size:15px; margin:22px 0 10px; color:var(--ink);">
+            <span class="zh">表 6.4：半導體 6 大離群值篩選技術深度對照與實務決策矩陣</span>
+            <span class="en">Table 6.4: Comprehensive Comparison Matrix of 6 Outlier Detection Methods</span>
+          </div>
 
           <div class="data-table-wrap">
             <table class="data-table">
@@ -11998,8 +11998,430 @@
             </table>
           </div>
 
-          <!-- SUBSECTION 6.4.3: MULTIVARIATE MAHALANOBIS -->
+          
+          <!-- ======================================================================= -->
+          <!-- SUBSECTION 6.4.2: WAFER SCRATCH DEFENSE & INKING ALGORITHMS             -->
+          <!-- ======================================================================= -->
           <h4 id="sec_6_4_2">
+            <span class="zh">6.4.2 晶圓刮傷 (Scratch) 缺陷虛擬墨印防禦演算法：RANSAC/Hough 軌跡擬合、形態學走廊膨脹與 KLARF 光學疊圖</span>
+            <span class="en">6.4.2 Wafer Scratch Inking Defense Algorithms: RANSAC/Hough Trajectory Fitting, Morphological Corridor Dilation &amp; KLARF In-line Overlay</span>
+          </h4>
+
+          <p>
+            <span class="zh">
+              在半導體車規（AEC-Q100 / ISO 26262）與高可靠度晶片量產中，<b>晶圓刮傷（Wafer Scratch）是導致重大客訴（RMA）與早期現場失效（Infant Mortality）的「頭號隱形殺手」</b>。無論是由化學機械拋光（CMP）研磨液大顆粒結聚、晶圓盒卡匣傳送偏位，或是自動化手臂夾爪（Robot End-Effector）金屬磨耗引致，刮傷缺陷所引發的可靠度災難均具備極高的欺騙性與致命性。
+            </span>
+            <span class="en">
+              In automotive (AEC-Q100 / ISO 26262) and mission-critical semiconductor manufacturing, <b>wafer scratches represent the premier hidden root cause of catastrophic customer returns (RMA) and infant mortality</b>. Whether initiated by Chemical Mechanical Planarization (CMP) slurry agglomerates, wafer cassette misalignments, or robotic end-effector mechanical gouging, scratch defects exhibit extreme deception and field fatality.
+            </span>
+          </p>
+
+          <div class="callout danger">
+            <div class="callout-title">
+              <span>⚠️</span>
+              <span class="zh">致命工程盲點：斷續跳晶（Skipping Scratch）與潛伏微裂紋逃逸鏈</span>
+              <span class="en">Killer Engineering Blind Spot: Intermittent Skipping Scratches &amp; Latent Micro-Crack Escapes</span>
+            </div>
+            <span class="zh">
+              <b>為什麼電測全 PASS 的晶粒會造成車輛行駛中死機？</b><br>
+              晶圓表面具備凹凸有致的電路階差與劃片槽（Scribe Line），機械刮傷往往呈現<b>非連續性的「虛線／斷續跳晶（Intermittent Broken Line）」</b>。刮痕擦過表面保護層（Passivation）或外圍密封環（Seal Ring），當下並未切斷關鍵金屬導線或擊穿閘極氧化層，因此在 CP（Wafer Sort）晶圓測試時<b>電氣參數 100% 顯示 PASS</b>！<br>
+              然而，矽基板與層間介電層（Low-\(k\) ILD）內部已埋下深層微裂紋（Micro-cracks）與強大剪切殘留應力。封裝出貨後，晶片承受汽車引擎室溫度劇烈循環（\(-40^\circ\text{C} \sim +150^\circ\text{C}\)）、環氧樹脂模塑料（EMC）固化熱應力以及行駛震動，<b>微裂紋迅速向主動電路區擴展，外部濕氣與金屬離子隨之滲入腐蝕銅導線，引致使用數百小時後的暴斃斷路</b>。<br>
+              <b>工業鐵律</b>：車規 AEC-Q001 明文規定，<b>「凡位於刮傷物理軌跡及其應力波及範圍內的晶粒，不論電測結果是否合格，全數強制執行虛擬墨印報廢（Virtual Inking Scrap）！」</b>
+            </span>
+            <span class="en">
+              <b>Why do electrically PASSING dies cause catastrophic field failures on the road?</b><br>
+              Due to circuit topography step heights and scribe lines, mechanical scratches frequently skip across dies in an <b>intermittent broken-line pattern</b>. A scratch shearing the top passivation or seal ring may not sever critical metal lines during automated probe testing, yielding a <b>100% electrical PASS at Wafer Sort (CP)</b>!<br>
+              However, deep micro-cracks and shear residual stress fields remain embedded in the underlying silicon and low-\(k\) inter-metal dielectrics (ILD). In the field, under automotive thermal cycling (\(-40^\circ\text{C} \sim +150^\circ\text{C}\)), epoxy molding compound (EMC) thermal expansion, and mechanical vibration, <b>these micro-cracks propagate into the active area. Moisture ingress and ionic contamination corrode copper traces, triggering sudden open-circuit field failures after hundreds of operating hours</b>.<br>
+              <b>Automotive Inking Mandate</b>: Under AEC-Q001, <b>"any die intersecting a physical scratch trajectory or located within its stress relief corridor must be unconditionally condemned via Virtual Inking, regardless of its electrical probe pass status!"</b>
+            </span>
+          </div>
+
+          <!-- FIGURE 6.6: WAFER SCRATCH DEFENSE & INKING ARCHITECTURE -->
+          <figure>
+            <svg viewBox="0 0 960 520" width="100%" height="auto" style="max-width:960px; display:block; margin:0 auto; font-family:var(--font-sans, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif); background:var(--surface); border:1px solid var(--border); border-radius:8px;" role="img" aria-label="Wafer Scratch Virtual Inking Defense Architecture">
+  <defs>
+    <marker id="scArrow" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--accent)"/>
+    </marker>
+    <marker id="scArrowGood" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--good)"/>
+    </marker>
+    <marker id="scArrowDanger" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--danger)"/>
+    </marker>
+  </defs>
+
+  <!-- Title Banner -->
+  <rect x="0" y="0" width="960" height="46" fill="var(--surface-2)" border-bottom="1px solid var(--border)"/>
+  <text class="zh" x="480" y="22" text-anchor="middle" font-size="14" font-weight="700" fill="var(--ink)">晶圓刮傷 (Wafer Scratch) 虛擬墨印防禦演算法全貌：跳躍性刮傷補齊、走廊膨脹與 KLARF 跨站疊圖</text>
+  <text class="en" x="480" y="22" text-anchor="middle" font-size="13.5" font-weight="700" fill="var(--ink)">Wafer Scratch Inking Architecture: Trajectory Interpolation, Corridor Dilation &amp; KLARF In-line Overlay</text>
+  <text class="zh" x="480" y="38" text-anchor="middle" font-size="10.5" fill="var(--ink-soft)">徹底阻斷「電測短暫 Pass、車載長期暴斃」的隱性微裂紋 (Micro-crack) 客訴逃逸鏈</text>
+  <text class="en" x="480" y="38" text-anchor="middle" font-size="10" fill="var(--ink-soft)">Eliminating Latent Micro-crack Escapes: Bridge the Gap Trajectory Inking &amp; SEMI E142 Electronic Scrap</text>
+
+  <!-- PANEL A: SKIPPING SCRATCH & TRAJECTORY FITTING -->
+  <g transform="translate(15, 58)">
+    <rect x="0" y="0" width="455" height="448" rx="8" fill="var(--surface)" stroke="var(--border)" stroke-width="1.2"/>
+    <rect x="0" y="0" width="455" height="30" rx="8" fill="var(--surface-2)"/>
+    <text class="zh" x="15" y="20" font-size="12" font-weight="700" fill="var(--danger)">Part A：跳躍性刮傷 (Skipping Scratch) 與 軌跡擬合補洞 (Hough/RANSAC)</text>
+    <text class="en" x="15" y="20" font-size="11.5" font-weight="700" fill="var(--danger)">Part A: Skipping Scratch &amp; Trajectory Gap-Bridging (Hough/RANSAC)</text>
+
+    <!-- Subcard 1: The Skipping Problem Grid -->
+    <rect x="12" y="38" width="431" height="195" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="0.8"/>
+    <text class="zh" x="20" y="54" font-size="10.5" font-weight="700" fill="var(--ink)">1. 實體斷續跳晶現象 (The Broken-Line Skipping Phenomenon)</text>
+    <text class="en" x="20" y="54" font-size="10" font-weight="700" fill="var(--ink)">1. Physical Intermittent Skipping on Active Silicon Area</text>
+
+    <!-- 5x5 Grid representation -->
+    <g transform="translate(25, 68)">
+      <!-- Row 0 -->
+      <rect x="0" y="0" width="24" height="24" rx="2" fill="var(--good)" fill-opacity="0.2" stroke="var(--border)"/><text x="12" y="16" text-anchor="middle" font-size="9" fill="var(--good)">P</text>
+      <rect x="28" y="0" width="24" height="24" rx="2" fill="var(--good)" fill-opacity="0.2" stroke="var(--border)"/><text x="40" y="16" text-anchor="middle" font-size="9" fill="var(--good)">P</text>
+      <rect x="56" y="0" width="24" height="24" rx="2" fill="var(--danger)" fill-opacity="0.3" stroke="var(--danger)" stroke-width="1.2"/><text x="68" y="16" text-anchor="middle" font-size="9" font-weight="700" fill="var(--danger)">F</text>
+      <rect x="84" y="0" width="24" height="24" rx="2" fill="var(--good)" fill-opacity="0.2" stroke="var(--border)"/><text x="96" y="16" text-anchor="middle" font-size="9" fill="var(--good)">P</text>
+      <rect x="112" y="0" width="24" height="24" rx="2" fill="var(--good)" fill-opacity="0.2" stroke="var(--border)"/><text x="124" y="16" text-anchor="middle" font-size="9" fill="var(--good)">P</text>
+
+      <!-- Row 1 -->
+      <rect x="0" y="28" width="24" height="24" rx="2" fill="var(--good)" fill-opacity="0.2" stroke="var(--border)"/><text x="12" y="44" text-anchor="middle" font-size="9" fill="var(--good)">P</text>
+      <!-- SKIPPED PASS DIE! Danger! -->
+      <rect x="28" y="28" width="24" height="24" rx="2" fill="var(--warn)" fill-opacity="0.25" stroke="var(--danger)" stroke-width="1.8" stroke-dasharray="2,2"/>
+      <text x="40" y="44" text-anchor="middle" font-size="9" font-weight="700" fill="var(--danger)">P*</text>
+      <rect x="56" y="28" width="24" height="24" rx="2" fill="var(--good)" fill-opacity="0.2" stroke="var(--border)"/><text x="68" y="44" text-anchor="middle" font-size="9" fill="var(--good)">P</text>
+      <rect x="84" y="28" width="24" height="24" rx="2" fill="var(--good)" fill-opacity="0.2" stroke="var(--border)"/><text x="96" y="44" text-anchor="middle" font-size="9" fill="var(--good)">P</text>
+      <rect x="112" y="28" width="24" height="24" rx="2" fill="var(--good)" fill-opacity="0.2" stroke="var(--border)"/><text x="124" y="44" text-anchor="middle" font-size="9" fill="var(--good)">P</text>
+
+      <!-- Row 2 -->
+      <rect x="0" y="56" width="24" height="24" rx="2" fill="var(--danger)" fill-opacity="0.3" stroke="var(--danger)" stroke-width="1.2"/><text x="12" y="72" text-anchor="middle" font-size="9" font-weight="700" fill="var(--danger)">F</text>
+      <rect x="28" y="56" width="24" height="24" rx="2" fill="var(--good)" fill-opacity="0.2" stroke="var(--border)"/><text x="40" y="72" text-anchor="middle" font-size="9" fill="var(--good)">P</text>
+      <rect x="56" y="56" width="24" height="24" rx="2" fill="var(--good)" fill-opacity="0.2" stroke="var(--border)"/><text x="68" y="72" text-anchor="middle" font-size="9" fill="var(--good)">P</text>
+      <rect x="84" y="56" width="24" height="24" rx="2" fill="var(--good)" fill-opacity="0.2" stroke="var(--border)"/><text x="96" y="72" text-anchor="middle" font-size="9" fill="var(--good)">P</text>
+      <rect x="112" y="56" width="24" height="24" rx="2" fill="var(--good)" fill-opacity="0.2" stroke="var(--border)"/><text x="124" y="72" text-anchor="middle" font-size="9" fill="var(--good)">P</text>
+
+      <!-- Scratch Gouge Vector Line across -->
+      <line x1="80" y1="-8" x2="-8" y2="80" stroke="var(--danger)" stroke-width="3" stroke-linecap="round"/>
+      <polygon points="76,-4 84,-12 80,-8" fill="var(--danger)"/>
+    </g>
+
+    <!-- Callout on Skipping -->
+    <g transform="translate(180, 68)">
+      <rect x="0" y="0" width="250" height="85" rx="4" fill="var(--surface)" stroke="var(--danger)" stroke-width="1"/>
+      <text class="zh" x="10" y="18" font-size="9" font-weight="700" fill="var(--danger)">⚠️ 潛在致死晶粒 P* (Latent Killer)</text>
+      <text class="en" x="10" y="18" font-size="8.5" font-weight="700" fill="var(--danger)">⚠️ Latent Killer Die P*</text>
+      <text class="zh" x="10" y="34" font-size="8" fill="var(--ink)">• 刮痕穿過鈍化層與 Seal Ring</text>
+      <text class="en" x="10" y="34" font-size="7.5" fill="var(--ink)">• Scratch shears passivation/seal ring</text>
+      <text class="zh" x="10" y="48" font-size="8" fill="var(--ink)">• CP 電測短暫 Pass，金屬導線尚未斷開</text>
+      <text class="en" x="10" y="48" font-size="7.5" fill="var(--ink)">• CP test passes: metal not severed yet</text>
+      <text class="zh" x="10" y="62" font-size="8" font-weight="700" fill="var(--danger)">• 封裝後受熱應力膨脹裂紋擴散 $	o$ 致命 RMA</text>
+      <text class="en" x="10" y="62" font-size="7.5" font-weight="700" fill="var(--danger)">• Thermo-mechanical cycling triggers RMA</text>
+      <text class="zh" x="10" y="76" font-size="8" fill="var(--warn)">★ 必須執行演算法強制作廢 (Bridge Trajectory)</text>
+      <text class="en" x="10" y="76" font-size="7.5" fill="var(--warn)">★ Trajectory Inking must force scrap</text>
+    </g>
+
+    <!-- Subcard 2: Hough & RANSAC Solution -->
+    <rect x="12" y="242" width="431" height="195" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="0.8"/>
+    <text class="zh" x="20" y="258" font-size="10.5" font-weight="700" fill="var(--accent)">2. 霍夫變換 (Hough) 與 RANSAC 軌跡穿透擬合</text>
+    <text class="en" x="20" y="258" font-size="10" font-weight="700" fill="var(--accent)">2. Hough Space &amp; RANSAC Trajectory Inking</text>
+
+    <g transform="translate(25, 272)">
+      <!-- Equation box -->
+      <rect x="0" y="0" width="180" height="45" rx="3" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+      <text x="90" y="18" text-anchor="middle" font-size="9" font-weight="700" fill="var(--ink)">ho = x cos 	heta + y sin 	heta</text>
+      <text class="zh" x="90" y="34" text-anchor="middle" font-size="8" fill="var(--accent)">霍夫空間峰值共線檢測</text>
+      <text class="en" x="90" y="34" text-anchor="middle" font-size="7.5" fill="var(--accent)">Hough Collinear Peak Scan</text>
+
+      <!-- Arrow -->
+      <line x1="190" y1="22" x2="215" y2="22" stroke="var(--accent)" stroke-width="1.5" marker-end="url(#scArrow)"/>
+
+      <!-- Trajectory Inking Result -->
+      <rect x="225" y="0" width="180" height="45" rx="3" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+      <text x="315" y="18" text-anchor="middle" font-size="9" font-weight="700" fill="var(--danger)">y = mx + b pm delta</text>
+      <text class="zh" x="315" y="34" text-anchor="middle" font-size="8" font-weight="700" fill="var(--danger)">所有相交晶粒一律墨印報廢</text>
+      <text class="en" x="315" y="34" text-anchor="middle" font-size="7.5" font-weight="700" fill="var(--danger)">Intersected dies 100% Inked</text>
+    </g>
+
+    <!-- RANSAC Advantage comparison -->
+    <g transform="translate(25, 332)">
+      <rect x="0" y="0" width="405" height="92" rx="4" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+      <text class="zh" x="10" y="16" font-size="8.5" font-weight="700" fill="var(--ink)">RANSAC 抗噪優勢（相比純幾何檢定）：</text>
+      <text class="en" x="10" y="16" font-size="8" font-weight="700" fill="var(--ink)">RANSAC Robustness over Naive Geometry:</text>
+      <text class="zh" x="10" y="32" font-size="8" fill="var(--ink-soft)">• 隨機缺陷干擾：即使整片晶圓有 200 顆離散隨機 Fail，RANSAC 仍能精準鎖定刮傷線。</text>
+      <text class="en" x="10" y="32" font-size="7.5" fill="var(--ink-soft)">• Noise immune: Ignores 200+ random background fails to lock onto the true scratch.</text>
+      <text class="zh" x="10" y="48" font-size="8" fill="var(--ink-soft)">• 支援弧形刮傷：晶圓搬運手臂旋轉甩出之非線性弧形刮痕（$y = ax^2 + bx + c$）亦能完美擬合。</text>
+      <text class="en" x="10" y="48" font-size="7.5" fill="var(--ink-soft)">• Curved scratches: Accurately fits parabolic handler rotation arc scratches.</text>
+      <text class="zh" x="10" y="64" font-size="8" fill="var(--good)">• 連接空隙（Bridge Gaps）：將電測 Pass 但物理斷裂的晶片強制作廢，封死客訴漏洞。</text>
+      <text class="en" x="10" y="64" font-size="7.5" fill="var(--good)">• Bridge Gaps: Inks electrically passing dies along the trajectory to seal RMA escapes.</text>
+      <text class="zh" x="10" y="80" font-size="8" font-weight="700" fill="var(--accent)">• 工業軟體：PDF Exensio DFX Scratch Rule Engine 與 JMP JSL 腳本核心標配。</text>
+      <text class="en" x="10" y="80" font-size="7.5" font-weight="700" fill="var(--accent)">• Deployed in PDF Solutions Exensio DFX Scratch Engine &amp; JMP JSL pipelines.</text>
+    </g>
+  </g>
+
+  <!-- PANEL B: CORRIDOR DILATION & KLARF OVERLAY -->
+  <g transform="translate(490, 58)">
+    <rect x="0" y="0" width="455" height="448" rx="8" fill="var(--surface)" stroke="var(--border)" stroke-width="1.2"/>
+    <rect x="0" y="0" width="455" height="30" rx="8" fill="var(--surface-2)"/>
+    <text class="zh" x="15" y="20" font-size="12" font-weight="700" fill="var(--good)">Part B：走廊膨脹 (Corridor Dilation) 與 KLARF 跨站疊圖防禦</text>
+    <text class="en" x="15" y="20" font-size="11.5" font-weight="700" fill="var(--good)">Part B: Corridor Dilation &amp; KLARF In-line Defense Hierarchy</text>
+
+    <!-- Subcard 1: Morphological Dilation Scheme -->
+    <rect x="12" y="38" width="431" height="205" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="0.8"/>
+    <text class="zh" x="20" y="54" font-size="10.5" font-weight="700" fill="var(--ink)">1. 形態學走廊膨脹 (Morphological Corridor Dilation: Ring 1 &amp; Ring 2)</text>
+    <text class="en" x="20" y="54" font-size="10" font-weight="700" fill="var(--ink)">1. Morphological Dilation Rings (S_corridor = S_scratch ⊕ B)</text>
+
+    <!-- Buffer zone diagram -->
+    <g transform="translate(25, 68)">
+      <rect x="0" y="0" width="150" height="90" rx="4" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+      
+      <!-- Ring 2 zone (outer) -->
+      <rect x="10" y="10" width="130" height="70" rx="3" fill="var(--warn)" fill-opacity="0.1" stroke="var(--warn)" stroke-dasharray="2,2"/>
+      <text class="zh" x="15" y="22" font-size="7.5" fill="var(--warn)">Ring 2: 次鄰近緩衝圈 (D=2)</text>
+      <text class="en" x="15" y="22" font-size="7" fill="var(--warn)">Ring 2: Outer Corridor (D=2)</text>
+
+      <!-- Ring 1 zone (inner) -->
+      <rect x="25" y="28" width="100" height="42" rx="3" fill="var(--danger)" fill-opacity="0.15" stroke="var(--danger)"/>
+      <text class="zh" x="30" y="40" font-size="7.5" font-weight="700" fill="var(--danger)">Ring 1: 高危走廊 (D=1)</text>
+      <text class="en" x="30" y="40" font-size="7" font-weight="700" fill="var(--danger)">Ring 1: High-Risk (D=1)</text>
+
+      <!-- Scratch Core line -->
+      <line x1="35" y1="58" x2="115" y2="42" stroke="var(--danger)" stroke-width="3" stroke-linecap="round"/>
+      <text class="zh" x="75" y="56" text-anchor="middle" font-size="8" font-weight="700" fill="#fff">實體刮痕核心</text>
+      <text class="en" x="75" y="56" text-anchor="middle" font-size="7.5" font-weight="700" fill="#fff">Core Scratch</text>
+    </g>
+
+    <g transform="translate(190, 68)">
+      <rect x="0" y="0" width="240" height="90" rx="4" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+      <text class="zh" x="10" y="16" font-size="8.5" font-weight="700" fill="var(--ink)">各等級處分防禦策略：</text>
+      <text class="en" x="10" y="16" font-size="8" font-weight="700" fill="var(--ink)">Disposition Strategy by Tier:</text>
+      <text class="zh" x="10" y="32" font-size="8" font-weight="700" fill="var(--danger)">• 核心軌跡：強制 100% 報廢 (Hard Inking)</text>
+      <text class="en" x="10" y="32" font-size="7.5" font-weight="700" fill="var(--danger)">• Core Trajectory: Mandatory 100% Inking</text>
+      <text class="zh" x="10" y="48" font-size="8" font-weight="700" fill="var(--danger)">• Ring 1 鄰居：車規 ASIL-D 強制 100% 墨印</text>
+      <text class="en" x="10" y="48" font-size="7.5" font-weight="700" fill="var(--danger)">• Ring 1 (D=1): ASIL-D 100% Scrap</text>
+      <text class="zh" x="10" y="64" font-size="8" fill="var(--warn)">• Ring 2 鄰居：加嚴 DPAT 限值或 168h HTOL</text>
+      <text class="en" x="10" y="64" font-size="7.5" fill="var(--warn)">• Ring 2 (D=2): Tightened DPAT or HTOL</text>
+      <text class="zh" x="10" y="80" font-size="8" fill="var(--good)">• 消費級 / IoT：Ring 1/2 降頻分 Bin 出貨</text>
+      <text class="en" x="10" y="80" font-size="7.5" fill="var(--good)">• Consumer/IoT: Downgrade Binning</text>
+    </g>
+
+    <text class="zh" x="20" y="232" font-size="8.5" fill="var(--ink-soft)">• 物理依據：晶圓斷裂力學指出，刮傷剪切應力波及範圍約為晶粒尺寸的 1.5 ~ 2 倍。</text>
+    <text class="en" x="20" y="232" font-size="8" fill="var(--ink-soft)">• Fracture Mechanics: Shear stress fields propagate 1.5 to 2 die pitches outward.</text>
+
+    <!-- Subcard 2: In-line KLARF Overlay & Electronic Map -->
+    <rect x="12" y="252" width="431" height="185" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="0.8"/>
+    <text class="zh" x="20" y="268" font-size="10.5" font-weight="700" fill="var(--good)">2. 製程光學 KLARF 檔案跨站疊圖與 SEMI E142 虛擬墨印</text>
+    <text class="en" x="20" y="268" font-size="10" font-weight="700" fill="var(--good)">2. In-line KLARF Defect Overlay &amp; SEMI E142 Virtual Inking</text>
+
+    <g transform="translate(25, 280)">
+      <!-- Step 1: Optical Scan -->
+      <rect x="0" y="0" width="85" height="42" rx="3" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+      <text class="zh" x="42" y="15" text-anchor="middle" font-size="7.5" font-weight="700" fill="var(--accent)">CMP/後蝕刻光檢</text>
+      <text class="en" x="42" y="15" text-anchor="middle" font-size="7" font-weight="700" fill="var(--accent)">In-line Optical</text>
+      <text x="42" y="28" text-anchor="middle" font-size="7" fill="var(--ink-soft)">KLA / AMAT</text>
+      <text class="zh" x="42" y="38" text-anchor="middle" font-size="6.5" fill="var(--ink-soft)">KLARF 檔輸出</text>
+      <text class="en" x="42" y="38" text-anchor="middle" font-size="6.5" fill="var(--ink-soft)">KLARF Export</text>
+
+      <line x1="90" y1="21" x2="105" y2="21" stroke="var(--accent)" stroke-width="1.5" marker-end="url(#scArrow)"/>
+
+      <!-- Step 2: Polygon Clustering -->
+      <rect x="110" y="0" width="85" height="42" rx="3" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+      <text class="zh" x="152" y="15" text-anchor="middle" font-size="7.5" font-weight="700" fill="var(--accent)">刮痕幾何解算</text>
+      <text class="en" x="152" y="15" text-anchor="middle" font-size="7" font-weight="700" fill="var(--accent)">Defect Polygon</text>
+      <text class="zh" x="152" y="28" text-anchor="middle" font-size="7" fill="var(--ink-soft)">長寬比 &gt; 10:1</text>
+      <text class="en" x="152" y="28" text-anchor="middle" font-size="6.5" fill="var(--ink-soft)">Aspect &gt; 10:1</text>
+      <text class="zh" x="152" y="38" text-anchor="middle" font-size="6.5" fill="var(--ink-soft)">安全邊距 delta</text>
+      <text class="en" x="152" y="38" text-anchor="middle" font-size="6" fill="var(--ink-soft)">Margin delta</text>
+
+      <line x1="200" y1="21" x2="215" y2="21" stroke="var(--good)" stroke-width="1.5" marker-end="url(#scArrowGood)"/>
+
+      <!-- Step 3: Electronic Map -->
+      <rect x="220" y="0" width="85" height="42" rx="3" fill="var(--surface)" stroke="var(--good)" stroke-width="1.2"/>
+      <text class="zh" x="262" y="15" text-anchor="middle" font-size="7.5" font-weight="700" fill="var(--good)">SEMI E142 墨印</text>
+      <text class="en" x="262" y="15" text-anchor="middle" font-size="7" font-weight="700" fill="var(--good)">SEMI E142 Map</text>
+      <text x="262" y="28" text-anchor="middle" font-size="7" fill="var(--good)">Bin 9 / Bin 80</text>
+      <text class="zh" x="262" y="38" text-anchor="middle" font-size="6.5" fill="var(--ink-soft)">MES 虛擬墨印</text>
+      <text class="en" x="262" y="38" text-anchor="middle" font-size="6" fill="var(--ink-soft)">Virtual Inking</text>
+
+      <line x1="310" y1="21" x2="325" y2="21" stroke="var(--good)" stroke-width="1.5" marker-end="url(#scArrowGood)"/>
+
+      <!-- Step 4: Sorter Bypass -->
+      <rect x="330" y="0" width="75" height="42" rx="3" fill="var(--good)" fill-opacity="0.15" stroke="var(--good)" stroke-width="1"/>
+      <text class="zh" x="367" y="15" text-anchor="middle" font-size="7.5" font-weight="700" fill="var(--good)">封裝揀晶跳過</text>
+      <text class="en" x="367" y="15" text-anchor="middle" font-size="7" font-weight="700" fill="var(--good)">Sorter Bypass</text>
+      <text class="zh" x="367" y="28" text-anchor="middle" font-size="7" fill="var(--ink-soft)">零實體墨水污染</text>
+      <text class="en" x="367" y="28" text-anchor="middle" font-size="6.5" fill="var(--ink-soft)">Zero Ink Dots</text>
+      <text class="zh" x="367" y="38" text-anchor="middle" font-size="6.5" fill="var(--good)">0-DPPM 逃逸</text>
+      <text class="en" x="367" y="38" text-anchor="middle" font-size="6" fill="var(--good)">Zero Escape</text>
+    </g>
+
+    <!-- Operational rule box -->
+    <g transform="translate(25, 335)">
+      <rect x="0" y="0" width="405" height="92" rx="4" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+      <text class="zh" x="10" y="16" font-size="8.5" font-weight="700" fill="var(--ink)">製程光學疊圖三大不可替代價值：</text>
+      <text class="en" x="10" y="16" font-size="8" font-weight="700" fill="var(--ink)">Three Critical Values of In-line KLARF Overlay:</text>
+      <text class="zh" x="10" y="32" font-size="8" fill="var(--ink)">1. <tspan font-weight="700">保護 ATE 探針卡</tspan>：預先墨印劃片槽高凸起刮傷區域，禁止探針扎針，防止針尖斷裂與磨損。</text>
+      <text class="en" x="10" y="32" font-size="7.5" fill="var(--ink)">1. <tspan font-weight="700">Probe Card Protection</tspan>: Prevents touchdowns on heavy topographic scratch burrs.</text>
+      <text class="zh" x="10" y="48" font-size="8" fill="var(--ink)">2. <tspan font-weight="700">杜絕實體化學墨水毒害</tspan>：化學墨水溶劑會腐蝕刮傷裸露之鋁銅導線，SEMI E142 數位圖譜徹底杜絕。</text>
+      <text class="en" x="10" y="48" font-size="7.5" fill="var(--ink)">2. <tspan font-weight="700">No Chemical Ink Contamination</tspan>: Liquid ink solvents corrode exposed copper lines.</text>
+      <text class="zh" x="10" y="64" font-size="8" fill="var(--ink)">3. <tspan font-weight="700">提早攔截晶圓</tspan>：若 CMP 刮傷貫穿超過 20% 晶圓面積，直接觸發晶圓級 Scrap，節省測試產能。</text>
+      <text class="en" x="10" y="64" font-size="7.5" fill="var(--ink)">3. <tspan font-weight="700">Early Wafer Abort</tspan>: If scratch exceeds 20% wafer area, scrap immediately to save test time.</text>
+      <text class="zh" x="10" y="80" font-size="8" font-weight="700" fill="var(--good)">★ 這是車規一級晶圓代工廠（台積電、聯電）與車載 IDM 跨廠對接的標配條款。</text>
+      <text class="en" x="10" y="80" font-size="7.5" font-weight="700" fill="var(--good)">★ Industry standard for Tier-1 automotive foundries (TSMC, UMC) &amp; automotive IDMs.</text>
+    </g>
+  </g>
+</svg>
+            <figcaption>
+              <span class="zh">圖 6.6：晶圓刮傷 (Wafer Scratch) 虛擬墨印四階防禦演算法全貌圖 — Part A：跳躍性刮傷 (Skipping Scratch) 與 霍夫變換/RANSAC 軌跡穿透補洞 (Bridge the Gap)；Part B：形態學走廊膨脹 (Corridor Dilation Rings)、各向異性加權 GDBN 與 KLARF 跨站疊圖虛擬墨印</span>
+              <span class="en">Figure 6.6: Four-Tier Defense Architecture for Wafer Scratch Virtual Inking — Part A: Skipping Scratch Paradox &amp; Hough/RANSAC Trajectory Gap-Bridging; Part B: Morphological Corridor Dilation Rings, Anisotropic Directional GDBN &amp; In-line KLARF Defect Map Overlay</span>
+            </figcaption>
+          </figure>
+
+          <p>
+            <span class="zh">
+              為建立 0-DPPM 車規零逃逸防線，現代良率大數據平台（如 PDF Solutions Exensio DFX / SAS JMP Pro）實踐了五大層級的刮傷識別與墨印演算法體系：
+            </span>
+            <span class="en">
+              To establish an impenetrable 0-DPPM automotive defense, enterprise yield intelligence platforms (such as PDF Solutions Exensio DFX and SAS JMP Pro) deploy a five-tier scratch detection and inking algorithm suite:
+            </span>
+          </p>
+
+          <div class="card-grid">
+            <div class="card">
+              <h4 style="margin-top:0; color:var(--danger);">
+                <span class="zh">1. 霍夫變換與 RANSAC 穿透擬合 (Trajectory Interpolation)</span>
+                <span class="en">1. Hough Transform &amp; RANSAC Trajectory Interpolation</span>
+              </h4>
+              <p>
+                <span class="zh">
+                  <b>演算法核心</b>：針對跳躍性刮傷（中間存在 Pass 晶粒），霍夫變換將所有 Fail 晶格座標映射至極座標參數空間 \(\rho = x \cos \theta + y \sin \theta\)，鎖定累積峰值直線；而 <b>RANSAC（隨機抽樣一致性）</b> 則在隨機缺陷雜訊背景中強健擬合出高次多項式曲線 \(y = f(x)\)（包括機械手臂旋轉拋物線刮痕）。<br>
+                  <b>處置指令 (Bridge the Gaps)</b>：數學軌跡貫穿的所有晶片，即使電測合格，一律<b>強行反轉為剔除墨印（Inked Reject）</b>。
+                </span>
+                <span class="en">
+                  <b>Core Formulation</b>: Addressing broken-line skipping scratches, the Hough Transform maps fail coordinates into polar accumulator space \(\rho = x \cos \theta + y \sin \theta\) to isolate collinear paths. Concurrently, <b>RANSAC (Random Sample Consensus)</b> fits polynomial curves \(y = f(x)\) robustly against heavy random defect background noise.<br>
+                  <b>Action (Bridge the Gaps)</b>: Any die intersected by the mathematical trajectory is <b>unconditionally flipped to Inked Reject</b>.
+                </span>
+              </p>
+            </div>
+            <div class="card">
+              <h4 style="margin-top:0; color:var(--warn);">
+                <span class="zh">2. 形態學走廊膨脹 (Corridor Dilation Rings)</span>
+                <span class="en">2. Morphological Corridor Dilation Rings</span>
+              </h4>
+              <p>
+                <span class="zh">
+                  <b>演算法核心</b>：斷裂力學證明，刮傷時金剛石刀尖或顆粒所造成的剪切應力場會向外擴散 1.5 至 2 倍晶粒間距。演算法將刮傷核心集合 \(S\) 以結構元素 \(B\) 執行形態學膨脹：\(S_{\text{corridor}} = S \oplus B\)。<br>
+                  <b>環帶分級處分</b>：<br>
+                  • <b>Ring 1 高危走廊（\(D=1\) 鄰居）</b>：車規 ASIL-D 強制 100% 虛擬墨印報廢。<br>
+                  • <b>Ring 2 緩衝走廊（\(D=2\) 鄰居）</b>：實施加嚴 DPAT 限值過濾或 168h HTOL 燃燒篩選。
+                </span>
+                <span class="en">
+                  <b>Core Formulation</b>: Fracture mechanics proves shear residual stress fields extend 1.5 to 2 die pitches outward. The algorithm dilates scratch set \(S\) using structuring element \(B\): \(S_{\text{corridor}} = S \oplus B\).<br>
+                  <b>Tiered Disposition</b>:<br>
+                  • <b>Ring 1 High-Risk (\(D=1\))</b>: Mandatory 100% Virtual Inking Scrap for automotive ASIL-D.<br>
+                  • <b>Ring 2 Buffer (\(D=2\))</b>: Subjected to tightened DPAT gating or 168h HTOL burn-in screening.
+                </span>
+              </p>
+            </div>
+            <div class="card">
+              <h4 style="margin-top:0; color:var(--accent);">
+                <span class="zh">3. 各向異性加權 GDBN (Directional Anisotropic GDBN)</span>
+                <span class="en">3. Directional Anisotropic GDBN</span>
+              </h4>
+              <p>
+                <span class="zh">
+                  <b>演算法核心</b>：傳統 GDBN 均等看待 8 個方向，細長單晶粒刮傷在垂直方向僅有 2 個失效鄰居，極易低於常規警報門檻。引入方向角加權矩陣：
+                  \[
+                  W(\theta) = \sum_{k=1}^8 w_k \cdot \mathbb{I}(\text{Fail}_k), \quad w_k = 1 + \alpha \cos^2(\theta_k - \theta_{\text{scratch}})
+                  \]
+                  當相鄰失效晶粒排列與刮痕走向 \(\theta_{\text{scratch}}\) 共線時，權重成倍放大（\(\alpha \ge 3\)），確保極窄線性刮傷 100% 觸發 GDBN 墨印。
+                </span>
+                <span class="en">
+                  <b>Core Formulation</b>: Standard GDBN treats all 8 directions isotropically; narrow single-die scratches present only 2 orthogonal fail neighbors, evading standard count thresholds. Directional weighting scales collinear neighbors:
+                  \[
+                  W(\theta) = \sum_{k=1}^8 w_k \cdot \mathbb{I}(\text{Fail}_k), \quad w_k = 1 + \alpha \cos^2(\theta_k - \theta_{\text{scratch}})
+                  \]
+                  Amplifying weights along scratch orientation \(\theta_{\text{scratch}}\) (\(\alpha \ge 3\)) ensures 100% GDBN capture on narrow linear gouges.
+                </span>
+              </p>
+            </div>
+            <div class="card">
+              <h4 style="margin-top:0; color:var(--good);">
+                <span class="zh">4. 製程光檢 KLARF 跨站疊圖 (In-line Defect Overlay)</span>
+                <span class="en">4. In-line Optical KLARF Defect Overlay</span>
+              </h4>
+              <p>
+                <span class="zh">
+                  <b>演算法核心</b>：不要等到 ATE 測試才用電氣結果盲猜刮傷！在 Fab 廠 CMP 研磨或後蝕刻站點，暗視野光檢機（如 KLA 29xx）產出物理缺陷點陣 **KLARF 檔案**。系統自動提取長寬比（Aspect Ratio）\(> 10:1\) 的多邊形，疊加至晶圓切割座標並外擴安全邊距 \(\delta\)。<br>
+                  <b>前置效益</b>：在晶圓送上 ATE 測試機台前，MES 預先生成 **SEMI E142 虛擬墨印**，探針卡直接跳過該區域不測，<b>既杜絕探針在凸起刮傷處扎針斷裂，又省下數千美元測試機台耗時</b>。
+                </span>
+                <span class="en">
+                  <b>Core Formulation</b>: Avoid guessing scratches purely from electrical bin maps! At fab CMP or post-etch inspection, darkfield tools (KLA 29xx) output **KLARF defect files**. Clustering extracts polygons with aspect ratio \(> 10:1\), overlaying wafer dicing grids with safety margin \(\delta\).<br>
+                  <b>Pre-test Value</b>: Prior to ATE sort, MES generates **SEMI E142 Virtual Inking** maps. Probers bypass suspect dies, <b>preventing probe needle damage on scratch burrs while saving thousands of dollars in tester time</b>.
+                </span>
+              </p>
+            </div>
+          </div>
+
+          <!-- TABLE 6.4.2: SCRATCH INKING DISPOSITION MATRIX -->
+          <div style="font-weight:700; font-size:14.5px; margin:22px 0 10px; color:var(--ink);">
+            <span class="zh">表 6.4.2：晶圓刮傷缺陷分級虛擬墨印處分與工業標準決策矩陣</span>
+            <span class="en">Table 6.4.2: Wafer Scratch Tiered Virtual Inking Disposition &amp; Industry Decision Matrix</span>
+          </div>
+
+          <div style="overflow-x:auto;">
+            <table>
+              <thead>
+                <tr>
+                  <th><span class="zh">產品可靠度等級</span><span class="en">Product Reliability Tier</span></th>
+                  <th><span class="zh">核心刮傷軌跡晶粒 (Core Trajectory)</span><span class="en">Core Scratch Trajectory Dies</span></th>
+                  <th><span class="zh">Ring 1 高危走廊 (D=1 Corridor)</span><span class="en">Ring 1 High-Risk (D=1 Corridor)</span></th>
+                  <th><span class="zh">Ring 2 緩衝走廊 (D=2 Buffer)</span><span class="en">Ring 2 Outer (D=2 Buffer)</span></th>
+                  <th><span class="zh">產線執行機制</span><span class="en">Factory Execution Mechanism</span></th>
+                  <th><span class="zh">依循國際法規與品質協議</span><span class="en">Industry Standard / Quality Mandate</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span class="zh"><b>車規 ASIL-D / 航太國防</b><br>(Automotive ASIL-D / Mission-Critical)</span><span class="en"><b>Automotive ASIL-D / Aerospace</b><br>(Mission-Critical Tier)</span></td>
+                  <td><span class="zh"><b style="color:var(--danger);">強制 100% 報廢 (Scrap)</b><br>電測 Pass 者一律反轉墨印</span><span class="en"><b style="color:var(--danger);">Mandatory 100% Scrap</b><br>Invert Pass to Inked Reject</span></td>
+                  <td><span class="zh"><b style="color:var(--danger);">強制 100% 報廢 (Scrap)</b><br>不接受任何工程覆議</span><span class="en"><b style="color:var(--danger);">Mandatory 100% Scrap</b><br>Zero waiver permitted</span></td>
+                  <td><span class="zh"><b style="color:var(--danger);">強制 100% 報廢 (Scrap)</b><br>或扣押進入 168h 深度 HTOL</span><span class="en"><b style="color:var(--danger);">Mandatory 100% Scrap</b><br>or hold for 168h HTOL burn-in</span></td>
+                  <td><span class="zh">MES 自動改寫 SEMI E142 虛擬墨印 XML；封裝挑晶機（Die Sorter）硬性跳過</span><span class="en">MES writes SEMI E142 Virtual Ink XML; automated pick-and-place sorter bypasses</span></td>
+                  <td>AEC-Q001, AEC-Q100 Grade 0, ISO 26262 ASIL-D</td>
+                </tr>
+                <tr>
+                  <td><span class="zh"><b>工業級 / 伺服器 CPU/GPU</b><br>(Industrial &amp; Cloud Datacenter)</span><span class="en"><b>Industrial &amp; Cloud Server</b><br>(High-Reliability Tier)</span></td>
+                  <td><span class="zh"><b style="color:var(--danger);">強制 100% 報廢 (Scrap)</b></span><span class="en"><b style="color:var(--danger);">Mandatory 100% Scrap</b></span></td>
+                  <td><span class="zh"><b style="color:var(--warn);">降級至消費規格</b><br>或 100% 實施高壓 Burn-in</span><span class="en"><b style="color:var(--warn);">Downgrade to Consumer</b><br>or 100% high-stress Burn-in</span></td>
+                  <td><span class="zh">實施加嚴 DPAT 限值；合格品放行</span><span class="en">Gated via tightened DPAT; release if passed</span></td>
+                  <td><span class="zh">虛擬墨印 + MES 自動降頻分 Bin（Downgrade Binning）</span><span class="en">Virtual Inking + MES automated speed downgrade binning</span></td>
+                  <td>JEDEC JESD47, Telcordia GR-357-CORE</td>
+                </tr>
+                <tr>
+                  <td><span class="zh"><b>一般消費級 / IoT</b><br>(Commercial &amp; Consumer IoT)</span><span class="en"><b>Commercial &amp; Consumer IoT</b><br>(Standard Commercial Tier)</span></td>
+                  <td><span class="zh">電測 Fail 者報廢；電測 Pass 者視微裂紋長度評估</span><span class="en">Scrap electrical fails; evaluate passing dies</span></td>
+                  <td><span class="zh">標準 ATE 測試放行</span><span class="en">Standard ATE sort release</span></td>
+                  <td><span class="zh">標準 ATE 測試放行</span><span class="en">Standard ATE sort release</span></td>
+                  <td><span class="zh">標準 Wafer Sort 電測硬體 Binning</span><span class="en">Standard prober hardware binning</span></td>
+                  <td>Commercial Standard Spec</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="callout good">
+            <div class="callout-title">
+              <span>💡</span>
+              <span class="zh">最佳實踐：徹底拋棄實體化學墨水打點 (Abandon Physical Ink Dots)</span>
+              <span class="en">Best Practice: Completely Abandon Physical Liquid Ink Dots</span>
+            </div>
+            <span class="zh">
+              傳統封測廠早期在不良晶粒上以針頭滴化學墨水（Physical Inking）。但在刮傷場景中，化學墨水中的有機溶劑極易沿著微裂紋滲入主動電路區腐蝕銅導線，反而造成人為二次污染；此外墨水揮發氣體易污染打線機（Wire Bonder）光學相機鏡頭。<br>
+              現代半導體標竿工廠**一律 100% 採用 SEMI E142 規範的虛擬墨印（Virtual Inking）**：測試機台將晶圓圖座標以數位 XML / Strip Map 直接傳送給 MES 與封裝揀晶機，從源頭實現零化學污染、零探針受損與 0-DPPM 逃逸。
+            </span>
+            <span class="en">
+              Early OSATs physically dispensed chemical ink droplets onto defective dies using mechanical needles. In scratch scenarios, liquid ink solvents penetrate through micro-cracks into active silicon, corroding copper metal lines and causing artificial secondary yield loss. Moreover, evaporated solvent fumes contaminate wire bonder optical alignment cameras.<br>
+              Premier semiconductor fabs and OSATs **exclusively deploy SEMI E142 Virtual Inking**: wafer sort testers transmit electronic XML strip maps directly to factory MES and automated pick-and-place sorters, achieving zero chemical contamination, zero probe damage, and 0-DPPM field escape.
+            </span>
+          </div>
+
+          <!-- SUBSECTION 6.4.3: MULTIVARIATE MAHALANOBIS -->
+          <h4 id="sec_6_4_3">
             <span class="zh">6.4.3 多變量離群值檢測 (Multivariate Outlier Detection) 與 馬氏距離 (Mahalanobis Distance) 數學建模</span>
             <span class="en">6.4.3 Multivariate Outlier Detection &amp; Mahalanobis Distance Mathematical Modeling</span>
           </h4>
@@ -12046,7 +12468,7 @@
           </p>
 
           <!-- SUBSECTION 6.4.4: OVERKILL ECONOMICS & CLOSED LOOP -->
-          <h4 id="sec_6_4_3">
+          <h4 id="sec_6_4_4">
             <span class="zh">6.4.4 離群值處分策略、過度剔除 (Overkill) 經濟學與 ATE 產線即時注入閉環</span>
             <span class="en">6.4.4 Maverick Die Disposition, Overkill Economics &amp; Real-time ATE Limit Injection Closed-Loop</span>
           </h4>
@@ -15505,11 +15927,11 @@
     <div style="display:flex; flex-direction:column; align-items:flex-end; gap:5px;">
       <div style="display:flex; align-items:center; gap:8px;">
         <span class="badge badge-green" style="font-size:11px; padding:2px 8px;">● LIVE VERIFIED</span>
-        <span style="font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft);">Rev. AI</span>
+        <span style="font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft);">Rev. AJ</span>
       </div>
       <div style="font-family:var(--font-mono); font-size:12px; color:var(--ink);">
         <span class="zh">最後更新日期：</span><span class="en">Last Updated: </span>
-        <b style="color:var(--accent);">2026-11-02 09:45 (Asia/Taipei)</b>
+        <b style="color:var(--accent);">2026-11-02 10:55 (Asia/Taipei)</b>
       </div>
     </div>
   </footer>
