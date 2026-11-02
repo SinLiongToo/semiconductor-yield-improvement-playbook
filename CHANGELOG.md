@@ -8,6 +8,25 @@ Entry format / 格式:
 `## YYYY-MM-DD — <agent> — <short title>` then bullets: what changed, why, caveats for the next agent.
 
 ---
+## 2026-11-02 — Google Antigravity — Rev. AL: Comprehensive Expansion of Bilingual Glossary of Acronyms (Appendix C)
+
+- **Massive Expansion of Appendix C Bilingual Glossary (`id="app_c"`)**:
+  - Expanded the acronym table from 74 terms to **135+ essential semiconductor engineering acronyms**, strictly deduplicated and alphabetized A–Z.
+  - Added newly introduced domain terms across all major technical clusters:
+    - **Outlier Screening & Automotive Standards**: AEC-Q001, AEC-Q002, AEC-Q100, SPAT, DPAT, GD-PAT, NNR, GDBN, SYA, NIQR, MAD, EVT, POT, ASIL, ISO 26262.
+    - **Machine Learning & AI**: AE (Autoencoder), VAE, Conv-AE, iForest (Isolation Forest), iTree, RF (Random Forest), XGBoost, LightGBM, SHAP, CNN, ViT (Vision Transformer), GNN (Graph Neural Network), WMPR, Grad-CAM, MLOps, KS Test, PSI, ELBO, UMAP, t-SNE.
+    - **Wafer Scratches & Inspection**: RANSAC, Hough Transform, ADR (Automated Defect Review), SEMI E142 (Virtual Inking XML), BEOL, FEOL, EMC, ILD, Low-k / ULK, CD-SEM.
+    - **Lithography & Patterning**: BARC, TARC, PAG, PEB, LER, LWR, FEM, PWQ, GDSII / OASIS, DRC.
+    - **ATE, Reliability & FA Hardware**: ATPG, DUT, DIB, LBIST, MBIST, HAST, HBM, CDM, EOS, SIMS, XPS, Pogo Pin.
+  - 100% strict bilingual parity across all term descriptions, definitions, and contextual semiconductor applications.
+- **Synchronized Header & Footer Revision Metadata**:
+  - Bumped revision label to `Rev. AL` and Last Updated timestamp to `2026-11-02 13:10 (Asia/Taipei)` in both header and footer.
+- **Quality & Verification**:
+  - Passed `npm run verify` with 0 tag mismatches and valid JavaScript syntax (17,953 lines).
+  - Passed `node scripts/audit_i18n_and_structure.js` with 0 numbering drift, 0 Chinese leaks in English mode across all sections, and 100% of all 1,748 table cells localized.
+
+---
+
 ## 2026-11-02 — Google Antigravity — Rev. AK: Integrated 4 High-Resolution Micrographs into Wafer Scratch Gallery (Section 6.4.2)
 
 - **Added Dedicated 4-Card Responsive Micrograph Gallery in Section 6.4.2 (`.scratch-gallery-grid` & `.scratch-card`)**:
