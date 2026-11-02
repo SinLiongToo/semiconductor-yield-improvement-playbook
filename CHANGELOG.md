@@ -8,6 +8,17 @@ Entry format / 格式:
 `## YYYY-MM-DD — <agent> — <short title>` then bullets: what changed, why, caveats for the next agent.
 
 ---
+## 2026-11-02 — Google Antigravity — Rev. AG: Synchronized Revision Labels (Header & Footer) to Rev. AG
+
+- **Fixed Revision Tag Synchronization across Header and Footer**:
+  - Identified that earlier regex replacement was matching an obsolete HTML signature, leaving the header at `Rev. AC` and footer at `Rev. AD`.
+  - Updated both `index.html` header (`<div class="doc-fields">`) and footer (`<footer>`) to accurately reflect **Rev. AG (Lithography Defect Atlas, 12 Real SEM Micrographs &amp; Fab Escalation SOP)** with matching timestamps (`2026-11-02 08:35 Asia/Taipei`).
+- **Quality & Verification**:
+  - Verified with `npm run verify` (0 errors, 15761 lines).
+  - Verified with `node scripts/audit_i18n_and_structure.js` (0 errors, 0 leaks).
+
+---
+
 ## 2026-11-02 — Google Antigravity — Rev. AG: Integrated 12 Real SEM Micrograph Pictures across Litho Gallery Grid & Table 4.3
 
 - **Extracted and Integrated 12 Real SEM Defect Micrographs**:
