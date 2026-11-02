@@ -8,6 +8,19 @@ Entry format / 格式:
 `## YYYY-MM-DD — <agent> — <short title>` then bullets: what changed, why, caveats for the next agent.
 
 ---
+## 2026-11-02 — Google Antigravity — Rev. AG: Integrated 12 Real SEM Micrograph Pictures across Litho Gallery Grid & Table 4.3
+
+- **Extracted and Integrated 12 Real SEM Defect Micrographs**:
+  - Cropped and saved all 12 individual SEM micrographs from the user-uploaded Thin Film Engineer Atlas into `assets/litho/` (`01_resist_bridging.png` through `12_lift_off_defects.png`), plus `lithography_defect_atlas_clean.png`.
+  - Added a dedicated 12-card responsive SEM visual gallery (`.litho-gallery-grid` and `.litho-card`) in Section 4.6.1, featuring zoom-hover effects, technical perspective badges (`SEM | Top-down`, `SEM | 45° Tilt`, `SEM | Cross-section`, etc.), and bilingual titles and descriptions.
+  - Enhanced Table 4.3 by embedding the corresponding direct SEM micrograph thumbnail in the first column of every defect row for instantaneous visual identification during yield analysis.
+- **Quality & Verification**:
+  - Passed `npm run verify` with 0 tag mismatches and valid JavaScript syntax.
+  - Passed `node scripts/audit_i18n_and_structure.js` with 0 numbering drift, 0 Chinese leaks in English mode across all sections, and 100% table cells localized.
+  - Bumped to Rev. AG across header and footer.
+
+---
+
 ## 2026-11-02 — Google Antigravity — Rev. AF: Lithography & Photoresist Defect Atlas (12 Modes), Physics of Failure & Foundry Escalation SOP (Section 4.6, Fig 4.3, Table 4.3)
 
 - **Added Section 4.6: 微影光阻 12 大圖案缺陷圖鑑 (Lithography Defect Atlas) 與 晶圓代工廠 (Fab) 跨部門對接溝通閉環 SOP (Lithography & Photoresist Defect Atlas: Mechanisms, Solutions & Foundry Escalation SOP)**:
