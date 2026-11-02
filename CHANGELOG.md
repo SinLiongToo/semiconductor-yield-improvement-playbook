@@ -8,6 +8,25 @@ Entry format / 格式:
 `## YYYY-MM-DD — <agent> — <short title>` then bullets: what changed, why, caveats for the next agent.
 
 ---
+## 2026-11-02 — Google Antigravity — Rev. AF: Lithography & Photoresist Defect Atlas (12 Modes), Physics of Failure & Foundry Escalation SOP (Section 4.6, Fig 4.3, Table 4.3)
+
+- **Added Section 4.6: 微影光阻 12 大圖案缺陷圖鑑 (Lithography Defect Atlas) 與 晶圓代工廠 (Fab) 跨部門對接溝通閉環 SOP (Lithography & Photoresist Defect Atlas: Mechanisms, Solutions & Foundry Escalation SOP)**:
+  - Added Figure 4.3 (`viewBox="0 0 960 590"`): Comprehensive dual-panel SVG diagram presenting cross-sectional profile schematics for all 12 photoresist defects (Part A) alongside the 4-stage Foundry Escalation & Closed-Loop Protocol (Part B). Fully styled with CSS theme tokens (`var(--surface)`, `var(--ink)`, `var(--accent)`, `var(--danger)`, `var(--warn)`, `var(--good)`).
+  - Added Section 4.6.1 & Table 4.3: Deep-dive into the 12 canonical photoresist and patterning defect modes based on the industry atlas (Resist Bridging, Scumming, Pattern Collapse, Footing, T-topping, Pinholes, Line-edge Roughness LER/LWR, Standing Waves, Missing Patterns, Polymer Residue, Overlay Error, and Lift-off Defects), detailing morphology, physics/chemistry of failure (PoF), electrical yield failure modes, fab engineering recipes, and equipment module attribution.
+  - Added Section 4.6.2: Actionable Foundry Technical Escalation & Communication Playbook:
+    - Stage 1: The Golden 5-Piece Data Package (CD-SEM top-down/45° tilt, KLARF defect logs, STDF wafer sort map overlay & kill ratio calculation, equipment/lot genealogy, GDSII/OASIS DRC-clean clip).
+    - Stage 2: Root Cause Triangulation Decision Tree (Within-reticle repeating vs Wafer edge ring vs Single tool commonality vs Random stochastics).
+    - Stage 3: Professional Fab Jargon & Immediate Containment Mandates (Demanding PWQ Bossung curves, FEM margins, R2R APC logs, PM history; executing instant WIP hold, tool disqualification monitor runs, reticle clean & STARlight re-certification, formal 8D).
+    - Stage 4: Permanent Corrective Action (PCA), Commercial Scrap Allowance & Defeating the "DFM Waiver Trap" via empirical golden lot benchmarks.
+- **Updated Desktop & Mobile Navigation (TOC)**:
+  - Added `sec_4_6` into both `nav.toc` and `details.toc-m` under Phase 4 with full bilingual parity.
+- **Quality & Verification**:
+  - Passed `npm run verify` with 0 tag mismatches and valid JavaScript syntax.
+  - Passed `node scripts/audit_i18n_and_structure.js` with 0 numbering drift, 0 Chinese leaks in English mode across all sections, and 100% table cells localized.
+  - Bumped to Rev. AF and updated Last Updated to 2026-11-02 across header and footer.
+
+---
+
 ## 2026-10-28 — Google Antigravity — Rev. AE: Hierarchical Navigation with Subheadings, Dynamic ScrollSpy & Subheading Toggle in Sidebar and Mobile TOC
 
 - **Added Complete Subheading Hierarchy in Left Sidebar (`nav.toc`) & Mobile (`details.toc-m`)**:

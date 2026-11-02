@@ -1319,6 +1319,8 @@
           <li><a href="#sec_4_3"><span class="zh">4.3 批次相依性 (Lot Dependency)</span><span class="en">4.3 Lot Dependency Root Causes</span></a></li>
           <li><a href="#sec_4_4"><span class="zh">4.4 先進製程控制 (APC) 演算法</span><span class="en">4.4 Advanced Process Control</span></a></li>
           <li><a href="#sec_4_5"><span class="zh">4.5 機台腔體共模統計歸因</span><span class="en">4.5 Chamber Commonality</span></a></li>
+            <li><a href="#sec_4_6"><span class="zh">4.6 微影光阻 12 大缺陷與晶圓廠對接</span><span class="en">4.6 Litho Defects &amp; Fab Protocol</span></a></li>
+            <li><a href="#sec_4_6"><span class="zh">4.6 微影光阻 12 大缺陷與晶圓廠對接</span><span class="en">4.6 Litho Defects &amp; Fab Protocol</span></a></li>
         </ul>
       </li>
       <li>
@@ -8430,6 +8432,764 @@
               </span>
             </p>
           </div>
+        
+          <!-- SECTION 4.6: LITHOGRAPHY DEFECT ATLAS & FOUNDRY ESCALATION SOP -->
+          <h3 id="sec_4_6">
+            <span class="zh">4.6 微影光阻 12 大圖案缺陷圖鑑 (Lithography Defect Atlas) 與 晶圓代工廠 (Fab) 跨部門對接溝通閉環 SOP</span>
+            <span class="en">4.6 Lithography &amp; Photoresist Defect Atlas: Mechanisms, Solutions &amp; Foundry Escalation SOP</span>
+          </h3>
+
+          <p>
+            <span class="zh">
+              微影工程（Photolithography）是半導體製造中技術門檻最高、設備資本支出最大（佔晶圓廠總設備投資 40%–50% 以上，涵蓋 ASML EUV/ArFi 曝光機與 TEL 塗膠顯影 Track 機台）的關鍵工序。光阻劑（Photoresist, PR）在晶圓表面形成的奈米級微觀立體圖案，直接決定了後續離子注入、乾式蝕刻與薄膜沉積的幾何保真度。在先進製程節點（28nm 至 3nm 及 GAA 世代），光阻塗佈、曝光、烘烤到顯影過程中的任何細微偏差，均會衍生出微觀形貌缺陷，造成嚴重的短路、斷路、高接觸阻抗或參數邊界漂移，是晶圓廠良率突降（Yield Excursion）最頻繁的爆發源之一。
+            </span>
+            <span class="en">
+              Photolithography is the most technologically intensive and capital-heavy module in semiconductor fabrication (representing over 40%–50% of total fab tool capex, spanning ASML EUV/ArFi scanners and TEL coater-developer tracks). The nanoscale 3D patterns formed by photoresist (PR) directly dictate the geometric fidelity of subsequent ion implantation, reactive ion etching (RIE), and thin film metallization. Across advanced nodes (from 28nm down to 3nm and GAA architectures), minute disturbances during resist coating, exposure, post-exposure bake (PEB), or development trigger severe microscopic patterning anomalies, inducing catastrophic shorts, opens, high-resistance vias, or parametric drift.
+            </span>
+          </p>
+
+          <figure class="figure-block" id="fig4_3">
+            <svg viewBox="0 0 960 590" width="100%" height="auto" style="max-width:960px; font-family:var(--font-sans); background:var(--surface);" role="img" aria-label="Lithography Defect Atlas &amp; Foundry Escalation SOP">
+              <defs>
+                <marker id="arrowL" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--accent)"/>
+                </marker>
+                <marker id="arrowD" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--danger)"/>
+                </marker>
+              </defs>
+
+              <!-- Main Background Box -->
+              <rect x="5" y="5" width="950" height="580" rx="8" fill="var(--surface)" stroke="var(--border)" stroke-width="1.2"/>
+
+              <!-- LEFT PANEL: 12 LITHOGRAPHY DEFECTS ATLAS -->
+              <rect x="15" y="15" width="585" height="560" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1"/>
+              <text class="zh" x="30" y="38" font-size="13" font-weight="700" fill="var(--ink)">微影光阻 12 大圖案缺陷特徵圖鑑 (12 Photoresist &amp; Patterning Defects)</text>
+              <text class="en" x="30" y="38" font-size="13" font-weight="700" fill="var(--ink)">12 Photoresist &amp; Patterning Defects Atlas (Cross-Section &amp; Failure Mode)</text>
+
+              <!-- === ROW 0 === -->
+              <!-- 1. Resist Bridging -->
+              <g transform="translate(25, 52)">
+                <rect width="134" height="158" rx="4" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+                <rect x="0" y="0" width="134" height="22" rx="4" fill="var(--border)" opacity="0.4"/>
+                <text class="zh" x="8" y="15" font-size="10" font-weight="700" fill="var(--danger)">1. 光阻橋接 (Bridging)</text>
+                <text class="en" x="8" y="15" font-size="10" font-weight="700" fill="var(--danger)">1. Resist Bridging</text>
+                <rect x="12" y="115" width="110" height="12" fill="#64748b"/>
+                <rect x="12" y="112" width="110" height="3" fill="#94a3b8"/>
+                <rect x="25" y="55" width="22" height="57" fill="var(--accent)"/>
+                <rect x="87" y="55" width="22" height="57" fill="var(--accent)"/>
+                <rect x="47" y="70" width="40" height="20" fill="var(--danger)"/>
+                <text class="zh" x="67" y="66" font-size="8.5" text-anchor="middle" fill="var(--danger)">短路微橋</text>
+                <text class="en" x="67" y="66" font-size="8.5" text-anchor="middle" fill="var(--danger)">Micro-Bridge</text>
+                <text class="zh" x="67" y="142" font-size="8" text-anchor="middle" fill="var(--ink-soft)">曝光不足 / 焦距偏離</text>
+                <text class="en" x="67" y="142" font-size="8" text-anchor="middle" fill="var(--ink-soft)">Under-dose / De-focus</text>
+              </g>
+
+              <!-- 2. Scumming -->
+              <g transform="translate(169, 52)">
+                <rect width="134" height="158" rx="4" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+                <rect x="0" y="0" width="134" height="22" rx="4" fill="var(--border)" opacity="0.4"/>
+                <text class="zh" x="8" y="15" font-size="10" font-weight="700" fill="var(--warn)">2. 底部殘膠 (Scumming)</text>
+                <text class="en" x="8" y="15" font-size="10" font-weight="700" fill="var(--warn)">2. Scumming</text>
+                <rect x="12" y="115" width="110" height="12" fill="#64748b"/>
+                <rect x="12" y="112" width="110" height="3" fill="#94a3b8"/>
+                <rect x="25" y="55" width="24" height="57" fill="var(--accent)"/>
+                <rect x="85" y="55" width="24" height="57" fill="var(--accent)"/>
+                <path d="M 49 112 Q 67 100 85 112 Z" fill="var(--danger)"/>
+                <text class="zh" x="67" y="96" font-size="8.5" text-anchor="middle" fill="var(--danger)">未溶殘渣</text>
+                <text class="en" x="67" y="96" font-size="8.5" text-anchor="middle" fill="var(--danger)">Residue Scum</text>
+                <text class="zh" x="67" y="142" font-size="8" text-anchor="middle" fill="var(--ink-soft)">顯影不全 / 介面酸鈍化</text>
+                <text class="en" x="67" y="142" font-size="8" text-anchor="middle" fill="var(--ink-soft)">Incomplete Dev / Acid Loss</text>
+              </g>
+
+              <!-- 3. Pattern Collapse -->
+              <g transform="translate(313, 52)">
+                <rect width="134" height="158" rx="4" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+                <rect x="0" y="0" width="134" height="22" rx="4" fill="var(--border)" opacity="0.4"/>
+                <text class="zh" x="8" y="15" font-size="10" font-weight="700" fill="var(--danger)">3. 圖案倒塌 (Collapse)</text>
+                <text class="en" x="8" y="15" font-size="10" font-weight="700" fill="var(--danger)">3. Pattern Collapse</text>
+                <rect x="12" y="115" width="110" height="12" fill="#64748b"/>
+                <rect x="12" y="112" width="110" height="3" fill="#94a3b8"/>
+                <path d="M 28 112 L 40 112 L 64 56 L 52 56 Z" fill="var(--accent)"/>
+                <path d="M 106 112 L 94 112 L 62 56 L 74 56 Z" fill="var(--danger)"/>
+                <text class="zh" x="67" y="48" font-size="8.5" text-anchor="middle" fill="var(--danger)">毛細力傾倒</text>
+                <text class="en" x="67" y="48" font-size="8.5" text-anchor="middle" fill="var(--danger)">Capillary Lean</text>
+                <text class="zh" x="67" y="142" font-size="8" text-anchor="middle" fill="var(--ink-soft)">高深寬比 / 清洗張力</text>
+                <text class="en" x="67" y="142" font-size="8" text-anchor="middle" fill="var(--ink-soft)">HAR &gt; 3:1 / Rinse Meniscus</text>
+              </g>
+
+              <!-- 4. Footing -->
+              <g transform="translate(457, 52)">
+                <rect width="134" height="158" rx="4" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+                <rect x="0" y="0" width="134" height="22" rx="4" fill="var(--border)" opacity="0.4"/>
+                <text class="zh" x="8" y="15" font-size="10" font-weight="700" fill="var(--warn)">4. 底部裙邊 (Footing)</text>
+                <text class="en" x="8" y="15" font-size="10" font-weight="700" fill="var(--warn)">4. Resist Footing</text>
+                <rect x="12" y="115" width="110" height="12" fill="#64748b"/>
+                <rect x="12" y="112" width="110" height="3" fill="#94a3b8"/>
+                <path d="M 30 55 L 50 55 L 50 96 Q 54 112 62 112 L 18 112 Q 26 112 30 96 Z" fill="var(--accent)"/>
+                <path d="M 84 55 L 104 55 L 104 96 Q 108 112 116 112 L 72 112 Q 80 112 84 96 Z" fill="var(--accent)"/>
+                <text class="zh" x="67" y="85" font-size="8.5" text-anchor="middle" fill="var(--warn)">底部外擴裙邊</text>
+                <text class="en" x="67" y="85" font-size="8.5" text-anchor="middle" fill="var(--warn)">Substrate Flare</text>
+                <text class="zh" x="67" y="142" font-size="8" text-anchor="middle" fill="var(--ink-soft)">基底鹼性毒化 / BARC</text>
+                <text class="en" x="67" y="142" font-size="8" text-anchor="middle" fill="var(--ink-soft)">Basic Substrate / TiN/SiN</text>
+              </g>
+
+              <!-- === ROW 1 === -->
+              <!-- 5. T-topping -->
+              <g transform="translate(25, 222)">
+                <rect width="134" height="158" rx="4" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+                <rect x="0" y="0" width="134" height="22" rx="4" fill="var(--border)" opacity="0.4"/>
+                <text class="zh" x="8" y="15" font-size="10" font-weight="700" fill="var(--warn)">5. T型頭 (T-topping)</text>
+                <text class="en" x="8" y="15" font-size="10" font-weight="700" fill="var(--warn)">5. T-topping Profile</text>
+                <rect x="12" y="115" width="110" height="12" fill="#64748b"/>
+                <rect x="12" y="112" width="110" height="3" fill="#94a3b8"/>
+                <path d="M 24 55 L 56 55 L 56 68 L 48 68 L 48 112 L 32 112 L 32 68 L 24 68 Z" fill="var(--accent)"/>
+                <path d="M 78 55 L 110 55 L 110 68 L 102 68 L 102 112 L 86 112 L 86 68 L 78 68 Z" fill="var(--accent)"/>
+                <text class="zh" x="67" y="50" font-size="8.5" text-anchor="middle" fill="var(--danger)">空氣胺類中和</text>
+                <text class="en" x="67" y="50" font-size="8.5" text-anchor="middle" fill="var(--danger)">Amine Neutralization</text>
+                <text class="zh" x="67" y="142" font-size="8" text-anchor="middle" fill="var(--ink-soft)">環境 AMC 污染 / PED 延遲</text>
+                <text class="en" x="67" y="142" font-size="8" text-anchor="middle" fill="var(--ink-soft)">Airborne Amine / PED Delay</text>
+              </g>
+
+              <!-- 6. Pinholes -->
+              <g transform="translate(169, 222)">
+                <rect width="134" height="158" rx="4" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+                <rect x="0" y="0" width="134" height="22" rx="4" fill="var(--border)" opacity="0.4"/>
+                <text class="zh" x="8" y="15" font-size="10" font-weight="700" fill="var(--danger)">6. 針孔缺陷 (Pinholes)</text>
+                <text class="en" x="8" y="15" font-size="10" font-weight="700" fill="var(--danger)">6. Micro-Pinholes</text>
+                <rect x="12" y="115" width="110" height="12" fill="#64748b"/>
+                <rect x="12" y="112" width="110" height="3" fill="#94a3b8"/>
+                <rect x="22" y="60" width="90" height="52" fill="var(--accent)"/>
+                <ellipse cx="40" cy="86" rx="3.5" ry="12" fill="var(--danger)"/>
+                <ellipse cx="68" cy="80" rx="3" ry="10" fill="var(--danger)"/>
+                <ellipse cx="90" cy="92" rx="2.5" ry="8" fill="var(--danger)"/>
+                <text class="zh" x="67" y="52" font-size="8.5" text-anchor="middle" fill="var(--danger)">蝕刻打穿破孔</text>
+                <text class="en" x="67" y="52" font-size="8.5" text-anchor="middle" fill="var(--danger)">Etch Punch-through</text>
+                <text class="zh" x="67" y="142" font-size="8" text-anchor="middle" fill="var(--ink-soft)">配管微氣泡 / 塗膠空隙</text>
+                <text class="en" x="67" y="142" font-size="8" text-anchor="middle" fill="var(--ink-soft)">Micro-bubbles / Spin Voids</text>
+              </g>
+
+              <!-- 7. Line-edge Roughness (LER) -->
+              <g transform="translate(313, 222)">
+                <rect width="134" height="158" rx="4" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+                <rect x="0" y="0" width="134" height="22" rx="4" fill="var(--border)" opacity="0.4"/>
+                <text class="zh" x="8" y="15" font-size="10" font-weight="700" fill="var(--warn)">7. 線緣粗糙度 (LER/LWR)</text>
+                <text class="en" x="8" y="15" font-size="10" font-weight="700" fill="var(--warn)">7. Line-Edge Roughness</text>
+                <rect x="12" y="115" width="110" height="12" fill="#64748b"/>
+                <rect x="12" y="112" width="110" height="3" fill="#94a3b8"/>
+                <path d="M 30 55 Q 34 68 28 80 Q 35 92 31 104 L 31 112 L 53 112 Q 49 104 55 92 Q 48 80 52 68 L 52 55 Z" fill="var(--accent)"/>
+                <path d="M 81 55 Q 85 68 79 80 Q 86 92 82 104 L 82 112 L 104 112 Q 100 104 106 92 Q 99 80 103 68 L 103 55 Z" fill="var(--accent)"/>
+                <text class="zh" x="67" y="50" font-size="8.5" text-anchor="middle" fill="var(--warn)">鋸齒邊界起伏</text>
+                <text class="en" x="67" y="50" font-size="8.5" text-anchor="middle" fill="var(--warn)">Jagged Sidewalls</text>
+                <text class="zh" x="67" y="142" font-size="8" text-anchor="middle" fill="var(--ink-soft)">散粒雜訊 / 酸擴散統計</text>
+                <text class="en" x="67" y="142" font-size="8" text-anchor="middle" fill="var(--ink-soft)">Photon Noise / Acid Blur</text>
+              </g>
+
+              <!-- 8. Standing Waves -->
+              <g transform="translate(457, 222)">
+                <rect width="134" height="158" rx="4" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+                <rect x="0" y="0" width="134" height="22" rx="4" fill="var(--border)" opacity="0.4"/>
+                <text class="zh" x="8" y="15" font-size="10" font-weight="700" fill="var(--ink)">8. 駐波效應 (Standing Waves)</text>
+                <text class="en" x="8" y="15" font-size="10" font-weight="700" fill="var(--ink)">8. Standing Waves</text>
+                <rect x="12" y="115" width="110" height="12" fill="#64748b"/>
+                <rect x="12" y="112" width="110" height="3" fill="#94a3b8"/>
+                <path d="M 35 55 C 38 62, 38 65, 33 70 C 38 75, 38 80, 33 85 C 38 90, 38 95, 33 100 C 38 105, 38 110, 35 112 L 55 112 C 52 110, 52 105, 57 100 C 52 95, 52 90, 57 85 C 52 80, 52 75, 57 70 C 52 65, 52 62, 55 55 Z" fill="var(--accent)"/>
+                <path d="M 79 55 C 82 62, 82 65, 77 70 C 82 75, 82 80, 77 85 C 82 90, 82 95, 77 100 C 82 105, 82 110, 79 112 L 99 112 C 96 110, 96 105, 101 100 C 96 95, 96 90, 101 85 C 96 80, 96 75, 101 70 C 96 65, 96 62, 99 55 Z" fill="var(--accent)"/>
+                <text class="zh" x="67" y="50" font-size="8.5" text-anchor="middle" fill="var(--ink-soft)">側壁週期干涉波紋</text>
+                <text class="en" x="67" y="50" font-size="8.5" text-anchor="middle" fill="var(--ink-soft)">Optical Interference</text>
+                <text class="zh" x="67" y="142" font-size="8" text-anchor="middle" fill="var(--ink-soft)">基板反射 / BARC 失效</text>
+                <text class="en" x="67" y="142" font-size="8" text-anchor="middle" fill="var(--ink-soft)">Substrate Refl / Poor BARC</text>
+              </g>
+
+              <!-- === ROW 2 === -->
+              <!-- 9. Missing Patterns -->
+              <g transform="translate(25, 392)">
+                <rect width="134" height="158" rx="4" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+                <rect x="0" y="0" width="134" height="22" rx="4" fill="var(--border)" opacity="0.4"/>
+                <text class="zh" x="8" y="15" font-size="10" font-weight="700" fill="var(--danger)">9. 圖案缺失 (Missing)</text>
+                <text class="en" x="8" y="15" font-size="10" font-weight="700" fill="var(--danger)">9. Missing Patterns</text>
+                <rect x="12" y="115" width="110" height="12" fill="#64748b"/>
+                <rect x="12" y="112" width="110" height="3" fill="#94a3b8"/>
+                <rect x="25" y="55" width="22" height="57" fill="var(--accent)"/>
+                <rect x="87" y="55" width="22" height="57" fill="none" stroke="var(--danger)" stroke-dasharray="3,3" stroke-width="1.5"/>
+                <line x1="83" y1="50" x2="113" y2="117" stroke="var(--danger)" stroke-width="2"/>
+                <text class="zh" x="67" y="48" font-size="8.5" text-anchor="middle" fill="var(--danger)">圖案完全丟失</text>
+                <text class="en" x="67" y="48" font-size="8.5" text-anchor="middle" fill="var(--danger)">Pattern Missing</text>
+                <text class="zh" x="67" y="142" font-size="8" text-anchor="middle" fill="var(--ink-soft)">光罩落塵 / 過度曝光剝離</text>
+                <text class="en" x="67" y="142" font-size="8" text-anchor="middle" fill="var(--ink-soft)">Reticle Particle / Peeling</text>
+              </g>
+
+              <!-- 10. Residue -->
+              <g transform="translate(169, 392)">
+                <rect width="134" height="158" rx="4" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+                <rect x="0" y="0" width="134" height="22" rx="4" fill="var(--border)" opacity="0.4"/>
+                <text class="zh" x="8" y="15" font-size="10" font-weight="700" fill="var(--danger)">10. 顆粒殘留 (Residue)</text>
+                <text class="en" x="8" y="15" font-size="10" font-weight="700" fill="var(--danger)">10. Polymer Residue</text>
+                <rect x="12" y="115" width="110" height="12" fill="#64748b"/>
+                <rect x="12" y="112" width="110" height="3" fill="#94a3b8"/>
+                <rect x="25" y="70" width="84" height="42" fill="var(--accent)"/>
+                <polygon points="40,68 44,62 48,69 45,73" fill="var(--danger)"/>
+                <polygon points="70,66 76,58 82,65 77,72" fill="var(--danger)"/>
+                <polygon points="56,71 61,64 66,70 62,75" fill="var(--danger)"/>
+                <text class="zh" x="67" y="50" font-size="8.5" text-anchor="middle" fill="var(--danger)">去阻/顯影顆粒殘存</text>
+                <text class="en" x="67" y="50" font-size="8.5" text-anchor="middle" fill="var(--danger)">Incomplete Strip</text>
+                <text class="zh" x="67" y="142" font-size="8" text-anchor="middle" fill="var(--ink-soft)">清洗不足 / 聚合物沉積</text>
+                <text class="en" x="67" y="142" font-size="8" text-anchor="middle" fill="var(--ink-soft)">Poor Clean / Ash Failure</text>
+              </g>
+
+              <!-- 11. Overlay Error -->
+              <g transform="translate(313, 392)">
+                <rect width="134" height="158" rx="4" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+                <rect x="0" y="0" width="134" height="22" rx="4" fill="var(--border)" opacity="0.4"/>
+                <text class="zh" x="8" y="15" font-size="10" font-weight="700" fill="var(--danger)">11. 疊對誤差 (Overlay)</text>
+                <text class="en" x="8" y="15" font-size="10" font-weight="700" fill="var(--danger)">11. Overlay Misalignment</text>
+                <rect x="12" y="115" width="110" height="12" fill="#64748b"/>
+                <rect x="12" y="112" width="110" height="3" fill="#94a3b8"/>
+                <rect x="35" y="90" width="30" height="22" fill="#b45309"/>
+                <rect x="52" y="55" width="30" height="35" fill="var(--accent)"/>
+                <line x1="35" y1="52" x2="35" y2="88" stroke="#b45309" stroke-dasharray="2,2"/>
+                <line x1="52" y1="52" x2="52" y2="88" stroke="var(--accent)" stroke-dasharray="2,2"/>
+                <line x1="35" y1="50" x2="52" y2="50" stroke="var(--danger)" stroke-width="1.5" marker-end="url(#arrowD)"/>
+                <text class="zh" x="67" y="44" font-size="8.5" text-anchor="middle" fill="var(--danger)">對準偏移 Delta</text>
+                <text class="en" x="67" y="44" font-size="8.5" text-anchor="middle" fill="var(--danger)">Overlay Shift Delta</text>
+                <text class="zh" x="67" y="142" font-size="8" text-anchor="middle" fill="var(--ink-soft)">機台熱形變 / 標記損傷</text>
+                <text class="en" x="67" y="142" font-size="8" text-anchor="middle" fill="var(--ink-soft)">Stage Drift / CMP Marks</text>
+              </g>
+
+              <!-- 12. Lift-off Defects -->
+              <g transform="translate(457, 392)">
+                <rect width="134" height="158" rx="4" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+                <rect x="0" y="0" width="134" height="22" rx="4" fill="var(--border)" opacity="0.4"/>
+                <text class="zh" x="8" y="15" font-size="10" font-weight="700" fill="var(--warn)">12. 剝離缺陷 (Lift-off)</text>
+                <text class="en" x="8" y="15" font-size="10" font-weight="700" fill="var(--warn)">12. Lift-off Defects</text>
+                <rect x="12" y="115" width="110" height="12" fill="#64748b"/>
+                <rect x="12" y="112" width="110" height="3" fill="#94a3b8"/>
+                <rect x="42" y="98" width="50" height="14" fill="#cbd5e1" stroke="#475569" stroke-width="1"/>
+                <path d="M 42 98 L 36 78 L 40 79 L 44 98 Z" fill="var(--danger)"/>
+                <path d="M 92 98 L 98 78 L 94 79 L 90 98 Z" fill="var(--danger)"/>
+                <text class="zh" x="67" y="70" font-size="8.5" text-anchor="middle" fill="var(--danger)">邊緣兔耳毛刺</text>
+                <text class="en" x="67" y="70" font-size="8.5" text-anchor="middle" fill="var(--danger)">Bunny Ears / Burrs</text>
+                <text class="zh" x="67" y="142" font-size="8" text-anchor="middle" fill="var(--ink-soft)">無反錐倒角 / 側壁鍍膜</text>
+                <text class="en" x="67" y="142" font-size="8" text-anchor="middle" fill="var(--ink-soft)">No Undercut / Side Dep</text>
+              </g>
+
+              <!-- RIGHT PANEL: FOUNDRY INTERFACE & ESCALATION PROTOCOL -->
+              <rect x="615" y="15" width="330" height="560" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1"/>
+              <text class="zh" x="630" y="38" font-size="13" font-weight="700" fill="var(--accent)">晶圓代工廠 (Fab) 跨部門對接與閉環 SOP</text>
+              <text class="en" x="630" y="38" font-size="13" font-weight="700" fill="var(--accent)">Foundry Escalation &amp; Closed-Loop SOP</text>
+
+              <!-- Step 1: Golden Package -->
+              <g transform="translate(625, 52)">
+                <rect width="310" height="106" rx="5" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.2"/>
+                <circle cx="20" cy="18" r="9" fill="var(--accent)"/>
+                <text x="20" y="22" font-size="10" font-weight="700" fill="#fff" text-anchor="middle">1</text>
+                <text class="zh" x="36" y="22" font-size="11" font-weight="700" fill="var(--ink)">黃金數據五件包 (Golden 5-Pack)</text>
+                <text class="en" x="36" y="22" font-size="11" font-weight="700" fill="var(--ink)">Stage 1: Golden 5-Piece Data Package</text>
+                <text class="zh" x="15" y="44" font-size="9" fill="var(--ink-soft)">• <tspan font-weight="700">CD-SEM</tspan>: Top-down 與 45° 傾斜實測顯微圖</text>
+                <text class="en" x="15" y="44" font-size="9" fill="var(--ink-soft)">• CD-SEM top-down &amp; 45° tilt microscopic imagery</text>
+                <text class="zh" x="15" y="60" font-size="9" fill="var(--ink-soft)">• <tspan font-weight="700">KLARF</tspan>: 缺陷座標檔 (Defect ID, X/Y, Cluster)</text>
+                <text class="en" x="15" y="60" font-size="9" fill="var(--ink-soft)">• KLARF inspection logs (X/Y coordinates, clusters)</text>
+                <text class="zh" x="15" y="76" font-size="9" fill="var(--ink-soft)">• <tspan font-weight="700">STDF 疊圖</tspan>: 缺陷與 CP Bin (短/斷路) 疊合率</text>
+                <text class="en" x="15" y="76" font-size="9" fill="var(--ink-soft)">• STDF wafer map overlay with short/open Bins</text>
+                <text class="zh" x="15" y="92" font-size="9" fill="var(--ink-soft)">• <tspan font-weight="700">GDSII Clip</tspan>: 局部版圖節距與周邊圖案對照</text>
+                <text class="en" x="15" y="92" font-size="9" fill="var(--ink-soft)">• GDSII/OASIS layout pitch &amp; DRC neighborhood</text>
+              </g>
+
+              <path d="M 780 160 L 780 174" stroke="var(--accent)" stroke-width="2" marker-end="url(#arrowL)"/>
+
+              <!-- Step 2: Triangulation Decision -->
+              <g transform="translate(625, 178)">
+                <rect width="310" height="120" rx="5" fill="var(--surface)" stroke="var(--warn)" stroke-width="1.2"/>
+                <circle cx="20" cy="18" r="9" fill="var(--warn)"/>
+                <text x="20" y="22" font-size="10" font-weight="700" fill="#fff" text-anchor="middle">2</text>
+                <text class="zh" x="36" y="22" font-size="11" font-weight="700" fill="var(--ink)">真因歸屬判定樹 (Triangulation Tree)</text>
+                <text class="en" x="36" y="22" font-size="11" font-weight="700" fill="var(--ink)">Stage 2: Root Cause Triangulation</text>
+                <text class="zh" x="15" y="44" font-size="9" fill="var(--danger)">• <tspan font-weight="700">Reticle 重複</tspan>: 曝光區同座標固定出現 ➔ 光罩缺陷</text>
+                <text class="en" x="15" y="44" font-size="9" fill="var(--danger)">• Within-reticle repeater: Identical die X/Y ➔ Mask defect</text>
+                <text class="zh" x="15" y="62" font-size="9" fill="var(--warn)">• <tspan font-weight="700">Wafer 環狀</tspan>: 邊緣環分佈 ➔ Track EBR / 排風 / 研磨</text>
+                <text class="en" x="15" y="62" font-size="9" fill="var(--warn)">• Wafer Edge Ring: Outer ring ➔ Track EBR/exhaust/CMP</text>
+                <text class="zh" x="15" y="80" font-size="9" fill="var(--accent)">• <tspan font-weight="700">單一機台共模</tspan>: 專屬特定 Scanner ➔ 鏡頭像差/雷射</text>
+                <text class="en" x="15" y="80" font-size="9" fill="var(--accent)">• Tool commonality: Tied to 1 Scanner ➔ Lens aberration</text>
+                <text class="zh" x="15" y="98" font-size="9" fill="var(--ink-soft)">• <tspan font-weight="700">隨機隨機分佈</tspan>: 全區散落 ➔ 化學過濾 / 配管氣泡</text>
+                <text class="en" x="15" y="98" font-size="9" fill="var(--ink-soft)">• Random stochastics: Scatter ➔ Chemical filter/bubbles</text>
+              </g>
+
+              <path d="M 780 300 L 780 314" stroke="var(--warn)" stroke-width="2" marker-end="url(#arrowL)"/>
+
+              <!-- Step 3: Containment & 8D -->
+              <g transform="translate(625, 318)">
+                <rect width="310" height="112" rx="5" fill="var(--surface)" stroke="var(--danger)" stroke-width="1.2"/>
+                <circle cx="20" cy="18" r="9" fill="var(--danger)"/>
+                <text x="20" y="22" font-size="10" font-weight="700" fill="#fff" text-anchor="middle">3</text>
+                <text class="zh" x="36" y="22" font-size="11" font-weight="700" fill="var(--ink)">晶圓廠緊急圍堵 (Immediate Containment)</text>
+                <text class="en" x="36" y="22" font-size="11" font-weight="700" fill="var(--ink)">Stage 3: Foundry WIP Containment &amp; 8D</text>
+                <text class="zh" x="15" y="44" font-size="9" fill="var(--danger)">• <tspan font-weight="700">WIP Hold</tspan>: 扣留同機台/同批光阻產線在製品</text>
+                <text class="en" x="15" y="44" font-size="9" fill="var(--danger)">• Instant WIP hold on matching Scanner/Track lots</text>
+                <text class="zh" x="15" y="62" font-size="9" fill="var(--ink-soft)">• <tspan font-weight="700">FEM 驗證</tspan>: 調閱 Bossung 曲線與製程裕度 (PWQ)</text>
+                <text class="en" x="15" y="62" font-size="9" fill="var(--ink-soft)">• Retrieve FEM Bossung margins &amp; PWQ window</text>
+                <text class="zh" x="15" y="80" font-size="9" fill="var(--ink-soft)">• <tspan font-weight="700">STARlight 查檢</tspan>: 光罩落塵與護膜 (Pellicle) 穿透</text>
+                <text class="en" x="15" y="80" font-size="9" fill="var(--ink-soft)">• Reticle STARlight scan &amp; pellicle integrity check</text>
+                <text class="zh" x="15" y="98" font-size="9" fill="var(--ink-soft)">• <tspan font-weight="700">環境監控</tspan>: 潔淨室化學濾網氣態胺 (AMC) 濃度</text>
+                <text class="en" x="15" y="98" font-size="9" fill="var(--ink-soft)">• Verify AMC filter logs for airborne amines &lt; 1 ppb</text>
+              </g>
+
+              <path d="M 780 432 L 780 446" stroke="var(--danger)" stroke-width="2" marker-end="url(#arrowL)"/>
+
+              <!-- Step 4: Closed-Loop Fix -->
+              <g transform="translate(625, 450)">
+                <rect width="310" height="108" rx="5" fill="var(--surface)" stroke="var(--good)" stroke-width="1.2"/>
+                <circle cx="20" cy="18" r="9" fill="var(--good)"/>
+                <text x="20" y="22" font-size="10" font-weight="700" fill="#fff" text-anchor="middle">4</text>
+                <text class="zh" x="36" y="22" font-size="11" font-weight="700" fill="var(--ink)">雙向閉環根治與防禦 (Closed-Loop Fix)</text>
+                <text class="en" x="36" y="22" font-size="11" font-weight="700" fill="var(--ink)">Stage 4: Permanent Corrective Action (PCA)</text>
+                <text class="zh" x="15" y="44" font-size="9" fill="var(--good)">• <tspan font-weight="700">Fab 端對策</tspan>: 優化 PEB 均勻度、BARC 厚度與 APC</text>
+                <text class="en" x="15" y="44" font-size="9" fill="var(--good)">• Fab: Optimize PEB uniformity, BARC &amp; R2R APC</text>
+                <text class="zh" x="15" y="62" font-size="9" fill="var(--accent)">• <tspan font-weight="700">設計端 DFM</tspan>: 增加輔助特徵 (SRAF)、冗餘通孔</text>
+                <text class="en" x="15" y="62" font-size="9" fill="var(--accent)">• Design: Add SRAF, redundant vias &amp; widen necks</text>
+                <text class="zh" x="15" y="80" font-size="9" fill="var(--ink-soft)">• <tspan font-weight="700">合約賠償</tspan>: 依 Scrap Allowance 啟動保證補片</text>
+                <text class="en" x="15" y="80" font-size="9" fill="var(--ink-soft)">• Commercial: Execute scrap allowance wafer compensation</text>
+                <text class="zh" x="15" y="98" font-size="9" fill="var(--ink-soft)">• <tspan font-weight="700">標準化</tspan>: 更新 FMEA、Control Plan 與 8D 結案</text>
+                <text class="en" x="15" y="98" font-size="9" fill="var(--ink-soft)">• Audit: Update FMEA, Control Plan &amp; close 8D</text>
+              </g>
+
+            </svg>
+            <figcaption class="figure-caption">
+              <span class="zh">圖 4.3：微影光阻 12 大圖案缺陷微觀斷面圖鑑 (Lithography Defect Atlas) 與 晶圓代工廠 (Fab) 跨部門對接溝通、責任歸屬判定與 8D 閉環 SOP 全流程圖</span>
+              <span class="en">Figure 4.3: 12 Photoresist Patterning Defects Cross-Sectional Atlas &amp; Foundry Engineering Technical Escalation, Root-Cause Triangulation and 8D Closed-Loop SOP</span>
+            </figcaption>
+          </figure>
+
+          <!-- SUBSECTION 4.6.1 -->
+          <h4 id="sec_4_6_1">
+            <span class="zh">4.6.1 微影光阻 12 大圖案缺陷深度物理化學成因與工程解法全解</span>
+            <span class="en">4.6.1 In-Depth Physics of Failure &amp; Engineering Solutions for the 12 Lithography Defects</span>
+          </h4>
+
+          <p>
+            <span class="zh">
+              為使良率工程師（YE）、失效分析工程師（FA）與晶圓整合工程師（PIE）具備共同的工程語言，下表歸納了先進微影工程中最常見的 12 種經典光阻與圖案化缺陷模式（見圖 4.3），詳列其物理/化學失效機理（Physics of Failure, PoF）、電性良率破壞途徑、晶圓廠製程解法與機台模組歸屬：
+            </span>
+            <span class="en">
+              To provide Yield Engineers (YE), Failure Analysis Engineers (FA), and Process Integration Engineers (PIE) with a unified technical vocabulary, the following matrix categorizes the 12 canonical photoresist and patterning defect modes (illustrated in Figure 4.3), detailing their physics/chemistry of failure (PoF), electrical yield failure modes, fab engineering recipes, and equipment module attribution:
+            </span>
+          </p>
+
+          <div class="data-table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th><span class="zh">微影圖案缺陷</span><span class="en">Lithography Defect</span></th>
+                  <th><span class="zh">微觀特徵與物理化學失效機理 (PoF)</span><span class="en">Morphology &amp; Physics/Chemistry of Failure</span></th>
+                  <th><span class="zh">電性良率與可靠度破壞途徑</span><span class="en">Electrical Yield &amp; Reliability Impact</span></th>
+                  <th><span class="zh">晶圓廠 (Fab) 工程解法與參數優化</span><span class="en">Fab Engineering Solutions &amp; Recipes</span></th>
+                  <th><span class="zh">責任模組與量測指標</span><span class="en">Accountable Module &amp; Metrology</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b><span class="zh">1. 光阻橋接<br>(Resist Bridging)</span><span class="en">1. Resist Bridging</span></b></td>
+                  <td>
+                    <span class="zh">相鄰兩條光阻線在局部發生熔接連橋。<b>根因</b>：正光阻曝光劑量不足（Under-dose）、離焦（De-focus 超出瑞利焦深 DOF）、光學鄰近效應（OPE）強烈、顯影液沖洗時表面張力拉扯或光阻分子膨脹（Swelling）。</span>
+                    <span class="en">Adjacent resist lines fuse locally. <b>Root Cause</b>: Under-exposure dose in positive PR, de-focus beyond Rayleigh DOF, severe optical proximity effects (OPE), resist swelling, or meniscus capillary pull during rinse.</span>
+                  </td>
+                  <td>
+                    <span class="zh">蝕刻後轉移為金屬或多晶矽相鄰短路；引致晶片電源-地線（\(V_{DD}\)-\(V_{SS}\)）大漏電、靜態 IDDQ 爆發、邏輯 Scan Chain 固定型短路故障（Stuck-at-1/0）。</span>
+                    <span class="en">Transfers into metallization or polysilicon bridge shorts; triggers \(V_{DD}\)-\(V_{SS}\) power shorts, massive IDDQ leakage spikes, and Scan Chain stuck-at faults.</span>
+                  </td>
+                  <td>
+                    <span class="zh">① 增加曝光劑量（+ Dose）；② 重新校正曝光機焦平面（Best Focus Calibration）；③ 優化光學鄰近校正（OPC）加入反向微縮或次解析度輔助特徵（SRAF）；④ 顯影清洗加入低表面張力界面活性劑。</span>
+                    <span class="en">① Increase exposure dose; ② Re-calibrate scanner best focus; ③ Optimize OPC rules by adding SRAF scattering bars; ④ Introduce surfactant rinse with ultra-low surface tension.</span>
+                  </td>
+                  <td>
+                    <span class="zh"><b>Scanner (曝光機)</b><br>• CD-SEM 局部橋接率<br>• Bossung 曲線離焦邊界</span>
+                    <span class="en"><b>Scanner Module</b><br>• CD-SEM bridge rate<br>• Bossung curve defocus margin</span>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td><b><span class="zh">2. 底部殘膠<br>(Scumming)</span><span class="en">2. Scumming</span></b></td>
+                  <td>
+                    <span class="zh">溝槽或接觸孔底部殘留一層薄薄未溶解的光阻膠層。<b>根因</b>：曝光劑量邊緣衰減（光阻厚度深層光吸收導致底部酸分子不足）、顯影時間（Puddle Time）不足、顯影液濃度（TMAH 2.38%）降低或溫度偏低、介面酸淬滅。</span>
+                    <span class="en">Thin layer of unremoved resist stranding at trench/via bottoms. <b>Root Cause</b>: Light absorption attenuation along PR depth yielding inadequate photo-acid at bottom, insufficient TMAH puddle time, or basic substrate quenching.</span>
+                  </td>
+                  <td>
+                    <span class="zh">殘膠充當微型阻擋遮罩（Micro-mask），阻擋後續乾式蝕刻穿透；引致接觸孔/通孔開路（Contact/Via Unopen）、盲孔，或金屬阻抗大幅飆高（\(R_c\) 離群值）。</span>
+                    <span class="en">Acts as micro-mask blocking etch chemistry; causes contact/via unopen, blind vias, and severe contact resistance (\(R_c\)) outlier spikes.</span>
+                  </td>
+                  <td>
+                    <span class="zh">① 提高曝光能量克服深層光吸收；② 提高曝光後烘烤（PEB）溫度以增強酸擴散（Acid Diffusion）；③ 延長顯影攪拌時間；④ 在乾蝕刻前增加一道微氧電漿去殘膠程序（\(O_2\) Descum Clean）。</span>
+                    <span class="en">① Increase exposure dose; ② Raise PEB temperature to boost acid diffusion; ③ Extend TMAH developer puddle time; ④ Introduce soft \(O_2\) plasma descum clean prior to main etch.</span>
+                  </td>
+                  <td>
+                    <span class="zh"><b>Track (顯影機台)</b><br>• 傾斜 45° CD-SEM<br>• Contact 開孔阻抗試片</span>
+                    <span class="en"><b>Track Module</b><br>• 45° tilt CD-SEM<br>• Kelvin Via Chain \(R_c\)</span>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td><b><span class="zh">3. 圖案倒塌<br>(Pattern Collapse)</span><span class="en">3. Pattern Collapse</span></b></td>
+                  <td>
+                    <span class="zh">高深寬比（Aspect Ratio &gt; 3:1）細長光阻線條彎曲、傾倒或相互黏合。<b>根因</b>：去離子水顯影清洗液乾燥蒸發時，相鄰線條間彎月面（Meniscus）毛細管負壓拉扯：\[\sigma_{\text{max}} = \frac{6 \gamma \cos\theta}{d} \left(\frac{H}{W}\right)^2\]</span>
+                    <span class="en">Tall, high-aspect-ratio (HAR &gt; 3:1) resist lines bend, lean, or touch adjacent lines. <b>Root Cause</b>: Capillary meniscus tensile forces between features during deionized water rinse drying pull lines together.</span>
+                  </td>
+                  <td>
+                    <span class="zh">倒塌處在蝕刻後形成局部大面積叢聚短路，或斷裂造成斷線開路；晶圓圖呈現散落式局部低良率缺陷群（Defect Clusters）。</span>
+                    <span class="en">Collapsed structures etch into random large-area shorts or open breaks; manifests as localized defect clusters on CP wafer maps.</span>
+                  </td>
+                  <td>
+                    <span class="zh">① 減薄光阻厚度（降低深寬比），改用硬遮罩（Hardmask，如 TiN/SiON/SOC）；② 改用低表面張力清洗液（Rinse Surfactants）降低毛細力；③ 先進節點導入超臨界二氧化碳乾燥（Supercritical \(CO_2\) Drying）。</span>
+                    <span class="en">① Thin photoresist thickness by adopting multi-layer hardmasks (SOC/SOG/TiN); ② Deploy ultra-low surface tension rinse chemicals; ③ Implement Supercritical \(CO_2\) drying for sub-7nm.</span>
+                  </td>
+                  <td>
+                    <span class="zh"><b>PR 材料 / Track</b><br>• 暗場缺陷檢測 (KLA)<br>• 深寬比力學安全係數</span>
+                    <span class="en"><b>Resist Chemistry / Track</b><br>• Darkfield Defect Scan (KLA)<br>• HAR Aspect Ratio Margin</span>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td><b><span class="zh">4. 底部裙邊<br>(Footing)</span><span class="en">4. Resist Footing</span></b></td>
+                  <td>
+                    <span class="zh">光阻側壁底部未呈直角垂直，而是朝外喇叭狀擴展。<b>根因</b>：基底化學毒化（Substrate Interaction）：含氮或鹼性基底（如 \(Si_3N_4\)、TiN、殘留胺基化合物）與化學增幅光阻（CAR）中釋放的光酸發生中和反应，使底層光阻無法去保護溶解。</span>
+                    <span class="en">Resist sidewalls flare outward at the base instead of a vertical 90° profile. <b>Root Cause</b>: Basic/amine-rich underlying substrates (\(Si_3N_4\), TiN) chemically neutralize photo-generated acid at the interface.</span>
+                  </td>
+                  <td>
+                    <span class="zh">蝕刻後底層線寬（Bottom CD）異常膨脹變粗；造成鄰近接觸孔安全間距不足、介層窗寄生電容暴增，嚴重時引致對位短路。</span>
+                    <span class="en">Post-etch bottom CD flares wider than nominal; shrinks neighbor dielectric spacing, blows out parasitic capacitance, and causes contact-to-gate shorts.</span>
+                  </td>
+                  <td>
+                    <span class="zh">① 在基底沉積抗反射層（BARC）隔離鹼性基底；② 塗阻前執行表面電漿鈍化處理（\(N_2O\) 或 \(O_2\) Plasma Pre-treatment）；③ 提高底層 HMDS 蒸氣底塗烘烤溫度；④ 調配含微酸保護之光阻配方。</span>
+                    <span class="en">① Coat bottom anti-reflective coating (BARC) to isolate basic substrates; ② Apply surface plasma passivation (\(N_2O/O_2\) plasma); ③ Optimize HMDS vapor priming bake; ④ Reformulate resist with acid buffers.</span>
+                  </td>
+                  <td>
+                    <span class="zh"><b>Thin Film / Track</b><br>• 橫截面 SEM / TEM<br>• BARC 厚度與折射率 n/k</span>
+                    <span class="en"><b>Thin Film / Track</b><br>• Cross-sectional SEM/TEM<br>• BARC thickness &amp; optical n/k</span>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td><b><span class="zh">5. T 型頭<br>(T-topping)</span><span class="en">5. T-topping Profile</span></b></td>
+                  <td>
+                    <span class="zh">光阻頂部向兩側橫向擴展，剖面呈現「T」字或蘑菇狀突出（Overhang）。<b>根因</b>：空氣中氣態分子污染物（AMC），特別是微量鹼性氣態胺（\(NH_3\)、NMP，濃度即便僅 1 ppb）中和了光阻表面產生的光酸，導致頂層光阻無法被鹼性顯影液溶解。</span>
+                    <span class="en">Resist tops flare outward creating a mushroom or "T" overhang. <b>Root Cause</b>: Airborne Molecular Contamination (AMC) in cleanrooms (airborne \(NH_3\), NMP &gt; 1 ppb) neutralizes surface photo-acid during post-exposure delay (PED).</span>
+                  </td>
+                  <td>
+                    <span class="zh">T型突起在離子注入時產生阻擋陰影（Shadowing Effect），引致離子注入不對稱；在乾蝕刻時突起折斷成為致命微粒，引發後續嚴重微缺陷。</span>
+                    <span class="en">Overhangs cast shadowing profiles during ion implantation; overhang fragments break off during dry etch as killer mobile flakes, contaminating downstream lots.</span>
+                  </td>
+                  <td>
+                    <span class="zh">① 嚴格控管塗膠曝光至烘烤間之延遲時間（Post-Exposure Delay, PED &lt; 15 分鐘）；② 曝光機與 Track 機台全部加裝化學吸附空氣濾網（AMC Chemical Filters）；③ 表面塗佈頂層抗反射保護層（TARC）。</span>
+                    <span class="en">① Enforce clustered track-scanner interface (PED &lt; 15 min); ② Deploy chemical chemisorption filters on all litho enclosures to keep amines &lt; 0.5 ppb; ③ Apply protective Top ARC (TARC).</span>
+                  </td>
+                  <td>
+                    <span class="zh"><b>Facility (潔淨室) / Track</b><br>• AMC 胺類即時感測器<br>• PED 延遲時間 SPC 監控</span>
+                    <span class="en"><b>Facility Cleanroom / Track</b><br>• Real-time AMC amine sensors<br>• PED wait-time SPC monitor</span>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td><b><span class="zh">6. 針孔缺陷<br>(Pinholes)</span><span class="en">6. Micro-Pinholes</span></b></td>
+                  <td>
+                    <span class="zh">光阻薄膜內部出現局部微細空洞或垂直穿透孔。<b>根因</b>：光阻注膠幫浦配管微氣泡（Micro-bubbles）、旋轉塗佈時排氣擾流產生溶劑微洞、基底局部未潤濕（Wetting Voids），或光阻過濾器破孔釋放微凝膠。</span>
+                    <span class="en">Microscopic voids or pinhole tunnels perforating the resist layer. <b>Root Cause</b>: Resist dispense pump micro-bubbles, turbulence during high-speed spin coating, substrate de-wetting voids, or sheared micro-gel particles.</span>
+                  </td>
+                  <td>
+                    <span class="zh">蝕刻化學氣體穿透針孔打穿絕緣介電層或金屬層；引發閘極氧化層崩潰（Gate Oxide Breakdown）、TDDB 早期夭折失效、多層金屬間盲短路。</span>
+                    <span class="en">Etchant penetrates pinhole voids, pitting underlying dielectrics or gates; causes premature TDDB dielectric breakdown, gate shorting, and random metal pitting.</span>
+                  </td>
+                  <td>
+                    <span class="zh">① 定期校準光阻塗佈吸回閥（Suck-back Valve）防止滴膠帶入氣泡；② 全面升級 1nm–2nm 超高分子量聚乙烯（UPE）光阻化學過濾網；③ 提高基底 HMDS 氣相預塗潤濕性。</span>
+                    <span class="en">① Calibrate nozzle suck-back valves to prevent bubble entrainment; ② Upgrade to 1nm–2nm UPE chemical filters; ③ Increase HMDS vapor priming bake to ensure 100% surface wetting.</span>
+                  </td>
+                  <td>
+                    <span class="zh"><b>Track (注膠系統)</b><br>• 亮場缺陷檢測 (KLA 29xx)<br>• 閘極氧化層 TDDB 測試</span>
+                    <span class="en"><b>Track Dispense Module</b><br>• Brightfield Defect Scan (KLA)<br>• Gate Oxide TDDB E-test</span>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td><b><span class="zh">7. 線緣粗糙度<br>(LER / LWR)</span><span class="en">7. Line-Edge Roughness</span></b></td>
+                  <td>
+                    <span class="zh">光阻圖案邊界並非平整直線，而是呈現隨機奈米級鋸齒起伏。<b>根因</b>：先進曝光（特別是 EUV 13.5nm）光子密度極低引發之「光子散粒雜訊（Photon Shot Noise）」隨機性、聚合物分子聚集體尺寸與酸擴散距離統計波動。</span>
+                    <span class="en">Random nanoscale jagged edge fluctuations. <b>Root Cause</b>: Stochastic variations driven by photon shot noise (especially EUV low photon density), photo-acid diffusion blur statistics, and resist polymer aggregate size.</span>
+                  </td>
+                  <td>
+                    <span class="zh">蝕刻後轉移為電晶體閘極有效長度（\(L_{\text{eff}}\)\) 劇烈變異；引致臨界電壓（\(V_{th}\)\) 散佈變寬、次臨界漏電飆升、晶片最高運行頻率下降與 Cpk 劣化。</span>
+                    <span class="en">Transfers into effective gate length (\(L_{\text{eff}}\)) variation; widens \(V_{th}\) dispersion, surges sub-threshold \(I_{\text{off}}\) leakage, and degrades speed-binning Cpk.</span>
+                  </td>
+                  <td>
+                    <span class="zh">① 提高 EUV / DUV 曝光劑量以平抑光子散粒統計雜訊；② 改用分子量更小之分子玻璃或無機金屬氧化物光阻（MOx Resist）；③ 顯影後導入電漿平滑化硬化處理（\(H_2/Ar\) Plasma Cure）。</span>
+                    <span class="en">① Increase exposure dose to suppress photon shot noise stochastics; ② Transition to molecular glass or metal oxide photoresists (MOx); ③ Apply post-develop plasma smoothing (\(H_2/Ar\) cure).</span>
+                  </td>
+                  <td>
+                    <span class="zh"><b>EUV / DUV Scanner</b><br>• CD-SEM 3\(\sigma\) LER/LWR<br>• WAT 電晶體 \(V_{th}\) 標準差</span>
+                    <span class="en"><b>EUV / DUV Scanner</b><br>• CD-SEM 3\(\sigma\) LER/LWR<br>• WAT Transistor \(\sigma(V_{th})\)</span>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td><b><span class="zh">8. 駐波效應<br>(Standing Waves)</span><span class="en">8. Standing Waves</span></b></td>
+                  <td>
+                    <span class="zh">光阻側壁呈現週期性階梯狀或波紋起伏。<b>根因</b>：入射單色曝光光束與高反射率基底（Si, Al, Cu）向上反射光束發生相干光學干涉，在光阻深度方向形成波腹與波節強度週期分佈：\[P = \frac{\lambda}{2 n_{\text{resist}}}\]</span>
+                    <span class="en">Periodic horizontal ripples along resist sidewalls. <b>Root Cause</b>: Monochromatic incident exposure light interferes with substrate reflections (Si, metals), establishing stationary optical nodes and antinodes spaced at \(\lambda / (2n)\).</span>
+                  </td>
+                  <td>
+                    <span class="zh">光阻側壁在波節處產生極窄細頸（Necking）；乾蝕刻中細頸處過早被側向離子打穿，造成斷線開路、蝕刻倒角惡化與線寬嚴重失真。</span>
+                    <span class="en">Resist sidewall necks down at destructive nodes; thin necks breach prematurely during dry etch, triggering line pinches, open circuits, and degraded profile verticality.</span>
+                  </td>
+                  <td>
+                    <span class="zh">① 精準調配底部抗反射層（BARC）厚度 \(d = \lambda / (4n)\) 與消光係數 \(k\)，將反射率壓至 &lt; 0.5%；② 調高曝光後烘烤（PEB）溫度以熱擴散消除酸分佈波紋；③ 塗佈頂部 TARC。</span>
+                    <span class="en">① Optimize BARC thickness \(d = \lambda / (4n)\) and extinction coefficient \(k\) to damp substrate reflectance &lt; 0.5%; ② Increase PEB thermal budget to allow acid diffusion blur; ③ Apply TARC.</span>
+                  </td>
+                  <td>
+                    <span class="zh"><b>Thin Film / Track</b><br>• 光學橢偏儀 (Ellipsometry)<br>• 橫截面 SEM 側壁波紋度</span>
+                    <span class="en"><b>Thin Film / Track</b><br>• Spectroscopic Ellipsometer<br>• Cross-sectional SEM scallop depth</span>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td><b><span class="zh">9. 圖案缺失<br>(Missing Patterns)</span><span class="en">9. Missing Patterns</span></b></td>
+                  <td>
+                    <span class="zh">原本應完整顯影成形的光阻線條或接觸孔完全消失遺失。<b>根因</b>：光罩（Reticle）護膜上附著微粒落塵阻擋光束、光阻塗佈局部脫膜剝離、顯影液噴嘴局部阻塞、或巨量過度曝光（Over-dose）。</span>
+                    <span class="en">Expected resist lines or contact holes are completely absent. <b>Root Cause</b>: Fall-on particle on reticle/pellicle blocking exposure light, catastrophic resist lift-off, clogged developer nozzle, or extreme local over-dose.</span>
+                  </td>
+                  <td>
+                    <span class="zh">金屬走線完全斷開開路、接觸孔遺失造成浮接閘極（Floating Gate）；若為光罩缺陷，會在曝光視場（Shot）內每一顆晶粒同一座標 100% 致命複製！</span>
+                    <span class="en">Broken interconnect open circuits, missing contact vias causing floating gates; if mask-induced, replicates across 100% of dies within reticle fields!</span>
+                  </td>
+                  <td>
+                    <span class="zh">① 立即啟動光罩檢測（STARlight），執行光罩清洗或更換護膜（Pellicle）；② 校驗顯影機噴嘴流量分佈；③ 檢查曝光機雷射劑量感測器（Dose Sensor）校準值。</span>
+                    <span class="en">① Trigger instant reticle inspection (STARlight), mask wash or pellicle replacement; ② Inspect developer spray nozzle uniformities; ③ Re-calibrate scanner dose sensors.</span>
+                  </td>
+                  <td>
+                    <span class="zh"><b>Reticle (光罩) / Scanner</b><br>• STARlight 光罩檢測<br>• Reticle Repeater 座標分析</span>
+                    <span class="en"><b>Reticle / Scanner Module</b><br>• STARlight reticle scan<br>• Reticle Repeater defect parser</span>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td><b><span class="zh">10. 顆粒殘留<br>(Residue)</span><span class="en">10. Polymer Residue</span></b></td>
+                  <td>
+                    <span class="zh">去阻、顯影或清洗後，晶圓表面殘留不可溶聚合物沉澱、有機物或雜質顆粒。<b>根因</b>：去光阻電漿灰化（Ashing）溫度/時間不足、濕式去阻液（SPM 硫酸雙氧水）老化飽和、去離子水沖洗排液不良。</span>
+                    <span class="en">Loose insoluble polymer flakes, organic scum or particulate redeposition after develop/strip. <b>Root Cause</b>: Incomplete plasma ashing, exhausted piranha wet bench chemistry (SPM), or poor megasonic DI rinse.</span>
+                  </td>
+                  <td>
+                    <span class="zh">顆粒在後續成膜沉積中形成致命突起異物；引致相鄰導線微型搭接短路、CMP 拋光產生嚴重刮痕（Scratch）、微型短路引發長期可靠度漏電。</span>
+                    <span class="en">Particles form killer topographic lumps in subsequent layers; bridge neighboring lines, cause severe CMP scratches, and trigger latent field reliability shorts.</span>
+                  </td>
+                  <td>
+                    <span class="zh">① 強化後段去阻電漿灰化能量與氟化氣體（\(CF_4/O_2\)）；② 採用批次自動更換之高溫 SPM + SC1/SC2 清洗機台；③ 導入百萬兆赫（Megasonic）超音波去微粒清洗。</span>
+                    <span class="en">① Boost downstream \(CF_4/O_2\) plasma ashing energy; ② Implement automated bath replacement for high-temperature SPM + SC1/SC2 wet benches; ③ Deploy megasonic DI water agitation.</span>
+                  </td>
+                  <td>
+                    <span class="zh"><b>Wet Bench / Strip</b><br>• KLA Surfscan 全片顆粒計數<br>• EDX/FTIR 化學成份分析</span>
+                    <span class="en"><b>Wet Bench / Strip Module</b><br>• KLA Surfscan Particle Count<br>• EDX/FTIR Organic Fingerprinting</span>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td><b><span class="zh">11. 疊對誤差<br>(Overlay Error)</span><span class="en">11. Overlay Misalignment</span></b></td>
+                  <td>
+                    <span class="zh">當前微影層圖案與晶圓已存在之底層圖案發生幾何平移、旋轉、放大或梯形偏位（\(\Delta X, \Delta Y, \theta\)）。<b>根因</b>：曝光機晶圓載台雷射干涉儀漂移、晶圓高熱應力形變、CMP 研磨對準標記（Alignment Mark）非對稱磨損。</span>
+                    <span class="en">Geometric planar shift, rotation, magnification, or trapezoid skew between current and underlying layer. <b>Root Cause</b>: Scanner interferometer drift, thermal expansion under intense illumination, or asymmetric CMP mark erosion.</span>
+                  </td>
+                  <td>
+                    <span class="zh">接觸孔錯位未對準擴散區或閘極（Unlanded Via）；引致接觸面積銳減使接觸阻抗暴增，或直接與相鄰金屬搭接短路，突破邊緣放置誤差（EPE）預算。</span>
+                    <span class="en">Contact vias land off diffusion/gate pads (unlanded vias); causes via resistance spikes, contact-to-gate short circuits, and edge placement error (EPE) budget blowout.</span>
+                  </td>
+                  <td>
+                    <span class="zh">① 啟用高階疊對校正（High-Order Overlay, HOO / Correction-per-Exposure CPE）；② 重新設計 CMP 抗磨損對準標記（分段式微光柵標記）；③ 啟用 APC 即時逐片回饋修正（Run-to-Run Overlay APC）。</span>
+                    <span class="en">① Activate High-Order Overlay (HOO) and Correction-per-Exposure (CPE); ② Redesign alignment marks with CMP-resilient segmented gratings; ③ Enforce Run-to-Run (R2R) APC overlay feedback.</span>
+                  </td>
+                  <td>
+                    <span class="zh"><b>Scanner (對準系統)</b><br>• 光學疊對量測儀 (Archer)<br>• EPE 容限預算分析</span>
+                    <span class="en"><b>Scanner Alignment Subsystem</b><br>• Archer Overlay Metrology Tool<br>• Edge Placement Error (EPE) Budget</span>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td><b><span class="zh">12. 剝離缺陷<br>(Lift-off Defects)</span><span class="en">12. Lift-off Defects</span></b></td>
+                  <td>
+                    <span class="zh">金屬剝離製程中，金屬邊緣殘留翻起之毛刺、兔耳（Bunny Ears）或金屬膜撕裂脫落。<b>根因</b>：底層光阻剖面缺乏負斜率反錐倒角（Undercut Profile），使金屬沉積時在光阻側壁連續覆蓋成膜，溶劑無法順利浸潤剝離。</span>
+                    <span class="en">Torn metal burrs, bunny ears, or peeling shreds during solvent lift-off. <b>Root Cause</b>: Resist profile lacks re-entrant undercut sidewall slope; deposited metal coats sidewalls continuously, blocking solvent ingress.</span>
+                  </td>
+                  <td>
+                    <span class="zh">翻起的金屬兔耳在後續介電層沉積中刺穿層間絕緣膜；引發金屬層間跨層短路（Inter-metal Shorts）、平坦化後大面積脫膜剝落。</span>
+                    <span class="en">Upturned metal bunny ears puncture subsequent interlayer dielectrics; causing catastrophic inter-metal shorts and delamination during subsequent CMP planarization.</span>
+                  </td>
+                  <td>
+                    <span class="zh">① 採用雙層光阻堆疊製程（Bi-layer Lift-off，如 PMGI/LOR 配合正光阻）製造精準反錐倒角；② 控制金屬蒸鍍角度（定向電子束蒸鍍代替濺鍍）；③ 優化溶劑剝離槽超音波振盪功率與清洗溫度。</span>
+                    <span class="en">① Implement bi-layer resist stacks (e.g. LOR/PMGI under PR) to form sharp re-entrant undercuts; ② Use directional e-beam evaporation instead of sputtering; ③ Optimize solvent ultrasonic agitation.</span>
+                  </td>
+                  <td>
+                    <span class="zh"><b>PVD / Wet Strip</b><br>• 傾斜 SEM 金屬邊緣輪廓<br>• 跨金屬層絕緣耐壓測試</span>
+                    <span class="en"><b>PVD / Wet Strip Module</b><br>• Tilted SEM metal sidewall profile<br>• Inter-metal dielectric breakdown</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- SUBSECTION 4.6.2 -->
+          <h4 id="sec_4_6_2">
+            <span class="zh">4.6.2 與晶圓代工廠 (Fab / Foundry) 跨部門對接溝通、責任歸屬判定與 8D 閉環 SOP</span>
+            <span class="en">4.6.2 Foundry Escalation SOP: Technical Communication, Accountability Triangulation &amp; 8D Closed Loop</span>
+          </h4>
+
+          <p>
+            <span class="zh">
+              在晶片設計公司（Fabless）與晶圓代工廠（Foundry）的實務合作中，每當微影缺陷引發良率突降時，雙方極易陷入<b>「設計端太緊（Layout Hotspot / DFM Issue）」</b>與<b>「製造端失控（Fab Process Excursion）」</b>的推諉爭議。頂尖良率工程師絕不可單憑直覺發送模糊的投訴郵件，而必須依照以下四階段標準程序（見圖 4.3 右側流程）進行精準交涉：
+            </span>
+            <span class="en">
+              In real-world foundry engineering collaboration between Fabless design houses and Foundries, lithography defect excursions routinely trigger friction: the fab blames <b>"Layout Marginality / DFM Violations"</b>, while the design team blames <b>"Fab Process Drift"</b>. Top-tier yield engineers avoid sending vague escalation emails. Instead, they enforce the following 4-stage technical protocol (depicted on Figure 4.3 right panel) with rigorous data-driven discipline:
+            </span>
+          </p>
+
+          <div class="callout">
+            <div class="callout-title">
+              <span>📦</span>
+              <span class="zh">第一階段：備齊「黃金數據五件包 (Golden 5-Piece Data Package)」</span>
+              <span class="en">Stage 1: Assemble the "Golden 5-Piece Data Package"</span>
+            </div>
+            <p>
+              <span class="zh">
+                向晶圓廠召開緊急技術對齊會議（Emergency Yield Review）前，良率工程師必須備妥包含以下 5 項核心證據的資料包，確保晶圓廠製程整合（PIE）與微影模組主管（Photo Module Manager）無法推託：
+              </span>
+              <span class="en">
+                Before calling an emergency yield review with the foundry, yield engineers must assemble this 5-piece evidence package so foundry Process Integration Engineers (PIE) and Litho Module teams cannot dismiss the issue:
+              </span>
+            </p>
+            <ul>
+              <li>
+                <span class="zh"><b>1. 實體微觀影像 (Microscopic Metrology)</b>：提供 CD-SEM Top-down、45° 傾斜視角 SEM 以及 FIB-TEM 垂直橫截面切片圖，標註實測線寬與理論值偏差（\(\Delta \text{CD}\)），精確指認缺陷究竟是橋接、殘膠、T型頭還是倒塌。</span>
+                <span class="en"><b>1. Microscopic Metrology</b>: High-resolution top-down CD-SEM, 45° tilted SEM, and FIB-TEM cross-sectional lamella imagery marking \(\Delta \text{CD}\) discrepancies, conclusively classifying bridging, scumming, T-topping, or collapse.</span>
+              </li>
+              <li>
+                <span class="zh"><b>2. 線上缺陷檢測標準檔 (KLARF Files)</b>：提供 KLA 亮暗場檢測之 KLARF 原始數據，包含 Defect ID、缺陷座標（\(X, Y\)）、叢聚大小與缺陷分類碼（Class Code），展示缺陷在晶圓全片之空間分佈（全片散落、邊緣環狀或特定曝光場集中）。</span>
+                <span class="en"><b>2. Standard KLARF Inspection Logs</b>: Raw KLA defect inspection files with Defect ID, absolute coordinates (\(X, Y\)), cluster dimensions, and defect classification codes showing spatial signatures.</span>
+              </li>
+              <li>
+                <span class="zh"><b>3. STDF 電性良率疊合圖 (STDF-to-KLARF Overlay)</b>：將 CP 測試之 STDF 晶圓圖（Bin 7 IDDQ 漏電、Bin 2 短路、Bin 1 開路）與微影缺陷 KLARF 檔案疊合，計算「致命率（Kill Ratio）」與「缺陷-失效晶粒命中率（Hit Rate &gt; 85%）」，以鐵證證明該微影缺陷直接導致電性失效。</span>
+                <span class="en"><b>3. STDF-to-KLARF Map Overlay</b>: Overlay STDF wafer sort maps (Bin 7 IDDQ, Bin 2 short, Bin 1 open) onto litho defect coordinates; calculate Kill Ratio and hit rates (&gt; 85%) to decisively prove that the patterning defect directly induced functional die death.</span>
+              </li>
+              <li>
+                <span class="zh"><b>4. 機台與批次族譜對照表 (Genealogy Correlation Table)</b>：利用 Phase 1 跨站資料庫，產出異常批次（Excursion Lots）與正常對照批次（Baseline Lots）之機台歷程矩陣，列出 Scanner ID、Track ID、Hot Plate 腔體號、光罩序號（Reticle ID）與 FOUP 槽位。</span>
+                <span class="en"><b>4. Tool Genealogy Matrix</b>: Using Phase 1 traceability tables, contrast excursion lots against baseline lots across Scanner ID, Track ID, Hot Plate chamber, Reticle serial number, and FOUP slot ID.</span>
+              </li>
+              <li>
+                <span class="zh"><b>5. GDSII / OASIS 佈局局部特徵 (Layout Context Clip)</b>：截取缺陷座標處之 GDS 版圖，附帶 DRC 驗證報告，標註局部金屬節距（Pitch）、線條末端間距（Line-End Spacing）、SRAF 輔助特徵分佈，證明該區域完全符合晶圓廠公佈之最嚴格 Design Rules。</span>
+                <span class="en"><b>5. GDSII / OASIS Layout Clip</b>: Local layout crop at defect coordinates with clean DRC logs, showing nominal pitch, line-end spacing, and SRAF density to confirm 100% adherence to foundry design rules.</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="callout warn">
+            <div class="callout-title">
+              <span>⚖️</span>
+              <span class="zh">第二階段：真因歸屬判定決策樹 (Root Cause Triangulation Decision Tree)</span>
+              <span class="en">Stage 2: Root Cause Triangulation Decision Tree</span>
+            </div>
+            <p>
+              <span class="zh">
+                根據缺陷的空間分佈規律，迅速鎖定真因並釐清設計端與製造端之責任歸屬：
+              </span>
+              <span class="en">
+                Rapidly classify root cause and establish design vs. foundry accountability based on spatial signatures:
+              </span>
+            </p>
+            <ul>
+              <li>
+                <span class="zh"><b>① 曝光場內週期性重複（Within-Reticle Repeating Defect）</b>：若缺陷出現在同一曝光視野（Shot Field）內每一顆晶粒的絕對相同座標處（\(x_{\text{die}}, y_{\text{die}}\)），<b>100% 為光罩相關問題</b>！要求晶圓廠立即執行光罩 STARlight 檢測。若確認為光罩微粒落塵、護膜穿透或光罩霧化（Mask Haze），責任 100% 屬晶圓廠/光罩廠；若光罩無瑕疵但光學模擬顯示反差嚴重不足（NILS &lt; 1.5），則屬設計端 DFM / OPC 缺陷。</span>
+                <span class="en"><b>① Within-Reticle Repeating Defect</b>: If defects recur at identical die-relative coordinates (\(x_{\text{die}}, y_{\text{die}}\)) across all reticle shots, <b>it is 100% mask-related</b>. Demand immediate STARlight mask scans. Fall-on particles, pellicle damage, or mask haze fall 100% on the foundry. If the mask is clean but optical contrast is severely deficient (NILS &lt; 1.5), it points to layout DFM/OPC margins.</span>
+              </li>
+              <li>
+                <span class="zh"><b>② 晶圓邊緣環形特徵（Wafer Edge Ring Defect）</b>：缺陷僅集中於晶圓最外圍 1–2 排晶粒（如光阻倒塌、殘膠或橋接）。此特徵與版圖設計無關，<b>100% 屬晶圓廠製程硬體問題</b>：通常為 Track 邊緣去阻（Edge Bead Removal, EBR）溶劑飛濺、旋轉塗佈排風抽氣壓差不均、烘烤熱板邊緣溫差過大，或周邊焦點環（Focus Ring）物理磨耗導致邊緣離焦。</span>
+                <span class="en"><b>② Wafer Edge Ring Defect</b>: Defects restricted to outer 1–2 die rings (collapse, scumming, bridging). Independent of layout; <b>100% belongs to fab equipment</b>: EBR solvent splashing, coater cup exhaust imbalance, hot plate edge thermal drop, or worn focus rings inducing edge defocus.</span>
+              </li>
+              <li>
+                <span class="zh"><b>③ 單一機台/腔體共模（Scanner / Track Tool Commonality）</b>：卡方檢定或單因子變異數分析顯示異常批次高度富集於單一曝光機或塗膠機台（\(p &lt; 0.001\)）。此為<b>晶圓廠設備漂移</b>：如特定曝光機投影透鏡熱像差（Lens Aberration）、雷射源能量感測器失準（Dose Error）、特定 Hot Plate 加熱分區溫差（\(\Delta T &gt; 0.3^\circ\text{C}\)），或特定顯影噴嘴管路氣泡。</span>
+                <span class="en"><b>③ Tool Commonality</b>: Chi-square or ANOVA confirms excursion lots concentrate on one scanner or coater (\(p &lt; 0.001\)). Indicates <b>foundry equipment drift</b>: scanner projection lens heating aberration, laser dose sensor calibration drift, hot plate multi-zone temperature disparity (\(\Delta T &gt; 0.3^\circ\text{C}\)), or localized developer nozzle clogging.</span>
+              </li>
+              <li>
+                <span class="zh"><b>④ 全片隨機散落型（Random Stochastic Defect）</b>：缺陷隨機散佈於全晶圓各位置，但不同批次間缺陷密度（\(D_0\)）相差數倍。通常為晶圓廠光阻化學品批次變異、化學濾網穿透、潔淨室空氣氣態胺（AMC）突發洩漏，或管路泵閥微氣泡引發之針孔/微橋。</span>
+                <span class="en"><b>④ Random Stochastic Defect</b>: Random defect distribution across wafers with sharp inter-lot \(D_0\) spikes. Rooted in chemical raw lot variations, exhausted AMC chemical filters, ambient amine bursts in cleanroom bays, or pump micro-bubbles inducing pinholes/bridges.</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="callout danger">
+            <div class="callout-title">
+              <span>🚨</span>
+              <span class="zh">第三階段：晶圓廠溝通話術、專業術語與緊急圍堵 (Immediate Containment)</span>
+              <span class="en">Stage 3: Foundry Escalation Dialogue, Jargon &amp; Immediate Containment</span>
+            </div>
+            <p>
+              <span class="zh">
+                與晶圓廠開會時，嚴禁使用「良率很差、趕快處理」等非工程語言。良率工程師必須熟練調用晶圓廠內部微影術語，並在會議當場提出具體圍堵要求：
+              </span>
+              <span class="en">
+                When confronting the foundry, never use vague language like "yield is bad, fix it ASAP". Engineers must speak fluent lithography terminology and enforce specific containment demands during the meeting:
+              </span>
+            </p>
+            <ul>
+              <li>
+                <span class="zh"><b>專業術語與數據調閱要求</b>：<br>
+                • <b>調閱製程窗口裕度（PWQ: Process Window Qualification）</b>：要求晶圓廠調閱該層在不同曝光量與焦距下的焦點-曝光矩陣（FEM: Focus-Exposure Matrix），索取 Bossung 曲線圖，檢視當前生產條件是否落在可容許的 10% 曝光裕度（Exposure Latitude）與 150nm 焦深（DOF）範圍內。<br>
+                • <b>調閱線上 APC 歷史趨勢</b>：要求調閱該批次作業時的先進製程控制（Run-to-Run APC）模型補償量，檢查曝光劑量修正量（Dose Offset）與光學疊對修正量（CPE Parameters）是否發生發散或飽和。<br>
+                • <b>調閱機台維護紀錄（PM Log）</b>：要求確認涉案曝光機與 Track 機台近期是否更換過準分子雷射管、浸潤式微影水純化系統（Immersion Hood）、曝光載台真空吸盤，或進行過塗膠管路清洗。
+                </span>
+                <span class="en"><b>Technical Terms &amp; Audit Data Demands</b>:<br>
+                • <b>Demand Process Window Qualification (PWQ) &amp; FEM Data</b>: Request Focus-Exposure Matrix (FEM) Bossung curves to verify whether production recipes operate within the required 10% Exposure Latitude and &gt; 150nm DOF window.<br>
+                • <b>Inspect Run-to-Run (R2R) APC Logs</b>: Demand real-time dose offset and Correction-per-Exposure (CPE) overlay compensation trends to identify model saturation or runaway.<br>
+                • <b>Inspect Tool PM &amp; Maintenance Logs</b>: Audit recent excimer laser tube swaps, immersion hood fluid certifications, scanner chuck cleanings, or resist pump line maintenance.
+                </span>
+              </li>
+              <li>
+                <span class="zh"><b>現場四大立即圍堵指令（Containment Protocol）</b>：<br>
+                ① <b>產線在製品扣留（Instant WIP Hold）</b>：要求晶圓廠立即將在產線上所有使用涉案 Scanner、涉案 Track 機台及涉案光阻批次之在製品（WIP）設置 Hold 暫停作業，防止劣質晶圓繼續投入後續高價值工序；<br>
+                ② <b>機台停機與空白片驗證（Tool Disqualification &amp; Monitor Run）</b>：要求將涉案機台移出派工排程，投入素片（Bare Silicon Monitor Wafer）進行全片顆粒掃描（Surfscan）與 FEM 測試曝光，驗證合格前禁止生產；<br>
+                ③ <b>光罩緊急清潔與 STARlight 覆測（Reticle Clean）</b>：若懷疑光罩污染，要求立即下架光罩執行化學濕洗與重新安裝護膜，並重新驗證曝光；<br>
+                ④ <b>正式立案 8D 異常調查</b>：要求晶圓廠在 24 小時內提供 D3（圍堵處分），72 小時內提供 D4（根本原因分析與物理失效復現驗證）。
+                </span>
+                <span class="en"><b>Four Immediate Containment Mandates</b>:<br>
+                ① <b>Instant WIP Hold</b>: Demand an immediate freeze on all work-in-process lots currently traversing the suspect scanner, track, or resist batch to curb excursion propagation;<br>
+                ② <b>Tool Disqualification &amp; Monitor Run</b>: Pull the suspect tool from manufacturing dispatch; run unpatterned monitor wafers through Surfscan particle counters and FEM test runs;<br>
+                ③ <b>Reticle Clean &amp; STARlight Re-certification</b>: Unload suspect reticles for chemical wet wash, pellicle replacement, and STARlight particle verification;<br>
+                ④ <b>Formal 8D Escalation</b>: Require the foundry to furnish D3 (containment) within 24 hours, and D4 (root-cause analysis &amp; PoF confirmation) within 72 hours.
+                </span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="callout good">
+            <div class="callout-title">
+              <span>🛡️</span>
+              <span class="zh">第四階段：雙向閉環根治、商業合約邊界與 DFM 爭議防禦</span>
+              <span class="en">Stage 4: Permanent Corrective Action, Commercial Terms &amp; DFM Defense</span>
+            </div>
+            <p>
+              <span class="zh">
+                良率改善的最終目標是建立永久防禦機制，防止相同微影缺陷在後續投片中反覆發生，並維護公司的商業權益：
+              </span>
+              <span class="en">
+                The ultimate goal of yield enhancement is establishing permanent safeguards against recurring patterning excursions while defending commercial entitlements:
+              </span>
+            </p>
+            <ul>
+              <li>
+                <span class="zh"><b>晶圓廠製造端對策閉環（Fab Permanent Corrective Actions）</b>：要求晶圓廠將改善措施寫入標準管制計畫（Control Plan）：例如將 PEB 烘烤熱板多區溫控精度收緊至 \(\Delta T &lt; 0.15^\circ\text{C}\)；將去阻電漿 Descum 時間延長 15%；在化學品供應間增設 AMC 胺類連續監控警報；針對特定難度層導入逐曝光場焦點補償（Field-by-Field Leveling &amp; Focus Correction）。</span>
+                <span class="en"><b>Fab Permanent Corrective Actions (PCA)</b>: Enshrine fixes into the Fab Control Plan: tighten PEB multi-zone thermal delta to \(\Delta T &lt; 0.15^\circ\text{C}\); extend \(O_2\) plasma descum time by 15%; deploy inline AMC amine sniffer alarms in chemical corridors; activate field-by-field leveling on critical layers.</span>
+              </li>
+              <li>
+                <span class="zh"><b>晶片設計端 DFM 協同防禦（Design-for-Manufacturing Hardening）</b>：若晶圓廠證明某些佈局確實處於製程窗口極限邊緣（Marginal Feature），設計端應透過次版本金屬改版（Metal ECO / Minor Revision）進行加固：① 擴大細頸走線線寬；② 增加雙通孔（Redundant Vias）防範接觸孔殘膠；③ 增加多晶矽端頭延伸長度（Poly End-cap Extension）防範縮頸；④ 在大空白區填補虛擬金屬（Dummy Fill）以平坦化 CMP 表面，改善微影聚焦深度。</span>
+                <span class="en"><b>Design-for-Manufacturing (DFM) Hardening</b>: If the foundry demonstrates that specific layout topologies sit at process window margins, the design team executes minor metal ECO hardening: ① Widen narrow line-ends; ② Insert redundant vias to bypass scumming opens; ③ Lengthen poly end-caps; ④ Optimize dummy metal fill to planarize post-CMP topography and maximize scanner depth of focus.</span>
+              </li>
+              <li>
+                <span class="zh"><b>破解晶圓廠「DFM 豁免條款陷阱（DFM Waiver Trap）」</b>：晶圓廠經常以「客戶設計含有 DFM Warning / DFM 建議未修改」為由拒絕賠償報廢晶圓。<b>防禦反駁鐵律</b>：調閱該產品在「黃金批次（Golden Lot）」的良率歷史數據，若相同版圖在正常製程條件下能達到 95% 以上良率，證明該圖案完全具備量產可行性；良率突降純粹因晶圓廠製程窗口漂移（Process Shift）所致，晶圓廠必須依據晶圓採購協議（Foundry Wafer Agreement）中的報廢補償標準（Scrap Allowance / Wafer Compensation Policy）履行免費補片或扣抵晶圓加工費。</span>
+                <span class="en"><b>Defeating the "DFM Waiver Trap"</b>: Foundries frequently attempt to reject scrap compensation by claiming "the customer left unaddressed DFM warnings in the GDS". <b>Golden Defense Rule</b>: Present historical yield data from previous Golden Lots demonstrating &gt; 95% yield on the identical GDS layout. This proves layout manufacturability and confirms that the excursion stemmed exclusively from fab process window drift, legally triggering wafer compensation and scrap allowances per the commercial wafer agreement.</span>
+              </li>
+            </ul>
+          </div>
+
         </div>
       </section>
 
