@@ -1311,7 +1311,7 @@
       </div>
       <div>
         <span class="zh">版次狀態</span><span class="en">Revision</span>
-        <b>Rev. AG (Lithography Defect Atlas, 12 Real SEM Micrographs &amp; Fab Escalation SOP)</b>
+        <b>Rev. AH (Outlier Detection: PAT, DPAT, GD-PAT, NNR &amp; Multivariate Mahalanobis)</b>
       </div>
       <div>
         <span class="zh">適用對象</span><span class="en">Audience</span>
@@ -1319,7 +1319,7 @@
       </div>
       <div>
         <span class="zh">最後修訂</span><span class="en">Last Updated</span>
-        <b>2026-11-02 08:35 (Asia/Taipei)</b>
+        <b>2026-11-02 09:15 (Asia/Taipei)</b>
       </div>
     </div>
   </header>
@@ -1417,6 +1417,8 @@
           <li><a href="#sec_6_1"><span class="zh">6.1 參數型良率與 Cpk/Ppk 指標</span><span class="en">6.1 Parametric Cpk/Ppk</span></a></li>
           <li><a href="#sec_6_2"><span class="zh">6.2 功能測試「無 Cpk 難題」4 大解方</span><span class="en">6.2 Functional No-Cpk Solutions</span></a></li>
           <li><a href="#sec_6_3"><span class="zh">6.3 掃描鏈、故障模型與 CAT</span><span class="en">6.3 Scan Chain, Fault Models & CAT</span></a></li>
+            <li><a href="#sec_6_4"><span class="zh">6.4 離群值篩選技術 (PAT/DPAT/NNR)</span><span class="en">6.4 Outlier Detection (PAT/NNR)</span></a></li>
+            <li><a href="#sec_6_4"><span class="zh">6.4 離群值篩選技術 (PAT/DPAT/NNR)</span><span class="en">6.4 Outlier Detection (PAT/NNR)</span></a></li>
         </ul>
       </li>
       <li>
@@ -11421,6 +11423,645 @@
           </div>
 
 
+        
+          <!-- SECTION 6.4: OUTLIER DETECTION METHODOLOGY -->
+          <h3 id="sec_6_4">
+            <span class="zh">6.4 半導體離群值篩選技術 (Outlier Detection): PAT、DPAT、SPAT、GD-PAT、NNR 與 多變量 Mahalanobis 距離全解析</span>
+            <span class="en">6.4 Semiconductor Outlier Detection: Static/Dynamic PAT, Spatial PAT, Geographic DPAT, NNR &amp; Multivariate Mahalanobis Distance</span>
+          </h3>
+
+          <p>
+            <span class="zh">
+              在傳統測試工程中，晶粒判定僅依據規格書（Datasheet）設定之固定上下限（LSL / USL）。然而在先進半導體製造與車用電子（Automotive Electronics）實務中，<b>「符合規格（Spec Compliant）」絕不等於「品質無虞（Reliable）」</b>。一顆晶粒的靜態漏電流（\(I_{\text{leak}}\)\）規格上限為 \(50\,\mu\text{A}\)，全晶圓 99.8% 的晶粒實測值集中在 \(0.5\,\mu\text{A}\)，但某顆晶粒測得 \(28\,\mu\text{A}\)——雖然該晶粒在常規測試中判定 PASS，但它在統計分佈上是一顆極端突兀的<b>特異晶粒（Maverick Die / Statistical Outlier）</b>！物理失效分析證明，此類離群晶粒內部往往潛伏著微小的閘極氧化層孔洞、局部晶格差排或金屬細頸，在出廠時勉強合格，但在車輛行駛的高溫、震動與高電壓應力下，極易在數千公里內迅速惡化為擊穿短路，成為車規客訴（0-km / Field Return）的頭號殺手。
+            </span>
+            <span class="en">
+              In conventional semiconductor test engineering, die disposition relies solely on fixed datasheet specification limits (LSL / USL). However, across mission-critical automotive electronics and advanced nodes, <b>"Spec Compliance" does not guarantee "Reliability"</b>. If a product's leakage limit is \(50\,\mu\text{A}\), and 99.8% of dies cluster around \(0.5\,\mu\text{A}\), a die measuring \(28\,\mu\text{A}\) passes standard ATE screening. Yet statistically, it represents an extreme <b>Maverick Die (Statistical Outlier)</b>. Failure analysis confirms such mavericks harbor latent physical defects (micro-voids, gate oxide pinholes, crystal dislocations) that pass initial testing but rapidly fail under automotive thermal and electrical operating stresses, driving catastrophic 0-km and field returns.
+            </span>
+          </p>
+
+          <p>
+            <span class="zh">
+              為根絕潛在可靠度隱患，國際汽車電子協會（Automotive Electronics Council, AEC）制定了 <b>AEC-Q001</b>（零件平均測試法，Part Average Testing, PAT）與 <b>AEC-Q002</b>（統計良率分析，Statistical Yield Analysis, SYA）規範，要求將離群值篩選全面制度化。現代良率工程更從早期的單變量靜態常態分佈，演進至動態晶圓自適應、空間地理分區、最近鄰近殘差以及多變量馬氏距離（見圖 6.4）：
+            </span>
+            <span class="en">
+              To eliminate latent reliability hazards, the Automotive Electronics Council established the <b>AEC-Q001</b> (Part Average Testing, PAT) and <b>AEC-Q002</b> (Statistical Yield Analysis, SYA) guidelines, mandating systematic outlier detection. Modern yield engineering has advanced from simple 1D static Gaussian screening to wafer-adaptive dynamic thresholds, geographic spatial zoning, nearest-neighbor residuals, and multivariate Mahalanobis distance matrices (depicted in Figure 6.4):
+            </span>
+          </p>
+
+          <figure class="figure-block" id="fig6_4">
+            <svg viewBox="0 0 960 560" width="100%" height="auto" style="max-width:960px; font-family:var(--font-sans); background:var(--surface);" role="img" aria-label="Semiconductor Outlier Detection Spectrum &amp; Zero-Defect Architecture">
+              <defs>
+                <marker id="outArrowL" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--accent)"/>
+                </marker>
+                <marker id="outArrowD" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--danger)"/>
+                </marker>
+              </defs>
+
+              <!-- Main Background Box -->
+              <rect x="5" y="5" width="950" height="550" rx="8" fill="var(--surface)" stroke="var(--border)" stroke-width="1.2"/>
+
+              <!-- LEFT PANEL: 6 OUTLIER SCREENING MODELS -->
+              <rect x="15" y="15" width="585" height="530" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1"/>
+              <text class="zh" x="30" y="38" font-size="13" font-weight="700" fill="var(--ink)">半導體離群值篩選 6 大核心演算法圖譜 (Outlier Detection Spectrum)</text>
+              <text class="en" x="30" y="38" font-size="13" font-weight="700" fill="var(--ink)">Semiconductor 6 Canonical Outlier Screening Algorithms Spectrum</text>
+
+              <!-- === ROW 0: SPAT vs DPAT === -->
+              <g transform="translate(25, 52)">
+                <rect width="270" height="145" rx="5" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+                <rect x="0" y="0" width="270" height="22" rx="4" fill="var(--border)" opacity="0.4"/>
+                <text class="zh" x="10" y="15" font-size="10" font-weight="700" fill="var(--ink)">1. 規格極限 vs 靜態 PAT (SPAT)</text>
+                <text class="en" x="10" y="15" font-size="10" font-weight="700" fill="var(--ink)">1. Spec Limits vs. Static PAT (SPAT)</text>
+                <path d="M 20 105 C 70 105, 90 45, 120 45 C 150 45, 170 105, 220 105" fill="none" stroke="var(--accent)" stroke-width="2"/>
+                <line x1="60" y1="35" x2="60" y2="110" stroke="var(--warn)" stroke-width="1.5" stroke-dasharray="3,2"/>
+                <line x1="180" y1="35" x2="180" y2="110" stroke="var(--warn)" stroke-width="1.5" stroke-dasharray="3,2"/>
+                <line x1="15" y1="30" x2="15" y2="115" stroke="var(--danger)" stroke-width="1.5"/>
+                <line x1="250" y1="30" x2="250" y2="115" stroke="var(--danger)" stroke-width="1.5"/>
+                <circle cx="205" cy="103" r="4" fill="var(--danger)"/>
+                <text class="zh" x="205" y="93" font-size="8" text-anchor="middle" fill="var(--danger)">潛在早夭 Maverick</text>
+                <text class="en" x="205" y="93" font-size="8" text-anchor="middle" fill="var(--danger)">Maverick Die</text>
+                <text class="zh" x="120" y="132" font-size="8" text-anchor="middle" fill="var(--ink-soft)">AEC-Q001 總體批次 \(\mu \pm 3\sigma\) 靜態篩選</text>
+                <text class="en" x="120" y="132" font-size="8" text-anchor="middle" fill="var(--ink-soft)">AEC-Q001 Population \(\mu \pm 3\sigma\) Bound</text>
+              </g>
+
+              <g transform="translate(310, 52)">
+                <rect width="270" height="145" rx="5" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+                <rect x="0" y="0" width="270" height="22" rx="4" fill="var(--border)" opacity="0.4"/>
+                <text class="zh" x="10" y="15" font-size="10" font-weight="700" fill="var(--accent)">2. 動態 PAT (Dynamic PAT - DPAT)</text>
+                <text class="en" x="10" y="15" font-size="10" font-weight="700" fill="var(--accent)">2. Dynamic PAT (Wafer-Adaptive)</text>
+                <path d="M 15 105 C 45 105, 55 55, 75 55 C 95 55, 105 105, 135 105" fill="none" stroke="var(--ink-soft)" stroke-width="1.5" stroke-dasharray="2,2"/>
+                <path d="M 95 105 C 130 105, 145 45, 170 45 C 195 45, 210 105, 245 105" fill="none" stroke="var(--accent)" stroke-width="2"/>
+                <line x1="125" y1="35" x2="125" y2="110" stroke="var(--accent)" stroke-width="1.5"/>
+                <line x1="215" y1="35" x2="215" y2="110" stroke="var(--accent)" stroke-width="1.5"/>
+                <circle cx="230" cy="103" r="4" fill="var(--danger)"/>
+                <text class="zh" x="230" y="93" font-size="8" text-anchor="middle" fill="var(--danger)">晶圓動態離群</text>
+                <text class="en" x="230" y="93" font-size="8" text-anchor="middle" fill="var(--danger)">Wafer Outlier</text>
+                <text class="zh" x="135" y="132" font-size="8" text-anchor="middle" fill="var(--ink-soft)">隨每片晶圓 \(\mu_{\text{wfr}} \pm k\sigma_{\text{wfr}}\) 動態自適應</text>
+                <text class="en" x="135" y="132" font-size="8" text-anchor="middle" fill="var(--ink-soft)">Adapts per wafer \(\mu_{\text{wfr}} \pm k\sigma_{\text{wfr}}\) bound</text>
+              </g>
+
+              <!-- === ROW 1: GD-PAT vs NNR === -->
+              <g transform="translate(25, 212)">
+                <rect width="270" height="145" rx="5" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+                <rect x="0" y="0" width="270" height="22" rx="4" fill="var(--border)" opacity="0.4"/>
+                <text class="zh" x="10" y="15" font-size="10" font-weight="700" fill="var(--warn)">3. 分區地理 PAT (GD-PAT / Spatial)</text>
+                <text class="en" x="10" y="15" font-size="10" font-weight="700" fill="var(--warn)">3. Geographic DPAT (Zonal Ring PAT)</text>
+                <circle cx="75" cy="82" r="42" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1.5"/>
+                <circle cx="75" cy="82" r="28" fill="var(--surface)" stroke="var(--border)" stroke-dasharray="2,2"/>
+                <circle cx="75" cy="82" r="14" fill="var(--surface-2)" stroke="var(--border)"/>
+                <circle cx="75" cy="82" r="3" fill="var(--good)"/>
+                <circle cx="106" cy="82" r="3.5" fill="var(--danger)"/>
+                <text class="zh" x="135" y="58" font-size="8.5" font-weight="700" fill="var(--ink)">晶圓徑向同心圓分區：</text>
+                <text class="en" x="135" y="58" font-size="8.5" font-weight="700" fill="var(--ink)">Wafer Concentric Zones:</text>
+                <text class="zh" x="135" y="74" font-size="8" fill="var(--ink-soft)">• 中心區 Center (Zone 1)</text>
+                <text class="en" x="135" y="74" font-size="8" fill="var(--ink-soft)">• Center Zone 1</text>
+                <text class="zh" x="135" y="88" font-size="8" fill="var(--ink-soft)">• 中間環 Middle (Zone 2)</text>
+                <text class="en" x="135" y="88" font-size="8" fill="var(--ink-soft)">• Middle Zone 2</text>
+                <text class="zh" x="135" y="102" font-size="8" fill="var(--warn)">• 邊緣環 Outer Edge Ring</text>
+                <text class="en" x="135" y="102" font-size="8" fill="var(--warn)">• Outer Edge Ring Zone</text>
+                <text class="zh" x="135" y="132" font-size="8" text-anchor="middle" fill="var(--ink-soft)">消除 CMP / 氣流徑向梯度引發之誤判</text>
+                <text class="en" x="135" y="132" font-size="8" text-anchor="middle" fill="var(--ink-soft)">Compensates radial CMP &amp; gas flow trends</text>
+              </g>
+
+              <g transform="translate(310, 212)">
+                <rect width="270" height="145" rx="5" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+                <rect x="0" y="0" width="270" height="22" rx="4" fill="var(--border)" opacity="0.4"/>
+                <text class="zh" x="10" y="15" font-size="10" font-weight="700" fill="var(--good)">4. 最近鄰近殘差法 (NNR Residual)</text>
+                <text class="en" x="10" y="15" font-size="10" font-weight="700" fill="var(--good)">4. Nearest Neighbor Residual (NNR)</text>
+                <g transform="translate(35, 42)">
+                  <rect x="0" y="0" width="22" height="22" rx="2" fill="var(--surface-2)" stroke="var(--border)"/>
+                  <rect x="26" y="0" width="22" height="22" rx="2" fill="var(--surface-2)" stroke="var(--border)"/>
+                  <rect x="52" y="0" width="22" height="22" rx="2" fill="var(--surface-2)" stroke="var(--border)"/>
+                  <rect x="0" y="26" width="22" height="22" rx="2" fill="var(--surface-2)" stroke="var(--border)"/>
+                  <rect x="26" y="26" width="22" height="22" rx="2" fill="var(--danger)" stroke="var(--danger)"/>
+                  <text x="37" y="41" font-size="11" font-weight="700" fill="#fff" text-anchor="middle">!</text>
+                  <rect x="52" y="26" width="22" height="22" rx="2" fill="var(--surface-2)" stroke="var(--border)"/>
+                  <rect x="0" y="52" width="22" height="22" rx="2" fill="var(--surface-2)" stroke="var(--border)"/>
+                  <rect x="26" y="52" width="22" height="22" rx="2" fill="var(--surface-2)" stroke="var(--border)"/>
+                  <rect x="52" y="52" width="22" height="22" rx="2" fill="var(--surface-2)" stroke="var(--border)"/>
+                </g>
+                <text class="zh" x="125" y="60" font-size="8.5" font-weight="700" fill="var(--ink)">局部加權預測面：</text>
+                <text class="en" x="125" y="60" font-size="8.5" font-weight="700" fill="var(--ink)">Local Neighbor Surface:</text>
+                <text class="zh" x="125" y="78" font-size="8" fill="var(--accent)">\(r_i = z(x,y) - \hat{z}_{\text{local}}\\)</text>
+                <text class="en" x="125" y="78" font-size="8" fill="var(--accent)">\(r_i = z(x,y) - \hat{z}_{\text{local}}\\)</text>
+                <text class="zh" x="125" y="96" font-size="8" fill="var(--danger)">|殘差| &gt; \(k \cdot \sigma_{\text{res}}\) ➔ 剔除</text>
+                <text class="en" x="125" y="96" font-size="8" fill="var(--danger)">|Residual| &gt; \(k \sigma_{\text{res}}\) ➔ Outlier</text>
+                <text class="zh" x="135" y="132" font-size="8" text-anchor="middle" fill="var(--ink-soft)">即使絕對值符合規格，突兀跳異即早夭</text>
+                <text class="en" x="135" y="132" font-size="8" text-anchor="middle" fill="var(--ink-soft)">Catches local deviations on smooth planes</text>
+              </g>
+
+              <!-- === ROW 2: GDBN vs Multivariate Mahalanobis === -->
+              <g transform="translate(25, 372)">
+                <rect width="270" height="155" rx="5" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+                <rect x="0" y="0" width="270" height="22" rx="4" fill="var(--border)" opacity="0.4"/>
+                <text class="zh" x="10" y="15" font-size="10" font-weight="700" fill="var(--danger)">5. 壞鄰居良品剔除 (GDBN 空間法則)</text>
+                <text class="en" x="10" y="15" font-size="10" font-weight="700" fill="var(--danger)">5. Good Die in Bad Neighborhood (GDBN)</text>
+                <g transform="translate(35, 45)">
+                  <rect x="0" y="0" width="22" height="22" rx="2" fill="var(--danger)"/>
+                  <rect x="26" y="0" width="22" height="22" rx="2" fill="var(--danger)"/>
+                  <rect x="52" y="0" width="22" height="22" rx="2" fill="var(--surface-2)" stroke="var(--border)"/>
+                  <rect x="0" y="26" width="22" height="22" rx="2" fill="var(--danger)"/>
+                  <rect x="26" y="26" width="22" height="22" rx="2" fill="var(--good)"/>
+                  <text x="37" y="41" font-size="10" font-weight="700" fill="#fff" text-anchor="middle">P</text>
+                  <rect x="52" y="26" width="22" height="22" rx="2" fill="var(--danger)"/>
+                  <rect x="0" y="52" width="22" height="22" rx="2" fill="var(--surface-2)" stroke="var(--border)"/>
+                  <rect x="26" y="52" width="22" height="22" rx="2" fill="var(--danger)"/>
+                  <rect x="52" y="52" width="22" height="22" rx="2" fill="var(--surface-2)" stroke="var(--border)"/>
+                </g>
+                <text class="zh" x="125" y="60" font-size="8.5" font-weight="700" fill="var(--danger)">周圍失效晶粒 \(\ge 4\) 顆：</text>
+                <text class="en" x="125" y="60" font-size="8.5" font-weight="700" fill="var(--danger)">Failing Neighbors \(\ge 4\):</text>
+                <text class="zh" x="125" y="78" font-size="8" fill="var(--ink-soft)">• 物理微缺陷具有光環擴散性</text>
+                <text class="en" x="125" y="78" font-size="8" fill="var(--ink-soft)">• Defect clusters have halo effect</text>
+                <text class="zh" x="125" y="94" font-size="8" fill="var(--danger)">• 測試通過亦強制判定為墨點 (Inking)</text>
+                <text class="en" x="125" y="94" font-size="8" fill="var(--danger)">• Electrically pass but killed by GDBN</text>
+                <text class="zh" x="135" y="142" font-size="8" text-anchor="middle" fill="var(--ink-soft)">車用半導體零公里 (0-km) 必殺技</text>
+                <text class="en" x="135" y="142" font-size="8" text-anchor="middle" fill="var(--ink-soft)">Mandatory for 0-km automotive reliability</text>
+              </g>
+
+              <g transform="translate(310, 372)">
+                <rect width="270" height="155" rx="5" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+                <rect x="0" y="0" width="270" height="22" rx="4" fill="var(--border)" opacity="0.4"/>
+                <text class="zh" x="10" y="15" font-size="10" font-weight="700" fill="var(--accent)">6. 多變量馬氏距離 (Mahalanobis Outlier)</text>
+                <text class="en" x="10" y="15" font-size="10" font-weight="700" fill="var(--accent)">6. Multivariate Mahalanobis (MD-PAT)</text>
+                <g transform="translate(20, 35)">
+                  <line x1="15" y1="85" x2="105" y2="85" stroke="var(--border)" stroke-width="1.2"/>
+                  <line x1="15" y1="85" x2="15" y2="10" stroke="var(--border)" stroke-width="1.2"/>
+                  <ellipse cx="60" cy="48" rx="36" ry="14" transform="rotate(-30 60 48)" fill="none" stroke="var(--accent)" stroke-width="1.5"/>
+                  <circle cx="48" cy="55" r="2" fill="var(--ink-soft)"/>
+                  <circle cx="62" cy="46" r="2" fill="var(--ink-soft)"/>
+                  <circle cx="70" cy="40" r="2" fill="var(--ink-soft)"/>
+                  <circle cx="55" cy="50" r="2" fill="var(--ink-soft)"/>
+                  <circle cx="75" cy="68" r="4" fill="var(--danger)"/>
+                  <line x1="75" y1="68" x2="90" y2="68" stroke="var(--danger)" stroke-width="1"/>
+                </g>
+                <text class="zh" x="125" y="60" font-size="8.5" font-weight="700" fill="var(--danger)">單變量隱形離群點：</text>
+                <text class="en" x="125" y="60" font-size="8.5" font-weight="700" fill="var(--danger)">Hidden 1D Bivariate Maverick:</text>
+                <text class="zh" x="125" y="78" font-size="8" fill="var(--accent)">\(D_M^2 = (\mathbf{x}-\boldsymbol{\mu})^T \boldsymbol{\Sigma}^{-1} (\mathbf{x}-\boldsymbol{\mu})\)</text>
+                <text class="en" x="125" y="78" font-size="8" fill="var(--accent)">\(D_M^2 = (\mathbf{x}-\boldsymbol{\mu})^T \boldsymbol{\Sigma}^{-1} (\mathbf{x}-\boldsymbol{\mu})\)</text>
+                <text class="zh" x="125" y="96" font-size="8" fill="var(--ink-soft)">考量參數間物理共變異性</text>
+                <text class="en" x="125" y="96" font-size="8" fill="var(--ink-soft)">Accounts for correlation covariance</text>
+                <text class="zh" x="125" y="112" font-size="8" fill="var(--danger)">\(D_M^2 &gt; \chi^2_{p}(0.999)\) ➔ 攔截</text>
+                <text class="en" x="125" y="112" font-size="8" fill="var(--danger)">Catches cross-parameter violations</text>
+                <text class="zh" x="135" y="142" font-size="8" text-anchor="middle" fill="var(--ink-soft)">解決「漏電正常、頻率正常但相依異常」</text>
+                <text class="en" x="135" y="142" font-size="8" text-anchor="middle" fill="var(--ink-soft)">Detects invalid corner combinations</text>
+              </g>
+
+              <!-- RIGHT PANEL: AUTOMOTIVE ZERO-DEFECT SCREENING & DISPOSITION PIPELINE -->
+              <rect x="615" y="15" width="330" height="530" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1"/>
+              <text class="zh" x="630" y="38" font-size="13" font-weight="700" fill="var(--accent)">車規 0-DPPM 離群值篩選與處分閉環流水線</text>
+              <text class="en" x="630" y="38" font-size="13" font-weight="700" fill="var(--accent)">Automotive 0-DPPM Outlier Pipeline &amp; Action</text>
+
+              <!-- Pipeline Step 1 -->
+              <g transform="translate(625, 52)">
+                <rect width="310" height="100" rx="5" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.2"/>
+                <circle cx="20" cy="18" r="9" fill="var(--accent)"/>
+                <text x="20" y="22" font-size="10" font-weight="700" fill="#fff" text-anchor="middle">1</text>
+                <text class="zh" x="36" y="22" font-size="11" font-weight="700" fill="var(--ink)">穩健估計防遮蔽 (Robust Estimators)</text>
+                <text class="en" x="36" y="22" font-size="11" font-weight="700" fill="var(--ink)">Step 1: Anti-Masking Robust Estimators</text>
+                <text class="zh" x="15" y="44" font-size="9" fill="var(--danger)">• 嚴禁直接使用平均數與標準差 (\(\mu, \sigma\))！</text>
+                <text class="en" x="15" y="44" font-size="9" fill="var(--danger)">• Never use naive mean &amp; std dev directly!</text>
+                <text class="zh" x="15" y="60" font-size="9" fill="var(--ink-soft)">• 離群值會膨脹 \(\sigma\)，引致「遮蔽陷阱 (Masking)」</text>
+                <text class="en" x="15" y="60" font-size="9" fill="var(--ink-soft)">• Outlier clusters inflate \(\sigma\), creating masking traps</text>
+                <text class="zh" x="15" y="78" font-size="9" fill="var(--good)">• 必採 <tspan font-weight="700">中位數 (Median) + MAD / NIQR</tspan> 計算</text>
+                <text class="en" x="15" y="78" font-size="9" fill="var(--good)">• Mandate Median + MAD / NIQR robust estimators</text>
+              </g>
+
+              <path d="M 780 154 L 780 168" stroke="var(--accent)" stroke-width="2" marker-end="url(#outArrowL)"/>
+
+              <!-- Pipeline Step 2 -->
+              <g transform="translate(625, 172)">
+                <rect width="310" height="106" rx="5" fill="var(--surface)" stroke="var(--warn)" stroke-width="1.2"/>
+                <circle cx="20" cy="18" r="9" fill="var(--warn)"/>
+                <text x="20" y="22" font-size="10" font-weight="700" fill="#fff" text-anchor="middle">2</text>
+                <text class="zh" x="36" y="22" font-size="11" font-weight="700" fill="var(--ink)">階層過濾級聯 (Screening Cascade)</text>
+                <text class="en" x="36" y="22" font-size="11" font-weight="700" fill="var(--ink)">Step 2: Hierarchical Screening Cascade</text>
+                <text class="zh" x="15" y="44" font-size="9" fill="var(--ink-soft)">• Level 1: 全晶圓 <tspan font-weight="700">DPAT</tspan> (動態限值粗篩)</text>
+                <text class="en" x="15" y="44" font-size="9" fill="var(--ink-soft)">• Level 1: Global DPAT coarse outlier cut</text>
+                <text class="zh" x="15" y="60" font-size="9" fill="var(--ink-soft)">• Level 2: 徑向分區 <tspan font-weight="700">GD-PAT</tspan> (消除環狀偏差)</text>
+                <text class="en" x="15" y="60" font-size="9" fill="var(--ink-soft)">• Level 2: Zonal GD-PAT edge-ring normalization</text>
+                <text class="zh" x="15" y="76" font-size="9" fill="var(--ink-soft)">• Level 3: 局部微觀 <tspan font-weight="700">NNR</tspan> (高平坦度殘差跳異)</text>
+                <text class="en" x="15" y="76" font-size="9" fill="var(--ink-soft)">• Level 3: Local NNR micro-topography screening</text>
+                <text class="zh" x="15" y="94" font-size="9" fill="var(--accent)">• Level 4: 跨參數 <tspan font-weight="700">Mahalanobis MD</tspan> (二維/多維相關)</text>
+                <text class="en" x="15" y="94" font-size="9" fill="var(--accent)">• Level 4: Multi-parameter Mahalanobis correlation</text>
+              </g>
+
+              <path d="M 780 280 L 780 294" stroke="var(--warn)" stroke-width="2" marker-end="url(#outArrowL)"/>
+
+              <!-- Pipeline Step 3 -->
+              <g transform="translate(625, 298)">
+                <rect width="310" height="110" rx="5" fill="var(--surface)" stroke="var(--danger)" stroke-width="1.2"/>
+                <circle cx="20" cy="18" r="9" fill="var(--danger)"/>
+                <text x="20" y="22" font-size="10" font-weight="700" fill="#fff" text-anchor="middle">3</text>
+                <text class="zh" x="36" y="22" font-size="11" font-weight="700" fill="var(--ink)">Maverick 處分與過度剔除 (Overkill)</text>
+                <text class="en" x="36" y="22" font-size="11" font-weight="700" fill="var(--ink)">Step 3: Disposition &amp; Overkill Economics</text>
+                <text class="zh" x="15" y="44" font-size="9" fill="var(--danger)">• <tspan font-weight="700">ASIL-D 車規</tspan>: 強制打墨報廢 (Hard Inking)</text>
+                <text class="en" x="15" y="44" font-size="9" fill="var(--danger)">• ASIL-D Auto: Hard ink &amp; scrap mavericks</text>
+                <text class="zh" x="15" y="62" font-size="9" fill="var(--warn)">• <tspan font-weight="700">工業/消費級</tspan>: 降級出貨 (Commercial Downgrade)</text>
+                <text class="en" x="15" y="62" font-size="9" fill="var(--warn)">• Industrial: Bin reclassification &amp; downgrade</text>
+                <text class="zh" x="15" y="80" font-size="9" fill="var(--accent)">• <tspan font-weight="700">可靠度加測</tspan>: 挑選離群晶粒抽測 168h HTOL</text>
+                <text class="en" x="15" y="80" font-size="9" fill="var(--accent)">• Reliability: Route maverick samples to 168h HTOL</text>
+                <text class="zh" x="15" y="98" font-size="9" fill="var(--ink-soft)">• 平衡 0.5%–1.5% Overkill 良率損失 vs 召回天價代價</text>
+                <text class="en" x="15" y="98" font-size="9" fill="var(--ink-soft)">• Balance 1% yield overkill vs millions in field recalls</text>
+              </g>
+
+              <path d="M 780 410 L 780 424" stroke="var(--danger)" stroke-width="2" marker-end="url(#outArrowL)"/>
+
+              <!-- Pipeline Step 4 -->
+              <g transform="translate(625, 428)">
+                <rect width="310" height="98" rx="5" fill="var(--surface)" stroke="var(--good)" stroke-width="1.2"/>
+                <circle cx="20" cy="18" r="9" fill="var(--good)"/>
+                <text x="20" y="22" font-size="10" font-weight="700" fill="#fff" text-anchor="middle">4</text>
+                <text class="zh" x="36" y="22" font-size="11" font-weight="700" fill="var(--ink)">ATE 即時入庫與統計閉環 (SYA)</text>
+                <text class="en" x="36" y="22" font-size="11" font-weight="700" fill="var(--ink)">Step 4: Real-time Injection &amp; SYA Audit</text>
+                <text class="zh" x="15" y="44" font-size="9" fill="var(--good)">• ATE 測試程式整合 DFX / Exensio 即時限值注入</text>
+                <text class="en" x="15" y="44" font-size="9" fill="var(--good)">• Real-time dynamic limit injection via DFX/Exensio</text>
+                <text class="zh" x="15" y="62" font-size="9" fill="var(--ink-soft)">• <tspan font-weight="700">AEC-Q002 (SYA)</tspan>: 監控離群總數 (DPC) &gt; 閥值整批扣留</text>
+                <text class="en" x="15" y="62" font-size="9" fill="var(--ink-soft)">• AEC-Q002 SYA: Hold lot if DPC count &gt; threshold</text>
+                <text class="zh" x="15" y="80" font-size="9" fill="var(--ink-soft)">• 閉環回饋 Phase 7 FA 實體驗證晶格缺陷真因</text>
+                <text class="en" x="15" y="80" font-size="9" fill="var(--ink-soft)">• Closed-loop physical verification to Phase 7 FA</text>
+              </g>
+
+            </svg>
+            <figcaption class="figure-caption">
+              <span class="zh">圖 6.4：半導體離群值篩選技術全景圖鑑 (Outlier Detection Spectrum) — 從靜態 PAT、動態 DPAT、空間 GD-PAT、最近鄰殘差 NNR 到多變量馬氏距離 (Mahalanobis Distance) 與車規 0-DPPM 閉環處分流</span>
+              <span class="en">Figure 6.4: Semiconductor Outlier Detection Spectrum &amp; Zero-Defect Architecture — From Static/Dynamic PAT, Spatial GD-PAT, NNR Residuals to Multivariate Mahalanobis Distance and 0-DPPM Disposition Pipeline</span>
+            </figcaption>
+          </figure>
+
+          <!-- SUBSECTION 6.4.1 -->
+          <h4 id="sec_6_4_1">
+            <span class="zh">6.4.1 AEC-Q001 規範與 6 大單變量與空間離群值演算法詳解</span>
+            <span class="en">6.4.1 AEC-Q001 Standard &amp; 6 Univariate / Spatial Outlier Screening Algorithms</span>
+          </h4>
+
+          <p>
+            <span class="zh">
+              在量產晶圓測試（CP / Sort）與成品封測（FT）流水線中，離群值演算法的演進代表了晶片可靠度防禦深度的躍升：
+            </span>
+            <span class="en">
+              Across production wafer probe (CP) and final test (FT) lines, the progression of outlier algorithms reflects escalating defense depth for semiconductor reliability:
+            </span>
+          </p>
+
+          <div class="callout">
+            <div class="callout-title">
+              <span>📐</span>
+              <span class="zh">1. 靜態 PAT (Static PAT, SPAT) — AEC-Q001 基線</span>
+              <span class="en">1. Static PAT (SPAT) — AEC-Q001 Baseline</span>
+            </div>
+            <p>
+              <span class="zh">
+                <b>演算法原理</b>：在產品試產階段（Char Lots），收集至少 30 個正常生產批次（約 750 片晶圓以上）的電性參數母體數據，計算母體平均數 \(\mu_{\text{pop}}\) 與母體標準差 \(\sigma_{\text{pop}}\)。靜態 PAT 限值設定為：
+                \[\text{SPAT}_{\text{Lower}} = \mu_{\text{pop}} - 3\sigma_{\text{pop}}, \quad \text{SPAT}_{\text{Upper}} = \mu_{\text{pop}} + 3\sigma_{\text{pop}}\]
+                任何超出 \([\text{SPAT}_{\text{Lower}}, \text{SPAT}_{\text{Upper}}]\) 但仍位於規格限值 \([\text{LSL}, \text{USL}]\) 內的晶粒，強制標記為「靜態離群值」並予以剔除。<br>
+                <b>局限性</b>：靜態 PAT 限值寫死於測試程式中。當晶圓廠遭遇正常的批次間製程中心漂移（Lot-to-lot mean shift）或處於合法的製程角落（Fast-Fast 或 Slow-Slow Corner）時，靜態限值會引發高達 5%–10% 的嚴重<b>誤殺過度剔除（Overkill）</b>；反之在低離散度晶圓上則會造成<b>漏判（Underkill）</b>。
+              </span>
+              <span class="en">
+                <b>Formulation</b>: During characterization, collect electrical parameters across &ge;30 baseline production lots (&ge;750 wafers) to compute population mean \(\mu_{\text{pop}}\) and standard deviation \(\sigma_{\text{pop}}\). Static PAT limits are fixed as:
+                \[\text{SPAT}_{\text{Lower}} = \mu_{\text{pop}} - 3\sigma_{\text{pop}}, \quad \text{SPAT}_{\text{Upper}} = \mu_{\text{pop}} + 3\sigma_{\text{pop}}\]
+                Any die falling outside \([\text{SPAT}_{\text{Lower}}, \text{SPAT}_{\text{Upper}}]\) yet within \([\text{LSL}, \text{USL}]\) is quarantined as a static maverick.<br>
+                <b>Engineering Limitation</b>: SPAT limits are hardcoded. When legal fab lot-to-lot centering drifts or process corners (FF/SS) occur, fixed limits trigger 5%–10% disastrous <b>overkill yield scrap</b>; conversely, on tight-distribution wafers, it causes dangerous <b>underkill test escapes</b>.
+              </span>
+            </p>
+          </div>
+
+          <div class="callout warn">
+            <div class="callout-title">
+              <span>⚡</span>
+              <span class="zh">2. 動態 PAT (Dynamic PAT, DPAT) 與「穩健估計防遮蔽鐵律」</span>
+              <span class="en">2. Dynamic PAT (DPAT) &amp; Robust Anti-Masking Estimators</span>
+            </div>
+            <p>
+              <span class="zh">
+                <b>演算法原理</b>：動態 PAT 不使用全歷史母體參數，而是<b>針對當前正在測試的單片晶圓（Per-Wafer）或單個批次（Per-Lot）即時動態計算統計分佈</b>。每片晶圓測試完畢後，測試系統動態求解該晶圓的中心與離散度，動態生成限值：
+                \[\text{DPAT}_{\text{Lower}} = \mu_{\text{wafer}} - k \cdot \sigma_{\text{wafer}}, \quad \text{DPAT}_{\text{Upper}} = \mu_{\text{wafer}} + k \cdot \sigma_{\text{wafer}} \quad (\text{通常 } k = 4 \text{ 或 } 6)\]
+                DPAT 邊界隨晶圓的製程漂移整體平移，完美解決了製程角落導致的誤殺問題。<br>
+                <b>🚨 致命陷阱：離群值遮蔽效應（Masking Effect）</b>：<br>
+                若直接調用常規的樣本平均數（Mean）與標準差（Std Dev）公式，當晶圓上出現數顆極端離群值時，極值會劇烈拉高 \(\sigma_{\text{wafer}}\)，導致計算出的動態限值門檻「被向外撐大」，反而讓真正有害的離群晶粒矇混過關（此即遮蔽效應）！<br>
+                <b>防禦鐵律</b>：現代 ATE 與 YMS 系統（如 PDF Exensio）計算 DPAT 時，<b>嚴禁直接使用傳統 \(\mu\) 與 \(\sigma\)，必須採用「抗污染穩健估計量（Robust Estimators）」</b>：
+                \[\text{中心指標：中位數 } \tilde{\mu} = \text{Median}(X)\]
+                \[\text{離散指標：標準化四分位距 } \text{NIQR} = \frac{Q_3 - Q_1}{1.34898} \quad \text{或 中位數絕對偏差 } \text{MAD} = 1.4826 \times \text{Median}(|x_i - \tilde{\mu}|)\]
+                採用中位數與 MAD / NIQR 能抵抗高達 50% 的數據污染率（Breakdown Point = 50%），徹底杜絕遮蔽陷阱！
+              </span>
+              <span class="en">
+                <b>Formulation</b>: DPAT computes dynamic boundaries <b>in real-time for each individual wafer (per-wafer)</b>. Following wafer test completion, the engine dynamically extracts wafer-level centrality and dispersion:
+                \[\text{DPAT}_{\text{Lower}} = \mu_{\text{wafer}} - k \cdot \sigma_{\text{wafer}}, \quad \text{DPAT}_{\text{Upper}} = \mu_{\text{wafer}} + k \cdot \sigma_{\text{wafer}} \quad (\text{typically } k = 4 \text{ or } 6)\]
+                <b>🚨 The Masking Effect Trap</b>: Naive sample mean and standard deviation are extremely sensitive to outliers. A cluster of severe mavericks violently inflates \(\sigma_{\text{wafer}}\), pushing the calculated limits outward and allowing genuine reliability killers to escape screening!<br>
+                <b>Golden Defense Rule</b>: Modern ATE pipelines mandate <b>Robust Estimators</b> with a 50% breakdown point:
+                \[\text{Robust Center: Median } \tilde{\mu} = \text{Median}(X)\]
+                \[\text{Robust Sigma: Normalized IQR } \text{NIQR} = \frac{Q_3 - Q_1}{1.34898} \quad \text{or } \text{MAD} = 1.4826 \times \text{Median}(|x_i - \tilde{\mu}|)\]
+              </span>
+            </p>
+          </div>
+
+          <div class="callout">
+            <div class="callout-title">
+              <span>🎯</span>
+              <span class="zh">3. 分區地理 PAT (Geographic DPAT, GD-PAT / Spatial PAT)</span>
+              <span class="en">3. Geographic DPAT (GD-PAT / Spatial PAT)</span>
+            </div>
+            <p>
+              <span class="zh">
+                <b>演算法原理</b>：晶圓物理製程（如化學機械研磨 CMP、快速熱退火 RTA、電漿蝕刻）本質上具有強烈的<b>同心圓徑向梯度（Radial Process Signature）</b>。例如，晶圓外圍邊緣的薄膜厚度往往偏薄、溫度偏低，導致邊緣晶粒的固有電阻或電容天然高於晶圓中心。若將整片晶圓所有晶粒混在一起計算單一 \(\mu_{\text{wafer}}\)，會把正常合理的邊緣物理分佈當成 Maverick 誤殺，同時放過中心區真正的異常。<br>
+                <b>解法</b>：GD-PAT 將晶圓幾何劃分為多個同心圓環區（Center Zone、Middle Ring、Edge Ring）或曝光視野區（Reticle Field），<b>在各分區內部獨立計算當地的 \(\text{DPAT}_{\text{zone}}\) 限值</b>，消除宏觀徑向趨勢對離群判定的干擾。
+              </span>
+              <span class="en">
+                <b>Formulation</b>: Semiconductor processes (CMP polishing, RTA annealing, etch) possess strong <b>radial concentric signatures</b>. Thin film thickness and thermal profiles naturally vary from wafer center to edge ring. Global wafer pooling falsely convicts valid edge dies as outliers while missing true anomalies in the center.<br>
+                <b>Solution</b>: GD-PAT partitions the wafer into concentric topological rings or reticle zones, calculating independent \(\text{DPAT}_{\text{zone}}\) limits per zone to decouple macroscopic radial process gradients from local statistical outliers.
+              </span>
+            </p>
+          </div>
+
+          <div class="callout good">
+            <div class="callout-title">
+              <span>🌐</span>
+              <span class="zh">4. 最近鄰近殘差法 (Nearest Neighbor Residual, NNR)</span>
+              <span class="en">4. Nearest Neighbor Residual (NNR / Local Spatial PAT)</span>
+            </div>
+            <p>
+              <span class="zh">
+                <b>演算法原理</b>：即使經過分區，局部微觀相鄰晶粒之間依然具備極高的物理連續性。NNR 演算法針對晶粒 \((x, y)\)，取其周圍 \(3 \times 3\) 或 \(5 \times 5\) 範圍內所有已通過測試的鄰居晶粒（Neighbors），利用距離加權計算局部預測期望值 \(\hat{z}(x, y)\)：
+                \[\hat{z}(x, y) = \frac{\sum_{i \in \text{Neighbors}} w_i z_i}{\sum w_i}, \quad \text{殘差 } r(x, y) = z(x, y) - \hat{z}(x, y)\]
+                若該晶粒實測值與周圍鄰居預測面的<b>殘差 \(|r(x, y)| &gt; k \cdot \sigma_{\text{residual}}\)</b>，即使其絕對數值完全落在全局 DPAT 合格範圍內，依然判定為局部突兀離群（Spatial Maverick）！<br>
+                <b>實戰殺傷力</b>：NNR 對捕捉閘極氧化層局部微缺陷、拋光刮痕（Scratch）與微型晶格滑移線具有近乎 100% 的捕獲率。
+              </span>
+              <span class="en">
+                <b>Formulation</b>: Physical silicon exhibits spatial continuity across neighboring dies. NNR fits a local distance-weighted planar surface \(\hat{z}(x, y)\) using valid neighboring dies in a \(3 \times 3\) or \(5 \times 5\) kernel:
+                \[\hat{z}(x, y) = \frac{\sum_{i \in \text{Neighbors}} w_i z_i}{\sum w_i}, \quad \text{Residual } r(x, y) = z(x, y) - \hat{z}(x, y)\]
+                If \(|r(x, y)| &gt; k \cdot \sigma_{\text{residual}}\), the die is condemned as a localized spatial outlier even if its raw value sits comfortably within global DPAT bounds! Extremely potent at trapping gate oxide flaws, CMP micro-scratches, and localized thermal micro-excursions.
+              </span>
+            </p>
+          </div>
+
+          <div class="callout danger">
+            <div class="callout-title">
+              <span>🚫</span>
+              <span class="zh">5. 壞鄰居良品剔除法 (Good Die in Bad Neighborhood, GDBN)</span>
+              <span class="en">5. Good Die in Bad Neighborhood (GDBN)</span>
+            </div>
+            <p>
+              <span class="zh">
+                <b>演算法原理</b>：基於摩爾鄰域（Moore Neighborhood）檢查相鄰 8 顆晶粒的測試 Bin 狀態。若一顆晶粒通過了所有電性測試，但其緊鄰的周圍晶粒中有 \(\ge N\) 顆（標準通常設為 \(\ge 3\) 或 \(\ge 4\) 顆）屬於功能失效（Hard Bin / Soft Bin），則該顆良品晶粒強制判定為 <b>GDBN 壞鄰居晶粒</b>，在 Wafer Map 上直接打墨報廢（Inking）！<br>
+                <b>物理機理</b>：半導體微粒落塵、化學殘留與應力裂痕並非幾何斷崖，而是呈現「缺陷污染光環（Contamination Halo）」。被失效晶粒包圍的「倖存良品」，其邊界極大概率已經受到肉眼不可見的次微米物理損傷，裝車後失效率高出正常良品 <b>10–50 倍</b>！
+              </span>
+              <span class="en">
+                <b>Formulation</b>: Inspects the Moore neighborhood (8 surrounding adjacent dies). If an electrically passing die is surrounded by \(\ge N\) failing dies (typically \(\ge 3\) or \(\ge 4\)), it is forcibly flagged and inked out as a GDBN reject.<br>
+                <b>Physical Rationale</b>: Particulate contamination, chemical stains, and physical micro-cracks exhibit continuous spatial contamination halos. Electrically "passing" dies caught in a defect cluster carry a <b>10&times; to 50&times; higher field failure rate</b> due to latent sub-visual damage.
+              </span>
+            </p>
+          </div>
+
+          <div class="callout">
+            <div class="callout-title">
+              <span>📊</span>
+              <span class="zh">6. 統計良率分析 (Statistical Yield Analysis, SYA) — AEC-Q002 規範</span>
+              <span class="en">6. Statistical Yield Analysis (SYA) — AEC-Q002 Baseline</span>
+            </div>
+            <p>
+              <span class="zh">
+                <b>演算法原理</b>：AEC-Q002 將離群值思想由「單一晶粒」放大至「整片晶圓」與「整批產品」。建立各產品線的歷史良率分佈基線，設定統計良率管制線（SYL: Statistical Yield Limit）與操作良率管制線（OYL: Operational Yield Limit）。當單片晶圓總良率掉出 \(\mu_{\text{yield}} - 3\sigma\)，或特定關鍵 Bin（如 IDDQ 漏電 Bin、靜態時序 Bin）的失效顆粒數（Defect Part Count, DPC）超過門檻時，<b>整片晶圓或整批晶圓直接扣留（Lot Hold）</b>，不得混入車規供應鏈！
+              </span>
+              <span class="en">
+                <b>Formulation</b>: AEC-Q002 scales outlier philosophy from individual dies to wafers and entire lots. By establishing historical yield baselines, it enforces Statistical Yield Limits (SYL) and Operational Yield Limits (OYL). When a wafer's yield falls below \(\mu_{\text{yield}} - 3\sigma\) or critical bin counts (DPC) breach control thresholds, the entire wafer/lot is quarantined from automotive shipment.
+              </span>
+            </p>
+          </div>
+
+          <!-- TABLE 6.4: COMPARISON MATRIX -->
+          <h4>
+            <span class="zh">6.4.2 半導體 6 大離群值篩選技術深度對照與實務決策矩陣</span>
+            <span class="en">6.4.2 Comprehensive Comparison Matrix of 6 Outlier Detection Methods</span>
+          </h4>
+
+          <div class="data-table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th><span class="zh">離群值篩選演算法</span><span class="en">Screening Algorithm</span></th>
+                  <th><span class="zh">數學計算模型與判定條件</span><span class="en">Mathematical Model &amp; Bound</span></th>
+                  <th><span class="zh">核心防禦物理缺陷與失效模式</span><span class="en">Target Latent Defects &amp; PoF</span></th>
+                  <th><span class="zh">運算複雜度與 ATE 實施瓶頸</span><span class="en">Computational Complexity &amp; ATE Limits</span></th>
+                  <th><span class="zh">適用標準與可靠度等級</span><span class="en">Industry Standard &amp; Reliability Tier</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b><span class="zh">1. 靜態 PAT (SPAT)</span><span class="en">1. Static PAT (SPAT)</span></b></td>
+                  <td>
+                    <span class="zh">\[\mu_{\text{pop}} \pm 3\sigma_{\text{pop}}\] 基於 30 批歷史母體數據固定設定。</span>
+                    <span class="en">\[\mu_{\text{pop}} \pm 3\sigma_{\text{pop}}\] fixed across 30 historical lots.</span>
+                  </td>
+                  <td>
+                    <span class="zh">全域極端參數飄移、重度摻雜濃度偏差、超限漏電流。</span>
+                    <span class="en">Global parametric excursions, extreme dopant drift, macro-leakage.</span>
+                  </td>
+                  <td>
+                    <span class="zh">\(\mathcal{O}(1)\) 常數級；直接寫入測試機 Test Program，零運算開銷。</span>
+                    <span class="en">\(\mathcal{O}(1)\); hardcoded in test program limits, zero runtime overhead.</span>
+                  </td>
+                  <td>
+                    <span class="zh">AEC-Q001 基礎入門標準；消費級/普通工業級。</span>
+                    <span class="en">AEC-Q001 baseline; consumer &amp; standard industrial.</span>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td><b><span class="zh">2. 動態 PAT (DPAT)</span><span class="en">2. Dynamic PAT (DPAT)</span></b></td>
+                  <td>
+                    <span class="zh">\[\text{Median} \pm k \cdot \text{NIQR}\] 逐片動態計算，推薦 \(k = 4 \sim 6\)。</span>
+                    <span class="en">\[\text{Median} \pm k \cdot \text{NIQR}\] computed per wafer; \(k=4\sim 6\).</span>
+                  </td>
+                  <td>
+                    <span class="zh">晶圓內異常特異晶粒（Maverick）、局部通道漏電、接觸孔微弱虛接。</span>
+                    <span class="en">Intra-wafer maverick dies, channel leakage, marginal via resistive contacts.</span>
+                  </td>
+                  <td>
+                    <span class="zh">\(\mathcal{O}(N \log N)\) 排序；需整片測試完畢後於 ATE 後處理器二次計算。</span>
+                    <span class="en">\(\mathcal{O}(N \log N)\); requires end-of-wafer post-processing recalculation.</span>
+                  </td>
+                  <td>
+                    <span class="zh">AEC-Q001 核心條款；車規晶片 Grade 1 / Grade 0 標配。</span>
+                    <span class="en">AEC-Q001 mandatory clause; automotive Grade 1/0 standard.</span>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td><b><span class="zh">3. 地理分區 (GD-PAT)</span><span class="en">3. Geographic (GD-PAT)</span></b></td>
+                  <td>
+                    <span class="zh">\[\text{Median}_{\text{zone}} \pm k \cdot \text{NIQR}_{\text{zone}}\] 分同心圓環或曝光視場獨立求解。</span>
+                    <span class="en">\[\text{Median}_{\text{zone}} \pm k \cdot \text{NIQR}_{\text{zone}}\] solved per concentric zone.</span>
+                  </td>
+                  <td>
+                    <span class="zh">解耦 CMP 碟化、氣流分佈引發之徑向漸層，防止邊緣良品被誤殺。</span>
+                    <span class="en">Decouples radial CMP dishing and thermal gradients, curbing edge overkill.</span>
+                  </td>
+                  <td>
+                    <span class="zh">\(\mathcal{O}(N \log(N/Z))\)；需配置晶圓座標分區幾何拓撲映射表。</span>
+                    <span class="en">\(\mathcal{O}(N \log(N/Z))\); requires wafer coordinate zone topology map.</span>
+                  </td>
+                  <td>
+                    <span class="zh">先進製程 12 吋晶圓車用晶片；高 Cpk 要求關鍵類比/電源晶片。</span>
+                    <span class="en">Advanced 300mm automotive silicon; high-Cpk analog &amp; power ICs.</span>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td><b><span class="zh">4. 最近鄰殘差 (NNR)</span><span class="en">4. Nearest Neighbor (NNR)</span></b></td>
+                  <td>
+                    <span class="zh">\[|z(x,y) - \hat{z}_{\text{local}}| &gt; k \cdot \sigma_{\text{res}}\] 局部多項式/距離權重表面擬合。</span>
+                    <span class="en">\[|z(x,y) - \hat{z}_{\text{local}}| &gt; k \cdot \sigma_{\text{res}}\] local weighted kernel fitting.</span>
+                  </td>
+                  <td>
+                    <span class="zh">微型拋光刮痕（Scratch）、微小局部熱點、微型晶格滑移線、隱形裂紋。</span>
+                    <span class="en">Micro-scratches, local hot-spots, micro-slip dislocations, latent micro-cracks.</span>
+                  </td>
+                  <td>
+                    <span class="zh">\(\mathcal{O}(N \cdot K)\)；需 2D 矩陣空間卷積，通常於 YMS 資料庫離線或邊緣執行。</span>
+                    <span class="en">\(\mathcal{O}(N \cdot K)\); 2D spatial convolution, computed in edge YMS gateway.</span>
+                  </td>
+                  <td>
+                    <span class="zh">ISO 26262 ASIL-D 剎車與自駕運算晶片；&lt; 0.1 DPPM 超高可靠度。</span>
+                    <span class="en">ISO 26262 ASIL-D autonomous computing &amp; braking; &lt; 0.1 DPPM.</span>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td><b><span class="zh">5. 壞鄰居良品 (GDBN)</span><span class="en">5. Neighborhood (GDBN)</span></b></td>
+                  <td>
+                    <span class="zh">\[\sum_{i \in \text{Moore}} \mathbb{I}(\text{Fail}_i) \ge N_{\text{crit}}\] (如周圍 8 顆中 \(\ge 3\) 顆失效)。</span>
+                    <span class="en">\[\sum_{i \in \text{Moore}} \mathbb{I}(\text{Fail}_i) \ge N_{\text{crit}}\] (e.g. \(\ge 3\) fails in 8 neighbors).</span>
+                  </td>
+                  <td>
+                    <span class="zh">缺陷群擴散光環（Defect Halo）、顆粒破裂擴散、封裝崩邊邊界裂痕。</span>
+                    <span class="en">Defect contamination halo, shattered particle spray, sawing micro-cracks.</span>
+                  </td>
+                  <td>
+                    <span class="zh">\(\mathcal{O}(N)\) 網格二維掃描；在晶圓測試結束生成 Inking 墨點清單。</span>
+                    <span class="en">\(\mathcal{O}(N)\) 2D grid scan; generates secondary inking wafer map.</span>
+                  </td>
+                  <td>
+                    <span class="zh">全球一線車廠（Tier-1 / OEM）硬性要求強制執行條款。</span>
+                    <span class="en">Mandatory contractual requirement for Tier-1 automotive OEMs.</span>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td><b><span class="zh">6. 多變量馬氏距離<br>(Mahalanobis MD)</span><span class="en">6. Multivariate<br>(Mahalanobis MD)</span></b></td>
+                  <td>
+                    <span class="zh">\[D_M^2 = (\mathbf{x}-\boldsymbol{\mu})^T \boldsymbol{\Sigma}^{-1} (\mathbf{x}-\boldsymbol{\mu}) &gt; \chi^2_{p}(1-\alpha)\] 跨參數共變異數矩陣求解。</span>
+                    <span class="en">\[D_M^2 = (\mathbf{x}-\boldsymbol{\mu})^T \boldsymbol{\Sigma}^{-1} (\mathbf{x}-\boldsymbol{\mu}) &gt; \chi^2_{p}(1-\alpha)\] covariance matrix inversion.</span>
+                  </td>
+                  <td>
+                    <span class="zh">單變量合法但多維關係失諧之隱形失效（如極低功耗伴隨極低頻率之高阻態）。</span>
+                    <span class="en">Multivariate correlation violations (e.g. ultra-low \(I_{\text{DDQ}}\) with anomalous low \(F_{\text{max}}\)).</span>
+                  </td>
+                  <td>
+                    <span class="zh">\(\mathcal{O}(p^3 + N p^2)\) 矩陣求逆；通常篩選關鍵 3–8 個參數進行即時計算。</span>
+                    <span class="en">\(\mathcal{O}(p^3 + N p^2)\) matrix inversion; evaluated across key 3–8 parameters.</span>
+                  </td>
+                  <td>
+                    <span class="zh">先進伺服器 CPU/GPU/AI 晶片、車用航太高安全性 SOC。</span>
+                    <span class="en">Advanced Server CPU/GPU/AI accelerators, aerospace &amp; automotive SOCs.</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- SUBSECTION 6.4.3: MULTIVARIATE MAHALANOBIS -->
+          <h4 id="sec_6_4_2">
+            <span class="zh">6.4.3 多變量離群值檢測 (Multivariate Outlier Detection) 與 馬氏距離 (Mahalanobis Distance) 數學建模</span>
+            <span class="en">6.4.3 Multivariate Outlier Detection &amp; Mahalanobis Distance Mathematical Modeling</span>
+          </h4>
+
+          <p>
+            <span class="zh">
+              單變量 DPAT 無論多麼嚴格，均存在根本性的幾何盲區：<b>它假設每個測試參數相互獨立，只能沿著單一座標軸進行垂直切割</b>。但在電晶體物理中，各參數間具有極強的內部物理耦合（如電晶體飽和電流 \(I_{\text{dsat}}\) 與靜態漏電 \(I_{\text{leak}}\) 呈指數正相關；振盪器頻率 \(F_{\text{max}}\) 與臨界電壓 \(V_{th}\) 呈反比）：
+            </span>
+            <span class="en">
+              No matter how rigorous univariate DPAT is, it suffers from a fundamental mathematical blind spot: <b>it assumes parameters are mutually independent, slicing limits along orthogonal 1D axes</b>. However, semiconductor physics dictate strong inter-parameter coupling (e.g., saturation current \(I_{\text{dsat}}\) and subthreshold leakage \(I_{\text{leak}}\) are exponentially correlated; clock frequency \(F_{\text{max}}\) and threshold voltage \(V_{th}\) exhibit strong inverse relationships):
+            </span>
+          </p>
+
+          <div class="formula">
+            <div class="eq">
+              \[D_M(\mathbf{x}) = \sqrt{(\mathbf{x} - \boldsymbol{\mu})^T \boldsymbol{\Sigma}^{-1} (\mathbf{x} - \boldsymbol{\mu})}\]
+            </div>
+            <p>
+              <span class="zh">
+                其中 \(\mathbf{x} = [x_1, x_2, \dots, x_p]^T\) 為單顆晶粒之 \(p\) 維測試參數向量，\(\boldsymbol{\mu}\) 為母體平均值向量，\(\boldsymbol{\Sigma}\) 為 \(p \times p\) 共變異數矩陣（Covariance Matrix）。<br>
+                <b>幾何意義</b>：歐氏距離（Euclidean Distance）描繪的是正圓球體，而馬氏距離（Mahalanobis Distance）透過乘以協方差矩陣的逆矩陣 \(\boldsymbol{\Sigma}^{-1}\)，自動消除了各參數的量綱差異（如伏特 V 與毫安 mA），並將座標軸旋轉至主成分方向，形成一個傾斜的<b>超橢球體（Hyper-ellipsoid）</b>！
+              </span>
+              <span class="en">
+                where \(\mathbf{x} = [x_1, x_2, \dots, x_p]^T\) is the \(p\)-dimensional test vector for a single die, \(\boldsymbol{\mu}\) is the multivariate mean vector, and \(\boldsymbol{\Sigma}\) is the \(p \times p\) covariance matrix.<br>
+                <b>Geometric Insight</b>: While Euclidean distance creates spherical contours, Mahalanobis distance multiplies by the inverse covariance matrix \(\boldsymbol{\Sigma}^{-1}\), standardizing scaling variances and rotating coordinate axes along principal correlation directions to form a <b>tilted hyper-ellipsoid contour</b>.
+              </span>
+            </p>
+          </div>
+
+          <p>
+            <span class="zh">
+              <b>卡方檢定閾值判定（Chi-Square Boundary）</b>：<br>
+              在多元常態分佈假設下，馬氏距離的平方 \(D_M^2\) 服從自由度為 \(p\) 的卡方分佈：
+              \[D_M^2(\mathbf{x}) \sim \chi^2(p)\]
+              工程師只需依據允許的過度剔除率（例如顯著水準 \(\alpha = 0.001\) 或 \(0.0001\)），查表求得臨界門檻值 \(\chi^2_p(1-\alpha)\)。若某晶粒之 \(D_M^2 &gt; \chi^2_p(1-\alpha)\)，即可直接判定該晶粒在多維空間中嚴重背離物理相關性，予以剔除！<br>
+              <b>典型實例</b>：某晶粒的 \(I_{\text{DDQ}} = 1.2\,\mu\text{A}\)（正常，限值 &lt; 50），但其對應的運行頻率 \(F_{\text{max}}\) 卻異常低落（慢於同批次 99% 的晶粒）。在單變量直方圖中兩者皆合法，但在 \(I_{\text{DDQ}} \text{ vs. } F_{\text{max}}\) 散佈圖中，它遠遠游離於橢圓之外——這代表其內部存在局部高阻抗微開路，導致時序延遲暴增，是單變量 PAT 永遠無法抓到的致命隱形離群點！
+            </span>
+            <span class="en">
+              <b>Chi-Square Threshold Setting</b>: Under multivariate normality, the squared Mahalanobis distance \(D_M^2\) follows a chi-square distribution with \(p\) degrees of freedom:
+              \[D_M^2(\mathbf{x}) \sim \chi^2(p)\]
+              For a chosen false-positive risk (e.g., \(\alpha = 0.001\)), the threshold is \(\chi^2_p(1-\alpha)\). Any die with \(D_M^2 &gt; \chi^2_p(1-\alpha)\) is classified as a multivariate outlier.<br>
+              <b>Textbook Case</b>: A die exhibits nominal \(I_{\text{DDQ}} = 1.2\,\mu\text{A}\) and nominal \(F_{\text{max}}\). Individually, both pass 1D DPAT. However, in the bivariate scatter plot, having fast-corner leakage combined with slow-corner frequency violently violates the physical corner ellipse—conclusively revealing a localized micro-bridge contact void.
+            </span>
+          </p>
+
+          <!-- SUBSECTION 6.4.4: OVERKILL ECONOMICS & CLOSED LOOP -->
+          <h4 id="sec_6_4_3">
+            <span class="zh">6.4.4 離群值處分策略、過度剔除 (Overkill) 經濟學與 ATE 產線即時注入閉環</span>
+            <span class="en">6.4.4 Maverick Die Disposition, Overkill Economics &amp; Real-time ATE Limit Injection Closed-Loop</span>
+          </h4>
+
+          <div class="callout danger">
+            <div class="callout-title">
+              <span>⚖️</span>
+              <span class="zh">過度剔除 (Overkill) vs 漏網代價 (Underkill) 之經濟學權衡</span>
+              <span class="en">The Economics of Overkill vs. Underkill</span>
+            </div>
+            <p>
+              <span class="zh">
+                離群值篩選本質上是一把雙刃劍：門檻收得越緊（如從 \(6\sigma\) 縮至 \(3\sigma\)），攔截潛在客訴的能力越強，但<b>誤殺正常晶粒所造成的過度剔除（Overkill Yield Loss）</b>也越劇烈。<br>
+                • <b>車用晶片極限（Automotive ASIL-D）</b>：單顆晶片召回或引致交通事故的索賠代價高達數百萬美元，因此車規晶圓廠寧可承受 <b>0.8%–2.0% 的 Overkill 良率損失</b>，也必須將出廠缺陷率壓制至 &lt; 0.1 DPPM；<br>
+                • <b>消費級與工業級（Consumer / IoT）</b>：更重視毛利率與產能利用率，通常設定 \(k = 5\sigma \sim 6\sigma\)，將 Overkill 控制在 &lt; 0.1%，兼顧成本與品質。
+              </span>
+              <span class="en">
+                Outlier screening is a delicate economic trade-off: tightening thresholds from \(6\sigma\) to \(3\sigma\) captures more latent killers, but escalates <b>Overkill yield loss</b>.<br>
+                • <b>Automotive ASIL-D</b>: A single field recall costs millions in warranty liability. Automotive fabs routinely absorb <b>0.8%–2.0% overkill yield scrap</b> to secure &lt; 0.1 DPPM field performance.<br>
+                • <b>Consumer &amp; IoT</b>: Prioritizes gross margin and cost; sets \(k = 5\sigma \sim 6\sigma\) to restrict overkill &lt; 0.1%.
+              </span>
+            </p>
+          </div>
+
+          <div class="callout good">
+            <div class="callout-title">
+              <span>🔄</span>
+              <span class="zh">Maverick 晶粒處分與 ATE 即時限值注入閉環實務</span>
+              <span class="en">Maverick Disposition &amp; ATE Real-time Limit Injection Closed-Loop</span>
+            </div>
+            <p>
+              <span class="zh">
+                現代企業級良率系統（如 PDF Solutions Exensio / SAS JMP）實施離群值過濾之兩大工業落地方案：<br>
+                ① <b>邊緣即時限值注入（In-line Dynamic Limit Injection）</b>：在探針台測試完一片晶圓的最後一顆 Die 時，邊緣伺服器（Edge Gateway）在 300 毫秒內讀取該晶圓原始 STDF，執行穩健中位數與 MAD 運算，動態生成該片晶圓的 DPAT / NNR 限值，立即回傳給 ATE 測試機進行軟體 Bin 重新指派，或發出探針直接打墨（Hard Inking）；<br>
+                ② <b>離線虛擬晶圓圖打墨（Virtual Inking via MES）</b>：若 ATE 機台軟體老舊不支援即時注入，則於晶圓出站後由 YMS 系統批次處理，生成包含 GDBN 與 DPAT 剔除座標的<b>虛擬墨點圖（Virtual Ink Map）</b>，直接上傳至 MES 系統。在後續劃線晶粒切割（Wafer Sawing / Dicing）與取放機（Die Sorter / Pick &amp; Place）中，機台自動跳過所有被標記為離群值的晶粒，禁止其進入封裝打線工序！
+              </span>
+              <span class="en">
+                Modern enterprise yield architectures implement outlier disposition via two robust industrial pathways:<br>
+                ① <b>In-line Dynamic Limit Injection</b>: Upon testing the final die of a wafer, an edge gateway ingests the STDF within 300ms, calculates robust Median and MAD parameters, and pushes dynamic DPAT/NNR limits back to the tester to re-bin or ink out mavericks;<br>
+                ② <b>Virtual Inking via MES</b>: If legacy testers cannot support real-time limit injection, the YMS processes data offline post-probe, generating a <b>Virtual Ink Map</b> combining DPAT and GDBN rejects. The map is uploaded to the MES, instructing downstream automated die sorters and pick-and-place tools to ignore all flagged maverick coordinates during packaging.
+              </span>
+            </p>
+          </div>
+
         </div>
       </section>
 
@@ -14133,11 +14774,11 @@
     <div style="display:flex; flex-direction:column; align-items:flex-end; gap:5px;">
       <div style="display:flex; align-items:center; gap:8px;">
         <span class="badge badge-green" style="font-size:11px; padding:2px 8px;">● LIVE VERIFIED</span>
-        <span style="font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft);">Rev. AG</span>
+        <span style="font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft);">Rev. AH</span>
       </div>
       <div style="font-family:var(--font-mono); font-size:12px; color:var(--ink);">
         <span class="zh">最後更新日期：</span><span class="en">Last Updated: </span>
-        <b style="color:var(--accent);">2026-11-02 08:35 (Asia/Taipei)</b>
+        <b style="color:var(--accent);">2026-11-02 09:15 (Asia/Taipei)</b>
       </div>
     </div>
   </footer>

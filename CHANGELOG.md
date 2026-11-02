@@ -8,6 +8,29 @@ Entry format / 格式:
 `## YYYY-MM-DD — <agent> — <short title>` then bullets: what changed, why, caveats for the next agent.
 
 ---
+## 2026-11-02 — Google Antigravity — Rev. AH: Semiconductor Outlier Detection, Maverick Screening & AEC-Q001/002 Protocols (Section 6.4, Fig 6.4, Table 6.4)
+
+- **Added Section 6.4: 半導體異常值篩選、孤島晶粒檢測與車規 AEC-Q001/002 演算法實踐 (Semiconductor Outlier Detection, Maverick Screening & AEC-Q001/002 Protocols)**:
+  - Added Figure 6.4 (`viewBox="0 0 960 560"`): Comprehensive dual-panel SVG diagram presenting:
+    - Part A: Schematics for 6 canonical outlier detection mechanisms (SPAT static limits, DPAT wafer-level dynamic limits with robust median/NIQR estimators, GD-PAT ring/zone limits, NNR nearest neighbor residual filtering, GDBN good die in bad neighborhood defect-clustering isolation, and Multivariate Mahalanobis Distance \(D_M\) bivariate ellipsoid boundary detection).
+    - Part B: 4-Stage Zero-DPPM Automotive Maverick Screening & Execution Pipeline (Stage 1: Wafer Sort Parametric PAT -> Stage 2: Spatial & Neighborhood Filters -> Stage 3: ATE Real-Time Dynamic Limit Injection -> Stage 4: Risk Disposition & Virtual Inking).
+  - Added Section 6.4.1: The Statistical Blind Spot of Nominal Datasheet Limits (LSL/USL) vs. Latent Reliability Killers (AEC-Q001 / AEC-Q002).
+  - Added Table 6.4: Master Decision & Comparison Matrix across all 6 core outlier algorithms (SPAT, DPAT, GD-PAT, NNR, GDBN, SYA), comparing mathematical formulations, robust estimators (Median + MAD / NIQR), sensitivity to masking, computational overhead, and target reliability failure modes.
+  - Added Section 6.4.3: Multivariate Outlier Detection & Mahalanobis Distance (\(D_M\)) formulation:
+    - Mathematical formulation: \(D_M(\mathbf{x}) = \sqrt{(\mathbf{x} - \boldsymbol{\mu})^T \boldsymbol{\Sigma}^{-1} (\mathbf{x} - \boldsymbol{\mu})}\), handling correlated multi-pin/leakage distributions, covariance matrix inversion \(\boldsymbol{\Sigma}^{-1}\), and \(\chi^2_p(\alpha)\) thresholding to intercept bivariately anomalous chips that pass 1D univariate limits.
+  - Added Section 6.4.4: Economics of Maverick Disposition (Overkill vs. Underkill) & ATE Execution Architecture:
+    - Economic trade-offs between commercial IoT/consumer bin downgrades vs. automotive ASIL-D hard inking scrap vs. 168h high-stress HTOL burn-in isolation.
+    - Production deployment architectures: Real-time edge gateway dynamic limit injection (e.g., PDF Exensio / Advantest DFX / Teradyne IG-XL) vs. offline MES virtual inking post-processing.
+- **Updated Desktop & Mobile Navigation (TOC)**:
+  - Added `sec_6_4` into both `nav.toc` and `details.toc-m` under Phase 6 with full bilingual parity.
+- **Synchronized Header & Footer Revision Metadata**:
+  - Bumped revision label to `Rev. AH` and Last Updated timestamp to `2026-11-02 09:15 (Asia/Taipei)` in both header and footer.
+- **Quality & Verification**:
+  - Passed `npm run verify` with 0 tag mismatches and valid JavaScript syntax.
+  - Passed `node scripts/audit_i18n_and_structure.js` with 0 numbering drift, 0 Chinese leaks in English mode across all sections, and 100% table cells localized.
+
+---
+
 ## 2026-11-02 — Google Antigravity — Rev. AG: Synchronized Revision Labels (Header & Footer) to Rev. AG
 
 - **Fixed Revision Tag Synchronization across Header and Footer**:
