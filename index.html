@@ -953,14 +953,16 @@
   }
   /* Lithography Real SEM Micrograph Gallery */
   .litho-gallery-grid,
-  .scratch-gallery-grid {
+  .scratch-gallery-grid,
+  .top10-gallery-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
     gap: 16px;
     margin: 20px 0 28px 0;
   }
   .litho-card,
-  .scratch-card {
+  .scratch-card,
+  .top10-card {
     background: var(--surface-2);
     border: 1px solid var(--border);
     border-radius: 8px;
@@ -970,13 +972,15 @@
     transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
   }
   .litho-card:hover,
-  .scratch-card:hover {
+  .scratch-card:hover,
+  .top10-card:hover {
     transform: translateY(-3px);
     box-shadow: 0 8px 24px rgba(0,0,0,0.18);
     border-color: var(--accent);
   }
   .litho-card-img-wrap,
-  .scratch-card-img-wrap {
+  .scratch-card-img-wrap,
+  .top10-card-img-wrap {
     width: 100%;
     height: 155px;
     background: #0b1120;
@@ -988,18 +992,21 @@
     border-bottom: 1px solid var(--border);
   }
   .litho-card-img-wrap img,
-  .scratch-card-img-wrap img {
+  .scratch-card-img-wrap img,
+  .top10-card-img-wrap img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     transition: transform 0.3s ease;
   }
   .litho-card:hover .litho-card-img-wrap img,
-  .scratch-card:hover .scratch-card-img-wrap img {
+  .scratch-card:hover .scratch-card-img-wrap img,
+  .top10-card:hover .top10-card-img-wrap img {
     transform: scale(1.05);
   }
   .litho-card-badge,
-  .scratch-card-badge {
+  .scratch-card-badge,
+  .top10-card-badge {
     position: absolute;
     top: 8px;
     right: 8px;
@@ -1015,14 +1022,16 @@
     backdrop-filter: blur(4px);
   }
   .litho-card-body,
-  .scratch-card-body {
+  .scratch-card-body,
+  .top10-card-body {
     padding: 12px 14px 14px;
     display: flex;
     flex-direction: column;
     flex: 1;
   }
   .litho-card-title,
-  .scratch-card-title {
+  .scratch-card-title,
+  .top10-card-title {
     font-size: 13.5px;
     font-weight: 700;
     color: var(--ink);
@@ -1030,7 +1039,8 @@
     line-height: 1.35;
   }
   .litho-card-desc,
-  .scratch-card-desc {
+  .scratch-card-desc,
+  .top10-card-desc {
     font-size: 11.5px;
     color: var(--ink-soft);
     line-height: 1.5;
@@ -1322,7 +1332,7 @@
       </div>
       <div>
         <span class="zh">版次狀態</span><span class="en">Revision</span>
-        <b>Rev. AL (Expanded Bilingual Glossary: 135+ Semiconductor, AI/ML, Outlier &amp; Scratch Acronyms)</b>
+        <b>Rev. AM (Top 10 Failure Modes Visual Micrograph Atlas, Interactive Live Micrograph Simulator &amp; Table Thumbnails)</b>
       </div>
       <div>
         <span class="zh">適用對象</span><span class="en">Audience</span>
@@ -2327,6 +2337,200 @@
             </figure>
 
             <!-- INTERACTIVE TOP 10 FALLOUT SIMULATOR -->
+            <!-- SUB-SECTION OV.2.1: TOP 10 FAILURE MODES VISUAL MICROGRAPH ATLAS -->
+            <div style="margin:28px 0 20px;">
+              <h4 style="margin:0 0 10px; font-size:15px; color:var(--ink); display:flex; align-items:center; gap:8px;">
+                <span class="zh">📸 半導體十大核心失效模式實物微觀圖譜 (Visual Defect Micrograph Atlas)</span>
+                <span class="en">📸 Top 10 Semiconductor Yield Fallouts Visual Micrograph Atlas</span>
+              </h4>
+              <p style="font-size:12.5px; color:var(--ink-soft); margin:0 0 16px; line-height:1.55;">
+                <span class="zh">全景涵蓋 FEOL 閘極氧化層、BEOL 銅互連、微影與深寬比接觸孔、晶圓薄化旋痕裂紋、動態統計離群 PAT、晶片-封裝應力 (CPI)、銲線與覆晶底填微氣泡，乃至 ATE 探針磨損與高速 SerDes 眼圖邊限（點擊任一圖卡可一鍵開啟全螢幕高解析度光學/電子顯微鏡縮放檢視）：</span>
+                <span class="en">Comprehensive physical microscopy atlas spanning FEOL gate dielectrics, BEOL metallization, litho contact vias, wafer thinning saw micro-cracks, dynamic PAT outliers, chip-package interaction (CPI), wire bonding, flip-chip underfill voids, ATE socket wear, and SerDes eye margins (click any image for interactive full-screen zoomable lightbox):</span>
+              </p>
+
+              <div class="top10-gallery-grid">
+                <!-- Card 1 -->
+                <div class="top10-card">
+                  <div class="top10-card-img-wrap">
+                    <img src="assets/top10/01_gate_oxide_breakdown.jpg" alt="1. Gate Oxide TDDB Breakdown" loading="lazy">
+                    <div class="top10-card-badge">HRTEM | 5 nm</div>
+                  </div>
+                  <div class="top10-card-body">
+                    <div class="top10-card-title">
+                      <span class="zh">1. 閘極氧化層經時擊穿 (TDDB)</span>
+                      <span class="en">1. Gate Oxide TDDB Breakdown</span>
+                    </div>
+                    <div class="top10-card-desc">
+                      <span class="zh">2nm 超薄介電層高電場應力誘發局部導電熔融孔洞，導致接面超額漏電與靜態電流失控。</span>
+                      <span class="en">Localized conductive filament rupture through ultra-thin 2nm gate dielectric causing catastrophic Idde leakage.</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="top10-card">
+                  <div class="top10-card-img-wrap">
+                    <img src="assets/top10/02_cmp_puddling_scratch.jpg" alt="2. BEOL Bridging &amp; CMP Puddling" loading="lazy">
+                    <div class="top10-card-badge">SEM | Top-down</div>
+                  </div>
+                  <div class="top10-card-body">
+                    <div class="top10-card-title">
+                      <span class="zh">2. 後段金屬層短路與 CMP 殘留</span>
+                      <span class="en">2. BEOL Bridging &amp; CMP Puddling</span>
+                    </div>
+                    <div class="top10-card-desc">
+                      <span class="zh">CMP 研磨液微凝聚顆粒劃傷晶圓，金屬鍍層殘留於研磨微溝槽形成導線跨接短路。</span>
+                      <span class="en">Agglomerated slurry particles create micro-scratches causing copper puddling and interconnect bridging.</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="top10-card">
+                  <div class="top10-card-img-wrap">
+                    <img src="assets/top10/03_litho_via_polymer_open.jpg" alt="3. Litho Defocus &amp; Contact Via Open" loading="lazy">
+                    <div class="top10-card-badge">FIB-SEM | 200 nm</div>
+                  </div>
+                  <div class="top10-card-body">
+                    <div class="top10-card-title">
+                      <span class="zh">3. 微影散焦與接觸孔蝕刻開路</span>
+                      <span class="en">3. Litho Defocus &amp; Contact Via Open</span>
+                    </div>
+                    <div class="top10-card-desc">
+                      <span class="zh">深寬比接觸孔底部沉積緻密含氟聚合物殘留，阻隔鎢插塞與矽基板金屬接觸引發高阻開路。</span>
+                      <span class="en">High-aspect-ratio contact via clogged with fluorocarbon polymer residue blocking tungsten plug contact.</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="top10-card">
+                  <div class="top10-card-img-wrap">
+                    <img src="assets/top10/04_wafer_thinning_chipping.jpg" alt="4. Wafer Thinning Swirls &amp; Chipping" loading="lazy">
+                    <div class="top10-card-badge">SEM | 50 µm</div>
+                  </div>
+                  <div class="top10-card-body">
+                    <div class="top10-card-title">
+                      <span class="zh">4. 晶圓薄化旋痕與周緣崩角</span>
+                      <span class="en">4. Wafer Thinning Swirls &amp; Chipping</span>
+                    </div>
+                    <div class="top10-card-desc">
+                      <span class="zh">50µm 超薄晶圓粗磨刀痕應力集中，沿矽解理面引發周緣微裂紋與崩角破片，衝擊封裝良率。</span>
+                      <span class="en">Mechanical backgrinding saw swirl marks triggering edge chipping and micro-cracks along silicon cleavage planes.</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="top10-card">
+                  <div class="top10-card-img-wrap">
+                    <img src="assets/top10/05_pat_maverick_scratch.jpg" alt="5. Dynamic Statistical Outliers (PAT)" loading="lazy">
+                    <div class="top10-card-badge">Optical | Macro</div>
+                  </div>
+                  <div class="top10-card-body">
+                    <div class="top10-card-title">
+                      <span class="zh">5. 常態分佈動態離群值 (PAT)</span>
+                      <span class="en">5. Dynamic Statistical Outliers (PAT)</span>
+                    </div>
+                    <div class="top10-card-desc">
+                      <span class="zh">宏觀刮傷或製程隱性瑕疵，電氣特性落入合格規格但孤立於常態母體，為車規高危早夭晶粒。</span>
+                      <span class="en">Dies passing static spec but isolated from natural wafer distribution due to subtle damage; high automotive early-failure risk.</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="top10-card">
+                  <div class="top10-card-img-wrap">
+                    <img src="assets/top10/06_die_tilt_warpage.jpg" alt="6. CPI Stress &amp; Thermal Warpage" loading="lazy">
+                    <div class="top10-card-badge">Metallography | BGA</div>
+                  </div>
+                  <div class="top10-card-body">
+                    <div class="top10-card-title">
+                      <span class="zh">6. 晶片-封裝應力 (CPI) 與翹曲</span>
+                      <span class="en">6. CPI Stress &amp; Thermal Warpage</span>
+                    </div>
+                    <div class="top10-card-desc">
+                      <span class="zh">封裝熱膨脹係數 (CTE) 失配導致晶粒傾斜與回焊熱翹曲，超低介電層 (ELK) 介面開裂脫層。</span>
+                      <span class="en">CTE mismatch induced die tilt and thermal warpage causing extreme low-k (ELK) ILD delamination.</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Card 7 -->
+                <div class="top10-card">
+                  <div class="top10-card-img-wrap">
+                    <img src="assets/top10/07_wirebond_nsop_liftoff.jpg" alt="7. Wirebond NSOP &amp; Sweep Short" loading="lazy">
+                    <div class="top10-card-badge">SEM | Ball Bond</div>
+                  </div>
+                  <div class="top10-card-body">
+                    <div class="top10-card-title">
+                      <span class="zh">7. 打線未著銲墊 (NSOP) 與沖線</span>
+                      <span class="en">7. Wirebond NSOP &amp; Sweep Short</span>
+                    </div>
+                    <div class="top10-card-desc">
+                      <span class="zh">鋁墊表面微污染或超音波功率漂移造成銲球未接合 (NSOP)，以及高黏度膠體模流沖線觸碰短路。</span>
+                      <span class="en">Non-stick on pad (NSOP) due to pad oxidation and wire sweep shorts under high-viscosity EMC transfer molding.</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Card 8 -->
+                <div class="top10-card">
+                  <div class="top10-card-img-wrap">
+                    <img src="assets/top10/08_underfill_voids_csam.jpg" alt="8. Underfill Voids &amp; Solder Fatigue" loading="lazy">
+                    <div class="top10-card-badge">C-SAM | Acoustic</div>
+                  </div>
+                  <div class="top10-card-body">
+                    <div class="top10-card-title">
+                      <span class="zh">8. 底填微氣泡與微凸塊疲勞</span>
+                      <span class="en">8. Underfill Voids &amp; Solder Fatigue</span>
+                    </div>
+                    <div class="top10-card-desc">
+                      <span class="zh">超音波顯微掃描 (C-SAM) 檢出覆晶底填微空洞，散熱不良引發微凸塊高熱應力循環開裂。</span>
+                      <span class="en">C-SAM acoustic micrograph revealing underfill micro-voids driving localized solder bump thermomechanical fatigue.</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Card 9 -->
+                <div class="top10-card">
+                  <div class="top10-card-img-wrap">
+                    <img src="assets/top10/09_ate_socket_pin_wear.jpg" alt="9. ATE Rc Drift &amp; Probe Pin Wear" loading="lazy">
+                    <div class="top10-card-badge">SEM | Pogo Pin</div>
+                  </div>
+                  <div class="top10-card-body">
+                    <div class="top10-card-title">
+                      <span class="zh">9. ATE 探針磨損與接觸阻抗漂移</span>
+                      <span class="en">9. ATE Rc Drift &amp; Probe Pin Wear</span>
+                    </div>
+                    <div class="top10-card-desc">
+                      <span class="zh">測試座探針經數萬次下壓磨損凹陷，錫氧化物沉積造成接觸電阻 (Rc) 劇烈漂移與假性過殺。</span>
+                      <span class="en">Worn ATE socket crown tips with abrasive pitting and tin oxide debris causing contact resistance (Rc) drift and overkill.</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Card 10 -->
+                <div class="top10-card">
+                  <div class="top10-card-img-wrap">
+                    <img src="assets/top10/10_serdes_eye_margin_closure.jpg" alt="10. High-Speed SerDes Eye Closure" loading="lazy">
+                    <div class="top10-card-badge">Scope | 56 Gbps</div>
+                  </div>
+                  <div class="top10-card-body">
+                    <div class="top10-card-title">
+                      <span class="zh">10. 高速傳輸眼圖裕度不足與抖動</span>
+                      <span class="en">10. High-Speed SerDes Eye Closure</span>
+                    </div>
+                    <div class="top10-card-desc">
+                      <span class="zh">高速示波器眼圖嚴重壓縮並侵入中央六角形遮罩，符元間干擾 (ISI) 與高抖動導致誤碼率 (BER) 暴增。</span>
+                      <span class="en">Real-time sampling scope capturing closed 56Gbps eye diagram violating compliance keep-out mask due to jitter and ISI.</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div class="tool-card" style="margin:25px 0;">
               <div class="tool-header">
                 <div>
@@ -2360,12 +2564,19 @@
               <!-- SIMULATOR DISPLAY PANELS -->
               <div style="margin-top:20px; display:grid; grid-template-columns:repeat(auto-fit, minmax(min(310px, 100%), 1fr)); gap:15px;">
                 <!-- Card 1: PoF & Stage -->
-                <div style="background:var(--surface-1); border:1px solid var(--border); border-radius:6px; padding:14px;">
+                <div style="background:var(--surface-1); border:1px solid var(--border); border-radius:6px; padding:14px; display:flex; flex-direction:column;">
                   <div style="font-family:var(--font-mono); font-size:11px; color:var(--accent); font-weight:700; text-transform:uppercase;">
                     [Detection Stage &amp; Physics of Failure]
                   </div>
                   <div id="foStageText" style="margin-top:6px; font-size:12.5px; font-weight:700; color:var(--ink);">WAT / PCM Parametric Testing &amp; Sort Fmax</div>
-                  <div id="foPofText" style="margin-top:8px; font-size:12px; color:var(--ink-soft); line-height:1.5;">離子植入機離子束劑量/能量微幅漂移、高溫退火活化熱梯度不均，造成 NMOS/PMOS 閾值電壓（Vth）失衡脫離黃金工作區。</div>
+                  
+                  <!-- LIVE DEFECT MICROGRAPH PREVIEW -->
+                  <div style="margin:10px 0 8px; border-radius:6px; overflow:hidden; border:1px solid var(--border); background:#0b1120; height:130px; position:relative; cursor:pointer;" title="點擊放大 / Click to Zoom">
+                    <img id="foMicrographImg" src="assets/top10/04_wafer_thinning_chipping.jpg" alt="4. Wafer Thinning Swirls &amp; Chipping Micrograph" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition:transform 0.3s ease;">
+                    <div id="foMicrographCap" style="position:absolute; bottom:0; left:0; right:0; background:rgba(15,23,42,0.85); color:#fff; font-size:10px; font-family:var(--font-mono); padding:3px 8px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">晶圓薄化旋痕與周緣崩角</div>
+                  </div>
+
+                  <div id="foPofText" style="margin-top:4px; font-size:12px; color:var(--ink-soft); line-height:1.5; flex:1;">離子植入機離子束劑量/能量微幅漂移、高溫退火活化熱梯度不均，造成 NMOS/PMOS 閾值電壓（Vth）失衡脫離黃金工作區。</div>
                   <div style="margin-top:12px; padding:6px 10px; background:var(--surface-2); border-radius:4px; font-family:var(--font-mono); font-size:11px;">
                     <span style="color:var(--warn); font-weight:700;">SPC Threshold: </span><span id="foSpcMetric">Delta Vth &lt; 15mV, Cpk &gt; 1.67</span>
                   </div>
@@ -2432,9 +2643,14 @@
                   <tr>
                     <td><b>1</b></td>
                     <td>
-                      <b>Gate Oxide Breakdown &amp; TDDB</b><br>
-                      <span class="zh" style="font-size:11px; color:var(--ink-soft);">閘極氧化層擊穿與超額漏電</span>
-                      <span class="en" style="font-size:11px; color:var(--ink-soft);">Gate Dielectric Breakdown &amp; Excess Idde</span>
+                      <div style="display:flex; align-items:center; gap:10px;">
+                        <img src="assets/top10/01_gate_oxide_breakdown.jpg" alt="1. Gate Oxide Breakdown Micrograph" loading="lazy" style="width:72px; height:50px; border-radius:4px; object-fit:cover; border:1px solid var(--border); cursor:pointer;" title="點擊放大 / Click to Zoom">
+                        <div>
+                          <b>Gate Oxide Breakdown &amp; TDDB</b><br>
+                          <span class="zh" style="font-size:11px; color:var(--ink-soft);">閘極氧化層擊穿與超額漏電</span>
+                          <span class="en" style="font-size:11px; color:var(--ink-soft);">Gate Dielectric Breakdown &amp; Excess Idde</span>
+                        </div>
+                      </div>
                     </td>
                     <td>Wafer Sort (CP) / FT Idde</td>
                     <td>
@@ -2453,9 +2669,14 @@
                   <tr>
                     <td><b>2</b></td>
                     <td>
-                      <b>BEOL Metal Bridging &amp; CMP Puddling</b><br>
-                      <span class="zh" style="font-size:11px; color:var(--ink-soft);">金屬走線短路與銅研磨殘留</span>
-                      <span class="en" style="font-size:11px; color:var(--ink-soft);">Interconnect Bridging &amp; Copper Puddling</span>
+                      <div style="display:flex; align-items:center; gap:10px;">
+                        <img src="assets/top10/02_cmp_puddling_scratch.jpg" alt="2. BEOL Metal Bridging &amp; CMP Puddling Micrograph" loading="lazy" style="width:72px; height:50px; border-radius:4px; object-fit:cover; border:1px solid var(--border); cursor:pointer;" title="點擊放大 / Click to Zoom">
+                        <div>
+                          <b>BEOL Metal Bridging &amp; CMP Puddling</b><br>
+                          <span class="zh" style="font-size:11px; color:var(--ink-soft);">金屬走線短路與銅研磨殘留</span>
+                          <span class="en" style="font-size:11px; color:var(--ink-soft);">Interconnect Bridging &amp; Copper Puddling</span>
+                        </div>
+                      </div>
                     </td>
                     <td>Inline Defect Scan / Sort</td>
                     <td>
@@ -2474,9 +2695,14 @@
                   <tr>
                     <td><b>3</b></td>
                     <td>
-                      <b>Lithography Defocus &amp; Via Open</b><br>
-                      <span class="zh" style="font-size:11px; color:var(--ink-soft);">微影散焦、線寬細頸與接觸孔開路</span>
-                      <span class="en" style="font-size:11px; color:var(--ink-soft);">Scanner Defocus, Line Necking &amp; Via Opens</span>
+                      <div style="display:flex; align-items:center; gap:10px;">
+                        <img src="assets/top10/03_litho_via_polymer_open.jpg" alt="3. Lithography Defocus &amp; Via Open Micrograph" loading="lazy" style="width:72px; height:50px; border-radius:4px; object-fit:cover; border:1px solid var(--border); cursor:pointer;" title="點擊放大 / Click to Zoom">
+                        <div>
+                          <b>Lithography Defocus &amp; Via Open</b><br>
+                          <span class="zh" style="font-size:11px; color:var(--ink-soft);">微影散焦、線寬細頸與接觸孔開路</span>
+                          <span class="en" style="font-size:11px; color:var(--ink-soft);">Scanner Defocus, Line Necking &amp; Via Opens</span>
+                        </div>
+                      </div>
                     </td>
                     <td>Inline CD-SEM &amp; ATE</td>
                     <td>
@@ -2495,9 +2721,14 @@
                   <tr>
                     <td><b>4</b></td>
                     <td>
-                      <b>Process Corner Skew (FF/SS/FS/SF)</b><br>
-                      <span class="zh" style="font-size:11px; color:var(--ink-soft);">製程角落漂移與批次間變異</span>
-                      <span class="en" style="font-size:11px; color:var(--ink-soft);">Process Corner Skew &amp; Inter-Lot Drift</span>
+                      <div style="display:flex; align-items:center; gap:10px;">
+                        <img src="assets/top10/04_wafer_thinning_chipping.jpg" alt="4. Process Corner Skew &amp; Thinning Micrograph" loading="lazy" style="width:72px; height:50px; border-radius:4px; object-fit:cover; border:1px solid var(--border); cursor:pointer;" title="點擊放大 / Click to Zoom">
+                        <div>
+                          <b>Process Corner Skew (FF/SS/FS/SF)</b><br>
+                          <span class="zh" style="font-size:11px; color:var(--ink-soft);">製程角落漂移與批次間變異</span>
+                          <span class="en" style="font-size:11px; color:var(--ink-soft);">Process Corner Skew &amp; Inter-Lot Drift</span>
+                        </div>
+                      </div>
                     </td>
                     <td>WAT/PCM &amp; Sort Fmax</td>
                     <td>
@@ -2516,9 +2747,14 @@
                   <tr>
                     <td><b>5</b></td>
                     <td>
-                      <b>Part Average Testing (PAT) Maverick</b><br>
-                      <span class="zh" style="font-size:11px; color:var(--ink-soft);">常態分佈離群值 (車規潛在早夭)</span>
-                      <span class="en" style="font-size:11px; color:var(--ink-soft);">Statistical Maverick Dies (Infant Mortality Risk)</span>
+                      <div style="display:flex; align-items:center; gap:10px;">
+                        <img src="assets/top10/05_pat_maverick_scratch.jpg" alt="5. Part Average Testing (PAT) Maverick Micrograph" loading="lazy" style="width:72px; height:50px; border-radius:4px; object-fit:cover; border:1px solid var(--border); cursor:pointer;" title="點擊放大 / Click to Zoom">
+                        <div>
+                          <b>Part Average Testing (PAT) Maverick</b><br>
+                          <span class="zh" style="font-size:11px; color:var(--ink-soft);">常態分佈離群值 (車規潛在早夭)</span>
+                          <span class="en" style="font-size:11px; color:var(--ink-soft);">Statistical Maverick Dies (Infant Mortality Risk)</span>
+                        </div>
+                      </div>
                     </td>
                     <td>Sort &amp; FT Parametric</td>
                     <td>
@@ -2537,9 +2773,14 @@
                   <tr>
                     <td><b>6</b></td>
                     <td>
-                      <b>Chip-Package Interaction (CPI)</b><br>
-                      <span class="zh" style="font-size:11px; color:var(--ink-soft);">晶片-封裝應力與超低介電層開裂</span>
-                      <span class="en" style="font-size:11px; color:var(--ink-soft);">Interfacial Shear &amp; Low-k Delamination</span>
+                      <div style="display:flex; align-items:center; gap:10px;">
+                        <img src="assets/top10/06_die_tilt_warpage.jpg" alt="6. Chip-Package Interaction (CPI) Micrograph" loading="lazy" style="width:72px; height:50px; border-radius:4px; object-fit:cover; border:1px solid var(--border); cursor:pointer;" title="點擊放大 / Click to Zoom">
+                        <div>
+                          <b>Chip-Package Interaction (CPI)</b><br>
+                          <span class="zh" style="font-size:11px; color:var(--ink-soft);">晶片-封裝應力與超低介電層開裂</span>
+                          <span class="en" style="font-size:11px; color:var(--ink-soft);">Interfacial Shear &amp; Low-k Delamination</span>
+                        </div>
+                      </div>
                     </td>
                     <td>Package Qual (HAST) &amp; FT</td>
                     <td>
@@ -2558,9 +2799,14 @@
                   <tr>
                     <td><b>7</b></td>
                     <td>
-                      <b>Wirebond NSOP &amp; Wire Sweep Short</b><br>
-                      <span class="zh" style="font-size:11px; color:var(--ink-soft);">打線未著銲墊與高黏度模流沖線</span>
-                      <span class="en" style="font-size:11px; color:var(--ink-soft);">Non-Stick on Pad &amp; Wire Sweep Shorts</span>
+                      <div style="display:flex; align-items:center; gap:10px;">
+                        <img src="assets/top10/07_wirebond_nsop_liftoff.jpg" alt="7. Wirebond NSOP &amp; Wire Sweep Micrograph" loading="lazy" style="width:72px; height:50px; border-radius:4px; object-fit:cover; border:1px solid var(--border); cursor:pointer;" title="點擊放大 / Click to Zoom">
+                        <div>
+                          <b>Wirebond NSOP &amp; Wire Sweep Short</b><br>
+                          <span class="zh" style="font-size:11px; color:var(--ink-soft);">打線未著銲墊與高黏度模流沖線</span>
+                          <span class="en" style="font-size:11px; color:var(--ink-soft);">Non-Stick on Pad &amp; Wire Sweep Shorts</span>
+                        </div>
+                      </div>
                     </td>
                     <td>Assembly AOI / X-Ray / FT</td>
                     <td>
@@ -2579,9 +2825,14 @@
                   <tr>
                     <td><b>8</b></td>
                     <td>
-                      <b>Underfill Voiding &amp; Solder Fatigue</b><br>
-                      <span class="zh" style="font-size:11px; color:var(--ink-soft);">底部填膠微氣泡空洞與錫球熱疲勞</span>
-                      <span class="en" style="font-size:11px; color:var(--ink-soft);">Underfill Voids &amp; Solder Micro-Cracks</span>
+                      <div style="display:flex; align-items:center; gap:10px;">
+                        <img src="assets/top10/08_underfill_voids_csam.jpg" alt="8. Underfill Voiding &amp; Solder Fatigue Micrograph" loading="lazy" style="width:72px; height:50px; border-radius:4px; object-fit:cover; border:1px solid var(--border); cursor:pointer;" title="點擊放大 / Click to Zoom">
+                        <div>
+                          <b>Underfill Voiding &amp; Solder Fatigue</b><br>
+                          <span class="zh" style="font-size:11px; color:var(--ink-soft);">底部填膠微氣泡空洞與錫球熱疲勞</span>
+                          <span class="en" style="font-size:11px; color:var(--ink-soft);">Underfill Voids &amp; Solder Micro-Cracks</span>
+                        </div>
+                      </div>
                     </td>
                     <td>C-SAM &amp; FT Thermal Cycle</td>
                     <td>
@@ -2600,9 +2851,14 @@
                   <tr>
                     <td><b>9</b></td>
                     <td>
-                      <b>ATE Rc Drift &amp; Socket Pin Wear</b><br>
-                      <span class="zh" style="font-size:11px; color:var(--ink-soft);">測試座探針磨損、接觸阻抗飄移</span>
-                      <span class="en" style="font-size:11px; color:var(--ink-soft);">Socket Pin Wear &amp; False Contact Resistance</span>
+                      <div style="display:flex; align-items:center; gap:10px;">
+                        <img src="assets/top10/09_ate_socket_pin_wear.jpg" alt="9. ATE Rc Drift &amp; Socket Pin Wear Micrograph" loading="lazy" style="width:72px; height:50px; border-radius:4px; object-fit:cover; border:1px solid var(--border); cursor:pointer;" title="點擊放大 / Click to Zoom">
+                        <div>
+                          <b>ATE Rc Drift &amp; Socket Pin Wear</b><br>
+                          <span class="zh" style="font-size:11px; color:var(--ink-soft);">測試座探針磨損、接觸阻抗飄移</span>
+                          <span class="en" style="font-size:11px; color:var(--ink-soft);">Socket Pin Wear &amp; False Contact Resistance</span>
+                        </div>
+                      </div>
                     </td>
                     <td>ATE Final Test Multi-Site</td>
                     <td>
@@ -2621,9 +2877,14 @@
                   <tr>
                     <td><b>10</b></td>
                     <td>
-                      <b>High-Speed SerDes Eye Margin Fallouts</b><br>
-                      <span class="zh" style="font-size:11px; color:var(--ink-soft);">高速傳輸眼圖裕度不足與抖動超標</span>
-                      <span class="en" style="font-size:11px; color:var(--ink-soft);">High-Speed Eye Jitter &amp; Signal Integrity</span>
+                      <div style="display:flex; align-items:center; gap:10px;">
+                        <img src="assets/top10/10_serdes_eye_margin_closure.jpg" alt="10. High-Speed SerDes Eye Margin Micrograph" loading="lazy" style="width:72px; height:50px; border-radius:4px; object-fit:cover; border:1px solid var(--border); cursor:pointer;" title="點擊放大 / Click to Zoom">
+                        <div>
+                          <b>High-Speed SerDes Eye Margin Fallouts</b><br>
+                          <span class="zh" style="font-size:11px; color:var(--ink-soft);">高速傳輸眼圖裕度不足與抖動超標</span>
+                          <span class="en" style="font-size:11px; color:var(--ink-soft);">High-Speed Eye Jitter &amp; Signal Integrity</span>
+                        </div>
+                      </div>
                     </td>
                     <td>FT &amp; SLT (-40C / +125C)</td>
                     <td>
@@ -16325,7 +16586,7 @@
     <div style="display:flex; flex-direction:column; align-items:flex-end; gap:5px;">
       <div style="display:flex; align-items:center; gap:8px;">
         <span class="badge badge-green" style="font-size:11px; padding:2px 8px;">● LIVE VERIFIED</span>
-        <span style="font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft);">Rev. AL</span>
+        <span style="font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft);">Rev. AM</span>
       </div>
       <div style="font-family:var(--font-mono); font-size:12px; color:var(--ink);">
         <span class="zh">最後更新日期：</span><span class="en">Last Updated: </span>
@@ -17619,6 +17880,9 @@
   // ===================================================
   const falloutData = {
     1: {
+      img_src: 'assets/top10/01_gate_oxide_breakdown.jpg',
+      name_zh: '閘極氧化層經時擊穿 (TDDB)',
+      name_en: 'Gate Oxide TDDB Breakdown',
       stage: 'Wafer Sort (CP) / Final Test (FT Idde)',
       pof_zh: '高溫高壓下電漿充放電損傷（PID / Antenna Effect）及閘極氧化層沉積微粒雜質，導致介電崩潰與接面漏電。',
       pof_en: 'Plasma charging damage (Antenna Effect) and gate dielectric contaminants causing early TDDB breakdown and excess subthreshold leakage.',
@@ -17632,6 +17896,9 @@
       spc_metric: 'Qox > 10 C/cm2, PID Antenna Ratio < 250:1'
     },
     2: {
+      img_src: 'assets/top10/02_cmp_puddling_scratch.jpg',
+      name_zh: '後段金屬層短路與 CMP 殘留',
+      name_en: 'BEOL Bridging & CMP Puddling',
       stage: 'In-line Optical Defect Scan & Wafer Sort (CP)',
       pof_zh: '銅雙鑲嵌電鍍過量填充（Overburden）、CMP 研磨過度（Dishing）或研磨不均殘留（Puddling），致使微米導線微橋接短路。',
       pof_en: 'Copper dual-damascene plating overburden, CMP dishing, or incomplete slurry removal (puddling) bridging adjacent metal lines.',
@@ -17645,6 +17912,9 @@
       spc_metric: 'CMP Dishing < 15nm, Metal Bridging Defect Density < 0.02 /cm2'
     },
     3: {
+      img_src: 'assets/top10/03_litho_via_polymer_open.jpg',
+      name_zh: '微影散焦與接觸孔蝕刻開路',
+      name_en: 'Litho Defocus & Contact Via Open',
       stage: 'Inline CD-SEM & ATE Continuity / Scan Test',
       pof_zh: '浸潤式曝光機液滴浸潤不均、晶圓熱翹曲、曝光光阻顯影殘渣，導致接觸通孔未打穿（Unopened Via）或導線細頸斷裂。',
       pof_en: 'Immersion scanner liquid droplet defects, wafer thermal warpage, and photoresist residue causing unlanded/unopened vias or wire necking.',
@@ -17658,6 +17928,9 @@
       spc_metric: 'CD 3-Sigma < 1.2nm, Via Resistance Rc < 2.5 Ohm'
     },
     4: {
+      img_src: 'assets/top10/04_wafer_thinning_chipping.jpg',
+      name_zh: '晶圓薄化旋痕與周緣崩角',
+      name_en: 'Wafer Thinning Swirls & Chipping',
       stage: 'WAT / PCM Parametric Testing & Sort Fmax',
       pof_zh: '離子植入機離子束劑量/能量微幅漂移、高溫退火活化熱梯度不均，造成 NMOS/PMOS 閾值電壓（Vth）失衡脫離黃金工作區。',
       pof_en: 'Ion implantation dose/energy drift and rapid thermal annealing gradients shifting NMOS and PMOS threshold voltages into skewed corners.',
@@ -17671,6 +17944,9 @@
       spc_metric: 'Delta Vth < 15mV, Cpk > 1.67 across 25 Wafers/Lot'
     },
     5: {
+      img_src: 'assets/top10/05_pat_maverick_scratch.jpg',
+      name_zh: '常態分佈動態離群值 (PAT)',
+      name_en: 'Dynamic Statistical Outliers (PAT)',
       stage: 'Wafer Sort & Final Test (Parametric Distribution)',
       pof_zh: '晶粒電氣參數落在規格上下限內，但顯著遠離同批次晶粒常態分佈峰值（> 4-Sigma），內部存在次微米晶格滑移或隱蔽閘極缺陷。',
       pof_en: 'Die electrical parameters fall within broad spec limits but significantly deviate from the main Gaussian distribution population (>4-Sigma Maverick Dies).',
@@ -17684,6 +17960,9 @@
       spc_metric: 'PAT Limit = Mean ± 3.5 Sigma, GDBN Reject Yield Delta < 0.5%'
     },
     6: {
+      img_src: 'assets/top10/06_die_tilt_warpage.jpg',
+      name_zh: '晶片-封裝應力 (CPI) 與翹曲',
+      name_en: 'CPI Stress & Thermal Warpage',
       stage: 'Package Reliability Qual (HAST/TC) & ATE FT',
       pof_zh: '覆晶封裝微凸塊銲接熱應力傳遞、無鉛銲錫與矽晶片 CTE 巨大熱膨脹失配，剪切破壞晶片內部脆弱之多孔 ELK/ULK 介電層。',
       pof_en: 'Micro-bump thermal contraction shear stress and CTE mismatch between silicon and organic substrate tearing delicate porous ELK/ULK dielectrics.',
@@ -17697,6 +17976,9 @@
       spc_metric: 'Die Warpage < 40um, Microbump Shear Strength > 15g/mil2'
     },
     7: {
+      img_src: 'assets/top10/07_wirebond_nsop_liftoff.jpg',
+      name_zh: '打線未著銲墊 (NSOP) 與沖線',
+      name_en: 'Wirebond NSOP & Sweep Short',
       stage: 'Assembly Post-Bond AOI / X-Ray & FT Continuity',
       pof_zh: '晶片鋁墊表面氟/碳有機微污染導致金線球焊無法合金化（NSOP）；環氧模塑料（EMC）高黏度射出衝擊導致金線偏移短路（Wire Sweep）。',
       pof_en: 'Pad surface fluorine/carbon contamination causing Non-Stick on Pad (NSOP); high mold compound transfer velocity inducing lateral wire sweep shorts.',
@@ -17710,6 +17992,9 @@
       spc_metric: 'Wire Sweep Rate < 3.0%, Wire Pull Strength > 5.0g'
     },
     8: {
+      img_src: 'assets/top10/08_underfill_voids_csam.jpg',
+      name_zh: '底填微氣泡與微凸塊疲勞',
+      name_en: 'Underfill Voids & Solder Fatigue',
       stage: 'Acoustic Microscopy (C-SAM) & FT Thermal Cycle Test',
       pof_zh: '底部填膠毛細滲透遇冷凝死角、助焊劑未洗淨受熱放氣（Outgassing），在冷熱循環應力下誘發微凸塊界面空洞裂紋擴展斷裂。',
       pof_en: 'Underfill capillary entrapment voids and flux residue outgassing triggering thermal fatigue solder joint micro-cracking during TC stress.',
@@ -17723,6 +18008,9 @@
       spc_metric: 'Underfill Void Area < 1.0% of total die area, No Corner Voids'
     },
     9: {
+      img_src: 'assets/top10/09_ate_socket_pin_wear.jpg',
+      name_zh: 'ATE 探針磨損與接觸阻抗漂移',
+      name_en: 'ATE Rc Drift & Probe Pin Wear',
       stage: 'ATE Final Test / Sort (Site-to-Site Imbalance)',
       pof_zh: '測試探針卡尖端或 Socket 彈簧針（Pogo Pin）沾黏無鉛銲錫氧化皮膜，導致接觸電阻（Rc）飆升，誘發大量假性連續開路與功能誤判（Overkill）。',
       pof_en: 'Test probe needle tips and test socket pogo pins accumulating lead-free solder oxide debris (Tin Pick-up), driving Rc spikes and severe pseudo-failure overkill.',
@@ -17736,6 +18024,9 @@
       spc_metric: 'Socket Contact Resistance Rc < 0.15 Ohm, Site-to-Site Delta < 0.5%'
     },
     10: {
+      img_src: 'assets/top10/10_serdes_eye_margin_closure.jpg',
+      name_zh: '高速傳輸眼圖裕度不足與抖動',
+      name_en: 'High-Speed SerDes Eye Closure',
       stage: 'ATE Final Test / System-Level Test (Cold -40C & Hot +125C)',
       pof_zh: '傳輸線高速抖動（Jitter）、阻抗失配反射，以及內建邏輯時脈樹在極端溫度角落下的建立/保持時間（Setup/Hold Margin）不足。',
       pof_en: 'High-speed jitter, impedance mismatch reflections, and clock tree delay skews eroding setup/hold margins at cold (-40C) and hot (+125C) temperature extremes.',
@@ -17797,6 +18088,14 @@
     [pofEl, fbEl, ffEl, rwEl].forEach(typesetMath);
     if (dyEl) dyEl.textContent = item.delta_yield;
     if (spcEl) spcEl.textContent = item.spc_metric;
+
+    const foMicroImg = document.getElementById('foMicrographImg');
+    const foMicroCap = document.getElementById('foMicrographCap');
+    if (foMicroImg && item.img_src) {
+      foMicroImg.src = item.img_src;
+      foMicroImg.alt = (currentLang === 'zh' ? item.name_zh : item.name_en) + ' Micrograph';
+      if (foMicroCap) foMicroCap.textContent = (currentLang === 'zh' ? item.name_zh : item.name_en);
+    }
   }
 
   const ZOOM_SQUARE_ICON_SVG = '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>';

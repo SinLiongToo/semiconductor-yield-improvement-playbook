@@ -8,6 +8,36 @@ Entry format / 格式:
 `## YYYY-MM-DD — <agent> — <short title>` then bullets: what changed, why, caveats for the next agent.
 
 ---
+## 2026-11-02 — Google Antigravity — Rev. AM: Top 10 Semiconductor Yield Fallouts Visual Micrograph Atlas, Live Micrograph Simulator & Table Thumbnails (Section OV.2)
+
+- **User Request Fulfillment ("Ov.2 十大失效，加上圖好理解")**:
+  - Engineered an interactive, visual, publication-grade defect micrograph atlas for Section OV.2 (*Top 10 Semiconductor Yield Fallouts Deep Review & Bidirectional Feedforward / Feedback Control Matrix*).
+- **Added Dedicated 10-Card Responsive Visual Micrograph Atlas (`.top10-gallery-grid` & `.top10-card`)**:
+  - Implemented 10 curated high-resolution failure analysis micrographs & instrumentation diagnostics in `assets/top10/`:
+    1. `01_gate_oxide_breakdown.jpg`: HRTEM (5 nm) atomic lattice micrograph capturing TDDB dielectric rupture & molten silicon filament extrusion.
+    2. `02_cmp_puddling_scratch.jpg`: Top-down SEM micrograph of CMP slurry agglomerate scratching with copper puddling and interconnect bridging.
+    3. `03_litho_via_polymer_open.jpg`: FIB-SEM (200 nm) cross section showing dense fluorocarbon polymer residue clogged at bottom of contact via blocking W plug.
+    4. `04_wafer_thinning_chipping.jpg`: High-magnification SEM (50 µm) showing backgrinding saw swirl marks, perimeter silicon chipping & cleavage micro-cracks.
+    5. `05_pat_maverick_scratch.jpg`: High-resolution macro photo of 300mm wafer illustrating arc scratches causing statistical maverick dies ($P^*$) isolated from natural population.
+    6. `06_die_tilt_warpage.jpg`: Cross-sectional metallography micrograph of BGA package warpage and die tilt inducing extreme low-k (ELK) ILD delamination.
+    7. `07_wirebond_nsop_liftoff.jpg`: SEM ball-bond failure analysis showing non-stick on pad (NSOP) wire lift-off and wire sweep shorting.
+    8. `08_underfill_voids_csam.jpg`: Scanning Acoustic Microscopy (C-SAM) acoustic reflection map revealing flip-chip underfill micro-voids driving bump fatigue cracking.
+    9. `09_ate_socket_pin_wear.jpg`: SEM micrograph of ATE socket crown pogo pin abrasive pitting wear and oxidized tin debris buildup causing contact resistance ($R_c$) drift.
+    10. `10_serdes_eye_margin_closure.jpg`: Real-time sampling oscilloscope screen displaying degraded 56 Gbps SerDes eye closure violating compliance keep-out mask due to jitter and ISI.
+  - Interactive click-to-zoom support for all 10 cards via the unified fullscreen zoomable lightbox.
+- **Embedded Inline Visual Thumbnails in Table OV.2**:
+  - Added dedicated 72x50px high-clarity micrograph thumbnails directly into the *Fallout Mode* column for all 10 failure mode rows with zoom tooltips, allowing instant visual recognition of defect physical appearances alongside stage detection, feedback knobs, and feedforward salvage actions.
+- **Enhanced Top 10 Fallouts Real-Time Feedforward / Feedback Decision Simulator**:
+  - Added dynamic micrograph preview tile (`foMicrographImg` & `foMicrographCap`) to the simulator UI card.
+  - Updated `falloutData` dictionary with localized micrograph paths (`img_src`) and mode names (`name_zh` / `name_en`).
+  - Selecting any failure mode in the dropdown immediately updates the live defect micrograph alongside detection stage, physics of failure, and bidirectional control knobs.
+- **Revision & Quality Audit**:
+  - Synchronized header and footer revision labels to `Rev. AM` and timestamps to `2026-11-02 14:15 (Asia/Taipei)`.
+  - Passed `npm run verify` (18,252 lines, 0 tag mismatches, valid JS).
+  - Passed `node scripts/audit_i18n_and_structure.js` with 0 numbering drift, 0 untranslated Chinese leaks in English mode, and 100% table cell localization parity across all 1,748 table cells.
+
+---
+
 ## 2026-11-02 — Google Antigravity — Rev. AL: Comprehensive Expansion of Bilingual Glossary of Acronyms (Appendix C)
 
 - **Massive Expansion of Appendix C Bilingual Glossary (`id="app_c"`)**:
