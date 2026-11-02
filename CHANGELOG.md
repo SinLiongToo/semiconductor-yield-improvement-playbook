@@ -8,6 +8,41 @@ Entry format / 格式:
 `## YYYY-MM-DD — <agent> — <short title>` then bullets: what changed, why, caveats for the next agent.
 
 ---
+## 2026-11-02 — Google Antigravity — Rev. AI: Semiconductor AI/ML Methodologies: Autoencoders, Isolation Forest, Tree Ensembles & SHAP in Maverick Screening & Root Cause Tracing (Section 6.5, Fig 6.5, Table 6.5)
+
+- **Added Section 6.5: 機器學習與 AI 演算法在半導體異常篩檢與根因歸因之實踐 (AI & Machine Learning Methodologies: Autoencoders, Random Forest, Isolation Forest, XGBoost & SHAP in Screening & Root Cause Analysis)**:
+  - Added Figure 6.5 (`viewBox="0 0 960 560"`): Comprehensive dual-panel SVG diagram presenting:
+    - Part A: Unsupervised Maverick Screening & Anomaly Detection:
+      - Deep Autoencoder architecture (One-class golden die reconstruction error \(\mathcal{L}_{\text{rec}} = \|\mathbf{x} - \hat{\mathbf{x}}\|_2^2 &gt; \tau\)).
+      - Isolation Forest mechanism (Recursive random hyperplane partitioning, path length \(h(\mathbf{x})\) and anomaly metric \(s(\mathbf{x}, n)\)).
+      - Latent space manifold clustering (UMAP/t-SNE) for automatic detection and isolation of unobserved "Zero-Day" defect signatures.
+    - Part B: Explainable AI Root Cause Tracing Pipeline:
+      - Ingestion of 10,000+ FDC sensor time series (RF reflected power, chamber pressure, MFC gas flows, ESC temperature) + in-line metrology + equipment routing matrices.
+      - Gradient Boosted Decision Trees (XGBoost / LightGBM) + Game-Theoretic SHAP waterfall decomposition (\(f(\mathbf{x}) = \phi_0 + \sum \phi_i\)), attributing yield loss to specific tools (e.g. Chamber ETCH_03 RF matchbox capacitor arcing).
+      - Closed-loop MES automated corrective action (WIP Hold, tool tune, monitor wafer requalification).
+  - Added Subsections 6.5.1 to 6.5.3: In-depth mathematical formulations for Autoencoders, VAEs, Isolation Forest, and SHAP's four theoretical guarantees (Efficiency, Missingness, Symmetry, Monotonicity).
+  - Added Table 6.5: Master Decision & Industrial Deployment Matrix comparing 5 major AI/ML methodologies (Autoencoder, Isolation Forest, Random Forest / XGBoost + SHAP, CNN / Vision Transformer, Graph Neural Networks) across learning paradigms, mathematical objectives, latency overheads, explainability ratings, and enterprise software ecosystems (PDF Solutions Exensio, KLA Klarity, Advantest DFX, Synopsys YieldExplorer).
+  - Added Subsection 6.5.5: Enterprise MLOps Governance in Fabs:
+    - Continuous drift detection via Kolmogorov-Smirnov (KS) tests and Population Stability Index (PSI).
+    - Shadow mode deployment and human-in-the-loop qualification safeguards before hard-inking cutover.
+- **Embedded Cross-Sectional Hyperlinks (Bi-directional Navigation)**:
+  - Linked to Section 6.5 from:
+    - Section 1.2.3: PDF Solutions Exensio ML loaders &amp; advanced AI screening.
+    - Section 2.4: Wafer map ML classification (random forests, CNNs &amp; unsupervised clustering).
+    - Section 4.5: Equipment chamber commonality &amp; multidimensional FDC sensor root-cause attribution.
+    - Section 6.4: Parametric outlier detection extending to non-linear high-dimensional autoencoders &amp; isolation forests.
+  - Section 6.5 cross-references back to Sections 1.2.3, 2.4, 4.5, and 6.4.
+- **Synchronized Desktop & Mobile Navigation (TOC)**:
+  - Added Section 6.5 to both `nav.toc` and `details.toc-m` under Phase 6.
+  - Fixed duplicate Section 6.4 entry in Mobile TOC.
+- **Synchronized Header & Footer Revision Metadata**:
+  - Bumped revision label to `Rev. AI` and Last Updated timestamp to `2026-11-02 09:45 (Asia/Taipei)` in both header and footer.
+- **Quality & Verification**:
+  - Passed `npm run verify` with 0 tag mismatches and valid JavaScript syntax (17,133 lines).
+  - Passed `node scripts/audit_i18n_and_structure.js` with 0 numbering drift, 0 Chinese leaks in English mode across all sections, and 100% of all 1,547 table cells localized.
+
+---
+
 ## 2026-11-02 — Google Antigravity — Rev. AH: Semiconductor Outlier Detection, Maverick Screening & AEC-Q001/002 Protocols (Section 6.4, Fig 6.4, Table 6.4)
 
 - **Added Section 6.4: 半導體異常值篩選、孤島晶粒檢測與車規 AEC-Q001/002 演算法實踐 (Semiconductor Outlier Detection, Maverick Screening & AEC-Q001/002 Protocols)**:

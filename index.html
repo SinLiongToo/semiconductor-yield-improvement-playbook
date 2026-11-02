@@ -1311,7 +1311,7 @@
       </div>
       <div>
         <span class="zh">版次狀態</span><span class="en">Revision</span>
-        <b>Rev. AH (Outlier Detection: PAT, DPAT, GD-PAT, NNR &amp; Multivariate Mahalanobis)</b>
+        <b>Rev. AI (Semiconductor AI/ML: Autoencoders, Isolation Forest, XGBoost &amp; SHAP)</b>
       </div>
       <div>
         <span class="zh">適用對象</span><span class="en">Audience</span>
@@ -1319,7 +1319,7 @@
       </div>
       <div>
         <span class="zh">最後修訂</span><span class="en">Last Updated</span>
-        <b>2026-11-02 09:15 (Asia/Taipei)</b>
+        <b>2026-11-02 09:45 (Asia/Taipei)</b>
       </div>
     </div>
   </header>
@@ -1418,7 +1418,7 @@
           <li><a href="#sec_6_2"><span class="zh">6.2 功能測試「無 Cpk 難題」4 大解方</span><span class="en">6.2 Functional No-Cpk Solutions</span></a></li>
           <li><a href="#sec_6_3"><span class="zh">6.3 掃描鏈、故障模型與 CAT</span><span class="en">6.3 Scan Chain, Fault Models & CAT</span></a></li>
             <li><a href="#sec_6_4"><span class="zh">6.4 離群值篩選技術 (PAT/DPAT/NNR)</span><span class="en">6.4 Outlier Detection (PAT/NNR)</span></a></li>
-            <li><a href="#sec_6_4"><span class="zh">6.4 離群值篩選技術 (PAT/DPAT/NNR)</span><span class="en">6.4 Outlier Detection (PAT/NNR)</span></a></li>
+            <li><a href="#sec_6_5"><span class="zh">6.5 機器學習與 AI 演算法實踐</span><span class="en">6.5 AI & Machine Learning Methodologies</span></a></li>
         </ul>
       </li>
       <li>
@@ -1590,6 +1590,8 @@
             <li><a href="#sec_6_1"><span class="zh">6.1 參數型良率與 Cpk/Ppk 指標</span><span class="en">6.1 Parametric Cpk/Ppk</span></a></li>
             <li><a href="#sec_6_2"><span class="zh">6.2 功能測試「無 Cpk 難題」4 大解方</span><span class="en">6.2 Functional No-Cpk Solutions</span></a></li>
             <li><a href="#sec_6_3"><span class="zh">6.3 掃描鏈、故障模型與 CAT</span><span class="en">6.3 Scan Chain, Fault Models & CAT</span></a></li>
+            <li><a href="#sec_6_4"><span class="zh">6.4 離群值篩選技術 (PAT/DPAT/NNR)</span><span class="en">6.4 Outlier Detection (PAT/NNR)</span></a></li>
+            <li><a href="#sec_6_5"><span class="zh">6.5 機器學習與 AI 演算法實踐</span><span class="en">6.5 AI & Machine Learning Methodologies</span></a></li>
           </ul>
         </li>
         <li>
@@ -5358,6 +5360,15 @@
             </span>
           </p>
 
+          <p>
+            <span class="zh">
+              💡 <b>Exensio 機器學習模組連結</b>：關於 Exensio DFX / DEX 平台上運行的進階非監督式自編碼器（Autoencoder）、孤立森林（Isolation Forest）與 XGBoost 萬維 FDC 根因歸因演算法，詳見 <a href="#sec_6_5">第 6.5 節</a>。
+            </span>
+            <span class="en">
+              💡 <b>Exensio Machine Learning Module Link</b>: For advanced unsupervised Autoencoders, Isolation Forests, and XGBoost FDC root-cause attribution deployed on the Exensio DFX/DEX platform, see <a href="#sec_6_5">Section 6.5</a>.
+            </span>
+          </p>
+
           <!-- FIGURE 1.3: ENTERPRISE TEST DATA PIPELINE (EXENSIO & JMP) -->
           <figure>
             <svg viewBox="0 0 960 490" style="width:100%; height:auto;" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Enterprise Semiconductor Test Data Pipeline: OSAT to Exensio to JMP">
@@ -5895,6 +5906,15 @@
               <span class="en"><b>Unsupervised clustering</b>: needs no labels, and is how new, never-seen signatures are discovered.</span>
             </li>
           </ul>
+
+          <p>
+            <span class="zh">
+              💡 <b>進階 AI / ML 方法論導航</b>：關於非監督式自編碼器（Autoencoder）、孤立森林（Isolation Forest）、隨機森林與 XGBoost 結合 SHAP 進行高維度特徵歸因之深度數學原理、架構圖與工業部署，請參閱 <a href="#sec_6_5">第 6.5 節 機器學習與 AI 演算法在半導體異常篩檢與根因歸因之實踐</a>。
+            </span>
+            <span class="en">
+              💡 <b>Advanced AI/ML Navigation</b>: For in-depth mathematical formulations, architecture diagrams, and industrial deployment of unsupervised Autoencoders, Isolation Forests, Random Forests, and XGBoost with SHAP attribution, see <a href="#sec_6_5">Section 6.5 AI &amp; Machine Learning Methodologies in Screening &amp; Root Cause Analysis</a>.
+            </span>
+          </p>
 
           <div class="callout">
             <div class="callout-title">
@@ -8510,6 +8530,15 @@
             </p>
           </div>
         
+                    <p>
+            <span class="zh">
+              💡 <b>萬維機台感測器 AI 根因追溯延伸</b>：當面對跨站點 500+ 反應腔與 10,000+ FDC 感測器時間序列時，單因子 ANOVA 難以捕捉高階交互作用；利用梯度提升樹（XGBoost / LightGBM）結合合作博弈論 SHAP 進行全域特徵貢獻歸因，詳見 <a href="#sec_6_5">第 6.5 節</a>。
+            </span>
+            <span class="en">
+              💡 <b>High-Dimensional FDC Sensor AI Attribution Extension</b>: When analyzing 500+ chambers and 10,000+ FDC sensor time series, one-way ANOVA struggles with high-order nonlinear interactions; gradient boosted trees (XGBoost / LightGBM) with game-theoretic SHAP enable global feature attribution; see <a href="#sec_6_5">Section 6.5</a>.
+            </span>
+          </p>
+
           <!-- SECTION 4.6: LITHOGRAPHY DEFECT ATLAS & FOUNDRY ESCALATION SOP -->
           <h3 id="sec_4_6">
             <span class="zh">4.6 微影光阻 12 大圖案缺陷圖鑑 (Lithography Defect Atlas) 與 晶圓代工廠 (Fab) 跨部門對接溝通閉環 SOP</span>
@@ -12062,6 +12091,708 @@
             </p>
           </div>
 
+          <p>
+            <span class="zh">
+              💡 <b>進階 AI / ML 高維度異常檢測與根因歸因</b>：馬氏距離與 PAT 奠定了車規統計界限標準；當面對 100+ ATE 測試參數且分佈非正態、或需從 10,000+ FDC 感測器自動歸因根因時，請參閱 <a href="#sec_6_5">第 6.5 節 機器學習與 AI 演算法在半導體異常篩檢與根因歸因之實踐</a>，掌握非監督式自編碼器（Autoencoder）、孤立森林（Isolation Forest）與 XGBoost + SHAP 的實務架構。
+            </span>
+            <span class="en">
+              💡 <b>Advanced AI/ML High-Dimensional Screening &amp; Attribution</b>: While PAT and Mahalanobis Distance anchor automotive statistical limits, unsupervised Autoencoders, Isolation Forests, and XGBoost with SHAP tackle non-linear multi-pin screening and 10,000+ FDC sensor root-cause attribution; see <a href="#sec_6_5">Section 6.5 AI &amp; Machine Learning Methodologies</a>.
+            </span>
+          </p>
+
+        
+
+          <!-- ======================================================================= -->
+          <!-- SECTION 6.5: AI & MACHINE LEARNING IN OUTLIER SCREENING & ROOT CAUSE   -->
+          <!-- ======================================================================= -->
+          <h3 id="sec_6_5">
+            <span class="zh">6.5 機器學習與 AI 演算法在半導體異常篩檢與根因歸因之實踐 (Autoencoder, Random Forest, Isolation Forest, XGBoost &amp; SHAP)</span>
+            <span class="en">6.5 AI &amp; Machine Learning Methodologies: Autoencoders, Random Forest, Isolation Forest, XGBoost &amp; SHAP in Semiconductor Screening &amp; Root Cause Analysis</span>
+          </h3>
+          <p>
+            <span class="zh">
+              傳統半導體測試統計界限（如 <a href="#sec_6_4">第 6.4 節</a> 詳解之 SPAT、DPAT 與多變量馬氏距離 (D_M)）構成了車規 AEC-Q001 的合規基石。然而，隨著 5nm/3nm 先進製程與先進封裝（Chiplet / CoWoS）全面量產，量測維度與製程複雜度呈現指數級爆炸，傳統統計模型在產線中面臨三大無法克服的物理與數學瓶頸：
+            </span>
+            <span class="en">
+              While classical semiconductor statistical screening (such as SPAT, DPAT, and multivariate Mahalanobis distance (D_M) detailed in <a href="#sec_6_4">Section 6.4</a>) anchors AEC-Q001 compliance, the transition to sub-5nm nodes and advanced packaging (Chiplet / CoWoS) triggers an exponential explosion in data dimensionality and process complexity. Fab engineers confront three fundamental bottlenecks that classical parametric statistics cannot resolve:
+            </span>
+          </p>
+
+          <div class="card-grid">
+            <div class="card">
+              <h4 style="margin-top:0; color:var(--danger);">
+                <span class="zh">1. 標籤極度稀缺性 (Label Scarcity)</span>
+                <span class="en">1. Extreme Label Scarcity</span>
+              </h4>
+              <p>
+                <span class="zh">
+                  晶圓廠每天產出數十萬顆 Die，<b>90% 以上缺乏明確的失效物理標籤</b>；且新世代缺陷通常是過去未曾見過的「零日簽名（Zero-Day Defect）」，傳統監督式分類器無樣本可訓練。
+                </span>
+                <span class="en">
+                  A high-volume fab processes hundreds of thousands of dies daily, yet <b>over 90% lack definitive failure labels</b>. Novel defects manifest as unprecedented "zero-day signatures" that supervised classifiers cannot identify.
+                </span>
+              </p>
+            </div>
+            <div class="card">
+              <h4 style="margin-top:0; color:var(--warn);">
+                <span class="zh">2. 高維非線性多峰流形 (Non-linear Manifolds)</span>
+                <span class="en">2. Non-linear &amp; Multimodal Manifolds</span>
+              </h4>
+              <p>
+                <span class="zh">
+                  數百個 ATE 引腳漏電流與速度路徑呈現複雜非高斯多峰分佈。馬氏距離在參數維度 (D &gt; 100) 時，協方差矩陣 (\boldsymbol{\Sigma}^{-1}) 逆矩陣運算量高達 (O(D^3)) 且極易因多重共線性遭遇數值奇異崩潰。
+                </span>
+                <span class="en">
+                  Hundreds of ATE leakage and timing parameters form non-Gaussian, multi-modal distributions. At dimensions (D &gt; 100), Mahalanobis covariance inversion (\boldsymbol{\Sigma}^{-1}) scales at (O(D^3)) and collapses due to singular collinearities.
+                </span>
+              </p>
+            </div>
+            <div class="card">
+              <h4 style="margin-top:0; color:var(--accent);">
+                <span class="zh">3. 萬維感測器維度災難 (Curse of Dimensionality)</span>
+                <span class="en">3. Dimensionality in 10,000+ FDC Traces</span>
+              </h4>
+              <p>
+                <span class="zh">
+                  先進蝕刻與沉積機台採集超過 10,000 條 FDC 時間序列（RF 反射功率、電漿譜線、閥門開度）。<a href="#sec_4_5">第 4.5 節</a> 的單因子方差分析（ANOVA）無法捕捉多機台、多感測器的高階非線性耦合。
+                </span>
+                <span class="en">
+                  Advanced etch and CVD clusters stream 10,000+ FDC sensor traces (RF reflected power, OES spectra, throttle angles). One-way ANOVA (<a href="#sec_4_5">Section 4.5</a>) cannot model high-order nonlinear tool interactions.
+                </span>
+              </p>
+            </div>
+          </div>
+
+          <!-- FIGURE 6.5: AI & ML DUAL-ENGINE ARCHITECTURE -->
+          <figure>
+            <svg viewBox="0 0 960 560" width="100%" height="auto" style="max-width:960px; display:block; margin:0 auto; font-family:var(--font-sans, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif); background:var(--surface); border:1px solid var(--border); border-radius:8px;" role="img" aria-label="Semiconductor AI and Machine Learning Methodologies Architecture">
+  <defs>
+    <marker id="aiArrow" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--accent)"/>
+    </marker>
+    <marker id="aiArrowGood" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--good)"/>
+    </marker>
+    <marker id="aiArrowDanger" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--danger)"/>
+    </marker>
+    <linearGradient id="encGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="var(--accent)" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="var(--accent)" stop-opacity="0.7"/>
+    </linearGradient>
+    <linearGradient id="decGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="var(--accent)" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="var(--accent)" stop-opacity="0.3"/>
+    </linearGradient>
+    <linearGradient id="treeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="var(--surface-2)"/>
+      <stop offset="100%" stop-color="var(--surface)"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Title Banner -->
+  <rect x="0" y="0" width="960" height="48" fill="var(--surface-2)" border-bottom="1px solid var(--border)"/>
+  <text class="zh" x="480" y="24" text-anchor="middle" font-size="14.5" font-weight="700" fill="var(--ink)">半導體 AI / 機器學習雙引擎架構：非監督式異常晶粒篩選 (AE &amp; iForest) 與 萬維機台 FDC 根因歸因 (XGBoost + SHAP)</text>
+  <text class="en" x="480" y="24" text-anchor="middle" font-size="14" font-weight="700" fill="var(--ink)">Semiconductor AI/ML Dual Engine: Unsupervised Maverick Screening (AE &amp; iForest) &amp; FDC Root Cause Attribution (XGBoost + SHAP)</text>
+  <text class="zh" x="480" y="40" text-anchor="middle" font-size="11" fill="var(--ink-soft)">突破傳統統計極限：無標籤高維度非線性重構異常度量與博弈論特徵可解釋性歸因閉環</text>
+  <text class="en" x="480" y="40" text-anchor="middle" font-size="10.5" fill="var(--ink-soft)">Overcoming 1D Statistical Limits: Label-Free High-Dimensional Reconstruction Anomaly &amp; Game-Theoretic Explainable Attribution</text>
+
+  <!-- PANEL A: UNSUPERVISED OUTLIER SCREENING -->
+  <g transform="translate(15, 60)">
+    <!-- Background Card -->
+    <rect x="0" y="0" width="455" height="440" rx="8" fill="var(--surface)" stroke="var(--border)" stroke-width="1.2"/>
+    <rect x="0" y="0" width="455" height="32" rx="8" fill="var(--surface-2)"/>
+    <text class="zh" x="15" y="21" font-size="12.5" font-weight="700" fill="var(--accent)">Part A：非監督式 Maverick 異常篩選 (Autoencoder &amp; Isolation Forest)</text>
+    <text class="en" x="15" y="21" font-size="12" font-weight="700" fill="var(--accent)">Part A: Unsupervised Maverick Screening (Autoencoder &amp; iForest)</text>
+
+    <!-- Sub-block 1: Autoencoder Architecture -->
+    <rect x="12" y="42" width="431" height="150" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="0.8"/>
+    <text class="zh" x="22" y="58" font-size="11" font-weight="700" fill="var(--ink)">1. 深度自編碼器 (Deep Autoencoder) — 黃金晶粒單類重構誤差</text>
+    <text class="en" x="22" y="58" font-size="10.5" font-weight="700" fill="var(--ink)">1. Deep Autoencoder — Golden Die Single-Class Reconstruction</text>
+
+    <!-- AE Graphic -->
+    <!-- Input Vector X -->
+    <rect x="25" y="75" width="30" height="70" rx="3" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.5"/>
+    <text x="40" y="105" text-anchor="middle" font-size="10" font-weight="700" fill="var(--ink)">X</text>
+    <text class="zh" x="40" y="125" text-anchor="middle" font-size="8" fill="var(--ink-soft)">ATE 向量</text>
+    <text class="en" x="40" y="125" text-anchor="middle" font-size="7.5" fill="var(--ink-soft)">Vector</text>
+    <text x="40" y="137" text-anchor="middle" font-size="8" fill="var(--ink-soft)">d=128</text>
+
+    <!-- Encoder Trapezoid -->
+    <polygon points="65,75 125,92 125,128 65,145" fill="url(#encGrad)" stroke="var(--accent)" stroke-width="1"/>
+    <text class="zh" x="92" y="113" text-anchor="middle" font-size="9" font-weight="700" fill="var(--ink)">編碼器</text>
+    <text class="en" x="92" y="113" text-anchor="middle" font-size="8.5" font-weight="700" fill="var(--ink)">Encoder</text>
+
+    <!-- Bottleneck Latent Space Z -->
+    <rect x="135" y="92" width="22" height="36" rx="3" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.5"/>
+    <text x="146" y="113" text-anchor="middle" font-size="10" font-weight="700" fill="var(--accent)">Z</text>
+    <text x="146" y="140" text-anchor="middle" font-size="7.5" fill="var(--ink-soft)">k=8</text>
+
+    <!-- Decoder Trapezoid -->
+    <polygon points="167,92 227,75 227,145 167,128" fill="url(#decGrad)" stroke="var(--accent)" stroke-width="1"/>
+    <text class="zh" x="194" y="113" text-anchor="middle" font-size="9" font-weight="700" fill="var(--ink)">解碼器</text>
+    <text class="en" x="194" y="113" text-anchor="middle" font-size="8.5" font-weight="700" fill="var(--ink)">Decoder</text>
+
+    <!-- Reconstructed Vector X_hat -->
+    <rect x="237" y="75" width="30" height="70" rx="3" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.5"/>
+    <text x="252" y="105" text-anchor="middle" font-size="10" font-weight="700" fill="var(--ink)">X̂</text>
+    <text class="zh" x="252" y="125" text-anchor="middle" font-size="8" fill="var(--ink-soft)">重構值</text>
+    <text class="en" x="252" y="125" text-anchor="middle" font-size="7.5" fill="var(--ink-soft)">Recon</text>
+
+    <!-- Error Comparator & Threshold -->
+    <line x1="275" y1="110" x2="295" y2="110" stroke="var(--accent)" stroke-width="1.5" marker-end="url(#aiArrow)"/>
+    <rect x="300" y="75" width="133" height="70" rx="4" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+    <text x="366" y="92" text-anchor="middle" font-size="8.5" font-weight="700" fill="var(--ink)">Loss = ||X - X̂||²</text>
+    
+    <!-- Pass Branch -->
+    <circle cx="315" cy="110" r="4" fill="var(--good)"/>
+    <text class="zh" x="325" y="113" font-size="8" fill="var(--good)">正常晶粒: Loss &lt; τ (Pass)</text>
+    <text class="en" x="325" y="113" font-size="7.5" fill="var(--good)">Golden Die: Loss &lt; τ (Pass)</text>
+
+    <!-- Outlier Branch -->
+    <circle cx="315" cy="128" r="4" fill="var(--danger)"/>
+    <text class="zh" x="325" y="131" font-size="8" font-weight="700" fill="var(--danger)">Maverick: Loss &gt; τ (SCRAP)</text>
+    <text class="en" x="325" y="131" font-size="7.5" font-weight="700" fill="var(--danger)">Maverick: Loss &gt; τ (SCRAP)</text>
+
+    <text class="zh" x="22" y="178" font-size="8.5" fill="var(--ink-soft)">• 特性：僅需良品訓練；突破 Mahalanobis 橢圓常態假設，捕捉高維非線性微弱漏電異常。</text>
+    <text class="en" x="22" y="178" font-size="8" fill="var(--ink-soft)">• Note: Trained on pass dies only; detects non-linear weak leakage that violates Gaussian limits.</text>
+
+    <!-- Sub-block 2: Isolation Forest Architecture -->
+    <rect x="12" y="202" width="431" height="115" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="0.8"/>
+    <text class="zh" x="22" y="218" font-size="11" font-weight="700" fill="var(--ink)">2. 孤立森林 (Isolation Forest) — 超平面隨機劃分極速隔離</text>
+    <text class="en" x="22" y="218" font-size="10.5" font-weight="700" fill="var(--ink)">2. Isolation Forest — Ultra-Fast Hyperplane Split Isolation</text>
+
+    <!-- Visual schematic of iTree -->
+    <!-- Tree A: Normal cluster deep path -->
+    <g transform="translate(30, 228)">
+      <circle cx="30" cy="10" r="5" fill="var(--accent)"/>
+      <line x1="30" y1="15" x2="15" y2="28" stroke="var(--border)" stroke-width="1.2"/>
+      <line x1="30" y1="15" x2="45" y2="28" stroke="var(--border)" stroke-width="1.2"/>
+      <circle cx="15" cy="30" r="4" fill="var(--accent)"/>
+      <circle cx="45" cy="30" r="4" fill="var(--accent)"/>
+      <line x1="15" y1="34" x2="8" y2="46" stroke="var(--border)" stroke-width="1.2"/>
+      <line x1="15" y1="34" x2="22" y2="46" stroke="var(--border)" stroke-width="1.2"/>
+      <circle cx="8" cy="48" r="3.5" fill="var(--accent)"/>
+      <circle cx="22" cy="48" r="3.5" fill="var(--accent)"/>
+      <line x1="8" y1="52" x2="4" y2="62" stroke="var(--border)" stroke-width="1.2"/>
+      <circle cx="4" cy="64" r="3" fill="var(--good)"/>
+      <text class="zh" x="30" y="80" text-anchor="middle" font-size="8" fill="var(--good)">正常密集群: 路徑深 h(x)»1</text>
+      <text class="en" x="30" y="80" text-anchor="middle" font-size="7.5" fill="var(--good)">Dense Pass: Deep path h(x)</text>
+    </g>
+
+    <!-- Divider -->
+    <line x1="150" y1="230" x2="150" y2="305" stroke="var(--border)" stroke-dasharray="3,3" stroke-width="1"/>
+
+    <!-- Tree B: Maverick isolated fast -->
+    <g transform="translate(165, 228)">
+      <circle cx="35" cy="10" r="5" fill="var(--accent)"/>
+      <line x1="35" y1="15" x2="15" y2="28" stroke="var(--danger)" stroke-width="1.5"/>
+      <line x1="35" y1="15" x2="55" y2="28" stroke="var(--border)" stroke-width="1.2"/>
+      <!-- Early isolation! -->
+      <circle cx="15" cy="30" r="5" fill="var(--danger)"/>
+      <text x="15" y="44" text-anchor="middle" font-size="8" font-weight="700" fill="var(--danger)">h(x)=1</text>
+      <circle cx="55" cy="30" r="4" fill="var(--accent)"/>
+      <line x1="55" y1="34" x2="45" y2="48" stroke="var(--border)" stroke-width="1.2"/>
+      <line x1="55" y1="34" x2="65" y2="48" stroke="var(--border)" stroke-width="1.2"/>
+      <circle cx="45" cy="50" r="3.5" fill="var(--accent)"/>
+      <circle cx="65" cy="50" r="3.5" fill="var(--accent)"/>
+      <text class="zh" x="45" y="80" text-anchor="middle" font-size="8" font-weight="700" fill="var(--danger)">Maverick 孤立: 路徑極淺</text>
+      <text class="en" x="45" y="80" text-anchor="middle" font-size="7.5" font-weight="700" fill="var(--danger)">Maverick: Short path isolated</text>
+    </g>
+
+    <!-- Score formula box -->
+    <rect x="260" y="235" width="173" height="65" rx="4" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+    <text x="346" y="252" text-anchor="middle" font-size="9" font-weight="700" fill="var(--ink)">s(x,n) = 2^(-E[h(x)] / c(n))</text>
+    <text class="zh" x="346" y="270" text-anchor="middle" font-size="8" fill="var(--ink-soft)">s → 1：高確信度離群 Maverick</text>
+    <text class="en" x="346" y="270" text-anchor="middle" font-size="7.5" fill="var(--ink-soft)">s → 1: Highly suspicious outlier</text>
+    <text class="zh" x="346" y="286" text-anchor="middle" font-size="8" fill="var(--good)">s &lt; 0.5：正常密集分佈群</text>
+    <text class="en" x="346" y="286" text-anchor="middle" font-size="7.5" fill="var(--good)">s &lt; 0.5: Normal central cluster</text>
+
+    <!-- Sub-block 3: Latent Space Clustering & Zero-Day Detection -->
+    <rect x="12" y="327" width="431" height="98" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="0.8"/>
+    <text class="zh" x="22" y="343" font-size="11" font-weight="700" fill="var(--ink)">3. 潛在空間降維投影 (UMAP / t-SNE) — 未知新缺陷 (Zero-Day) 聚類</text>
+    <text class="en" x="22" y="343" font-size="10.5" font-weight="700" fill="var(--ink)">3. Latent Manifold Projection (UMAP) — Zero-Day Defect Clustering</text>
+
+    <g transform="translate(25, 352)">
+      <!-- Cluster 1: Normal pass -->
+      <ellipse cx="60" cy="35" rx="35" ry="20" fill="var(--good)" fill-opacity="0.15" stroke="var(--good)" stroke-width="1"/>
+      <circle cx="50" cy="30" r="2" fill="var(--good)"/><circle cx="65" cy="40" r="2" fill="var(--good)"/><circle cx="70" cy="28" r="2" fill="var(--good)"/><circle cx="55" cy="42" r="2" fill="var(--good)"/>
+      <text class="zh" x="60" y="38" text-anchor="middle" font-size="8" font-weight="700" fill="var(--good)">良品主群</text>
+      <text class="en" x="60" y="38" text-anchor="middle" font-size="7.5" font-weight="700" fill="var(--good)">Golden Pass</text>
+
+      <!-- Cluster 2: Known defect -->
+      <ellipse cx="180" cy="25" rx="28" ry="16" fill="var(--accent)" fill-opacity="0.15" stroke="var(--accent)" stroke-width="1"/>
+      <circle cx="175" cy="22" r="2" fill="var(--accent)"/><circle cx="185" cy="28" r="2" fill="var(--accent)"/>
+      <text class="zh" x="180" y="28" text-anchor="middle" font-size="7.5" fill="var(--accent)">既有缺陷群 A</text>
+      <text class="en" x="180" y="28" text-anchor="middle" font-size="7" fill="var(--accent)">Known Signature</text>
+
+      <!-- Cluster 3: Novel Zero-day cluster -->
+      <ellipse cx="295" cy="38" rx="30" ry="18" fill="var(--danger)" fill-opacity="0.2" stroke="var(--danger)" stroke-width="1.5" stroke-dasharray="3,2"/>
+      <circle cx="290" cy="35" r="2.5" fill="var(--danger)"/><circle cx="305" cy="40" r="2.5" fill="var(--danger)"/><circle cx="295" cy="30" r="2.5" fill="var(--danger)"/>
+      <text class="zh" x="295" y="40" text-anchor="middle" font-size="8" font-weight="700" fill="var(--danger)">🔥 未知新簽名</text>
+      <text class="en" x="295" y="40" text-anchor="middle" font-size="7.5" font-weight="700" fill="var(--danger)">🔥 Zero-Day Cluster</text>
+
+      <!-- Legend/Action -->
+      <rect x="345" y="10" width="70" height="48" rx="3" fill="var(--surface)" stroke="var(--border)" stroke-width="0.8"/>
+      <text class="zh" x="380" y="26" text-anchor="middle" font-size="7.5" font-weight="700" fill="var(--warn)">自動觸發警報</text>
+      <text class="en" x="380" y="26" text-anchor="middle" font-size="7" font-weight="700" fill="var(--warn)">Auto Alarm</text>
+      <text class="zh" x="380" y="42" text-anchor="middle" font-size="7" fill="var(--ink-soft)">抽檢 FA 分析</text>
+      <text class="en" x="380" y="42" text-anchor="middle" font-size="6.5" fill="var(--ink-soft)">Dispatch to FA</text>
+    </g>
+  </g>
+
+  <!-- PANEL B: EXPLAINABLE ROOT CAUSE ATTRIBUTION -->
+  <g transform="translate(490, 60)">
+    <!-- Background Card -->
+    <rect x="0" y="0" width="455" height="440" rx="8" fill="var(--surface)" stroke="var(--border)" stroke-width="1.2"/>
+    <rect x="0" y="0" width="455" height="32" rx="8" fill="var(--surface-2)"/>
+    <text class="zh" x="15" y="21" font-size="12.5" font-weight="700" fill="var(--good)">Part B：可解釋 AI 機台根因歸因 (Tree Ensembles &amp; SHAP)</text>
+    <text class="en" x="15" y="21" font-size="12" font-weight="700" fill="var(--good)">Part B: Explainable Root Cause Attribution (XGBoost &amp; SHAP)</text>
+
+    <!-- Sub-block 1: Multimodal Data Ingestion -->
+    <rect x="12" y="42" width="431" height="80" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="0.8"/>
+    <text class="zh" x="22" y="58" font-size="11" font-weight="700" fill="var(--ink)">1. 晶圓廠萬維資料匯流排 (High-Dimensional Feature Ingestion)</text>
+    <text class="en" x="22" y="58" font-size="10.5" font-weight="700" fill="var(--ink)">1. Fab High-Dimensional Feature Ingestion Fabric</text>
+
+    <g transform="translate(20, 68)">
+      <!-- Box 1: In-line FDC -->
+      <rect x="0" y="0" width="95" height="42" rx="3" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+      <text class="zh" x="47" y="15" text-anchor="middle" font-size="8" font-weight="700" fill="var(--accent)">FDC 機台感測器</text>
+      <text class="en" x="47" y="15" text-anchor="middle" font-size="7.5" font-weight="700" fill="var(--accent)">FDC Sensors</text>
+      <text x="47" y="28" text-anchor="middle" font-size="7.5" fill="var(--ink-soft)">RF, MFC, P, Temp</text>
+      <text x="47" y="38" text-anchor="middle" font-size="7" fill="var(--ink-soft)">D &gt; 10,000</text>
+
+      <!-- Plus -->
+      <text x="104" y="25" text-anchor="middle" font-size="12" fill="var(--ink-soft)">+</text>
+
+      <!-- Box 2: Metrology -->
+      <rect x="115" y="0" width="95" height="42" rx="3" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+      <text class="zh" x="162" y="15" text-anchor="middle" font-size="8" font-weight="700" fill="var(--accent)">量測與薄膜</text>
+      <text class="en" x="162" y="15" text-anchor="middle" font-size="7.5" font-weight="700" fill="var(--accent)">Metrology</text>
+      <text x="162" y="28" text-anchor="middle" font-size="7.5" fill="var(--ink-soft)">CD, Film, Overlay</text>
+      <text x="162" y="38" text-anchor="middle" font-size="7" fill="var(--ink-soft)">Ellipsometry</text>
+
+      <!-- Plus -->
+      <text x="219" y="25" text-anchor="middle" font-size="12" fill="var(--ink-soft)">+</text>
+
+      <!-- Box 3: Commonality Context -->
+      <rect x="230" y="0" width="95" height="42" rx="3" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+      <text class="zh" x="277" y="15" text-anchor="middle" font-size="8" font-weight="700" fill="var(--accent)">生產共模歷程</text>
+      <text class="en" x="277" y="15" text-anchor="middle" font-size="7.5" font-weight="700" fill="var(--accent)">Tool Genealogy</text>
+      <text x="277" y="28" text-anchor="middle" font-size="7.5" fill="var(--ink-soft)">Chamber, Slot, PM</text>
+      <text x="277" y="38" text-anchor="middle" font-size="7" fill="var(--ink-soft)">500+ Chambers</text>
+
+      <!-- Arrow to XGBoost -->
+      <line x1="332" y1="21" x2="352" y2="21" stroke="var(--good)" stroke-width="1.8" marker-end="url(#aiArrowGood)"/>
+      <rect x="357" y="0" width="55" height="42" rx="3" fill="var(--good)" fill-opacity="0.15" stroke="var(--good)" stroke-width="1.2"/>
+      <text x="384" y="17" text-anchor="middle" font-size="8" font-weight="700" fill="var(--good)">XGBoost</text>
+      <text class="zh" x="384" y="31" text-anchor="middle" font-size="7" fill="var(--ink)">梯度提升</text>
+      <text class="en" x="384" y="31" text-anchor="middle" font-size="6.5" fill="var(--ink)">Ensemble</text>
+    </g>
+
+    <!-- Sub-block 2: SHAP Waterfall Decomposition -->
+    <rect x="12" y="132" width="431" height="205" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="0.8"/>
+    <text class="zh" x="22" y="148" font-size="11" font-weight="700" fill="var(--ink)">2. SHAP 合作博弈特徵歸因瀑布圖 (Game-Theoretic SHAP Waterfall)</text>
+    <text class="en" x="22" y="148" font-size="10.5" font-weight="700" fill="var(--ink)">2. Game-Theoretic SHAP Feature Waterfall Attribution</text>
+
+    <!-- Baseline and Final Yield Markers -->
+    <g transform="translate(25, 160)">
+      <!-- Baseline axis -->
+      <line x1="60" y1="10" x2="60" y2="135" stroke="var(--ink-soft)" stroke-dasharray="2,2" stroke-width="1"/>
+      <text class="zh" x="60" y="5" text-anchor="middle" font-size="8" fill="var(--ink-soft)">基準良率 E[f(x)] = 94.2%</text>
+      <text class="en" x="60" y="5" text-anchor="middle" font-size="7.5" fill="var(--ink-soft)">Baseline E[f(x)] = 94.2%</text>
+
+      <!-- Row 1: Major negative driver (ETCH RF Power) -->
+      <text class="zh" x="5" y="25" font-size="8" font-weight="700" fill="var(--danger)">ETCH_03: 反射功率 +18W</text>
+      <text class="en" x="5" y="25" font-size="7.5" font-weight="700" fill="var(--danger)">ETCH_03: RF Refl +18W</text>
+      <rect x="15" y="30" width="45" height="14" fill="var(--danger)" rx="2"/>
+      <text x="37" y="41" text-anchor="middle" font-size="8" font-weight="700" fill="#fff">- 4.8%</text>
+      <line x1="15" y1="44" x2="15" y2="55" stroke="var(--border)" stroke-dasharray="2,2"/>
+
+      <!-- Row 2: Secondary negative driver (CVD Pressure) -->
+      <text class="zh" x="5" y="60" font-size="8" font-weight="700" fill="var(--warn)">CVD_02: 腔壓抖動 12mTorr</text>
+      <text class="en" x="5" y="60" font-size="7.5" font-weight="700" fill="var(--warn)">CVD_02: Press Jitter 12mT</text>
+      <rect x="0" y="65" width="15" height="14" fill="var(--warn)" rx="2"/>
+      <text x="7" y="76" text-anchor="middle" font-size="7.5" font-weight="700" fill="#fff">-1.2%</text>
+      <line x1="0" y1="79" x2="0" y2="90" stroke="var(--border)" stroke-dasharray="2,2"/>
+
+      <!-- Row 3: Positive mitigating driver (CMP Flow) -->
+      <text class="zh" x="5" y="95" font-size="8" fill="var(--good)">CMP_01: 研磨液流速平穩</text>
+      <text class="en" x="5" y="95" font-size="7.5" fill="var(--good)">CMP_01: Slurry Optimal</text>
+      <rect x="0" y="100" width="8" height="14" fill="var(--good)" rx="2"/>
+      <text x="14" y="111" font-size="7.5" font-weight="700" fill="var(--good)">+0.6%</text>
+
+      <!-- Final yield target -->
+      <line x1="8" y1="114" x2="8" y2="135" stroke="var(--danger)" stroke-width="1.5"/>
+      <rect x="-8" y="132" width="125" height="24" rx="3" fill="var(--surface)" stroke="var(--danger)" stroke-width="1.2"/>
+      <text class="zh" x="54" y="148" text-anchor="middle" font-size="8.5" font-weight="700" fill="var(--danger)">異常批次預測良率: 88.8%</text>
+      <text class="en" x="54" y="148" text-anchor="middle" font-size="8" font-weight="700" fill="var(--danger)">Actual Yield f(x) = 88.8%</text>
+
+      <!-- SHAP Formula Badge -->
+      <rect x="180" y="25" width="200" height="95" rx="4" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+      <text x="280" y="42" text-anchor="middle" font-size="9" font-weight="700" fill="var(--ink)">f(x) = φ₀ + ∑ φᵢ(x)</text>
+      <text class="zh" x="280" y="60" text-anchor="middle" font-size="8" fill="var(--ink-soft)">沙普利值 (Shapley Values) 數學保證：</text>
+      <text class="en" x="280" y="60" text-anchor="middle" font-size="7.5" fill="var(--ink-soft)">Mathematical Guarantees:</text>
+      <text class="zh" x="280" y="76" text-anchor="middle" font-size="7.5" fill="var(--ink)">1. 局部可加性 (Local Accuracy)</text>
+      <text class="en" x="280" y="76" text-anchor="middle" font-size="7" fill="var(--ink)">1. Local Accuracy / Efficiency</text>
+      <text class="zh" x="280" y="90" text-anchor="middle" font-size="7.5" fill="var(--ink)">2. 缺失性與單調一致性 (Consistency)</text>
+      <text class="en" x="280" y="90" text-anchor="middle" font-size="7" fill="var(--ink)">2. Missingness &amp; Monotonicity</text>
+      <text class="zh" x="280" y="106" text-anchor="middle" font-size="7.5" font-weight="700" fill="var(--accent)">徹底告別「AI 黑盒子」無法給 Fab 說明的困境</text>
+      <text class="en" x="280" y="106" text-anchor="middle" font-size="7" font-weight="700" fill="var(--accent)">Directly actionable for Fab process modules</text>
+    </g>
+
+    <!-- Sub-block 3: Closed-loop corrective action -->
+    <rect x="12" y="347" width="431" height="78" rx="6" fill="var(--surface-2)" stroke="var(--border)" stroke-width="0.8"/>
+    <text class="zh" x="22" y="363" font-size="11" font-weight="700" fill="var(--ink)">3. 產線即時糾偏閉環指令 (Automated Corrective Closed-Loop)</text>
+    <text class="en" x="22" y="363" font-size="10.5" font-weight="700" fill="var(--ink)">3. Real-Time Automated Corrective Closed-Loop</text>
+
+    <g transform="translate(20, 372)">
+      <rect x="0" y="0" width="125" height="38" rx="3" fill="var(--danger)" fill-opacity="0.1" stroke="var(--danger)" stroke-width="1"/>
+      <text class="zh" x="62" y="14" text-anchor="middle" font-size="7.5" font-weight="700" fill="var(--danger)">① 鎖定 ETCH_03 腔體</text>
+      <text class="en" x="62" y="14" text-anchor="middle" font-size="7" font-weight="700" fill="var(--danger)">① Inhibit ETCH_03</text>
+      <text class="zh" x="62" y="28" text-anchor="middle" font-size="7" fill="var(--ink-soft)">MES WIP Hold 暫停投片</text>
+      <text class="en" x="62" y="28" text-anchor="middle" font-size="6.5" fill="var(--ink-soft)">MES WIP Hold</text>
+
+      <line x1="130" y1="19" x2="145" y2="19" stroke="var(--accent)" stroke-width="1.5" marker-end="url(#aiArrow)"/>
+
+      <rect x="150" y="0" width="125" height="38" rx="3" fill="var(--warn)" fill-opacity="0.1" stroke="var(--warn)" stroke-width="1"/>
+      <text class="zh" x="212" y="14" text-anchor="middle" font-size="7.5" font-weight="700" fill="var(--warn)">② 調諧 Matchbox 電容</text>
+      <text class="en" x="212" y="14" text-anchor="middle" font-size="7" font-weight="700" fill="var(--warn)">② Tune Matchbox Cap</text>
+      <text class="zh" x="212" y="28" text-anchor="middle" font-size="7" fill="var(--ink-soft)">消除電漿射頻諧振偏移</text>
+      <text class="en" x="212" y="28" text-anchor="middle" font-size="6.5" fill="var(--ink-soft)">Eliminate RF mismatch</text>
+
+      <line x1="280" y1="19" x2="295" y2="19" stroke="var(--good)" stroke-width="1.5" marker-end="url(#aiArrowGood)"/>
+
+      <rect x="300" y="0" width="105" height="38" rx="3" fill="var(--good)" fill-opacity="0.1" stroke="var(--good)" stroke-width="1"/>
+      <text class="zh" x="352" y="14" text-anchor="middle" font-size="7.5" font-weight="700" fill="var(--good)">③ 監控片驗證放行</text>
+      <text class="en" x="352" y="14" text-anchor="middle" font-size="7" font-weight="700" fill="var(--good)">③ Monitor Wafer QA</text>
+      <text class="zh" x="352" y="28" text-anchor="middle" font-size="7" fill="var(--good)">良率快速回升 +5.4%</text>
+      <text class="en" x="352" y="28" text-anchor="middle" font-size="6.5" fill="var(--good)">Yield Recovery +5.4%</text>
+    </g>
+  </g>
+
+  <!-- Bottom Ecosystem Bar -->
+  <rect x="15" y="510" width="930" height="38" rx="5" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1"/>
+  <text class="zh" x="480" y="526" text-anchor="middle" font-size="10" font-weight="700" fill="var(--accent)">工業軟體落地矩陣：PDF Solutions Exensio (DFX/DEX ML Loader) · Synopsys YieldExplorer AI · KLA Klarity · Python PyTorch/Scikit-learn Edge Gateways</text>
+  <text class="en" x="480" y="526" text-anchor="middle" font-size="9.5" font-weight="700" fill="var(--accent)">Industrial Deployment Matrix: PDF Solutions Exensio ML · Synopsys YieldExplorer AI · KLA Klarity · Python PyTorch/Scikit-learn Edge Gateways</text>
+  <text class="zh" x="480" y="540" text-anchor="middle" font-size="8.5" fill="var(--ink-soft)">實現從 ATE 毫秒級邊緣過濾 (Edge Screening) 到 晶圓廠 MES 萬維感測器根因歸因的企業級 AI 閉環</text>
+  <text class="en" x="480" y="540" text-anchor="middle" font-size="8" fill="var(--ink-soft)">Enabling millisecond-level ATE edge screening to multi-thousand sensor MES root-cause attribution</text>
+</svg>
+            <figcaption>
+              <span class="zh">圖 6.5：半導體 AI / 機器學習雙引擎架構圖 — Part A：非監督式 Maverick 異常篩選 (Autoencoder &amp; Isolation Forest) 與 未知缺陷聚類；Part B：萬維機台 FDC 感測器之梯度提升樹 (XGBoost) 與 SHAP 合作博弈特徵歸因閉環</span>
+              <span class="en">Figure 6.5: Semiconductor AI/ML Dual Engine Architecture — Part A: Unsupervised Maverick Screening (Autoencoder &amp; Isolation Forest) with Zero-Day Defect Clustering; Part B: High-Dimensional FDC Sensor Tree Ensembles (XGBoost) with Game-Theoretic SHAP Root-Cause Attribution Closed Loop</span>
+            </figcaption>
+          </figure>
+
+          <!-- SUBSECTION 6.5.1: AUTOENCODER -->
+          <h4 id="sec_6_5_1">
+            <span class="zh">6.5.1 非監督式自編碼器（Autoencoders: AE / VAE）在無標籤 Maverick 篩檢之數學原理與工程實踐</span>
+            <span class="en">6.5.1 Unsupervised Autoencoders (AE / VAE) for Label-Free Maverick Screening: Mathematical Foundations &amp; Engineering Implementation</span>
+          </h4>
+          <p>
+            <span class="zh">
+              為突破無標籤資料的限制，半導體大數據平台（如 <a href="#sec_1_2_3">第 1.2.3 節</a> 之 PDF Solutions Exensio ML 模組）採用<b>單類非監督式自編碼器（One-Class Unsupervised Autoencoder）</b>架構。其物理直覺是：<b>「良品晶粒擁有共同的物理流形，而瑕疵晶粒各有各的異常」</b>。
+            </span>
+            <span class="en">
+              To circumvent label scarcity, modern semiconductor yield analytics (such as PDF Solutions Exensio ML modules, <a href="#sec_1_2_3">Section 1.2.3</a>) deploy <b>One-Class Unsupervised Autoencoders</b>. The physical rationale is intuitive: <b>"Passing golden dies share a structured physical manifold, whereas flawed mavericks deviate arbitrarily."</b>
+            </span>
+          </p>
+          <p>
+            <span class="zh">
+              <b>1. 網路拓撲與前向傳播</b>：模型由編碼器 (f_\theta) 與解碼器 (g_\phi) 組成。令輸入為一顆晶粒的高維 ATE 測試參數向量 (\mathbf{x} \in \mathbb{R}^D)（包含多電源域靜態電流 (I_{\text{DDQ}})、環形振盪器頻率 (F_{\text{RO}})、關鍵路徑傳遞延遲 (T_{\text{pd}}) 等）：
+            </span>
+            <span class="en">
+              <b>1. Network Topology &amp; Forward Propagation</b>: The architecture comprises an encoder (f_\theta) and a decoder (g_\phi). Let (\mathbf{x} \in \mathbb{R}^D) denote the high-dimensional ATE parametric test vector of a die (encompassing multi-rail (I_{\text{DDQ}}), ring oscillator frequencies (F_{\text{RO}}), and critical path delays (T_{\text{pd}})):
+            </span>
+          </p>
+          <div class="formula">
+            <div class="eq">
+              \[
+              \mathbf{z} = f_\theta(\mathbf{x}) = \sigma(\mathbf{W}_e \mathbf{x} + \mathbf{b}_e), \quad \hat{\mathbf{x}} = g_\phi(\mathbf{z}) = \sigma(\mathbf{W}_d \mathbf{z} + \mathbf{b}_d)
+              \]
+            </div>
+            <div class="desc">
+              <span class="zh">其中瓶頸層 (\mathbf{z} \in \mathbb{R}^k)（(k \ll D)）強制神經網路丟棄隨機雜訊，僅學習晶圓物理製程之核心低維潛在流形（Latent Manifold）。</span>
+              <span class="en">where the bottleneck latent vector (\mathbf{z} \in \mathbb{R}^k) ((k \ll D)) forces the network to compress inputs into intrinsic process variation manifolds, filtering out random measurement noise.</span>
+            </div>
+          </div>
+          <p>
+            <span class="zh">
+              <b>2. 訓練機制與重構誤差異常分數（Reconstruction Loss Anomaly Metric）</b>：自編碼器<b>僅使用良率正常批次中測試通過的「黃金晶粒（Golden Dies）」進行權重優化</b>，最小化均方誤差損失函數：
+            </span>
+            <span class="en">
+              <b>2. Training Protocol &amp; Reconstruction Loss Anomaly Metric</b>: The network is optimized <b>exclusively on verified passing golden dies from high-yield baseline lots</b>, minimizing Mean Squared Error (MSE):
+            </span>
+          </p>
+          <div class="formula">
+            <div class="eq">
+              \[
+              \mathcal{L}_{\text{rec}}(\mathbf{x}) = \|\mathbf{x} - \hat{\mathbf{x}}\|_2^2 = \sum_{j=1}^D (x_j - \hat{x}_j)^2
+              \]
+            </div>
+            <div class="desc">
+              <span class="zh">對正常晶粒，模型能以極小誤差精準重構（\(\mathcal{L}_{\text{rec}} \le \tau\)）；若晶粒具備潛伏微短路或閘極氧化層退化（GOX Latent Damage），由於其特徵組合從未出現在訓練流形中，解碼重構值將劇烈失真（\(\mathcal{L}_{\text{rec}} &gt; \tau\)），即刻觸發車規 Maverick 攔截。</span>
+              <span class="en">For golden dies, reconstruction error is minimal (\(\mathcal{L}_{\text{rec}} \le \tau\)). However, for dies harboring latent gate-oxide breakdown or contact degradation, their anomalous parametric combinations cannot be reconstructed by the learned manifold (\(\mathcal{L}_{\text{rec}} &gt; \tau\)), triggering instant outlier flagging.</span>
+            </div>
+          </div>
+          <p>
+            <span class="zh">
+              <b>3. 動態閾值選定與變分自編碼器（VAE）擴展</b>：工程實務上，閾值 (\tau) 透過極值理論（Extreme Value Theory, EVT）中的超閾值模型（Peaks-Over-Threshold, POT）自適應求解，避免固定閾值因批次整體厚度漂移而產生大量誤殺（Overkill）。進階場景導入變分自編碼器（VAE），以機率分佈 \(q_\phi(\mathbf{z}|\mathbf{x})\) 取代確定性編碼，結合潛在空間降維投影（UMAP），可自動將未曾見過的異常晶圓圖或參數群聚成全新的「Zero-Day 缺陷簇」（見圖 6.5 Part A），主動推送至失效分析（FA）實驗室。
+            </span>
+            <span class="en">
+              <b>3. Adaptive Thresholding &amp; Variational Autoencoders (VAE)</b>: In production, (\tau) is dynamically determined via Peaks-Over-Threshold (POT) modeling under Extreme Value Theory (EVT) to prevent overkill from baseline wafer thickness drifts. Variational Autoencoders (VAE) model probabilistic latent distributions \(q_\phi(\mathbf{z}|\mathbf{x})\); projecting latent embeddings via UMAP automatically clusters previously unobserved failure modes into "zero-day defect signatures" (Figure 6.5 Part A) for immediate FA dispatch.
+            </span>
+          </p>
+
+          <!-- SUBSECTION 6.5.2: ISOLATION FOREST -->
+          <h4 id="sec_6_5_2">
+            <span class="zh">6.5.2 孤立森林（Isolation Forest）在百維 ATE 測試參數之極速離群值隔離</span>
+            <span class="en">6.5.2 Isolation Forest for Ultra-Fast High-Dimensional ATE Parametric Outlier Screening</span>
+          </h4>
+          <p>
+            <span class="zh">
+              在測試機台（ATE）測試循環中，多變量篩選演算法必須在 <b>小於 300 毫秒</b> 內完成整片晶圓數千顆 Die 的百維參數聯合推斷。孤立森林（Isolation Forest, iForest）憑藉其線性時間複雜度與無分佈假設特性，成為 ATE 即時邊緣運算（Edge Gateway）的首選模型。
+            </span>
+            <span class="en">
+              During automated wafer sort cycles, multi-parameter outlier algorithms must evaluate thousands of dies across 100+ tests within <b>under 300 milliseconds</b> per wafer. Isolation Forest (iForest), featuring linear time complexity and zero distributional assumptions, represents the premier model for real-time ATE edge screening.
+            </span>
+          </p>
+          <p>
+            <span class="zh">
+              <b>1. 物理隔離原理</b>：正常良品晶粒在參數空間中呈現緊密的高密度聚集，需要多次隨機超平面劃分才能將其單獨分離；相反地，孤島晶粒（Maverick Dies）數量極少且遠離主要分佈，<b>僅需極少數次的隨機維度劃分即可被單獨隔離</b>（見圖 6.5 Part A 第 2 小圖）。
+            </span>
+            <span class="en">
+              <b>1. Physical Isolation Rationale</b>: Passing dies form dense clusters in parameter space, requiring deep recursive cuts to isolate. Conversely, maverick dies are sparse and distant from the center; <b>they become isolated with very few random hyperplane partitions</b> (Figure 6.5 Part A, panel 2).
+            </span>
+          </p>
+          <div class="formula">
+            <div class="eq">
+              \[
+              s(\mathbf{x}, n) = 2^{-\frac{\mathbb{E}(h(\mathbf{x}))}{c(n)}}, \quad c(n) = 2\left(\ln(n - 1) + \gamma\right) - \frac{2(n - 1)}{n}
+              \]
+            </div>
+            <div class="desc">
+              <span class="zh">其中 \(h(\mathbf{x})\) 為晶粒在孤立樹（iTree）中的路徑長度，\(\mathbb{E}(h(\mathbf{x}))\) 為集成森林中的平均路徑，\(c(n)\) 為樣本數 \(n\) 的二元搜尋樹平均路徑常數（\(\gamma \approx 0.5772156649\) 歐拉常數）。</span>
+              <span class="en">where \(h(\mathbf{x})\) represents the traversal path length of die \(\mathbf{x}\) in an isolation tree (iTree), \(\mathbb{E}(h(\mathbf{x}))\) is the expectation across the forest, and \(c(n)\) is the average path length of unsuccessful searches in a Binary Search Tree for sample size \(n\) (\(\gamma \approx 0.5772\) is Euler's constant).</span>
+            </div>
+          </div>
+          <p>
+            <span class="zh">
+              <b>2. 決策邊界判準</b>：
+              當異常指標 \(s(\mathbf{x}, n) \to 1\)（平均路徑長度 \(\mathbb{E}(h(\mathbf{x})) \ll c(n)\)），高度確信判定為潛在失效離群晶粒；當 \(s &lt; 0.5\) 時判定為典型良品晶粒。其建樹與推論複雜度僅為 \(O(t \cdot \psi \log \psi)\)（\(t\) 為樹數量通常取 100，子採樣數 \(\psi=256\)），完全不受參數維度爆炸之苦。
+            </span>
+            <span class="en">
+              <b>2. Decision Criteria</b>:
+              When anomaly score \(s(\mathbf{x}, n) \to 1\) (path length \(\mathbb{E}(h(\mathbf{x})) \ll c(n)\)), the die is flagged as a high-risk outlier maverick. When \(s &lt; 0.5\), the die is confirmed within the normal dense distribution. With computational complexity of only \(O(t \cdot \psi \log \psi)\) (typically \(t=100\), subsample \(\psi=256\)), it remains immune to high-dimensional matrix bottlenecks.
+            </span>
+          </p>
+
+          <!-- SUBSECTION 6.5.3: TREE ENSEMBLES & SHAP -->
+          <h4 id="sec_6_5_3">
+            <span class="zh">6.5.3 隨機森林與梯度提升樹（Random Forest, XGBoost &amp; LightGBM）結合 SHAP 的萬維機台 FDC 根因追溯</span>
+            <span class="en">6.5.3 Tree Ensembles (Random Forest, XGBoost &amp; LightGBM) with Game-Theoretic SHAP for Multidimensional FDC Root Cause Attribution</span>
+          </h4>
+          <p>
+            <span class="zh">
+              當產線遭遇突發性良率驟降或特定參數（如 \(V_{\text{th}}\) 或接觸阻抗 \(R_c\)）向規格外偏移時，工廠製造執行系統（MES）與機台感測資料庫（FDC）匯聚了橫跨數百台腔體、數千道工序的萬維感測數據。傳統工程師在海量散佈圖中盲目摸索，而<b>梯度提升決策樹（XGBoost / LightGBM）結合合作博弈論沙普利值（SHAP Values）</b>提供了一套完全可解釋的自動化歸因閉環。
+            </span>
+            <span class="en">
+              When a sudden yield drop or parametric excursion (e.g., in threshold voltage \(V_{\text{th}}\) or contact resistance \(R_c\)) occurs, fab MES and Fault Detection and Classification (FDC) databases present tens of thousands of sensor signals across hundreds of chambers. Rather than manually hunting through correlation scatter plots, <b>Gradient Boosted Decision Trees (XGBoost / LightGBM) coupled with game-theoretic SHAP (SHapley Additive exPlanations) values</b> establish a fully explainable root-cause attribution workflow.
+            </span>
+          </p>
+          <div class="formula">
+            <div class="eq">
+              \[
+              f(\mathbf{x}) = \phi_0 + \sum_{i=1}^M \phi_i(\mathbf{x}), \quad \phi_i(\mathbf{x}) = \sum_{S \subseteq F \setminus \{i\}} \frac{|S|!(|F| - |S| - 1)!}{|F|!} \left[ f_x(S \cup \{i\}) - f_x(S) \right]
+              \]
+            </div>
+            <div class="desc">
+              <span class="zh">其中 \(\phi_0 = \mathbb{E}[f(\mathbf{x})]\) 為工廠歷史基準良率，\(\phi_i(\mathbf{x})\) 為第 \(i\) 個機台或 FDC 感測器特徵對該批次良率變化的絕對邊際貢獻量（Marginal Contribution），\(F\) 為全域萬維特徵集合。</span>
+              <span class="en">where \(\phi_0 = \mathbb{E}[f(\mathbf{x})]\) denotes historical baseline yield, \(\phi_i(\mathbf{x})\) represents the fair marginal attribution of the \(i\)-th equipment or FDC sensor parameter to the observed yield excursion, and \(F\) is the total feature space.</span>
+            </div>
+          </div>
+          <p>
+            <span class="zh">
+              <b>SHAP 破除「AI 黑盒子」困境之四大數學保證</b>：
+            </span>
+            <span class="en">
+              <b>Four Mathematical Guarantees that Eliminate the "AI Black-Box" Dilemma</b>:
+            </span>
+          </p>
+          <ul>
+            <li>
+              <span class="zh"><b>局部準確性（Efficiency / Local Accuracy）</b>：所有特徵的 SHAP 值總和嚴格等於模型輸出與基準良率的差值（\(f(\mathbf{x}) - \phi_0\)），各腔體與感測器的良率衝擊完全透明對帳。</span>
+              <span class="en"><b>Local Accuracy (Efficiency)</b>: The sum of all feature SHAP values strictly equals the difference between actual lot prediction and baseline yield (\(f(\mathbf{x}) - \phi_0\)), ensuring 100% accounting transparency across all chambers and sensors.</span>
+            </li>
+            <li>
+              <span class="zh"><b>缺失性（Missingness）</b>：未參與該批次晶圓加工的機台（如未被跳站選中的 Chamber）其 \(\phi_i = 0\)，杜絕假性相關冤枉無關機台。</span>
+              <span class="en"><b>Missingness</b>: Tools and chambers not traversed by a lot receive exactly \(\phi_i = 0\), eliminating spurious correlation and false equipment incrimination.</span>
+            </li>
+            <li>
+              <span class="zh"><b>單調一致性（Monotonicity / Consistency）</b>：若機台某參數（如蝕刻 RF 反射功率）劣化程度加劇，其歸因懲罰 SHAP 值絕不會反而縮小。</span>
+              <span class="en"><b>Consistency (Monotonicity)</b>: If a tool parameter drift worsens (e.g., RF reflected power spikes higher), its incrimination SHAP value is mathematically guaranteed not to decrease.</span>
+            </li>
+          </ul>
+
+          <div class="callout good">
+            <div class="callout-title">
+              <span>🎯</span>
+              <span class="zh">產線實戰案例：從 SHAP 瀑布圖到閉環工程行動 (Case Study)</span>
+              <span class="en">Production Case Study: From SHAP Waterfall to Actionable Engineering Containment</span>
+            </div>
+            <span class="zh">
+              某車規微控制器（MCU）批次良率突由 94.2% 暴跌至 88.8%（-5.4%）。傳統 ANOVA 與相關性工具列出 30 個嫌疑機台，工程排查陷入僵局。導入 XGBoost + TreeSHAP 即時解算（如圖 6.5 Part B 瀑布圖所示）：<br>
+              ① <b>特徵 1（主因）</b>：<code>ETCH_03</code> 腔體在 Main-Etch 步驟之「RF Reflected Power」飄移 +18W，其 \(\phi_1 = -4.8\%\)（獨占 89% 的良率損失權重）。<br>
+              ② <b>特徵 2（次因）</b>：<code>CVD_02</code> 沉積腔壓抖動 12mTorr，\(\phi_2 = -1.2\%\)。<br>
+              ③ <b>特徵 3（補償因）</b>：<code>CMP_01</code> 研磨液流量處於極佳工況，提供 \(\phi_3 = +0.6\%\) 的微弱抵禦緩衝。<br>
+              <b>處置閉環</b>：MES 立即自動下發指令凍結 <code>ETCH_03</code> 投片（WIP Hold），設備工程師進場檢測發現 RF Matchbox 匹配器電容老化起弧。更換調諧電容後以監控片（Monitor Wafer）驗證，批次良率立即全面回升至 94.6%。
+            </span>
+            <span class="en">
+              An automotive MCU lot suffered a sudden yield collapse from 94.2% to 88.8% (-5.4%). Traditional ANOVA flagged 30 suspect chambers without clear priority. Ingesting lot data into XGBoost + TreeSHAP generated the instant waterfall attribution (Figure 6.5 Part B):<br>
+              ① <b>Top Incriminated Feature</b>: Chamber <code>ETCH_03</code> main-etch "RF Reflected Power" drifted +18W, yielding \(\phi_1 = -4.8\%\) (accounting for 89% of total yield loss).<br>
+              ② <b>Secondary Feature</b>: Chamber <code>CVD_02</code> pressure jitter of 12mTorr contributed \(\phi_2 = -1.2\%\).<br>
+              ③ <b>Mitigating Feature</b>: Chamber <code>CMP_01</code> slurry flow operated at optimal baseline, adding \(\phi_3 = +0.6\%\).<br>
+              <b>Corrective Closed Loop</b>: MES automatically executed a WIP Hold on <code>ETCH_03</code>. Tool maintenance discovered arcing in the RF matchbox tuning capacitor. Following capacitor replacement and monitor wafer requalification, downstream lot yields restored immediately to 94.6%.
+            </span>
+          </div>
+
+          <!-- SUBSECTION 6.5.4: COMPARISON MATRIX -->
+          <h4 id="sec_6_5_4">
+            <span class="zh">6.5.4 表 6.5：半導體 AI / 機器學習方法論決策與產線部署矩陣</span>
+            <span class="en">6.5.4 Table 6.5: Semiconductor AI/ML Methodologies Master Decision &amp; Industrial Deployment Matrix</span>
+          </h4>
+          <p>
+            <span class="zh">
+              下表整合評估現代半導體製造與封測領域主流的五大 AI / 機器學習方法論，對比其學習範式、數學目標函數、運算延遲開銷、可解釋性以及產線工業軟體生態定位：
+            </span>
+            <span class="en">
+              The following decision matrix comprehensively evaluates the five dominant AI and machine learning methodologies deployed in semiconductor fabrication and test, contrasting their learning paradigms, mathematical objectives, latency overheads, explainability ratings, and enterprise software ecosystems:
+            </span>
+          </p>
+
+          <div style="overflow-x:auto;">
+            <table>
+              <thead>
+                <tr>
+                  <th><span class="zh">方法論</span><span class="en">Methodology</span></th>
+                  <th><span class="zh">學習範式與輸入</span><span class="en">Learning Paradigm &amp; Input</span></th>
+                  <th><span class="zh">核心數學原理與目標</span><span class="en">Core Mathematical Formulation</span></th>
+                  <th><span class="zh">標籤需求與算力延遲</span><span class="en">Labels &amp; Inference Latency</span></th>
+                  <th><span class="zh">可解釋性</span><span class="en">Explainability</span></th>
+                  <th><span class="zh">首要半導體應用場景</span><span class="en">Primary Fab / ATE Application</span></th>
+                  <th><span class="zh">工業軟體整合</span><span class="en">Industrial Software</span></th>
+                </tr>
+              </thead>
+                            <tbody>
+                <tr>
+                  <td><span class="zh"><b>自編碼器 Autoencoder</b><br>(AE / VAE / Conv-AE)</span><span class="en"><b>Autoencoder</b><br>(AE / VAE / Conv-AE)</span></td>
+                  <td><span class="zh">非監督式深度學習；多維 ATE 測試向量或晶圓圖影像</span><span class="en">Unsupervised Deep Learning; ATE parametric vectors or wafer maps</span></td>
+                  <td><span class="zh">\(\min \|\mathbf{x} - g_\phi(f_\theta(\mathbf{x}))\|_2^2\)；以重構誤差評定異常度</span><span class="en">\(\min \|\mathbf{x} - g_\phi(f_\theta(\mathbf{x}))\|_2^2\); Reconstruction loss as anomaly metric</span></td>
+                  <td><span class="zh">僅需黃金良品樣本；推論 &lt; 20ms / 晶圓</span><span class="en">Pass dies only; &lt; 20ms / wafer inference</span></td>
+                  <td><span class="zh">中等（可視化各引腳重構殘差）</span><span class="en">Medium (Per-pin residual decomposition)</span></td>
+                  <td><span class="zh">高維非線性 Maverick 晶粒過濾；未見過新型缺陷聚類</span><span class="en">Non-linear maverick screening; Zero-day defect clustering</span></td>
+                  <td><span class="zh">PDF Exensio ML、KLA Klarity、PyTorch 邊緣伺服器</span><span class="en">PDF Exensio ML, KLA Klarity, PyTorch Edge Gateway</span></td>
+                </tr>
+                <tr>
+                  <td><span class="zh"><b>孤立森林<br>(Isolation Forest)</b></span><span class="en"><b>Isolation Forest<br>(iForest)</b></span></td>
+                  <td><span class="zh">非監督式集成學習；百維連續型 ATE 參數</span><span class="en">Unsupervised Tree Ensemble; High-dimensional continuous ATE tests</span></td>
+                  <td><span class="zh">\(s = 2^{-\mathbb{E}[h(\mathbf{x})]/c(n)}\)；基於隨機超平面劃分深淺度</span><span class="en">\(s = 2^{-\mathbb{E}[h(\mathbf{x})]/c(n)}\); Hyperplane recursive partition path length</span></td>
+                  <td><span class="zh">零標籤；極速 \(O(t \psi \log \psi)\)（&lt; 5ms / 晶圓）</span><span class="en">Zero labels; Ultra-fast (&lt; 5ms / wafer)</span></td>
+                  <td><span class="zh">中高（可輸出單樹劃分維度頻率）</span><span class="en">Medium-High (Split frequency attribution)</span></td>
+                  <td><span class="zh">ATE 機台即時百維參數無假設離群值截斷</span><span class="en">Inline real-time ATE tester maverick screening</span></td>
+                  <td><span class="zh">Advantest DFX、Teradyne IG-XL、Scikit-learn</span><span class="en">Advantest DFX, Teradyne IG-XL, Scikit-learn</span></td>
+                </tr>
+                <tr>
+                  <td><span class="zh"><b>隨機森林 / XGBoost<br>+ SHAP</b></span><span class="en"><b>Random Forest / XGBoost<br>+ SHAP</b></span></td>
+                  <td><span class="zh">監督式集成學習；混合型 FDC 傳感器與機台歷程</span><span class="en">Supervised Tree Ensemble; Mixed FDC sensors &amp; tool genealogy</span></td>
+                  <td><span class="zh">\(f(\mathbf{x}) = \sum f_k(\mathbf{x})\)；SHAP 邊際貢獻分解</span><span class="en">\(f(\mathbf{x}) = \sum f_k(\mathbf{x})\); SHAP Marginal Contribution</span></td>
+                  <td><span class="zh">需批次良率或 Bin 標籤；離線訓練，秒級推論</span><span class="en">Requires yield labels; Offline train, second-level infer</span></td>
+                  <td><span class="zh">極高（博弈論嚴格特徵可加性）</span><span class="en">Very High (Game-theoretic local accuracy)</span></td>
+                  <td><span class="zh">萬維機台 FDC 感測器根因歸因與敏感度排序</span><span class="en">Multidimensional FDC root cause attribution</span></td>
+                  <td><span class="zh">PDF Exensio Yield、SAS JMP Pro、Synopsys YieldExplorer</span><span class="en">PDF Exensio Yield, SAS JMP Pro, Synopsys YieldExplorer</span></td>
+                </tr>
+                <tr>
+                  <td><span class="zh"><b>卷積神經網路 CNN /<br>Vision Transformer</b></span><span class="en"><b>CNN / Vision<br>Transformer (ViT)</b></span></td>
+                  <td><span class="zh">監督 / 自監督學習；晶圓圖影像（WM-811K 格式）</span><span class="en">Supervised / Self-supervised; Wafer map images (WM-811K)</span></td>
+                  <td><span class="zh">\(\text{CrossEntropy}(\hat{y}, y)\)；空間卷積核特徵萃取</span><span class="en">\(\text{CrossEntropy}(\hat{y}, y)\); Spatial convolution &amp; attention maps</span></td>
+                  <td><span class="zh">需標註資料（或對比學習預訓練）；&lt; 50ms</span><span class="en">Needs labeled maps (or self-supervised); &lt; 50ms</span></td>
+                  <td><span class="zh">高（結合 Grad-CAM 熱力圖激活區）</span><span class="en">High (Via Grad-CAM attention heatmaps)</span></td>
+                  <td><span class="zh">晶圓缺陷圖譜自動分類（WMPR）與複合缺陷解耦</span><span class="en">Wafer map pattern recognition &amp; mixed-defect decoupling</span></td>
+                  <td><span class="zh">KLA Klarity Defect、應用材料 SEMVision</span><span class="en">KLA Klarity Defect, Applied Materials SEMVision</span></td>
+                </tr>
+                <tr>
+                  <td><span class="zh"><b>圖神經網路 GNN<br>(Graph Neural Net)</b></span><span class="en"><b>Graph Neural<br>Networks (GNN)</b></span></td>
+                  <td><span class="zh">幾何深度學習；晶粒空間鄰域與封裝拓撲圖</span><span class="en">Geometric Deep Learning; Die spatial graphs &amp; package mesh</span></td>
+                  <td><span class="zh">\(\mathbf{h}_v^{(l+1)} = \text{UPDATE}\left(\mathbf{h}_v^{(l)}, \text{AGG}\left(\{\mathbf{h}_u^{(l)}\}\right)\right)\)</span><span class="en">\(\mathbf{h}_v^{(l+1)} = \text{UPDATE}\left(\mathbf{h}_v^{(l)}, \text{AGG}\left(\{\mathbf{h}_u^{(l)}\}\right)\right)\)</span></td>
+                  <td><span class="zh">半監督學習；推論 &lt; 100ms / 晶圓</span><span class="en">Semi-supervised; &lt; 100ms / wafer inference</span></td>
+                  <td><span class="zh">中等（節點注意力權重分析）</span><span class="en">Medium (Edge attention weight analysis)</span></td>
+                  <td><span class="zh">先進封裝（CoWoS / 3D-IC）晶粒應力缺陷傳播預測</span><span class="en">Advanced packaging stress &amp; GDBN neighborhood modeling</span></td>
+                  <td><span class="zh">PyG (PyTorch Geometric)、客製化晶圓良率引擎</span><span class="en">PyG (PyTorch Geometric), Custom Fab Yield Engines</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- SUBSECTION 6.5.5: MLOPS & DRIFT GOVERNANCE -->
+          <h4 id="sec_6_5_5">
+            <span class="zh">6.5.5 產線級 MLOps 治理防禦架構：Data Drift、概念漂移（Concept Drift）與模型生命週期</span>
+            <span class="en">6.5.5 Enterprise Fab MLOps Governance: Data Drift, Concept Drift &amp; Model Lifecycle Management</span>
+          </h4>
+          <p>
+            <span class="zh">
+              在半導體製造與封測現場，<b>「靜態 AI 模型必死於機台定期保養（PM）」</b>。產線環境隨時發生微小物理擾動（如 Target 更換、腔體濕清洗 Wet Clean、拋光墊修整 Pad Dressing、季節性廠務冷卻水溫微幅浮動），導致感測數據分佈發生漂移（Data Drift）或物理關聯產生質變（Concept Drift）。若缺乏嚴謹的 MLOps 防禦架構，AI 模型將產生災難性的漏檢（Underkill）或大規模誤殺（Overkill）。
+            </span>
+            <span class="en">
+              In high-volume semiconductor fabrication and test, <b>"static AI models inevitably perish following tool preventive maintenance (PM)."</b> Production environments experience continuous physical perturbations (target replacements, chamber wet cleans, CMP pad dressings, seasonal facility chiller shifts), triggering input Data Drift or fundamental Concept Drift. Without rigorous MLOps safeguards, AI inference degrades into catastrophic customer escapes (underkill) or massive yield loss (overkill).
+            </span>
+          </p>
+
+          <div class="card-grid">
+            <div class="card">
+              <h4 style="margin-top:0; color:var(--accent);">
+                <span class="zh">1. 分佈漂移即時監控 (KS 檢定 &amp; PSI 指標)</span>
+                <span class="en">1. Drift Monitoring (KS Test &amp; PSI Metric)</span>
+              </h4>
+              <p>
+                <span class="zh">
+                  在特徵入庫階段對所有 ATE 測試參數與 FDC 數據進行雙重分佈檢定：<br>
+                  ① <b>Kolmogorov-Smirnov (KS) 檢定</b>：連續型分佈最大累積差異檢驗，\(p &lt; 0.01\) 觸發警報。<br>
+                  ② <b>群體穩定性指標（Population Stability Index, PSI）</b>：
+                </span>
+                <span class="en">
+                  Dual-tier continuous distribution checks on incoming ATE and FDC streams:<br>
+                  ① <b>Kolmogorov-Smirnov (KS) Test</b>: Max cumulative distribution difference, triggering alarms when \(p &lt; 0.01\).<br>
+                  ② <b>Population Stability Index (PSI)</b>:
+                </span>
+              </p>
+              <div class="formula">
+                <div class="eq">
+                  \[
+                  \text{PSI} = \sum_{b=1}^B (P_b - Q_b) \times \ln\left(\frac{P_b}{Q_b}\right)
+                  \]
+                </div>
+                <div class="desc">
+                  <span class="zh">其中 \(P_b\) 為歷史基準佔比，\(Q_b\) 為當前批次佔比。\(\text{PSI} &lt; 0.1\) 表示穩定；\(0.1 \le \text{PSI} \le 0.25\) 提示中度漂移警告；\(\text{PSI} &gt; 0.25\) 強制觸發模型降級與重訓機制。</span>
+                  <span class="en">where \(P_b\) is baseline proportion and \(Q_b\) is current lot proportion. \(\text{PSI} &lt; 0.1\) indicates stability; \(0.1 \le \text{PSI} \le 0.25\) warns moderate drift; \(\text{PSI} &gt; 0.25\) mandates fallback and retraining.</span>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <h4 style="margin-top:0; color:var(--good);">
+                <span class="zh">2. 影子模式與平滑灰度上線 (Shadow Deployment)</span>
+                <span class="en">2. Shadow Deployment &amp; Fallback Safeguards</span>
+              </h4>
+              <p>
+                <span class="zh">
+                  新訓練之 Autoencoder 或 XGBoost 模型<b>禁止直接掛載 ATE 實體墨印（Hard Inking）決策</b>。新模型需在邊緣伺服器進行至少兩週的「影子運行（Shadow Mode）」，將其預測結果與經典 DPAT / SYA 法規基線對齊。只有當 Overkill 變異在 \(\pm 0.05\%\) 容限內且無任何已知客訴逃逸時，方可由良率委員會簽核放行。
+                </span>
+                <span class="en">
+                  Newly retrained Autoencoders or XGBoost models are <b>strictly forbidden from direct real-time hard-inking deployment</b>. Models execute in "Shadow Mode" for at least two weeks, benchmarking predictions against classical DPAT/SYA baselines. Production cutover requires Overkill variance within \(\pm 0.05\%\) and zero escape against golden validation suites, certified by the Fab Yield Board.
+                </span>
+              </p>
+            </div>
+          </div>
+
         </div>
       </section>
 
@@ -14774,11 +15505,11 @@
     <div style="display:flex; flex-direction:column; align-items:flex-end; gap:5px;">
       <div style="display:flex; align-items:center; gap:8px;">
         <span class="badge badge-green" style="font-size:11px; padding:2px 8px;">● LIVE VERIFIED</span>
-        <span style="font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft);">Rev. AH</span>
+        <span style="font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft);">Rev. AI</span>
       </div>
       <div style="font-family:var(--font-mono); font-size:12px; color:var(--ink);">
         <span class="zh">最後更新日期：</span><span class="en">Last Updated: </span>
-        <b style="color:var(--accent);">2026-11-02 09:15 (Asia/Taipei)</b>
+        <b style="color:var(--accent);">2026-11-02 09:45 (Asia/Taipei)</b>
       </div>
     </div>
   </footer>
