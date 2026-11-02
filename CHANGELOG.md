@@ -8,6 +8,23 @@ Entry format / 格式:
 `## YYYY-MM-DD — <agent> — <short title>` then bullets: what changed, why, caveats for the next agent.
 
 ---
+## 2026-11-02 — Google Antigravity — Rev. AK: Integrated 4 High-Resolution Micrographs into Wafer Scratch Gallery (Section 6.4.2)
+
+- **Added Dedicated 4-Card Responsive Micrograph Gallery in Section 6.4.2 (`.scratch-gallery-grid` & `.scratch-card`)**:
+  - `assets/scratch/01_wafer_scratch_macro.jpg`: High-resolution macro photograph of a 300mm silicon wafer showing thin-film rainbow iridescence across rectangular dies with an arc-shaped robotic handler scratch gouge cutting diagonally across the grid, demonstrating the intermittent broken-line skipping phenomenon ($P^*$ latent killer dies).
+  - `assets/scratch/02_cmp_slurry_scratch_sem.jpg`: Top-down failure analysis CD-SEM micrograph showing severe CMP slurry agglomerate scratching tearing through sub-micron copper lines with debris particles, metal burrs, micro-cracks, and a calibrated 2 µm scale bar.
+  - `assets/scratch/03_fib_cross_section_crack.jpg`: Cross-sectional dual-beam FIB-SEM micrograph showing multi-level BEOL Cu/ILD interconnect layers with an impact gouge at the passivation initiating an angled latent micro-crack down into the Si substrate (500 nm scale bar), explaining why dies pass initial probe tests but fail under field thermo-mechanical stress.
+  - `assets/scratch/04_darkfield_klarf_inspection.jpg`: Optical darkfield laser defect review display (KLA Klarity / ADR style) featuring intense scattering along an arc scratch trajectory with bounding box clustering, safety margin polygon corridor, and SEMI E142 pre-test Virtual Inking.
+- **Enhanced CSS Styling**:
+  - Unified `.litho-gallery-grid` and `.scratch-gallery-grid` with shared hover effects, hardware-accelerated zoom, and darkroom slate backgrounds.
+- **Synchronized Header & Footer Revision Metadata**:
+  - Bumped revision label to `Rev. AK` and Last Updated timestamp to `2026-11-02 11:35 (Asia/Taipei)` in both header and footer.
+- **Quality & Verification**:
+  - Passed `npm run verify` with 0 tag mismatches and valid JavaScript syntax (17,648 lines).
+  - Passed `node scripts/audit_i18n_and_structure.js` with 0 numbering drift, 0 Chinese leaks in English mode across all sections, and 100% of all 1,565 table cells localized.
+
+---
+
 ## 2026-11-02 — Google Antigravity — Rev. AJ: Wafer Scratch Inking Defense Algorithms: RANSAC/Hough Trajectory Fitting, Morphological Corridor Dilation & KLARF In-line Overlay (Section 6.4.2, Fig 6.6, Table 6.4.2)
 
 - **Added Section 6.4.2: 晶圓刮傷 (Scratch) 缺陷虛擬墨印防禦演算法：RANSAC/Hough 軌跡擬合、形態學走廊膨脹與 KLARF 光學疊圖 (Wafer Scratch Inking Defense Algorithms: RANSAC/Hough Trajectory Fitting, Morphological Corridor Dilation & KLARF In-line Overlay)**:

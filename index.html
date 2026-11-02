@@ -952,13 +952,15 @@
     flex: 1;
   }
   /* Lithography Real SEM Micrograph Gallery */
-  .litho-gallery-grid {
+  .litho-gallery-grid,
+  .scratch-gallery-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
     gap: 16px;
     margin: 20px 0 28px 0;
   }
-  .litho-card {
+  .litho-card,
+  .scratch-card {
     background: var(--surface-2);
     border: 1px solid var(--border);
     border-radius: 8px;
@@ -967,14 +969,16 @@
     flex-direction: column;
     transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
   }
-  .litho-card:hover {
+  .litho-card:hover,
+  .scratch-card:hover {
     transform: translateY(-3px);
     box-shadow: 0 8px 24px rgba(0,0,0,0.18);
     border-color: var(--accent);
   }
-  .litho-card-img-wrap {
+  .litho-card-img-wrap,
+  .scratch-card-img-wrap {
     width: 100%;
-    height: 145px;
+    height: 155px;
     background: #0b1120;
     display: flex;
     align-items: center;
@@ -983,47 +987,54 @@
     position: relative;
     border-bottom: 1px solid var(--border);
   }
-  .litho-card-img-wrap img {
+  .litho-card-img-wrap img,
+  .scratch-card-img-wrap img {
     width: 100%;
     height: 100%;
-    object-fit: contain;
-    transition: transform 0.35s ease;
+    object-fit: cover;
+    transition: transform 0.3s ease;
   }
-  .litho-card:hover .litho-card-img-wrap img {
+  .litho-card:hover .litho-card-img-wrap img,
+  .scratch-card:hover .scratch-card-img-wrap img {
     transform: scale(1.05);
   }
-  .litho-card-badge {
+  .litho-card-badge,
+  .scratch-card-badge {
     position: absolute;
-    top: 6px;
-    left: 6px;
-    background: rgba(15, 23, 42, 0.88);
-    backdrop-filter: blur(4px);
-    color: #38bdf8;
-    font-family: var(--font-mono);
+    top: 8px;
+    right: 8px;
+    background: rgba(15, 23, 42, 0.85);
+    color: var(--accent);
     font-size: 10px;
     font-weight: 700;
-    padding: 2px 6px;
+    font-family: var(--font-mono);
+    padding: 2px 7px;
     border-radius: 4px;
     border: 1px solid rgba(56, 189, 248, 0.4);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    letter-spacing: 0.5px;
+    backdrop-filter: blur(4px);
   }
-  .litho-card-body {
-    padding: 10px 12px;
-    flex: 1;
+  .litho-card-body,
+  .scratch-card-body {
+    padding: 12px 14px 14px;
     display: flex;
     flex-direction: column;
+    flex: 1;
   }
-  .litho-card-title {
-    font-size: 12px;
+  .litho-card-title,
+  .scratch-card-title {
+    font-size: 13.5px;
     font-weight: 700;
     color: var(--ink);
-    margin-bottom: 4px;
+    margin-bottom: 6px;
     line-height: 1.35;
   }
-  .litho-card-desc {
-    font-size: 10.5px;
+  .litho-card-desc,
+  .scratch-card-desc {
+    font-size: 11.5px;
     color: var(--ink-soft);
-    line-height: 1.4;
+    line-height: 1.5;
+    margin: 0;
   }
 
   .fa-card-meta {
@@ -1311,7 +1322,7 @@
       </div>
       <div>
         <span class="zh">版次狀態</span><span class="en">Revision</span>
-        <b>Rev. AJ (Wafer Scratch Inking Algorithms: RANSAC, Corridor Dilation &amp; KLARF Overlay)</b>
+        <b>Rev. AK (Wafer Scratch Micrograph Gallery: Macro, CMP SEM, FIB Cross-Section &amp; KLARF ADR)</b>
       </div>
       <div>
         <span class="zh">適用對象</span><span class="en">Audience</span>
@@ -1319,7 +1330,7 @@
       </div>
       <div>
         <span class="zh">最後修訂</span><span class="en">Last Updated</span>
-        <b>2026-11-02 10:55 (Asia/Taipei)</b>
+        <b>2026-11-02 11:35 (Asia/Taipei)</b>
       </div>
     </div>
   </header>
@@ -12036,6 +12047,88 @@
             </span>
           </div>
 
+          
+          <!-- REAL DEFECT MICROGRAPH & INSPECTION GALLERY FOR SCRATCH INKING -->
+          <div style="font-weight:700; font-size:14.5px; margin:24px 0 10px; color:var(--ink); display:flex; align-items:center; gap:8px;">
+            <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:var(--danger);"></span>
+            <span class="zh">實體顯微圖譜與檢測圖集：從全晶圓宏觀刮痕、CMP 奈米刮痕到 FIB 剖面微裂紋</span>
+            <span class="en">Defect Micrograph &amp; Inspection Atlas: From Wafer Macro Gouges, CMP Nano-Scratches to FIB Micro-Cracks</span>
+          </div>
+
+          <div class="scratch-gallery-grid">
+            <!-- Card 1 -->
+            <div class="scratch-card">
+              <div class="scratch-card-img-wrap">
+                <span class="scratch-card-badge">MACRO | 300mm Wafer</span>
+                <img src="assets/scratch/01_wafer_scratch_macro.jpg" alt="300mm Wafer Robot Handler Arc Scratch" loading="lazy">
+              </div>
+              <div class="scratch-card-body">
+                <div class="scratch-card-title">
+                  <span class="zh">全晶圓尺度：夾爪拋物線刮痕與斷續跳晶</span>
+                  <span class="en">Wafer Macro: Handler Arc Gouge &amp; Skipping</span>
+                </div>
+                <div class="scratch-card-desc">
+                  <span class="zh">機械手臂夾爪（End-Effector）傳送對位摩擦形成貫穿數十顆 Die 的拋物線刮痕。部分晶粒因電路階差未被切斷導線，電測短暫 PASS，形成致命跳晶逃逸。</span>
+                  <span class="en">Robotic handler wand misalignment cuts a curved trajectory across dozens of dies. Topological step heights spare some dies from instant shorts, yielding deceptive probe PASSes.</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="scratch-card">
+              <div class="scratch-card-img-wrap">
+                <span class="scratch-card-badge">CD-SEM | Top-down</span>
+                <img src="assets/scratch/02_cmp_slurry_scratch_sem.jpg" alt="Top-down SEM of CMP Slurry Micro-Scratch" loading="lazy">
+              </div>
+              <div class="scratch-card-body">
+                <div class="scratch-card-title">
+                  <span class="zh">奈米尺度：CMP 研磨液大顆粒微刮痕</span>
+                  <span class="en">Nanoscale: CMP Slurry Agglomerate Scratch</span>
+                </div>
+                <div class="scratch-card-desc">
+                  <span class="zh">CMP 研磨液結聚硬質顆粒撕裂表面鈍化層與銅互連導線，造成金屬塑性形變飛邊並向兩側主動區放射剪切應力微裂紋。</span>
+                  <span class="en">Agglomerated slurry abrasives gouge through passivation oxide and copper lines, causing metal smearing burrs and radiating lateral shear micro-cracks into neighboring silicon.</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="scratch-card">
+              <div class="scratch-card-img-wrap">
+                <span class="scratch-card-badge">FIB-SEM | Cross-section</span>
+                <img src="assets/scratch/03_fib_cross_section_crack.jpg" alt="FIB Cross-Section of Sub-surface Micro-crack" loading="lazy">
+              </div>
+              <div class="scratch-card-body">
+                <div class="scratch-card-title">
+                  <span class="zh">FIB 剖面：次表面介電微裂紋與潛伏破壞</span>
+                  <span class="en">FIB Cross-section: Sub-surface Micro-crack</span>
+                </div>
+                <div class="scratch-card-desc">
+                  <span class="zh">雙束 FIB 橫切面揭示表面刮痕壓潰處，微裂紋斜向貫穿 Low-k 介電層逼近閘極氧化層。電測未斷路，但在引擎室熱循環下迅速延伸導致致死漏電。</span>
+                  <span class="en">FIB cross-section exposes crushed passivation initiating an angled micro-crack propagating through low-k dielectrics toward active gates—the direct root cause of field RMA escapes.</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="scratch-card">
+              <div class="scratch-card-img-wrap">
+                <span class="scratch-card-badge">OPTICAL | Darkfield ADR</span>
+                <img src="assets/scratch/04_darkfield_klarf_inspection.jpg" alt="In-line Darkfield Inspection & KLARF Overlay" loading="lazy">
+              </div>
+              <div class="scratch-card-body">
+                <div class="scratch-card-title">
+                  <span class="zh">光檢視角：KLARF 多邊形疊圖與預先墨印</span>
+                  <span class="en">Inspection: In-line KLARF Polygon Overlay</span>
+                </div>
+                <div class="scratch-card-desc">
+                  <span class="zh">Fab 廠暗視野雷射散射成像，自動提取長寬比 &gt; 10:1 刮傷幾何並外擴安全走廊，在 CP 測試前直灌 MES 生成 SEMI E142 虛擬墨印，保護針卡並免除測試耗時。</span>
+                  <span class="en">Fab darkfield laser scattering clusters high aspect-ratio (> 10:1) scratch polygons, injecting SEMI E142 Virtual Inking maps into MES before probe test to protect probe cards.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <!-- FIGURE 6.6: WAFER SCRATCH DEFENSE & INKING ARCHITECTURE -->
           <figure>
             <svg viewBox="0 0 960 520" width="100%" height="auto" style="max-width:960px; display:block; margin:0 auto; font-family:var(--font-sans, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif); background:var(--surface); border:1px solid var(--border); border-radius:8px;" role="img" aria-label="Wafer Scratch Virtual Inking Defense Architecture">
@@ -15927,11 +16020,11 @@
     <div style="display:flex; flex-direction:column; align-items:flex-end; gap:5px;">
       <div style="display:flex; align-items:center; gap:8px;">
         <span class="badge badge-green" style="font-size:11px; padding:2px 8px;">● LIVE VERIFIED</span>
-        <span style="font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft);">Rev. AJ</span>
+        <span style="font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft);">Rev. AK</span>
       </div>
       <div style="font-family:var(--font-mono); font-size:12px; color:var(--ink);">
         <span class="zh">最後更新日期：</span><span class="en">Last Updated: </span>
-        <b style="color:var(--accent);">2026-11-02 10:55 (Asia/Taipei)</b>
+        <b style="color:var(--accent);">2026-11-02 11:35 (Asia/Taipei)</b>
       </div>
     </div>
   </footer>
