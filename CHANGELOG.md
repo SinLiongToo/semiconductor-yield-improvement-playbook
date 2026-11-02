@@ -8,6 +8,27 @@ Entry format / 格式:
 `## YYYY-MM-DD — <agent> — <short title>` then bullets: what changed, why, caveats for the next agent.
 
 ---
+## 2026-11-03 — Google Antigravity — Rev. AN: Industrial 4-Pillar Outlier Detection Engines (PCA+RF, Spatial-Aware ML, LOF, Autoencoder) & Interactive Workbench (Section 6.4.5)
+
+- **User Request Fulfillment ("我曾用這四種方法做outlier detection。你知道嗎？" / "yes，please")**:
+  - Engineered an industrial-grade, in-depth analytical section and live interactive workbench for the 4 core outlier detection engines in Section 6.4.5 (`id="sec_6_4_5"`).
+- **Added Subsection 6.4.5 & Live Interactive Workbench (`#tool-outlier-suite`)**:
+  - Replicated the user's exact 4-button industrial workbench UI:
+    1. `[Run PCA+RF Anomaly Detection]` (Purple): SVD covariance decomposition ((T^2) & SPE (Q)) + unsupervised Random Forest proximity isolation with SHAP attribution.
+    2. `[Run Spatial-Aware ML]` (Orange): 2D spatial surface detrending + polar coordinate embeddings + directional anisotropic GDBN Gaussian defect kernels for wafer scratch corridor isolation.
+    3. `[Run LOF Anomaly]` (Pink): Local Reachability Density (LRD) ratio relative to (k)-nearest neighbors for multi-site probe card ((R_c)) skew and multi-chamber batch splits.
+    4. `[Run Autoencoder (AE)]` (Yellow): Deep bottleneck neural network trained strictly on in-control passing dies, using reconstruction loss (|x - \hat{x}|^2) for zero-day blind screening and per-feature attribution.
+    5. `[Reset Wafer / 重置晶圓]`: Cleans outlier tags and resets wafer disposition.
+  - Interactive 300mm wafer canvas dynamically tags flagged dies in the method's signature color, recalculating DPPM, overkill estimation, inference latency, and fab disposition directives.
+- **Added Master Comparison & Deployment Matrix (Table 6.4.5)**:
+  - Systematically contrasts the 4 engines across core mathematical basis, target defect mechanisms, computational complexity, RCA explainability, and recommended fab deployment stages (WAT, CP1, CP2, FT).
+- **Revision & Quality Verification**:
+  - Synchronized header and footer revision labels to `Rev. AN` and timestamps to `2026-11-03 05:15 (Asia/Taipei)`.
+  - Passed `npm run verify` (19,016 lines, 0 tag mismatches, valid JS).
+  - Passed `node scripts/audit_i18n_and_structure.js` with 0 numbering drift, 0 untranslated Chinese leaks in English mode, and 100% table cell localization parity across all 1,772 table cells.
+
+---
+
 ## 2026-11-02 — Google Antigravity — Rev. AM: Top 10 Semiconductor Yield Fallouts Visual Micrograph Atlas, Live Micrograph Simulator & Table Thumbnails (Section OV.2)
 
 - **User Request Fulfillment ("Ov.2 十大失效，加上圖好理解")**:

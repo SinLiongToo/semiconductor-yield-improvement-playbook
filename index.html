@@ -1332,7 +1332,7 @@
       </div>
       <div>
         <span class="zh">版次狀態</span><span class="en">Revision</span>
-        <b>Rev. AM (Top 10 Failure Modes Visual Micrograph Atlas, Interactive Live Micrograph Simulator &amp; Table Thumbnails)</b>
+        <b>Rev. AN (Industrial 4-Pillar Outlier Detection Suite: PCA+RF, Spatial ML, LOF, Autoencoder &amp; Interactive Workbench)</b>
       </div>
       <div>
         <span class="zh">適用對象</span><span class="en">Audience</span>
@@ -1438,7 +1438,7 @@
           <li><a href="#sec_6_1"><span class="zh">6.1 參數型良率與 Cpk/Ppk 指標</span><span class="en">6.1 Parametric Cpk/Ppk</span></a></li>
           <li><a href="#sec_6_2"><span class="zh">6.2 功能測試「無 Cpk 難題」4 大解方</span><span class="en">6.2 Functional No-Cpk Solutions</span></a></li>
           <li><a href="#sec_6_3"><span class="zh">6.3 掃描鏈、故障模型與 CAT</span><span class="en">6.3 Scan Chain, Fault Models & CAT</span></a></li>
-            <li><a href="#sec_6_4"><span class="zh">6.4 離群值篩選技術 (PAT/DPAT/NNR)</span><span class="en">6.4 Outlier Detection (PAT/NNR)</span></a></li>
+            <li><a href="#sec_6_4"><span class="zh">6.4 離群值篩選技術 (PAT/NNR/4大AI引擎)</span><span class="en">6.4 Outlier Detection (PAT/NNR &amp; 4-Pillar AI)</span></a></li>
             <li><a href="#sec_6_5"><span class="zh">6.5 機器學習與 AI 演算法實踐</span><span class="en">6.5 AI & Machine Learning Methodologies</span></a></li>
         </ul>
       </li>
@@ -1611,7 +1611,7 @@
             <li><a href="#sec_6_1"><span class="zh">6.1 參數型良率與 Cpk/Ppk 指標</span><span class="en">6.1 Parametric Cpk/Ppk</span></a></li>
             <li><a href="#sec_6_2"><span class="zh">6.2 功能測試「無 Cpk 難題」4 大解方</span><span class="en">6.2 Functional No-Cpk Solutions</span></a></li>
             <li><a href="#sec_6_3"><span class="zh">6.3 掃描鏈、故障模型與 CAT</span><span class="en">6.3 Scan Chain, Fault Models & CAT</span></a></li>
-            <li><a href="#sec_6_4"><span class="zh">6.4 離群值篩選技術 (PAT/DPAT/NNR)</span><span class="en">6.4 Outlier Detection (PAT/NNR)</span></a></li>
+            <li><a href="#sec_6_4"><span class="zh">6.4 離群值篩選技術 (PAT/NNR/4大AI引擎)</span><span class="en">6.4 Outlier Detection (PAT/NNR &amp; 4-Pillar AI)</span></a></li>
             <li><a href="#sec_6_5"><span class="zh">6.5 機器學習與 AI 演算法實踐</span><span class="en">6.5 AI & Machine Learning Methodologies</span></a></li>
           </ul>
         </li>
@@ -12878,6 +12878,459 @@
 
         
 
+
+          <!-- ======================================================================= -->
+          <!-- SUBSECTION 6.4.5: INDUSTRIAL 4-PILLAR OUTLIER DETECTION SUITE          -->
+          <!-- ======================================================================= -->
+          <h4 id="sec_6_4_5" style="margin-top:35px; border-top:1px solid var(--border); padding-top:20px;">
+            <span class="zh">6.4.5 工業級四大進階離群值檢測引擎：PCA+RF 複合模型、Spatial-Aware ML 空間感知、LOF 局部密度異常 與 Autoencoder (AE) 深度重建</span>
+            <span class="en">6.4.5 Industrial 4-Pillar Outlier Detection Engines: PCA+RF Hybrid, Spatial-Aware ML, LOF Density Anomaly &amp; Deep Autoencoder (AE)</span>
+          </h4>
+
+          <p>
+            <span class="zh">
+              在先進製程（3nm/2nm GAA）與先進異質整合封裝（CoWoS、Chiplet）量產中，晶圓電氣測試（WAT / Sort / FT）面臨著<b>高維參數關聯破壞、晶圓物理幾何相依、多測試站點針卡偏位（Multi-Site Skew）與超高維度非線性流形失真</b>等四大極端挑戰。單純依賴單變量 PAT 或全域馬氏距離（Mahalanobis Distance）往往造成嚴重的良率過殺（Overkill）或潛在致命漏檢（Underkill）。
+              現代頂尖晶圓廠與封測廠發展出<b>工業級四大進階離群值篩檢引擎（4-Pillar Outlier Detection Suite）</b>，構建起立體防禦體系：
+            </span>
+            <span class="en">
+              In advanced sub-3nm GAA and heterogeneous 2.5D/3D packaging (CoWoS/Chiplet), semiconductor testing confronts four profound challenges: <b>multivariate correlation breakdown, wafer spatial physical dependency, multi-site probe card skew, and highly non-linear parametric manifold distortions</b>. Classical 1D PAT and global Mahalanobis distance inevitably suffer from severe overkill or catastrophic underkill escapes. Modern leading-edge fabs deploy the <b>Industrial 4-Pillar Outlier Detection Suite</b> to establish multi-layered defense:
+            </span>
+          </p>
+
+          <!-- 4-METHOD TOOL CARDS PREVIEW -->
+          <div class="card-grid" style="margin:20px 0 25px 0;">
+            <!-- Pillar 1: PCA + RF -->
+            <div class="card" style="border-left:4px solid #9333ea;">
+              <h4 style="margin-top:0; color:#9333ea;">
+                <span class="zh">🟣 1. PCA + RF Anomaly Detection</span>
+                <span class="en">🟣 1. PCA + RF Anomaly Detection</span>
+              </h4>
+              <p style="font-size:12.5px; line-height:1.55; margin-bottom:8px;">
+                <span class="zh"><b>核心攻堅：</b>高維多重共線性解耦與非線性決策樹分離。</span>
+                <span class="en"><b>Target:</b> Multicollinearity de-correlation &amp; non-linear tree partitioning.</span>
+              </p>
+              <p style="font-size:12px; color:var(--ink-soft); line-height:1.5; margin:0;">
+                <span class="zh">以 PCA 將數百維相關參數正交投影至主要變異空間，再由隨機森林（Random Forest）接近度矩陣（Proximity Matrix）或弱監督樹隔離計算離群分數，並即時以 SHAP 輸出根因參數排名。</span>
+                <span class="en">PCA projects hundreds of correlated features into orthogonal principal components, while Random Forest proximity matrices evaluate isolation scores with SHAP root-cause ranking.</span>
+              </p>
+            </div>
+
+            <!-- Pillar 2: Spatial-Aware ML -->
+            <div class="card" style="border-left:4px solid #ea580c;">
+              <h4 style="margin-top:0; color:#ea580c;">
+                <span class="zh">🟠 2. Spatial-Aware ML</span>
+                <span class="en">🟠 2. Spatial-Aware ML</span>
+              </h4>
+              <p style="font-size:12.5px; line-height:1.55; margin-bottom:8px;">
+                <span class="zh"><b>核心攻堅：</b>晶圓物理幾何特徵融合與惡鄰（GDBN）加權。</span>
+                <span class="en"><b>Target:</b> Wafer geometry feature fusion &amp; anisotropic GDBN weighting.</span>
+              </p>
+              <p style="font-size:12px; color:var(--ink-soft); line-height:1.5; margin:0;">
+                <span class="zh">打破樣本獨立同分佈（i.i.d.）假設，以 2D 樣條/多項式濾除大尺度製程趨勢，結合極座標 \((r, \theta)\) 與周圍 8 鄰居空間缺陷核密度，專抓刮痕、邊緣滑移線與群聚型空間 Maverick。</span>
+                <span class="en">Breaks i.i.d. assumptions via 2D spatial detrending, polar coordinates \((r, \theta)\), and Moore-neighborhood defect density kernels to isolate scratches, slip lines, and spatial clusters.</span>
+              </p>
+            </div>
+
+            <!-- Pillar 3: LOF Anomaly -->
+            <div class="card" style="border-left:4px solid #db2777;">
+              <h4 style="margin-top:0; color:#db2777;">
+                <span class="zh">🌸 3. LOF Anomaly (Local Outlier Factor)</span>
+                <span class="en">🌸 3. LOF Anomaly (Local Outlier Factor)</span>
+              </h4>
+              <p style="font-size:12.5px; line-height:1.55; margin-bottom:8px;">
+                <span class="zh"><b>核心攻堅：</b>非均勻多模態分佈與多針站點偏位（Multi-Site Skew）。</span>
+                <span class="en"><b>Target:</b> Non-uniform multimodal distributions &amp; multi-site probe skew.</span>
+              </p>
+              <p style="font-size:12px; color:var(--ink-soft); line-height:1.5; margin:0;">
+                <span class="zh">計算晶粒相對於其 \(k\) 個近鄰的局部可達密度（LRD），在多站點針卡、多腔體（Multi-Chamber）造成的複雜多峰分佈中，精準揪出孤立於自身所屬群集之外的局部離群晶粒。</span>
+                <span class="en">Computes local reachability densities relative to \(k\)-nearest neighbors, accurately detecting isolated mavericks across multi-site probe skews and multi-chamber batch splits.</span>
+              </p>
+            </div>
+
+            <!-- Pillar 4: Autoencoder (AE) -->
+            <div class="card" style="border-left:4px solid #d97706;">
+              <h4 style="margin-top:0; color:#d97706;">
+                <span class="zh">🟡 4. Autoencoder (AE)</span>
+                <span class="en">🟡 4. Autoencoder (AE)</span>
+              </h4>
+              <p style="font-size:12.5px; line-height:1.55; margin-bottom:8px;">
+                <span class="zh"><b>核心攻堅：</b>超高維度複雜非線性流形約束與零日盲篩。</span>
+                <span class="en"><b>Target:</b> Deep non-linear manifold constraints &amp; zero-day blind screening.</span>
+              </p>
+              <p style="font-size:12px; color:var(--ink-soft); line-height:1.5; margin:0;">
+                <span class="zh">以歷史受控正常晶圓進行無監督神經網路訓練，將多參數壓縮至低維潛在空間（Bottleneck）後解碼重建，藉由重建誤差 \(\|x - \\hat{x}\|^2\) 盲篩未曾見過的新型物理失效。</span>
+                <span class="en">Trains an unsupervised deep neural bottleneck on historical baseline dies; uses reconstruction errors \(\|x - \\hat{x}\|^2\) to blind-screen novel zero-day defect mechanisms.</span>
+              </p>
+            </div>
+          </div>
+
+          <!-- INTERACTIVE 4-PILLAR OUTLIER DETECTION RUNNER -->
+          <div class="tool-card" id="tool-outlier-suite" style="margin:25px 0;">
+            <div class="tool-header">
+              <div>
+                <div class="tool-title">
+                  <span class="zh">⚡ 工業級四大離群值篩檢引擎實時模擬工作台</span>
+                  <span class="en">⚡ Industrial 4-Pillar Outlier Detection Real-Time Interactive Workbench</span>
+                </div>
+                <span class="mono" style="font-size:12px; color:var(--ink-soft);">
+                  Select an engine to trigger simulated 300mm wafer multi-parametric screening, outlier spatial tagging, and feature attribution
+                </span>
+              </div>
+              <span class="badge badge-purple" id="outlierActiveBadge">LIVE ENGINE READY</span>
+            </div>
+
+            <!-- RUNNER BUTTON TOOLBAR (EXACT REPLICATION OF INDUSTRIAL TOOLBAR) -->
+            <div style="margin:16px 0 12px; display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+              <button id="btnPcaRf" class="btn" style="background:#700070; color:#ffffff; font-weight:700; border:1px solid #a855f7; border-radius:4px; padding:8px 16px; cursor:pointer; font-family:var(--font-mono); font-size:12.5px; box-shadow:0 2px 4px rgba(0,0,0,0.15); transition:all 0.15s ease;" onclick="runOutlierEngine('pcarf')">
+                Run PCA+RF Anomaly Detection
+              </button>
+              <button id="btnSpatialMl" class="btn" style="background:#c2410c; color:#ffffff; font-weight:700; border:1px solid #f97316; border-radius:4px; padding:8px 16px; cursor:pointer; font-family:var(--font-mono); font-size:12.5px; box-shadow:0 2px 4px rgba(0,0,0,0.15); transition:all 0.15s ease;" onclick="runOutlierEngine('spatial')">
+                Run Spatial-Aware ML
+              </button>
+              <button id="btnLof" class="btn" style="background:#be185d; color:#ffffff; font-weight:700; border:1px solid #f472b6; border-radius:4px; padding:8px 16px; cursor:pointer; font-family:var(--font-mono); font-size:12.5px; box-shadow:0 2px 4px rgba(0,0,0,0.15); transition:all 0.15s ease;" onclick="runOutlierEngine('lof')">
+                Run LOF Anomaly
+              </button>
+              <button id="btnAe" class="btn" style="background:#b45309; color:#ffffff; font-weight:700; border:1px solid #facc15; border-radius:4px; padding:8px 16px; cursor:pointer; font-family:var(--font-mono); font-size:12.5px; box-shadow:0 2px 4px rgba(0,0,0,0.15); transition:all 0.15s ease;" onclick="runOutlierEngine('ae')">
+                Run Autoencoder (AE)
+              </button>
+              <button id="btnResetOutlier" class="btn" style="background:var(--surface-2); color:var(--ink); font-weight:600; border:1px solid var(--border); border-radius:4px; padding:8px 14px; cursor:pointer; font-family:var(--font-mono); font-size:12px; transition:all 0.15s ease;" onclick="resetOutlierEngine()">
+                <span class="zh">↺ 重置晶圓</span><span class="en">↺ Reset Wafer</span>
+              </button>
+            </div>
+
+            <!-- SIMULATOR WORKBENCH DISPLAY GRID -->
+            <div style="display:grid; grid-template-columns:minmax(320px, 1fr) minmax(360px, 1.4fr); gap:20px; margin-top:15px; align-items:start;">
+              
+              <!-- LEFT: INTERACTIVE 300MM WAFER MAP -->
+              <div style="background:var(--surface-1); border:1px solid var(--border); border-radius:6px; padding:14px; display:flex; flex-direction:column; align-items:center;">
+                <div style="width:100%; display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                  <span style="font-size:12px; font-weight:700; font-family:var(--font-mono); color:var(--ink);">
+                    <span class="zh">300mm 晶圓多參數離群分佈圖</span><span class="en">300mm Multi-Parametric Outlier Map</span>
+                  </span>
+                  <span id="waferStatsSummary" class="mono" style="font-size:11px; color:var(--ink-soft);">Total Dies: 1,248</span>
+                </div>
+
+                <div style="width:100%; max-width:320px; aspect-ratio:1; position:relative; background:#080d14; border-radius:50%; border:2px solid var(--border); overflow:hidden; display:flex; align-items:center; justify-content:center; box-shadow:inset 0 0 20px rgba(0,0,0,0.6);">
+                  <canvas id="outlierWaferCanvas" width="320" height="320" style="width:100%; height:100%; display:block; cursor:crosshair;"></canvas>
+                  <div style="position:absolute; bottom:6px; left:50%; transform:translateX(-50%); width:20px; height:3px; background:#475569; border-radius:2px;" title="Wafer Notch"></div>
+                </div>
+
+                <!-- WAFER LEGEND -->
+                <div style="margin-top:12px; display:flex; gap:12px; flex-wrap:wrap; justify-content:center; font-size:11px; font-family:var(--font-mono);">
+                  <div style="display:flex; align-items:center; gap:5px;">
+                    <span style="width:10px; height:10px; background:#10b981; border-radius:2px; display:inline-block;"></span>
+                    <span class="zh">合格晶粒</span><span class="en">In-Control Dies</span>
+                  </div>
+                  <div style="display:flex; align-items:center; gap:5px;">
+                    <span style="width:10px; height:10px; background:#ef4444; border-radius:2px; display:inline-block;"></span>
+                    <span class="zh">常規失效</span><span class="en">Hard Fails</span>
+                  </div>
+                  <div style="display:flex; align-items:center; gap:5px;">
+                    <span id="legendOutlierColor" style="width:10px; height:10px; background:#9333ea; border-radius:2px; display:inline-block;"></span>
+                    <span id="legendOutlierLabel" class="zh">篩檢特異晶粒</span>
+                    <span id="legendOutlierLabelEn" class="en" style="display:none;">Flagged Mavericks</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- RIGHT: TELEMETRY METRICS, ATTRIBUTION & MATHEMATICAL FOUNDATION -->
+              <div style="background:var(--surface-1); border:1px solid var(--border); border-radius:6px; padding:16px; display:flex; flex-direction:column; gap:14px;">
+                
+                <!-- TOP METRIC CARDS -->
+                <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(105px, 1fr)); gap:10px;">
+                  <div style="background:var(--surface-2); padding:10px; border-radius:4px; border:1px solid var(--border);">
+                    <div style="font-size:10.5px; font-family:var(--font-mono); color:var(--ink-soft);"><span class="zh">檢出離群數</span><span class="en">Flagged Mavericks</span></div>
+                    <div id="metricOutlierCount" style="font-size:18px; font-weight:800; color:var(--accent); font-family:var(--font-mono); margin-top:2px;">18 Dies</div>
+                    <div id="metricDppm" style="font-size:10px; color:var(--ink-faint); font-family:var(--font-mono);">14,423 DPPM</div>
+                  </div>
+                  <div style="background:var(--surface-2); padding:10px; border-radius:4px; border:1px solid var(--border);">
+                    <div style="font-size:10.5px; font-family:var(--font-mono); color:var(--ink-soft);"><span class="zh">預估過殺率</span><span class="en">Est. Overkill</span></div>
+                    <div id="metricOverkill" style="font-size:18px; font-weight:800; color:var(--warn); font-family:var(--font-mono); margin-top:2px;">0.32%</div>
+                    <div style="font-size:10px; color:var(--ink-faint); font-family:var(--font-mono);">4 Dies (Benign)</div>
+                  </div>
+                  <div style="background:var(--surface-2); padding:10px; border-radius:4px; border:1px solid var(--border);">
+                    <div style="font-size:10.5px; font-family:var(--font-mono); color:var(--ink-soft);"><span class="zh">推論延遲</span><span class="en">Inference Latency</span></div>
+                    <div id="metricLatency" style="font-size:18px; font-weight:800; color:var(--good); font-family:var(--font-mono); margin-top:2px;">4.2 ms</div>
+                    <div style="font-size:10px; color:var(--ink-faint); font-family:var(--font-mono);">ATE Real-time OK</div>
+                  </div>
+                </div>
+
+                <!-- ALGORITHM ARCHITECTURE & MATHEMATICAL FORMULATION -->
+                <div style="border-top:1px solid var(--border); padding-top:12px;">
+                  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                    <span style="font-size:11px; font-weight:700; font-family:var(--font-mono); color:var(--accent); text-transform:uppercase;">
+                      [Active Mathematical Formulation]
+                    </span>
+                    <span id="activeEngineName" class="badge badge-purple" style="font-size:10px;">PCA + RF Anomaly Detection</span>
+                  </div>
+                  <div id="activeMathContainer" class="formula" style="margin:4px 0 10px; padding:10px; font-size:13px; background:var(--surface-2); border-radius:4px; border-left:3px solid var(--accent); overflow-x:auto;">
+                    \\[ T^2 = \\mathbf{z}^T \\mathbf{\\Lambda}_k^{-1} \\mathbf{z} \\quad \\&amp; \\quad Q = \\mathbf{x}^T (\\mathbf{I} - \\mathbf{V}_k \\mathbf{V}_k^T) \\mathbf{x} \\quad \\implies \\quad \\text{Score}_{\\text{RF}}(i) = \\frac{N}{\\sum_{j=1}^N P(i, j)^2} \\]
+                  </div>
+                </div>
+
+                <!-- ROOT CAUSE FEATURE ATTRIBUTION BARS -->
+                <div style="border-top:1px solid var(--border); padding-top:12px;">
+                  <div style="font-size:11px; font-weight:700; font-family:var(--font-mono); color:var(--ink); margin-bottom:8px;">
+                    <span class="zh">特徵重要度與根因歸因排行 (Feature Attribution / SHAP / Gradient)</span>
+                    <span class="en">Feature Importance &amp; Root Cause Attribution (SHAP / Gradient)</span>
+                  </div>
+                  <div id="featureAttributionList" style="display:flex; flex-direction:column; gap:6px; font-size:11.5px; font-family:var(--font-mono);">
+                    <div>
+                      <div style="display:flex; justify-content:space-between; margin-bottom:2px;">
+                        <span>1. Vth_Lin_N1 (Gate Threshold Drift)</span>
+                        <span style="font-weight:700; color:var(--accent);">42.8%</span>
+                      </div>
+                      <div style="width:100%; height:6px; background:var(--surface-3, rgba(255,255,255,0.1)); border-radius:3px; overflow:hidden;">
+                        <div style="width:42.8%; height:100%; background:var(--accent); border-radius:3px;"></div>
+                      </div>
+                    </div>
+                    <div>
+                      <div style="display:flex; justify-content:space-between; margin-bottom:2px;">
+                        <span>2. Ioff_P1 (Subthreshold Leakage Tail)</span>
+                        <span style="font-weight:700; color:var(--accent);">31.4%</span>
+                      </div>
+                      <div style="width:100%; height:6px; background:var(--surface-3, rgba(255,255,255,0.1)); border-radius:3px; overflow:hidden;">
+                        <div style="width:31.4%; height:100%; background:var(--accent); border-radius:3px;"></div>
+                      </div>
+                    </div>
+                    <div>
+                      <div style="display:flex; justify-content:space-between; margin-bottom:2px;">
+                        <span>3. R_Via2_Kelvin (Contact Interface Spike)</span>
+                        <span style="font-weight:700; color:var(--accent);">15.2%</span>
+                      </div>
+                      <div style="width:100%; height:6px; background:var(--surface-3, rgba(255,255,255,0.1)); border-radius:3px; overflow:hidden;">
+                        <div style="width:15.2%; height:100%; background:var(--accent); border-radius:3px;"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- FAB DISPOSITION DIRECTIVE -->
+                <div style="border-top:1px solid var(--border); padding-top:10px; font-size:12px; line-height:1.5;">
+                  <span style="font-weight:700; color:var(--ink); font-family:var(--font-mono);">
+                    <span class="zh">產線處分指令 (Disposition Directive)：</span>
+                    <span class="en">Fab Disposition Directive:</span>
+                  </span>
+                  <div id="dispositionDirectiveText" style="margin-top:4px; color:var(--ink-soft);">
+                    <span class="zh">檢出晶粒中 14 顆高危險晶粒前饋至 ATE FT 執行 125°C 高溫長時動態 Burn-In；4 顆輕微偏異晶粒執行降頻標記（Down-binning）。</span>
+                    <span class="en">14 high-risk dies routed downstream to ATE FT for 125°C extended dynamic burn-in; 4 marginal dies downgraded to lower frequency tier.</span>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- DETAILED METHODOLOGY WRITE-UPS FOR THE 4 METHODS -->
+          <div style="margin:28px 0 20px;">
+            
+            <!-- 1. PCA + RF DEEP DIVE -->
+            <h5 style="font-size:14px; font-weight:700; color:#9333ea; margin:22px 0 8px;">
+              <span class="zh">1. PCA + RF Anomaly Detection：高維多重共線性解耦與非線性決策樹隔離</span>
+              <span class="en">1. PCA + RF Anomaly Detection: High-Dimensional Multicollinearity De-correlation &amp; Non-linear Tree Isolation</span>
+            </h5>
+            <p>
+              <span class="zh">
+                <b>問題根源：</b>在晶圓驗證測試（WAT/PCM）中，單一晶粒往往記錄了超過 200 項電氣參數。這些參數高度連鎖（例如同一閘極長度的多組飽和電流 \(I_{\text{dsat}}\) 與反轉層厚度強相關），使得單變量常態分配檢驗產生虛假警報，且全域協方差矩陣容易奇異（Singular）。<br>
+                <b>數學架構與執行步驟：</b><br>
+                <b>Step 1（Z-Score 標準化與協方差奇異值分解）：</b>將輸入矩陣 \(\mathbf{X} \in \mathbb{R}^{N \times D}\) 標準化後，求解共變異矩陣之特徵值與特徵向量 \(\mathbf{\Sigma} = \frac{1}{N} \mathbf{X}^T \mathbf{X} = \mathbf{V} \mathbf{\Lambda} \mathbf{V}^T\)。選取滿足累積變異度 \(\ge 90\%\) 的前 \(k\) 個主成分，構造降維特徵矩陣 \(\mathbf{Z} = \mathbf{X} \mathbf{V}_k\)。<br>
+                <b>Step 2（Hotelling's \(T^2\) 與 SPE 殘差分流）：</b>計算主成分空間之距離 \(T^2 = \mathbf{z}^T \mathbf{\Lambda}_k^{-1} \mathbf{z}\) 以及殘差空間平方和 \(Q = \|\mathbf{x} - \hat{\mathbf{x}}\|^2 = \mathbf{x}^T (\mathbf{I} - \mathbf{V}_k \mathbf{V}_k^T) \mathbf{x}\)。\(T^2\) 失控代表「晶粒沿著正常製造方向發生過度漂移」，而 \(Q\) 失控則代表「參數間的物理關聯結構被破壞（如金屬短路破壞了常規阻抗比例）」。<br>
+                <b>Step 3（隨機森林接近度矩陣非監督評分）：</b>將 \([\mathbf{Z}, T^2, Q]\) 饋入無標籤隨機森林（Random Forest），透過構造由 \(B\) 棵隨機分割決策樹組成的集成，統計任意兩顆晶粒落入同一終端葉節點的頻率，定義樣本接近度矩陣（Proximity Matrix）\(P(i, j) = \frac{1}{B} \sum_{b=1}^B \mathbb{I}(\text{leaf}_b(i) = \text{leaf}_b(j))\)。晶粒 \(i\) 的孤立度異常分數定義為：
+              </span>
+              <span class="en">
+                <b>Root Problem:</b> In WAT/PCM, a single die yields 200+ electrical features. Extreme multicollinearity (e.g. saturation currents across identical gate lengths) breaks classical univariate normality and renders full covariance matrices singular.<br>
+                <b>Mathematical Steps:</b><br>
+                <b>Step 1 (Standardization &amp; PCA Projection):</b> Standardize \(\mathbf{X} \in \mathbb{R}^{N \times D}\) and decompose covariance \(\mathbf{\Sigma} = \mathbf{V} \mathbf{\Lambda} \mathbf{V}^T\). Retain the top \(k\) components capturing \(\ge 90\%\) variance to yield \(\mathbf{Z} = \mathbf{X} \mathbf{V}_k\).<br>
+                <b>Step 2 (Hotelling's \(T^2\) &amp; SPE Residual Partitioning):</b> Evaluate in-model distance \(T^2 = \mathbf{z}^T \mathbf{\Lambda}_k^{-1} \mathbf{z}\) and residual error \(Q = \mathbf{x}^T (\mathbf{I} - \mathbf{V}_k \mathbf{V}_k^T) \mathbf{x}\). A high \(T^2\) indicates extreme systematic drift along valid physical planes, whereas a high \(Q\) signals broken physical correlations (e.g., leakage bridging).<br>
+                <b>Step 3 (Unsupervised Random Forest Proximity Scoring):</b> Feed \([\mathbf{Z}, T^2, Q]\) into an unsupervised Random Forest ensemble of \(B\) trees. Compute pairwise proximity \(P(i, j) = \frac{1}{B} \sum_{b=1}^B \mathbb{I}(\text{leaf}_b(i) = \text{leaf}_b(j))\), defining die isolation score as:
+              </span>
+            </p>
+            <div class="formula">
+              <div class="eq">\\[ \text{Score}_{\\text{PCA-RF}}(i) = \\frac{N}{\\sum_{j=1}^N P(i, j)^2} \\quad \\text{with SHAP Attribution: } \\phi_j = \\sum_{S \\subseteq F \\setminus \\{j\\}} \\frac{|S|!(|F| - |S| - 1)!}{|F|!} [f(S \\cup \\{j\\}) - f(S)] \\]</div>
+            </div>
+
+            <!-- 2. SPATIAL-AWARE ML DEEP DIVE -->
+            <h5 style="font-size:14px; font-weight:700; color:#ea580c; margin:22px 0 8px;">
+              <span class="zh">2. Spatial-Aware ML：晶圓物理幾何座標融合與各向異性惡鄰（GDBN）加權</span>
+              <span class="en">2. Spatial-Aware ML: Wafer Geometry Feature Fusion &amp; Anisotropic Neighborhood (GDBN) Weighting</span>
+            </h5>
+            <p>
+              <span class="zh">
+                <b>問題根源：</b>統計機器學習常預設樣本獨立同分佈（i.i.d.），但在 300mm 晶圓表面，製程氣流、化學液流、CMP 研磨拋光與退火輻射均呈現強烈的<b>空間幾何相依性（Spatial Spatial Autocorrelation）</b>。單純將電氣特徵送入模型，會將「整圈邊緣自然偏薄的良品晶粒」大批量誤殺，或漏判「沿著刮傷走廊間歇跳開的微裂紋晶粒（\(P^*\) Maverick）」。<br>
+                <b>空間特徵工程與算法架構：</b><br>
+                <b>(1) 二維空間趨勢曲面濾波（2D Spatial Detrending）：</b>利用薄板樣條（Thin Plate Spline）或二維雙變量多項式回歸擬合晶圓全域背景趨勢 \(z_i^{\text{trend}} = f(x_i, y_i)\)，並提取局部殘差 \(\mathbf{p}_i^{\text{residual}} = \mathbf{p}_i - z_i^{\text{trend}}\)，將宏觀批次偏置剝離；<br>
+                <b>(2) 極座標與周緣物理特徵嵌入：</b>計算晶粒正規化半徑 \(r_i = \sqrt{x_i^2 + y_i^2} / R_{\text{wafer}}\)、極角 \(\theta_i = \arctan2(y_i, x_i)\) 以及距晶圓邊緣之最近距離 \(\text{DistEdge}_i\)；<br>
+                <b>(3) 各向異性加權惡鄰核密度（Anisotropic GDBN Kernel）：</b>針對刮痕與研磨流線具有方向性的特點，建構橢圓高斯空間加權核：
+              </span>
+              <span class="en">
+                <b>Root Problem:</b> Standard ML models assume i.i.d. samples. On 300mm wafers, thermal radiation, gas dynamics, and CMP slurry polish impart strong <b>spatial autocorrelation</b>. Non-spatial models trigger massive overkill on benign edge rings while missing intermittent scratch dies (\(P^*\) mavericks).<br>
+                <b>Spatial Architecture:</b><br>
+                <b>(1) 2D Spatial Detrending:</b> Fit smooth background topography via Thin Plate Splines or bivariate polynomial regressions \(z_i^{\text{trend}} = f(x_i, y_i)\); isolate high-frequency local deviations \(\mathbf{p}_i^{\text{residual}} = \mathbf{p}_i - z_i^{\text{trend}}\);<br>
+                <b>(2) Polar Geometry Embedding:</b> Compute normalized radius \(r_i\), azimuth \(\theta_i\), and distance to edge \(\text{DistEdge}_i\);<br>
+                <b>(3) Anisotropic GDBN Density Kernel:</b> Formulate directional elliptical Gaussian kernels aligned with mechanical scratch vectors:
+              </span>
+            </p>
+            <div class="formula">
+              <div class="eq">\\[ K_{\\text{spatial}}(i) = \\sum_{j \\in \\mathcal{N}_8(i)} \\exp\\left(-\\left[\\frac{(x_i - x_j)^2}{2\\sigma_x^2} + \\frac{(y_i - y_j)^2}{2\\sigma_y^2}\\right]\\right) \\cdot \\mathbb{I}(\\text{Die}_j \\in \\{\\text{Fail}, \\text{Maverick}\\}) \\]</div>
+            </div>
+
+            <!-- 3. LOF DEEP DIVE -->
+            <h5 style="font-size:14px; font-weight:700; color:#db2777; margin:22px 0 8px;">
+              <span class="zh">3. LOF Anomaly：局部密度異常因子與多站點針卡偏位（Multi-Site Skew）自適應解耦</span>
+              <span class="en">3. LOF Anomaly: Local Outlier Factor &amp; Adaptive Decoupling for Multi-Site Probe Card Skews</span>
+            </h5>
+            <p>
+              <span class="zh">
+                <b>問題根源：</b>在高速晶圓測試（Wafer Sort / CP）中，測試機採用 16-DUT、32-DUT 甚至 64-DUT 平行針卡。各站點（Site 1 ~ Site 32）由於探針接觸阻抗（\(R_c\)）微量差異與信號路徑延遲，數據呈現<b>複雜的多峰非均勻分佈（Multi-modal Clusters）</b>。全域性篩檢方法（如固定單變量 PAT 門檻或固定球形半徑）會造成接觸阻抗稍高站點的大量良品被誤殺，或漏網高密度站點內部的微小偏異晶粒。<br>
+                <b>LOF 局部密度理論：</b><br>
+                Breunig 提出的 LOF 演算法不預設全域單一密度，而是比較晶粒 \(p\) 與其周圍 \(k\) 個近鄰點的<b>局部可達密度（Local Reachability Density, LRD）</b>。定義晶粒 \(p\) 到鄰近點 \(o\) 的可達距離為 \(\text{reach-dist}_k(p, o) = \max\{d_k(o), d(p, o)\}\)，其局部可達密度為：
+              </span>
+              <span class="en">
+                <b>Root Problem:</b> Wafer Sort employs 16-DUT to 64-DUT parallel probe cards. Slight contact resistance (\(R_c\)) offsets and trace skews across test sites produce <b>multimodal, non-uniform clusters</b>. Global limits either excessively overkill higher-impedance sites or allow escapes within dense clusters.<br>
+                <b>LOF Density Formulation:</b><br>
+                LOF evaluates local density relative to \(k\)-nearest neighbors. The reachability distance from \(p\) to \(o\) is \(\text{reach-dist}_k(p, o) = \max\{d_k(o), d(p, o)\}\). Local reachability density (lrd) and LOF score are defined as:
+              </span>
+            </p>
+            <div class="formula">
+              <div class="eq">\\[ \\text{lrd}_k(p) = \\frac{|N_k(p)|}{\\sum_{o \\in N_k(p)} \\text{reach-dist}_k(p, o)} \\quad \\implies \\quad \\text{LOF}_k(p) = \\frac{\\sum_{o \\in N_k(p)} \\frac{\\text{lrd}_k(o)}{\\text{lrd}_k(p)}}{|N_k(p)|} \\]</div>
+            </div>
+            <p style="font-size:12.5px; color:var(--ink-soft); line-height:1.5;">
+              <span class="zh">
+                • <b>\(\text{LOF} \\approx 1.0\)</b>：晶粒密度與周遭鄰居相仿，處於正常集群內部；<br>
+                • <b>\(\text{LOF} > 1.5 \sim 2.0\)</b>：晶粒周遭密度顯著低於其鄰近群體，判定為<b>局部孤立特異晶粒（Local Maverick Die）</b>，哪怕其數值完全落在全站點混合分佈的中位數附近，依然被精準捕獲！
+              </span>
+              <span class="en">
+                • <b>\(\text{LOF} \\approx 1.0\)</b>: Uniform density matched with peers (healthy in-cluster die);<br>
+                • <b>\(\text{LOF} > 1.5 \sim 2.0\)</b>: Significantly lower local density than surrounding peers, flagging an isolated <b>Local Maverick Die</b> even if it falls within overall global distribution boundaries!
+              </span>
+            </p>
+
+            <!-- 4. AUTOENCODER DEEP DIVE -->
+            <h5 style="font-size:14px; font-weight:700; color:#d97706; margin:22px 0 8px;">
+              <span class="zh">4. Autoencoder (AE)：深度神經網路瓶頸壓縮與未知零日缺陷（Zero-Day）盲篩</span>
+              <span class="en">4. Deep Autoencoder (AE): Latent Bottleneck Compression &amp; Zero-Day Defect Blind Screening</span>
+            </h5>
+            <p>
+              <span class="zh">
+                <b>問題根源：</b>在先進製程多引腳（512+ Pin）高速 SerDes 或複雜邏輯晶片測試中，各參數間存在高度非線性約束（如飽和電流與閘極電容呈非線性多項式關係）。當發生未曾記錄的新型製程異常時（零日缺陷 Zero-Day Defect），監督式模型完全無法識別。<br>
+                <b>神經網絡無監督重建架構：</b><br>
+                自編碼器包含編碼器 \(\mathbf{z} = f_{\\phi}(\mathbf{x}) \in \mathbb{R}^d\) 與解碼器 \(\\hat{\mathbf{x}} = g_{\\theta}(\mathbf{z}) \in \mathbb{R}^D\)（其中瓶頸維度 \(d \\ll D\)）。模型<b>僅在歷史黃金受控正常晶圓（In-Control Baseline Dies）上訓練</b>，學習良品參數之間的流形分佈規律。當異常晶粒輸入時，由於其破壞了隱性物理守恆，解碼器無法正確重構，產生顯著的重建誤差（Reconstruction Error）：
+              </span>
+              <span class="en">
+                <b>Root Problem:</b> High-speed SerDes and SoC multi-pin tests involve complex non-linear physics (e.g. saturation currents vs gate capacitances). Unprecedented process drifts ("zero-day defects") evade supervised classifiers lacking prior training labels.<br>
+                <b>Unsupervised Bottleneck Architecture:</b><br>
+                The Autoencoder consists of an encoder \(\mathbf{z} = f_{\\phi}(\mathbf{x}) \in \mathbb{R}^d\) and decoder \(\\hat{\mathbf{x}} = g_{\\theta}(\mathbf{z}) \in \mathbb{R}^D\) (\(d \\ll D\)). Trained strictly on historical in-control baseline dies, it masters the underlying manifold. Any die violating these non-linear constraints generates large reconstruction errors:
+              </span>
+            </p>
+            <div class="formula">
+              <div class="eq">\\[ \\text{Score}_{\\text{AE}}(i) = \\|\\mathbf{x}_i - \\hat{\\mathbf{x}}_i\\|_2^2 = \\sum_{j=1}^D w_j (x_{ij} - \\hat{x}_{ij})^2 \\quad \\implies \\quad \\text{Threshold } \\tau_{\\text{EVT}} = \\mu_{\\text{train}} + 3 \\cdot \\text{MAD}_{\\text{train}} \\]</div>
+            </div>
+
+          </div>
+
+          <!-- MASTER COMPARISON TABLE 6.4.5 -->
+          <div class="table-container" style="margin:25px 0 30px;">
+            <div style="font-weight:700; font-size:13px; font-family:var(--font-mono); margin-bottom:8px; color:var(--ink);">
+              <span class="zh">表 6.4.5：半導體工業級四大進階離群值篩檢引擎技術對比與站點決策矩陣</span>
+              <span class="en">Table 6.4.5: Industrial 4-Pillar Outlier Detection Engines Master Technical &amp; Deployment Matrix</span>
+            </div>
+            <table style="width:100%; border-collapse:collapse; font-size:12px;">
+              <thead>
+                <tr style="background:var(--surface-3, rgba(255,255,255,0.05)); text-align:left;">
+                  <th style="padding:10px; border-bottom:2px solid var(--border); width:150px;"><span class="zh">演算法引擎</span><span class="en">Detection Engine</span></th>
+                  <th style="padding:10px; border-bottom:2px solid var(--border); width:150px;"><span class="zh">核心數學理論</span><span class="en">Core Mathematical Basis</span></th>
+                  <th style="padding:10px; border-bottom:2px solid var(--border); width:190px;"><span class="zh">擅長捕捉缺陷形態</span><span class="en">Target Defect Mechanism</span></th>
+                  <th style="padding:10px; border-bottom:2px solid var(--border); width:110px;"><span class="zh">推論計算複雜度</span><span class="en">Compute Complexity</span></th>
+                  <th style="padding:10px; border-bottom:2px solid var(--border); width:130px;"><span class="zh">根因解釋性 (RCA)</span><span class="en">RCA Explainability</span></th>
+                  <th style="padding:10px; border-bottom:2px solid var(--border); width:150px;"><span class="zh">最佳推薦產線站點</span><span class="en">Recommended Stage</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b>PCA + RF</b></td>
+                  <td>
+                    <span class="zh">SVD 奇異值分解 + 樹接近度矩陣 (Proximity Matrix)</span>
+                    <span class="en">SVD Decomposition &amp; Tree Proximity Matrix</span>
+                  </td>
+                  <td>
+                    <span class="zh">跨參數多重共線性破壞、漏電與阻抗比例崩潰</span>
+                    <span class="en">Multicollinearity collapse, cross-parameter leakage ratios</span>
+                  </td>
+                  <td>\(\mathcal{O}(N D^2 + B N \log N)\) <span class="zh">(中等)</span><span class="en">(Moderate)</span></td>
+                  <td>
+                    <span class="zh"><b>極佳</b>（SHAP 數值與 MDI 特徵重要性）</span>
+                    <span class="en"><b>Excellent</b> (SHAP &amp; MDI importance)</span>
+                  </td>
+                  <td>
+                    <span class="zh">WAT / PCM 製程參數監控、CP1</span>
+                    <span class="en">WAT / PCM Parametric Monitoring, CP1</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>Spatial-Aware ML</b></td>
+                  <td>
+                    <span class="zh">2D 空間趨勢濾波 + 各向異性 GDBN 高斯核</span>
+                    <span class="en">2D Spatial Detrending &amp; Anisotropic GDBN Gaussian Kernel</span>
+                  </td>
+                  <td>
+                    <span class="zh">晶圓劃痕、邊緣滑移線、邊界環裂紋與惡鄰聚集</span>
+                    <span class="en">Scratches, slip lines, edge-ring cracks &amp; bad neighbors</span>
+                  </td>
+                  <td>\(\mathcal{O}(N \log N + M_{\text{trees}} N)\) <span class="zh">(快速)</span><span class="en">(Fast)</span></td>
+                  <td>
+                    <span class="zh"><b>高</b>（空間走廊距離與幾何熱力圖）</span>
+                    <span class="en"><b>High</b> (Spatial corridors &amp; heatmaps)</span>
+                  </td>
+                  <td>
+                    <span class="zh">Wafer Sort (CP1/CP2) 全晶圓級篩選</span>
+                    <span class="en">Wafer Sort (CP1/CP2) Full-Wafer Screening</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>LOF Anomaly</b></td>
+                  <td>
+                    <span class="zh">\(k\) 近鄰局部可達密度比 (Local Reachability Density)</span>
+                    <span class="en">\(k\)-NN Local Reachability Density Ratio</span>
+                  </td>
+                  <td>
+                    <span class="zh">多站點針卡偏位 (Multi-Site Skew)、多腔體混批局部偏離</span>
+                    <span class="en">Multi-site probe skew, multi-chamber split local outliers</span>
+                  </td>
+                  <td>\(\mathcal{O}(N^2 D)\) <span class="zh">或 kd-tree</span><span class="en">or kd-tree</span> \(\mathcal{O}(N \log N)\)</td>
+                  <td>
+                    <span class="zh"><b>中等</b>（近鄰距離比值，需輔以特徵殘差）</span>
+                    <span class="en"><b>Moderate</b> (Density ratios + feature diffs)</span>
+                  </td>
+                  <td>
+                    <span class="zh">高並行多 DUT Wafer Sort、FT 參數測試</span>
+                    <span class="en">Highly Parallel Multi-DUT Sort, FT Parametric Screening</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>Autoencoder (AE)</b></td>
+                  <td>
+                    <span class="zh">深度低維瓶頸神經網絡 (Encoder-Decoder) 重建誤差</span>
+                    <span class="en">Deep Latent Bottleneck (Encoder-Decoder) Reconstruction Loss</span>
+                  </td>
+                  <td>
+                    <span class="zh">高維度複雜非線性失真、隱性未知零日（Zero-Day）缺陷</span>
+                    <span class="en">Non-linear parametric distortions, unknown zero-day defects</span>
+                  </td>
+                  <td>\(\mathcal{O}(N \cdot \sum l_i l_{i+1})\) <span class="zh">(GPU/NPU 加速)</span><span class="en">(GPU/NPU Accelerated)</span></td>
+                  <td>
+                    <span class="zh"><b>高</b>（反向特徵重建誤差逐維拆解）</span>
+                    <span class="en"><b>High</b> (Per-feature reconstruction error decomposition)</span>
+                  </td>
+                  <td>
+                    <span class="zh">先進封裝 (CoWoS/Chiplet)、終測 FT 高速 I/O</span>
+                    <span class="en">Advanced Packaging (CoWoS/Chiplet), FT High-Speed I/O</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+
           <!-- ======================================================================= -->
           <!-- SECTION 6.5: AI & MACHINE LEARNING IN OUTLIER SCREENING & ROOT CAUSE   -->
           <!-- ======================================================================= -->
@@ -16586,7 +17039,7 @@
     <div style="display:flex; flex-direction:column; align-items:flex-end; gap:5px;">
       <div style="display:flex; align-items:center; gap:8px;">
         <span class="badge badge-green" style="font-size:11px; padding:2px 8px;">● LIVE VERIFIED</span>
-        <span style="font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft);">Rev. AM</span>
+        <span style="font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft);">Rev. AN</span>
       </div>
       <div style="font-family:var(--font-mono); font-size:12px; color:var(--ink);">
         <span class="zh">最後更新日期：</span><span class="en">Last Updated: </span>
@@ -16817,6 +17270,7 @@
     runTriangulatorDiagnosis();
     recalcChamberStats();
     updateFalloutSimulator();
+    if (typeof updateOutlierSuiteLang === 'function') updateOutlierSuiteLang();
     if (typeof refreshFindDropdown === 'function') refreshFindDropdown();
   }
 
@@ -18234,6 +18688,315 @@
   }
 
 
+
+  // ===================================================
+  // 6.4.5 INDUSTRIAL 4-PILLAR OUTLIER DETECTION SUITE
+  // ===================================================
+  let currentOutlierEngine = 'pcarf';
+  const outlierData = {
+    pcarf: {
+      name: 'PCA + RF Anomaly Detection',
+      badgeClass: 'badge-purple',
+      badgeColor: '#9333ea',
+      count: '18 Dies',
+      dppm: '14,423 DPPM',
+      overkill: '0.32%',
+      overkillSub: '4 Dies (Benign)',
+      latency: '4.2 ms',
+      latencySub: 'ATE Real-time OK',
+      math: '\\[ T^2 = \\mathbf{z}^T \\mathbf{\\Lambda}_k^{-1} \\mathbf{z} \\quad \\& \\quad Q = \\mathbf{x}^T (\\mathbf{I} - \\mathbf{V}_k \\mathbf{V}_k^T) \\mathbf{x} \\quad \\implies \\quad \\text{Score}_{\\text{RF}}(i) = \\frac{N}{\\sum_{j=1}^N P(i, j)^2} \\]',
+      features: [
+        { name: '1. Vth_Lin_N1 (Gate Threshold Drift)', pct: '42.8%' },
+        { name: '2. Ioff_P1 (Subthreshold Leakage Tail)', pct: '31.4%' },
+        { name: '3. R_Via2_Kelvin (Contact Interface Spike)', pct: '15.2%' }
+      ],
+      directive_zh: '檢出晶粒中 14 顆高危險晶粒前饋至 ATE FT 執行 125°C 高溫長時動態 Burn-In；4 顆輕微偏異晶粒執行降頻標記（Down-binning）。',
+      directive_en: '14 high-risk dies routed downstream to ATE FT for 125°C extended dynamic burn-in; 4 marginal dies downgraded to lower frequency tier.',
+      outlierDies: [112, 115, 230, 245, 312, 420, 518, 622, 680, 712, 790, 842, 915, 960, 1022, 1080, 1110, 1140]
+    },
+    spatial: {
+      name: 'Spatial-Aware ML',
+      badgeClass: 'badge-orange',
+      badgeColor: '#ea580c',
+      count: '27 Dies',
+      dppm: '21,634 DPPM',
+      overkill: '0.16%',
+      overkillSub: '2 Dies (Edge Ring)',
+      latency: '3.1 ms',
+      latencySub: 'Fast GPU/SIMD',
+      math: '\\[ K_{\\text{spatial}}(i) = \\sum_{j \\in \\mathcal{N}_8(i)} \\exp\\left(-\\left[\\frac{(x_i - x_j)^2}{2\\sigma_x^2} + \\frac{(y_i - y_j)^2}{2\\sigma_y^2}\\right]\\right) \\cdot \\mathbb{I}(\\text{Die}_j \\in \\{\\text{Fail}, \\text{Maverick}\\}) \\]',
+      features: [
+        { name: '1. Scratch_Corridor_Distance (Trajectory Fit)', pct: '48.2%' },
+        { name: '2. Normalized_Radius_r (Wafer Edge Proximity)', pct: '32.1%' },
+        { name: '3. GDBN_Moore_Neighborhood_Defect_Density', pct: '14.5%' }
+      ],
+      directive_zh: '啟動虛擬墨印（Virtual Inking XML）隔離沿機械刮痕走廊兩側之 2 環潛在裂紋晶粒（P* Maverick），杜絕封裝開裂客訴。',
+      directive_en: 'Deploy virtual inking across 2-ring corridors along mechanical scratch paths to isolate latent micro-cracks (P* mavericks).',
+      outlierDies: [140, 175, 210, 246, 282, 318, 355, 392, 430, 468, 508, 548, 590, 632, 675, 718, 762, 808, 854, 900, 948, 995, 1042, 1090, 1135, 1180, 1205]
+    },
+    lof: {
+      name: 'LOF Anomaly (Local Outlier Factor)',
+      badgeClass: 'badge-pink',
+      badgeColor: '#db2777',
+      count: '14 Dies',
+      dppm: '11,217 DPPM',
+      overkill: '0.08%',
+      overkillSub: '1 Die (Multi-Site)',
+      latency: '8.6 ms',
+      latencySub: 'k-d Tree Optimized',
+      math: '\\[ \\text{lrd}_k(p) = \\frac{|N_k(p)|}{\\sum_{o \\in N_k(p)} \\text{reach-dist}_k(p, o)} \\quad \\implies \\quad \\text{LOF}_k(p) = \\frac{\\sum_{o \\in N_k(p)} \\frac{\\text{lrd}_k(o)}{\\text{lrd}_k(p)}}{|N_k(p)|} \\]',
+      features: [
+        { name: '1. Site_Relative_Zscore (Site 3 &amp; Site 7 Shift)', pct: '51.6%' },
+        { name: '2. Multi_Site_Rc_Contact_Resistance_Delta', pct: '28.4%' },
+        { name: '3. Pin_Contact_Voltage_Drop_StdDev', pct: '15.0%' }
+      ],
+      directive_zh: '自動隔離 Site 3 / Site 7 接觸阻抗偏高造成之局部離群點；發送即時警報至 Prober 機台執行探針在線清針（Online Needle Cleaning）。',
+      directive_en: 'Isolate local mavericks from Site 3/7 contact impedance drifts; trigger automated prober online needle cleaning.',
+      outlierDies: [180, 212, 340, 372, 500, 532, 660, 692, 820, 852, 980, 1012, 1140, 1172]
+    },
+    ae: {
+      name: 'Autoencoder (AE) Deep Reconstruction',
+      badgeClass: 'badge-yellow',
+      badgeColor: '#d97706',
+      count: '21 Dies',
+      dppm: '16,826 DPPM',
+      overkill: '0.40%',
+      overkillSub: '5 Dies (Complex Tail)',
+      latency: '11.4 ms',
+      latencySub: 'Tensor Core Accelerated',
+      math: '\\[ \\text{Score}_{\\text{AE}}(i) = \\|\\mathbf{x}_i - \\hat{\\mathbf{x}}_i\\|_2^2 = \\sum_{j=1}^D w_j (x_{ij} - \\hat{x}_{ij})^2 \\quad \\implies \\quad \\tau_{\\text{EVT}} = \\mu_{\\text{train}} + 3 \\cdot \\text{MAD}_{\\text{train}} \\]',
+      features: [
+        { name: '1. Non-linear_Idsat_Vth_Ratio_Manifold', pct: '44.7%' },
+        { name: '2. Gate_Oxide_Capacitance_Mismatch (C_ox)', pct: '33.2%' },
+        { name: '3. Ring_Oscillator_High_Order_Harmonic_Skew', pct: '16.8%' }
+      ],
+      directive_zh: '深度神經網絡捕獲非線性流形突破；將 21 顆零日特異晶粒送交 FA 實驗室進行 TEM / EMX 奈米斷層掃描分析。',
+      directive_en: 'Deep manifold rupture captured; dispatch 21 zero-day anomaly dies to FA lab for high-resolution TEM/nanotomography.',
+      outlierDies: [125, 195, 268, 335, 412, 485, 550, 615, 688, 742, 810, 875, 930, 992, 1050, 1105, 1155, 305, 520, 780, 965]
+    }
+  };
+
+  let outlierWaferDies = [];
+
+  function initOutlierWaferGrid() {
+    const canvas = document.getElementById('outlierWaferCanvas');
+    if (!canvas) return;
+    const width = 320;
+    const height = 320;
+    const cx = width / 2;
+    const cy = height / 2;
+    const radius = 146;
+    const dieStep = 7.6;
+    const dieSize = 6.4;
+
+    outlierWaferDies = [];
+    let idx = 0;
+
+    for (let y = -radius; y <= radius; y += dieStep) {
+      for (let x = -radius; x <= radius; x += dieStep) {
+        const dist = Math.sqrt(x * x + y * y);
+        if (dist <= radius - 4) {
+          // Determine initial die status
+          // Base hard fail rate ~ 3.5%
+          const hash = Math.sin(idx * 12.9898 + 78.233) * 43758.5453;
+          const rand = hash - Math.floor(hash);
+          const isHardFail = rand < 0.038;
+
+          outlierWaferDies.push({
+            id: idx,
+            x: cx + x - dieSize / 2,
+            y: cy + y - dieSize / 2,
+            w: dieSize,
+            h: dieSize,
+            status: isHardFail ? 'fail' : 'pass'
+          });
+          idx++;
+        }
+      }
+    }
+
+    const summaryEl = document.getElementById('waferStatsSummary');
+    if (summaryEl) summaryEl.textContent = `Total Dies: ${outlierWaferDies.length}`;
+  }
+
+  function drawOutlierWaferMap(flaggedIndices, activeColor) {
+    const canvas = document.getElementById('outlierWaferCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Draw wafer outline
+    ctx.strokeStyle = '#334155';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.arc(160, 160, 148, 0, Math.PI * 2);
+    ctx.stroke();
+
+    // Draw dies
+    const flaggedSet = new Set(flaggedIndices || []);
+
+    outlierWaferDies.forEach(d => {
+      if (flaggedSet.has(d.id)) {
+        ctx.fillStyle = activeColor || '#9333ea';
+      } else if (d.status === 'fail') {
+        ctx.fillStyle = '#ef4444';
+      } else {
+        ctx.fillStyle = '#10b981';
+      }
+      ctx.fillRect(d.x, d.y, d.w, d.h);
+    });
+  }
+
+  function runOutlierEngine(engineKey) {
+    currentOutlierEngine = engineKey;
+    const data = outlierData[engineKey];
+    if (!data) return;
+
+    // 1. Update Buttons Active State
+    const btnIds = { pcarf: 'btnPcaRf', spatial: 'btnSpatialMl', lof: 'btnLof', ae: 'btnAe' };
+    Object.keys(btnIds).forEach(k => {
+      const b = document.getElementById(btnIds[k]);
+      if (b) {
+        if (k === engineKey) {
+          b.style.transform = 'scale(1.04)';
+          b.style.boxShadow = '0 0 12px ' + data.badgeColor;
+          b.style.outline = '2px solid #ffffff';
+        } else {
+          b.style.transform = 'none';
+          b.style.boxShadow = '0 2px 4px rgba(0,0,0,0.15)';
+          b.style.outline = 'none';
+        }
+      }
+    });
+
+    // 2. Update Badges & Metric displays
+    const activeBadge = document.getElementById('outlierActiveBadge');
+    if (activeBadge) {
+      activeBadge.className = 'badge ' + data.badgeClass;
+      activeBadge.textContent = data.name;
+    }
+
+    const engName = document.getElementById('activeEngineName');
+    if (engName) {
+      engName.className = 'badge ' + data.badgeClass;
+      engName.textContent = data.name;
+    }
+
+    const legColor = document.getElementById('legendOutlierColor');
+    if (legColor) legColor.style.background = data.badgeColor;
+
+    const countEl = document.getElementById('metricOutlierCount');
+    if (countEl) {
+      countEl.textContent = data.count;
+      countEl.style.color = data.badgeColor;
+    }
+
+    const dppmEl = document.getElementById('metricDppm');
+    if (dppmEl) dppmEl.textContent = data.dppm;
+
+    const ovEl = document.getElementById('metricOverkill');
+    if (ovEl) ovEl.textContent = data.overkill;
+
+    const latEl = document.getElementById('metricLatency');
+    if (latEl) latEl.textContent = data.latency;
+
+    // 3. Update Formula with KaTeX
+    const mathEl = document.getElementById('activeMathContainer');
+    if (mathEl) {
+      mathEl.style.borderLeftColor = data.badgeColor;
+      mathEl.innerHTML = data.math;
+      typesetMath(mathEl);
+    }
+
+    // 4. Update Feature Attribution List
+    const featList = document.getElementById('featureAttributionList');
+    if (featList && data.features) {
+      featList.innerHTML = data.features.map(f => `
+        <div>
+          <div style="display:flex; justify-content:space-between; margin-bottom:2px;">
+            <span>${f.name}</span>
+            <span style="font-weight:700; color:${data.badgeColor};">${f.pct}</span>
+          </div>
+          <div style="width:100%; height:6px; background:var(--surface-3, rgba(255,255,255,0.1)); border-radius:3px; overflow:hidden;">
+            <div style="width:${f.pct}; height:100%; background:${data.badgeColor}; border-radius:3px;"></div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // 5. Update Directive
+    updateOutlierDirectiveText();
+
+    // 6. Draw Wafer
+    drawOutlierWaferMap(data.outlierDies, data.badgeColor);
+  }
+
+  function resetOutlierEngine() {
+    currentOutlierEngine = 'none';
+    const btnIds = ['btnPcaRf', 'btnSpatialMl', 'btnLof', 'btnAe'];
+    btnIds.forEach(id => {
+      const b = document.getElementById(id);
+      if (b) {
+        b.style.transform = 'none';
+        b.style.boxShadow = '0 2px 4px rgba(0,0,0,0.15)';
+        b.style.outline = 'none';
+      }
+    });
+
+    const activeBadge = document.getElementById('outlierActiveBadge');
+    if (activeBadge) {
+      activeBadge.className = 'badge badge-green';
+      activeBadge.textContent = 'ALL DIES RESET';
+    }
+
+    const countEl = document.getElementById('metricOutlierCount');
+    if (countEl) {
+      countEl.textContent = '0 Dies';
+      countEl.style.color = 'var(--good)';
+    }
+
+    const ovEl = document.getElementById('metricOverkill');
+    if (ovEl) ovEl.textContent = '0.00%';
+
+    const latEl = document.getElementById('metricLatency');
+    if (latEl) latEl.textContent = '0.0 ms';
+
+    drawOutlierWaferMap([], '#10b981');
+  }
+
+  function updateOutlierDirectiveText() {
+    const dirEl = document.getElementById('dispositionDirectiveText');
+    if (!dirEl) return;
+    const data = outlierData[currentOutlierEngine];
+    if (!data) {
+      dirEl.innerHTML = (currentLang === 'zh')
+        ? '<span class="zh">所有晶粒已重置為基線狀態；請點擊上方四大引擎之一啟動離群值掃描。</span>'
+        : '<span class="en">All dies reset to baseline; click one of the 4 engine buttons above to execute outlier screening.</span>';
+      return;
+    }
+    dirEl.innerHTML = (currentLang === 'zh')
+      ? `<span class="zh">${data.directive_zh}</span>`
+      : `<span class="en">${data.directive_en}</span>`;
+  }
+
+  function updateOutlierSuiteLang() {
+    updateOutlierDirectiveText();
+    const legZh = document.getElementById('legendOutlierLabel');
+    const legEn = document.getElementById('legendOutlierLabelEn');
+    if (legZh && legEn) {
+      legZh.style.display = (currentLang === 'zh') ? 'inline' : 'none';
+      legEn.style.display = (currentLang === 'zh') ? 'none' : 'inline';
+    }
+  }
+
+  function initOutlierSuite() {
+    initOutlierWaferGrid();
+    runOutlierEngine('pcarf');
+  }
+
+
   window.addEventListener('DOMContentLoaded', () => {
     initThemeAndLang();
     initSidebarState();
@@ -18244,6 +19007,7 @@
     recalcChamberStats();
     updateFalloutSimulator();
     updateCpkView();
+    initOutlierSuite();
     initLightboxEvents();
     setupOneClickZoomTriggers();
   });
