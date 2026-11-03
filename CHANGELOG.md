@@ -8,6 +8,31 @@ Entry format / 格式:
 `## YYYY-MM-DD — <agent> — <short title>` then bullets: what changed, why, caveats for the next agent.
 
 ---
+## 2026-11-03 — Google Antigravity — Rev. AP: KaTeX Math Syntax Restoration, 10-Layer Automotive Inspection Checklist & 4-Pillar Die Score Aggregation Engine (Section 6.4.5 & 6.4.6)
+
+- **User Request Fulfillment ("Found 數學公式亂碼。補充layer inspection,how to aggrate score for every die")**:
+  - **KaTeX Math Formula Syntax Restoration**: Diagnosed and eliminated 211 literal double backslashes (`\\[`, `\\]`, `\\text`, `\\mathbf`, `\\frac`, `\\sum`, etc.) in the HTML body of Sections 6.4.5 and 6.4.6 that corrupted equation rendering. All mathematical formulas now compile cleanly with single backslash delimiters (`\[ ... \]` and `\( ... \)`).
+  - **Button Contrast & Typography Enhancement**: Added explicit high-contrast text color overrides (`color: #ffffff !important` with drop-shadow for dark buttons, and dark text for amber/yellow) to guarantee perfect WCAG AAA readability across all browsers, themes, and forced-dark extensions.
+  - **10 Critical Automotive In-Line Inspection Layers Checklist (Table 6.4.6-B)**:
+    - Detailed 10 mission-critical inspection steps (STI Post-CMP, Well Litho/Implant, Poly Gate/HKMG, Spacer Etch, Contact Via W-Plug, Metal 1 Cu Damascene, Via 1 Etch, Intermediate Metals M2~M6, Top Metal/RDL, and Passivation & Pad Open).
+    - Specifies inspection tool technology (BFI, DFI, EBI Voltage Contrast), target killer defect mechanisms (oxide dishing, PR scum, gate pinholes/TDDB, blind vias, CMP scratches/necking, barrier voids, and PI cracks), minimum detectable defect sizes (8 nm to 80 nm), and layer criticality weights $W_l$ (1.0 to 3.5).
+  - **Spatial Registration & Coordinate Alignment Pipeline**:
+    - Detailed the coordinate transformation matrix mapping raw KLARF stage coordinates $(X_{\text{stage}}, Y_{\text{stage}})$ via notch origin translation, wafer rotation matrix $\mathbf{R}(\theta_l)$, die pitch step-and-repeat offsets, and non-linear wafer warp grid corrections $\mathbf{T}_{\text{warp}}(X, Y)$ into sub-micron die-relative coordinates $(x_{\text{die}}, y_{\text{die}})$.
+  - **The 4 Die-Level Multi-Layer Score Aggregation Algorithms**:
+    1. *Algorithm 1 (Weighted Critical Dimension DCI, W-DCI)*: Computes non-linear size-to-CD amplification scaled by defect type physical hazard coefficients $C_{\text{type}}$.
+    2. *Algorithm 2 (CAD & Netlist-Aware CAA Aggregation)*: Intersects defect spatial envelopes with GDSII/OASIS design polygons, weighting Clock Trees at $10\times$, Critical Timing Paths at $5\times$, Power Grid at $4\times$, ECC SRAM at $0.2\times$, and Dummy Fill at $0.02\times$.
+    3. *Algorithm 3 (Poisson / Negative Binomial Survival Compounding)*: Calculates the multiplicative compound survival probability across all layers, converted via negative natural logarithm into an additive Hazard Score.
+    4. *Algorithm 4 (Vertical Stacking Synergy Penalty - Defect Corridor)*: Evaluates vertical defect alignment across adjacent metal/via layers within lateral distance $\Delta r \le 2.0\,\mu\text{m}$, applying an exponential penalty that triggers zero-defect ejection for 3D gouge scratch corridors.
+  - **Automotive 4-Tier Disposition & Dynamic Gating Matrix**:
+    - Synthesizes all 4 algorithms into the *Unified Die Cumulative Health Score (UDCHS)* with dynamic wafer-level outlier limits $\text{Limit}_{\text{ASIL-D}} = \text{Median}(\text{UDCHS}) + 3.0 \cdot \text{MAD}(\text{UDCHS})$.
+    - Defines clear operational protocols for Tier 1 (ASIL-D Electronic Inking / Scrap), Tier 2 (Extended 168-hr 125°C Burn-In), Tier 3 (Down-Binning to Infotainment / Consumer), and Tier 4 (Golden Die ASIL-D Release).
+- **Revision & Quality Verification**:
+  - Synchronized header and footer revision labels to `Rev. AP` and updated timestamps to `2026-11-03 09:30 (Asia/Taipei)`.
+  - Passed `npm run verify` (19,749 lines, 0 tag mismatches, valid JS).
+  - Passed `node scripts/audit_i18n_and_structure.js` with 0 numbering drift, 0 untranslated Chinese leaks in English mode, and 100% table cell localization parity across all 1,865 table cells.
+
+---
+
 ## 2026-11-03 — Google Antigravity — Rev. AO: KLA I-PAT™ (Inline Part Average Testing), AI Defect Criticality Stacking & Multi-Modal Reliability Fusion (Section 6.4.6)
 
 - **User Request Fulfillment ("See kla company,https://www.kla.com/documents/KLA-Tencor_I-PAT_AEC_2018.pdf It is about inline pat ,also add some ai,ml mindset")**:

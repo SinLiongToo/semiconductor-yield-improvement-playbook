@@ -1332,7 +1332,7 @@
       </div>
       <div>
         <span class="zh">版次狀態</span><span class="en">Revision</span>
-        <b>Rev. AO (KLA I-PAT™ Inline Outlier Screening, Multi-Layer Defect Stacking &amp; AI-Enhanced Defect Criticality Fusion)</b>
+        <b>Rev. AP (KaTeX Math Syntax Restoration, 10-Layer Automotive Inspection Checklist &amp; 4-Pillar Die Score Aggregation Engine)</b>
       </div>
       <div>
         <span class="zh">適用對象</span><span class="en">Audience</span>
@@ -1340,7 +1340,7 @@
       </div>
       <div>
         <span class="zh">最後修訂</span><span class="en">Last Updated</span>
-        <b>2026-11-02 13:10 (Asia/Taipei)</b>
+        <b>2026-11-03 09:30 (Asia/Taipei)</b>
       </div>
     </div>
   </header>
@@ -11844,8 +11844,8 @@
                 </g>
                 <text class="zh" x="125" y="60" font-size="8.5" font-weight="700" fill="var(--ink)">局部加權預測面：</text>
                 <text class="en" x="125" y="60" font-size="8.5" font-weight="700" fill="var(--ink)">Local Neighbor Surface:</text>
-                <text class="zh" x="125" y="78" font-size="8" fill="var(--accent)">\(r_i = z(x,y) - \hat{z}_{\text{local}}\\)</text>
-                <text class="en" x="125" y="78" font-size="8" fill="var(--accent)">\(r_i = z(x,y) - \hat{z}_{\text{local}}\\)</text>
+                <text class="zh" x="125" y="78" font-size="8" fill="var(--accent)">\(r_i = z(x,y) - \hat{z}_{\text{local}}\)</text>
+                <text class="en" x="125" y="78" font-size="8" fill="var(--accent)">\(r_i = z(x,y) - \hat{z}_{\text{local}}\)</text>
                 <text class="zh" x="125" y="96" font-size="8" fill="var(--danger)">|殘差| &gt; \(k \cdot \sigma_{\text{res}}\) ➔ 剔除</text>
                 <text class="en" x="125" y="96" font-size="8" fill="var(--danger)">|Residual| &gt; \(k \sigma_{\text{res}}\) ➔ Outlier</text>
                 <text class="zh" x="135" y="132" font-size="8" text-anchor="middle" fill="var(--ink-soft)">即使絕對值符合規格，突兀跳異即早夭</text>
@@ -12958,8 +12958,8 @@
                 <span class="en"><b>Target:</b> Deep non-linear manifold constraints &amp; zero-day blind screening.</span>
               </p>
               <p style="font-size:12px; color:var(--ink-soft); line-height:1.5; margin:0;">
-                <span class="zh">以歷史受控正常晶圓進行無監督神經網路訓練，將多參數壓縮至低維潛在空間（Bottleneck）後解碼重建，藉由重建誤差 \(\|x - \\hat{x}\|^2\) 盲篩未曾見過的新型物理失效。</span>
-                <span class="en">Trains an unsupervised deep neural bottleneck on historical baseline dies; uses reconstruction errors \(\|x - \\hat{x}\|^2\) to blind-screen novel zero-day defect mechanisms.</span>
+                <span class="zh">以歷史受控正常晶圓進行無監督神經網路訓練，將多參數壓縮至低維潛在空間（Bottleneck）後解碼重建，藉由重建誤差 \(\|x - \hat{x}\|^2\) 盲篩未曾見過的新型物理失效。</span>
+                <span class="en">Trains an unsupervised deep neural bottleneck on historical baseline dies; uses reconstruction errors \(\|x - \hat{x}\|^2\) to blind-screen novel zero-day defect mechanisms.</span>
               </p>
             </div>
           </div>
@@ -12981,16 +12981,16 @@
 
             <!-- RUNNER BUTTON TOOLBAR (EXACT REPLICATION OF INDUSTRIAL TOOLBAR) -->
             <div style="margin:16px 0 12px; display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
-              <button id="btnPcaRf" class="btn" style="background:#700070; color:#ffffff; font-weight:700; border:1px solid #a855f7; border-radius:4px; padding:8px 16px; cursor:pointer; font-family:var(--font-mono); font-size:12.5px; box-shadow:0 2px 4px rgba(0,0,0,0.15); transition:all 0.15s ease;" onclick="runOutlierEngine('pcarf')">
+              <button id="btnPcaRf" class="btn" style="background:#700070; color:#ffffff !important; font-weight:700; border:1px solid #a855f7; border-radius:4px; padding:8px 16px; cursor:pointer; font-family:var(--font-mono); font-size:12.5px; box-shadow:0 2px 4px rgba(0,0,0,0.15); transition:all 0.15s ease;" onclick="runOutlierEngine('pcarf')">
                 Run PCA+RF Anomaly Detection
               </button>
-              <button id="btnSpatialMl" class="btn" style="background:#c2410c; color:#ffffff; font-weight:700; border:1px solid #f97316; border-radius:4px; padding:8px 16px; cursor:pointer; font-family:var(--font-mono); font-size:12.5px; box-shadow:0 2px 4px rgba(0,0,0,0.15); transition:all 0.15s ease;" onclick="runOutlierEngine('spatial')">
+              <button id="btnSpatialMl" class="btn" style="background:#c2410c; color:#ffffff !important; font-weight:700; border:1px solid #f97316; border-radius:4px; padding:8px 16px; cursor:pointer; font-family:var(--font-mono); font-size:12.5px; box-shadow:0 2px 4px rgba(0,0,0,0.15); transition:all 0.15s ease;" onclick="runOutlierEngine('spatial')">
                 Run Spatial-Aware ML
               </button>
-              <button id="btnLof" class="btn" style="background:#be185d; color:#ffffff; font-weight:700; border:1px solid #f472b6; border-radius:4px; padding:8px 16px; cursor:pointer; font-family:var(--font-mono); font-size:12.5px; box-shadow:0 2px 4px rgba(0,0,0,0.15); transition:all 0.15s ease;" onclick="runOutlierEngine('lof')">
+              <button id="btnLof" class="btn" style="background:#be185d; color:#ffffff !important; font-weight:700; border:1px solid #f472b6; border-radius:4px; padding:8px 16px; cursor:pointer; font-family:var(--font-mono); font-size:12.5px; box-shadow:0 2px 4px rgba(0,0,0,0.15); transition:all 0.15s ease;" onclick="runOutlierEngine('lof')">
                 Run LOF Anomaly
               </button>
-              <button id="btnAe" class="btn" style="background:#b45309; color:#ffffff; font-weight:700; border:1px solid #facc15; border-radius:4px; padding:8px 16px; cursor:pointer; font-family:var(--font-mono); font-size:12.5px; box-shadow:0 2px 4px rgba(0,0,0,0.15); transition:all 0.15s ease;" onclick="runOutlierEngine('ae')">
+              <button id="btnAe" class="btn" style="background:#b45309; color:#ffffff !important; font-weight:700; border:1px solid #facc15; border-radius:4px; padding:8px 16px; cursor:pointer; font-family:var(--font-mono); font-size:12.5px; box-shadow:0 2px 4px rgba(0,0,0,0.15); transition:all 0.15s ease;" onclick="runOutlierEngine('ae')">
                 Run Autoencoder (AE)
               </button>
               <button id="btnResetOutlier" class="btn" style="background:var(--surface-2); color:var(--ink); font-weight:600; border:1px solid var(--border); border-radius:4px; padding:8px 14px; cursor:pointer; font-family:var(--font-mono); font-size:12px; transition:all 0.15s ease;" onclick="resetOutlierEngine()">
@@ -13064,7 +13064,7 @@
                     <span id="activeEngineName" class="badge badge-purple" style="font-size:10px;">PCA + RF Anomaly Detection</span>
                   </div>
                   <div id="activeMathContainer" class="formula" style="margin:4px 0 10px; padding:10px; font-size:13px; background:var(--surface-2); border-radius:4px; border-left:3px solid var(--accent); overflow-x:auto;">
-                    \\[ T^2 = \\mathbf{z}^T \\mathbf{\\Lambda}_k^{-1} \\mathbf{z} \\quad \\&amp; \\quad Q = \\mathbf{x}^T (\\mathbf{I} - \\mathbf{V}_k \\mathbf{V}_k^T) \\mathbf{x} \\quad \\implies \\quad \\text{Score}_{\\text{RF}}(i) = \\frac{N}{\\sum_{j=1}^N P(i, j)^2} \\]
+                    \[ T^2 = \mathbf{z}^T \mathbf{\Lambda}_k^{-1} \mathbf{z} \quad \&amp; \quad Q = \mathbf{x}^T (\mathbf{I} - \mathbf{V}_k \mathbf{V}_k^T) \mathbf{x} \quad \implies \quad \text{Score}_{\text{RF}}(i) = \frac{N}{\sum_{j=1}^N P(i, j)^2} \]
                   </div>
                 </div>
 
@@ -13146,7 +13146,7 @@
               </span>
             </p>
             <div class="formula">
-              <div class="eq">\\[ \text{Score}_{\\text{PCA-RF}}(i) = \\frac{N}{\\sum_{j=1}^N P(i, j)^2} \\quad \\text{with SHAP Attribution: } \\phi_j = \\sum_{S \\subseteq F \\setminus \\{j\\}} \\frac{|S|!(|F| - |S| - 1)!}{|F|!} [f(S \\cup \\{j\\}) - f(S)] \\]</div>
+              <div class="eq">\[ \text{Score}_{\text{PCA-RF}}(i) = \frac{N}{\sum_{j=1}^N P(i, j)^2} \quad \text{with SHAP Attribution: } \phi_j = \sum_{S \subseteq F \setminus \{j\}} \frac{|S|!(|F| - |S| - 1)!}{|F|!} [f(S \cup \{j\}) - f(S)] \]</div>
             </div>
 
             <!-- 2. SPATIAL-AWARE ML DEEP DIVE -->
@@ -13171,7 +13171,7 @@
               </span>
             </p>
             <div class="formula">
-              <div class="eq">\\[ K_{\\text{spatial}}(i) = \\sum_{j \\in \\mathcal{N}_8(i)} \\exp\\left(-\\left[\\frac{(x_i - x_j)^2}{2\\sigma_x^2} + \\frac{(y_i - y_j)^2}{2\\sigma_y^2}\\right]\\right) \\cdot \\mathbb{I}(\\text{Die}_j \\in \\{\\text{Fail}, \\text{Maverick}\\}) \\]</div>
+              <div class="eq">\[ K_{\text{spatial}}(i) = \sum_{j \in \mathcal{N}_8(i)} \exp\left(-\left[\frac{(x_i - x_j)^2}{2\sigma_x^2} + \frac{(y_i - y_j)^2}{2\sigma_y^2}\right]\right) \cdot \mathbb{I}(\text{Die}_j \in \{\text{Fail}, \text{Maverick}\}) \]</div>
             </div>
 
             <!-- 3. LOF DEEP DIVE -->
@@ -13192,15 +13192,15 @@
               </span>
             </p>
             <div class="formula">
-              <div class="eq">\\[ \\text{lrd}_k(p) = \\frac{|N_k(p)|}{\\sum_{o \\in N_k(p)} \\text{reach-dist}_k(p, o)} \\quad \\implies \\quad \\text{LOF}_k(p) = \\frac{\\sum_{o \\in N_k(p)} \\frac{\\text{lrd}_k(o)}{\\text{lrd}_k(p)}}{|N_k(p)|} \\]</div>
+              <div class="eq">\[ \text{lrd}_k(p) = \frac{|N_k(p)|}{\sum_{o \in N_k(p)} \text{reach-dist}_k(p, o)} \quad \implies \quad \text{LOF}_k(p) = \frac{\sum_{o \in N_k(p)} \frac{\text{lrd}_k(o)}{\text{lrd}_k(p)}}{|N_k(p)|} \]</div>
             </div>
             <p style="font-size:12.5px; color:var(--ink-soft); line-height:1.5;">
               <span class="zh">
-                • <b>\(\text{LOF} \\approx 1.0\)</b>：晶粒密度與周遭鄰居相仿，處於正常集群內部；<br>
+                • <b>\(\text{LOF} \approx 1.0\)</b>：晶粒密度與周遭鄰居相仿，處於正常集群內部；<br>
                 • <b>\(\text{LOF} > 1.5 \sim 2.0\)</b>：晶粒周遭密度顯著低於其鄰近群體，判定為<b>局部孤立特異晶粒（Local Maverick Die）</b>，哪怕其數值完全落在全站點混合分佈的中位數附近，依然被精準捕獲！
               </span>
               <span class="en">
-                • <b>\(\text{LOF} \\approx 1.0\)</b>: Uniform density matched with peers (healthy in-cluster die);<br>
+                • <b>\(\text{LOF} \approx 1.0\)</b>: Uniform density matched with peers (healthy in-cluster die);<br>
                 • <b>\(\text{LOF} > 1.5 \sim 2.0\)</b>: Significantly lower local density than surrounding peers, flagging an isolated <b>Local Maverick Die</b> even if it falls within overall global distribution boundaries!
               </span>
             </p>
@@ -13214,16 +13214,16 @@
               <span class="zh">
                 <b>問題根源：</b>在先進製程多引腳（512+ Pin）高速 SerDes 或複雜邏輯晶片測試中，各參數間存在高度非線性約束（如飽和電流與閘極電容呈非線性多項式關係）。當發生未曾記錄的新型製程異常時（零日缺陷 Zero-Day Defect），監督式模型完全無法識別。<br>
                 <b>神經網絡無監督重建架構：</b><br>
-                自編碼器包含編碼器 \(\mathbf{z} = f_{\\phi}(\mathbf{x}) \in \mathbb{R}^d\) 與解碼器 \(\\hat{\mathbf{x}} = g_{\\theta}(\mathbf{z}) \in \mathbb{R}^D\)（其中瓶頸維度 \(d \\ll D\)）。模型<b>僅在歷史黃金受控正常晶圓（In-Control Baseline Dies）上訓練</b>，學習良品參數之間的流形分佈規律。當異常晶粒輸入時，由於其破壞了隱性物理守恆，解碼器無法正確重構，產生顯著的重建誤差（Reconstruction Error）：
+                自編碼器包含編碼器 \(\mathbf{z} = f_{\phi}(\mathbf{x}) \in \mathbb{R}^d\) 與解碼器 \(\hat{\mathbf{x}} = g_{\theta}(\mathbf{z}) \in \mathbb{R}^D\)（其中瓶頸維度 \(d \ll D\)）。模型<b>僅在歷史黃金受控正常晶圓（In-Control Baseline Dies）上訓練</b>，學習良品參數之間的流形分佈規律。當異常晶粒輸入時，由於其破壞了隱性物理守恆，解碼器無法正確重構，產生顯著的重建誤差（Reconstruction Error）：
               </span>
               <span class="en">
                 <b>Root Problem:</b> High-speed SerDes and SoC multi-pin tests involve complex non-linear physics (e.g. saturation currents vs gate capacitances). Unprecedented process drifts ("zero-day defects") evade supervised classifiers lacking prior training labels.<br>
                 <b>Unsupervised Bottleneck Architecture:</b><br>
-                The Autoencoder consists of an encoder \(\mathbf{z} = f_{\\phi}(\mathbf{x}) \in \mathbb{R}^d\) and decoder \(\\hat{\mathbf{x}} = g_{\\theta}(\mathbf{z}) \in \mathbb{R}^D\) (\(d \\ll D\)). Trained strictly on historical in-control baseline dies, it masters the underlying manifold. Any die violating these non-linear constraints generates large reconstruction errors:
+                The Autoencoder consists of an encoder \(\mathbf{z} = f_{\phi}(\mathbf{x}) \in \mathbb{R}^d\) and decoder \(\hat{\mathbf{x}} = g_{\theta}(\mathbf{z}) \in \mathbb{R}^D\) (\(d \ll D\)). Trained strictly on historical in-control baseline dies, it masters the underlying manifold. Any die violating these non-linear constraints generates large reconstruction errors:
               </span>
             </p>
             <div class="formula">
-              <div class="eq">\\[ \\text{Score}_{\\text{AE}}(i) = \\|\\mathbf{x}_i - \\hat{\\mathbf{x}}_i\\|_2^2 = \\sum_{j=1}^D w_j (x_{ij} - \\hat{x}_{ij})^2 \\quad \\implies \\quad \\text{Threshold } \\tau_{\\text{EVT}} = \\mu_{\\text{train}} + 3 \\cdot \\text{MAD}_{\\text{train}} \\]</div>
+              <div class="eq">\[ \text{Score}_{\text{AE}}(i) = \|\mathbf{x}_i - \hat{\mathbf{x}}_i\|_2^2 = \sum_{j=1}^D w_j (x_{ij} - \hat{x}_{ij})^2 \quad \implies \quad \text{Threshold } \tau_{\text{EVT}} = \mu_{\text{train}} + 3 \cdot \text{MAD}_{\text{train}} \]</div>
             </div>
 
           </div>
@@ -13609,22 +13609,22 @@
             </p>
 
             <div class="formula">
-              <div class="eq">\\[ \\text{DCI}_i = \\sum_{l=1}^K w_l \\sum_{d \\in \\mathcal{D}_{i, l}} \\left[ \\alpha \\cdot \\left(\\frac{\\text{Size}(d)}{\\text{CD}_l}\\right)^{\\beta} + \\gamma \\cdot \\text{ClassWeight}(d) \\right] \\]</div>
+              <div class="eq">\[ \text{DCI}_i = \sum_{l=1}^K w_l \sum_{d \in \mathcal{D}_{i, l}} \left[ \alpha \cdot \left(\frac{\text{Size}(d)}{\text{CD}_l}\right)^{\beta} + \gamma \cdot \text{ClassWeight}(d) \right] \]</div>
             </div>
 
             <p style="font-size:12.5px; color:var(--ink-soft); line-height:1.5;">
               <span class="zh">
-                其中 \(w_l\) 為第 \(l\) 道工序的可靠度敏感係數（如薄閘極氧化層與細間距接觸孔的 \(w_{\\text{Gate}}, w_{\\text{Contact}} \\gg w_{\\text{Passivation}}\)）；\(\\text{CD}_l\) 為該層之最小臨界特徵尺寸；\(\\text{Size}(d)\) 為缺陷之光學/電子束有效直徑；\(\\text{ClassWeight}(d)\) 為該缺陷類型的危害度權重（如導電顆粒與殘留金屬橋接遠大於無害落塵）。<br>
-                在全晶圓或全批次晶粒中，計算 \(\\text{DCI}\) 的動態統計離群門檻：
+                其中 \(w_l\) 為第 \(l\) 道工序的可靠度敏感係數（如薄閘極氧化層與細間距接觸孔的 \(w_{\text{Gate}}, w_{\text{Contact}} \gg w_{\text{Passivation}}\)）；\(\text{CD}_l\) 為該層之最小臨界特徵尺寸；\(\text{Size}(d)\) 為缺陷之光學/電子束有效直徑；\(\text{ClassWeight}(d)\) 為該缺陷類型的危害度權重（如導電顆粒與殘留金屬橋接遠大於無害落塵）。<br>
+                在全晶圓或全批次晶粒中，計算 \(\text{DCI}\) 的動態統計離群門檻：
               </span>
               <span class="en">
-                where \(w_l\) denotes process layer reliability sensitivity (e.g., thin gate oxide and contact via layers carry \(w_{\\text{Gate}}, w_{\\text{Contact}} \\gg w_{\\text{Passivation}}\)); \(\\text{CD}_l\) is critical dimension; \(\\text{Size}(d)\) is optical/SEM equivalent diameter; \(\\text{ClassWeight}(d)\) scales defect severity (conductive bridging particles carry significantly higher hazard than benign organic haze).<br>
+                where \(w_l\) denotes process layer reliability sensitivity (e.g., thin gate oxide and contact via layers carry \(w_{\text{Gate}}, w_{\text{Contact}} \gg w_{\text{Passivation}}\)); \(\text{CD}_l\) is critical dimension; \(\text{Size}(d)\) is optical/SEM equivalent diameter; \(\text{ClassWeight}(d)\) scales defect severity (conductive bridging particles carry significantly higher hazard than benign organic haze).<br>
                 The dynamic wafer-level I-PAT outlier threshold is established via robust non-parametric statistics:
               </span>
             </p>
 
             <div class="formula">
-              <div class="eq">\\[ \\text{Threshold}_{\\text{I-PAT}} = \\text{Median}(\\text{DCI}) + k \\cdot \\text{MAD}(\\text{DCI}) \\quad (\\text{where } k = 3.0 \\sim 4.5) \\]</div>
+              <div class="eq">\[ \text{Threshold}_{\text{I-PAT}} = \text{Median}(\text{DCI}) + k \cdot \text{MAD}(\text{DCI}) \quad (\text{where } k = 3.0 \sim 4.5) \]</div>
             </div>
 
             <h5 style="font-size:14px; font-weight:700; color:#e11d48; margin:22px 0 8px;">
@@ -13674,10 +13674,10 @@
                 </h5>
                 <p style="font-size:12px; line-height:1.5; margin:0; color:var(--ink-soft);">
                   <span class="zh">
-                    採用 Vision Transformer (ViT) 與 ConvNeXt 卷積神經網絡，直接對掃描機台拍攝之光學補丁（Optical Patch）與 SEM 複檢影像進行多標籤機率推論，精準區分金屬短路（Bridging）、介電層空洞（Void）、研磨刮傷（CMP Scratch）與無害有機薄霧（Organic Haze）。將分類置信度 \(P(\\text{Class} = \\text{Killer} \\mid \\text{Patch})\) 作為連續權重輸入，<b>徹底消除無害雜訊導致的 60% 良率過殺</b>！
+                    採用 Vision Transformer (ViT) 與 ConvNeXt 卷積神經網絡，直接對掃描機台拍攝之光學補丁（Optical Patch）與 SEM 複檢影像進行多標籤機率推論，精準區分金屬短路（Bridging）、介電層空洞（Void）、研磨刮傷（CMP Scratch）與無害有機薄霧（Organic Haze）。將分類置信度 \(P(\text{Class} = \text{Killer} \mid \text{Patch})\) 作為連續權重輸入，<b>徹底消除無害雜訊導致的 60% 良率過殺</b>！
                   </span>
                   <span class="en">
-                    Vision Transformers (ViT) and ConvNeXt architectures evaluate optical patch and review SEM micrographs, outputting continuous calibrated probabilities \(P(\\text{Class} = \\text{Killer} \\mid \\text{Patch})\) across 30+ physical bins. Filters out benign organic haze, <b>slashing inspection overkill by over 60%</b>!
+                    Vision Transformers (ViT) and ConvNeXt architectures evaluate optical patch and review SEM micrographs, outputting continuous calibrated probabilities \(P(\text{Class} = \text{Killer} \mid \text{Patch})\) across 30+ physical bins. Filters out benign organic haze, <b>slashing inspection overkill by over 60%</b>!
                   </span>
                 </p>
               </div>
@@ -13707,7 +13707,7 @@
                 <p style="font-size:12px; line-height:1.5; margin:0; color:var(--ink-soft);">
                   <span class="zh">
                     缺陷在晶圓縱向具備穿透傳播性（如 M1 的微刮傷會破壞表面平坦度，引發 Via 1 散焦開路，最終導致 M2 金屬堆積橋接）。以圖神經網絡（GNN）將晶粒各層缺陷建模為立體圖節點，透過邊卷積（Edge Convolution）學習跨工序因果鏈：
-                    \\[ \\mathbf{h}_{v}^{(l+1)} = \\sigma\\left( \\mathbf{W} \\cdot \\text{AGGREGATE}\\left(\\{ \\mathbf{h}_u^{(l)} : u \\in \\mathcal{N}(v) \\}\\right) \\right) \\]
+                    \[ \mathbf{h}_{v}^{(l+1)} = \sigma\left( \mathbf{W} \cdot \text{AGGREGATE}\left(\{ \mathbf{h}_u^{(l)} : u \in \mathcal{N}(v) \}\right) \right) \]
                     在製造剛完成一半時，即可提早 15 道工序預警潛在的結構性致命傷！
                   </span>
                   <span class="en">
@@ -13724,12 +13724,12 @@
                 </h5>
                 <p style="font-size:12px; line-height:1.5; margin:0; color:var(--ink-soft);">
                   <span class="zh">
-                    將<b>在線物理缺陷特徵向量（\(\\mathbf{e}_{\\text{inline}}\)）</b>、<b>下游電測 WAT/CP 參數特徵（\(\\mathbf{e}_{\\text{sort}}\)）</b>與<b>製程機台 FDC 萬維感測器軌跡（\(\\mathbf{e}_{\\text{FDC}}\)）</b>拼接融合，利用梯度提升決策樹（LightGBM）或對比學習自編碼器，為每顆晶粒預測連續的<b>「潛在可靠度失效率（Latent Reliability Risk Score, LRRS）」</b>：
-                    \\[ \\text{LRRS}(i) = \\sigma\\left(\\mathbf{w}^T [\\mathbf{e}_{\\text{inline}}, \\mathbf{e}_{\\text{sort}}, \\mathbf{e}_{\\text{FDC}}] + b\\right) \\in [0, 1] \\]
+                    將<b>在線物理缺陷特徵向量（\(\mathbf{e}_{\text{inline}}\)）</b>、<b>下游電測 WAT/CP 參數特徵（\(\mathbf{e}_{\text{sort}}\)）</b>與<b>製程機台 FDC 萬維感測器軌跡（\(\mathbf{e}_{\text{FDC}}\)）</b>拼接融合，利用梯度提升決策樹（LightGBM）或對比學習自編碼器，為每顆晶粒預測連續的<b>「潛在可靠度失效率（Latent Reliability Risk Score, LRRS）」</b>：
+                    \[ \text{LRRS}(i) = \sigma\left(\mathbf{w}^T [\mathbf{e}_{\text{inline}}, \mathbf{e}_{\text{sort}}, \mathbf{e}_{\text{FDC}}] + b\right) \in [0, 1] \]
                     將離群值處分由「硬切刀（Binary Drop）」升級為「自適應動態分級（Continuous Adaptive Binning）」！
                   </span>
                   <span class="en">
-                    Concatenates <b>in-line physical embeddings (\(\\mathbf{e}_{\\text{inline}}\))</b>, <b>electrical ATE features (\(\\mathbf{e}_{\\text{sort}}\))</b>, and <b>tool FDC sensor time-series (\(\\mathbf{e}_{\\text{FDC}}\))</b>. Evaluated via LightGBM / contrastive autoencoders to output a continuous <b>Latent Reliability Risk Score (LRRS)</b>, evolving outlier disposition from rigid binary cutoff into continuous adaptive binning!
+                    Concatenates <b>in-line physical embeddings (\(\mathbf{e}_{\text{inline}}\))</b>, <b>electrical ATE features (\(\mathbf{e}_{\text{sort}}\))</b>, and <b>tool FDC sensor time-series (\(\mathbf{e}_{\text{FDC}}\))</b>. Evaluated via LightGBM / contrastive autoencoders to output a continuous <b>Latent Reliability Risk Score (LRRS)</b>, evolving outlier disposition from rigid binary cutoff into continuous adaptive binning!
                   </span>
                 </p>
               </div>
@@ -13794,7 +13794,262 @@
           </div>
 
 
-                    <!-- ======================================================================= -->
+                    
+            <!-- 4. LAYER INSPECTION CHECKLIST & DIE-LEVEL SCORE AGGREGATION ENGINE -->
+            <h5 style="font-size:14px; font-weight:700; color:#0284c7; margin:32px 0 8px;">
+              <span class="zh">4. 關鍵工序在線檢測清單 (Layer Inspection Checklist) 與晶粒級跨層累積評分聚合架構 (Die-Level Score Aggregation Architecture)</span>
+              <span class="en">4. Critical In-Line Inspection Layer Checklist &amp; Die-Level Multi-Layer Score Aggregation Architecture</span>
+            </h5>
+            <p>
+              <span class="zh">
+                在實際車規 12 吋先進晶圓廠中，完整晶圓製程涵蓋數百道工序，不可能對每一道化學沉積或離子注入進行 100% 全晶圓高解析度檢測（否則產能 Thruput 將歸零且成本爆表）。因此，I-PAT™ 系統實施的第一步是<b>精心挑選 10 大關鍵在線檢測層（Inspection Layer Selection）</b>，並建立將跨層數百萬個分散微觀物理缺陷精準投影、聚合到單一晶粒（Per-Die Score Aggregation）的數學運算管道。
+              </span>
+              <span class="en">
+                In automotive-grade 300mm fabs with hundreds of process steps, executing 100% full-wafer high-resolution scanning at every step is economically prohibitive and would decimate fab throughput. Consequently, the cornerstone of I-PAT™ lies in <b>strategic selection of the 10 Critical In-Line Inspection Layers</b>, coupled with a robust spatial pipeline that registers, compounds, and aggregates millions of distributed nanoscale physical defects into a definitive Per-Die Cumulative Risk Score.
+              </span>
+            </p>
+
+            <!-- TABLE: 10 CRITICAL IN-LINE INSPECTION LAYERS -->
+            <div style="overflow-x:auto; margin:16px 0;">
+              <table class="table-dense" style="width:100%; border-collapse:collapse; font-size:12px; font-family:var(--font-sans); background:var(--surface); border:1px solid var(--border);">
+                <thead>
+                  <tr style="background:var(--surface-2); border-bottom:2px solid var(--border);">
+                    <th style="padding:8px 10px; text-align:center; width:45px;"><span class="zh">層號</span><span class="en">No.</span></th>
+                    <th style="padding:8px 10px; text-align:left;"><span class="zh">關鍵檢測工序 (Layer)</span><span class="en">Critical Process Layer</span></th>
+                    <th style="padding:8px 10px; text-align:center;"><span class="zh">檢驗機台技術</span><span class="en">Inspection Tool</span></th>
+                    <th style="padding:8px 10px; text-align:left;"><span class="zh">監控之致命缺陷機制</span><span class="en">Monitored Physical Killer Mechanism</span></th>
+                    <th style="padding:8px 10px; text-align:center;"><span class="zh">檢測靈敏度</span><span class="en">Sensitivity</span></th>
+                    <th style="padding:8px 10px; text-align:center;"><span class="zh">層權重 (W_l)</span><span class="en">Weight (W_l)</span></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style="border-bottom:1px solid var(--border);">
+                    <td style="padding:7px 10px; text-align:center; font-weight:700;">L1</td>
+                    <td style="padding:7px 10px; font-weight:700;"><span class="zh">淺溝槽隔離研磨後 (STI CMP)</span><span class="en">STI Post-CMP</span></td>
+                    <td style="padding:7px 10px; text-align:center;"><span class="badge" style="background:#0284c7; color:#fff;">BFI</span></td>
+                    <td style="padding:7px 10px;"><span class="zh">氧化層凹陷（Dishing）、殘留微刮傷、矽島邊緣應力微裂紋</span><span class="en">Oxide dishing, slurry micro-scratches, silicon edge stress cracks</span></td>
+                    <td style="padding:7px 10px; text-align:center;">&gt; 25 nm</td>
+                    <td style="padding:7px 10px; text-align:center; font-weight:700; color:#0284c7;">1.8</td>
+                  </tr>
+                  <tr style="border-bottom:1px solid var(--border);">
+                    <td style="padding:7px 10px; text-align:center; font-weight:700;">L2</td>
+                    <td style="padding:7px 10px; font-weight:700;"><span class="zh">井區微影與離子注入 (Well Litho / Implant)</span><span class="en">Well Litho &amp; Implantation</span></td>
+                    <td style="padding:7px 10px; text-align:center;"><span class="badge" style="background:#059669; color:#fff;">DFI</span></td>
+                    <td style="padding:7px 10px;"><span class="zh">光阻未曝光微薄膜（PR Scum）、遮蔽偏位、晶圓翹曲對位失真</span><span class="en">Photoresist scum, implant block mask misalignment, wafer warp overlay</span></td>
+                    <td style="padding:7px 10px; text-align:center;">&gt; 40 nm</td>
+                    <td style="padding:7px 10px; text-align:center; font-weight:700; color:#059669;">1.2</td>
+                  </tr>
+                  <tr style="border-bottom:1px solid var(--border);">
+                    <td style="padding:7px 10px; text-align:center; font-weight:700;">L3</td>
+                    <td style="padding:7px 10px; font-weight:700;"><span class="zh">閘極多晶矽 / 高介電金屬閘極 (Gate / HKMG)</span><span class="en">Poly Gate / HKMG Etch</span></td>
+                    <td style="padding:7px 10px; text-align:center;"><span class="badge" style="background:#9333ea; color:#fff;">DFI + EBI</span></td>
+                    <td style="padding:7px 10px;"><span class="zh">閘極短路微橋接、閘極氧化層針孔、奈米金屬沉積顆粒（引發 TDDB）</span><span class="en">Gate nano-bridging, gate dielectric pinholes, embedded metallic particles (TDDB risk)</span></td>
+                    <td style="padding:7px 10px; text-align:center;">&gt; 12 nm</td>
+                    <td style="padding:7px 10px; text-align:center; font-weight:700; color:#9333ea;">3.0</td>
+                  </tr>
+                  <tr style="border-bottom:1px solid var(--border);">
+                    <td style="padding:7px 10px; text-align:center; font-weight:700;">L4</td>
+                    <td style="padding:7px 10px; font-weight:700;"><span class="zh">側壁間隙蝕刻後 (Spacer Etch)</span><span class="en">Spacer Post-Etch</span></td>
+                    <td style="padding:7px 10px; text-align:center;"><span class="badge" style="background:#059669; color:#fff;">DFI</span></td>
+                    <td style="padding:7px 10px;"><span class="zh">氮化矽殘留、側壁不完整造成源漏極注入短路、微結構塌陷</span><span class="en">Nitride spacer residue, incomplete sidewall causing source-drain bridge, pattern collapse</span></td>
+                    <td style="padding:7px 10px; text-align:center;">&gt; 20 nm</td>
+                    <td style="padding:7px 10px; text-align:center; font-weight:700; color:#059669;">1.5</td>
+                  </tr>
+                  <tr style="border-bottom:1px solid var(--border);">
+                    <td style="padding:7px 10px; text-align:center; font-weight:700;">L5</td>
+                    <td style="padding:7px 10px; font-weight:700;"><span class="zh">接觸插塞研磨後 (Contact Via W-CMP)</span><span class="en">Contact Via (W-Plug CMP)</span></td>
+                    <td style="padding:7px 10px; text-align:center;"><span class="badge" style="background:#dc2626; color:#fff;">EBI (VC)</span></td>
+                    <td style="padding:7px 10px;"><span class="zh">鎢插塞未接觸開路（Blind Via）、底層聚合物殘留、高阻抗矽化鈦界面</span><span class="en">Blind/open contact via, fluorocarbon polymer residue, high-impedance Ti-silicide interface</span></td>
+                    <td style="padding:7px 10px; text-align:center;">&gt; 8 nm</td>
+                    <td style="padding:7px 10px; text-align:center; font-weight:700; color:#dc2626;">3.5</td>
+                  </tr>
+                  <tr style="border-bottom:1px solid var(--border);">
+                    <td style="padding:7px 10px; text-align:center; font-weight:700;">L6</td>
+                    <td style="padding:7px 10px; font-weight:700;"><span class="zh">金屬一層雙鑲嵌 (Metal 1 Cu Damascene CMP)</span><span class="en">Metal 1 Cu CMP (Damascene)</span></td>
+                    <td style="padding:7px 10px; text-align:center;"><span class="badge" style="background:#0284c7; color:#fff;">BFI + DFI</span></td>
+                    <td style="padding:7px 10px;"><span class="zh">研磨漿大粒徑微刮傷（CMP Scratch）、細線細頸（Necking）、線間微銅渣短路</span><span class="en">Agglomerated slurry gouge scratches, copper necking (EM hotspot), inter-line Cu bridging</span></td>
+                    <td style="padding:7px 10px; text-align:center;">&gt; 15 nm</td>
+                    <td style="padding:7px 10px; text-align:center; font-weight:700; color:#0284c7;">2.8</td>
+                  </tr>
+                  <tr style="border-bottom:1px solid var(--border);">
+                    <td style="padding:7px 10px; text-align:center; font-weight:700;">L7</td>
+                    <td style="padding:7px 10px; font-weight:700;"><span class="zh">通孔一層蝕刻與金屬化 (Via 1 Etch &amp; Metallization)</span><span class="en">Via 1 Etch &amp; Metallization</span></td>
+                    <td style="padding:7px 10px; text-align:center;"><span class="badge" style="background:#dc2626; color:#fff;">EBI (VC)</span></td>
+                    <td style="padding:7px 10px;"><span class="zh">阻擋層覆蓋不完全（Barrier Voiding）、通孔偏位出邊（Unlanded Via）、介電層破洞</span><span class="en">Incomplete barrier seed coverage, unlanded via overlay drift, low-k dielectric puncturing</span></td>
+                    <td style="padding:7px 10px; text-align:center;">&gt; 10 nm</td>
+                    <td style="padding:7px 10px; text-align:center; font-weight:700; color:#dc2626;">2.6</td>
+                  </tr>
+                  <tr style="border-bottom:1px solid var(--border);">
+                    <td style="padding:7px 10px; text-align:center; font-weight:700;">L8</td>
+                    <td style="padding:7px 10px; font-weight:700;"><span class="zh">中間金屬層 (Intermediate Metal Mx: M2~M6)</span><span class="en">Intermediate Metals (M2~M6)</span></td>
+                    <td style="padding:7px 10px; text-align:center;"><span class="badge" style="background:#059669; color:#fff;">DFI</span></td>
+                    <td style="padding:7px 10px;"><span class="zh">密集匯流排短路、空洞化引發電遷移失效（Electromigration）、光阻飛濺</span><span class="en">Dense bus micro-shorts, stress migration voids, resist splash defects</span></td>
+                    <td style="padding:7px 10px; text-align:center;">&gt; 30 nm</td>
+                    <td style="padding:7px 10px; text-align:center; font-weight:700; color:#059669;">1.6</td>
+                  </tr>
+                  <tr style="border-bottom:1px solid var(--border);">
+                    <td style="padding:7px 10px; text-align:center; font-weight:700;">L9</td>
+                    <td style="padding:7px 10px; font-weight:700;"><span class="zh">頂層厚金屬與重佈線 (Top Metal / RDL)</span><span class="en">Top Metal &amp; RDL (Al/Cu)</span></td>
+                    <td style="padding:7px 10px; text-align:center;"><span class="badge" style="background:#0284c7; color:#fff;">BFI</span></td>
+                    <td style="padding:7px 10px;"><span class="zh">大尺寸刮傷撕裂、打線/銲墊層金屬剝離（Peeling）、巨型異物落塵</span><span class="en">Macro scratch tearing, pad metal peeling, high-aspect-ratio foreign particulates</span></td>
+                    <td style="padding:7px 10px; text-align:center;">&gt; 60 nm</td>
+                    <td style="padding:7px 10px; text-align:center; font-weight:700; color:#0284c7;">1.0</td>
+                  </tr>
+                  <tr style="border-bottom:1px solid var(--border);">
+                    <td style="padding:7px 10px; text-align:center; font-weight:700;">L10</td>
+                    <td style="padding:7px 10px; font-weight:700;"><span class="zh">護層與晶圓開孔 (Passivation &amp; Pad / Bump)</span><span class="en">Passivation &amp; Pad Open</span></td>
+                    <td style="padding:7px 10px; text-align:center;"><span class="badge" style="background:#0284c7; color:#fff;">BFI</span></td>
+                    <td style="padding:7px 10px;"><span class="zh">聚醯亞胺（PI）微裂紋、封裝濕氣入侵通道、銲墊氧化污染（影響打線結合）</span><span class="en">Polyimide micro-cracks, moisture ingress channels, bond pad oxidation contamination</span></td>
+                    <td style="padding:7px 10px; text-align:center;">&gt; 80 nm</td>
+                    <td style="padding:7px 10px; text-align:center; font-weight:700; color:#0284c7;">1.4</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="callout good" style="margin:14px 0;">
+              <div class="callout-title">
+                <span>💡</span>
+                <span class="zh">跨層座標對齊與空間配準標準架構 (Spatial Registration Pipeline)</span>
+                <span class="en">Standard Spatial Registration Pipeline for Multi-Layer Alignment</span>
+              </div>
+              <p>
+                <span class="zh">
+                  每台檢測機台輸出的 KLARF 檔案使用機台平台座標系 ( (X_{	ext{stage}}, Y_{	ext{stage}}) )。I-PAT™ 聚合引擎必須將各層資料通過「<b>平移 (Delta X, Delta Y)</b>」、「<b>旋轉矩陣 (mathbf{R}(	heta))</b>」與「<b>晶圓非線性翹曲網格校正 (mathbf{T}_{	ext{warp}}(x,y))</b>」轉換至晶片微影設計網格：
+                  [ egin{bmatrix} x_{	ext{die}} \ y_{	ext{die}} end{bmatrix} = mathbf{R}(	heta_l) egin{bmatrix} X_{	ext{stage}} - X_{	ext{notch}} \ Y_{	ext{stage}} - Y_{	ext{notch}} end{bmatrix} - egin{bmatrix} 	ext{DieIndex}_X cdot P_X \ 	ext{DieIndex}_Y cdot P_Y end{bmatrix} + mathbf{T}_{	ext{warp}}(X, Y) ]
+                  其中 (P_X, P_Y) 為晶粒節距（Die Pitch）。唯有空間對準精度達到微米級（(le 0.5,mu	ext{m})），後續的 CAD 網表交疊與縱向貫穿判別才具備物理真實性。
+                </span>
+                <span class="en">
+                  Raw KLARF files output inspection coordinates relative to individual stage coordinates ( (X_{	ext{stage}}, Y_{	ext{stage}}) ). The I-PAT™ engine transforms every defect via translation, rotational matrix (mathbf{R}(	heta_l)), and non-linear wafer bow/warp grid correction (mathbf{T}_{	ext{warp}}(X, Y)) into standardized die-relative coordinates:
+                  [ egin{bmatrix} x_{	ext{die}} \ y_{	ext{die}} end{bmatrix} = mathbf{R}(	heta_l) egin{bmatrix} X_{	ext{stage}} - X_{	ext{notch}} \ Y_{	ext{stage}} - Y_{	ext{notch}} end{bmatrix} - egin{bmatrix} 	ext{DieIndex}_X cdot P_X \ 	ext{DieIndex}_Y cdot P_Y end{bmatrix} + mathbf{T}_{	ext{warp}}(X, Y) ]
+                  Micron-level alignment precision ((le 0.5,mu	ext{m})) is paramount before performing CAD netlist intersection and vertical defect stacking analysis.
+                </span>
+              </p>
+            </div>
+
+            <!-- THE 4 DIE-LEVEL SCORE AGGREGATION ALGORITHMS -->
+            <h5 style="font-size:13.5px; font-weight:700; color:var(--ink); margin:20px 0 6px;">
+              <span class="zh">晶粒級跨層評分聚合的 4 大核心演算法 (The 4 Die-Level Score Aggregation Algorithms)</span>
+              <span class="en">The 4 Die-Level Score Aggregation Algorithms</span>
+            </h5>
+            <p>
+              <span class="zh">
+                當一顆晶粒在製造週期中通過上述 10 道檢驗工序後，其內部可能累積數個至數十個大小不一、性質各異的微觀物理缺陷。半導體業界主要採用<b>四大評分聚合演算法</b>將多層缺陷合成單一數值指標，用於驅動車規動態放行或扣留決策：
+              </span>
+              <span class="en">
+                As a die progresses through the 10 critical inspection layers, it accumulates a unique spatial collection of microscopic physical defects. Advanced automotive fabs deploy <b>four distinct mathematical aggregation algorithms</b> to synthesize these multi-layer defect collections into a definitive, actionable die health metric:
+              </span>
+            </p>
+
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:16px 0;">
+              <!-- METHOD 1 -->
+              <div style="background:var(--surface-2); border:1px solid var(--border); border-top:3px solid #0284c7; border-radius:6px; padding:14px;">
+                <div style="font-weight:700; font-size:13px; color:#0284c7; margin-bottom:6px;">
+                  <span class="zh">演算法 1：加權臨界尺寸缺陷指數 (W-DCI)</span>
+                  <span class="en">Algorithm 1: Weighted Critical Dimension DCI (W-DCI)</span>
+                </div>
+                <div class="formula" style="margin:8px 0; padding:8px;">
+                  <div class="eq">[ 	ext{DCI}_i = sum_{l=1}^L W_l sum_{d in mathcal{D}_{i, l}} left[ left(rac{	ext{Size}(d)}{	ext{CD}_l}ight)^{alpha} cdot C_{	ext{type}}(d) ight] ]</div>
+                </div>
+                <p style="font-size:11.5px; color:var(--ink-soft); line-height:1.45; margin:0;">
+                  <span class="zh">
+                    <b>原理：</b>將缺陷物理尺寸相對於該層臨界特徵尺寸（(	ext{CD}_l)）的比值作非線性放大（(alpha = 1.2 sim 1.5)），並乘上缺陷類型危害權重 (C_{	ext{type}})（金屬毛邊 = 3.0，有機落塵 = 0.5）。適合快速線上即時過濾。
+                  </span>
+                  <span class="en">
+                    <b>Principle:</b> Amplifies defect size relative to layer critical dimension ((alpha = 1.2 sim 1.5)), scaled by physical severity (C_{	ext{type}}) (e.g. metallic sliver = 3.0, organic haze = 0.5). Ideal for real-time edge processing.
+                  </span>
+                </p>
+              </div>
+
+              <!-- METHOD 2 -->
+              <div style="background:var(--surface-2); border:1px solid var(--border); border-top:3px solid #9333ea; border-radius:6px; padding:14px;">
+                <div style="font-weight:700; font-size:13px; color:#9333ea; margin-bottom:6px;">
+                  <span class="zh">演算法 2：CAD 佈局與網表關鍵度評級 (CAD-Aware CAA)</span>
+                  <span class="en">Algorithm 2: CAD &amp; Netlist-Aware Criticality Aggregation</span>
+                </div>
+                <div class="formula" style="margin:8px 0; padding:8px;">
+                  <div class="eq">[ 	ext{Score}_{	ext{CAD}}(i) = sum_{l=1}^L sum_{d in mathcal{D}_{i, l}} Omegaleft(	ext{Net}_{d}ight) cdot rac{	ext{Area}(d cap 	ext{Polygon}_l)}{	ext{CD}_l^2} ]</div>
+                </div>
+                <p style="font-size:11.5px; color:var(--ink-soft); line-height:1.45; margin:0;">
+                  <span class="zh">
+                    <b>原理：</b>將缺陷輪廓與 GDSII/OASIS 電路交疊。網表權重 (Omega)：時脈樹（Clock Tree = (10	imes)）、電源網（Power Grid = (4	imes)）、關鍵邏輯路徑（(5	imes)）、具備 ECC/修補之 SRAM（(0.2	imes)）、Dummy 金屬（(0.02	imes)）。徹底杜絕虛警過殺！
+                  </span>
+                  <span class="en">
+                    <b>Principle:</b> Intersects defect envelopes with GDSII/OASIS polygons. Netlist weight (Omega): Clock Tree ((10	imes)), Power Mesh ((4	imes)), Critical Timing Path ((5	imes)), ECC SRAM ((0.2	imes)), Dummy Fill ((0.02	imes)). Eradicates dummy pattern overkill!
+                  </span>
+                </p>
+              </div>
+
+              <!-- METHOD 3 -->
+              <div style="background:var(--surface-2); border:1px solid var(--border); border-top:3px solid #059669; border-radius:6px; padding:14px;">
+                <div style="font-weight:700; font-size:13px; color:#059669; margin-bottom:6px;">
+                  <span class="zh">演算法 3：卜瓦松/負二項累積生存機率合成 (Survival Compounding)</span>
+                  <span class="en">Algorithm 3: Poisson Survival Compounding (Kill Hazard)</span>
+                </div>
+                <div class="formula" style="margin:8px 0; padding:8px;">
+                  <div class="eq">[ 	ext{Score}_{	ext{hazard}}(i) = -ln prod_{l=1}^L prod_{d in mathcal{D}_{i, l}} left(1 - P_{	ext{kill}}(d, l)ight) = sum_{l=1}^L sum_{d in mathcal{D}_{i, l}} -lnleft(1 - P_{	ext{kill}}(d, l)ight) ]</div>
+                </div>
+                <p style="font-size:11.5px; color:var(--ink-soft); line-height:1.45; margin:0;">
+                  <span class="zh">
+                    <b>原理：</b>基於可靠度統計學，單一缺陷的致死機率 (P_{	ext{kill}}(d, l)) 獨立累積。晶粒生存機率為所有缺陷不引發故障之乘積。取負對數轉化為可加性危害度評分（Hazard Score），數值越高代表早夭風險呈現指數級上升。
+                  </span>
+                  <span class="en">
+                    <b>Principle:</b> Rooted in failure reliability statistics where kill probabilities compound multiplicatively. Taking the negative natural logarithm yields an additive Hazard Score; higher scores reflect exponential infant mortality escape risk.
+                  </span>
+                </p>
+              </div>
+
+              <!-- METHOD 4 -->
+              <div style="background:var(--surface-2); border:1px solid var(--border); border-top:3px solid #dc2626; border-radius:6px; padding:14px;">
+                <div style="font-weight:700; font-size:13px; color:#dc2626; margin-bottom:6px;">
+                  <span class="zh">演算法 4：縱向貫穿缺陷協同加罰 (Vertical Stacking Penalty)</span>
+                  <span class="en">Algorithm 4: Vertical Stacking Synergy Penalty (Defect Corridor)</span>
+                </div>
+                <div class="formula" style="margin:8px 0; padding:8px;">
+                  <div class="eq">[ 	ext{Penalty}_{	ext{vert}}(i) = sum_{substack{d_a in mathcal{D}_{i, l_a} \ d_b in mathcal{D}_{i, l_b} \ l_a 
+e l_b}} kappa cdot expleft(-rac{Delta r^2}{2 sigma_{	ext{vert}}^2}ight) cdot W_{l_a} W_{l_b} ]</div>
+                </div>
+                <p style="font-size:11.5px; color:var(--ink-soft); line-height:1.45; margin:0;">
+                  <span class="zh">
+                    <b>原理：</b>當相鄰工序（如 M1 與 M2）在相同水平微觀座標（(Delta r = sqrt{Delta x^2 + Delta y^2} le 2.0,mu	ext{m})）連續出現缺陷時，代表產生了<b>「縱向物理缺陷走廊（3D Defect Corridor / 穿透型微刮傷）」</b>。高斯協同加罰（(kappa = 5.0)）直接觸發一票否決！
+                  </span>
+                  <span class="en">
+                    <b>Principle:</b> When adjacent layers share defects within tight lateral proximity ((Delta r le 2.0,mu	ext{m})), it reveals a lethal <b>3D Defect Corridor / Gouge Scratch Propagation</b>. The exponential vertical penalty ((kappa = 5.0)) triggers immediate zero-defect ejection!
+                  </span>
+                </p>
+              </div>
+            </div>
+
+            <div class="callout danger" style="margin:16px 0;">
+              <div class="callout-title">
+                <span>🚨</span>
+                <span class="zh">車規級動態放行與扣留決策矩陣 (Automotive 4-Tier Disposition Matrix)</span>
+                <span class="en">Automotive 4-Tier Disposition &amp; Gating Decision Matrix</span>
+              </div>
+              <p>
+                <span class="zh">
+                  整合四大聚合演算法，為每顆晶粒求解<b>統一晶粒累積在線健康指數 (Unified Die Cumulative Health Score, UDCHS)</b>：
+                  [ 	ext{UDCHS}_i = 	ext{DCI}_i + eta_1 cdot 	ext{Score}_{	ext{CAD}}(i) + eta_2 cdot 	ext{Score}_{	ext{hazard}}(i) + 	ext{Penalty}_{	ext{vert}}(i) ]
+                  在全晶圓上建立動態統計防護線 (	ext{Limit}_{	ext{ASIL-D}} = 	ext{Median}(	ext{UDCHS}) + 3.0 cdot 	ext{MAD}(	ext{UDCHS}))：<br>
+                  • <b>Tier 1 (UDCHS &gt; Limit 或 Penalty_vert &gt; 10)：ASIL-D 零缺陷扣留（Zero-Defect Kill / 墨印報廢）</b>，禁止流向車用煞車、轉向與自駕模組；<br>
+                  • <b>Tier 2 (Median &lt; UDCHS &le; Limit)：強制加測（Extended 125°C Burn-In 168 小時）</b>，藉由高溫高壓應力激發潛伏缺陷；<br>
+                  • <b>Tier 3 (UDCHS 正常但局部聚集)：降規分級（Down-Binning）</b>，僅允許出貨給車用中控娛樂（Infotainment）或消費級產品；<br>
+                  • <b>Tier 4 (UDCHS &lt; Median 且無任何關鍵層缺陷)：黃金晶粒（Golden Die）</b>，全額放行至 ISO 26262 ASIL-D 最高安全標準總成！
+                </span>
+                <span class="en">
+                  Fusing the 4 algorithms yields the definitive <b>Unified Die Cumulative Health Score (UDCHS)</b>:
+                  [ 	ext{UDCHS}_i = 	ext{DCI}_i + eta_1 cdot 	ext{Score}_{	ext{CAD}}(i) + eta_2 cdot 	ext{Score}_{	ext{hazard}}(i) + 	ext{Penalty}_{	ext{vert}}(i) ]
+                  Screened against dynamic wafer limits (	ext{Limit}_{	ext{ASIL-D}} = 	ext{Median}(	ext{UDCHS}) + 3.0 cdot 	ext{MAD}(	ext{UDCHS})):<br>
+                  • <b>Tier 1 (UDCHS &gt; Limit or Penalty_vert &gt; 10): ASIL-D Kill (Electronic Inking / Scrap)</b>, strictly barred from powertrain and ADAS steering modules;<br>
+                  • <b>Tier 2 (Median &lt; UDCHS &le; Limit): Extended Dynamic Burn-in (168-hr @ 125°C)</b>, accelerating latent defect breakdown before shipment;<br>
+                  • <b>Tier 3 (Benign UDCHS with marginal clustering): Down-binning</b>, restricted to infotainment or non-safety consumer tiers;<br>
+                  • <b>Tier 4 (UDCHS &lt; Median with clean critical layers): Golden Die Release</b>, pristine automotive clearance satisfying ISO 26262 ASIL-D!
+                </span>
+              </p>
+            </div>
+
+
+          <!-- ======================================================================= -->
           <!-- SECTION 6.5: AI & MACHINE LEARNING IN OUTLIER SCREENING & ROOT CAUSE   -->
           <!-- ======================================================================= -->
           <h3 id="sec_6_5">
@@ -17517,11 +17772,11 @@
     <div style="display:flex; flex-direction:column; align-items:flex-end; gap:5px;">
       <div style="display:flex; align-items:center; gap:8px;">
         <span class="badge badge-green" style="font-size:11px; padding:2px 8px;">● LIVE VERIFIED</span>
-        <span style="font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft);">Rev. AO</span>
+        <span style="font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft);">Rev. AP</span>
       </div>
       <div style="font-family:var(--font-mono); font-size:12px; color:var(--ink);">
         <span class="zh">最後更新日期：</span><span class="en">Last Updated: </span>
-        <b style="color:var(--accent);">2026-11-02 13:10 (Asia/Taipei)</b>
+        <b style="color:var(--accent);">2026-11-03 09:30 (Asia/Taipei)</b>
       </div>
     </div>
   </footer>
