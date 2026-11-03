@@ -8,6 +8,11 @@ Entry format / 格式:
 `## YYYY-MM-DD — <agent> — <short title>` then bullets: what changed, why, caveats for the next agent.
 
 ---
+## 2026-11-04 — Claude Code — Rev. AS: hotfix for broken simulator image paths
+
+- Rev. AR's duplicate-image cleanup deleted 5 `assets/top10/*` files that the Top-10 fallout simulator still referenced in JS (`img_src: '...'`), so its preview image broke for modes 2 and 5–8. Those strings now point at the surviving originals. Lesson: when moving or deleting assets, search for the path everywhere (attributes, JS strings, CSS), not only `src="…"`.
+
+---
 ## 2026-11-04 — Claude Code — Rev. AR: review of Rev. AA–AQ — formula repair, mobile layout, citations, images
 
 - **Phase 6.4.5 formulas rebuilt.** Rev. AP's "KaTeX restoration" had written TeX through a string that ate the escapes: `\text`/`\theta`→Tab, `\begin`/`\beta`→Backspace, `\frac`→Form feed, `\right`/`\rho`→CR, `\ne`→newline, and stripped every other backslash. None of the 23 affected lines rendered. All four aggregation algorithms, the registration matrix and UDCHS were rewritten in valid TeX. Two SVG labels with the same damage now use plain Unicode (→, ρ, θ).
