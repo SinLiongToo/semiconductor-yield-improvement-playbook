@@ -12,7 +12,7 @@ These are the original images that `index.html` used before Rev. AT / AU. They a
 | `top10/10_serdes_eye_margin_closure.jpg` | `assets/top10/10_serdes_eye_closure.png` | Replaced by a measured eye diagram (A. D. Zonenberg, CC BY 4.0). |
 
 **Provenance (corrected 2026-11-04):**
-- `litho/*.png` are **cropped from a screenshot of a third-party social-media post** ("Lithography Defect Atlas" by *Thin Film Engineer*). The atlas sheets still show that creator's logo and the post's like/comment counters, and `12_lift_off_defects.png` contains the "739" like counter. This is someone else's copyrighted work with no known license. **Do not publish or display these on the site** unless the creator grants permission.
+- `litho/*.png` are **cropped from a screenshot of a third-party social-media post** ("Lithography Defect Atlas" by *Thin Film Engineer*). The atlas sheets still show that creator's logo and the post's like/comment counters, and `12_lift_off_defects.png` contains the "739" like counter. This is someone else's copyrighted work with no known license. **Do not publish or display these on the site** unless the creator grants permission. The page credits the source instead (§4.6 note and Appendix D, with links to the LinkedIn posts).
 - `top10/10_serdes_eye_margin_closure.jpg` has no findable source.
 
 **來源（2026-11-04 更正）**：`litho/*.png` 是從第三方社群貼文（Thin Film Engineer 的 "Lithography Defect Atlas"）截圖裁切而來，圖中仍有該作者標誌與按讚數，屬他人著作且無已知授權；**未取得授權前，不可在網站上公開或顯示**。

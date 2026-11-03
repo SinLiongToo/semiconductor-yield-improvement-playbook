@@ -8,6 +8,13 @@ Entry format / 格式:
 `## YYYY-MM-DD — <agent> — <short title>` then bullets: what changed, why, caveats for the next agent.
 
 ---
+## 2026-11-04 — Claude Code — Rev. AV: credit the LinkedIn lithography atlas
+
+- The original litho images turned out to be crops of a "Lithography Defect Atlas" social-media card branded Thin Film Engineer. The user chose to credit the source rather than display the originals.
+- Added a 「參考來源 / Source」 callout under the §4.6 litho gallery and an Appendix D entry. Both link the LinkedIn posts by Nuño Amador-Mendez (the litho atlas, #ThinFilmEngineer), Wayne Peng and Aiman Sanusi (related thin-film defect atlases).
+- The text states that the original author is not confirmed (LinkedIn blocks automated checks) and that the page's images are redrawn schematics; #7 and #8 are licensed real photos.
+
+---
 ## 2026-11-04 — Claude Code — Archive original images (no page change)
 
 - At the user's request, the originals replaced in Rev. AT/AU were restored from git into `assets/archive/` for reference. They are the 12 litho crops, the 2 litho atlas sheets they were cut from, and the old Top-10 #10 eye image (15 files, 1.1 MB).
