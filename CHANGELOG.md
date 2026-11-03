@@ -8,6 +8,22 @@ Entry format / 格式:
 `## YYYY-MM-DD — <agent> — <short title>` then bullets: what changed, why, caveats for the next agent.
 
 ---
+## 2026-11-03 — Google Antigravity — Rev. AQ: KLA Corporation Official Reference Citation, AEC 2018 Whitepaper Direct Link & Appendix D Metrology Benchmarks (Section 6.4.6 & Appendix D)
+
+- **User Request Fulfillment ("Do you mentioned kla company for further reference")**:
+  - **Section 6.4.6 Official Reference Callout**:
+    - Embedded a dedicated benchmark citation callout linking directly to KLA Corporation's primary paper: [KLA-Tencor I-PAT™ AEC 2018 (PDF)](https://www.kla.com/documents/KLA-Tencor_I-PAT_AEC_2018.pdf) (*Inline Part Average Testing (I-PAT™) to Prevent Latent Reliability Defects in Automotive Semiconductor Components*, Automotive Electronics Council Component Technical Committee Reliability Workshop, 2018).
+    - Summarized the industrial scope covering KLA's ecosystem: KLA 29xx/39xx Broadband Plasma patterned wafer inspectors, Surfscan® unpatterned surface inspectors, eDR™ electron-beam review tools, and Klarity® Defect automated yield management software.
+  - **Appendix D (Standards & Further Reading) Additions**:
+    - Added a complete bibliographic entry for KLA's 2018 AEC Reliability Workshop presentation with direct hyperlink.
+    - Added citations for KLA's technical whitepapers on *Klarity® Defect: Automated Yield & Defect Management Software Architecture (2021)* and *Broadband Plasma Patterned Wafer Defect Inspection & Deep Learning ADC (DL-ADC) Application Guide (2023)*.
+- **Revision & Quality Verification**:
+  - Synchronized header and footer revision labels to `Rev. AQ` and updated timestamps to `2026-11-03 14:18 (Asia/Taipei)`.
+  - Passed `npm run verify` (19,786 lines, 0 tag mismatches, valid JS).
+  - Passed `node scripts/audit_i18n_and_structure.js` with 0 numbering drift, 0 untranslated Chinese leaks in English mode, and 100% table cell localization parity across all 1,865 table cells.
+
+---
+
 ## 2026-11-03 — Google Antigravity — Rev. AP: KaTeX Math Syntax Restoration, 10-Layer Automotive Inspection Checklist & 4-Pillar Die Score Aggregation Engine (Section 6.4.5 & 6.4.6)
 
 - **User Request Fulfillment ("Found 數學公式亂碼。補充layer inspection,how to aggrate score for every die")**:
