@@ -1,6 +1,6 @@
 # Archived original images / 原始圖片封存
 
-These are the original images that `index.html` used before Rev. AT / AU. They are kept here for reference only and are **not used by the page**.
+These are the original images that `index.html` used before Rev. AT / AU. They are kept here for reference only. They no longer appear in the playbook itself; since Rev. AW they are shown on `assets/archive/index.html` (with a third-party notice), which §4.6 and Appendix D link to.
 此資料夾保存 Rev. AT／AU 之前頁面使用的原始圖片，僅供參考，**頁面不引用**。
 
 | File | Replaced by | Why |

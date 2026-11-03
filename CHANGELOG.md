@@ -8,6 +8,15 @@ Entry format / 格式:
 `## YYYY-MM-DD — <agent> — <short title>` then bullets: what changed, why, caveats for the next agent.
 
 ---
+## 2026-11-04 — Claude Code — Rev. AW: archive page for the original images
+
+- At the user's request, added `assets/archive/index.html`. It shows the original atlas card, the 12 litho crops and the old Top-10 #10 eye image, each with what replaced it.
+- A third-party notice credits the LinkedIn posts and asks visitors not to reuse the images.
+- §4.6's source box and the Appendix D entry link to it.
+- The page is self-contained (light/dark, phone width, works offline), and its back link goes to `index.html#sec_4_6`. It carries `noindex` so search engines don't list it.
+- Caveat: the litho originals are another creator's copyrighted work. If the creator objects, delete the page and the two links.
+
+---
 ## 2026-11-04 — Claude Code — Rev. AV: credit the LinkedIn lithography atlas
 
 - The original litho images turned out to be crops of a "Lithography Defect Atlas" social-media card branded Thin Film Engineer. The user chose to credit the source rather than display the originals.

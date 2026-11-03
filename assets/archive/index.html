@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>原始圖片封存 | Archived Original Images — YIE-701</title>
+<style>
+  :root {
+    --bg: #eef2f1; --surface: #ffffff; --surface-2: #e3eae8; --ink: #16211f; --ink-soft: #48605c;
+    --border: #d1dcd9; --accent: #0b6e8f; --warn: #9c6a17; --warn-soft: #f6ecd4;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #0f1614; --surface: #161f1d; --surface-2: #1c2725; --ink: #e7ece9; --ink-soft: #a9bab5;
+            --border: #2a3634; --accent: #5bbcdd; --warn: #dcab53; --warn-soft: #2c230f; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: Georgia, 'Times New Roman', serif; line-height: 1.6; }
+  .page { max-width: 1100px; margin: 0 auto; padding: 20px 16px 60px; }
+  a { color: var(--accent); }
+  h1 { font-family: -apple-system, 'Segoe UI', Roboto, sans-serif; font-size: clamp(20px, 3vw, 28px); margin: 8px 0 4px; }
+  h2 { font-family: -apple-system, 'Segoe UI', Roboto, sans-serif; font-size: 18px; border-bottom: 2px solid var(--border); padding-bottom: 4px; margin-top: 28px; }
+  .en { color: var(--ink-soft); }
+  .notice { background: var(--warn-soft); border-left: 4px solid var(--warn); border-radius: 4px; padding: 12px 16px; margin: 16px 0; font-size: 14.5px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr)); gap: 14px; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  .card img { display: block; width: 100%; height: auto; background: #000; }
+  .card .cap { padding: 8px 12px 12px; font-size: 13.5px; }
+  .card .cap b { display: block; }
+  .meta { font-family: Consolas, monospace; font-size: 11.5px; color: var(--ink-soft); margin-top: 4px; }
+  .wide img { max-width: 460px; margin: 0 auto; }
+</style>
+</head>
+<body>
+<div class="page">
+  <p><a href="../../index.html#sec_4_6">← 返回良率手冊 §4.6 / Back to the playbook §4.6</a></p>
+  <h1>原始圖片封存 <span class="en">/ Archived Original Images</span></h1>
+  <p>這些是本手冊在 Rev. AT／AU 之前使用的原始圖片，已在頁面中被替換，僅供參考。<br>
+    <span class="en">These are the images the playbook used before Rev. AT / AU. They have been replaced on the page and are kept for reference only.</span></p>
+
+  <div class="notice">
+    <b>⚠️ 第三方著作 / Third-party work</b><br>
+    微影缺陷圖片（下方第 1 部分）裁切自 LinkedIn 上流傳的「Lithography Defect Atlas」圖卡（圖卡署名 Thin Film Engineer），著作權屬原作者，原作者尚未確認。相關貼文：
+    <a href="https://ch.linkedin.com/in/nam23" target="_blank" rel="noopener noreferrer">Nuño Amador-Mendez</a>、
+    <a href="https://tw.linkedin.com/in/wayne-peng" target="_blank" rel="noopener noreferrer">Wayne Peng</a>、
+    <a href="https://my.linkedin.com/in/aimansanusi" target="_blank" rel="noopener noreferrer">Aiman Sanusi</a>。請勿轉載；如需使用請向原作者取得授權。<br>
+    <span class="en">The lithography images (Part 1) are crops of the "Lithography Defect Atlas" card circulated on LinkedIn (branded Thin Film Engineer). Copyright belongs to its creator, who is not confirmed. Please do not reuse them; ask the creator for permission.</span>
+  </div>
+
+  <h2>1. 微影缺陷圖卡原圖 <span class="en">/ Lithography defect atlas (original)</span></h2>
+  <div class="grid">
+    <div class="card wide"><img src="litho/lithography_defect_atlas_full.png" alt="Lithography Defect Atlas card (Thin Film Engineer)" loading="lazy">
+      <div class="cap"><b>完整圖卡 <span class="en">/ Full atlas card</span></b><div class="meta">Thin Film Engineer · LinkedIn</div></div></div>
+  </div>
+  <p class="meta">以下為頁面先前使用的裁切圖（145×107 px），現已改為向量示意圖或實拍照片。 <span class="en">Crops the page used before (145×107 px); now replaced by vector schematics or real photos.</span></p>
+  <div class="grid" id="litho"></div>
+
+  <h2>2. 其他被替換的圖片 <span class="en">/ Other replaced images</span></h2>
+  <div class="grid">
+    <div class="card"><img src="top10/10_serdes_eye_margin_closure.jpg" alt="Previous SerDes eye illustration" loading="lazy">
+      <div class="cap"><b>Top-10 #10 SerDes 眼圖（舊示意圖） <span class="en">/ SerDes eye (previous illustration)</span></b>
+        <div class="meta">來源不明 · Source unknown<br>→ 已改為實測眼圖 / replaced by a measured eye diagram (A. D. Zonenberg, CC BY 4.0)</div></div></div>
+  </div>
+</div>
+<script>
+  const LITHO = [
+    ['01_resist_bridging', '光阻橋接', 'Resist bridging', 'svg'],
+    ['02_scumming', '底部殘膠', 'Scumming', 'svg'],
+    ['03_pattern_collapse', '圖案倒塌', 'Pattern collapse', 'svg'],
+    ['04_footing', '底部裙邊', 'Footing', 'svg'],
+    ['05_t_topping', 'T 型頭', 'T-topping', 'svg'],
+    ['06_pinholes', '針孔缺陷', 'Pinholes', 'svg'],
+    ['07_line_edge_roughness', '線緣粗糙度', 'Line-edge roughness', 'photo'],
+    ['08_standing_waves', '駐波效應', 'Standing waves', 'photo'],
+    ['09_missing_patterns', '圖案缺失', 'Missing patterns', 'svg'],
+    ['10_residue', '顆粒殘留', 'Residue', 'svg'],
+    ['11_overlay_error', '疊對誤差', 'Overlay error', 'svg'],
+    ['12_lift_off_defects', '剝離缺陷', 'Lift-off defects', 'svg'],
+  ];
+  document.getElementById('litho').innerHTML = LITHO.map(([f, zh, en, now]) => `
+    <div class="card"><img src="litho/${f}.png" alt="${en} (original crop)" loading="lazy">
+      <div class="cap"><b>${Number(f.slice(0, 2))}. ${zh} <span class="en">/ ${en}</span></b>
+        <div class="meta">→ ${now === 'photo' ? '已改為實拍照片 / replaced by a real photo' : '已改為向量示意圖 / replaced by a vector schematic'}</div></div></div>`).join('');
+</script>
+</body>
+</html>
