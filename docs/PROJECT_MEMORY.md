@@ -29,7 +29,8 @@ Rules live in `AGENTS.md`; the change history lives in `CHANGELOG.md`. Keep entr
 - Real, credited photos (Wikimedia Commons, author and license under each card; `REAL_PHOTO_PATHS` in JS lists them): all 7 in `assets/fa/`, plus `top10/10_serdes_eye_closure.png` (A. D. Zonenberg, CC BY 4.0), `litho/07_line_edge_roughness.jpg` (NIST/SEMATECH, public domain) and `litho/08_standing_waves.jpg` (J. Drouard, CAMECA, CC BY-SA 3.0). 2026-11-04 · Claude Code
 - Every other image in `assets/top10/`, `assets/scratch/` and `assets/litho/` has no findable source (likely AI-generated). Each is tagged 「示意圖 / Illustration」. New images must either carry a verified credit or this tag. 2026-11-04 · Claude Code
 
-- The replaced originals (12 litho crops, the 2 litho atlas sheets, the old Top-10 #10 eye image) are kept in `assets/archive/` for reference only (user request). The page does not reference them; reused ones must carry the illustration label. See `assets/archive/README.md`. 2026-11-04 · Claude Code
+- The replaced originals (12 litho crops, the 2 litho atlas sheets, the old Top-10 #10 eye image) are kept in `assets/archive/` (user request). The page does not reference them. See `assets/archive/README.md`. 2026-11-04 · Claude Code
+- **Copyright:** the original litho images (Rev. AF–AT) were cropped from a screenshot of a *Thin Film Engineer* social-media post ("Lithography Defect Atlas", with logo and like counters visible), i.e. third-party copyrighted work. Never display them without the creator's permission. The other unsourced images (`top10/*`, `scratch/*`) may have similar origins, so treat any image without a verified source as unpublishable unless you created it. 2026-11-04 · Claude Code
 - `assets/litho/01–06, 09–12` are vector SVG schematics (generated, SEM-style grey palette, with scale bars), replacing 145 px raster crops. Their badges say "Schematic", not "SEM". 2026-11-04 · Claude Code
 
 ## Verified facts (standards)

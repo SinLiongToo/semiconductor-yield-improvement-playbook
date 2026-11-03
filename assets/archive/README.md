@@ -11,5 +11,9 @@ These are the original images that `index.html` used before Rev. AT / AU. They a
 | `litho/lithography_defect_atlas_{clean,full}.png` | none | The atlas sheets the 12 litho crops were cut from. Never shown on the page. |
 | `top10/10_serdes_eye_margin_closure.jpg` | `assets/top10/10_serdes_eye_closure.png` | Replaced by a measured eye diagram (A. D. Zonenberg, CC BY 4.0). |
 
-**Provenance:** none of these files has a findable source (a Wikimedia Commons SHA-1 lookup and keyword search found nothing). They look AI-generated. If you reuse one, label it 「示意圖 / Illustration」, never as a real micrograph. See `docs/PROJECT_MEMORY.md` → Image provenance.
-**來源**：以上檔案皆查無出處（應為 AI 生成）。若要重新使用，必須標示「示意圖 / Illustration」，不可當作實拍顯微照片。
+**Provenance (corrected 2026-11-04):**
+- `litho/*.png` are **cropped from a screenshot of a third-party social-media post** ("Lithography Defect Atlas" by *Thin Film Engineer*). The atlas sheets still show that creator's logo and the post's like/comment counters, and `12_lift_off_defects.png` contains the "739" like counter. This is someone else's copyrighted work with no known license. **Do not publish or display these on the site** unless the creator grants permission.
+- `top10/10_serdes_eye_margin_closure.jpg` has no findable source.
+
+**來源（2026-11-04 更正）**：`litho/*.png` 是從第三方社群貼文（Thin Film Engineer 的 "Lithography Defect Atlas"）截圖裁切而來，圖中仍有該作者標誌與按讚數，屬他人著作且無已知授權；**未取得授權前，不可在網站上公開或顯示**。
+
