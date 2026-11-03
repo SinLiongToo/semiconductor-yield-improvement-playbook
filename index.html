@@ -1332,7 +1332,7 @@
       </div>
       <div>
         <span class="zh">版次狀態</span><span class="en">Revision</span>
-        <b>Rev. AN (Industrial 4-Pillar Outlier Detection Suite: PCA+RF, Spatial ML, LOF, Autoencoder &amp; Interactive Workbench)</b>
+        <b>Rev. AO (KLA I-PAT™ Inline Outlier Screening, Multi-Layer Defect Stacking &amp; AI-Enhanced Defect Criticality Fusion)</b>
       </div>
       <div>
         <span class="zh">適用對象</span><span class="en">Audience</span>
@@ -13331,7 +13331,470 @@
           </div>
 
 
+
           <!-- ======================================================================= -->
+          <!-- SUBSECTION 6.4.6: KLA I-PAT™ & AI-ENHANCED DEFECT CRITICALITY FUSION   -->
+          <!-- ======================================================================= -->
+          <h4 id="sec_6_4_6" style="margin-top:35px; border-top:1px solid var(--border); padding-top:20px;">
+            <span class="zh">6.4.6 KLA I-PAT™ (Inline Part Average Testing) 車規製程在線離群值篩檢：跨工序物理缺陷堆疊、AI 智能 CAD 關鍵度評級 (DL-ADC) 與 I-PAT + E-PAT 雙向閉環融合</span>
+            <span class="en">6.4.6 KLA I-PAT™ (Inline Part Average Testing): Multi-Layer Defect Stacking, AI CAD-Aware Criticality (DL-ADC) &amp; I-PAT + E-PAT Dual Closed-Loop Fusion</span>
+          </h4>
+
+          <div class="callout danger">
+            <div class="callout-title">
+              <span>⚠️</span>
+              <span class="zh">車規「零缺陷 (Zero Defects)」的致命盲點：潛伏性物理缺陷的假安全感 (The Latent Killer Hazard)</span>
+              <span class="en">The Automotive Zero-Defect Trap: The False Security of Latent Physical Defects</span>
+            </div>
+            <p>
+              <span class="zh">
+                在車用半導體規範（AEC-Q100、AEC-Q004、ISO 26262 ASIL-D）中，客戶對安全關鍵晶片（如剎車控制、先進駕駛輔助 ADAS、動力傳動 Powertrain）的要求已從百萬分之一（DPPM &lt; 1）嚴苛推進至<b>十億分之一（Sub-PPB / Zero Escapes）</b>。然而，半導體製造面臨著一個殘酷的物理事實：<br>
+                <b>「在出廠時間點（\(t = 0\)）通過 100% 電氣功能測試的晶粒，內部依然可能潛伏著致命的物理缺陷！」</b><br>
+                一顆晶粒如果在微影蝕刻時底部殘留了奈米級聚合物微薄膜、金屬層因 CMP 刮痕造成局部截面積縮減 30%（線路細頸 Necking）、或是閘極氧化層表面附著了微小導電顆粒——在常溫常壓的 Wafer Sort（CP）與 ATE 終測（FT）時，由於金屬薄層依然導通、寄生漏電尚未擊穿，它測得的電壓、時序完全符合 Datasheet 規格！然而，一旦裝入汽車，在引擎室環境連續承受 <b>-40°C 至 150°C 熱循環、劇烈震動、電遷移（Electromigration, EM）與經時介電擊穿（TDDB）高壓應力</b>，這些未被電測抓出的微小瑕疵會在行駛數千公里後迅速斷裂或短路，成為車規早夭（0-km Infant Mortality）與重大客訴事故的頭號元兇！
+              </span>
+              <span class="en">
+                Under automotive mission-critical standards (AEC-Q100, AEC-Q004, ISO 26262 ASIL-D), powertrain and ADAS microcontrollers mandate sub-PPB quality (&lt; 1 DPPM towards zero escapes). However, fabs confront an undeniable physical truth: <br>
+                <b>"Dies that pass 100% of electrical tests at time \(t = 0\) can still harbor fatal latent physical defects!"</b><br>
+                If a die suffers from sub-micron etch polymer residue, a CMP scratch reducing interconnect cross-section by 30% (conductor necking), or sub-critical gate dielectric particulate—it conducts normally during wafer sort (CP) and ATE final test (FT) under standard test times and voltages. Yet when deployed inside an automobile engine bay under <b>thermal cycling (-40°C to 150°C), mechanical vibration, electromigration (EM), and time-dependent dielectric breakdown (TDDB)</b>, these latent flaws rapidly propagate into catastrophic open or short circuits, driving field returns and lethal 0-km failures!
+              </span>
+            </p>
+          </div>
+
+          <p>
+            <span class="zh">
+              為突破此一傳統電測盲區，半導體檢測龍頭 <b>KLA-Tencor 於 2018 年 AEC 可靠度研討會（AEC Reliability Workshop）正式發表了開創性的 I-PAT™（Inline Part Average Testing，製程在線零件平均測試法）</b>方法論。I-PAT™ 的核心哲學是將統計離群值篩選從「後段電測」全面<b>左移（Shift-Left）至晶圓製造前段的線上光學與電子束缺陷檢驗工序</b>；並在現代先進製程中，進一步融合<b>深度學習自動缺陷分類（DL-ADC）與 CAD 佈局網表感知的 AI 關鍵區域分析（CAD-Aware Critical Area Analysis）</b>，徹底革新車規晶片的良率防禦縱深。
+            </span>
+            <span class="en">
+              To conquer this electrical testing blind spot, metrology leader <b>KLA Corporation unveiled the groundbreaking I-PAT™ (Inline Part Average Testing) methodology at the 2018 AEC Reliability Workshop</b>. The foundational philosophy of I-PAT™ is to <b>shift-left statistical outlier screening from back-end electrical test into front-end in-line optical and e-beam defect inspections</b> during wafer processing. In advanced sub-7nm and automotive nodes, modern fabs supercharge I-PAT™ by infusing <b>Deep Learning Automated Defect Classification (DL-ADC) and CAD-aware AI Critical Area Analysis (AI-CAA)</b>, creating a comprehensive zero-defect defense architecture.
+            </span>
+          </p>
+
+          <!-- FIGURE 6.7: KLA I-PAT ARCHITECTURE, 2x2 DECISION MATRIX & AI MULTIMODAL FUSION SVG -->
+          <figure class="figure-block" id="fig6_7" style="margin:25px 0;">
+            <svg viewBox="0 0 960 520" width="100%" height="auto" style="max-width:960px; font-family:var(--font-sans); background:var(--surface);" role="img" aria-label="KLA I-PAT Architecture, 2x2 Fusion Matrix &amp; AI-Enhanced Multimodal Outlier Detection">
+              <defs>
+                <linearGradient id="g-ipat-box" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#0284c7" stop-opacity="0.12"/>
+                  <stop offset="100%" stop-color="#0284c7" stop-opacity="0.03"/>
+                </linearGradient>
+                <linearGradient id="g-epat-box" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#9333ea" stop-opacity="0.12"/>
+                  <stop offset="100%" stop-color="#9333ea" stop-opacity="0.03"/>
+                </linearGradient>
+                <linearGradient id="g-ai-box" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#d97706" stop-opacity="0.15"/>
+                  <stop offset="100%" stop-color="#d97706" stop-opacity="0.03"/>
+                </linearGradient>
+                <marker id="arr-ipat" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#0284c7"/>
+                </marker>
+                <marker id="arr-ai" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#ea580c"/>
+                </marker>
+              </defs>
+
+              <!-- PANEL A: FAB INLINE MULTI-LAYER DEFECT INSPECTION (LEFT) -->
+              <rect x="20" y="25" width="270" height="470" rx="8" fill="url(#g-ipat-box)" stroke="#0284c7" stroke-width="1.5"/>
+              <rect x="20" y="25" width="270" height="32" rx="8" fill="#0284c7" fill-opacity="0.85"/>
+              <text class="zh" x="155" y="47" text-anchor="middle" font-size="13" font-weight="700" fill="#ffffff">Part A: 晶圓製造前段在線檢驗 (In-line)</text>
+              <text class="en" x="155" y="47" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">Part A: Fab In-Line Multi-Layer Inspection</text>
+
+              <!-- Step 1: Multi-Layer Inspection -->
+              <rect x="35" y="72" width="240" height="85" rx="5" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1"/>
+              <text class="zh" x="45" y="92" font-size="11.5" font-weight="700" fill="var(--ink)">1. 關鍵工序多層缺陷掃描 (KLA BFI/DFI)</text>
+              <text class="en" x="45" y="92" font-size="10.5" font-weight="700" fill="var(--ink)">1. Multi-Layer Optical Scan (BFI/DFI)</text>
+              <text class="zh" x="45" y="112" font-size="10" fill="var(--ink-soft)">• STI, Poly Gate, Contact Via, M1~M8</text>
+              <text class="en" x="45" y="112" font-size="10" fill="var(--ink-soft)">• STI, Poly Gate, Contact Via, M1~M8</text>
+              <text class="zh" x="45" y="128" font-size="10" fill="var(--ink-soft)">• 記錄缺陷座標 (X, Y)、尺寸與灰階影像</text>
+              <text class="en" x="45" y="128" font-size="10" fill="var(--ink-soft)">• Logs (X, Y) coords, size &amp; optical patch</text>
+              <text class="zh" x="45" y="144" font-size="10" fill="#0284c7">• 產生標準 KLARF 在線缺陷檔案</text>
+              <text class="en" x="45" y="144" font-size="10" fill="#0284c7">• Outputs standard KLARF defect records</text>
+
+              <path d="M 155 157 L 155 178" stroke="#0284c7" stroke-width="2" marker-end="url(#arr-ipat)"/>
+
+              <!-- Step 2: Multi-layer Stacking -->
+              <rect x="35" y="180" width="240" height="90" rx="5" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1"/>
+              <text class="zh" x="45" y="200" font-size="11.5" font-weight="700" fill="var(--ink)">2. 跨工序多層缺陷累計堆疊 (Stacking)</text>
+              <text class="en" x="45" y="200" font-size="10.5" font-weight="700" fill="var(--ink)">2. Multi-Layer Defect Stacking per Die</text>
+              <text class="zh" x="45" y="220" font-size="10" fill="var(--ink-soft)">• 將 20+ 道工序缺陷投影至單一晶粒</text>
+              <text class="en" x="45" y="220" font-size="10" fill="var(--ink-soft)">• Overlay 20+ layer defects onto each die</text>
+              <text class="zh" x="45" y="236" font-size="10" fill="var(--ink-soft)">• 建立晶粒級累積物理檔案 (Cumulative)</text>
+              <text class="en" x="45" y="236" font-size="10" fill="var(--ink-soft)">• Constructs cumulative physical die profile</text>
+              <text class="zh" x="45" y="252" font-size="10" fill="#0284c7">• 計算缺陷批判性指標 (DCI / CI)</text>
+              <text class="en" x="45" y="252" font-size="10" fill="#0284c7">• Computes Defect Criticality Index (DCI)</text>
+
+              <path d="M 155 270 L 155 291" stroke="#0284c7" stroke-width="2" marker-end="url(#arr-ipat)"/>
+
+              <!-- Step 3: Dynamic I-PAT Thresholding -->
+              <rect x="35" y="293" width="240" height="92" rx="5" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1"/>
+              <text class="zh" x="45" y="313" font-size="11.5" font-weight="700" fill="var(--ink)">3. 動態晶圓級 I-PAT 統計限額</text>
+              <text class="en" x="45" y="313" font-size="10.5" font-weight="700" fill="var(--ink)">3. Dynamic Wafer-Level I-PAT Limit</text>
+              <text class="zh" x="45" y="333" font-size="10" fill="var(--ink-soft)">• Limit = Median(DCI) + 3*MAD(DCI)</text>
+              <text class="en" x="45" y="333" font-size="10" fill="var(--ink-soft)">• Limit = Median(DCI) + 3*MAD(DCI)</text>
+              <text class="zh" x="45" y="349" font-size="10" fill="var(--ink-soft)">• 捕捉統計異常晶粒 (Inline Maverick)</text>
+              <text class="en" x="45" y="349" font-size="10" fill="var(--ink-soft)">• Isolates statistical inline maverick dies</text>
+              <text class="zh" x="45" y="365" font-size="10" fill="#0284c7">• 產生 I-PAT Maverick 清單 (XML)</text>
+              <text class="en" x="45" y="365" font-size="10" fill="#0284c7">• Emits I-PAT Maverick List via XML</text>
+
+              <path d="M 155 385 L 155 406" stroke="#0284c7" stroke-width="2" marker-end="url(#arr-ipat)"/>
+
+              <!-- Step 4: Early Pre-Packaging Gating -->
+              <rect x="35" y="408" width="240" height="72" rx="5" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+              <text class="zh" x="45" y="428" font-size="11" font-weight="700" fill="#0369a1">4. 在線前饋攔截 (Inline Feedforward)</text>
+              <text class="en" x="45" y="428" font-size="10.5" font-weight="700" fill="#0369a1">4. Pre-Sort Inline Feedforward</text>
+              <text class="zh" x="45" y="446" font-size="9.5" fill="var(--ink-soft)">• 將缺陷晶粒前饋至 Wafer Sort 站點</text>
+              <text class="en" x="45" y="446" font-size="9.5" fill="var(--ink-soft)">• Feedforward suspect dies to Wafer Sort</text>
+              <text class="zh" x="45" y="462" font-size="9.5" fill="#0369a1">• 提早預警潛在早夭晶粒，準備融合</text>
+              <text class="en" x="45" y="462" font-size="9.5" fill="#0369a1">• Prepares for fusion with electrical tests</text>
+
+              <!-- PANEL B: THE 2x2 I-PAT vs E-PAT FUSION MATRIX (CENTER) -->
+              <rect x="310" y="25" width="370" height="470" rx="8" fill="var(--surface-1)" stroke="var(--border)" stroke-width="1.5"/>
+              <rect x="310" y="25" width="370" height="32" rx="8" fill="var(--surface-3, #334155)" fill-opacity="0.9"/>
+              <text class="zh" x="495" y="47" text-anchor="middle" font-size="13" font-weight="700" fill="#ffffff">Part B: I-PAT × E-PAT 雙向閉環 2×2 決策矩陣</text>
+              <text class="en" x="495" y="47" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">Part B: I-PAT vs E-PAT 2×2 Dual Closed-Loop Matrix</text>
+
+              <!-- Axis Labels -->
+              <text class="zh" x="495" y="78" text-anchor="middle" font-size="11" font-weight="700" fill="var(--ink)">後段電氣測試 (E-PAT: P-PAT / G-PAT / Sort)</text>
+              <text class="en" x="495" y="78" text-anchor="middle" font-size="10" font-weight="700" fill="var(--ink)">Electrical Test Domain (E-PAT: P-PAT/G-PAT)</text>
+
+              <!-- 2x2 Grid Layout -->
+              <!-- Q1: Top-Left (I-PAT Good / E-PAT Good) -->
+              <rect x="325" y="90" width="165" height="150" rx="6" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+              <rect x="333" y="98" width="60" height="18" rx="3" fill="#16a34a"/>
+              <text x="363" y="111" text-anchor="middle" font-size="10" font-weight="700" fill="#ffffff">ZONE 1</text>
+              <text class="zh" x="333" y="132" font-size="11" font-weight="700" fill="#15803d">物理乾淨 + 電氣優異</text>
+              <text class="en" x="333" y="132" font-size="10.5" font-weight="700" fill="#15803d">Clean Physical + Good Elect</text>
+              <text class="zh" x="333" y="150" font-size="9.5" fill="#166534">• I-PAT PASS / E-PAT PASS</text>
+              <text class="en" x="333" y="150" font-size="9.5" fill="#166534">• I-PAT PASS / E-PAT PASS</text>
+              <text class="zh" x="333" y="168" font-size="9.5" fill="#166534">• 車規 ASIL-D 金級晶粒</text>
+              <text class="en" x="333" y="168" font-size="9.5" fill="#166534">• Automotive ASIL-D Golden</text>
+              <text class="zh" x="333" y="186" font-size="9.5" fill="#15803d">處分：直接正常放行</text>
+              <text class="en" x="333" y="186" font-size="9.5" fill="#15803d">Disposition: Normal Ship</text>
+              <text class="zh" x="333" y="204" font-size="9" fill="var(--ink-soft)">失效率 &lt; 0.01 DPPM</text>
+              <text class="en" x="333" y="204" font-size="9" fill="var(--ink-soft)">Escapes &lt; 0.01 DPPM</text>
+
+              <!-- Q2: Top-Right (I-PAT Good / E-PAT Outlier) -->
+              <rect x="500" y="90" width="165" height="150" rx="6" fill="#fefce8" stroke="#fde047" stroke-width="1.5"/>
+              <rect x="508" y="98" width="60" height="18" rx="3" fill="#ca8a04"/>
+              <text x="538" y="111" text-anchor="middle" font-size="10" font-weight="700" fill="#ffffff">ZONE 2</text>
+              <text class="zh" x="508" y="132" font-size="11" font-weight="700" fill="#a16207">物理無異 + 電測特異</text>
+              <text class="en" x="508" y="132" font-size="10.5" font-weight="700" fill="#a16207">Clean Phys + Elect Outlier</text>
+              <text class="zh" x="508" y="150" font-size="9.5" fill="#854d0e">• I-PAT PASS / E-PAT FAIL</text>
+              <text class="en" x="508" y="150" font-size="9.5" fill="#854d0e">• I-PAT PASS / E-PAT FAIL</text>
+              <text class="zh" x="508" y="168" font-size="9.5" fill="#854d0e">• 參數漂移 (Corner Skew)</text>
+              <text class="en" x="508" y="168" font-size="9.5" fill="#854d0e">• Parametric process drift</text>
+              <text class="zh" x="508" y="186" font-size="9.5" fill="#a16207">處分：常規 PAT 降頻/封存</text>
+              <text class="en" x="508" y="186" font-size="9.5" fill="#a16207">Disposition: Down-bin</text>
+              <text class="zh" x="508" y="204" font-size="9" fill="var(--ink-soft)">非結構性致命傷</text>
+              <text class="en" x="508" y="204" font-size="9" fill="var(--ink-soft)">Non-structural hazard</text>
+
+              <!-- Q3: Bottom-Left (I-PAT Outlier / E-PAT Good) - THE CRITICAL TRAP -->
+              <rect x="325" y="250" width="165" height="165" rx="6" fill="#fff1f2" stroke="#f43f5e" stroke-width="2"/>
+              <rect x="333" y="258" width="60" height="18" rx="3" fill="#e11d48"/>
+              <text x="363" y="271" text-anchor="middle" font-size="10" font-weight="700" fill="#ffffff">ZONE 3</text>
+              <text class="zh" x="333" y="292" font-size="11" font-weight="800" fill="#be123c">⚠️ 潛伏致命漏檢陷阱</text>
+              <text class="en" x="333" y="292" font-size="10.5" font-weight="800" fill="#be123c">⚠️ Latent Killer Escape</text>
+              <text class="zh" x="333" y="310" font-size="9.5" fill="#9f1239">• I-PAT FAIL / E-PAT PASS</text>
+              <text class="en" x="333" y="310" font-size="9.5" fill="#9f1239">• I-PAT FAIL / E-PAT PASS</text>
+              <text class="zh" x="333" y="328" font-size="9.5" fill="#9f1239">• 電測合格但物理高污染！</text>
+              <text class="en" x="333" y="328" font-size="9.5" fill="#9f1239">• Passes E-test, dirty phys!</text>
+              <text class="zh" x="333" y="346" font-size="9.5" fill="#be123c">ASIL-D：虛擬墨印強制報廢</text>
+              <text class="en" x="333" y="346" font-size="9.5" fill="#be123c">ASIL-D: Mandatory Scrap</text>
+              <text class="zh" x="333" y="364" font-size="9.5" fill="#0369a1">工業級：加長動態高溫 Burn-In</text>
+              <text class="en" x="333" y="364" font-size="9.5" fill="#0369a1">Industrial: Ext Burn-In</text>
+              <text class="zh" x="333" y="382" font-size="9" fill="var(--danger)">杜絕 0-km 與售後重大客訴</text>
+              <text class="en" x="333" y="382" font-size="9" fill="var(--danger)">Eliminates field returns</text>
+
+              <!-- Q4: Bottom-Right (I-PAT Outlier / E-PAT Outlier) -->
+              <rect x="500" y="250" width="165" height="165" rx="6" fill="#fef2f2" stroke="#ef4444" stroke-width="1.5"/>
+              <rect x="508" y="258" width="60" height="18" rx="3" fill="#b91c1c"/>
+              <text x="538" y="271" text-anchor="middle" font-size="10" font-weight="700" fill="#ffffff">ZONE 4</text>
+              <text class="zh" x="508" y="292" font-size="11" font-weight="700" fill="#991b1b">雙重特異 (Double Outlier)</text>
+              <text class="en" x="508" y="292" font-size="10.5" font-weight="700" fill="#991b1b">Double Maverick Die</text>
+              <text class="zh" x="508" y="310" font-size="9.5" fill="#7f1d1d">• I-PAT FAIL / E-PAT FAIL</text>
+              <text class="en" x="508" y="310" font-size="9.5" fill="#7f1d1d">• I-PAT FAIL / E-PAT FAIL</text>
+              <text class="zh" x="508" y="328" font-size="9.5" fill="#7f1d1d">• 物理結構與電氣雙重崩潰</text>
+              <text class="en" x="508" y="328" font-size="9.5" fill="#7f1d1d">• Physical &amp; elect breakdown</text>
+              <text class="zh" x="508" y="346" font-size="9.5" fill="#991b1b">處分：絕對報廢 (Scrap)</text>
+              <text class="en" x="508" y="346" font-size="9.5" fill="#991b1b">Disposition: Hard Scrap</text>
+              <text class="zh" x="508" y="364" font-size="9" fill="var(--ink-soft)">高危險群，無救回價值</text>
+              <text class="en" x="508" y="364" font-size="9" fill="var(--ink-soft)">Zero salvage value</text>
+
+              <!-- Bottom Closed-loop Feedback to Fab -->
+              <rect x="325" y="425" width="340" height="55" rx="5" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+              <text class="zh" x="335" y="445" font-size="10.5" font-weight="700" fill="#0b6e8f">雙向閉環反饋 (Bidirectional Feedback to Tools)</text>
+              <text class="en" x="335" y="445" font-size="10" font-weight="700" fill="#0b6e8f">Bidirectional Feedback to Process Tools</text>
+              <text class="zh" x="335" y="465" font-size="9.5" fill="var(--ink-soft)">逆向鎖定產生缺陷之黃光 Scanner / CMP 拋光腔體，觸發 R2R APC 修正</text>
+              <text class="en" x="335" y="465" font-size="9.5" fill="var(--ink-soft)">Feedback locks culprit Scanner/CMP chambers; triggers R2R APC recipe tuning</text>
+
+              <!-- PANEL C: MODERN AI / ML ENHANCEMENT SUITE (RIGHT) -->
+              <rect x="700" y="25" width="240" height="470" rx="8" fill="url(#g-ai-box)" stroke="#ea580c" stroke-width="1.5"/>
+              <rect x="700" y="25" width="240" height="32" rx="8" fill="#ea580c" fill-opacity="0.85"/>
+              <text class="zh" x="820" y="47" text-anchor="middle" font-size="13" font-weight="700" fill="#ffffff">Part C: 現代 AI / ML 智能賦能</text>
+              <text class="en" x="820" y="47" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">Part C: Modern AI/ML Mindset</text>
+
+              <!-- AI Module 1: DL-ADC -->
+              <rect x="715" y="72" width="210" height="85" rx="5" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1"/>
+              <text class="zh" x="725" y="92" font-size="11" font-weight="700" fill="#c2410c">1. 深度學習自動分類 (DL-ADC)</text>
+              <text class="en" x="725" y="92" font-size="10" font-weight="700" fill="#c2410c">1. Deep Learning ADC (CNN/ViT)</text>
+              <text class="zh" x="725" y="110" font-size="9.5" fill="var(--ink-soft)">• CNN/ViT 辨識 30+ 種物理缺陷</text>
+              <text class="en" x="725" y="110" font-size="9.5" fill="var(--ink-soft)">• CNN/ViT classifies 30+ defect bins</text>
+              <text class="zh" x="725" y="126" font-size="9.5" fill="var(--ink-soft)">• 區分致命缺陷 vs 無害假訊號</text>
+              <text class="en" x="725" y="126" font-size="9.5" fill="var(--ink-soft)">• Filters killer vs nuisance flaws</text>
+              <text class="zh" x="725" y="142" font-size="9.5" fill="#ea580c">• 大幅抑制過度剔除 (Overkill)</text>
+              <text class="en" x="725" y="142" font-size="9.5" fill="#ea580c">• Slashes overkill yield loss</text>
+
+              <!-- AI Module 2: CAD-Aware Criticality -->
+              <rect x="715" y="168" width="210" height="92" rx="5" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1"/>
+              <text class="zh" x="725" y="188" font-size="11" font-weight="700" fill="#c2410c">2. CAD 佈局網表感知關鍵度</text>
+              <text class="en" x="725" y="188" font-size="10" font-weight="700" fill="#c2410c">2. CAD-Aware Defect Criticality</text>
+              <text class="zh" x="725" y="206" font-size="9.5" fill="var(--ink-soft)">• 疊合 GDSII / OASIS 幾何佈局</text>
+              <text class="en" x="725" y="206" font-size="9.5" fill="var(--ink-soft)">• Overlays GDSII layout geometries</text>
+              <text class="zh" x="725" y="222" font-size="9.5" fill="var(--ink-soft)">• 關鍵區域分析 (CAA) 計算失效概率</text>
+              <text class="en" x="725" y="222" font-size="9.5" fill="var(--ink-soft)">• Critical Area Analysis for P(fail)</text>
+              <text class="zh" x="725" y="238" font-size="9.5" fill="var(--ink-soft)">• 時鐘線權重 10x，Dummy 金屬 0.05x</text>
+              <text class="en" x="725" y="238" font-size="9.5" fill="var(--ink-soft)">• Clock tree 10x, dummy metal 0.05x</text>
+              <text class="zh" x="725" y="254" font-size="9.5" fill="#ea580c">• 輸出 AI 智能加權 DCI 評分</text>
+              <text class="en" x="725" y="254" font-size="9.5" fill="#ea580c">• Generates AI-weighted DCI scores</text>
+
+              <!-- AI Module 3: Spatio-Temporal GNN -->
+              <rect x="715" y="270" width="210" height="88" rx="5" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1"/>
+              <text class="zh" x="725" y="290" font-size="11" font-weight="700" fill="#c2410c">3. 跨層空間圖神經網路 (GNN)</text>
+              <text class="en" x="725" y="290" font-size="10" font-weight="700" fill="#c2410c">3. Multi-Layer Spatio-Temporal GNN</text>
+              <text class="zh" x="725" y="308" font-size="9.5" fill="var(--ink-soft)">• 建模 3D 空間缺陷縱向傳播鏈</text>
+              <text class="en" x="725" y="308" font-size="9.5" fill="var(--ink-soft)">• Models 3D defect vertical propagation</text>
+              <text class="zh" x="725" y="324" font-size="9.5" fill="var(--ink-soft)">• (例如 M1 刮痕誘發 V1 散焦開路)</text>
+              <text class="en" x="725" y="324" font-size="9.5" fill="var(--ink-soft)">• (e.g. M1 scratch triggers V1 open)</text>
+              <text class="zh" x="725" y="340" font-size="9.5" fill="#ea580c">• 提早 15 道工序預警結構性斷裂</text>
+              <text class="en" x="725" y="340" font-size="9.5" fill="#ea580c">• Predicts structural damage 15 steps early</text>
+
+              <!-- AI Module 4: Multimodal LRRS Predictor -->
+              <rect x="715" y="368" width="210" height="112" rx="5" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1"/>
+              <text class="zh" x="725" y="388" font-size="11" font-weight="700" fill="#c2410c">4. 多模態可靠度融合 (LRRS)</text>
+              <text class="en" x="725" y="388" font-size="10" font-weight="700" fill="#c2410c">4. Multimodal Reliability Risk Score</text>
+              <text class="zh" x="725" y="406" font-size="9.5" fill="var(--ink-soft)">• 融合: Inline + Sort + FDC 萬維感測</text>
+              <text class="en" x="725" y="406" font-size="9.5" fill="var(--ink-soft)">• Fuses Inline + Sort + FDC sensor data</text>
+              <text class="zh" x="725" y="422" font-size="9.5" fill="var(--ink-soft)">• XGBoost / Autoencoder 聯合預測</text>
+              <text class="en" x="725" y="422" font-size="9.5" fill="var(--ink-soft)">• Joint XGBoost/Autoencoder inference</text>
+              <text class="zh" x="725" y="438" font-size="9.5" fill="#c2410c">• 輸出連續潛在早夭風險指數 (LRRS)</text>
+              <text class="en" x="725" y="438" font-size="9.5" fill="#c2410c">• Emits continuous Latent Risk Score</text>
+              <text class="zh" x="725" y="456" font-size="9" fill="var(--good)">實現精準篩檢，兼顧零缺陷與產能</text>
+              <text class="en" x="725" y="456" font-size="9" fill="var(--good)">Surgical screening: Zero defects + yield</text>
+
+              <!-- Connective Arrows -->
+              <path d="M 290 260 L 310 260" stroke="#0284c7" stroke-width="2" marker-end="url(#arr-ipat)"/>
+              <path d="M 700 260 L 680 260" stroke="#ea580c" stroke-width="2" marker-end="url(#arr-ai)"/>
+            </svg>
+            <figcaption>
+              <span class="zh">圖 6.7：KLA I-PAT™ (Inline Part Average Testing) 製程在線離群值篩檢與現代 AI 多模態智能融合架構 — Part A：前段 20+ 工序在線光學缺陷檢驗與跨層堆疊；Part B：I-PAT 與 E-PAT (電測) 2×2 決策矩陣（精確鎖定 Zone 3 潛在早夭致命漏檢晶粒）；Part C：深度學習自動分類 (DL-ADC)、CAD 佈局感知關鍵度 (AI-CAA) 與多模態早夭風險預測 (LRRS)</span>
+              <span class="en">Figure 6.7: KLA I-PAT™ (Inline Part Average Testing) &amp; Modern AI Multimodal Criticality Architecture — Part A: Multi-layer in-line optical defect scanning and die stacking; Part B: I-PAT vs E-PAT 2×2 decision matrix (isolating high-risk Zone 3 latent killer escapes); Part C: Deep Learning ADC, CAD-aware critical area analysis (AI-CAA), and multimodal Latent Reliability Risk Scoring (LRRS)</span>
+            </figcaption>
+          </figure>
+
+          <!-- DETAILED SECTIONS ON I-PAT & AI/ML MINDSETS -->
+          <div style="margin:25px 0 20px;">
+            <h5 style="font-size:14px; font-weight:700; color:#0284c7; margin:20px 0 8px;">
+              <span class="zh">1. KLA I-PAT™ 核心數學建模：跨層缺陷加權指數 (DCI) 與動態離群門檻</span>
+              <span class="en">1. KLA I-PAT™ Core Mathematical Formulation: Multi-Layer DCI &amp; Dynamic Outlier Thresholding</span>
+            </h5>
+            <p>
+              <span class="zh">
+                傳統在線光學缺陷檢測僅設定單層的「晶圓總缺陷數（Defect Count per Wafer, DPW）」作為機台 SPC 警戒線，完全忽略了<b>「缺陷在單一晶粒上的微觀空間疊加效應」</b>。
+                KLA I-PAT™ 演算法要求在製造過程中將 \(K\) 個關鍵檢驗層（如 STI、Gate、Contact、M1~M8）的缺陷圖譜（KLARF 文件）與光罩設計座標嚴密對齊，並為每顆晶粒 \(i\) 計算<b>累積缺陷批判性指數（Defect Criticality Index, DCI）</b>：
+              </span>
+              <span class="en">
+                Conventional in-line defect inspection monitors aggregate Defect Count per Wafer (DPW) as equipment SPC alarms, entirely ignoring <b>microscopic defect spatial clustering within individual dies</b>.
+                KLA I-PAT™ aligns defect coordinates (KLARF files) across \(K\) critical inspection layers (STI, Gate, Contact, M1~M8) with CAD design origins, formulating a cumulative <b>Defect Criticality Index (DCI)</b> for each die \(i\):
+              </span>
+            </p>
+
+            <div class="formula">
+              <div class="eq">\\[ \\text{DCI}_i = \\sum_{l=1}^K w_l \\sum_{d \\in \\mathcal{D}_{i, l}} \\left[ \\alpha \\cdot \\left(\\frac{\\text{Size}(d)}{\\text{CD}_l}\\right)^{\\beta} + \\gamma \\cdot \\text{ClassWeight}(d) \\right] \\]</div>
+            </div>
+
+            <p style="font-size:12.5px; color:var(--ink-soft); line-height:1.5;">
+              <span class="zh">
+                其中 \(w_l\) 為第 \(l\) 道工序的可靠度敏感係數（如薄閘極氧化層與細間距接觸孔的 \(w_{\\text{Gate}}, w_{\\text{Contact}} \\gg w_{\\text{Passivation}}\)）；\(\\text{CD}_l\) 為該層之最小臨界特徵尺寸；\(\\text{Size}(d)\) 為缺陷之光學/電子束有效直徑；\(\\text{ClassWeight}(d)\) 為該缺陷類型的危害度權重（如導電顆粒與殘留金屬橋接遠大於無害落塵）。<br>
+                在全晶圓或全批次晶粒中，計算 \(\\text{DCI}\) 的動態統計離群門檻：
+              </span>
+              <span class="en">
+                where \(w_l\) denotes process layer reliability sensitivity (e.g., thin gate oxide and contact via layers carry \(w_{\\text{Gate}}, w_{\\text{Contact}} \\gg w_{\\text{Passivation}}\)); \(\\text{CD}_l\) is critical dimension; \(\\text{Size}(d)\) is optical/SEM equivalent diameter; \(\\text{ClassWeight}(d)\) scales defect severity (conductive bridging particles carry significantly higher hazard than benign organic haze).<br>
+                The dynamic wafer-level I-PAT outlier threshold is established via robust non-parametric statistics:
+              </span>
+            </p>
+
+            <div class="formula">
+              <div class="eq">\\[ \\text{Threshold}_{\\text{I-PAT}} = \\text{Median}(\\text{DCI}) + k \\cdot \\text{MAD}(\\text{DCI}) \\quad (\\text{where } k = 3.0 \\sim 4.5) \\]</div>
+            </div>
+
+            <h5 style="font-size:14px; font-weight:700; color:#e11d48; margin:22px 0 8px;">
+              <span class="zh">2. I-PAT × E-PAT 雙向閉環處分矩陣：專殺 Zone 3 潛伏早夭致命晶粒</span>
+              <span class="en">2. I-PAT × E-PAT Dual Closed-Loop Gating: Eliminating Zone 3 Latent Killer Escapes</span>
+            </h5>
+            <p>
+              <span class="zh">
+                將前段在線檢驗的 <b>I-PAT（物理域特異性）</b> 與後段電測的 <b>E-PAT（電氣域特異性：含 P-PAT 與 G-PAT）</b> 交叉比對，構成了半導體製造最嚴密的四象限決策防線（如圖 6.7 Part B 所示）：<br>
+                • <b>Zone 1（雙重正常 I-PAT PASS / E-PAT PASS）</b>：物理純度極高、電氣裕度充足，為車規 ASIL-D 之頂級「黃金晶粒（Golden Die）」，失效率實測 &lt; 0.01 DPPM；<br>
+                • <b>Zone 2（電測特異 I-PAT PASS / E-PAT FAIL）</b>：物理無瑕疵，但電氣參數偏離常態母體。通常為機台退火溫差造成的製程角落（Corner Drift），依常規 AEC-Q001 降頻或轉作非車用產品；<br>
+                • <b>Zone 3（⚠️ 潛伏致命漏檢 I-PAT FAIL / E-PAT PASS）</b>：<b>這是傳統半導體測試最危險的逃逸盲區！</b> 晶粒電測完美 PASS，但內部累計了超標的物理微觀缺陷。針對此類晶粒：<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<b>(a) ASIL-D 安全關鍵產品</b>：啟動虛擬墨印（Virtual Inking XML），在切割封裝前<b>強制報廢（Mandatory Scrap）</b>，徹底根絕售後客訴；<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<b>(b) 標準車規產品</b>：透過 MES 前饋至 ATE FT 站點，啟動<b>極限動態老化（Extended Dynamic Burn-In: 150°C, 1.4× Vdd, 96 小時）</b>，利用強電應力在廠內引爆潛伏缺陷，提前在廠內淘汰；<br>
+                • <b>Zone 4（雙重特異 I-PAT FAIL / E-PAT FAIL）</b>：物理與電測雙重崩壞，無救回價值，絕對報廢。
+              </span>
+              <span class="en">
+                Intersecting in-line <b>I-PAT (Physical Outlier Domain)</b> with downstream <b>E-PAT (Electrical Domain: P-PAT &amp; G-PAT)</b> forms the ultimate four-quadrant defense matrix (depicted in Figure 6.7 Part B):<br>
+                • <b>Zone 1 (Golden Die: I-PAT PASS / E-PAT PASS)</b>: Pristine physical integrity with centered parametric distributions; verified failure rate &lt; 0.01 DPPM for mission-critical ASIL-D deployments;<br>
+                • <b>Zone 2 (Parametric Maverick: I-PAT PASS / E-PAT FAIL)</b>: Clean physical inspection but marginal electrical parameters; standard AEC-Q001 down-binning or consumer grade reallocation;<br>
+                • <b>Zone 3 (⚠️ The Latent Killer Trap: I-PAT FAIL / E-PAT PASS)</b>: <b>The most catastrophic escape mode in semiconductor history!</b> Dies pass 100% of functional tests at \(t=0\) but harbor dangerous defect densities. Gating protocol:<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<b>(a) ASIL-D Mission-Critical</b>: Deploy Virtual Inking XML to enforce <b>Mandatory Scrap</b> before packaging;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<b>(b) Standard Automotive</b>: Relay in-line coordinates downstream to trigger <b>Extended Dynamic Burn-In (150°C, 1.4× Vdd, 96 hrs)</b> to precipitate latent ruptures inside the factory before shipment;<br>
+                • <b>Zone 4 (Double Maverick: I-PAT FAIL / E-PAT FAIL)</b>: Catastrophic physical and parametric collapse; immediate scrap.
+              </span>
+            </p>
+
+            <h5 style="font-size:14px; font-weight:700; color:#ea580c; margin:22px 0 8px;">
+              <span class="zh">3. AI / ML 智能思維全面賦能：從傳統 I-PAT 躍遷至「智能 I-PAT (Smart I-PAT™)」</span>
+              <span class="en">3. Supercharging I-PAT with AI &amp; Machine Learning Mindsets: From Rule-Based to Smart I-PAT™</span>
+            </h5>
+            <p>
+              <span class="zh">
+                傳統 KLA I-PAT™ 依賴光學機台的啟發式規則計算缺陷面積與灰階，在 5nm/3nm 先進製程面臨兩大工程痛點：<b>(1) 無害假缺陷（Nuisance Defects / Dummy Metal Pitting）造成大量良品過殺；(2) 無法理解缺陷在三維電路網表中的真實致命性</b>。引入現代 AI/ML 機器學習思維後，I-PAT 實現了四大維度的革命性躍遷：
+              </span>
+              <span class="en">
+                Classical I-PAT relies on optical pixel thresholding, confronting two major bottlenecks at advanced nodes: <b>(1) Nuisance defects and dummy metal noise drive excessive overkill; (2) Inability to understand circuit netlist criticality</b>. Modern AI/ML architectures elevate I-PAT into an intelligent paradigm across four core frontiers:
+              </span>
+            </p>
+
+            <div class="card-grid" style="margin:16px 0;">
+              <!-- AI Mindset 1 -->
+              <div class="card" style="border-left:3px solid #ea580c;">
+                <h5 style="margin-top:0; color:#ea580c; font-size:13px;">
+                  <span class="zh">① 深度學習自動缺陷分類 (DL-ADC)</span>
+                  <span class="en">① Deep Learning ADC (DL-ADC)</span>
+                </h5>
+                <p style="font-size:12px; line-height:1.5; margin:0; color:var(--ink-soft);">
+                  <span class="zh">
+                    採用 Vision Transformer (ViT) 與 ConvNeXt 卷積神經網絡，直接對掃描機台拍攝之光學補丁（Optical Patch）與 SEM 複檢影像進行多標籤機率推論，精準區分金屬短路（Bridging）、介電層空洞（Void）、研磨刮傷（CMP Scratch）與無害有機薄霧（Organic Haze）。將分類置信度 \(P(\\text{Class} = \\text{Killer} \\mid \\text{Patch})\) 作為連續權重輸入，<b>徹底消除無害雜訊導致的 60% 良率過殺</b>！
+                  </span>
+                  <span class="en">
+                    Vision Transformers (ViT) and ConvNeXt architectures evaluate optical patch and review SEM micrographs, outputting continuous calibrated probabilities \(P(\\text{Class} = \\text{Killer} \\mid \\text{Patch})\) across 30+ physical bins. Filters out benign organic haze, <b>slashing inspection overkill by over 60%</b>!
+                  </span>
+                </p>
+              </div>
+
+              <!-- AI Mindset 2 -->
+              <div class="card" style="border-left:3px solid #d97706;">
+                <h5 style="margin-top:0; color:#d97706; font-size:13px;">
+                  <span class="zh">② CAD 幾何佈局與網表感知關鍵度 (AI-CAA)</span>
+                  <span class="en">② CAD &amp; Netlist-Aware Critical Area Analysis</span>
+                </h5>
+                <p style="font-size:12px; line-height:1.5; margin:0; color:var(--ink-soft);">
+                  <span class="zh">
+                    將缺陷精確物理座標與 GDSII / OASIS 向量圖形進行實時幾何布林求交（Boolean Intersection）。AI 模型自動辨別缺陷究竟是落在<b>關鍵系統時脈樹（Clock Tree，權重 ×10.0）</b>、<b>主供電網絡（Power Grid，權重 ×4.0）</b>，還是落在<b>具備備用修復電路的 SRAM 冗餘單元（Redundant Block，權重 ×0.2）</b>或<b>無電氣功能的假填充金屬（Dummy Metal，權重 ×0.05）</b>。使離群值篩檢具備真正的電路物理感知！
+                  </span>
+                  <span class="en">
+                    Performs real-time Boolean intersection between defect coordinates and GDSII/OASIS design netlists. Automatically scales weights: <b>Clock Tree (\(\times 10.0\))</b>, <b>Power Grid (\(\times 4.0\))</b>, <b>Redundant SRAM (\(\times 0.2\))</b>, and <b>Floating Dummy Metal (\(\times 0.05\))</b>, achieving true circuit-aware outlier screening!
+                  </span>
+                </p>
+              </div>
+
+              <!-- AI Mindset 3 -->
+              <div class="card" style="border-left:3px solid #0284c7;">
+                <h5 style="margin-top:0; color:#0284c7; font-size:13px;">
+                  <span class="zh">③ 跨層空間圖神經網路 (Spatio-Temporal GNN)</span>
+                  <span class="en">③ Multi-Layer Spatio-Temporal GNN</span>
+                </h5>
+                <p style="font-size:12px; line-height:1.5; margin:0; color:var(--ink-soft);">
+                  <span class="zh">
+                    缺陷在晶圓縱向具備穿透傳播性（如 M1 的微刮傷會破壞表面平坦度，引發 Via 1 散焦開路，最終導致 M2 金屬堆積橋接）。以圖神經網絡（GNN）將晶粒各層缺陷建模為立體圖節點，透過邊卷積（Edge Convolution）學習跨工序因果鏈：
+                    \\[ \\mathbf{h}_{v}^{(l+1)} = \\sigma\\left( \\mathbf{W} \\cdot \\text{AGGREGATE}\\left(\\{ \\mathbf{h}_u^{(l)} : u \\in \\mathcal{N}(v) \\}\\right) \\right) \\]
+                    在製造剛完成一半時，即可提早 15 道工序預警潛在的結構性致命傷！
+                  </span>
+                  <span class="en">
+                    Defects propagate vertically (e.g. an M1 scratch disrupts topography, causing Via 1 defocus opens and M2 metal bridging). Spatio-temporal Graph Neural Networks model multi-layer defects as 3D graph nodes, learning causal chains via edge convolutions to predict structural reliability failures 15 steps early!
+                  </span>
+                </p>
+              </div>
+
+              <!-- AI Mindset 4 -->
+              <div class="card" style="border-left:3px solid #16a34a;">
+                <h5 style="margin-top:0; color:#16a34a; font-size:13px;">
+                  <span class="zh">④ 多模態早夭風險預測 (Multimodal LRRS)</span>
+                  <span class="en">④ Multimodal Latent Risk Scoring (LRRS)</span>
+                </h5>
+                <p style="font-size:12px; line-height:1.5; margin:0; color:var(--ink-soft);">
+                  <span class="zh">
+                    將<b>在線物理缺陷特徵向量（\(\\mathbf{e}_{\\text{inline}}\)）</b>、<b>下游電測 WAT/CP 參數特徵（\(\\mathbf{e}_{\\text{sort}}\)）</b>與<b>製程機台 FDC 萬維感測器軌跡（\(\\mathbf{e}_{\\text{FDC}}\)）</b>拼接融合，利用梯度提升決策樹（LightGBM）或對比學習自編碼器，為每顆晶粒預測連續的<b>「潛在可靠度失效率（Latent Reliability Risk Score, LRRS）」</b>：
+                    \\[ \\text{LRRS}(i) = \\sigma\\left(\\mathbf{w}^T [\\mathbf{e}_{\\text{inline}}, \\mathbf{e}_{\\text{sort}}, \\mathbf{e}_{\\text{FDC}}] + b\\right) \\in [0, 1] \\]
+                    將離群值處分由「硬切刀（Binary Drop）」升級為「自適應動態分級（Continuous Adaptive Binning）」！
+                  </span>
+                  <span class="en">
+                    Concatenates <b>in-line physical embeddings (\(\\mathbf{e}_{\\text{inline}}\))</b>, <b>electrical ATE features (\(\\mathbf{e}_{\\text{sort}}\))</b>, and <b>tool FDC sensor time-series (\(\\mathbf{e}_{\\text{FDC}}\))</b>. Evaluated via LightGBM / contrastive autoencoders to output a continuous <b>Latent Reliability Risk Score (LRRS)</b>, evolving outlier disposition from rigid binary cutoff into continuous adaptive binning!
+                  </span>
+                </p>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- TABLE 6.4.6: PARADIGM COMPARISON MATRIX -->
+          <div class="table-container" style="margin:25px 0 30px;">
+            <div style="font-weight:700; font-size:13px; font-family:var(--font-mono); margin-bottom:8px; color:var(--ink);">
+              <span class="zh">表 6.4.6：半導體離群值篩檢演進對比：傳統後段 PAT vs. KLA 原生 I-PAT™ vs. 現代 AI 智能多模態 I-PAT</span>
+              <span class="en">Table 6.4.6: Paradigm Evolution: Traditional Back-end PAT vs. Native KLA I-PAT™ vs. AI Multimodal Smart I-PAT</span>
+            </div>
+            <table style="width:100%; border-collapse:collapse; font-size:12px;">
+              <thead>
+                <tr style="background:var(--surface-3, rgba(255,255,255,0.05)); text-align:left;">
+                  <th style="padding:10px; border-bottom:2px solid var(--border); width:130px;"><span class="zh">評估維度</span><span class="en">Evaluation Dimension</span></th>
+                  <th style="padding:10px; border-bottom:2px solid var(--border); width:230px;"><span class="zh">傳統後段電測 PAT (P-PAT / G-PAT)</span><span class="en">Traditional Electrical PAT (P/G-PAT)</span></th>
+                  <th style="padding:10px; border-bottom:2px solid var(--border); width:250px;"><span class="zh">KLA 原生 I-PAT™ (AEC 2018 基準)</span><span class="en">Native KLA I-PAT™ (AEC 2018 Baseline)</span></th>
+                  <th style="padding:10px; border-bottom:2px solid var(--border); width:270px;"><span class="zh">現代 AI 智能多模態 I-PAT (Smart I-PAT)</span><span class="en">Modern AI Multimodal Smart I-PAT</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b><span class="zh">資料獲取站點</span><span class="en">Data Acquisition</span></b></td>
+                  <td><span class="zh">晶圓測試 (Wafer Sort / CP) 或 成品終測 (FT)</span><span class="en">Wafer Sort (CP) or Final Test (FT)</span></td>
+                  <td><span class="zh">晶圓製造前段光學缺陷檢驗 (FEOL/BEOL BFI/DFI)</span><span class="en">In-line optical defect scans across FEOL/BEOL</span></td>
+                  <td><span class="zh">光學/SEM補丁 + CAD幾何佈局 + 機台FDC + 電測</span><span class="en">Optical/SEM patches + CAD layout + FDC + ATE</span></td>
+                </tr>
+                <tr>
+                  <td><b><span class="zh">離群處分依據</span><span class="en">Screening Metric</span></b></td>
+                  <td><span class="zh">單變量電氣參數 (Idde, Vth, Fmax, Ioff)</span><span class="en">Univariate electrical parameters (Idde, Vth, Fmax)</span></td>
+                  <td><span class="zh">跨工序累計缺陷批判性指標 (DCI / DPW)</span><span class="en">Cumulative Defect Criticality Index (DCI/DPW)</span></td>
+                  <td><span class="zh">CAD網表加權CAA + GNN跨層因果 + 多模態LRRS</span><span class="en">CAD netlist CAA + GNN propagation + Multimodal LRRS</span></td>
+                </tr>
+                <tr>
+                  <td><b><span class="zh">潛伏早夭缺陷攔截</span><span class="en">Latent Flaw Defense</span></b></td>
+                  <td><span class="zh"><b>完全無力</b>（電測 PASS 但物理有瑕疵即漏檢）</span><span class="en"><b>Blind</b> (Dies passing \(t=0\) test escape freely)</span></td>
+                  <td><span class="zh"><b>極佳</b>（透過 Zone 3 強制報廢或加長老化）</span><span class="en"><b>Excellent</b> (Zone 3 mandatory scrap or burn-in)</span></td>
+                  <td><span class="zh"><b>極致</b>（精準識別微觀物理破壞，&lt; 0.001 DPPM）</span><span class="en"><b>State-of-the-Art</b> (&lt; 0.001 DPPM escape rate)</span></td>
+                </tr>
+                <tr>
+                  <td><b><span class="zh">良率過殺控制 (Overkill)</span><span class="en">Overkill Control</span></b></td>
+                  <td><span class="zh">良（單變量常態切線，過殺約 0.2%~0.5%）</span><span class="en">Good (0.2%~0.5% overkill from Gaussian tail)</span></td>
+                  <td><span class="zh">中等（無害落塵常被誤計入 DCI，過殺 0.5%~1.2%）</span><span class="en">Moderate (Nuisance defects raise DCI; 0.5%~1.2%)</span></td>
+                  <td><span class="zh"><b>最優</b>（DL-ADC 與 CAD 冗餘分析剔除無害假信號）</span><span class="en"><b>Optimal</b> (DL-ADC &amp; dummy filtering slashes overkill)</span></td>
+                </tr>
+                <tr>
+                  <td><b><span class="zh">製程根因追溯 (RCA)</span><span class="en">Root Cause Attribution</span></b></td>
+                  <td><span class="zh">滯後（下游電測難以反推數百道工序哪台機台失控）</span><span class="en">Lagged (Downstream test cannot pinpoint fab tool)</span></td>
+                  <td><span class="zh">良好（可直接追溯至特定檢驗層與前後機台）</span><span class="en">Good (Directly traced to specific inspection step)</span></td>
+                  <td><span class="zh"><b>即時精準</b>（GNN 跨層定位 + SHAP 關聯機台感測參數）</span><span class="en"><b>Instant &amp; Precise</b> (GNN layer trace + SHAP on FDC)</span></td>
+                </tr>
+                <tr>
+                  <td><b><span class="zh">車規安全等級適配</span><span class="en">Automotive Target</span></b></td>
+                  <td><span class="zh">AEC-Q100 Grade 2~3（車載娛樂、車身控制）</span><span class="en">AEC-Q100 Grade 2~3 (Infotainment, body control)</span></td>
+                  <td><span class="zh">AEC-Q100 Grade 1 / AEC-Q004（動力傳動、底盤）</span><span class="en">AEC-Q100 Grade 1 / AEC-Q004 (Powertrain, chassis)</span></td>
+                  <td><span class="zh"><b>ISO 26262 ASIL-D / L4-L5 自駕主晶片 (零缺陷極限)</b></span><span class="en"><b>ISO 26262 ASIL-D / L4-L5 Autonomous Supercomputers</b></span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+
+                    <!-- ======================================================================= -->
           <!-- SECTION 6.5: AI & MACHINE LEARNING IN OUTLIER SCREENING & ROOT CAUSE   -->
           <!-- ======================================================================= -->
           <h3 id="sec_6_5">
@@ -16383,6 +16846,11 @@
                   <td><span class="zh">待測元件介面板（即 Load Board / 荷重板），連接 ATE 測試頭與 DUT 測試座</span><span class="en">High-density interface PCB connecting the automated test equipment head to DUT sockets</span></td>
                 </tr>
                 <tr>
+                  <td><b>DL-ADC</b></td>
+                  <td>Deep Learning Automated Defect Classification</td>
+                  <td><span class="zh">深度學習自動缺陷分類，以 CNN/ViT 自動判讀在線光學缺陷種類與致命度</span><span class="en">Deep learning automated defect classification using CNNs/ViTs to identify defect types &amp; kill ratios</span></td>
+                </tr>
+                <tr>
                   <td><b>DOE</b></td>
                   <td>Design of Experiments</td>
                   <td><span class="zh">實驗設計法</span><span class="en">Structured experiment planning</span></td>
@@ -16441,6 +16909,11 @@
                   <td><b>EOS</b></td>
                   <td>Electrical Overstress</td>
                   <td><span class="zh">電氣過應力破壞，因超過元件絕對最大額定值（AMR）之電壓電流引致熱熔斷</span><span class="en">Thermal destruction caused by excessive voltage, current, or power exceeding device limits</span></td>
+                </tr>
+                <tr>
+                  <td><b>E-PAT</b></td>
+                  <td>Electrical Part Average Testing</td>
+                  <td><span class="zh">後段電氣零件平均測試法（含 P-PAT 與 G-PAT），篩選電測離群晶粒</span><span class="en">Electrical Part Average Testing; back-end ATE screening for parametric outliers</span></td>
                 </tr>
                 <tr>
                   <td><b>EPA</b></td>
@@ -16576,6 +17049,11 @@
                   <td><b>iForest / iTree</b></td>
                   <td>Isolation Forest / Isolation Tree</td>
                   <td><span class="zh">孤立森林與孤立樹，利用隨機超平面劃分深淺度實現 O(N log N) 極速高維離群值隔離</span><span class="en">Non-parametric tree ensemble isolating multivariate outliers rapidly via random hyperplane cuts</span></td>
+                </tr>
+                <tr>
+                  <td><b>I-PAT</b></td>
+                  <td>Inline Part Average Testing (KLA)</td>
+                  <td><span class="zh">製程在線零件平均測試法，跨工序光學缺陷堆疊篩選車規潛在早夭晶粒</span><span class="en">Inline Part Average Testing; multi-layer defect stacking to filter latent reliability mavericks</span></td>
                 </tr>
                 <tr>
                   <td><b>ILD</b></td>
@@ -17039,7 +17517,7 @@
     <div style="display:flex; flex-direction:column; align-items:flex-end; gap:5px;">
       <div style="display:flex; align-items:center; gap:8px;">
         <span class="badge badge-green" style="font-size:11px; padding:2px 8px;">● LIVE VERIFIED</span>
-        <span style="font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft);">Rev. AN</span>
+        <span style="font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft);">Rev. AO</span>
       </div>
       <div style="font-family:var(--font-mono); font-size:12px; color:var(--ink);">
         <span class="zh">最後更新日期：</span><span class="en">Last Updated: </span>

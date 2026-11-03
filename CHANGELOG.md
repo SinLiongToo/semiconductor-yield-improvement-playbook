@@ -8,6 +8,34 @@ Entry format / 格式:
 `## YYYY-MM-DD — <agent> — <short title>` then bullets: what changed, why, caveats for the next agent.
 
 ---
+## 2026-11-03 — Google Antigravity — Rev. AO: KLA I-PAT™ (Inline Part Average Testing), AI Defect Criticality Stacking & Multi-Modal Reliability Fusion (Section 6.4.6)
+
+- **User Request Fulfillment ("See kla company,https://www.kla.com/documents/KLA-Tencor_I-PAT_AEC_2018.pdf It is about inline pat ,also add some ai,ml mindset")**:
+  - Engineered Subsection 6.4.6 (`id="sec_6_4_6"`) deep-diving into KLA-Tencor's seminal 2018 AEC presentation on **I-PAT™ (Inline Part Average Testing)** and supercharging it with modern AI/ML architectures.
+- **Added Subsection 6.4.6 & Publication-Grade SVG Architecture (Figure 6.7)**:
+  - **The Latent Killer Hazard (潛在致命缺陷的假安全感)**: Explained why dies passing 100% of functional/parametric electrical tests at (t = 0) can still harbor latent physical flaws (etch micro-polymers, conductor necking, sub-critical particles) that rapidly degrade under automotive thermal cycling (-40°C to 150°C) into 0-km field failures.
+  - **KLA I-PAT™ Core Methodology**: Shift-left statistical outlier screening from back-end ATE into front-end wafer fabrication. Aggregates multi-layer in-line optical/e-beam defect scans (KLARF) across STI, Gate, Contact Via, and Metal 1~8 into a cumulative die-level **Defect Criticality Index (DCI)** with dynamic wafer-level outlier limits:
+    \[ \text{Threshold}_{\text{I-PAT}} = \text{Median}(\text{DCI}) + k \cdot \text{MAD}(\text{DCI}) \]
+  - **I-PAT × E-PAT 2×2 Closed-Loop Decision Matrix (Figure 6.7 Part B)**:
+    - *Zone 1 (Good / Good)*: Golden Automotive Dies (&lt; 0.01 DPPM) for ISO 26262 ASIL-D.
+    - *Zone 2 (Good / Outlier)*: Process corner drift; conventional down-binning.
+    - *Zone 3 (Outlier / Good - THE CRITICAL TRAP)*: Electrically good at (t=0), physically defective! Enforces **Mandatory Scrap via Virtual Inking** for ASIL-D, or triggers **Extended Dynamic Burn-In (150°C, 1.4× Vdd)** to precipitate latent failures in-fab before shipment.
+    - *Zone 4 (Outlier / Outlier)*: Double maverick dies; hard scrap.
+  - **Four AI / ML Mindset Supercharges (Figure 6.7 Part C)**:
+    1. *Deep Learning ADC (DL-ADC)*: Vision Transformers (ViT) & ConvNeXt classifying 30+ physical defect bins from optical/SEM patches, eliminating 60% of nuisance defect overkill.
+    2. *CAD / Netlist-Aware Critical Area Analysis (AI-CAA)*: Real-time Boolean intersection with GDSII/OASIS layouts, weighting Clock Trees at 10.0× and Dummy Metal at 0.05×.
+    3. *Multi-Layer Spatio-Temporal Graph Neural Networks (GNN)*: Models 3D defect vertical migration across 20+ layers to predict structural breakdown 15 process steps early.
+    4. *Multimodal Latent Reliability Risk Scoring (LRRS)*: Fuses in-line defect embeddings, sort parametric vectors, and tool FDC traces via LightGBM / autoencoders to output a continuous field failure probability.
+- **Added Table 6.4.6 & Appendix C Glossary Expansion**:
+  - *Table 6.4.6*: Comprehensive comparison matrix contrasting Traditional Electrical PAT, Native KLA I-PAT™, and Modern AI Multimodal Smart I-PAT.
+  - *Appendix C*: Added `DL-ADC`, `E-PAT`, and `I-PAT` to the bilingual glossary table.
+- **Revision & Quality Verification**:
+  - Synchronized header and footer revision labels to `Rev. AO` and timestamps to `2026-11-03 08:55 (Asia/Taipei)`.
+  - Passed `npm run verify` (19,494 lines, 0 tag mismatches, valid JS).
+  - Passed `node scripts/audit_i18n_and_structure.js` with 0 numbering drift, 0 untranslated Chinese leaks in English mode, and 100% table cell localization parity across all 1,805 table cells.
+
+---
+
 ## 2026-11-03 — Google Antigravity — Rev. AN: Industrial 4-Pillar Outlier Detection Engines (PCA+RF, Spatial-Aware ML, LOF, Autoencoder) & Interactive Workbench (Section 6.4.5)
 
 - **User Request Fulfillment ("我曾用這四種方法做outlier detection。你知道嗎？" / "yes，please")**:
