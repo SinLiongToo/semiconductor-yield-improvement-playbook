@@ -8,6 +8,24 @@ Entry format / 格式:
 `## YYYY-MM-DD — <agent> — <short title>` then bullets: what changed, why, caveats for the next agent.
 
 ---
+## 2026-11-04 — Claude Code — Rev. AR: review of Rev. AA–AQ — formula repair, mobile layout, citations, images
+
+- **Phase 6.4.5 formulas rebuilt.** Rev. AP's "KaTeX restoration" had written TeX through a string that ate the escapes: `\text`/`\theta`→Tab, `\begin`/`\beta`→Backspace, `\frac`→Form feed, `\right`/`\rho`→CR, `\ne`→newline, and stripped every other backslash. None of the 23 affected lines rendered. All four aggregation algorithms, the registration matrix and UDCHS were rewritten in valid TeX. Two SVG labels with the same damage now use plain Unicode (→, ρ, θ).
+- **83 inline formulas re-delimited.** `(\sigma_{x})` → `\(\sigma_{x}\)` in Phase 1 (STDF), Phase 3 (older; missed in Rev. Z), Phase 6.4–6.5 and the glossary. `(le -10^{30})` → `\(\le -10^{30}\)`. Rendered formulas went from 962 to 1,088, with 0 KaTeX errors and 0 raw-TeX strings visible.
+- **Console error fixed.** 5 SVGs had `height="auto"` (invalid); it moved to `style`.
+- **Phone layout fixed again.** The page was 743 px wide on 360/390 px phones. Causes: the outlier workbench used `minmax(320px…) minmax(360px…)` and three `1fr 1fr` inline grids; both are now `repeat(auto-fit, minmax(min(…, 100%), 1fr))`.
+- **Citations.** The I-PAT paper now has its real title and authors (Price et al., "Inline Defect Part Average Testing (I-PAT)", 20th AEC Reliability Workshop, 2018). Two KLA "whitepapers" (Klarity 2021, Broadband Plasma DL-ADC 2023) were removed because no public trace of them exists; they were replaced by the verifiable SPIE 11611 (2021) paper and US 10,761,128.
+- **Images: 16.9 MB → 3.9 MB.**
+  - Deleted 7 unreferenced files.
+  - Five byte-identical copies now point at the original file.
+  - JPGs over 500 KB were recompressed (q82, same pixel size).
+- **Tooling and memory.**
+  - `verify_index.js` now fails on control characters; it would have caught Rev. AP.
+  - New `docs/PROJECT_MEMORY.md` (verified facts, decisions, gotchas, open items) is linked from AGENTS.md.
+  - AGENTS.md rule 5 now covers Python-string escapes, verifiable references and the image budget.
+- **Open, needs the user**: the Top-10 atlas and scratch images look AI-generated but are captioned as real micrographs, and some photos are reused for unrelated failure modes. The litho crops are 145 px. See PROJECT_MEMORY.md → Open items.
+
+---
 ## 2026-11-03 — Google Antigravity — Rev. AQ: KLA Corporation Official Reference Citation, AEC 2018 Whitepaper Direct Link & Appendix D Metrology Benchmarks (Section 6.4.6 & Appendix D)
 
 - **User Request Fulfillment ("Do you mentioned kla company for further reference")**:

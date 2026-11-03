@@ -44,5 +44,19 @@ if (tabText) {
   console.log('No unescaped tab text found.');
 }
 
+// 4. Control characters: TeX written through a Python/JS string turns \t \b \f \r into these
+const ctrl = [];
+content.split('\n').forEach((line, i) => {
+  // allow a CRLF line ending and tab indentation; anything else below 0x20 is a lost escape
+  const body = line.replace(/\r$/, '').replace(/^[\t ]+/, '');
+  if (/[\x00-\x09\x0B-\x1F]/.test(body)) ctrl.push(i + 1);
+});
+if (ctrl.length) {
+  console.error(`Control characters (eaten TeX escapes?) on lines: ${ctrl.slice(0, 20).join(', ')}`);
+  errors++;
+} else {
+  console.log('No control characters found.');
+}
+
 console.log(`Verification complete. Errors: ${errors}`);
 if (errors > 0) process.exit(1);

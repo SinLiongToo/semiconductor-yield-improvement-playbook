@@ -36,6 +36,8 @@
    - `<option>` 不能放 span：在 `<option>` 加 `data-en="..."`，由 `applyOptionLang()` 切換文字。
    - JS 產生的輸出文字要依 `currentLang` 選擇中英文，並把該函式加入 `refreshDynamicLang()`，切換語言時才會重繪。
    - JS 字串中的 KaTeX 要寫雙反斜線（`'\\(R_c\\)'`）；單反斜線的 `\(` 會被 JS 吃掉，`\text`、`\frac` 開頭的 `\t`、`\f` 還會變成 Tab 與換頁字元。插入 innerHTML 後呼叫 `typesetMath(el)`。
+   - 用 Python / JS 腳本寫入含 KaTeX 的 HTML 時，同樣會吃掉 `\t`、`\b`、`\f`、`\r`、`\n`（Rev. AP 因此毀損整段 6.4.5）：請用 raw string（`r'...'`）或直接以編輯器修改；`npm run verify` 會擋下控制字元。行內公式一律 `\( … \)`，單純 `(\sigma)` 不會渲染。
+   - **參考文獻必須可查證**（作者／會議或期刊／年份，或可開啟的 DOI、專利號、網址），不可編造看似合理的標題。圖片引用同一張照片時沿用既有路徑，不要另存同內容的新檔名；單張 ≤ ~500 KB。
 6. **提交前檢查**：`npm run verify`（標籤平衡與 JS 語法，CI 也會跑）＋ `node scripts/audit_i18n_and_structure.js`（英文模式中文外洩與編號，需本機 Chrome/Edge）。
 
 ## 工作流程規則
@@ -51,8 +53,8 @@
 本專案會交替使用 Google Antigravity 與 Claude Code 維護。各工具的私有記憶彼此不互通，**本檔（`AGENTS.md`）是唯一的規則來源**，`CHANGELOG.md` 是共用的變更紀錄。
 This project is maintained alternately with Google Antigravity and Claude Code. Their private memories are not shared, so **this file is the single source of truth for rules** and `CHANGELOG.md` is the shared change log.
 
-1. **開工前先讀**：本檔全文 + `CHANGELOG.md` 最新幾筆 + `git log --oneline -15`，了解其他代理最近改了什麼、為什麼改。
-   **Before starting**: read this file, the latest `CHANGELOG.md` entries, and `git log --oneline -15`.
+1. **開工前先讀**：本檔全文 + `docs/PROJECT_MEMORY.md`（已查證事實、決策、陷阱、待辦）+ `CHANGELOG.md` 最新幾筆 + `git log --oneline -15`，了解其他代理最近改了什麼、為什麼改。學到會長期有用的事實或陷阱時，寫進 `docs/PROJECT_MEMORY.md`。
+   **Before starting**: read this file, `docs/PROJECT_MEMORY.md` (verified facts, decisions, gotchas, open items), the latest `CHANGELOG.md` entries, and `git log --oneline -15`. Add durable facts and gotchas to `docs/PROJECT_MEMORY.md`.
 2. **完工後要寫**：每次實質修改，在 `CHANGELOG.md` 最上方新增一筆（日期、代理名稱、改了什麼、為什麼、注意事項）。
    **After finishing**: add an entry at the top of `CHANGELOG.md` (date, agent, what, why, caveats).
 3. **新規則寫進本檔**：使用者提出的長期偏好或新慣例，寫進本檔而非任一工具的私有記憶，讓下一個代理也會遵守。
