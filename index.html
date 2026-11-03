@@ -951,7 +951,23 @@
     margin-bottom: 12px;
     flex: 1;
   }
-  /* Lithography Real SEM Micrograph Gallery */
+  /* Image provenance: every gallery image is either a credited photo or tagged as an illustration */
+  .top10-card-img-wrap, .scratch-card-img-wrap, .litho-card-img-wrap { position: relative; }
+  .img-illus-tag {
+    position: absolute; left: 8px; bottom: 8px; z-index: 5;
+    font-family: var(--font-mono); font-size: 10.5px; font-weight: 700; letter-spacing: .03em;
+    padding: 2px 7px; border-radius: 4px;
+    background: var(--warn-soft); color: var(--warn); border: 1px solid var(--warn);
+  }
+  .img-credit {
+    font-family: var(--font-mono); font-size: 10.5px; line-height: 1.45; color: var(--ink-faint);
+    padding: 6px 12px 0;
+  }
+  .img-credit.illus { color: var(--warn); }
+  .img-credit a { color: var(--accent); }
+  .img-table-note { font-size: 12px; color: var(--ink-soft); margin: 6px 0 18px; }
+
+  /* Lithography Defect Gallery */
   .litho-gallery-grid,
   .scratch-gallery-grid,
   .top10-gallery-grid {
@@ -1332,7 +1348,7 @@
       </div>
       <div>
         <span class="zh">版次狀態</span><span class="en">Revision</span>
-        <b>Rev. AS (Hotfix: Simulator Image Paths)</b>
+        <b>Rev. AT (Image Provenance: Sourced Photos &amp; Illustration Labels)</b>
       </div>
       <div>
         <span class="zh">適用對象</span><span class="en">Audience</span>
@@ -1340,7 +1356,7 @@
       </div>
       <div>
         <span class="zh">最後修訂</span><span class="en">Last Updated</span>
-        <b>2026-11-03 22:18 (Asia/Taipei)</b>
+        <b>2026-11-03 22:34 (Asia/Taipei)</b>
       </div>
     </div>
   </header>
@@ -2340,21 +2356,23 @@
             <!-- SUB-SECTION OV.2.1: TOP 10 FAILURE MODES VISUAL MICROGRAPH ATLAS -->
             <div style="margin:28px 0 20px;">
               <h4 style="margin:0 0 10px; font-size:15px; color:var(--ink); display:flex; align-items:center; gap:8px;">
-                <span class="zh">📸 半導體十大核心失效模式實物微觀圖譜 (Visual Defect Micrograph Atlas)</span>
-                <span class="en">📸 Top 10 Semiconductor Yield Fallouts Visual Micrograph Atlas</span>
+                <span class="zh">📸 半導體十大核心失效模式微觀圖譜（示意圖與實拍參考照片）</span>
+                <span class="en">📸 Top 10 Yield Fallouts Micrograph Atlas (Illustrations &amp; Real Reference Photos)</span>
               </h4>
               <p style="font-size:12.5px; color:var(--ink-soft); margin:0 0 16px; line-height:1.55;">
                 <span class="zh">全景涵蓋 FEOL 閘極氧化層、BEOL 銅互連、微影與深寬比接觸孔、晶圓薄化旋痕裂紋、動態統計離群 PAT、晶片-封裝應力 (CPI)、銲線與覆晶底填微氣泡，乃至 ATE 探針磨損與高速 SerDes 眼圖邊限（點擊任一圖卡可一鍵開啟全螢幕高解析度光學/電子顯微鏡縮放檢視）：</span>
-                <span class="en">Comprehensive physical microscopy atlas spanning FEOL gate dielectrics, BEOL metallization, litho contact vias, wafer thinning saw micro-cracks, dynamic PAT outliers, chip-package interaction (CPI), wire bonding, flip-chip underfill voids, ATE socket wear, and SerDes eye margins (click any image for interactive full-screen zoomable lightbox):</span>
+                <span class="en">Visual atlas spanning FEOL gate dielectrics, BEOL metallization, litho contact vias, wafer thinning saw micro-cracks, dynamic PAT outliers, chip-package interaction (CPI), wire bonding, flip-chip underfill voids, ATE socket wear, and SerDes eye margins (click any image for interactive full-screen zoomable lightbox):</span>
               </p>
 
               <div class="top10-gallery-grid">
                 <!-- Card 1 -->
                 <div class="top10-card">
                   <div class="top10-card-img-wrap">
-                    <img src="assets/top10/01_gate_oxide_breakdown.jpg" alt="1. Gate Oxide TDDB Breakdown" loading="lazy">
+                    <img title="示意圖 / Illustration" src="assets/top10/01_gate_oxide_breakdown.jpg" alt="1. Gate Oxide TDDB Breakdown" loading="lazy">
+                    <span class="img-illus-tag"><span class="zh">示意圖</span><span class="en">Illustration</span></span>
                     <div class="top10-card-badge">HRTEM | 5 nm</div>
                   </div>
+                  <div class="img-credit illus">🎨 <span class="zh">示意圖，非實拍顯微照片</span><span class="en">Illustration, not an actual micrograph</span></div>
                   <div class="top10-card-body">
                     <div class="top10-card-title">
                       <span class="zh">1. 閘極氧化層經時擊穿 (TDDB)</span>
@@ -2370,9 +2388,11 @@
                 <!-- Card 2 -->
                 <div class="top10-card">
                   <div class="top10-card-img-wrap">
-                    <img src="assets/scratch/02_cmp_slurry_scratch_sem.jpg" alt="2. BEOL Bridging &amp; CMP Puddling" loading="lazy">
+                    <img title="示意圖 / Illustration" src="assets/scratch/02_cmp_slurry_scratch_sem.jpg" alt="2. BEOL Bridging &amp; CMP Puddling" loading="lazy">
+                    <span class="img-illus-tag"><span class="zh">示意圖</span><span class="en">Illustration</span></span>
                     <div class="top10-card-badge">SEM | Top-down</div>
                   </div>
+                  <div class="img-credit illus">🎨 <span class="zh">示意圖，非實拍顯微照片</span><span class="en">Illustration, not an actual micrograph</span></div>
                   <div class="top10-card-body">
                     <div class="top10-card-title">
                       <span class="zh">2. 後段金屬層短路與 CMP 殘留</span>
@@ -2388,9 +2408,11 @@
                 <!-- Card 3 -->
                 <div class="top10-card">
                   <div class="top10-card-img-wrap">
-                    <img src="assets/top10/03_litho_via_polymer_open.jpg" alt="3. Litho Defocus &amp; Contact Via Open" loading="lazy">
+                    <img title="示意圖 / Illustration" src="assets/top10/03_litho_via_polymer_open.jpg" alt="3. Litho Defocus &amp; Contact Via Open" loading="lazy">
+                    <span class="img-illus-tag"><span class="zh">示意圖</span><span class="en">Illustration</span></span>
                     <div class="top10-card-badge">FIB-SEM | 200 nm</div>
                   </div>
+                  <div class="img-credit illus">🎨 <span class="zh">示意圖，非實拍顯微照片</span><span class="en">Illustration, not an actual micrograph</span></div>
                   <div class="top10-card-body">
                     <div class="top10-card-title">
                       <span class="zh">3. 微影散焦與接觸孔蝕刻開路</span>
@@ -2406,9 +2428,11 @@
                 <!-- Card 4 -->
                 <div class="top10-card">
                   <div class="top10-card-img-wrap">
-                    <img src="assets/top10/04_wafer_thinning_chipping.jpg" alt="4. Wafer Thinning Swirls &amp; Chipping" loading="lazy">
+                    <img title="示意圖 / Illustration" src="assets/top10/04_wafer_thinning_chipping.jpg" alt="4. Wafer Thinning Swirls &amp; Chipping" loading="lazy">
+                    <span class="img-illus-tag"><span class="zh">示意圖</span><span class="en">Illustration</span></span>
                     <div class="top10-card-badge">SEM | 50 µm</div>
                   </div>
+                  <div class="img-credit illus">🎨 <span class="zh">示意圖，非實拍顯微照片</span><span class="en">Illustration, not an actual micrograph</span></div>
                   <div class="top10-card-body">
                     <div class="top10-card-title">
                       <span class="zh">4. 晶圓薄化旋痕與周緣崩角</span>
@@ -2424,9 +2448,11 @@
                 <!-- Card 5 -->
                 <div class="top10-card">
                   <div class="top10-card-img-wrap">
-                    <img src="assets/scratch/01_wafer_scratch_macro.jpg" alt="5. Dynamic Statistical Outliers (PAT)" loading="lazy">
+                    <img title="示意圖 / Illustration" src="assets/scratch/01_wafer_scratch_macro.jpg" alt="5. Dynamic Statistical Outliers (PAT)" loading="lazy">
+                    <span class="img-illus-tag"><span class="zh">示意圖</span><span class="en">Illustration</span></span>
                     <div class="top10-card-badge">Optical | Macro</div>
                   </div>
+                  <div class="img-credit illus">🎨 <span class="zh">示意圖，非實拍顯微照片</span><span class="en">Illustration, not an actual micrograph</span></div>
                   <div class="top10-card-body">
                     <div class="top10-card-title">
                       <span class="zh">5. 常態分佈動態離群值 (PAT)</span>
@@ -2445,6 +2471,7 @@
                     <img src="assets/fa/bga_cross_section.jpg" alt="6. CPI Stress &amp; Thermal Warpage" loading="lazy">
                     <div class="top10-card-badge">Metallography | BGA</div>
                   </div>
+                  <div class="img-credit">📷 <span class="zh">實拍參考：BGA 封裝剖面，非此缺陷本身</span><span class="en">Real reference photo: BGA package cross-section, not this specific defect</span> · <a href="https://commons.wikimedia.org/wiki/File:BGA_package_cross_section.jpg" target="_blank" rel="noopener noreferrer">TubeTimeUS · CC BY-SA 4.0</a> (<span class="zh">已縮放</span><span class="en">resized</span>)</div>
                   <div class="top10-card-body">
                     <div class="top10-card-title">
                       <span class="zh">6. 晶片-封裝應力 (CPI) 與翹曲</span>
@@ -2461,8 +2488,9 @@
                 <div class="top10-card">
                   <div class="top10-card-img-wrap">
                     <img src="assets/fa/wirebond_ballbond.jpg" alt="7. Wirebond NSOP &amp; Sweep Short" loading="lazy">
-                    <div class="top10-card-badge">SEM | Ball Bond</div>
+                    <div class="top10-card-badge">Optical | Ball Bond</div>
                   </div>
+                  <div class="img-credit">📷 <span class="zh">實拍參考：正常球焊，非 NSOP 失效</span><span class="en">Real reference photo: a normal ball bond, not an NSOP failure</span> · <a href="https://commons.wikimedia.org/wiki/File:Wirebond-ballbond.jpg" target="_blank" rel="noopener noreferrer">Shaddack · Public domain</a></div>
                   <div class="top10-card-body">
                     <div class="top10-card-title">
                       <span class="zh">7. 打線未著銲墊 (NSOP) 與沖線</span>
@@ -2481,6 +2509,7 @@
                     <img src="assets/fa/csam_delamination.jpg" alt="8. Underfill Voids &amp; Solder Fatigue" loading="lazy">
                     <div class="top10-card-badge">C-SAM | Acoustic</div>
                   </div>
+                  <div class="img-credit">📷 <span class="zh">實拍參考：封裝 C-SAM 影像</span><span class="en">Real reference photo: C-SAM image of a package</span> · <a href="https://commons.wikimedia.org/wiki/File:Sonoscanart1.jpg" target="_blank" rel="noopener noreferrer">Sonoscan · CC BY-SA 3.0</a></div>
                   <div class="top10-card-body">
                     <div class="top10-card-title">
                       <span class="zh">8. 底填微氣泡與微凸塊疲勞</span>
@@ -2496,9 +2525,11 @@
                 <!-- Card 9 -->
                 <div class="top10-card">
                   <div class="top10-card-img-wrap">
-                    <img src="assets/top10/09_ate_socket_pin_wear.jpg" alt="9. ATE Rc Drift &amp; Probe Pin Wear" loading="lazy">
+                    <img title="示意圖 / Illustration" src="assets/top10/09_ate_socket_pin_wear.jpg" alt="9. ATE Rc Drift &amp; Probe Pin Wear" loading="lazy">
+                    <span class="img-illus-tag"><span class="zh">示意圖</span><span class="en">Illustration</span></span>
                     <div class="top10-card-badge">SEM | Pogo Pin</div>
                   </div>
+                  <div class="img-credit illus">🎨 <span class="zh">示意圖，非實拍顯微照片</span><span class="en">Illustration, not an actual micrograph</span></div>
                   <div class="top10-card-body">
                     <div class="top10-card-title">
                       <span class="zh">9. ATE 探針磨損與接觸阻抗漂移</span>
@@ -2514,9 +2545,10 @@
                 <!-- Card 10 -->
                 <div class="top10-card">
                   <div class="top10-card-img-wrap">
-                    <img src="assets/top10/10_serdes_eye_margin_closure.jpg" alt="10. High-Speed SerDes Eye Closure" loading="lazy">
-                    <div class="top10-card-badge">Scope | 56 Gbps</div>
+                    <img src="assets/top10/10_serdes_eye_closure.png" alt="10. High-Speed SerDes Eye Closure" loading="lazy">
+                    <div class="top10-card-badge">Scope | 1.25 Gb/s (measured)</div>
                   </div>
+                  <div class="img-credit">📷 <span class="zh">實測眼圖：約 4 吋殘段（stub）反射使眼圖閉合</span><span class="en">Measured eye: closed by the reflection from a ~4-inch stub</span> · <a href="https://commons.wikimedia.org/wiki/File:Eye_pattern_long_stub.png" target="_blank" rel="noopener noreferrer">Andrew D. Zonenberg · CC BY 4.0</a></div>
                   <div class="top10-card-body">
                     <div class="top10-card-title">
                       <span class="zh">10. 高速傳輸眼圖裕度不足與抖動</span>
@@ -2572,7 +2604,7 @@
                   
                   <!-- LIVE DEFECT MICROGRAPH PREVIEW -->
                   <div style="margin:10px 0 8px; border-radius:6px; overflow:hidden; border:1px solid var(--border); background:#0b1120; height:130px; position:relative; cursor:pointer;" title="點擊放大 / Click to Zoom">
-                    <img id="foMicrographImg" src="assets/top10/04_wafer_thinning_chipping.jpg" alt="4. Wafer Thinning Swirls &amp; Chipping Micrograph" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition:transform 0.3s ease;">
+                    <img title="示意圖 / Illustration" id="foMicrographImg" src="assets/top10/04_wafer_thinning_chipping.jpg" alt="4. Wafer Thinning Swirls &amp; Chipping Micrograph" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition:transform 0.3s ease;">
                     <div id="foMicrographCap" style="position:absolute; bottom:0; left:0; right:0; background:rgba(15,23,42,0.85); color:#fff; font-size:10px; font-family:var(--font-mono); padding:3px 8px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">晶圓薄化旋痕與周緣崩角</div>
                   </div>
 
@@ -2878,7 +2910,7 @@
                     <td><b>10</b></td>
                     <td>
                       <div style="display:flex; align-items:center; gap:10px;">
-                        <img src="assets/top10/10_serdes_eye_margin_closure.jpg" alt="10. High-Speed SerDes Eye Margin Micrograph" loading="lazy" style="width:72px; height:50px; border-radius:4px; object-fit:cover; border:1px solid var(--border); cursor:pointer;" title="點擊放大 / Click to Zoom">
+                        <img src="assets/top10/10_serdes_eye_closure.png" alt="10. High-Speed SerDes Eye Margin Micrograph" loading="lazy" style="width:72px; height:50px; border-radius:4px; object-fit:cover; border:1px solid var(--border); cursor:pointer;" title="點擊放大 / Click to Zoom">
                         <div>
                           <b>High-Speed SerDes Eye Margin Fallouts</b><br>
                           <span class="zh" style="font-size:11px; color:var(--ink-soft);">高速傳輸眼圖裕度不足與抖動超標</span>
@@ -2903,6 +2935,7 @@
                 </tbody>
               </table>
             </div>
+            <p class="img-table-note"><span class="zh">縮圖與上方圖卡相同：未註明出處者為示意圖，非實拍顯微照片；實拍照片的作者與授權見圖卡下方。</span><span class="en">Thumbnails match the cards above: images without a credit are illustrations, not actual micrographs; authors and licenses of real photos are listed under each card.</span></p>
           </div>
 
 
@@ -9153,13 +9186,15 @@
           </p>
 
           
-          <!-- LITHOGRAPHY 12 DEFECTS REAL SEM MICROGRAPH GALLERY -->
+          <!-- LITHOGRAPHY 12 DEFECTS GALLERY: illustrations, except 07 (NIST SEM) and 08 (CAMECA SEM) -->
           <div class="litho-gallery-grid">
             <div class="litho-card">
               <div class="litho-card-img-wrap">
-                <img src="assets/litho/01_resist_bridging.png" alt="1. Resist Bridging" loading="lazy">
+                <img title="示意圖 / Illustration" src="assets/litho/01_resist_bridging.png" alt="1. Resist Bridging" loading="lazy">
+                <span class="img-illus-tag"><span class="zh">示意圖</span><span class="en">Illustration</span></span>
                 <div class="litho-card-badge">SEM | Top-down</div>
               </div>
+              <div class="img-credit illus">🎨 <span class="zh">示意圖，非實拍顯微照片</span><span class="en">Illustration, not an actual micrograph</span></div>
               <div class="litho-card-body">
                 <div class="litho-card-title">
                   <span class="zh">1. 光阻橋接 (Resist Bridging)</span>
@@ -9173,9 +9208,11 @@
             </div>
             <div class="litho-card">
               <div class="litho-card-img-wrap">
-                <img src="assets/litho/02_scumming.png" alt="2. Scumming" loading="lazy">
+                <img title="示意圖 / Illustration" src="assets/litho/02_scumming.png" alt="2. Scumming" loading="lazy">
+                <span class="img-illus-tag"><span class="zh">示意圖</span><span class="en">Illustration</span></span>
                 <div class="litho-card-badge">SEM | Trench Bottom</div>
               </div>
+              <div class="img-credit illus">🎨 <span class="zh">示意圖，非實拍顯微照片</span><span class="en">Illustration, not an actual micrograph</span></div>
               <div class="litho-card-body">
                 <div class="litho-card-title">
                   <span class="zh">2. 底部殘膠 (Scumming)</span>
@@ -9189,9 +9226,11 @@
             </div>
             <div class="litho-card">
               <div class="litho-card-img-wrap">
-                <img src="assets/litho/03_pattern_collapse.png" alt="3. Pattern Collapse" loading="lazy">
+                <img title="示意圖 / Illustration" src="assets/litho/03_pattern_collapse.png" alt="3. Pattern Collapse" loading="lazy">
+                <span class="img-illus-tag"><span class="zh">示意圖</span><span class="en">Illustration</span></span>
                 <div class="litho-card-badge">SEM | 45° Tilt</div>
               </div>
+              <div class="img-credit illus">🎨 <span class="zh">示意圖，非實拍顯微照片</span><span class="en">Illustration, not an actual micrograph</span></div>
               <div class="litho-card-body">
                 <div class="litho-card-title">
                   <span class="zh">3. 圖案倒塌 (Pattern Collapse)</span>
@@ -9205,9 +9244,11 @@
             </div>
             <div class="litho-card">
               <div class="litho-card-img-wrap">
-                <img src="assets/litho/04_footing.png" alt="4. Resist Footing" loading="lazy">
+                <img title="示意圖 / Illustration" src="assets/litho/04_footing.png" alt="4. Resist Footing" loading="lazy">
+                <span class="img-illus-tag"><span class="zh">示意圖</span><span class="en">Illustration</span></span>
                 <div class="litho-card-badge">SEM | Cross-section</div>
               </div>
+              <div class="img-credit illus">🎨 <span class="zh">示意圖，非實拍顯微照片</span><span class="en">Illustration, not an actual micrograph</span></div>
               <div class="litho-card-body">
                 <div class="litho-card-title">
                   <span class="zh">4. 底部裙邊 (Footing)</span>
@@ -9221,9 +9262,11 @@
             </div>
             <div class="litho-card">
               <div class="litho-card-img-wrap">
-                <img src="assets/litho/05_t_topping.png" alt="5. T-topping Profile" loading="lazy">
+                <img title="示意圖 / Illustration" src="assets/litho/05_t_topping.png" alt="5. T-topping Profile" loading="lazy">
+                <span class="img-illus-tag"><span class="zh">示意圖</span><span class="en">Illustration</span></span>
                 <div class="litho-card-badge">SEM | Profile</div>
               </div>
+              <div class="img-credit illus">🎨 <span class="zh">示意圖，非實拍顯微照片</span><span class="en">Illustration, not an actual micrograph</span></div>
               <div class="litho-card-body">
                 <div class="litho-card-title">
                   <span class="zh">5. T 型頭 (T-topping)</span>
@@ -9237,9 +9280,11 @@
             </div>
             <div class="litho-card">
               <div class="litho-card-img-wrap">
-                <img src="assets/litho/06_pinholes.png" alt="6. Micro-Pinholes" loading="lazy">
+                <img title="示意圖 / Illustration" src="assets/litho/06_pinholes.png" alt="6. Micro-Pinholes" loading="lazy">
+                <span class="img-illus-tag"><span class="zh">示意圖</span><span class="en">Illustration</span></span>
                 <div class="litho-card-badge">SEM | Film Surface</div>
               </div>
+              <div class="img-credit illus">🎨 <span class="zh">示意圖，非實拍顯微照片</span><span class="en">Illustration, not an actual micrograph</span></div>
               <div class="litho-card-body">
                 <div class="litho-card-title">
                   <span class="zh">6. 針孔缺陷 (Pinholes)</span>
@@ -9253,9 +9298,10 @@
             </div>
             <div class="litho-card">
               <div class="litho-card-img-wrap">
-                <img src="assets/litho/07_line_edge_roughness.png" alt="7. Line-Edge Roughness" loading="lazy">
+                <img src="assets/litho/07_line_edge_roughness.jpg" alt="7. Line-Edge Roughness" loading="lazy">
                 <div class="litho-card-badge">SEM | Top-down</div>
               </div>
+              <div class="img-credit">📷 <span class="zh">實拍</span><span class="en">Photo</span>: <a href="https://commons.wikimedia.org/wiki/File:Nanoscale_Line_Roughness_(5884303799).jpg" target="_blank" rel="noopener noreferrer">B. Bunday (SEMATECH) / K. Talbott (NIST) · Public domain</a> (<span class="zh">已縮放</span><span class="en">resized</span>)</div>
               <div class="litho-card-body">
                 <div class="litho-card-title">
                   <span class="zh">7. 線緣粗糙度 (LER / LWR)</span>
@@ -9269,9 +9315,10 @@
             </div>
             <div class="litho-card">
               <div class="litho-card-img-wrap">
-                <img src="assets/litho/08_standing_waves.png" alt="8. Standing Waves" loading="lazy">
+                <img src="assets/litho/08_standing_waves.jpg" alt="8. Standing Waves" loading="lazy">
                 <div class="litho-card-badge">SEM | Sidewall</div>
               </div>
+              <div class="img-credit">📷 <span class="zh">實拍</span><span class="en">Photo</span>: <a href="https://commons.wikimedia.org/wiki/File:Photoresist_SEM_micrograph.JPG" target="_blank" rel="noopener noreferrer">J. Drouard, CAMECA archives (courtesy Siemens) · CC BY-SA 3.0</a></div>
               <div class="litho-card-body">
                 <div class="litho-card-title">
                   <span class="zh">8. 駐波效應 (Standing Waves)</span>
@@ -9285,9 +9332,11 @@
             </div>
             <div class="litho-card">
               <div class="litho-card-img-wrap">
-                <img src="assets/litho/09_missing_patterns.png" alt="9. Missing Patterns" loading="lazy">
+                <img title="示意圖 / Illustration" src="assets/litho/09_missing_patterns.png" alt="9. Missing Patterns" loading="lazy">
+                <span class="img-illus-tag"><span class="zh">示意圖</span><span class="en">Illustration</span></span>
                 <div class="litho-card-badge">SEM | Reticle Defect</div>
               </div>
+              <div class="img-credit illus">🎨 <span class="zh">示意圖，非實拍顯微照片</span><span class="en">Illustration, not an actual micrograph</span></div>
               <div class="litho-card-body">
                 <div class="litho-card-title">
                   <span class="zh">9. 圖案缺失 (Missing Patterns)</span>
@@ -9301,9 +9350,11 @@
             </div>
             <div class="litho-card">
               <div class="litho-card-img-wrap">
-                <img src="assets/litho/10_residue.png" alt="10. Polymer Residue" loading="lazy">
+                <img title="示意圖 / Illustration" src="assets/litho/10_residue.png" alt="10. Polymer Residue" loading="lazy">
+                <span class="img-illus-tag"><span class="zh">示意圖</span><span class="en">Illustration</span></span>
                 <div class="litho-card-badge">SEM | Surface Debris</div>
               </div>
+              <div class="img-credit illus">🎨 <span class="zh">示意圖，非實拍顯微照片</span><span class="en">Illustration, not an actual micrograph</span></div>
               <div class="litho-card-body">
                 <div class="litho-card-title">
                   <span class="zh">10. 顆粒殘留 (Residue)</span>
@@ -9317,9 +9368,11 @@
             </div>
             <div class="litho-card">
               <div class="litho-card-img-wrap">
-                <img src="assets/litho/11_overlay_error.png" alt="11. Overlay Misalignment" loading="lazy">
+                <img title="示意圖 / Illustration" src="assets/litho/11_overlay_error.png" alt="11. Overlay Misalignment" loading="lazy">
+                <span class="img-illus-tag"><span class="zh">示意圖</span><span class="en">Illustration</span></span>
                 <div class="litho-card-badge">SEM | Two-layer Overlay</div>
               </div>
+              <div class="img-credit illus">🎨 <span class="zh">示意圖，非實拍顯微照片</span><span class="en">Illustration, not an actual micrograph</span></div>
               <div class="litho-card-body">
                 <div class="litho-card-title">
                   <span class="zh">11. 疊對誤差 (Overlay Error)</span>
@@ -9333,9 +9386,11 @@
             </div>
             <div class="litho-card">
               <div class="litho-card-img-wrap">
-                <img src="assets/litho/12_lift_off_defects.png" alt="12. Lift-off Defects" loading="lazy">
+                <img title="示意圖 / Illustration" src="assets/litho/12_lift_off_defects.png" alt="12. Lift-off Defects" loading="lazy">
+                <span class="img-illus-tag"><span class="zh">示意圖</span><span class="en">Illustration</span></span>
                 <div class="litho-card-badge">SEM | Metal Burrs</div>
               </div>
+              <div class="img-credit illus">🎨 <span class="zh">示意圖，非實拍顯微照片</span><span class="en">Illustration, not an actual micrograph</span></div>
               <div class="litho-card-body">
                 <div class="litho-card-title">
                   <span class="zh">12. 剝離缺陷 (Lift-off Defects)</span>
@@ -9362,7 +9417,7 @@
               </thead>
               <tbody>
                 <tr>
-                  <td><b><span class="zh">1. 光阻橋接<br>(Resist Bridging)</span><span class="en">1. Resist Bridging</span></b><div style="margin-top:6px;"><img src="assets/litho/01_resist_bridging.png" alt="Resist Bridging SEM" loading="lazy" style="width:100%; max-width:125px; border-radius:4px; border:1px solid var(--border); display:block;"></div></td>
+                  <td><b><span class="zh">1. 光阻橋接<br>(Resist Bridging)</span><span class="en">1. Resist Bridging</span></b><div style="margin-top:6px;"><img title="示意圖 / Illustration" src="assets/litho/01_resist_bridging.png" alt="Resist Bridging SEM" loading="lazy" style="width:100%; max-width:125px; border-radius:4px; border:1px solid var(--border); display:block;"></div></td>
                   <td>
                     <span class="zh">相鄰兩條光阻線在局部發生熔接連橋。<b>根因</b>：正光阻曝光劑量不足（Under-dose）、離焦（De-focus 超出瑞利焦深 DOF）、光學鄰近效應（OPE）強烈、顯影液沖洗時表面張力拉扯或光阻分子膨脹（Swelling）。</span>
                     <span class="en">Adjacent resist lines fuse locally. <b>Root Cause</b>: Under-exposure dose in positive PR, de-focus beyond Rayleigh DOF, severe optical proximity effects (OPE), resist swelling, or meniscus capillary pull during rinse.</span>
@@ -9382,7 +9437,7 @@
                 </tr>
 
                 <tr>
-                  <td><b><span class="zh">2. 底部殘膠<br>(Scumming)</span><span class="en">2. Scumming</span></b><div style="margin-top:6px;"><img src="assets/litho/02_scumming.png" alt="Scumming SEM" loading="lazy" style="width:100%; max-width:125px; border-radius:4px; border:1px solid var(--border); display:block;"></div></td>
+                  <td><b><span class="zh">2. 底部殘膠<br>(Scumming)</span><span class="en">2. Scumming</span></b><div style="margin-top:6px;"><img title="示意圖 / Illustration" src="assets/litho/02_scumming.png" alt="Scumming SEM" loading="lazy" style="width:100%; max-width:125px; border-radius:4px; border:1px solid var(--border); display:block;"></div></td>
                   <td>
                     <span class="zh">溝槽或接觸孔底部殘留一層薄薄未溶解的光阻膠層。<b>根因</b>：曝光劑量邊緣衰減（光阻厚度深層光吸收導致底部酸分子不足）、顯影時間（Puddle Time）不足、顯影液濃度（TMAH 2.38%）降低或溫度偏低、介面酸淬滅。</span>
                     <span class="en">Thin layer of unremoved resist stranding at trench/via bottoms. <b>Root Cause</b>: Light absorption attenuation along PR depth yielding inadequate photo-acid at bottom, insufficient TMAH puddle time, or basic substrate quenching.</span>
@@ -9402,7 +9457,7 @@
                 </tr>
 
                 <tr>
-                  <td><b><span class="zh">3. 圖案倒塌<br>(Pattern Collapse)</span><span class="en">3. Pattern Collapse</span></b><div style="margin-top:6px;"><img src="assets/litho/03_pattern_collapse.png" alt="Pattern Collapse SEM" loading="lazy" style="width:100%; max-width:125px; border-radius:4px; border:1px solid var(--border); display:block;"></div></td>
+                  <td><b><span class="zh">3. 圖案倒塌<br>(Pattern Collapse)</span><span class="en">3. Pattern Collapse</span></b><div style="margin-top:6px;"><img title="示意圖 / Illustration" src="assets/litho/03_pattern_collapse.png" alt="Pattern Collapse SEM" loading="lazy" style="width:100%; max-width:125px; border-radius:4px; border:1px solid var(--border); display:block;"></div></td>
                   <td>
                     <span class="zh">高深寬比（Aspect Ratio &gt; 3:1）細長光阻線條彎曲、傾倒或相互黏合。<b>根因</b>：去離子水顯影清洗液乾燥蒸發時，相鄰線條間彎月面（Meniscus）毛細管負壓拉扯：\[\sigma_{\text{max}} = \frac{6 \gamma \cos\theta}{d} \left(\frac{H}{W}\right)^2\]</span>
                     <span class="en">Tall, high-aspect-ratio (HAR &gt; 3:1) resist lines bend, lean, or touch adjacent lines. <b>Root Cause</b>: Capillary meniscus tensile forces between features during deionized water rinse drying pull lines together.</span>
@@ -9422,7 +9477,7 @@
                 </tr>
 
                 <tr>
-                  <td><b><span class="zh">4. 底部裙邊<br>(Footing)</span><span class="en">4. Resist Footing</span></b><div style="margin-top:6px;"><img src="assets/litho/04_footing.png" alt="Footing SEM" loading="lazy" style="width:100%; max-width:125px; border-radius:4px; border:1px solid var(--border); display:block;"></div></td>
+                  <td><b><span class="zh">4. 底部裙邊<br>(Footing)</span><span class="en">4. Resist Footing</span></b><div style="margin-top:6px;"><img title="示意圖 / Illustration" src="assets/litho/04_footing.png" alt="Footing SEM" loading="lazy" style="width:100%; max-width:125px; border-radius:4px; border:1px solid var(--border); display:block;"></div></td>
                   <td>
                     <span class="zh">光阻側壁底部未呈直角垂直，而是朝外喇叭狀擴展。<b>根因</b>：基底化學毒化（Substrate Interaction）：含氮或鹼性基底（如 \(Si_3N_4\)、TiN、殘留胺基化合物）與化學增幅光阻（CAR）中釋放的光酸發生中和反应，使底層光阻無法去保護溶解。</span>
                     <span class="en">Resist sidewalls flare outward at the base instead of a vertical 90° profile. <b>Root Cause</b>: Basic/amine-rich underlying substrates (\(Si_3N_4\), TiN) chemically neutralize photo-generated acid at the interface.</span>
@@ -9442,7 +9497,7 @@
                 </tr>
 
                 <tr>
-                  <td><b><span class="zh">5. T 型頭<br>(T-topping)</span><span class="en">5. T-topping Profile</span></b><div style="margin-top:6px;"><img src="assets/litho/05_t_topping.png" alt="T-topping SEM" loading="lazy" style="width:100%; max-width:125px; border-radius:4px; border:1px solid var(--border); display:block;"></div></td>
+                  <td><b><span class="zh">5. T 型頭<br>(T-topping)</span><span class="en">5. T-topping Profile</span></b><div style="margin-top:6px;"><img title="示意圖 / Illustration" src="assets/litho/05_t_topping.png" alt="T-topping SEM" loading="lazy" style="width:100%; max-width:125px; border-radius:4px; border:1px solid var(--border); display:block;"></div></td>
                   <td>
                     <span class="zh">光阻頂部向兩側橫向擴展，剖面呈現「T」字或蘑菇狀突出（Overhang）。<b>根因</b>：空氣中氣態分子污染物（AMC），特別是微量鹼性氣態胺（\(NH_3\)、NMP，濃度即便僅 1 ppb）中和了光阻表面產生的光酸，導致頂層光阻無法被鹼性顯影液溶解。</span>
                     <span class="en">Resist tops flare outward creating a mushroom or "T" overhang. <b>Root Cause</b>: Airborne Molecular Contamination (AMC) in cleanrooms (airborne \(NH_3\), NMP &gt; 1 ppb) neutralizes surface photo-acid during post-exposure delay (PED).</span>
@@ -9462,7 +9517,7 @@
                 </tr>
 
                 <tr>
-                  <td><b><span class="zh">6. 針孔缺陷<br>(Pinholes)</span><span class="en">6. Micro-Pinholes</span></b><div style="margin-top:6px;"><img src="assets/litho/06_pinholes.png" alt="Pinholes SEM" loading="lazy" style="width:100%; max-width:125px; border-radius:4px; border:1px solid var(--border); display:block;"></div></td>
+                  <td><b><span class="zh">6. 針孔缺陷<br>(Pinholes)</span><span class="en">6. Micro-Pinholes</span></b><div style="margin-top:6px;"><img title="示意圖 / Illustration" src="assets/litho/06_pinholes.png" alt="Pinholes SEM" loading="lazy" style="width:100%; max-width:125px; border-radius:4px; border:1px solid var(--border); display:block;"></div></td>
                   <td>
                     <span class="zh">光阻薄膜內部出現局部微細空洞或垂直穿透孔。<b>根因</b>：光阻注膠幫浦配管微氣泡（Micro-bubbles）、旋轉塗佈時排氣擾流產生溶劑微洞、基底局部未潤濕（Wetting Voids），或光阻過濾器破孔釋放微凝膠。</span>
                     <span class="en">Microscopic voids or pinhole tunnels perforating the resist layer. <b>Root Cause</b>: Resist dispense pump micro-bubbles, turbulence during high-speed spin coating, substrate de-wetting voids, or sheared micro-gel particles.</span>
@@ -9482,7 +9537,7 @@
                 </tr>
 
                 <tr>
-                  <td><b><span class="zh">7. 線緣粗糙度<br>(LER / LWR)</span><span class="en">7. Line-Edge Roughness</span></b><div style="margin-top:6px;"><img src="assets/litho/07_line_edge_roughness.png" alt="LER SEM" loading="lazy" style="width:100%; max-width:125px; border-radius:4px; border:1px solid var(--border); display:block;"></div></td>
+                  <td><b><span class="zh">7. 線緣粗糙度<br>(LER / LWR)</span><span class="en">7. Line-Edge Roughness</span></b><div style="margin-top:6px;"><img src="assets/litho/07_line_edge_roughness.jpg" alt="LER SEM" loading="lazy" style="width:100%; max-width:125px; border-radius:4px; border:1px solid var(--border); display:block;"></div></td>
                   <td>
                     <span class="zh">光阻圖案邊界並非平整直線，而是呈現隨機奈米級鋸齒起伏。<b>根因</b>：先進曝光（特別是 EUV 13.5nm）光子密度極低引發之「光子散粒雜訊（Photon Shot Noise）」隨機性、聚合物分子聚集體尺寸與酸擴散距離統計波動。</span>
                     <span class="en">Random nanoscale jagged edge fluctuations. <b>Root Cause</b>: Stochastic variations driven by photon shot noise (especially EUV low photon density), photo-acid diffusion blur statistics, and resist polymer aggregate size.</span>
@@ -9502,7 +9557,7 @@
                 </tr>
 
                 <tr>
-                  <td><b><span class="zh">8. 駐波效應<br>(Standing Waves)</span><span class="en">8. Standing Waves</span></b><div style="margin-top:6px;"><img src="assets/litho/08_standing_waves.png" alt="Standing Waves SEM" loading="lazy" style="width:100%; max-width:125px; border-radius:4px; border:1px solid var(--border); display:block;"></div></td>
+                  <td><b><span class="zh">8. 駐波效應<br>(Standing Waves)</span><span class="en">8. Standing Waves</span></b><div style="margin-top:6px;"><img src="assets/litho/08_standing_waves.jpg" alt="Standing Waves SEM" loading="lazy" style="width:100%; max-width:125px; border-radius:4px; border:1px solid var(--border); display:block;"></div></td>
                   <td>
                     <span class="zh">光阻側壁呈現週期性階梯狀或波紋起伏。<b>根因</b>：入射單色曝光光束與高反射率基底（Si, Al, Cu）向上反射光束發生相干光學干涉，在光阻深度方向形成波腹與波節強度週期分佈：\[P = \frac{\lambda}{2 n_{\text{resist}}}\]</span>
                     <span class="en">Periodic horizontal ripples along resist sidewalls. <b>Root Cause</b>: Monochromatic incident exposure light interferes with substrate reflections (Si, metals), establishing stationary optical nodes and antinodes spaced at \(\lambda / (2n)\).</span>
@@ -9522,7 +9577,7 @@
                 </tr>
 
                 <tr>
-                  <td><b><span class="zh">9. 圖案缺失<br>(Missing Patterns)</span><span class="en">9. Missing Patterns</span></b><div style="margin-top:6px;"><img src="assets/litho/09_missing_patterns.png" alt="Missing Patterns SEM" loading="lazy" style="width:100%; max-width:125px; border-radius:4px; border:1px solid var(--border); display:block;"></div></td>
+                  <td><b><span class="zh">9. 圖案缺失<br>(Missing Patterns)</span><span class="en">9. Missing Patterns</span></b><div style="margin-top:6px;"><img title="示意圖 / Illustration" src="assets/litho/09_missing_patterns.png" alt="Missing Patterns SEM" loading="lazy" style="width:100%; max-width:125px; border-radius:4px; border:1px solid var(--border); display:block;"></div></td>
                   <td>
                     <span class="zh">原本應完整顯影成形的光阻線條或接觸孔完全消失遺失。<b>根因</b>：光罩（Reticle）護膜上附著微粒落塵阻擋光束、光阻塗佈局部脫膜剝離、顯影液噴嘴局部阻塞、或巨量過度曝光（Over-dose）。</span>
                     <span class="en">Expected resist lines or contact holes are completely absent. <b>Root Cause</b>: Fall-on particle on reticle/pellicle blocking exposure light, catastrophic resist lift-off, clogged developer nozzle, or extreme local over-dose.</span>
@@ -9542,7 +9597,7 @@
                 </tr>
 
                 <tr>
-                  <td><b><span class="zh">10. 顆粒殘留<br>(Residue)</span><span class="en">10. Polymer Residue</span></b><div style="margin-top:6px;"><img src="assets/litho/10_residue.png" alt="Polymer Residue SEM" loading="lazy" style="width:100%; max-width:125px; border-radius:4px; border:1px solid var(--border); display:block;"></div></td>
+                  <td><b><span class="zh">10. 顆粒殘留<br>(Residue)</span><span class="en">10. Polymer Residue</span></b><div style="margin-top:6px;"><img title="示意圖 / Illustration" src="assets/litho/10_residue.png" alt="Polymer Residue SEM" loading="lazy" style="width:100%; max-width:125px; border-radius:4px; border:1px solid var(--border); display:block;"></div></td>
                   <td>
                     <span class="zh">去阻、顯影或清洗後，晶圓表面殘留不可溶聚合物沉澱、有機物或雜質顆粒。<b>根因</b>：去光阻電漿灰化（Ashing）溫度/時間不足、濕式去阻液（SPM 硫酸雙氧水）老化飽和、去離子水沖洗排液不良。</span>
                     <span class="en">Loose insoluble polymer flakes, organic scum or particulate redeposition after develop/strip. <b>Root Cause</b>: Incomplete plasma ashing, exhausted piranha wet bench chemistry (SPM), or poor megasonic DI rinse.</span>
@@ -9562,7 +9617,7 @@
                 </tr>
 
                 <tr>
-                  <td><b><span class="zh">11. 疊對誤差<br>(Overlay Error)</span><span class="en">11. Overlay Misalignment</span></b><div style="margin-top:6px;"><img src="assets/litho/11_overlay_error.png" alt="Overlay Error SEM" loading="lazy" style="width:100%; max-width:125px; border-radius:4px; border:1px solid var(--border); display:block;"></div></td>
+                  <td><b><span class="zh">11. 疊對誤差<br>(Overlay Error)</span><span class="en">11. Overlay Misalignment</span></b><div style="margin-top:6px;"><img title="示意圖 / Illustration" src="assets/litho/11_overlay_error.png" alt="Overlay Error SEM" loading="lazy" style="width:100%; max-width:125px; border-radius:4px; border:1px solid var(--border); display:block;"></div></td>
                   <td>
                     <span class="zh">當前微影層圖案與晶圓已存在之底層圖案發生幾何平移、旋轉、放大或梯形偏位（\(\Delta X, \Delta Y, \theta\)）。<b>根因</b>：曝光機晶圓載台雷射干涉儀漂移、晶圓高熱應力形變、CMP 研磨對準標記（Alignment Mark）非對稱磨損。</span>
                     <span class="en">Geometric planar shift, rotation, magnification, or trapezoid skew between current and underlying layer. <b>Root Cause</b>: Scanner interferometer drift, thermal expansion under intense illumination, or asymmetric CMP mark erosion.</span>
@@ -9582,7 +9637,7 @@
                 </tr>
 
                 <tr>
-                  <td><b><span class="zh">12. 剝離缺陷<br>(Lift-off Defects)</span><span class="en">12. Lift-off Defects</span></b><div style="margin-top:6px;"><img src="assets/litho/12_lift_off_defects.png" alt="Lift-off Defects SEM" loading="lazy" style="width:100%; max-width:125px; border-radius:4px; border:1px solid var(--border); display:block;"></div></td>
+                  <td><b><span class="zh">12. 剝離缺陷<br>(Lift-off Defects)</span><span class="en">12. Lift-off Defects</span></b><div style="margin-top:6px;"><img title="示意圖 / Illustration" src="assets/litho/12_lift_off_defects.png" alt="Lift-off Defects SEM" loading="lazy" style="width:100%; max-width:125px; border-radius:4px; border:1px solid var(--border); display:block;"></div></td>
                   <td>
                     <span class="zh">金屬剝離製程中，金屬邊緣殘留翻起之毛刺、兔耳（Bunny Ears）或金屬膜撕裂脫落。<b>根因</b>：底層光阻剖面缺乏負斜率反錐倒角（Undercut Profile），使金屬沉積時在光阻側壁連續覆蓋成膜，溶劑無法順利浸潤剝離。</span>
                     <span class="en">Torn metal burrs, bunny ears, or peeling shreds during solvent lift-off. <b>Root Cause</b>: Resist profile lacks re-entrant undercut sidewall slope; deposited metal coats sidewalls continuously, blocking solvent ingress.</span>
@@ -9603,6 +9658,7 @@
               </tbody>
             </table>
           </div>
+            <p class="img-table-note"><span class="zh">縮圖與上方圖卡相同：未註明出處者為示意圖，非實拍顯微照片；實拍照片的作者與授權見圖卡下方。</span><span class="en">Thumbnails match the cards above: images without a credit are illustrations, not actual micrographs; authors and licenses of real photos are listed under each card.</span></p>
 
           <!-- SUBSECTION 4.6.2 -->
           <h4 id="sec_4_6_2">
@@ -12309,11 +12365,11 @@
           </div>
 
           
-          <!-- REAL DEFECT MICROGRAPH & INSPECTION GALLERY FOR SCRATCH INKING -->
+          <!-- SCRATCH INKING GALLERY: all four images are illustrations -->
           <div style="font-weight:700; font-size:14.5px; margin:24px 0 10px; color:var(--ink); display:flex; align-items:center; gap:8px;">
             <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:var(--danger);"></span>
-            <span class="zh">實體顯微圖譜與檢測圖集：從全晶圓宏觀刮痕、CMP 奈米刮痕到 FIB 剖面微裂紋</span>
-            <span class="en">Defect Micrograph &amp; Inspection Atlas: From Wafer Macro Gouges, CMP Nano-Scratches to FIB Micro-Cracks</span>
+            <span class="zh">刮痕缺陷示意圖集：從全晶圓宏觀刮痕、CMP 奈米刮痕到 FIB 剖面微裂紋</span>
+            <span class="en">Scratch Defect Illustrations: From Wafer Macro Gouges, CMP Nano-Scratches to FIB Micro-Cracks</span>
           </div>
 
           <div class="scratch-gallery-grid">
@@ -12321,8 +12377,10 @@
             <div class="scratch-card">
               <div class="scratch-card-img-wrap">
                 <span class="scratch-card-badge">MACRO | 300mm Wafer</span>
-                <img src="assets/scratch/01_wafer_scratch_macro.jpg" alt="300mm Wafer Robot Handler Arc Scratch" loading="lazy">
+                <img title="示意圖 / Illustration" src="assets/scratch/01_wafer_scratch_macro.jpg" alt="300mm Wafer Robot Handler Arc Scratch" loading="lazy">
+                <span class="img-illus-tag"><span class="zh">示意圖</span><span class="en">Illustration</span></span>
               </div>
+              <div class="img-credit illus">🎨 <span class="zh">示意圖，非實拍顯微照片</span><span class="en">Illustration, not an actual micrograph</span></div>
               <div class="scratch-card-body">
                 <div class="scratch-card-title">
                   <span class="zh">全晶圓尺度：夾爪拋物線刮痕與斷續跳晶</span>
@@ -12339,8 +12397,10 @@
             <div class="scratch-card">
               <div class="scratch-card-img-wrap">
                 <span class="scratch-card-badge">CD-SEM | Top-down</span>
-                <img src="assets/scratch/02_cmp_slurry_scratch_sem.jpg" alt="Top-down SEM of CMP Slurry Micro-Scratch" loading="lazy">
+                <img title="示意圖 / Illustration" src="assets/scratch/02_cmp_slurry_scratch_sem.jpg" alt="Top-down SEM of CMP Slurry Micro-Scratch" loading="lazy">
+                <span class="img-illus-tag"><span class="zh">示意圖</span><span class="en">Illustration</span></span>
               </div>
+              <div class="img-credit illus">🎨 <span class="zh">示意圖，非實拍顯微照片</span><span class="en">Illustration, not an actual micrograph</span></div>
               <div class="scratch-card-body">
                 <div class="scratch-card-title">
                   <span class="zh">奈米尺度：CMP 研磨液大顆粒微刮痕</span>
@@ -12357,8 +12417,10 @@
             <div class="scratch-card">
               <div class="scratch-card-img-wrap">
                 <span class="scratch-card-badge">FIB-SEM | Cross-section</span>
-                <img src="assets/scratch/03_fib_cross_section_crack.jpg" alt="FIB Cross-Section of Sub-surface Micro-crack" loading="lazy">
+                <img title="示意圖 / Illustration" src="assets/scratch/03_fib_cross_section_crack.jpg" alt="FIB Cross-Section of Sub-surface Micro-crack" loading="lazy">
+                <span class="img-illus-tag"><span class="zh">示意圖</span><span class="en">Illustration</span></span>
               </div>
+              <div class="img-credit illus">🎨 <span class="zh">示意圖，非實拍顯微照片</span><span class="en">Illustration, not an actual micrograph</span></div>
               <div class="scratch-card-body">
                 <div class="scratch-card-title">
                   <span class="zh">FIB 剖面：次表面介電微裂紋與潛伏破壞</span>
@@ -12375,8 +12437,10 @@
             <div class="scratch-card">
               <div class="scratch-card-img-wrap">
                 <span class="scratch-card-badge">OPTICAL | Darkfield ADR</span>
-                <img src="assets/scratch/04_darkfield_klarf_inspection.jpg" alt="In-line Darkfield Inspection & KLARF Overlay" loading="lazy">
+                <img title="示意圖 / Illustration" src="assets/scratch/04_darkfield_klarf_inspection.jpg" alt="In-line Darkfield Inspection & KLARF Overlay" loading="lazy">
+                <span class="img-illus-tag"><span class="zh">示意圖</span><span class="en">Illustration</span></span>
               </div>
+              <div class="img-credit illus">🎨 <span class="zh">示意圖，非實拍顯微照片</span><span class="en">Illustration, not an actual micrograph</span></div>
               <div class="scratch-card-body">
                 <div class="scratch-card-title">
                   <span class="zh">光檢視角：KLARF 多邊形疊圖與預先墨印</span>
@@ -15494,7 +15558,7 @@
                 </div>
                 <div class="fa-card-meta">
                   <span><span class="zh">對應製程：</span><span class="en">Process:</span> <b>FEOL Gate / Contact</b></span>
-                  <span>CC BY-SA 3.0</span>
+                  <span><a href="https://commons.wikimedia.org/wiki/File:Fib_tem_sample.jpg" target="_blank" rel="noopener noreferrer">Cm the p (English Wikipedia) · CC BY-SA 3.0</a></span>
                 </div>
               </div>
             </div>
@@ -15503,7 +15567,7 @@
             <div class="fa-card">
               <div class="fa-card-img-wrap">
                 <img src="assets/fa/ic_metallization_sem.jpg" alt="IC Metallization SEM" loading="lazy">
-                <div class="fa-card-badge">FE-SEM | 20,000x</div>
+                <div class="fa-card-badge">SEM | Die Overview</div>
               </div>
               <div class="fa-card-body">
                 <div class="fa-card-title">
@@ -15520,7 +15584,7 @@
                 </div>
                 <div class="fa-card-meta">
                   <span><span class="zh">對應製程：</span><span class="en">Process:</span> <b>BEOL Etch / CMP / PVD</b></span>
-                  <span>Public Domain</span>
+                  <span><a href="https://commons.wikimedia.org/wiki/File:1kt901-SEM.jpg" target="_blank" rel="noopener noreferrer">Zeptobars · CC BY 3.0</a></span>
                 </div>
               </div>
             </div>
@@ -15546,7 +15610,7 @@
                 </div>
                 <div class="fa-card-meta">
                   <span><span class="zh">對應製程：</span><span class="en">Process:</span> <b>Reliability / Cu Cap Layer</b></span>
-                  <span>CC BY-SA 3.0</span>
+                  <span><a href="https://commons.wikimedia.org/wiki/File:In_situ_electromigration.gif" target="_blank" rel="noopener noreferrer">JoupYoup · CC BY-SA 4.0</a></span>
                 </div>
               </div>
             </div>
@@ -15572,7 +15636,7 @@
                 </div>
                 <div class="fa-card-meta">
                   <span><span class="zh">對應製程：</span><span class="en">Process:</span> <b>Packaging Mold / MSL Bake</b></span>
-                  <span>Sonoscan / CC</span>
+                  <span><a href="https://commons.wikimedia.org/wiki/File:Sonoscanart1.jpg" target="_blank" rel="noopener noreferrer">Sonoscan · CC BY-SA 3.0</a></span>
                 </div>
               </div>
             </div>
@@ -15598,7 +15662,7 @@
                 </div>
                 <div class="fa-card-meta">
                   <span><span class="zh">對應製程：</span><span class="en">Process:</span> <b>Assembly Wire Bonder / Pad</b></span>
-                  <span>CC BY-SA 3.0</span>
+                  <span><a href="https://commons.wikimedia.org/wiki/File:Wirebond-ballbond.jpg" target="_blank" rel="noopener noreferrer">Shaddack · Public domain</a></span>
                 </div>
               </div>
             </div>
@@ -15624,7 +15688,7 @@
                 </div>
                 <div class="fa-card-meta">
                   <span><span class="zh">對應製程：</span><span class="en">Process:</span> <b>Lead Finish Plating / Anneal</b></span>
-                  <span>ESA / CC BY-SA 3.0 IGO</span>
+                  <span><a href="https://commons.wikimedia.org/wiki/File:Tin_whisker_ESA385984.jpg" target="_blank" rel="noopener noreferrer">ESA · CC BY-SA 3.0 IGO</a></span>
                 </div>
               </div>
             </div>
@@ -15650,7 +15714,7 @@
                 </div>
                 <div class="fa-card-meta">
                   <span><span class="zh">對應製程：</span><span class="en">Process:</span> <b>SMT Reflow / Underfill</b></span>
-                  <span>CC BY-SA 4.0</span>
+                  <span><a href="https://commons.wikimedia.org/wiki/File:BGA_package_cross_section.jpg" target="_blank" rel="noopener noreferrer">TubeTimeUS · CC BY-SA 4.0</a></span>
                 </div>
               </div>
             </div>
@@ -17808,11 +17872,11 @@
     <div style="display:flex; flex-direction:column; align-items:flex-end; gap:5px;">
       <div style="display:flex; align-items:center; gap:8px;">
         <span class="badge badge-green" style="font-size:11px; padding:2px 8px;">● LIVE VERIFIED</span>
-        <span style="font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft);">Rev. AS</span>
+        <span style="font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft);">Rev. AT</span>
       </div>
       <div style="font-family:var(--font-mono); font-size:12px; color:var(--ink);">
         <span class="zh">最後更新日期：</span><span class="en">Last Updated: </span>
-        <b style="color:var(--accent);">2026-11-03 22:18 (Asia/Taipei)</b>
+        <b style="color:var(--accent);">2026-11-03 22:34 (Asia/Taipei)</b>
       </div>
     </div>
   </footer>
@@ -19101,6 +19165,9 @@
   // ===================================================
   // TOP 10 FALLOUTS & FEEDFORWARD SIMULATOR ENGINE
   // ===================================================
+  // Gallery images with a verified source (author/license shown under each card); all others are illustrations
+  const REAL_PHOTO_PATHS = ['assets/fa/bga_cross_section.jpg', 'assets/fa/csam_delamination.jpg', 'assets/fa/fib_tem_sample.jpg', 'assets/fa/ic_metallization_sem.jpg', 'assets/fa/tin_whisker_sem.jpg', 'assets/fa/wirebond_ballbond.jpg', 'assets/fa/electromigration_void.webp', 'assets/top10/10_serdes_eye_closure.png', 'assets/litho/07_line_edge_roughness.jpg', 'assets/litho/08_standing_waves.jpg'];
+
   const falloutData = {
     1: {
       img_src: 'assets/top10/01_gate_oxide_breakdown.jpg',
@@ -19247,7 +19314,7 @@
       spc_metric: 'Socket Contact Resistance Rc < 0.15 Ohm, Site-to-Site Delta < 0.5%'
     },
     10: {
-      img_src: 'assets/top10/10_serdes_eye_margin_closure.jpg',
+      img_src: 'assets/top10/10_serdes_eye_closure.png',
       name_zh: '高速傳輸眼圖裕度不足與抖動',
       name_en: 'High-Speed SerDes Eye Closure',
       stage: 'ATE Final Test / System-Level Test (Cold -40C & Hot +125C)',
@@ -19317,7 +19384,10 @@
     if (foMicroImg && item.img_src) {
       foMicroImg.src = item.img_src;
       foMicroImg.alt = (currentLang === 'zh' ? item.name_zh : item.name_en) + ' Micrograph';
-      if (foMicroCap) foMicroCap.textContent = (currentLang === 'zh' ? item.name_zh : item.name_en);
+      // only the real photos are listed; every other atlas image is an illustration
+      const isReal = REAL_PHOTO_PATHS.includes(item.img_src);
+      const tag = isReal ? '' : (currentLang === 'zh' ? '（示意圖）' : ' (illustration)');
+      if (foMicroCap) foMicroCap.textContent = (currentLang === 'zh' ? item.name_zh : item.name_en) + tag;
     }
   }
 

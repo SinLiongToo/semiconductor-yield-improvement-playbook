@@ -8,6 +8,23 @@ Entry format / 格式:
 `## YYYY-MM-DD — <agent> — <short title>` then bullets: what changed, why, caveats for the next agent.
 
 ---
+## 2026-11-04 — Claude Code — Rev. AT: image provenance — sourced photos and illustration labels
+
+- **User decision**: replace each gallery image with a sourced photo where one exists; otherwise label it an illustration.
+- **Method**: SHA-1 lookups on Wikimedia Commons showed that all 7 FA photos are real Commons files and that none of the 21 Antigravity-added images has a Commons source. A keyword search of Commons then looked for real replacements.
+- **Replaced with real photos** (3):
+  - Top-10 #10 eye closure → measured eye diagram (A. D. Zonenberg, CC BY 4.0);
+  - Litho #7 LER → NIST/SEMATECH SEM (public domain);
+  - Litho #8 standing waves → CAMECA-archive SEM (J. Drouard, CC BY-SA 3.0).
+- **Labelled 「示意圖 / Illustration」** (20 cards): Top-10 #1–5, #9; scratch 1–4; litho 1–6, 9–12. Each has a corner tag and a note "not an actual micrograph". Thumbnail tables got a footnote and `title` attributes, and the simulator caption appends （示意圖）/(illustration) using `REAL_PHOTO_PATHS`.
+- **Credits**: every real photo shows author · license with a link; real photos reused in the Top-10 atlas say what they actually show (e.g. "BGA package cross-section, not this specific defect"). Three FA licenses were wrong and are now corrected:
+  - 1KT901 SEM: CC BY 3.0, was "Public Domain";
+  - wire bond: public domain, was "CC BY-SA 3.0";
+  - electromigration GIF: CC BY-SA 4.0, was "CC BY-SA 3.0".
+- **Wording**: the atlas heading no longer says 「實物」/"physical", and the scratch gallery is retitled 刮痕缺陷示意圖集. Three badges that contradicted the real images were corrected: "56 Gbps" → "1.25 Gb/s (measured)", "SEM" → "Optical" for the wire bond, and "FE-SEM 20,000x" → "SEM | Die Overview".
+- **Open items** (see PROJECT_MEMORY.md): the 145 px litho crops, and the questionable AEC-Q001 attribution in §6.4.2.
+
+---
 ## 2026-11-04 — Claude Code — Rev. AS: hotfix for broken simulator image paths
 
 - Rev. AR's duplicate-image cleanup deleted 5 `assets/top10/*` files that the Top-10 fallout simulator still referenced in JS (`img_src: '...'`), so its preview image broke for modes 2 and 5–8. Those strings now point at the surviving originals. Lesson: when moving or deleting assets, search for the path everywhere (attributes, JS strings, CSS), not only `src="…"`.

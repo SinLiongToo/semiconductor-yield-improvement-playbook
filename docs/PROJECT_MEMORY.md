@@ -21,8 +21,16 @@ Rules live in `AGENTS.md`; the change history lives in `CHANGELOG.md`. Keep entr
 - Reading `index.html` in Python text mode turns a stray CR into a newline, which shifts line numbers. Use `open(..., newline='')`. 2026-11-04 · Claude Code
 - `<svg height="auto">` is invalid and logs a console error; put `height:auto` in `style` instead. 2026-11-04 · Claude Code
 - Inline grids with fixed minimums (`minmax(320px, …)`, `1fr 1fr`) overflow 360–390 px phones; use `repeat(auto-fit, minmax(min(280px, 100%), 1fr))`. 2026-11-04 · Claude Code
+- Image paths are also referenced from JS (`img_src: '…'` in `falloutData`), not only `src="…"`. Before deleting or renaming an asset, search the whole file for the path. 2026-11-04 · Claude Code
+- Wikimedia Commons can find the exact source of an unmodified image by SHA-1 (`api.php?action=query&list=allimages&aisha1=…`). That is how the FA photos were attributed and how the Antigravity images were shown to have no Commons source. 2026-11-04 · Claude Code
+
+## Image provenance (decided 2026-11-04, user: "replace with sourced photo if any, otherwise label illustration")
+
+- Real, credited photos (Wikimedia Commons, author and license under each card; `REAL_PHOTO_PATHS` in JS lists them): all 7 in `assets/fa/`, plus `top10/10_serdes_eye_closure.png` (A. D. Zonenberg, CC BY 4.0), `litho/07_line_edge_roughness.jpg` (NIST/SEMATECH, public domain) and `litho/08_standing_waves.jpg` (J. Drouard, CAMECA, CC BY-SA 3.0). 2026-11-04 · Claude Code
+- Every other image in `assets/top10/`, `assets/scratch/` and `assets/litho/` has no findable source (likely AI-generated). Each is tagged 「示意圖 / Illustration」. New images must either carry a verified credit or this tag. 2026-11-04 · Claude Code
 
 ## Open items
 
-- Image provenance (awaiting the user): `assets/top10/*` and `assets/scratch/*` look AI-generated, yet the Top-10 atlas calls them a "physical micrograph atlas" (實物微觀圖譜). Some photos are reused for unrelated failure modes (e.g. a BGA cross-section photo labelled "die tilt / warpage"). Either label them as illustrations or replace them with sourced micrographs. 2026-11-04 · Claude Code
-- `assets/litho/01–12_*.png` are 145×107 px crops, too small for the zoom lightbox. 2026-11-04 · Claude Code
+- `assets/litho/01–06, 09–12` are 145×107 px illustration crops, too small for the zoom lightbox. 2026-11-04 · Claude Code
+- Section 6.4.2 (scratch inking) says AEC-Q001 「明文規定」 that every die on a scratch path must be inked. AEC-Q001 is the PAT guideline, so this attribution looks wrong (GDBN/zero-defect practice is closer to AEC-Q004). Verify against the standard before relying on it. 2026-11-04 · Claude Code
+- No free real micrographs were found on Commons for gate-oxide TDDB, via open, wafer chipping, CMP scratch, pogo-pin wear or most litho defects. Real images would need licensed sources (papers under CC BY, or vendor permission). 2026-11-04 · Claude Code
