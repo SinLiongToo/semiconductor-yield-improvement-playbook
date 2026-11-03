@@ -8,6 +8,12 @@ Entry format / 格式:
 `## YYYY-MM-DD — <agent> — <short title>` then bullets: what changed, why, caveats for the next agent.
 
 ---
+## 2026-11-04 — Claude Code — Archive original images (no page change)
+
+- At the user's request, the originals replaced in Rev. AT/AU were restored from git into `assets/archive/` for reference. They are the 12 litho crops, the 2 litho atlas sheets they were cut from, and the old Top-10 #10 eye image (15 files, 1.1 MB).
+- `index.html` does not reference them, so there is no revision bump. `assets/archive/README.md` records what replaced each one and that none has a findable source.
+
+---
 ## 2026-11-04 — Claude Code — Rev. AU: AEC-Q001 corrections, SVG math labels, vector litho schematics
 
 - **AEC-Q001 corrections** (checked against Rev D summaries):
