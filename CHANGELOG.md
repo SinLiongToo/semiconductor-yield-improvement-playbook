@@ -8,6 +8,17 @@ Entry format / 格式:
 `## YYYY-MM-DD — <agent> — <short title>` then bullets: what changed, why, caveats for the next agent.
 
 ---
+## 2026-11-04 — Claude Code — Rev. AU: AEC-Q001 corrections, SVG math labels, vector litho schematics
+
+- **AEC-Q001 corrections** (checked against Rev D summaries):
+  - §6.4.1 SPAT said "μ ± 3σ from ≥ 30 lots". It is now robust median ± 6 robust σ (IQR/1.35) from ≥ 6 lots, in the text, the formula and the comparison table.
+  - §6.4.2 no longer says AEC-Q001 「明文規定」 scratch inking. That is automotive zero-defect practice (customer agreements / control plans, GDBN-type spatial screening), not an AEC-Q001 clause.
+  - The Fig 6.4 label "AEC-Q001 μ ± 3σ" now reads "robust μ ± 6σ".
+  - The Top-10 table now says 3.5σ is a tightened customer limit on top of the AEC-Q001 ±6σ baseline.
+- **19 SVG labels contained TeX**, which KaTeX cannot render inside SVG, so they showed raw code. They are now Unicode with `<tspan>` subscripts (Fig 1.x STDF, Fig 6.x outlier panels, scratch figure).
+- **Litho illustrations 1–6 and 9–12** were 145 px raster crops that blurred when zoomed. They are now generated vector SVG schematics (grey SEM-style palette, scale bars), still tagged 「示意圖」, with badges changed from "SEM" to "Schematic". The old PNGs were removed.
+
+---
 ## 2026-11-04 — Claude Code — Rev. AT: image provenance — sourced photos and illustration labels
 
 - **User decision**: replace each gallery image with a sourced photo where one exists; otherwise label it an illustration.

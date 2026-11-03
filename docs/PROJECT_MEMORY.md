@@ -29,8 +29,16 @@ Rules live in `AGENTS.md`; the change history lives in `CHANGELOG.md`. Keep entr
 - Real, credited photos (Wikimedia Commons, author and license under each card; `REAL_PHOTO_PATHS` in JS lists them): all 7 in `assets/fa/`, plus `top10/10_serdes_eye_closure.png` (A. D. Zonenberg, CC BY 4.0), `litho/07_line_edge_roughness.jpg` (NIST/SEMATECH, public domain) and `litho/08_standing_waves.jpg` (J. Drouard, CAMECA, CC BY-SA 3.0). 2026-11-04 · Claude Code
 - Every other image in `assets/top10/`, `assets/scratch/` and `assets/litho/` has no findable source (likely AI-generated). Each is tagged 「示意圖 / Illustration」. New images must either carry a verified credit or this tag. 2026-11-04 · Claude Code
 
+- `assets/litho/01–06, 09–12` are vector SVG schematics (generated, SEM-style grey palette, with scale bars), replacing 145 px raster crops. Their badges say "Schematic", not "SEM". 2026-11-04 · Claude Code
+
+## Verified facts (standards)
+
+- AEC-Q001 (Part Average Testing) covers electrical-parameter outliers. Static PAT limits = robust mean (median) ± 6 robust σ, with robust σ = (Q3 − Q1)/1.35, from ≥ 6 passing lots. Tighter limits such as 3.5σ are customer or internal choices, not AEC-Q001 values. Scratch-path inking is automotive zero-defect practice (customer agreements / control plans), not an AEC-Q001 clause. Sources: AEC-Q001 Rev D summaries (Keysight, yieldWerx, EDN), 2026-11-04. 2026-11-04 · Claude Code
+
+## Gotchas (SVG)
+
+- KaTeX does not render inside SVG `<text>`: `\(\sigma\)` there shows as raw code (or as invisible markup). Use Unicode (σ, ±, ≤, ², ᵀ) and `<tspan baseline-shift="sub" font-size="70%">` for subscripts. 2026-11-04 · Claude Code
+
 ## Open items
 
-- `assets/litho/01–06, 09–12` are 145×107 px illustration crops, too small for the zoom lightbox. 2026-11-04 · Claude Code
-- Section 6.4.2 (scratch inking) says AEC-Q001 「明文規定」 that every die on a scratch path must be inked. AEC-Q001 is the PAT guideline, so this attribution looks wrong (GDBN/zero-defect practice is closer to AEC-Q004). Verify against the standard before relying on it. 2026-11-04 · Claude Code
 - No free real micrographs were found on Commons for gate-oxide TDDB, via open, wafer chipping, CMP scratch, pogo-pin wear or most litho defects. Real images would need licensed sources (papers under CC BY, or vendor permission). 2026-11-04 · Claude Code

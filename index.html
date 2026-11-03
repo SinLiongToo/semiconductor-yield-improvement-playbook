@@ -1348,7 +1348,7 @@
       </div>
       <div>
         <span class="zh">版次狀態</span><span class="en">Revision</span>
-        <b>Rev. AT (Image Provenance: Sourced Photos &amp; Illustration Labels)</b>
+        <b>Rev. AU (AEC-Q001 Corrections, SVG Math Labels &amp; Vector Litho Schematics)</b>
       </div>
       <div>
         <span class="zh">適用對象</span><span class="en">Audience</span>
@@ -1356,7 +1356,7 @@
       </div>
       <div>
         <span class="zh">最後修訂</span><span class="en">Last Updated</span>
-        <b>2026-11-03 22:34 (Asia/Taipei)</b>
+        <b>2026-11-03 23:22 (Asia/Taipei)</b>
       </div>
     </div>
   </header>
@@ -3594,8 +3594,8 @@
                         <span class="en">Micro-defects (gate pinholes, localized metallic contamination) allow dies to barely satisfy static specs while exhibiting abnormal parametric drift.</span>
                       </td>
                       <td>
-                        <span class="zh"><b>推回：晶圓測試演算法庫 (YMS / PAT 模組)</b><br>啟動 AEC-Q001 汽車電子動態 PAT（Part Average Testing）自適應門檻演算法；自動將大於 3.5σ 的合格晶粒直接降級剔除。</span>
-                        <span class="en"><b>Push-Back to YMS Dynamic PAT Engine:</b> Deploy automotive AEC-Q001 Dynamic Part Average Testing (DPAT), truncating statistical distribution tails (&gt;3.5σ).</span>
+                        <span class="zh"><b>推回：晶圓測試演算法庫 (YMS / PAT 模組)</b><br>啟動以 AEC-Q001 為基礎的動態 PAT（Part Average Testing）自適應門檻演算法（AEC-Q001 基準為 ±6σ，可依客戶要求收緊，例如 3.5σ），將超出門檻的合格晶粒降級剔除。</span>
+                        <span class="en"><b>Push-Back to YMS Dynamic PAT Engine:</b> Deploy Dynamic Part Average Testing (DPAT) based on AEC-Q001 (baseline ±6σ, tightened per customer requirement, e.g. 3.5σ) to cut off the distribution tails.</span>
                       </td>
                       <td><code>Maverick Die Escape Rate = 0 DPM</code></td>
                     </tr>
@@ -5755,8 +5755,8 @@
                 <!-- Exensio Rule 4 -->
                 <rect x="330" y="280" width="300" height="60" rx="4" fill="var(--surface-2)" stroke="var(--accent)" stroke-width="1"/>
                 <text class="zh" x="340" y="297" font-size="10" font-weight="700" fill="var(--accent)">配方 4: 極限主檔校驗 (Limit Master &amp; Sentinel Nullify)</text><text class="en" x="340" y="297" font-size="10" font-weight="700" fill="var(--accent)">Recipe 4: Limit Master &amp; Sentinel Float Nullification</text>
-                <text class="zh" x="340" y="313" font-size="8.5" fill="var(--ink-soft)">• 檢查 TEST_FLG：哨兵極限 ((le -10^{30})) 強制轉換為 NULL</text><text class="en" x="340" y="313" font-size="8.5" fill="var(--ink-soft)">• Sentinel limits ((le -10^{30})) converted to database NULL</text>
-                <text class="zh" x="340" y="328" font-size="8.5" fill="var(--good)">• 自動套用單邊極限公式計算 (C_{pu}) / (C_{pl})，消除虛假變異</text><text class="en" x="340" y="328" font-size="8.5" fill="var(--good)">• Computes true single-sided (C_{pu})/(C_{pl}) instead of broken Cpk</text>
+                <text class="zh" x="340" y="313" font-size="8.5" fill="var(--ink-soft)">• 檢查 TEST_FLG：哨兵極限 (≤ −10³⁰) 強制轉換為 NULL</text><text class="en" x="340" y="313" font-size="8.5" fill="var(--ink-soft)">• Sentinel limits (≤ −10³⁰) converted to database NULL</text>
+                <text class="zh" x="340" y="328" font-size="8.5" fill="var(--good)">• 自動套用單邊極限公式計算 C<tspan baseline-shift="sub" font-size="70%">pu</tspan> / C<tspan baseline-shift="sub" font-size="70%">pl</tspan>，消除虛假變異</text><text class="en" x="340" y="328" font-size="8.5" fill="var(--good)">• Computes true single-sided C<tspan baseline-shift="sub" font-size="70%">pu</tspan> / C<tspan baseline-shift="sub" font-size="70%">pl</tspan> instead of broken Cpk</text>
 
                 <!-- Exensio Rule 5 -->
                 <rect x="330" y="345" width="300" height="62" rx="4" fill="var(--surface-2)" stroke="var(--good)" stroke-width="1"/>
@@ -9190,9 +9190,9 @@
           <div class="litho-gallery-grid">
             <div class="litho-card">
               <div class="litho-card-img-wrap">
-                <img title="示意圖 / Illustration" src="assets/litho/01_resist_bridging.png" alt="1. Resist Bridging" loading="lazy">
+                <img title="示意圖 / Illustration" src="assets/litho/01_resist_bridging.svg" alt="1. Resist Bridging" loading="lazy">
                 <span class="img-illus-tag"><span class="zh">示意圖</span><span class="en">Illustration</span></span>
-                <div class="litho-card-badge">SEM | Top-down</div>
+                <div class="litho-card-badge">Schematic | Top-down</div>
               </div>
               <div class="img-credit illus">🎨 <span class="zh">示意圖，非實拍顯微照片</span><span class="en">Illustration, not an actual micrograph</span></div>
               <div class="litho-card-body">
@@ -9208,9 +9208,9 @@
             </div>
             <div class="litho-card">
               <div class="litho-card-img-wrap">
-                <img title="示意圖 / Illustration" src="assets/litho/02_scumming.png" alt="2. Scumming" loading="lazy">
+                <img title="示意圖 / Illustration" src="assets/litho/02_scumming.svg" alt="2. Scumming" loading="lazy">
                 <span class="img-illus-tag"><span class="zh">示意圖</span><span class="en">Illustration</span></span>
-                <div class="litho-card-badge">SEM | Trench Bottom</div>
+                <div class="litho-card-badge">Schematic | Trench Bottom</div>
               </div>
               <div class="img-credit illus">🎨 <span class="zh">示意圖，非實拍顯微照片</span><span class="en">Illustration, not an actual micrograph</span></div>
               <div class="litho-card-body">
@@ -9226,9 +9226,9 @@
             </div>
             <div class="litho-card">
               <div class="litho-card-img-wrap">
-                <img title="示意圖 / Illustration" src="assets/litho/03_pattern_collapse.png" alt="3. Pattern Collapse" loading="lazy">
+                <img title="示意圖 / Illustration" src="assets/litho/03_pattern_collapse.svg" alt="3. Pattern Collapse" loading="lazy">
                 <span class="img-illus-tag"><span class="zh">示意圖</span><span class="en">Illustration</span></span>
-                <div class="litho-card-badge">SEM | 45° Tilt</div>
+                <div class="litho-card-badge">Schematic | Cross-section</div>
               </div>
               <div class="img-credit illus">🎨 <span class="zh">示意圖，非實拍顯微照片</span><span class="en">Illustration, not an actual micrograph</span></div>
               <div class="litho-card-body">
@@ -9244,9 +9244,9 @@
             </div>
             <div class="litho-card">
               <div class="litho-card-img-wrap">
-                <img title="示意圖 / Illustration" src="assets/litho/04_footing.png" alt="4. Resist Footing" loading="lazy">
+                <img title="示意圖 / Illustration" src="assets/litho/04_footing.svg" alt="4. Resist Footing" loading="lazy">
                 <span class="img-illus-tag"><span class="zh">示意圖</span><span class="en">Illustration</span></span>
-                <div class="litho-card-badge">SEM | Cross-section</div>
+                <div class="litho-card-badge">Schematic | Cross-section</div>
               </div>
               <div class="img-credit illus">🎨 <span class="zh">示意圖，非實拍顯微照片</span><span class="en">Illustration, not an actual micrograph</span></div>
               <div class="litho-card-body">
@@ -9262,9 +9262,9 @@
             </div>
             <div class="litho-card">
               <div class="litho-card-img-wrap">
-                <img title="示意圖 / Illustration" src="assets/litho/05_t_topping.png" alt="5. T-topping Profile" loading="lazy">
+                <img title="示意圖 / Illustration" src="assets/litho/05_t_topping.svg" alt="5. T-topping Profile" loading="lazy">
                 <span class="img-illus-tag"><span class="zh">示意圖</span><span class="en">Illustration</span></span>
-                <div class="litho-card-badge">SEM | Profile</div>
+                <div class="litho-card-badge">Schematic | Profile</div>
               </div>
               <div class="img-credit illus">🎨 <span class="zh">示意圖，非實拍顯微照片</span><span class="en">Illustration, not an actual micrograph</span></div>
               <div class="litho-card-body">
@@ -9280,9 +9280,9 @@
             </div>
             <div class="litho-card">
               <div class="litho-card-img-wrap">
-                <img title="示意圖 / Illustration" src="assets/litho/06_pinholes.png" alt="6. Micro-Pinholes" loading="lazy">
+                <img title="示意圖 / Illustration" src="assets/litho/06_pinholes.svg" alt="6. Micro-Pinholes" loading="lazy">
                 <span class="img-illus-tag"><span class="zh">示意圖</span><span class="en">Illustration</span></span>
-                <div class="litho-card-badge">SEM | Film Surface</div>
+                <div class="litho-card-badge">Schematic | Film Surface</div>
               </div>
               <div class="img-credit illus">🎨 <span class="zh">示意圖，非實拍顯微照片</span><span class="en">Illustration, not an actual micrograph</span></div>
               <div class="litho-card-body">
@@ -9332,9 +9332,9 @@
             </div>
             <div class="litho-card">
               <div class="litho-card-img-wrap">
-                <img title="示意圖 / Illustration" src="assets/litho/09_missing_patterns.png" alt="9. Missing Patterns" loading="lazy">
+                <img title="示意圖 / Illustration" src="assets/litho/09_missing_patterns.svg" alt="9. Missing Patterns" loading="lazy">
                 <span class="img-illus-tag"><span class="zh">示意圖</span><span class="en">Illustration</span></span>
-                <div class="litho-card-badge">SEM | Reticle Defect</div>
+                <div class="litho-card-badge">Schematic | Reticle Defect</div>
               </div>
               <div class="img-credit illus">🎨 <span class="zh">示意圖，非實拍顯微照片</span><span class="en">Illustration, not an actual micrograph</span></div>
               <div class="litho-card-body">
@@ -9350,9 +9350,9 @@
             </div>
             <div class="litho-card">
               <div class="litho-card-img-wrap">
-                <img title="示意圖 / Illustration" src="assets/litho/10_residue.png" alt="10. Polymer Residue" loading="lazy">
+                <img title="示意圖 / Illustration" src="assets/litho/10_residue.svg" alt="10. Polymer Residue" loading="lazy">
                 <span class="img-illus-tag"><span class="zh">示意圖</span><span class="en">Illustration</span></span>
-                <div class="litho-card-badge">SEM | Surface Debris</div>
+                <div class="litho-card-badge">Schematic | Surface Debris</div>
               </div>
               <div class="img-credit illus">🎨 <span class="zh">示意圖，非實拍顯微照片</span><span class="en">Illustration, not an actual micrograph</span></div>
               <div class="litho-card-body">
@@ -9368,9 +9368,9 @@
             </div>
             <div class="litho-card">
               <div class="litho-card-img-wrap">
-                <img title="示意圖 / Illustration" src="assets/litho/11_overlay_error.png" alt="11. Overlay Misalignment" loading="lazy">
+                <img title="示意圖 / Illustration" src="assets/litho/11_overlay_error.svg" alt="11. Overlay Misalignment" loading="lazy">
                 <span class="img-illus-tag"><span class="zh">示意圖</span><span class="en">Illustration</span></span>
-                <div class="litho-card-badge">SEM | Two-layer Overlay</div>
+                <div class="litho-card-badge">Schematic | Two-layer Overlay</div>
               </div>
               <div class="img-credit illus">🎨 <span class="zh">示意圖，非實拍顯微照片</span><span class="en">Illustration, not an actual micrograph</span></div>
               <div class="litho-card-body">
@@ -9386,9 +9386,9 @@
             </div>
             <div class="litho-card">
               <div class="litho-card-img-wrap">
-                <img title="示意圖 / Illustration" src="assets/litho/12_lift_off_defects.png" alt="12. Lift-off Defects" loading="lazy">
+                <img title="示意圖 / Illustration" src="assets/litho/12_lift_off_defects.svg" alt="12. Lift-off Defects" loading="lazy">
                 <span class="img-illus-tag"><span class="zh">示意圖</span><span class="en">Illustration</span></span>
-                <div class="litho-card-badge">SEM | Metal Burrs</div>
+                <div class="litho-card-badge">Schematic | Metal Burrs</div>
               </div>
               <div class="img-credit illus">🎨 <span class="zh">示意圖，非實拍顯微照片</span><span class="en">Illustration, not an actual micrograph</span></div>
               <div class="litho-card-body">
@@ -9417,7 +9417,7 @@
               </thead>
               <tbody>
                 <tr>
-                  <td><b><span class="zh">1. 光阻橋接<br>(Resist Bridging)</span><span class="en">1. Resist Bridging</span></b><div style="margin-top:6px;"><img title="示意圖 / Illustration" src="assets/litho/01_resist_bridging.png" alt="Resist Bridging SEM" loading="lazy" style="width:100%; max-width:125px; border-radius:4px; border:1px solid var(--border); display:block;"></div></td>
+                  <td><b><span class="zh">1. 光阻橋接<br>(Resist Bridging)</span><span class="en">1. Resist Bridging</span></b><div style="margin-top:6px;"><img title="示意圖 / Illustration" src="assets/litho/01_resist_bridging.svg" alt="Resist Bridging SEM" loading="lazy" style="width:100%; max-width:125px; border-radius:4px; border:1px solid var(--border); display:block;"></div></td>
                   <td>
                     <span class="zh">相鄰兩條光阻線在局部發生熔接連橋。<b>根因</b>：正光阻曝光劑量不足（Under-dose）、離焦（De-focus 超出瑞利焦深 DOF）、光學鄰近效應（OPE）強烈、顯影液沖洗時表面張力拉扯或光阻分子膨脹（Swelling）。</span>
                     <span class="en">Adjacent resist lines fuse locally. <b>Root Cause</b>: Under-exposure dose in positive PR, de-focus beyond Rayleigh DOF, severe optical proximity effects (OPE), resist swelling, or meniscus capillary pull during rinse.</span>
@@ -9437,7 +9437,7 @@
                 </tr>
 
                 <tr>
-                  <td><b><span class="zh">2. 底部殘膠<br>(Scumming)</span><span class="en">2. Scumming</span></b><div style="margin-top:6px;"><img title="示意圖 / Illustration" src="assets/litho/02_scumming.png" alt="Scumming SEM" loading="lazy" style="width:100%; max-width:125px; border-radius:4px; border:1px solid var(--border); display:block;"></div></td>
+                  <td><b><span class="zh">2. 底部殘膠<br>(Scumming)</span><span class="en">2. Scumming</span></b><div style="margin-top:6px;"><img title="示意圖 / Illustration" src="assets/litho/02_scumming.svg" alt="Scumming SEM" loading="lazy" style="width:100%; max-width:125px; border-radius:4px; border:1px solid var(--border); display:block;"></div></td>
                   <td>
                     <span class="zh">溝槽或接觸孔底部殘留一層薄薄未溶解的光阻膠層。<b>根因</b>：曝光劑量邊緣衰減（光阻厚度深層光吸收導致底部酸分子不足）、顯影時間（Puddle Time）不足、顯影液濃度（TMAH 2.38%）降低或溫度偏低、介面酸淬滅。</span>
                     <span class="en">Thin layer of unremoved resist stranding at trench/via bottoms. <b>Root Cause</b>: Light absorption attenuation along PR depth yielding inadequate photo-acid at bottom, insufficient TMAH puddle time, or basic substrate quenching.</span>
@@ -9457,7 +9457,7 @@
                 </tr>
 
                 <tr>
-                  <td><b><span class="zh">3. 圖案倒塌<br>(Pattern Collapse)</span><span class="en">3. Pattern Collapse</span></b><div style="margin-top:6px;"><img title="示意圖 / Illustration" src="assets/litho/03_pattern_collapse.png" alt="Pattern Collapse SEM" loading="lazy" style="width:100%; max-width:125px; border-radius:4px; border:1px solid var(--border); display:block;"></div></td>
+                  <td><b><span class="zh">3. 圖案倒塌<br>(Pattern Collapse)</span><span class="en">3. Pattern Collapse</span></b><div style="margin-top:6px;"><img title="示意圖 / Illustration" src="assets/litho/03_pattern_collapse.svg" alt="Pattern Collapse SEM" loading="lazy" style="width:100%; max-width:125px; border-radius:4px; border:1px solid var(--border); display:block;"></div></td>
                   <td>
                     <span class="zh">高深寬比（Aspect Ratio &gt; 3:1）細長光阻線條彎曲、傾倒或相互黏合。<b>根因</b>：去離子水顯影清洗液乾燥蒸發時，相鄰線條間彎月面（Meniscus）毛細管負壓拉扯：\[\sigma_{\text{max}} = \frac{6 \gamma \cos\theta}{d} \left(\frac{H}{W}\right)^2\]</span>
                     <span class="en">Tall, high-aspect-ratio (HAR &gt; 3:1) resist lines bend, lean, or touch adjacent lines. <b>Root Cause</b>: Capillary meniscus tensile forces between features during deionized water rinse drying pull lines together.</span>
@@ -9477,7 +9477,7 @@
                 </tr>
 
                 <tr>
-                  <td><b><span class="zh">4. 底部裙邊<br>(Footing)</span><span class="en">4. Resist Footing</span></b><div style="margin-top:6px;"><img title="示意圖 / Illustration" src="assets/litho/04_footing.png" alt="Footing SEM" loading="lazy" style="width:100%; max-width:125px; border-radius:4px; border:1px solid var(--border); display:block;"></div></td>
+                  <td><b><span class="zh">4. 底部裙邊<br>(Footing)</span><span class="en">4. Resist Footing</span></b><div style="margin-top:6px;"><img title="示意圖 / Illustration" src="assets/litho/04_footing.svg" alt="Footing SEM" loading="lazy" style="width:100%; max-width:125px; border-radius:4px; border:1px solid var(--border); display:block;"></div></td>
                   <td>
                     <span class="zh">光阻側壁底部未呈直角垂直，而是朝外喇叭狀擴展。<b>根因</b>：基底化學毒化（Substrate Interaction）：含氮或鹼性基底（如 \(Si_3N_4\)、TiN、殘留胺基化合物）與化學增幅光阻（CAR）中釋放的光酸發生中和反应，使底層光阻無法去保護溶解。</span>
                     <span class="en">Resist sidewalls flare outward at the base instead of a vertical 90° profile. <b>Root Cause</b>: Basic/amine-rich underlying substrates (\(Si_3N_4\), TiN) chemically neutralize photo-generated acid at the interface.</span>
@@ -9497,7 +9497,7 @@
                 </tr>
 
                 <tr>
-                  <td><b><span class="zh">5. T 型頭<br>(T-topping)</span><span class="en">5. T-topping Profile</span></b><div style="margin-top:6px;"><img title="示意圖 / Illustration" src="assets/litho/05_t_topping.png" alt="T-topping SEM" loading="lazy" style="width:100%; max-width:125px; border-radius:4px; border:1px solid var(--border); display:block;"></div></td>
+                  <td><b><span class="zh">5. T 型頭<br>(T-topping)</span><span class="en">5. T-topping Profile</span></b><div style="margin-top:6px;"><img title="示意圖 / Illustration" src="assets/litho/05_t_topping.svg" alt="T-topping SEM" loading="lazy" style="width:100%; max-width:125px; border-radius:4px; border:1px solid var(--border); display:block;"></div></td>
                   <td>
                     <span class="zh">光阻頂部向兩側橫向擴展，剖面呈現「T」字或蘑菇狀突出（Overhang）。<b>根因</b>：空氣中氣態分子污染物（AMC），特別是微量鹼性氣態胺（\(NH_3\)、NMP，濃度即便僅 1 ppb）中和了光阻表面產生的光酸，導致頂層光阻無法被鹼性顯影液溶解。</span>
                     <span class="en">Resist tops flare outward creating a mushroom or "T" overhang. <b>Root Cause</b>: Airborne Molecular Contamination (AMC) in cleanrooms (airborne \(NH_3\), NMP &gt; 1 ppb) neutralizes surface photo-acid during post-exposure delay (PED).</span>
@@ -9517,7 +9517,7 @@
                 </tr>
 
                 <tr>
-                  <td><b><span class="zh">6. 針孔缺陷<br>(Pinholes)</span><span class="en">6. Micro-Pinholes</span></b><div style="margin-top:6px;"><img title="示意圖 / Illustration" src="assets/litho/06_pinholes.png" alt="Pinholes SEM" loading="lazy" style="width:100%; max-width:125px; border-radius:4px; border:1px solid var(--border); display:block;"></div></td>
+                  <td><b><span class="zh">6. 針孔缺陷<br>(Pinholes)</span><span class="en">6. Micro-Pinholes</span></b><div style="margin-top:6px;"><img title="示意圖 / Illustration" src="assets/litho/06_pinholes.svg" alt="Pinholes SEM" loading="lazy" style="width:100%; max-width:125px; border-radius:4px; border:1px solid var(--border); display:block;"></div></td>
                   <td>
                     <span class="zh">光阻薄膜內部出現局部微細空洞或垂直穿透孔。<b>根因</b>：光阻注膠幫浦配管微氣泡（Micro-bubbles）、旋轉塗佈時排氣擾流產生溶劑微洞、基底局部未潤濕（Wetting Voids），或光阻過濾器破孔釋放微凝膠。</span>
                     <span class="en">Microscopic voids or pinhole tunnels perforating the resist layer. <b>Root Cause</b>: Resist dispense pump micro-bubbles, turbulence during high-speed spin coating, substrate de-wetting voids, or sheared micro-gel particles.</span>
@@ -9577,7 +9577,7 @@
                 </tr>
 
                 <tr>
-                  <td><b><span class="zh">9. 圖案缺失<br>(Missing Patterns)</span><span class="en">9. Missing Patterns</span></b><div style="margin-top:6px;"><img title="示意圖 / Illustration" src="assets/litho/09_missing_patterns.png" alt="Missing Patterns SEM" loading="lazy" style="width:100%; max-width:125px; border-radius:4px; border:1px solid var(--border); display:block;"></div></td>
+                  <td><b><span class="zh">9. 圖案缺失<br>(Missing Patterns)</span><span class="en">9. Missing Patterns</span></b><div style="margin-top:6px;"><img title="示意圖 / Illustration" src="assets/litho/09_missing_patterns.svg" alt="Missing Patterns SEM" loading="lazy" style="width:100%; max-width:125px; border-radius:4px; border:1px solid var(--border); display:block;"></div></td>
                   <td>
                     <span class="zh">原本應完整顯影成形的光阻線條或接觸孔完全消失遺失。<b>根因</b>：光罩（Reticle）護膜上附著微粒落塵阻擋光束、光阻塗佈局部脫膜剝離、顯影液噴嘴局部阻塞、或巨量過度曝光（Over-dose）。</span>
                     <span class="en">Expected resist lines or contact holes are completely absent. <b>Root Cause</b>: Fall-on particle on reticle/pellicle blocking exposure light, catastrophic resist lift-off, clogged developer nozzle, or extreme local over-dose.</span>
@@ -9597,7 +9597,7 @@
                 </tr>
 
                 <tr>
-                  <td><b><span class="zh">10. 顆粒殘留<br>(Residue)</span><span class="en">10. Polymer Residue</span></b><div style="margin-top:6px;"><img title="示意圖 / Illustration" src="assets/litho/10_residue.png" alt="Polymer Residue SEM" loading="lazy" style="width:100%; max-width:125px; border-radius:4px; border:1px solid var(--border); display:block;"></div></td>
+                  <td><b><span class="zh">10. 顆粒殘留<br>(Residue)</span><span class="en">10. Polymer Residue</span></b><div style="margin-top:6px;"><img title="示意圖 / Illustration" src="assets/litho/10_residue.svg" alt="Polymer Residue SEM" loading="lazy" style="width:100%; max-width:125px; border-radius:4px; border:1px solid var(--border); display:block;"></div></td>
                   <td>
                     <span class="zh">去阻、顯影或清洗後，晶圓表面殘留不可溶聚合物沉澱、有機物或雜質顆粒。<b>根因</b>：去光阻電漿灰化（Ashing）溫度/時間不足、濕式去阻液（SPM 硫酸雙氧水）老化飽和、去離子水沖洗排液不良。</span>
                     <span class="en">Loose insoluble polymer flakes, organic scum or particulate redeposition after develop/strip. <b>Root Cause</b>: Incomplete plasma ashing, exhausted piranha wet bench chemistry (SPM), or poor megasonic DI rinse.</span>
@@ -9617,7 +9617,7 @@
                 </tr>
 
                 <tr>
-                  <td><b><span class="zh">11. 疊對誤差<br>(Overlay Error)</span><span class="en">11. Overlay Misalignment</span></b><div style="margin-top:6px;"><img title="示意圖 / Illustration" src="assets/litho/11_overlay_error.png" alt="Overlay Error SEM" loading="lazy" style="width:100%; max-width:125px; border-radius:4px; border:1px solid var(--border); display:block;"></div></td>
+                  <td><b><span class="zh">11. 疊對誤差<br>(Overlay Error)</span><span class="en">11. Overlay Misalignment</span></b><div style="margin-top:6px;"><img title="示意圖 / Illustration" src="assets/litho/11_overlay_error.svg" alt="Overlay Error SEM" loading="lazy" style="width:100%; max-width:125px; border-radius:4px; border:1px solid var(--border); display:block;"></div></td>
                   <td>
                     <span class="zh">當前微影層圖案與晶圓已存在之底層圖案發生幾何平移、旋轉、放大或梯形偏位（\(\Delta X, \Delta Y, \theta\)）。<b>根因</b>：曝光機晶圓載台雷射干涉儀漂移、晶圓高熱應力形變、CMP 研磨對準標記（Alignment Mark）非對稱磨損。</span>
                     <span class="en">Geometric planar shift, rotation, magnification, or trapezoid skew between current and underlying layer. <b>Root Cause</b>: Scanner interferometer drift, thermal expansion under intense illumination, or asymmetric CMP mark erosion.</span>
@@ -9637,7 +9637,7 @@
                 </tr>
 
                 <tr>
-                  <td><b><span class="zh">12. 剝離缺陷<br>(Lift-off Defects)</span><span class="en">12. Lift-off Defects</span></b><div style="margin-top:6px;"><img title="示意圖 / Illustration" src="assets/litho/12_lift_off_defects.png" alt="Lift-off Defects SEM" loading="lazy" style="width:100%; max-width:125px; border-radius:4px; border:1px solid var(--border); display:block;"></div></td>
+                  <td><b><span class="zh">12. 剝離缺陷<br>(Lift-off Defects)</span><span class="en">12. Lift-off Defects</span></b><div style="margin-top:6px;"><img title="示意圖 / Illustration" src="assets/litho/12_lift_off_defects.svg" alt="Lift-off Defects SEM" loading="lazy" style="width:100%; max-width:125px; border-radius:4px; border:1px solid var(--border); display:block;"></div></td>
                   <td>
                     <span class="zh">金屬剝離製程中，金屬邊緣殘留翻起之毛刺、兔耳（Bunny Ears）或金屬膜撕裂脫落。<b>根因</b>：底層光阻剖面缺乏負斜率反錐倒角（Undercut Profile），使金屬沉積時在光阻側壁連續覆蓋成膜，溶劑無法順利浸潤剝離。</span>
                     <span class="en">Torn metal burrs, bunny ears, or peeling shreds during solvent lift-off. <b>Root Cause</b>: Resist profile lacks re-entrant undercut sidewall slope; deposited metal coats sidewalls continuously, blocking solvent ingress.</span>
@@ -11838,8 +11838,8 @@
                 <circle cx="205" cy="103" r="4" fill="var(--danger)"/>
                 <text class="zh" x="205" y="93" font-size="8" text-anchor="middle" fill="var(--danger)">潛在早夭 Maverick</text>
                 <text class="en" x="205" y="93" font-size="8" text-anchor="middle" fill="var(--danger)">Maverick Die</text>
-                <text class="zh" x="120" y="132" font-size="8" text-anchor="middle" fill="var(--ink-soft)">AEC-Q001 總體批次 \(\mu \pm 3\sigma\) 靜態篩選</text>
-                <text class="en" x="120" y="132" font-size="8" text-anchor="middle" fill="var(--ink-soft)">AEC-Q001 Population \(\mu \pm 3\sigma\) Bound</text>
+                <text class="zh" x="120" y="132" font-size="8" text-anchor="middle" fill="var(--ink-soft)">AEC-Q001 靜態 PAT：穩健 μ ± 6σ</text>
+                <text class="en" x="120" y="132" font-size="8" text-anchor="middle" fill="var(--ink-soft)">AEC-Q001 Static PAT: robust μ ± 6σ</text>
               </g>
 
               <g transform="translate(310, 52)">
@@ -11854,8 +11854,8 @@
                 <circle cx="230" cy="103" r="4" fill="var(--danger)"/>
                 <text class="zh" x="230" y="93" font-size="8" text-anchor="middle" fill="var(--danger)">晶圓動態離群</text>
                 <text class="en" x="230" y="93" font-size="8" text-anchor="middle" fill="var(--danger)">Wafer Outlier</text>
-                <text class="zh" x="135" y="132" font-size="8" text-anchor="middle" fill="var(--ink-soft)">隨每片晶圓 \(\mu_{\text{wfr}} \pm k\sigma_{\text{wfr}}\) 動態自適應</text>
-                <text class="en" x="135" y="132" font-size="8" text-anchor="middle" fill="var(--ink-soft)">Adapts per wafer \(\mu_{\text{wfr}} \pm k\sigma_{\text{wfr}}\) bound</text>
+                <text class="zh" x="135" y="132" font-size="8" text-anchor="middle" fill="var(--ink-soft)">隨每片晶圓 μ<tspan baseline-shift="sub" font-size="70%">wfr</tspan> ± kσ<tspan baseline-shift="sub" font-size="70%">wfr</tspan> 動態自適應</text>
+                <text class="en" x="135" y="132" font-size="8" text-anchor="middle" fill="var(--ink-soft)">Adapts per wafer μ<tspan baseline-shift="sub" font-size="70%">wfr</tspan> ± kσ<tspan baseline-shift="sub" font-size="70%">wfr</tspan> bound</text>
               </g>
 
               <!-- === ROW 1: GD-PAT vs NNR === -->
@@ -11900,10 +11900,10 @@
                 </g>
                 <text class="zh" x="125" y="60" font-size="8.5" font-weight="700" fill="var(--ink)">局部加權預測面：</text>
                 <text class="en" x="125" y="60" font-size="8.5" font-weight="700" fill="var(--ink)">Local Neighbor Surface:</text>
-                <text class="zh" x="125" y="78" font-size="8" fill="var(--accent)">\(r_i = z(x,y) - \hat{z}_{\text{local}}\)</text>
-                <text class="en" x="125" y="78" font-size="8" fill="var(--accent)">\(r_i = z(x,y) - \hat{z}_{\text{local}}\)</text>
-                <text class="zh" x="125" y="96" font-size="8" fill="var(--danger)">|殘差| &gt; \(k \cdot \sigma_{\text{res}}\) ➔ 剔除</text>
-                <text class="en" x="125" y="96" font-size="8" fill="var(--danger)">|Residual| &gt; \(k \sigma_{\text{res}}\) ➔ Outlier</text>
+                <text class="zh" x="125" y="78" font-size="8" fill="var(--accent)">r<tspan baseline-shift="sub" font-size="70%">i</tspan> = z(x,y) − ẑ<tspan baseline-shift="sub" font-size="70%">local</tspan></text>
+                <text class="en" x="125" y="78" font-size="8" fill="var(--accent)">r<tspan baseline-shift="sub" font-size="70%">i</tspan> = z(x,y) − ẑ<tspan baseline-shift="sub" font-size="70%">local</tspan></text>
+                <text class="zh" x="125" y="96" font-size="8" fill="var(--danger)">|殘差| &gt; k·σ<tspan baseline-shift="sub" font-size="70%">res</tspan> ➔ 剔除</text>
+                <text class="en" x="125" y="96" font-size="8" fill="var(--danger)">|Residual| &gt; kσ<tspan baseline-shift="sub" font-size="70%">res</tspan> ➔ Outlier</text>
                 <text class="zh" x="135" y="132" font-size="8" text-anchor="middle" fill="var(--ink-soft)">即使絕對值符合規格，突兀跳異即早夭</text>
                 <text class="en" x="135" y="132" font-size="8" text-anchor="middle" fill="var(--ink-soft)">Catches local deviations on smooth planes</text>
               </g>
@@ -11926,8 +11926,8 @@
                   <rect x="26" y="52" width="22" height="22" rx="2" fill="var(--danger)"/>
                   <rect x="52" y="52" width="22" height="22" rx="2" fill="var(--surface-2)" stroke="var(--border)"/>
                 </g>
-                <text class="zh" x="125" y="60" font-size="8.5" font-weight="700" fill="var(--danger)">周圍失效晶粒 \(\ge 4\) 顆：</text>
-                <text class="en" x="125" y="60" font-size="8.5" font-weight="700" fill="var(--danger)">Failing Neighbors \(\ge 4\):</text>
+                <text class="zh" x="125" y="60" font-size="8.5" font-weight="700" fill="var(--danger)">周圍失效晶粒 ≥ 4 顆：</text>
+                <text class="en" x="125" y="60" font-size="8.5" font-weight="700" fill="var(--danger)">Failing Neighbors ≥ 4:</text>
                 <text class="zh" x="125" y="78" font-size="8" fill="var(--ink-soft)">• 物理微缺陷具有光環擴散性</text>
                 <text class="en" x="125" y="78" font-size="8" fill="var(--ink-soft)">• Defect clusters have halo effect</text>
                 <text class="zh" x="125" y="94" font-size="8" fill="var(--danger)">• 測試通過亦強制判定為墨點 (Inking)</text>
@@ -11954,11 +11954,11 @@
                 </g>
                 <text class="zh" x="125" y="60" font-size="8.5" font-weight="700" fill="var(--danger)">單變量隱形離群點：</text>
                 <text class="en" x="125" y="60" font-size="8.5" font-weight="700" fill="var(--danger)">Hidden 1D Bivariate Maverick:</text>
-                <text class="zh" x="125" y="78" font-size="8" fill="var(--accent)">\(D_M^2 = (\mathbf{x}-\boldsymbol{\mu})^T \boldsymbol{\Sigma}^{-1} (\mathbf{x}-\boldsymbol{\mu})\)</text>
-                <text class="en" x="125" y="78" font-size="8" fill="var(--accent)">\(D_M^2 = (\mathbf{x}-\boldsymbol{\mu})^T \boldsymbol{\Sigma}^{-1} (\mathbf{x}-\boldsymbol{\mu})\)</text>
+                <text class="zh" x="125" y="78" font-size="8" fill="var(--accent)">D<tspan baseline-shift="sub" font-size="70%">M</tspan>² = (<tspan font-weight="700">x</tspan> − <tspan font-weight="700">μ</tspan>)ᵀ <tspan font-weight="700">Σ</tspan>⁻¹ (<tspan font-weight="700">x</tspan> − <tspan font-weight="700">μ</tspan>)</text>
+                <text class="en" x="125" y="78" font-size="8" fill="var(--accent)">D<tspan baseline-shift="sub" font-size="70%">M</tspan>² = (<tspan font-weight="700">x</tspan> − <tspan font-weight="700">μ</tspan>)ᵀ <tspan font-weight="700">Σ</tspan>⁻¹ (<tspan font-weight="700">x</tspan> − <tspan font-weight="700">μ</tspan>)</text>
                 <text class="zh" x="125" y="96" font-size="8" fill="var(--ink-soft)">考量參數間物理共變異性</text>
                 <text class="en" x="125" y="96" font-size="8" fill="var(--ink-soft)">Accounts for correlation covariance</text>
-                <text class="zh" x="125" y="112" font-size="8" fill="var(--danger)">\(D_M^2 &gt; \chi^2_{p}(0.999)\) ➔ 攔截</text>
+                <text class="zh" x="125" y="112" font-size="8" fill="var(--danger)">D<tspan baseline-shift="sub" font-size="70%">M</tspan>² &gt; χ²<tspan baseline-shift="sub" font-size="70%">p</tspan>(0.999) ➔ 攔截</text>
                 <text class="en" x="125" y="112" font-size="8" fill="var(--danger)">Catches cross-parameter violations</text>
                 <text class="zh" x="135" y="142" font-size="8" text-anchor="middle" fill="var(--ink-soft)">解決「漏電正常、頻率正常但相依異常」</text>
                 <text class="en" x="135" y="142" font-size="8" text-anchor="middle" fill="var(--ink-soft)">Detects invalid corner combinations</text>
@@ -11976,10 +11976,10 @@
                 <text x="20" y="22" font-size="10" font-weight="700" fill="#fff" text-anchor="middle">1</text>
                 <text class="zh" x="36" y="22" font-size="11" font-weight="700" fill="var(--ink)">穩健估計防遮蔽 (Robust Estimators)</text>
                 <text class="en" x="36" y="22" font-size="11" font-weight="700" fill="var(--ink)">Step 1: Anti-Masking Robust Estimators</text>
-                <text class="zh" x="15" y="44" font-size="9" fill="var(--danger)">• 嚴禁直接使用平均數與標準差 (\(\mu, \sigma\))！</text>
+                <text class="zh" x="15" y="44" font-size="9" fill="var(--danger)">• 嚴禁直接使用平均數與標準差 (μ, σ)！</text>
                 <text class="en" x="15" y="44" font-size="9" fill="var(--danger)">• Never use naive mean &amp; std dev directly!</text>
-                <text class="zh" x="15" y="60" font-size="9" fill="var(--ink-soft)">• 離群值會膨脹 \(\sigma\)，引致「遮蔽陷阱 (Masking)」</text>
-                <text class="en" x="15" y="60" font-size="9" fill="var(--ink-soft)">• Outlier clusters inflate \(\sigma\), creating masking traps</text>
+                <text class="zh" x="15" y="60" font-size="9" fill="var(--ink-soft)">• 離群值會膨脹 σ，引致「遮蔽陷阱 (Masking)」</text>
+                <text class="en" x="15" y="60" font-size="9" fill="var(--ink-soft)">• Outlier clusters inflate σ, creating masking traps</text>
                 <text class="zh" x="15" y="78" font-size="9" fill="var(--good)">• 必採 <tspan font-weight="700">中位數 (Median) + MAD / NIQR</tspan> 計算</text>
                 <text class="en" x="15" y="78" font-size="9" fill="var(--good)">• Mandate Median + MAD / NIQR robust estimators</text>
               </g>
@@ -12069,14 +12069,16 @@
             </div>
             <p>
               <span class="zh">
-                <b>演算法原理</b>：在產品試產階段（Char Lots），收集至少 30 個正常生產批次（約 750 片晶圓以上）的電性參數母體數據，計算母體平均數 \(\mu_{\text{pop}}\) 與母體標準差 \(\sigma_{\text{pop}}\)。靜態 PAT 限值設定為：
-                \[\text{SPAT}_{\text{Lower}} = \mu_{\text{pop}} - 3\sigma_{\text{pop}}, \quad \text{SPAT}_{\text{Upper}} = \mu_{\text{pop}} + 3\sigma_{\text{pop}}\]
+                <b>演算法原理</b>：依 AEC-Q001，收集至少 6 個已通過規格限值之批次的電性參數數據，以抗離群的<b>穩健統計量</b>計算：穩健平均 \(\tilde{\mu}\)（中位數）與穩健標準差 \(\tilde{\sigma} = (Q_3 - Q_1)/1.35\)。靜態 PAT 限值設定為：
+                \[\text{SPAT}_{\text{Lower}} = \tilde{\mu} - 6\tilde{\sigma}, \quad \text{SPAT}_{\text{Upper}} = \tilde{\mu} + 6\tilde{\sigma}\]
+                限值寫入測試程式，並須隨新批次數據定期重新審視更新。
                 任何超出 \([\text{SPAT}_{\text{Lower}}, \text{SPAT}_{\text{Upper}}]\) 但仍位於規格限值 \([\text{LSL}, \text{USL}]\) 內的晶粒，強制標記為「靜態離群值」並予以剔除。<br>
                 <b>局限性</b>：靜態 PAT 限值寫死於測試程式中。當晶圓廠遭遇正常的批次間製程中心漂移（Lot-to-lot mean shift）或處於合法的製程角落（Fast-Fast 或 Slow-Slow Corner）時，靜態限值會引發高達 5%–10% 的嚴重<b>誤殺過度剔除（Overkill）</b>；反之在低離散度晶圓上則會造成<b>漏判（Underkill）</b>。
               </span>
               <span class="en">
-                <b>Formulation</b>: During characterization, collect electrical parameters across &ge;30 baseline production lots (&ge;750 wafers) to compute population mean \(\mu_{\text{pop}}\) and standard deviation \(\sigma_{\text{pop}}\). Static PAT limits are fixed as:
-                \[\text{SPAT}_{\text{Lower}} = \mu_{\text{pop}} - 3\sigma_{\text{pop}}, \quad \text{SPAT}_{\text{Upper}} = \mu_{\text{pop}} + 3\sigma_{\text{pop}}\]
+                <b>Formulation</b>: Per AEC-Q001, collect electrical test data from at least 6 lots that passed the specification limits and compute outlier-resistant <b>robust statistics</b>: robust mean \(\tilde{\mu}\) (the median) and robust sigma \(\tilde{\sigma} = (Q_3 - Q_1)/1.35\). Static PAT limits are:
+                \[\text{SPAT}_{\text{Lower}} = \tilde{\mu} - 6\tilde{\sigma}, \quad \text{SPAT}_{\text{Upper}} = \tilde{\mu} + 6\tilde{\sigma}\]
+                The limits are written into the test program and must be reviewed periodically as new lot data accumulates.
                 Any die falling outside \([\text{SPAT}_{\text{Lower}}, \text{SPAT}_{\text{Upper}}]\) yet within \([\text{LSL}, \text{USL}]\) is quarantined as a static maverick.<br>
                 <b>Engineering Limitation</b>: SPAT limits are hardcoded. When legal fab lot-to-lot centering drifts or process corners (FF/SS) occur, fixed limits trigger 5%–10% disastrous <b>overkill yield scrap</b>; conversely, on tight-distribution wafers, it causes dangerous <b>underkill test escapes</b>.
               </span>
@@ -12206,8 +12208,8 @@
                 <tr>
                   <td><b><span class="zh">1. 靜態 PAT (SPAT)</span><span class="en">1. Static PAT (SPAT)</span></b></td>
                   <td>
-                    <span class="zh">\[\mu_{\text{pop}} \pm 3\sigma_{\text{pop}}\] 基於 30 批歷史母體數據固定設定。</span>
-                    <span class="en">\[\mu_{\text{pop}} \pm 3\sigma_{\text{pop}}\] fixed across 30 historical lots.</span>
+                    <span class="zh">\[\tilde{\mu} \pm 6\tilde{\sigma}\] 以至少 6 批歷史數據的穩健統計量固定設定。</span>
+                    <span class="en">\[\tilde{\mu} \pm 6\tilde{\sigma}\] fixed from robust statistics of &ge;6 historical lots.</span>
                   </td>
                   <td>
                     <span class="zh">全域極端參數飄移、重度摻雜濃度偏差、超限漏電流。</span>
@@ -12354,13 +12356,13 @@
               <b>為什麼電測全 PASS 的晶粒會造成車輛行駛中死機？</b><br>
               晶圓表面具備凹凸有致的電路階差與劃片槽（Scribe Line），機械刮傷往往呈現<b>非連續性的「虛線／斷續跳晶（Intermittent Broken Line）」</b>。刮痕擦過表面保護層（Passivation）或外圍密封環（Seal Ring），當下並未切斷關鍵金屬導線或擊穿閘極氧化層，因此在 CP（Wafer Sort）晶圓測試時<b>電氣參數 100% 顯示 PASS</b>！<br>
               然而，矽基板與層間介電層（Low-\(k\) ILD）內部已埋下深層微裂紋（Micro-cracks）與強大剪切殘留應力。封裝出貨後，晶片承受汽車引擎室溫度劇烈循環（\(-40^\circ\text{C} \sim +150^\circ\text{C}\)）、環氧樹脂模塑料（EMC）固化熱應力以及行駛震動，<b>微裂紋迅速向主動電路區擴展，外部濕氣與金屬離子隨之滲入腐蝕銅導線，引致使用數百小時後的暴斃斷路</b>。<br>
-              <b>工業鐵律</b>：車規 AEC-Q001 明文規定，<b>「凡位於刮傷物理軌跡及其應力波及範圍內的晶粒，不論電測結果是否合格，全數強制執行虛擬墨印報廢（Virtual Inking Scrap）！」</b>
+              <b>車用零缺陷實務</b>：<b>凡位於刮傷物理軌跡及其應力波及範圍內的晶粒，不論電測結果是否合格，一律執行虛擬墨印報廢（Virtual Inking Scrap）。</b>這是車用客戶品質協議與 Control Plan 常見的要求，屬於空間離群篩選（與 GDBN 同類）；它<b>並非 AEC-Q001 條文</b>，AEC-Q001 規範的是電性參數的零件平均測試（PAT）。
             </span>
             <span class="en">
               <b>Why do electrically PASSING dies cause catastrophic field failures on the road?</b><br>
               Due to circuit topography step heights and scribe lines, mechanical scratches frequently skip across dies in an <b>intermittent broken-line pattern</b>. A scratch shearing the top passivation or seal ring may not sever critical metal lines during automated probe testing, yielding a <b>100% electrical PASS at Wafer Sort (CP)</b>!<br>
               However, deep micro-cracks and shear residual stress fields remain embedded in the underlying silicon and low-\(k\) inter-metal dielectrics (ILD). In the field, under automotive thermal cycling (\(-40^\circ\text{C} \sim +150^\circ\text{C}\)), epoxy molding compound (EMC) thermal expansion, and mechanical vibration, <b>these micro-cracks propagate into the active area. Moisture ingress and ionic contamination corrode copper traces, triggering sudden open-circuit field failures after hundreds of operating hours</b>.<br>
-              <b>Automotive Inking Mandate</b>: Under AEC-Q001, <b>"any die intersecting a physical scratch trajectory or located within its stress relief corridor must be unconditionally condemned via Virtual Inking, regardless of its electrical probe pass status!"</b>
+              <b>Automotive Zero-Defect Practice</b>: <b>any die on a physical scratch trajectory or within its stress corridor is inked out (virtual inking), regardless of its electrical probe result.</b> This is a common requirement in automotive customer quality agreements and control plans, a form of spatial outlier screening like GDBN. It is <b>not an AEC-Q001 clause</b>: AEC-Q001 covers part average testing (PAT) of electrical parameters.
             </span>
           </div>
 
@@ -12562,7 +12564,7 @@
       <text class="en" x="10" y="16" font-size="8" font-weight="700" fill="var(--ink)">RANSAC Robustness over Naive Geometry:</text>
       <text class="zh" x="10" y="32" font-size="8" fill="var(--ink-soft)">• 隨機缺陷干擾：即使整片晶圓有 200 顆離散隨機 Fail，RANSAC 仍能精準鎖定刮傷線。</text>
       <text class="en" x="10" y="32" font-size="7.5" fill="var(--ink-soft)">• Noise immune: Ignores 200+ random background fails to lock onto the true scratch.</text>
-      <text class="zh" x="10" y="48" font-size="8" fill="var(--ink-soft)">• 支援弧形刮傷：晶圓搬運手臂旋轉甩出之非線性弧形刮痕（$y = ax^2 + bx + c$）亦能完美擬合。</text>
+      <text class="zh" x="10" y="48" font-size="8" fill="var(--ink-soft)">• 支援弧形刮傷：晶圓搬運手臂旋轉甩出之非線性弧形刮痕（y = ax² + bx + c）亦能完美擬合。</text>
       <text class="en" x="10" y="48" font-size="7.5" fill="var(--ink-soft)">• Curved scratches: Accurately fits parabolic handler rotation arc scratches.</text>
       <text class="zh" x="10" y="64" font-size="8" fill="var(--good)">• 連接空隙（Bridge Gaps）：將電測 Pass 但物理斷裂的晶片強制作廢，封死客訴漏洞。</text>
       <text class="en" x="10" y="64" font-size="7.5" fill="var(--good)">• Bridge Gaps: Inks electrically passing dies along the trajectory to seal RMA escapes.</text>
@@ -17872,11 +17874,11 @@
     <div style="display:flex; flex-direction:column; align-items:flex-end; gap:5px;">
       <div style="display:flex; align-items:center; gap:8px;">
         <span class="badge badge-green" style="font-size:11px; padding:2px 8px;">● LIVE VERIFIED</span>
-        <span style="font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft);">Rev. AT</span>
+        <span style="font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft);">Rev. AU</span>
       </div>
       <div style="font-family:var(--font-mono); font-size:12px; color:var(--ink);">
         <span class="zh">最後更新日期：</span><span class="en">Last Updated: </span>
-        <b style="color:var(--accent);">2026-11-03 22:34 (Asia/Taipei)</b>
+        <b style="color:var(--accent);">2026-11-03 23:22 (Asia/Taipei)</b>
       </div>
     </div>
   </footer>
