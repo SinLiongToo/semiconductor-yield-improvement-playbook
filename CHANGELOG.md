@@ -8,6 +8,11 @@ Entry format / 格式:
 `## YYYY-MM-DD — <agent> — <short title>` then bullets: what changed, why, caveats for the next agent.
 
 ---
+## 2026-11-04 — Claude Code — Rev. AY: KGx video in the I-PAT reference box
+
+- At the user's request, the KLA KGx talk (https://www.youtube.com/watch?v=cFCGYzWr_34) is now also referenced in §6.4.6's "KLA Official Benchmark Reference" box. There is a "▶ Video" button next to the PDF button, plus a bilingual citation line that links to §6.4.7. The talk was already cited in §6.4.7 and Appendix D.
+
+---
 ## 2026-11-04 — Claude Code — Rev. AX: §6.4.7 KGx quality-screening mindset
 
 - The user asked to add the KGx / I-PAT mindset from the KLA talk https://www.youtube.com/watch?v=cFCGYzWr_34. That talk is Jay Rathert (KLA), "Quality Screening: Concepts and advances for using IC Manufacturing Defect Data to assess Known Good Die", MEPTEC KGx Workshop, 7 Sep 2022 (agenda: https://events.meptec.org/?p=1114).
