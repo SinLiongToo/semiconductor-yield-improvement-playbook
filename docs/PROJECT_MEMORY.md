@@ -37,6 +37,10 @@ Rules live in `AGENTS.md`; the change history lives in `CHANGELOG.md`. Keep entr
 
 - AEC-Q001 (Part Average Testing) covers electrical-parameter outliers. Static PAT limits = robust mean (median) ± 6 robust σ, with robust σ = (Q3 − Q1)/1.35, from ≥ 6 passing lots. Tighter limits such as 3.5σ are customer or internal choices, not AEC-Q001 values. Scratch-path inking is automotive zero-defect practice (customer agreements / control plans), not an AEC-Q001 clause. Sources: AEC-Q001 Rev D summaries (Keysight, yieldWerx, EDN), 2026-11-04. 2026-11-04 · Claude Code
 
+## Gotchas (time)
+
+- On this Windows machine, Git Bash does not know `TZ=Asia/Taipei`: `date` silently prints UTC, which is 8 h behind. Timestamps up to Rev. AW were written this way. For the "Last Updated (Asia/Taipei)" stamps use `TZ=UTC-8 date '+%Y-%m-%d %H:%M'` (POSIX sign: UTC-8 means UTC+8), or in PowerShell `[TimeZoneInfo]::ConvertTimeBySystemTimeZoneId([DateTime]::UtcNow,'Taipei Standard Time')`. 2026-11-04 · Claude Code
+
 ## Gotchas (SVG)
 
 - KaTeX does not render inside SVG `<text>`: `\(\sigma\)` there shows as raw code (or as invisible markup). Use Unicode (σ, ±, ≤, ², ᵀ) and `<tspan baseline-shift="sub" font-size="70%">` for subscripts. 2026-11-04 · Claude Code

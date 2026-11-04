@@ -8,6 +8,11 @@ Entry format / 格式:
 `## YYYY-MM-DD — <agent> — <short title>` then bullets: what changed, why, caveats for the next agent.
 
 ---
+## 2026-11-04 — Claude Code — Fix Rev. AW timestamp (Taipei time)
+
+- "Last Updated" showed 2026-11-03 23:54 because Git Bash on Windows ignores `TZ=Asia/Taipei` and printed UTC. It now shows the true Taipei time, 2026-11-04 07:54, in both places. My stamps since Rev. X were all 8 h behind; earlier CHANGELOG entry dates are unaffected. See PROJECT_MEMORY.md → Gotchas (time) for the correct command.
+
+---
 ## 2026-11-04 — Claude Code — Rev. AW: archive page for the original images
 
 - At the user's request, added `assets/archive/index.html`. It shows the original atlas card, the 12 litho crops and the old Top-10 #10 eye image, each with what replaced it.
