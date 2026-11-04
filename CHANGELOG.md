@@ -8,6 +8,23 @@ Entry format / 格式:
 `## YYYY-MM-DD — <agent> — <short title>` then bullets: what changed, why, caveats for the next agent.
 
 ---
+## 2026-11-04 — Claude Code — Rev. AX: §6.4.7 KGx quality-screening mindset
+
+- The user asked to add the KGx / I-PAT mindset from the KLA talk https://www.youtube.com/watch?v=cFCGYzWr_34. That talk is Jay Rathert (KLA), "Quality Screening: Concepts and advances for using IC Manufacturing Defect Data to assess Known Good Die", MEPTEC KGx Workshop, 7 Sep 2022 (agenda: https://events.meptec.org/?p=1114).
+- What was added:
+  - New §6.4.7, placed right after the I-PAT section 6.4.6. It covers:
+    - five mindset shifts;
+    - the linear latent-reliability model \(P_{LRD,i} = m N_i\);
+    - multi-die package yield and DPPM;
+    - Figure 6.8, a flow diagram;
+    - a "screening is a safety net" warning callout;
+    - Table 6.4.7, comparing the traditional and KGx mindsets.
+  - The two formulas were also added to Appendix A.
+  - Glossary: new KGD/KGx and LDPI™ rows.
+  - Appendix D: the talk plus Price, Sutherland & Rathert, "Process Watch: A Statistical Approach to Improving Chip Reliability" (Semiconductor Digest, 2019).
+- Caveat: the video itself couldn't be watched or transcribed (YouTube shows only the title), so the content follows the official talk abstract and the 2019 article by the same KLA authors. The package-yield numbers are labelled illustrative.
+
+---
 ## 2026-11-04 — Claude Code — Fix Rev. AW timestamp (Taipei time)
 
 - "Last Updated" showed 2026-11-03 23:54 because Git Bash on Windows ignores `TZ=Asia/Taipei` and printed UTC. It now shows the true Taipei time, 2026-11-04 07:54, in both places. My stamps since Rev. X were all 8 h behind; earlier CHANGELOG entry dates are unaffected. See PROJECT_MEMORY.md → Gotchas (time) for the correct command.

@@ -1348,7 +1348,7 @@
       </div>
       <div>
         <span class="zh">版次狀態</span><span class="en">Revision</span>
-        <b>Rev. AW (Archive Page for Original Images)</b>
+        <b>Rev. AX (KGx Quality-Screening Mindset)</b>
       </div>
       <div>
         <span class="zh">適用對象</span><span class="en">Audience</span>
@@ -1356,7 +1356,7 @@
       </div>
       <div>
         <span class="zh">最後修訂</span><span class="en">Last Updated</span>
-        <b>2026-11-04 07:54 (Asia/Taipei)</b>
+        <b>2026-11-04 15:23 (Asia/Taipei)</b>
       </div>
     </div>
   </header>
@@ -14156,6 +14156,182 @@
 
 
           <!-- ======================================================================= -->
+          <!-- SUBSECTION 6.4.7: KGx MINDSET — KLA QUALITY SCREENING (MEPTEC 2022)     -->
+          <!-- ======================================================================= -->
+          <h4 id="sec_6_4_7" style="margin-top:35px; border-top:1px solid var(--border); padding-top:20px;">
+            <span class="zh">6.4.7 KGx 思維：從「已知良好晶粒」到「已知良好堆疊／系統」— KLA 線上缺陷品質篩檢</span>
+            <span class="en">6.4.7 The KGx Mindset: From Known Good Die to Known Good Stacks and Systems — KLA Inline Defect Quality Screening</span>
+          </h4>
+
+          <p>
+            <span class="zh"><b>KGx</b> 是 MEPTEC 工作坊對「Known Good <i>x</i>」的統稱：x 可以是晶粒（Die）、小晶片（Chiplet）、堆疊（Stack）或整個系統（System）。在先進封裝時代，一顆壞晶粒不只損失自己，還會連帶報廢同一封裝裡所有好晶粒、基板與組裝成本，因此「這一顆晶粒是否適合它的用途」必須在<b>組裝之前</b>就回答。KLA 的 Jay Rathert 在 2022 年 MEPTEC KGx 工作坊的演講（<a href="https://www.youtube.com/watch?v=cFCGYzWr_34" target="_blank" rel="noopener noreferrer">YouTube</a>）將這個問題的答案指向晶圓廠已經在收集的<b>線上缺陷檢驗數據</b>。</span>
+            <span class="en"><b>KGx</b> is MEPTEC's shorthand for "Known Good <i>x</i>", where x can be a die, a chiplet, a stack or a whole system. In advanced packaging, one bad die does not only cost itself: it scraps every good die, the substrate and the assembly work in the same package. So "is this individual die fit for its purpose?" has to be answered <b>before assembly</b>. In his talk at the 2022 MEPTEC KGx Workshop (<a href="https://www.youtube.com/watch?v=cFCGYzWr_34" target="_blank" rel="noopener noreferrer">YouTube</a>), Jay Rathert of KLA points the answer at data the fab already collects: <b>inline defect inspection</b>.</span>
+          </p>
+
+          <div class="callout">
+            <div class="callout-title">
+              <span>🎥</span>
+              <span class="zh">來源：MEPTEC KGx 工作坊（2022-09-07，線上）</span>
+              <span class="en">Source: MEPTEC KGx Workshop (7 Sep 2022, virtual)</span>
+            </div>
+            <p style="margin:0;">
+              <span class="zh">Jay Rathert（KLA），「Quality Screening: Concepts and advances for using IC Manufacturing Defect Data to assess Known Good Die」。<a href="https://www.youtube.com/watch?v=cFCGYzWr_34" target="_blank" rel="noopener noreferrer">YouTube</a> · <a href="https://events.meptec.org/?p=1114" target="_blank" rel="noopener noreferrer">MEPTEC agenda</a>。同一工作坊另有 GSA 的 Tom Katsioulas（以 Chip ID 建立元件溯源與測試資料數位主線）與 proteanTecs 的 Marc Hutner（以晶片內遙測與深度數據分析提升 KGD）。本節重點整理自該演講摘要，以及同作者群的「Process Watch: A Statistical Approach to Improving Chip Reliability」（<a href="https://www.semiconductor-digest.com/?p=5061" target="_blank" rel="noopener noreferrer">Semiconductor Digest, 2019</a>）。</span>
+              <span class="en">Jay Rathert (KLA), "Quality Screening: Concepts and advances for using IC Manufacturing Defect Data to assess Known Good Die". <a href="https://www.youtube.com/watch?v=cFCGYzWr_34" target="_blank" rel="noopener noreferrer">YouTube</a> · <a href="https://events.meptec.org/?p=1114" target="_blank" rel="noopener noreferrer">MEPTEC agenda</a>. The same workshop included Tom Katsioulas (GSA; component traceability and a digital thread of test data via a Chip ID) and Marc Hutner (proteanTecs; on-chip telemetry and deep data analytics for KGD). This section summarises the talk abstract and the same authors' "Process Watch: A Statistical Approach to Improving Chip Reliability" (<a href="https://www.semiconductor-digest.com/?p=5061" target="_blank" rel="noopener noreferrer">Semiconductor Digest, 2019</a>).</span>
+            </p>
+          </div>
+
+          <h5 style="margin:22px 0 8px;">
+            <span class="zh">1. 五個思維轉換</span>
+            <span class="en">1. Five shifts in mindset</span>
+          </h5>
+          <div class="zh">
+            <ol>
+              <li><b>從「整體」到「個體」</b>：傳統製程管制（SPC、缺陷監控）能降低<b>整批</b>的缺陷數，卻很難預測<b>某一顆</b>晶粒的健康。KGx 要的是逐顆晶粒的判斷。</li>
+              <li><b>缺陷數就是可靠度風險</b>：KLA 引用的研究顯示，潛在可靠度缺陷的發生率與每顆晶粒的總缺陷數成<b>線性</b>關係；缺陷多 10 倍的晶粒，失效機率也約高 10 倍（見下方公式）。</li>
+              <li><b>篩檢 100% 晶粒，只在少數關鍵層</b>：在對可靠度影響最大的幾道製程站，檢驗全部晶圓、全部晶粒，把每顆晶粒跨層的缺陷累加，再用離群值方法找出尾端（I-PAT，見 <a href="#sec_6_4_6">6.4.6</a>）。剔除門檻由晶圓廠依產品與客戶，在品質風險與良率損失之間取捨。</li>
+              <li><b>不是所有缺陷都一樣</b>：依層別、缺陷類型、尺寸、位置與歷史資料（Probe、Burn-in、Final Test、客退）的相關性給予權重（加權 I-PAT／LDPI™），能同時降低 Overkill 與 Underkill。剔除準則的來源是客退、FA 與 8D 分析。</li>
+              <li><b>旗標要「往前送」</b>：離群晶粒的旗標不只用來墨印剔除，也要指引下游的測試插入點（加測、Burn-in）、與 Probe／Final Test 資料合併判定，並導引「缺陷導向的 G-PAT」去抓同一缺陷源影響到的鄰近晶粒。</li>
+            </ol>
+          </div>
+          <div class="en">
+            <ol>
+              <li><b>From the aggregate to the individual</b>: classic process control (SPC, defect monitoring) lowers defects <b>across the population</b> but predicts the health of <b>one specific</b> die poorly. KGx needs a die-by-die verdict.</li>
+              <li><b>Defect count is reliability risk</b>: work cited by KLA shows that latent reliability defects scale <b>linearly</b> with the total defects per die; a die with ten times the defects is about ten times more likely to fail (formula below).</li>
+              <li><b>Screen 100% of die, at a few critical layers</b>: at the process steps that matter most for reliability, inspect every wafer and every die, sum each die's defects across layers, and flag the tail with outlier methods (I-PAT, see <a href="#sec_6_4_6">6.4.6</a>). The fab sets the cut-line per device and customer, trading quality risk against yield loss.</li>
+              <li><b>Not all defects are equal</b>: weighting defects by layer, type, size, location and their correlation with history (probe, burn-in, final test, field returns) — weighted I-PAT / LDPI™ — cuts both overkill and underkill. Ink-out criteria come from field returns, FA and 8D studies.</li>
+              <li><b>Feed the flag forward</b>: an outlier flag is not only for inking. It should steer downstream test insertions (extra test, burn-in), be merged with probe and final-test data, and guide "defect-guided G-PAT" to catch neighbouring die hit by the same defect source.</li>
+            </ol>
+          </div>
+
+          <div class="formula">
+            <div class="eq">\[ P_{\text{LRD},\,i} = m \cdot N_i, \qquad 0 < m \ll 1 \]</div>
+            <p style="margin:6px 0 0; font-size:13px;">
+              <span class="zh">\(P_{\text{LRD},\,i}\)：晶粒 \(i\) 帶有潛在可靠度缺陷（Latent Reliability Defect）的機率；\(N_i\)：該晶粒在篩檢層累計的缺陷數；\(m\)：比例常數，依製程與產品而定，需以歷史可靠度資料校正。</span>
+              <span class="en">\(P_{\text{LRD},\,i}\): probability that die \(i\) carries a latent reliability defect; \(N_i\): its cumulative defect count over the screening layers; \(m\): a proportionality constant specific to the process and product, calibrated with reliability history.</span>
+            </p>
+          </div>
+
+          <h5 style="margin:22px 0 8px;">
+            <span class="zh">2. 為什麼在 Chiplet 時代更重要：封裝良率是乘法</span>
+            <span class="en">2. Why it matters more with chiplets: package yield multiplies</span>
+          </h5>
+          <div class="formula">
+            <div class="eq">\[ Y_{\text{pkg}} = Y_{\text{asm}} \prod_{j=1}^{n} Y_{\text{KGD},\,j} \]</div>
+            <div class="eq">\[ \text{DPPM}_{\text{pkg}} \approx \sum_{j=1}^{n} \text{DPPM}_{j} \]</div>
+            <p style="margin:6px 0 0; font-size:13px;">
+              <span class="zh">示例（示意數字）：4 顆小晶片各有 1% 漏網壞晶粒，封裝良率只剩 \(0.99^4 \approx 96.1\%\)；每報廢一個封裝，就連帶丟掉另外 3 顆好晶粒、中介層與組裝成本。若每顆晶粒的逃逸率是 10 DPPM，8 顆小晶片的模組約為 80 DPPM。<b>晶粒數越多，對單顆晶粒的品質要求越嚴。</b></span>
+              <span class="en">Example (illustrative numbers): with 4 chiplets that each let through 1% bad die, package yield falls to \(0.99^4 \approx 96.1\%\), and every scrapped package also throws away 3 good die, the interposer and the assembly cost. If each die escapes at 10 DPPM, an 8-chiplet module is at about 80 DPPM. <b>The more die per package, the stricter each die must be.</b></span>
+            </p>
+          </div>
+
+          <!-- FIGURE 6.8: KGx INLINE QUALITY SCREENING FLOW -->
+          <figure>
+            <svg viewBox="0 0 960 230" width="100%" style="height:auto; max-width:960px; font-family:var(--font-sans);" role="img" aria-label="KGx inline defect quality screening flow">
+              <defs>
+                <marker id="arr-kgx" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--accent)"/></marker>
+              </defs>
+              <g fill="var(--ink)" font-size="12">
+                <g stroke="var(--border)" stroke-width="1.5" fill="var(--surface-2)">
+                  <rect x="10" y="20" width="170" height="104" rx="8"/>
+                  <rect x="205" y="20" width="170" height="104" rx="8"/>
+                  <rect x="400" y="20" width="170" height="104" rx="8"/>
+                  <rect x="595" y="20" width="170" height="104" rx="8"/>
+                  <rect x="790" y="20" width="160" height="104" rx="8" stroke="var(--good)"/>
+                </g>
+                <g stroke="var(--accent)" stroke-width="2" fill="none">
+                  <path d="M180 72 L203 72" marker-end="url(#arr-kgx)"/>
+                  <path d="M375 72 L398 72" marker-end="url(#arr-kgx)"/>
+                  <path d="M570 72 L593 72" marker-end="url(#arr-kgx)"/>
+                  <path d="M765 72 L788 72" marker-end="url(#arr-kgx)"/>
+                  <path d="M870 124 L870 170 L290 170 L290 128" stroke-dasharray="5 4" marker-end="url(#arr-kgx)"/>
+                </g>
+                <g font-weight="700" text-anchor="middle">
+                  <text class="zh" x="95" y="46">1. 線上缺陷檢驗</text><text class="en" x="95" y="46">1. Inline inspection</text>
+                  <text class="zh" x="290" y="46">2. 逐顆晶粒評分</text><text class="en" x="290" y="46">2. Per-die score</text>
+                  <text class="zh" x="485" y="46">3. 離群剔除門檻</text><text class="en" x="485" y="46">3. Outlier cut-line</text>
+                  <text class="zh" x="680" y="46">4. 旗標往前送</text><text class="en" x="680" y="46">4. Feed forward</text>
+                  <text class="zh" x="870" y="46" fill="var(--good)">5. KGD → KGS</text><text class="en" x="870" y="46" fill="var(--good)">5. KGD → KGS</text>
+                </g>
+                <g font-size="11" text-anchor="middle" fill="var(--ink-soft)">
+                  <text class="zh" x="95" y="72">關鍵層 100% 晶圓</text><text class="en" x="95" y="72">100% of wafers</text>
+                  <text class="zh" x="95" y="90">100% 晶粒</text><text class="en" x="95" y="90">at key layers</text>
+                  <text class="zh" x="290" y="72">跨層累加 ΣN</text><text class="en" x="290" y="72">Sum across layers ΣN</text>
+                  <text class="zh" x="290" y="90">或加權 LDPI</text><text class="en" x="290" y="90">or weighted LDPI</text>
+                  <text class="zh" x="485" y="72">依產品／客戶設定</text><text class="en" x="485" y="72">Set per device</text>
+                  <text class="zh" x="485" y="90">品質 vs 良率損失</text><text class="en" x="485" y="90">quality vs yield loss</text>
+                  <text class="zh" x="680" y="72">加測、Burn-in</text><text class="en" x="680" y="72">Extra test, burn-in</text>
+                  <text class="zh" x="680" y="90">缺陷導向 G-PAT</text><text class="en" x="680" y="90">defect-guided G-PAT</text>
+                  <text class="zh" x="870" y="72">已知良好晶粒</text><text class="en" x="870" y="72">Known good die</text>
+                  <text class="zh" x="870" y="90">→ 堆疊 → 系統</text><text class="en" x="870" y="90">→ stack → system</text>
+                  <text class="zh" x="580" y="194">回饋：客退、FA、8D、Burn-in 結果 → 更新缺陷權重與門檻</text>
+                  <text class="en" x="580" y="194">Feedback: field returns, FA, 8D, burn-in results → update defect weights and cut-line</text>
+                </g>
+              </g>
+            </svg>
+            <figcaption>
+              <span class="zh">圖 6.8：KGx 線上缺陷品質篩檢流程（依 Rathert, MEPTEC KGx 2022 與 Price, Sutherland &amp; Rathert, 2019 整理之示意圖）</span>
+              <span class="en">Figure 6.8: KGx inline defect quality-screening flow (schematic based on Rathert, MEPTEC KGx 2022, and Price, Sutherland &amp; Rathert, 2019)</span>
+            </figcaption>
+          </figure>
+
+          <div class="callout warn">
+            <div class="callout-title">
+              <span>⚠️</span>
+              <span class="zh">篩檢是安全網，不是製程管制的替代品</span>
+              <span class="en">Screening is a safety net, not a substitute for process control</span>
+            </div>
+            <p style="margin:0;">
+              <span class="zh">KLA 作者群明確指出：在零缺陷環境中，<b>製程管制仍是改善可靠度的主要手段</b>，降低整體缺陷密度是減少可靠度缺陷「最容易」的路徑。篩檢只負責攔下少數高風險晶粒。若 I-PAT 剔除率持續上升，該回頭做的是缺陷源改善（Phase 9 閉環），而不是一直調鬆門檻。</span>
+              <span class="en">The KLA authors are explicit: in a zero-defect environment <b>process control remains the primary lever for reliability</b>, and lowering overall defectivity is the "easiest" way to cut reliability defects. Screening only stops the few high-risk die. If the I-PAT reject rate keeps rising, go back and fix the defect source (Phase 9 closed loop) instead of loosening the cut-line.</span>
+            </p>
+          </div>
+
+          <!-- TABLE 6.4.7 -->
+          <div class="table-container" style="margin:25px 0 30px;">
+            <div style="font-weight:700; font-size:13px; font-family:var(--font-mono); margin-bottom:8px; color:var(--ink);">
+              <span class="zh">表 6.4.7：傳統思維 vs. KGx 思維</span>
+              <span class="en">Table 6.4.7: Traditional mindset vs. KGx mindset</span>
+            </div>
+            <table style="width:100%; border-collapse:collapse; font-size:12.5px;">
+              <thead>
+                <tr style="text-align:left;">
+                  <th style="padding:8px; border-bottom:2px solid var(--border);"><span class="zh">面向</span><span class="en">Aspect</span></th>
+                  <th style="padding:8px; border-bottom:2px solid var(--border);"><span class="zh">傳統</span><span class="en">Traditional</span></th>
+                  <th style="padding:8px; border-bottom:2px solid var(--border);"><span class="zh">KGx</span><span class="en">KGx</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="padding:8px; border-bottom:1px solid var(--border);"><b><span class="zh">缺陷數據用途</span><span class="en">Use of defect data</span></b></td>
+                  <td style="padding:8px; border-bottom:1px solid var(--border);"><span class="zh">抽樣監控、偏移警報（整體）</span><span class="en">Sampled monitoring and excursion alarms (population)</span></td>
+                  <td style="padding:8px; border-bottom:1px solid var(--border);"><span class="zh">逐顆晶粒的品質判定</span><span class="en">A quality verdict for each die</span></td>
+                </tr>
+                <tr>
+                  <td style="padding:8px; border-bottom:1px solid var(--border);"><b><span class="zh">「良品」定義</span><span class="en">Definition of "good"</span></b></td>
+                  <td style="padding:8px; border-bottom:1px solid var(--border);"><span class="zh">電測 PASS</span><span class="en">Passes electrical test</span></td>
+                  <td style="padding:8px; border-bottom:1px solid var(--border);"><span class="zh">電測 PASS 且製造履歷不是離群</span><span class="en">Passes test and its manufacturing history is not an outlier</span></td>
+                </tr>
+                <tr>
+                  <td style="padding:8px; border-bottom:1px solid var(--border);"><b><span class="zh">決策時點</span><span class="en">When to decide</span></b></td>
+                  <td style="padding:8px; border-bottom:1px solid var(--border);"><span class="zh">Final Test 或客退之後</span><span class="en">At final test or after a field return</span></td>
+                  <td style="padding:8px; border-bottom:1px solid var(--border);"><span class="zh">晶圓廠內、組裝之前</span><span class="en">Inside the fab, before assembly</span></td>
+                </tr>
+                <tr>
+                  <td style="padding:8px; border-bottom:1px solid var(--border);"><b><span class="zh">資料流向</span><span class="en">Data flow</span></b></td>
+                  <td style="padding:8px; border-bottom:1px solid var(--border);"><span class="zh">各站各自判定</span><span class="en">Each step decides alone</span></td>
+                  <td style="padding:8px; border-bottom:1px solid var(--border);"><span class="zh">晶圓廠旗標往前送到測試、組裝與系統，客退結果往回校正權重</span><span class="en">Fab flags flow forward to test, assembly and system; field results flow back to re-weight</span></td>
+                </tr>
+                <tr>
+                  <td style="padding:8px;"><b><span class="zh">成功指標</span><span class="en">Success metric</span></b></td>
+                  <td style="padding:8px;"><span class="zh">良率</span><span class="en">Yield</span></td>
+                  <td style="padding:8px;"><span class="zh">良率 + 封裝良率 + 現場 DPPM（ppb 等級目標），同時壓低 Overkill</span><span class="en">Yield + package yield + field DPPM (ppb-level goals), with low overkill</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+
+          <!-- ======================================================================= -->
           <!-- SECTION 6.5: AI & MACHINE LEARNING IN OUTLIER SCREENING & ROOT CAUSE   -->
           <!-- ======================================================================= -->
           <h3 id="sec_6_5">
@@ -17015,6 +17191,22 @@
                     <span class="en">Calculates gross die count factoring wafer circular geometry, edge exclusion margin (\(\Delta R\)), and partial edge die truncations.</span>
                   </td>
                 </tr>
+                <tr>
+                  <td><b>Latent Reliability Defect (I-PAT)</b></td>
+                  <td>\[ P_{\text{LRD},\,i} = m \cdot N_i, \quad 0 < m \ll 1 \]</td>
+                  <td>
+                    <span class="zh">潛在可靠度缺陷機率與晶粒累計缺陷數成線性；\(m\) 需以歷史可靠度資料校正（Price, Sutherland &amp; Rathert, 2019；見 6.4.7）。</span>
+                    <span class="en">Latent reliability defect probability scales linearly with the die's cumulative defect count; calibrate \(m\) with reliability history (Price, Sutherland &amp; Rathert, 2019; see 6.4.7).</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>Multi-die Package Yield (KGD)</b></td>
+                  <td>\[ Y_{\text{pkg}} = Y_{\text{asm}} \prod_{j=1}^{n} Y_{\text{KGD},\,j} \]</td>
+                  <td>
+                    <span class="zh">假設各晶粒獨立；任一顆壞晶粒即報廢整個封裝，晶粒數越多對單顆品質要求越嚴（見 6.4.7）。</span>
+                    <span class="en">Assumes independent die; one bad die scraps the package, so more die per package demands stricter per-die quality (see 6.4.7).</span>
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -17432,6 +17624,11 @@
                   <td><span class="zh">半導體工程師核心統計分析工具，用於多站點 ANOVA、動態 PAT 限值篩選、Cpk 分析與實驗設計（DOE）</span><span class="en">Interactive statistical discovery software widely deployed for semiconductor ANOVA, PAT outlier screening, and DOE</span></td>
                 </tr>
                 <tr>
+                  <td><b>KGD / KGx</b></td>
+                  <td>Known Good Die / Known Good <i>x</i> (die, stack, system)</td>
+                  <td><span class="zh">已知良好晶粒；KGx 延伸到小晶片、堆疊與系統，要求在組裝前判定每顆晶粒是否適用（見 6.4.7）</span><span class="en">Known good die; KGx extends it to chiplets, stacks and systems, judging each die before assembly (see 6.4.7)</span></td>
+                </tr>
+                <tr>
                   <td><b>KLARF</b></td>
                   <td>KLA Results File</td>
                   <td><span class="zh">線上缺陷檢測結果檔案格式</span><span class="en">Inline defect inspection result format</span></td>
@@ -17445,6 +17642,11 @@
                   <td><b>LBIST</b></td>
                   <td>Logic Built-In Self-Test</td>
                   <td><span class="zh">邏輯內建自我測試，晶片內部硬體引擎自動生成偽隨機向量並執行邏輯電路自檢</span><span class="en">Hardware BIST architecture generating pseudorandom patterns to test on-chip digital logic</span></td>
+                </tr>
+                <tr>
+                  <td><b>LDPI™</b></td>
+                  <td>Latent Defect Probability Index (KLA)</td>
+                  <td><span class="zh">依缺陷類型與可靠度相關性加權的逐顆晶粒指數，即加權 I-PAT（見 6.4.7）</span><span class="en">Per-die index weighting defect types by their correlation with reliability; weighted I-PAT (see 6.4.7)</span></td>
                 </tr>
                 <tr>
                   <td><b>LER / LWR</b></td>
@@ -17839,6 +18041,14 @@
                 <span style="font-size:12.5px; color:var(--ink-soft);"><span class="zh">I-PAT 在 5 家車用 IDM / 晶圓廠的概念驗證，涵蓋約 160 萬顆晶片</span><span class="en">I-PAT proof-of-concept studies at five automotive IDMs and foundries, covering about 1.6 million chips</span></span>
               </li>
               <li>
+                D. W. Price, D. G. Sutherland, J. Rathert (KLA), "Process Watch: A Statistical Approach to Improving Chip Reliability," <i>Semiconductor Digest</i>, Sept. 2019. <a href="https://www.semiconductor-digest.com/?p=5061" target="_blank" rel="noopener noreferrer">Link</a><br>
+                <span style="font-size:12.5px; color:var(--ink-soft);"><span class="zh">缺陷數與可靠度的線性關係、加權 I-PAT（LDPI）、缺陷導向 G-PAT</span><span class="en">Linear defect-to-reliability relation, weighted I-PAT (LDPI), defect-guided G-PAT</span></span>
+              </li>
+              <li>
+                J. Rathert (KLA), "Quality Screening: Concepts and advances for using IC Manufacturing Defect Data to assess Known Good Die," <i>MEPTEC KGx Workshop</i>, 7 Sept. 2022 (virtual). <a href="https://www.youtube.com/watch?v=cFCGYzWr_34" target="_blank" rel="noopener noreferrer">Video</a> · <a href="https://events.meptec.org/?p=1114" target="_blank" rel="noopener noreferrer">Agenda</a><br>
+                <span style="font-size:12.5px; color:var(--ink-soft);"><span class="zh">KGx 思維：以線上缺陷數據判定逐顆晶粒是否為已知良好晶粒（6.4.7）</span><span class="en">KGx mindset: using inline defect data to judge each die as known good (6.4.7)</span></span>
+              </li>
+              <li>
                 KLA Corp., "Methods and systems for inline parts average testing and latent reliability defect detection," US Patent 10,761,128.<br>
                 <span style="font-size:12.5px; color:var(--ink-soft);"><span class="zh">I-PAT 方法專利</span><span class="en">Patent describing the I-PAT method</span></span>
               </li>
@@ -17898,11 +18108,11 @@
     <div style="display:flex; flex-direction:column; align-items:flex-end; gap:5px;">
       <div style="display:flex; align-items:center; gap:8px;">
         <span class="badge badge-green" style="font-size:11px; padding:2px 8px;">● LIVE VERIFIED</span>
-        <span style="font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft);">Rev. AW</span>
+        <span style="font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft);">Rev. AX</span>
       </div>
       <div style="font-family:var(--font-mono); font-size:12px; color:var(--ink);">
         <span class="zh">最後更新日期：</span><span class="en">Last Updated: </span>
-        <b style="color:var(--accent);">2026-11-04 07:54 (Asia/Taipei)</b>
+        <b style="color:var(--accent);">2026-11-04 15:23 (Asia/Taipei)</b>
       </div>
     </div>
   </footer>

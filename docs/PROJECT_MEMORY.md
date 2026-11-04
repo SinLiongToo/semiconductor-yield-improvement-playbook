@@ -8,6 +8,7 @@ Rules live in `AGENTS.md`; the change history lives in `CHANGELOG.md`. Keep entr
 - The KLA I-PAT original source is D. W. Price, D. G. Sutherland, J. Rathert et al., "Inline Defect Part Average Testing (I-PAT)", 20th AEC Automotive Electronics Reliability Workshop, April 2018. kla.com blocks automated fetches of the PDF, so check it in a browser. 2026-11-04 · Claude Code
 - Verified I-PAT follow-ups: "The emergence of inline screening for high-volume manufacturing", Proc. SPIE 11611, 1161107 (2021); US Patent 10,761,128. 2026-11-04 · Claude Code
 - No public source exists for the KLA "Klarity® Defect … Software Architecture" (2021) or "Broadband Plasma … DL-ADC Application Guide" (2023) whitepapers that were cited in Rev. AQ; both were removed. Do not re-add them. 2026-11-04 · Claude Code
+- YouTube cFCGYzWr_34 (MEPTEC channel) is J. Rathert (KLA), "Quality Screening … to assess Known Good Die", MEPTEC KGx Workshop, 2022-09-07, virtual. KGx = Known Good die/stack/system. Abstract: https://events.meptec.org/?p=1114. The transcript is not machine-readable, so §6.4.7 follows the abstract and Price/Sutherland/Rathert, "Process Watch: A Statistical Approach to Improving Chip Reliability", Semiconductor Digest 2019 (https://www.semiconductor-digest.com/?p=5061). That article gives: P(LRD) = m·N_i; weighted I-PAT = LDPI™; defect-guided G-PAT; and that screening complements process control. 2026-11-04 · Claude Code
 
 ## Decisions
 
